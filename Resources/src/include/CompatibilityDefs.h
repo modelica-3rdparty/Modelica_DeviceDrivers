@@ -2,7 +2,7 @@
  *
  * @file        CompatibilityDefs.h 
  * @author	Bernhard Thiele <bernhard.thiele@dlr.de>
- * @version	$Id: CompatibilityDefs.h 15682 2012-06-04 08:22:54Z thie_be $
+ * @version	$Id$
  * @since	2012-05-25
  * @copyright Modelica License 2	
  *

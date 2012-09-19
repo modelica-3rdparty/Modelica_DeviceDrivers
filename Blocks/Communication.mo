@@ -205,8 +205,6 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
 </html>"));
   end UDPSend;
 
-
-
   package Internal
     extends Modelica_DeviceDrivers.Utilities.Icons.InternalPackage;
     package DummyFunctions

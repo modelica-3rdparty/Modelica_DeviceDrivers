@@ -276,6 +276,4 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
 
   end Internal;
 
-
-
 end Communication;

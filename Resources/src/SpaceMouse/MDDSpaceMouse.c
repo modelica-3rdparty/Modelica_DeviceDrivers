@@ -3,7 +3,7 @@
  * @file
  * @author      Tobias Bellmann <tobias.bellmann@dlr.de> (Windows)
  * @author      Bernhard Thiele <bernhard.thiele@dlr.de> (Linux)
- * @version     $Id: MDDSpaceMouse.c 15830 2012-06-18 08:07:26Z thie_be $
+ * @version     $Id$
  * @since       2012-06-05
  * @copyright Modelica License 2
  * 

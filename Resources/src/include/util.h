@@ -2,7 +2,7 @@
  *
  * @file
  * @author      Bernhard Thiele <bernhard.thiele@dlr.de> 
- * @version     $Id: util.h 15830 2012-06-18 08:07:26Z thie_be $
+ * @version     $Id$
  * @since       2012-06-06
  * @copyright Modelica License 2
  *

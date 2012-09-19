@@ -1,4 +1,4 @@
-within Modelica_DeviceDrivers.Blocks;
+within Modelica_DeviceDrivers.Incubate.Blocks;
 package Logging "a collection of logging blocks"
     extends Modelica.Icons.Package;
   model LogVector "Logs a vector to disk in csv format"
@@ -12,7 +12,8 @@ package Logging "a collection of logging blocks"
   equation
     when
         (sample(0,sampleTime)) then
-    Modelica.Utilities.Streams.print(Modelica_DeviceDrivers.Utilities.Functions.vectorToString(u),filename);
+    Modelica.Utilities.Streams.print(Modelica_DeviceDrivers.Incubate.Utilities.Functions.vectorToString(
+                                                                                               u),filename);
     end when;
     annotation (Icon(graphics={Ellipse(extent={{-80,0},{80,-60}},   lineColor={0,0,
                 255},

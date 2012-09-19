@@ -2,7 +2,7 @@
  * 
  * @file
  * @author      Bernhard Thiele <bernhard.thiele@dlr.de>
- * @version     $Id: test_MDDSoftingCAN.c 16335 2012-07-18 12:59:39Z thie_be $
+ * @version     $Id$
  * @since       2012-06-18
  * @copyright Modelica License 2
  * @test Test for MDDSoftingCAN.c.

@@ -2,7 +2,7 @@
  * 
  * @file 
  * @author      Bernhard Thiele <bernhard.thiele@dlr.de> 
- * @version     $Id: test_MDDComedi.c 16050 2012-06-29 14:47:23Z thie_be $
+ * @version     $Id$
  * @since       2012-06-26
  * @copyright Modelica License 2
  * @test Interactive test for MDDComedi.h.

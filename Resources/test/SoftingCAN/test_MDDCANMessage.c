@@ -2,7 +2,7 @@
  * 
  * @file
  * @author      Bernhard Thiele <bernhard.thiele@dlr.de>
- * @version     $Id: test_MDDCANMessage.c 15940 2012-06-26 08:27:11Z thie_be $
+ * @version     $Id$
  * @since       2012-06-18
  * @copyright Modelica License 2
  * @test Test for MDDCANMessage.h.

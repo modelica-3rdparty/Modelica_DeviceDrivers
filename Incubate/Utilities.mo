@@ -1,22 +1,23 @@
-within Modelica_DeviceDrivers.Utilities;
-package Functions
-  extends Modelica.Icons.Package;
-  function vectorToString "for printing in files"
-  input Real v[:];
-  output String s;
-  algorithm
-   for i in 1: size(v,1) loop
-      if i< size(v,1) then
-        s :=s + String(v[i]) + ", ";
-      else
-        s :=s + String(v[i]);
-      end if;
-   end for;
-  end vectorToString;
+within Modelica_DeviceDrivers.Incubate;
+package Utilities
+  package Functions
+    extends Modelica.Icons.Package;
+    function vectorToString "for printing in files"
+    input Real v[:];
+    output String s;
+    algorithm
+     for i in 1: size(v,1) loop
+        if i< size(v,1) then
+          s :=s + String(v[i]) + ", ";
+        else
+          s :=s + String(v[i]);
+        end if;
+     end for;
+    end vectorToString;
 
-  function xmlLoader
+    function xmlLoader
 
-  annotation (Include = "/* ezxml.c
+    annotation (Include = "/* ezxml.c
  *
  * Copyright 2004-2006 Aaron Voisine <aaron@voisine.org>
  *
@@ -764,7 +765,7 @@ char *ezxml_toxml(ezxml_t xml)
 {
     ezxml_t p = (xml) ? xml->parent : NULL, o = (xml) ? xml->ordered : NULL;
     ezxml_root_t root = (ezxml_root_t)xml;
-    s"   + "ize_t len = 0, max = EZXML_BUFSIZE;
+    s"     + "ize_t len = 0, max = EZXML_BUFSIZE;
     char *s = strcpy(malloc(max), \"\"), *t, *n;
     int i, j, k;
 
@@ -1015,15 +1016,15 @@ ezxml_t ezxml_cut(ezxml_t xml)
 }
 
 ");
-  end xmlLoader;
+    end xmlLoader;
 
-  function loadRealParameter "loads a parameter from file"
-  input String file = "Washout.ini";
-  input String name = "K_Px";
-  output Real u;
-  external "C" u=  parseParameter(file,name);
+    function loadRealParameter "loads a parameter from file"
+    input String file = "Washout.ini";
+    input String name = "K_Px";
+    output Real u;
+    external "C" u = parseParameter(file,name);
 
-  annotation(Include= "
+    annotation(Include= "
 #define VOID void
 typedef char CHAR;
 typedef short SHORT;
@@ -1087,26 +1088,26 @@ double parseParameter(const char * file, const char * name)
 
 ");
 
-  end loadRealParameter;
+    end loadRealParameter;
 
-  function loadRealParameterVector "reads a parameter Vector from File"
-    import readRealParameter =
-      Modelica_DeviceDrivers.Utilities.Functions.loadRealParameter;
-    input String file "name of configuration file";
-    input String name "name of parameter";
-    input Integer n "length of vector";
-    output Real u[n] "parameter vector";
-  algorithm
-    for i in 1:n loop
-      u[i] := readRealParameter(file, name + "_" + String(i));
-    end for;
-  end loadRealParameterVector;
+    function loadRealParameterVector "reads a parameter Vector from File"
+      import readRealParameter =
+        Modelica_DeviceDrivers.Incubate.Utilities.Functions.loadRealParameter;
+      input String file "name of configuration file";
+      input String name "name of parameter";
+      input Integer n "length of vector";
+      output Real u[n] "parameter vector";
+    algorithm
+      for i in 1:n loop
+        u[i] := readRealParameter(file, name + "_" + String(i));
+      end for;
+    end loadRealParameterVector;
 
-  function activateSplashScreen
+    function activateSplashScreen
 
-  external "C" activateSplashScreen();
+    external "C" activateSplashScreen();
 
-  annotation (Include= "
+    annotation (Include= "
 #include <stdio.h>
 #include <stdlib.h>
 void activateSplashScreen()
@@ -1123,5 +1124,6 @@ void activateSplashScreen()
 }
 ");
 
-  end activateSplashScreen;
-end Functions;
+    end activateSplashScreen;
+  end Functions;
+end Utilities;

@@ -3,13 +3,6 @@ package HardwareIO
   "Data aquisition hardware like digital-analog converter, analog-digital converter and other interface hardware."
  extends Modelica.Icons.Package;
 
-
-
-
-
-
-
-
   package Comedi
     "Support for the linux control and measurement library 'Comedi'"
      extends Modelica.Icons.Package;

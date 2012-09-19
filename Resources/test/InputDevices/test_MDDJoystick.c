@@ -2,7 +2,7 @@
  * 
  * @file 
  * @author	Bernhard Thiele <bernhard.thiele@dlr.de> 
- * @version	$Id: test_MDDJoystick.c 15720 2012-06-05 21:32:39Z thie_be $
+ * @version	$Id$
  * @since	2012-05-27
  * @copyright Modelica License 2
  * @test Interactive test for MDDJoystick.c.

@@ -2,7 +2,7 @@
  * 
  * @file
  * @author      Bernhard Thiele <bernhard.thiele@dlr.de> 
- * @version     $Id: test_MDDSharedMemory.c 16377 2012-07-23 13:12:25Z thie_be $
+ * @version     $Id$
  * @since       2012-06-04
  * @copyright Modelica License 2
  * @test Test for MDDSharedMemory.h.

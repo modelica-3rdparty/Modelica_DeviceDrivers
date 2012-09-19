@@ -2,7 +2,7 @@
  * 
  * @file
  * @author      Bernhard Thiele <bernhard.thiele@dlr.de> 
- * @version     $Id: test_MDDUDPSocket.c 16385 2012-07-23 15:37:03Z thie_be $
+ * @version     $Id$
  * @since       2012-05-30
  * @copyright Modelica License 2
  * @test Test for MDDUDPSocket.h.

@@ -1,7 +1,8 @@
 within Modelica_DeviceDrivers.Blocks.Examples;
 model TestLogging
 extends Modelica.Icons.Example;
-  Logging.LogVector logVector(filename="test.txt", n=3)
+  Modelica_DeviceDrivers.Incubate.Blocks.Logging.LogVector
+                    logVector(filename="test.txt", n=3)
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
   Modelica.Blocks.Sources.RealExpression realExpression[3](y=ones(3)*sin(time))
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));

@@ -2,7 +2,7 @@
  * 
  * @file
  * @author      Bernhard Thiele <bernhard.thiele@dlr.de>
- * @version     $Id: MDDObjectDict.cpp 15938 2012-06-25 21:48:10Z thie_be $
+ * @version     $Id$
  * @since       2012-06-19
  * @copyright Modelica License 2
  *

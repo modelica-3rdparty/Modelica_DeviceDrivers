@@ -2,7 +2,7 @@
  * 
  * @file
  * @author      Bernhard Thiele <bernhard.thiele@dlr.de> 
- * @version     $Id: test_MDDSerialPackager.c 16264 2012-07-13 08:36:11Z thie_be $
+ * @version     $Id$
  * @since       2012-07-10
  * @copyright Modelica License 2
  * @test Test for MDDSerialPackager.h.

@@ -2,7 +2,7 @@
  * 
  * @file 
  * @author	Bernhard Thiele <bernhard.thiele@dlr.de> 
- * @version	$Id: test_MDDSpaceMouse.c 15734 2012-06-06 17:58:52Z thie_be $
+ * @version	$Id$
  * @since	2012-06-05
  * @copyright Modelica License 2
  * @test Interactive test for MDDSpaceMouse.c.

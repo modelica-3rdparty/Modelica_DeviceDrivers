@@ -2,6 +2,7 @@ within Modelica_DeviceDrivers.Incubate;
 package OperatingSystem
   class fileHandle "A filehandle for streaming data on the harddrive"
     extends Modelica_DeviceDrivers.Utilities.Icons.DriverIcon;
+    extends Modelica_DeviceDrivers.Utilities.Icons.ObsoleteIcon;
     function openFileHandle
       input String filename "The filename, data is appended";
       output Integer fileHandle "The handle to the file";

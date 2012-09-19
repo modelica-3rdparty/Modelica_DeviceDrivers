@@ -2,7 +2,7 @@
  * 
  * @file 
  * @author      Bernhard Thiele <bernhard.thiele@dlr.de> 
- * @version     $Id: test_MDDKeyboard.c 15720 2012-06-05 21:32:39Z thie_be $
+ * @version     $Id$
  * @since       2012-06-01
  * @copyright Modelica License 2
  * @test Interactive test for MDDKeyboard.h.

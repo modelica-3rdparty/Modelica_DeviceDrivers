@@ -2,7 +2,7 @@
  * 
  * @file
  * @author      Bernhard Thiele <bernhard.thiele@dlr.de>
- * @version     $Id: MDDObjectDict.h 15878 2012-06-20 12:43:17Z thie_be $
+ * @version     $Id$
  * @since       2012-06-19
  * @copyright Modelica License 2
  *
