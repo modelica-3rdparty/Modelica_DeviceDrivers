@@ -1,0 +1,10 @@
+TestSerialPackagerMinimal
+TestSerialPackager
+TestSerialPackager_UDP
+TestSerialPackagerBitPack_UDP
+TestSerialPackager_SharedMemory
+TestInputSpaceMouse
+TestInputJoystick
+TestInputKeyboard
+TestHardwareIOComedi
+TestLogging

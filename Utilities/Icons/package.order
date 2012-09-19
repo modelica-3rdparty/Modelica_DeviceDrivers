@@ -1,0 +1,12 @@
+InternalPackage
+BaseIcon
+DriverIcon
+ObsoleteIcon
+PackagerIcon
+SerialPackagerWriteIcon
+SerialPackagerReadIcon
+UDPconnection
+SharedMemoryIcon
+PartialClockedDeviceDriverIcon
+ComediBlockIcon
+ComediRecordIcon

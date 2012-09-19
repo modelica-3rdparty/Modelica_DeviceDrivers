@@ -1,0 +1,6 @@
+beep
+clock
+randomReal
+realtimeSynchronize
+setProcessPriority
+sleep
