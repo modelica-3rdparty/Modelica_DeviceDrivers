@@ -1,4 +1,4 @@
-within Modelica_DeviceDrivers.Blocks.Examples;
+within Modelica_DeviceDrivers.Incubate;
 model TestLogging
 extends Modelica.Icons.Example;
   Modelica_DeviceDrivers.Incubate.Blocks.Logging.LogVector

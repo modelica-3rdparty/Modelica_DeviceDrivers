@@ -7,4 +7,3 @@ TestInputSpaceMouse
 TestInputJoystick
 TestInputKeyboard
 TestHardwareIOComedi
-TestLogging

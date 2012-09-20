@@ -3,15 +3,6 @@ package Modelica_DeviceDrivers "A collection of drivers interfacing hardware lik
  extends Modelica.Icons.Package;
 
 
-
-
-
-
-
-
-
-
-
 annotation (preferredView="info",
   uses(Modelica(version="3.2")),
     version="1.0",
