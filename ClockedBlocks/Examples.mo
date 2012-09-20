@@ -34,14 +34,11 @@ package Examples
       nu=1,
       bitOffset=5,
       width=10) annotation (Placement(transformation(extent={{26,-4},{46,16}})));
-    Modelica_Synchronous.IntegerSignals.Sampler.SampleClocked
-                                                               sample1
+    Modelica_Synchronous.IntegerSignals.Sampler.SampleClocked  sample1
       annotation (Placement(transformation(extent={{-72,34},{-60,46}})));
-    Modelica_Synchronous.IntegerSignals.Sampler.SampleClocked
-                                                               sample2
+    Modelica_Synchronous.IntegerSignals.Sampler.SampleClocked  sample2
       annotation (Placement(transformation(extent={{-72,-4},{-60,8}})));
-    Modelica_Synchronous.IntegerSignals.Sampler.SampleClocked
-                                                               sample3
+    Modelica_Synchronous.IntegerSignals.Sampler.SampleClocked  sample3
       annotation (Placement(transformation(extent={{-72,-42},{-60,-30}})));
     Modelica_Synchronous.ClockSignals.Clocks.PeriodicRealClock periodicRealClock(period=
           0.1)
@@ -151,11 +148,9 @@ package Examples
     Modelica.Blocks.Sources.IntegerExpression integerExpression(y=integer(10*sin(
           time)))
       annotation (Placement(transformation(extent={{-96,-20},{-76,0}})));
-    Modelica_Synchronous.IntegerSignals.Sampler.SampleClocked
-                                                               sample1
+    Modelica_Synchronous.IntegerSignals.Sampler.SampleClocked  sample1
       annotation (Placement(transformation(extent={{-66,-16},{-54,-4}})));
-    Modelica_Synchronous.RealSignals.Sampler.SampleClocked
-                                                            sample2[3]
+    Modelica_Synchronous.RealSignals.Sampler.SampleClocked  sample2[3]
       annotation (Placement(transformation(extent={{-66,24},{-54,36}})));
     Modelica_Synchronous.ClockSignals.Clocks.PeriodicRealClock periodicRealClock(period=
           0.1)
@@ -341,17 +336,13 @@ package Examples
     Modelica_Synchronous.ClockSignals.Clocks.PeriodicRealClock periodicRealClock(period=
           0.1)
       annotation (Placement(transformation(extent={{-94,-94},{-74,-74}})));
-    Modelica_Synchronous.RealSignals.Sampler.SampleClocked
-                                                            sample2[3]
+    Modelica_Synchronous.RealSignals.Sampler.SampleClocked  sample2[3]
       annotation (Placement(transformation(extent={{-64,52},{-52,64}})));
-    Modelica_Synchronous.IntegerSignals.Sampler.SampleClocked
-                                                               sample1
+    Modelica_Synchronous.IntegerSignals.Sampler.SampleClocked  sample1
       annotation (Placement(transformation(extent={{-64,20},{-52,32}})));
-    Modelica_Synchronous.IntegerSignals.Sampler.SampleClocked
-                                                               sample3
+    Modelica_Synchronous.IntegerSignals.Sampler.SampleClocked  sample3
       annotation (Placement(transformation(extent={{-64,-12},{-52,0}})));
-    Modelica_Synchronous.IntegerSignals.Sampler.SampleClocked
-                                                               sample4
+    Modelica_Synchronous.IntegerSignals.Sampler.SampleClocked  sample4
       annotation (Placement(transformation(extent={{-64,-42},{-52,-30}})));
     Modelica_Synchronous.RealSignals.Sampler.AssignClock  assignClock1[3]
       annotation (Placement(transformation(extent={{54,50},{66,62}})));
@@ -553,11 +544,9 @@ package Examples
     Modelica.Blocks.Sources.IntegerExpression integerExpression(y=integer(10*sin(
           time)))
       annotation (Placement(transformation(extent={{-96,-20},{-76,0}})));
-    Modelica_Synchronous.IntegerSignals.Sampler.SampleClocked
-                                                               sample1
+    Modelica_Synchronous.IntegerSignals.Sampler.SampleClocked  sample1
       annotation (Placement(transformation(extent={{-66,-16},{-54,-4}})));
-    Modelica_Synchronous.RealSignals.Sampler.SampleClocked
-                                                            sample2[3]
+    Modelica_Synchronous.RealSignals.Sampler.SampleClocked  sample2[3]
       annotation (Placement(transformation(extent={{-66,24},{-54,36}})));
     Modelica_Synchronous.ClockSignals.Clocks.PeriodicRealClock periodicRealClock(period=
           0.1)

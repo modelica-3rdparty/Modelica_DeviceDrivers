@@ -1,12 +1,21 @@
 within ;
-package Modelica_DeviceDrivers "A collection of drivers interfacing hardware like input devices, communication devices, shared memory, analog-digital converters and else"
+package Modelica_DeviceDrivers "Modelica_DeviceDrivers (version 1.0) -  A collection of drivers interfacing hardware like input devices, communication devices, shared memory, analog-digital converters and else"
  extends Modelica.Icons.Package;
+
+
+
+
+
+
+
+
+
 
 
 annotation (preferredView="info",
   uses(Modelica(version="3.2")),
     version="1.0",
-    versionBuild=1,
+    versionBuild=2,
     versionDate="2012-09-20",
     dateModified = "$Date$",
     revisionID="$Id$",
