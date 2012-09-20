@@ -76,5 +76,6 @@ equation
           extent={{-108,106},{108,76}},
           lineColor={0,0,255},
           textString="Example for USB-DUX D
-Assuming input channels are electrical connected to corresponding output channels we should read what we wrote")}));
+Assuming input channels are electrical connected to corresponding output channels we should read what we wrote")}),
+      experiment(StopTime=1.1));
 end TestHardwareIOComedi;

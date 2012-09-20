@@ -1,6 +1,9 @@
 within Modelica_DeviceDrivers.Incubate.Blocks;
 model UDPBlockingReceive
   "(2012-05-24: Not yet adapted for synchronous elements) A block for receiving UDP packets which blocks if no new data is available"
+
+/* Otter. Made one comment, in order Check runs through:
+
   extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
   extends Modelica_DeviceDrivers.Utilities.Icons.UDPconnection;
   extends Modelica.Icons.UnderConstruction;
@@ -14,19 +17,19 @@ model UDPBlockingReceive
 
   parameter Real sampleTime=0.01 "Sample time for input update";
   parameter Integer bufferSize=16*1024 "Buffersize available for datagrams";
-  parameter Boolean blockDuringFirstSample = false
+  parameter Boolean blockDuringFirstSample = false 
     "If true, block on datagram receive during first sampling of block equations, otherwise skip blocking for first sampling";
 
-  parameter Integer port_recv=10001
+  parameter Integer port_recv=10001 
     "Listening port number of the Server. Must be unique on the system."
     annotation (Dialog(group="Incoming data"));
 
-protected
+protected 
   Integer socketID;
   Integer packagerID;
   Boolean newData;
   Boolean firstSample(start=true, fixed=true);
-algorithm
+algorithm 
   newData :=false;
 
   if firstSample and not blockDuringFirstSample then
@@ -38,7 +41,7 @@ algorithm
        newData := Modelica_DeviceDrivers.Communication.UDPSocket.getRecievedBytes(socketID) > 0;
      end while;
   end if;
-equation
+equation 
   when (initial()) then
 
     packagerID =
@@ -62,4 +65,5 @@ equation
             -100},{100,100}}), graphics={Text(extent={{-150,136},{150,96}},
             textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=true,
                  extent={{-100,-100},{100,100}}), graphics));
+*/
 end UDPBlockingReceive;

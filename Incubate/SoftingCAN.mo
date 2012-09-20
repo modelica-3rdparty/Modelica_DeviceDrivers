@@ -69,6 +69,7 @@ encapsulated function writeObject
 end writeObject;
 
 encapsulated function readRcvData "Read data from object (CAN message)"
+/*
     import Modelica_DeviceDrivers.Incubate.SoftingCAN;
     import Modelica_DeviceDrivers.Obsolete.Communication.Packager.CANMessage;
 
@@ -81,6 +82,7 @@ encapsulated function readRcvData "Read data from object (CAN message)"
   annotation (IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
               Include="#include \"MDDSoftingCAN.h\"",
               Library={"canL2"});
+*/
 end readRcvData;
 
 /*

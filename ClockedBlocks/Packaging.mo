@@ -370,17 +370,20 @@ package Packaging
       Integer y_int[n];
       Real dummy;
     equation
-      pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundery( pkgOut[1].autoPkgBitSize)*8 + n*32 else n*32;
+      when Clock() then
+         pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundery( pkgOut[1].autoPkgBitSize)*8 + n*32 else n*32;
 
-      (y_int,dummy) =
-        Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.DummyFunctions.getInteger(
-        pkgIn.pkg,
-        n,
-        pkgIn.dummy);
-      pkgOut.dummy = fill(dummy,nu);
-      for i in 1:n loop
-        y[i] = if    (y_int[i] == 1) then true else false;
-      end for;
+         (y_int,dummy) =
+           Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.DummyFunctions.getInteger(
+                 pkgIn.pkg,
+                 n,
+                 pkgIn.dummy);
+          pkgOut.dummy = fill(dummy,nu);
+
+          for i in 1:n loop
+            y[i] = if    (y_int[i] == 1) then true else false;
+          end for;
+      end when;
 
       annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
                 -100},{100,100}}), graphics), Icon(graphics={
@@ -411,14 +414,17 @@ package Packaging
     protected
       Real dummy;
     equation
-       pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundery( pkgOut[1].autoPkgBitSize)*8 + n*32 else n*32;
+      when Clock() then
+        pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundery( pkgOut[1].autoPkgBitSize)*8 + n*32 else n*32;
 
-      (y,dummy) =
-        Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.DummyFunctions.getInteger(
-        pkgIn.pkg,
-        n,
-        pkgIn.dummy);
-      pkgOut.dummy = fill(dummy,nu);
+       (y,dummy) =
+           Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.DummyFunctions.getInteger(
+            pkgIn.pkg,
+            n,
+            pkgIn.dummy);
+        pkgOut.dummy = fill(dummy,nu);
+      end when;
+
       annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
                 -100},{100,100}}), graphics), Icon(graphics={
             Text(
@@ -448,14 +454,16 @@ package Packaging
     protected
       Real dummy;
     equation
-      pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundery(pkgOut[1].autoPkgBitSize)*8 + n*64 else n*64;
+      when Clock() then
+         pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundery(pkgOut[1].autoPkgBitSize)*8 + n*64 else n*64;
 
-      (y,dummy) =
-        Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.DummyFunctions.getReal(
-        pkgIn.pkg,
-        n,
-        pkgIn.dummy);
-      pkgOut.dummy = fill(dummy,nu);
+         (y,dummy) =
+            Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.DummyFunctions.getReal(
+             pkgIn.pkg,
+             n,
+             pkgIn.dummy);
+         pkgOut.dummy = fill(dummy,nu);
+      end when;
 
       annotation (Icon(graphics={
             Text(
@@ -488,12 +496,15 @@ package Packaging
     protected
       Real dummy;
     equation
-      pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundery(pkgOut[1].autoPkgBitSize)*8 + length(data)+1 else length(data)+1;
+      when Clock() then
+         pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundery(pkgOut[1].autoPkgBitSize)*8 + length(data)+1 else length(data)+1;
 
-      (data,dummy) =
-          Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.DummyFunctions.getString(
-           pkgIn.pkg, pkgIn.dummy);
+        (data,dummy) =
+            Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.DummyFunctions.getString(
+             pkgIn.pkg, pkgIn.dummy);
         pkgOut.dummy = fill(dummy,nu);
+      end when;
+
       annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
                 -100},{100,100}}), graphics), Icon(graphics={
             Text(
@@ -521,15 +532,17 @@ package Packaging
         "Only postive (unsigned) values are supported"
         annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
     equation
-      pkgIn.autoPkgBitSize = if nu == 1 then pkgOut[1].autoPkgBitSize + bitOffset + width else bitOffset + width;
+      when Clock() then
+         pkgIn.autoPkgBitSize = if nu == 1 then pkgOut[1].autoPkgBitSize + bitOffset + width else bitOffset + width;
 
-      pkgOut.dummy =
-        Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.DummyFunctions.integerBitPack(
-        pkgOut.pkg,
-        bitOffset,
-        width,
-        u,
-        pkgIn.dummy);
+         pkgOut.dummy =
+            Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.DummyFunctions.integerBitPack(
+              pkgOut.pkg,
+              bitOffset,
+              width,
+              u,
+              pkgIn.dummy);
+      end when;
       annotation (defaultComponentName="packInt",
       Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
                 {100,100}}),       graphics), Icon(graphics={
@@ -563,15 +576,18 @@ package Packaging
     protected
       Real dummy;
     equation
-      pkgIn.autoPkgBitSize = if nu == 1 then pkgOut[1].autoPkgBitSize + bitOffset + width else bitOffset + width;
+      when Clock() then
+         pkgIn.autoPkgBitSize = if nu == 1 then pkgOut[1].autoPkgBitSize + bitOffset + width else bitOffset + width;
 
-      (y,dummy) =
-        Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.DummyFunctions.integerBitUnpack(
-        pkgIn.pkg,
-        bitOffset,
-        width,
-        pkgIn.dummy);
-      pkgOut.dummy = fill(dummy,nu);
+        (y,dummy) =
+           Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.DummyFunctions.integerBitUnpack(
+             pkgIn.pkg,
+             bitOffset,
+             width,
+             pkgIn.dummy);
+         pkgOut.dummy = fill(dummy,nu);
+      end when;
+
       annotation (defaultComponentName="unpackInt",
       Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
                 -100},{100,100}}), graphics), Icon(graphics={
@@ -599,12 +615,13 @@ package Packaging
     protected
         Real dummy;
     equation
-
-      pkgIn.autoPkgBitSize = 0;
-      dummy =
-        Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.DummyFunctions.resetPointer(
-         pkgIn.pkg, pkgIn.dummy);
-      pkgOut.dummy = fill(dummy,nu);
+      when Clock() then
+         pkgIn.autoPkgBitSize = 0;
+         dummy =
+           Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.DummyFunctions.resetPointer(
+            pkgIn.pkg, pkgIn.dummy);
+         pkgOut.dummy = fill(dummy,nu);
+      end when;
 
       annotation (Icon(graphics={
               Ellipse(

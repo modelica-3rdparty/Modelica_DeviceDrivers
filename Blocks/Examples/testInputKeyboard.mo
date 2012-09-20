@@ -5,4 +5,5 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   InputDevices.KeyboardInput keyboardInput
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
+  annotation (experiment(StopTime=1.1));
 end TestInputKeyboard;
