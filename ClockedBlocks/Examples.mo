@@ -34,16 +34,16 @@ package Examples
       nu=1,
       bitOffset=5,
       width=10) annotation (Placement(transformation(extent={{26,-4},{46,16}})));
-    Modelica_Synchronous.IntegerSignals.SamplerAndHolds.SampleClocked
+    Modelica_Synchronous.IntegerSignals.Sampler.SampleClocked
                                                                sample1
       annotation (Placement(transformation(extent={{-72,34},{-60,46}})));
-    Modelica_Synchronous.IntegerSignals.SamplerAndHolds.SampleClocked
+    Modelica_Synchronous.IntegerSignals.Sampler.SampleClocked
                                                                sample2
       annotation (Placement(transformation(extent={{-72,-4},{-60,8}})));
-    Modelica_Synchronous.IntegerSignals.SamplerAndHolds.SampleClocked
+    Modelica_Synchronous.IntegerSignals.Sampler.SampleClocked
                                                                sample3
       annotation (Placement(transformation(extent={{-72,-42},{-60,-30}})));
-    Modelica_Synchronous.Clocks.PeriodicRealClock periodicRealClock(period=
+    Modelica_Synchronous.ClockSignals.Clocks.PeriodicRealClock periodicRealClock(period=
           0.1)
       annotation (Placement(transformation(extent={{-98,-82},{-78,-62}})));
   equation
@@ -151,13 +151,13 @@ package Examples
     Modelica.Blocks.Sources.IntegerExpression integerExpression(y=integer(10*sin(
           time)))
       annotation (Placement(transformation(extent={{-96,-20},{-76,0}})));
-    Modelica_Synchronous.IntegerSignals.SamplerAndHolds.SampleClocked
+    Modelica_Synchronous.IntegerSignals.Sampler.SampleClocked
                                                                sample1
       annotation (Placement(transformation(extent={{-66,-16},{-54,-4}})));
-    Modelica_Synchronous.RealSignals.SampleAndHolds.SampleClocked
+    Modelica_Synchronous.RealSignals.Sampler.SampleClocked
                                                             sample2[3]
       annotation (Placement(transformation(extent={{-66,24},{-54,36}})));
-    Modelica_Synchronous.Clocks.PeriodicRealClock periodicRealClock(period=
+    Modelica_Synchronous.ClockSignals.Clocks.PeriodicRealClock periodicRealClock(period=
           0.1)
       annotation (Placement(transformation(extent={{-94,-90},{-74,-70}})));
     Modelica_DeviceDrivers.ClockedBlocks.Communication.UDPReceive
@@ -172,9 +172,9 @@ package Examples
     Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.GetInteger
                          getInteger
       annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-    Modelica_Synchronous.RealSignals.SampleAndHolds.AssignClock  assignClock1[3]
+    Modelica_Synchronous.RealSignals.Sampler.AssignClock  assignClock1[3]
       annotation (Placement(transformation(extent={{52,24},{64,36}})));
-    Modelica_Synchronous.IntegerSignals.SamplerAndHolds.AssignClock
+    Modelica_Synchronous.IntegerSignals.Sampler.AssignClock
       assignClock2
       annotation (Placement(transformation(extent={{52,-16},{64,-4}})));
   equation
@@ -338,30 +338,30 @@ package Examples
       annotation (Placement(transformation(extent={{20,46},{40,66}})));
     Modelica.Blocks.Sources.RealExpression realExpression[3](y=sin(time)*{1,2,3})
       annotation (Placement(transformation(extent={{-94,48},{-74,68}})));
-    Modelica_Synchronous.Clocks.PeriodicRealClock periodicRealClock(period=
+    Modelica_Synchronous.ClockSignals.Clocks.PeriodicRealClock periodicRealClock(period=
           0.1)
       annotation (Placement(transformation(extent={{-94,-94},{-74,-74}})));
-    Modelica_Synchronous.RealSignals.SampleAndHolds.SampleClocked
+    Modelica_Synchronous.RealSignals.Sampler.SampleClocked
                                                             sample2[3]
       annotation (Placement(transformation(extent={{-64,52},{-52,64}})));
-    Modelica_Synchronous.IntegerSignals.SamplerAndHolds.SampleClocked
+    Modelica_Synchronous.IntegerSignals.Sampler.SampleClocked
                                                                sample1
       annotation (Placement(transformation(extent={{-64,20},{-52,32}})));
-    Modelica_Synchronous.IntegerSignals.SamplerAndHolds.SampleClocked
+    Modelica_Synchronous.IntegerSignals.Sampler.SampleClocked
                                                                sample3
       annotation (Placement(transformation(extent={{-64,-12},{-52,0}})));
-    Modelica_Synchronous.IntegerSignals.SamplerAndHolds.SampleClocked
+    Modelica_Synchronous.IntegerSignals.Sampler.SampleClocked
                                                                sample4
       annotation (Placement(transformation(extent={{-64,-42},{-52,-30}})));
-    Modelica_Synchronous.RealSignals.SampleAndHolds.AssignClock  assignClock1[3]
+    Modelica_Synchronous.RealSignals.Sampler.AssignClock  assignClock1[3]
       annotation (Placement(transformation(extent={{54,50},{66,62}})));
-    Modelica_Synchronous.IntegerSignals.SamplerAndHolds.AssignClock
+    Modelica_Synchronous.IntegerSignals.Sampler.AssignClock
       assignClock2
       annotation (Placement(transformation(extent={{54,18},{66,30}})));
-    Modelica_Synchronous.IntegerSignals.SamplerAndHolds.AssignClock
+    Modelica_Synchronous.IntegerSignals.Sampler.AssignClock
       assignClock3
       annotation (Placement(transformation(extent={{54,-12},{66,0}})));
-    Modelica_Synchronous.IntegerSignals.SamplerAndHolds.AssignClock
+    Modelica_Synchronous.IntegerSignals.Sampler.AssignClock
       assignClock4
       annotation (Placement(transformation(extent={{54,-48},{66,-36}})));
   equation
@@ -553,13 +553,13 @@ package Examples
     Modelica.Blocks.Sources.IntegerExpression integerExpression(y=integer(10*sin(
           time)))
       annotation (Placement(transformation(extent={{-96,-20},{-76,0}})));
-    Modelica_Synchronous.IntegerSignals.SamplerAndHolds.SampleClocked
+    Modelica_Synchronous.IntegerSignals.Sampler.SampleClocked
                                                                sample1
       annotation (Placement(transformation(extent={{-66,-16},{-54,-4}})));
-    Modelica_Synchronous.RealSignals.SampleAndHolds.SampleClocked
+    Modelica_Synchronous.RealSignals.Sampler.SampleClocked
                                                             sample2[3]
       annotation (Placement(transformation(extent={{-66,24},{-54,36}})));
-    Modelica_Synchronous.Clocks.PeriodicRealClock periodicRealClock(period=
+    Modelica_Synchronous.ClockSignals.Clocks.PeriodicRealClock periodicRealClock(period=
           0.1)
       annotation (Placement(transformation(extent={{-94,-90},{-74,-70}})));
     ClockedBlocks.Packaging.SerialPackager.GetReal getReal(n=3, nu=1)
@@ -572,9 +572,9 @@ package Examples
           extent={{-10,-10},{10,10}},
           rotation=270,
           origin={40,80})));
-    Modelica_Synchronous.RealSignals.SampleAndHolds.AssignClock  assignClock1[3]
+    Modelica_Synchronous.RealSignals.Sampler.AssignClock  assignClock1[3]
       annotation (Placement(transformation(extent={{62,34},{74,46}})));
-    Modelica_Synchronous.IntegerSignals.SamplerAndHolds.AssignClock
+    Modelica_Synchronous.IntegerSignals.Sampler.AssignClock
       assignClock2
       annotation (Placement(transformation(extent={{62,-6},{74,6}})));
   equation
@@ -683,12 +683,12 @@ package Examples
     extends Modelica.Icons.Example;
     OperatingSystem.SynchronizeRealtime synchronizeRealtime
       annotation (Placement(transformation(extent={{-42,60},{-22,80}})));
-    Modelica_Synchronous.Clocks.PeriodicRealClock periodicRealClock(period=
+    Modelica_Synchronous.ClockSignals.Clocks.PeriodicRealClock periodicRealClock(period=
           0.1)
       annotation (Placement(transformation(extent={{-74,-18},{-54,2}})));
     InputDevices.SpaceMouseInput spaceMouseInput
       annotation (Placement(transformation(extent={{-78,18},{-58,38}})));
-    Modelica_Synchronous.RealSignals.SampleAndHolds.AssignClock  assignClock1
+    Modelica_Synchronous.RealSignals.Sampler.AssignClock  assignClock1
       annotation (Placement(transformation(extent={{-36,28},{-24,40}})));
   equation
 
@@ -713,10 +713,10 @@ package Examples
       annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
     OperatingSystem.SynchronizeRealtime synchronizeRealtime
       annotation (Placement(transformation(extent={{-42,60},{-22,80}})));
-    Modelica_Synchronous.Clocks.PeriodicRealClock periodicRealClock(period=
+    Modelica_Synchronous.ClockSignals.Clocks.PeriodicRealClock periodicRealClock(period=
           0.1)
       annotation (Placement(transformation(extent={{-74,-18},{-54,2}})));
-    Modelica_Synchronous.RealSignals.SampleAndHolds.AssignClock  assignClock1
+    Modelica_Synchronous.RealSignals.Sampler.AssignClock  assignClock1
       annotation (Placement(transformation(extent={{-26,28},{-14,40}})));
   equation
 
@@ -739,10 +739,10 @@ package Examples
     extends Modelica.Icons.Example;
     OperatingSystem.SynchronizeRealtime synchronizeRealtime
       annotation (Placement(transformation(extent={{-42,60},{-22,80}})));
-    Modelica_Synchronous.Clocks.PeriodicRealClock periodicRealClock(period=
+    Modelica_Synchronous.ClockSignals.Clocks.PeriodicRealClock periodicRealClock(period=
           0.1)
       annotation (Placement(transformation(extent={{-74,-18},{-54,2}})));
-    Modelica_Synchronous.BooleanSignals.SamplerAndHolds.AssignClock
+    Modelica_Synchronous.BooleanSignals.Sampler.AssignClock
       assignClock1
       annotation (Placement(transformation(extent={{-30,24},{-18,36}})));
     InputDevices.KeyboardInput keyboardInput
@@ -768,10 +768,10 @@ package Examples
     extends Modelica.Icons.Example;
     OperatingSystem.SynchronizeRealtime synchronizeRealtime
       annotation (Placement(transformation(extent={{-42,60},{-22,80}})));
-    Modelica_Synchronous.Clocks.PeriodicRealClock periodicRealClock(period=
+    Modelica_Synchronous.ClockSignals.Clocks.PeriodicRealClock periodicRealClock(period=
           0.1)
       annotation (Placement(transformation(extent={{-74,-18},{-54,2}})));
-    Modelica_Synchronous.BooleanSignals.SamplerAndHolds.AssignClock
+    Modelica_Synchronous.BooleanSignals.Sampler.AssignClock
       assignClock1
       annotation (Placement(transformation(extent={{-30,24},{-18,36}})));
     InputDevices.KeyboardKeyInput keyboardKeyInput(keyCode="Space")
@@ -795,10 +795,10 @@ package Examples
 
   model TestRandomRealSource
     extends Modelica.Icons.Example;
-    Modelica_Synchronous.Clocks.PeriodicRealClock periodicRealClock(period=
+    Modelica_Synchronous.ClockSignals.Clocks.PeriodicRealClock periodicRealClock(period=
           0.1)
       annotation (Placement(transformation(extent={{-66,-12},{-46,8}})));
-    Modelica_Synchronous.RealSignals.SampleAndHolds.AssignClock  assignClock1
+    Modelica_Synchronous.RealSignals.Sampler.AssignClock  assignClock1
       annotation (Placement(transformation(extent={{-18,28},{-6,40}})));
     OperatingSystem.RandomRealSource randomRealSource
       annotation (Placement(transformation(extent={{-74,24},{-54,44}})));
