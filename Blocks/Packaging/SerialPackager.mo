@@ -676,7 +676,7 @@ package SerialPackager "Blocks for constructing packages"
             textString="Reset")}), Diagram(graphics));
   end ResetPointer;
 annotation (preferredView="info", Documentation(info="<html>
-<p>The concept of the SerialPackager is to allow adding/retrieving data to/from a package in a device independent manner. See 
+<p>The concept of the SerialPackager is to allow adding/retrieving data to/from a package in a device independent manner. See
 <a href=\"modelica://Modelica_DeviceDrivers.UsersGuide.GettingStarted\">Getting started</a>.</p>
 </html>"));
 end SerialPackager;

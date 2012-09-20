@@ -11,7 +11,7 @@ set(CMAKE_INSTALL_PREFIX ${PROJECT_SOURCE_DIR})
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 #set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
-set(CMAKE_EDIT_COMMAND cmake-gui) 
+set(CMAKE_EDIT_COMMAND cmake-gui)
 
 include_directories(src/include)
 
@@ -19,7 +19,7 @@ if (MSVC)
   # Dummy Windows rt library for uniform treatment of GCC and MS Visual C within Modelica
   add_subdirectory(src/DummyRTLibrary)
   # Dummy Windows X11 library for uniform treatment of GCC and MS Visual C within Modelica
-  add_subdirectory(src/DummyX11Library)  
+  add_subdirectory(src/DummyX11Library)
 endif (MSVC)
 
 # Windows and linux library for 3Dconnexion space mouse support

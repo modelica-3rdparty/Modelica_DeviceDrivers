@@ -12,15 +12,15 @@ add_test(test_MDDUDPSocket ${EXECUTABLE_OUTPUT_PATH}/test_MDDUDPSocket)
 
 add_executable(test_MDDSerialPackager
   test_MDDSerialPackager.c ../Util/ModelicaUtilities.c)
-add_test(test_MDDSerialPackager 
+add_test(test_MDDSerialPackager
   ${EXECUTABLE_OUTPUT_PATH}/test_MDDSerialPackager)
 
-add_executable(test_MDDSharedMemory 
+add_executable(test_MDDSharedMemory
   test_MDDSharedMemory.c ../Util/ModelicaUtilities.c)
 if (NOT MSVC)
   target_link_libraries(test_MDDSharedMemory rt)
 endif (NOT MSVC)
-add_test(test_MDDSharedMemory 
+add_test(test_MDDSharedMemory
   ${EXECUTABLE_OUTPUT_PATH}/test_MDDSharedMemory)
 
 

@@ -1,5 +1,5 @@
 /** C interface to Map/Dictionary support (for CAN messages).
- * 
+ *
  * @file
  * @author      Bernhard Thiele <bernhard.thiele@dlr.de>
  * @version     $Id$
@@ -26,7 +26,7 @@ void MDD_objectDictGetKeys(void* p_objectDict, int* keys);
 
 int MDD_objectDictSize(void* p_objectDict);
 
-#endif /* MDDOBJECTDICT_H_ */	
+#endif /* MDDOBJECTDICT_H_ */
 
 
 

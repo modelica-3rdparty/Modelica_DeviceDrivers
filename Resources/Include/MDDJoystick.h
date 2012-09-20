@@ -1,11 +1,11 @@
 /** Support of joysticks and alike (header-only library).
- * 
+ *
  * @file
  * @author		Tobias Bellmann <tobias.bellmann@dlr.de> (Windows)
  * @author		Bernhard Thiele <bernhard.thiele@dlr.de> (Linux)
  * @version	$Id: MDDJoystick.h 15734 2012-06-06 17:58:52Z thie_be $
  * @since		2012-05-25
- * @copyright Modelica License 2	
+ * @copyright Modelica License 2
  * @remark The Linux implementation mimics the interface of the windows version, that's
  *         why it is somewhat odd.
 */
@@ -19,7 +19,7 @@
 #if defined(_MSC_VER)
 
 
-  #include <windows.h> 
+  #include <windows.h>
   #pragma comment( lib, "Winmm.lib" )
 
   /** Get data from joystick device.
@@ -38,14 +38,14 @@
     joyGetPosEx(iJSID,&JoyInfo);
 
 
-    /* output axes: */   
+    /* output axes: */
     pdAxes[0] = (double)JoyInfo.dwXpos;
     pdAxes[1] = (double)JoyInfo.dwYpos;
     pdAxes[2] = (double)JoyInfo.dwZpos;
     pdAxes[3] = (double)JoyInfo.dwRpos;
     pdAxes[4] = (double)JoyInfo.dwUpos;
     pdAxes[5] = (double)JoyInfo.dwVpos;
-    
+
     /* output buttons: */
     if(JoyInfo.dwButtons&1)piButtons[0] = 1;else piButtons[0] = 0;
     if(JoyInfo.dwButtons&2)piButtons[1] = 1;else piButtons[1] = 0;
@@ -57,8 +57,8 @@
     if(JoyInfo.dwButtons&128)piButtons[7] = 1;else piButtons[7] = 0;
     /* output POV */
     if(JoyInfo.dwPOV != JOY_POVCENTERED)
-            *piPOV=JoyInfo.dwPOV/100; 
-    else 
+            *piPOV=JoyInfo.dwPOV/100;
+    else
             *piPOV=7;
   }
 
@@ -66,7 +66,7 @@
 
   #include <stdio.h>
   #include <sys/time.h>
-  
+
   #include <stdlib.h>
   #include <fcntl.h>
   #include <unistd.h>
@@ -78,7 +78,7 @@
   void MDD_joystickGetData(int iJSID,double * pdAxes, int * piButtons, int * piPOV) {
     /* Need some global variables to save away the state: */
     static int initialized=0, fd=0, *axis=NULL, nAxis=0, nButtons=0;
-    static char *button = NULL; 
+    static char *button = NULL;
     static char deviceName[80]="";
 
     struct js_event js;
@@ -93,22 +93,22 @@
         ModelicaError("MDDJoystic: Neither could open /dev/input/js0, nor /dev/js0. Have the required privileges?\n");
         exit(-1);
       }
-      
+
       ioctl(fd, JSIOCGAXES, &nAxis);
       ioctl(fd, JSIOCGBUTTONS, &nButtons);
       ioctl(fd, JSIOCGNAME(80), deviceName);
-      
+
       axis = (int *) calloc( nAxis, sizeof( int ) );
       button = (char *) calloc( nButtons, sizeof( char ) );
 
       ModelicaFormatMessage("Found joystick: %s\n\taxis: %d, buttons: %d\n",
         deviceName, nAxis, nButtons);
-      
+
       /* use non-blocking mode */
       fcntl( fd, F_SETFL, O_NONBLOCK );
       initialized = 1;
     }
-    
+
     while (read(fd, &js, sizeof(struct js_event)) == sizeof(struct js_event)) {
     	/*printf("Event: type %d, time %d, number %d, value %d\n",
         js.type, js.time, js.number, js.value);*/
@@ -121,24 +121,24 @@
           break;
       }
     }
-    
+
     if (errno != EAGAIN) {
      	ModelicaError("\nMDDJoystic: error reading\n");
       exit(-1);
   	}
-    	
+
     /* output axes (default to 0): */
     for (i = 0; i < 6; i++) {
       pdAxes[i] = nAxis >= i ? (double) axis[i] : 0;
-    }   
-   
+    }
+
     /* output buttons (default to 0): */
     for (i = 0; i < 8; i++) {
       piButtons[i] = nButtons >= i ? button[i] : 0;
     }
-    
+
     /* output POV */
-    *piPOV=7;   
+    *piPOV=7;
   }
 
 
@@ -147,5 +147,5 @@
   #error "Modelica_DeviceDrivers: No support of MDD_joystickGetData(..) for your platform"
 
 #endif /* defined(_MSC_VER) */
- 
+
 #endif /* MDDJOYSTICK_H_ */

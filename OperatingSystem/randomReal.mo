@@ -13,7 +13,7 @@ double OS_getRandomNumberDouble(double minValue, double maxValue)
 {
   int randomInteger;
   double randomDouble;
-  if(!_randomGeneratorInitialized) 
+  if(!_randomGeneratorInitialized)
   {
     srand ( clock(NULL) * time(NULL) );
     _randomGeneratorInitialized = 1;

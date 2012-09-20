@@ -1,5 +1,5 @@
 /** Test for CAN support.
- * 
+ *
  * @file
  * @author      Bernhard Thiele <bernhard.thiele@dlr.de>
  * @version     $Id$
@@ -19,13 +19,13 @@
 int test_Constructor() {
   void * mDDCan;
   int failed;
-  
+
   mDDCan = MDD_softingCANConstructor("CANusb_1", 1);
   failed = mDDCan == NULL ? 1 : 0;
   MDD_softingCANStartChip(mDDCan);
-  
+
   MDD_softingCANDestructor(mDDCan);
-  
+
   return failed;
 }
 
@@ -33,7 +33,7 @@ int test_ObjectDict() {
   int failed, i = 0;
   int mykeys[2];
   void* dict;
-  
+
   dict = MDD_objectDictConstructor();
   MDD_objectDictInsert(dict, 2, 3);
   MDD_objectDictInsert(dict, 4, 6);
@@ -52,7 +52,7 @@ int test_ObjectDict() {
 int test_Startup() {
   void * mDDCan;
   int failed, obj1, obj2, obj3;
-  
+
   mDDCan = MDD_softingCANConstructor("CANusb_1", 1);
   failed = mDDCan == NULL ? 1 : 0;
 
@@ -65,9 +65,9 @@ int test_Startup() {
 	     0x01, obj1, 0x02, obj2, 0x03, obj3);
 
   MDD_softingCANStartChip(mDDCan);
-  
+
   MDD_softingCANDestructor(mDDCan);
-  
+
   return failed;
 }
 
@@ -75,7 +75,7 @@ int test_SendMessage() {
   void * mDDCan;
   void * msg1;
   int failed, obj1, i;
-  
+
   mDDCan = MDD_softingCANConstructor("CANusb_1", 3);
   failed = mDDCan == NULL ? 1 : 0;
 
@@ -83,7 +83,7 @@ int test_SendMessage() {
   printf("Defined transmit message %d, got obj: %d\n",
 	     0x01, obj1);
   MDD_softingCANStartChip(mDDCan);
-  
+
   msg1 = MDD_SerialPackagerConstructor(8);
 
   for (i=0; i < 10; i++) {
@@ -98,7 +98,7 @@ int test_SendMessage() {
 
   MDD_SerialPackagerDestructor(msg1);
   MDD_softingCANDestructor(mDDCan);
-  
+
   return failed;
 }
 
@@ -106,7 +106,7 @@ int test_ReadMessage() {
   void * mDDCan;
   void * msg1;
   int failed, obj1, i, msgdata;
-  
+
   mDDCan = MDD_softingCANConstructor("CANusb_1", 3);
   failed = mDDCan == NULL ? 1 : 0;
 
@@ -114,7 +114,7 @@ int test_ReadMessage() {
   printf("Defined receive message %d, got obj: %d\n",
 	     0x01, obj1);
   MDD_softingCANStartChip(mDDCan);
-  
+
   msg1 = MDD_SerialPackagerConstructor(8);
 
   for (i=0; i < 10; i++) {
@@ -131,7 +131,7 @@ int test_ReadMessage() {
 
   MDD_CANMessageDestructor(msg1);
   MDD_softingCANDestructor(mDDCan);
-  
+
   return failed;
 }
 

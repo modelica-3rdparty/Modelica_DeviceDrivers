@@ -1,7 +1,7 @@
 /** Little utility functions (header-only library).
  *
  * @file
- * @author      Bernhard Thiele <bernhard.thiele@dlr.de> 
+ * @author      Bernhard Thiele <bernhard.thiele@dlr.de>
  * @version     $Id$
  * @since       2012-06-06
  * @copyright Modelica License 2
@@ -28,14 +28,14 @@ extern "C" {
   void MDD_msleep(unsigned long ms) {
     Sleep(ms);
   }
-  
+
 #else
   #include <unistd.h>
 
   void MDD_msleep(unsigned long ms) {
     usleep(ms*1000);
   }
-  
+
 #endif /* _MSC_VER */
 
 

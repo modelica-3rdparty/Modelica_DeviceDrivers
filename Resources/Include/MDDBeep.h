@@ -5,7 +5,7 @@
  * @author		Bernhard Thiele <bernhard.thiele@dlr.de> (Linux)
  * @version	$Id: MDDBeep.h 15720 2012-06-05 21:32:39Z thie_be $
  * @since		2012-05-25
- * @copyright Modelica License 2	
+ * @copyright Modelica License 2
  */
 
 #ifndef MDDBEEP_H_
@@ -19,7 +19,7 @@
   #include <windows.h>
 
   /** Raise system beep.
-   * 
+   *
    * @param[in] frequency the tone frequency
    * @param[in] duration (s) sound duration
    * @return Dummy return value
@@ -34,7 +34,7 @@
 #elif defined(__linux__)
 
   #warning "MDD_beep(..) not necessarily working under linux (known bug)"
- 
+
   #include <X11/Xlib.h>
 
   double MDD_beep(double frequency, double duration) {
@@ -44,14 +44,14 @@
     value.bell_percent = 50;
     value.bell_pitch = frequency;
     value.bell_duration = duration;
- 
+
     ret = XChangeKeyboardControl(display, KBBellPercent | KBBellPitch | KBBellDuration, &value);
-    if ( !ret ) 
+    if ( !ret )
       ModelicaFormatError("MDDBeep.h: XChangeKeyboardControl failed.\n");
-    
+
     ret = XBell(display, 0);
     if ( !ret )
-      ModelicaFormatError("MDDBeep.h: XBell failed.\n");    
+      ModelicaFormatError("MDDBeep.h: XBell failed.\n");
   }
 
 #else
@@ -59,5 +59,5 @@
   #error "Modelica_DeviceDrivers: No support of MDD_beep(..) for your platform"
 
 #endif /* defined(_MSC_VER) */
- 
+
 #endif /* MDDBEEP_H_ */

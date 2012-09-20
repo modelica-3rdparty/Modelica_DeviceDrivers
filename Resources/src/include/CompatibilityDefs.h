@@ -1,10 +1,10 @@
 /** @brief Preprocessor definitions supporting compiling Windows and Linux sources from same source.
  *
- * @file        CompatibilityDefs.h 
+ * @file        CompatibilityDefs.h
  * @author	Bernhard Thiele <bernhard.thiele@dlr.de>
  * @version	$Id$
  * @since	2012-05-25
- * @copyright Modelica License 2	
+ * @copyright Modelica License 2
  *
  *
  * This file is based on the article
@@ -50,8 +50,8 @@ __declspec( dllexport )
 #endif /*_MSC_VER */
 # define EXTERN DllImport extern
 
-/* Some definitions necessary in order to use <windows.h> in Dymola, 
-   not sure whether other tools need them as well.*/ 
+/* Some definitions necessary in order to use <windows.h> in Dymola,
+   not sure whether other tools need them as well.*/
 #if defined(_MSC_VER)
   #define VOID void
   typedef char CHAR;
@@ -62,7 +62,7 @@ __declspec( dllexport )
   typedef unsigned int    u_int;
   typedef unsigned long   u_long;
   typedef unsigned __int64 u_int64;
-  #include <winsock2.h>//for compatibility reasons 
+  #include <winsock2.h>//for compatibility reasons
 #endif /*_MSC_VER */
 
 

@@ -34,9 +34,9 @@ package InputDevices
               -100},{100,100}}), graphics={Bitmap(extent={{-86,88},{88,-88}},
               fileName="../Resources/Images/Icons/joystick.png"), Text(extent={
                 {-150,140},{150,100}}, textString="%name")}),
-                preferedView="info",Documentation(info="<html> This block reads data from the joystick ID (0 = first joystick appearing in windows control panel). 
+                preferedView="info",Documentation(info="<html> This block reads data from the joystick ID (0 = first joystick appearing in windows control panel).
                                 Multible blocks can be used in order to retrieve data from more than one joysticks.
-                                Up to six axes and eight buttons are supported. The input values ranges between -1 and 1 and can be scaled by the 
+                                Up to six axes and eight buttons are supported. The input values ranges between -1 and 1 and can be scaled by the
                                 vector <b>gain</b>. Via the parameter <b>sampleTime</b> the input sampling rate is chosen.</html>"));
   end JoystickInput;
 
@@ -136,7 +136,7 @@ package InputDevices
             fillPattern=FillPattern.Solid,
             textString="%keyCode")}),
               preferedView="info",Documentation(info="<html> This block reads data from the keyboard. The monitored key is selected via the parameter <b>keyCode</b>.
-                                       Note, that keystrokes will not be captured and the focused window will process them. 
+                                       Note, that keystrokes will not be captured and the focused window will process them.
                                        Via the parameter <b>sampleTime</b> the input sampling rate is chosen.</html>"));
   end KeyboardKeyInput;
 
@@ -374,7 +374,7 @@ package InputDevices
             fillPattern=FillPattern.Solid,
             textString="return")}),
               preferedView="info",Documentation(info="<html> This block reads data from the keyboard. The arrow keys, space and return are monitored.
-                                       Note, that keystrokes will not be captured and the focused window will process them. 
+                                       Note, that keystrokes will not be captured and the focused window will process them.
                                        Via the parameter <b>sampleTime</b> the input sampling rate is chosen.</html>"));
   end KeyboardInput;
 

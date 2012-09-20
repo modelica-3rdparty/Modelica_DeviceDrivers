@@ -17,19 +17,19 @@ model UDPBlockingReceive
 
   parameter Real sampleTime=0.01 "Sample time for input update";
   parameter Integer bufferSize=16*1024 "Buffersize available for datagrams";
-  parameter Boolean blockDuringFirstSample = false 
+  parameter Boolean blockDuringFirstSample = false
     "If true, block on datagram receive during first sampling of block equations, otherwise skip blocking for first sampling";
 
-  parameter Integer port_recv=10001 
+  parameter Integer port_recv=10001
     "Listening port number of the Server. Must be unique on the system."
     annotation (Dialog(group="Incoming data"));
 
-protected 
+protected
   Integer socketID;
   Integer packagerID;
   Boolean newData;
   Boolean firstSample(start=true, fixed=true);
-algorithm 
+algorithm
   newData :=false;
 
   if firstSample and not blockDuringFirstSample then
@@ -41,7 +41,7 @@ algorithm
        newData := Modelica_DeviceDrivers.Communication.UDPSocket.getRecievedBytes(socketID) > 0;
      end while;
   end if;
-equation 
+equation
   when (initial()) then
 
     packagerID =

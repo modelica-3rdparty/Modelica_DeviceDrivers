@@ -17,25 +17,25 @@ external "C" OS_Sleep(sleepingTime);
   typedef unsigned int    u_int;
   typedef unsigned long   u_long;
   typedef unsigned __int64 u_int64;
-  #include <winsock2.h>//for compatibility reasons 
+  #include <winsock2.h>//for compatibility reasons
   #include <windows.h>
-  #include  \"ModelicaUtilities.h\"  
-   
+  #include  \"ModelicaUtilities.h\"
+
   void OS_Sleep(double sleepingTime)
   {
-    
+
     int time_ms = (int)(sleepingTime*1000);
     Sleep(time_ms);
-   
-  } 
+
+  }
 #else
   #include <unistd.h>
   void OS_Sleep(double sleepingTime)
   {
     sleep((int)sleepingTime);
-  } 
-#endif 
- 
-#endif 
+  }
+#endif
+
+#endif
 ");
 end sleep;

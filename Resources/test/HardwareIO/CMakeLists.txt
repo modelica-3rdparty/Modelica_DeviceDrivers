@@ -6,12 +6,12 @@ include_directories(../../Include)
 
 if (UNIX)
   # ${COMEDI_LIBRARY} seems to be already predefined in cmake so that following line is without effect in my installation
-  find_library( COMEDI_LIBRARY comedi ) 
+  find_library( COMEDI_LIBRARY comedi )
   if (${COMEDI_LIBRARY} MATCHES "COMEDI_LIBRARY-NOTFOUND")
     message("Comedi.lib not found. Skipping test generation for comedi module")
   else (${COMEDI_LIBRARY} MATCHES "COMEDI_LIBRARY-NOTFOUND")
     # Need the 32bit comedilib since Dymola is currently only 32 bit (should change in the future)
-    SET(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-m32") # force compile for 32 bit 
+    SET(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-m32") # force compile for 32 bit
     add_executable(test_MDDComedi test_MDDComedi.c ../Util/ModelicaUtilities.c)
     target_link_libraries(test_MDDComedi ${COMEDI_LIBRARY} m)
     add_test(test_MDDComedi ${EXECUTABLE_OUTPUT_PATH}/test_MDDComedi)

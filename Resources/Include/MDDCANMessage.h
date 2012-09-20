@@ -1,5 +1,5 @@
 /** Support for processing CAN messages in Modelica (header-only library).
- * 
+ *
  * @file
  * @author      Bernhard Thiele <bernhard.thiele@dlr.de>
  * @version     $Id: MDDCANMessage.h 15940 2012-06-26 08:27:11Z thie_be $
@@ -38,7 +38,7 @@ void MDD_CANMessageDestructor(void* p_cANMessage) {
  */
 void MDD_CANMessagePrint(void* p_cANMessage, int showBitVector) {
 	CANMessage* msg = (CANMessage*) p_cANMessage;
-	unsigned char bits[64]; 
+	unsigned char bits[64];
 	int i,j;
 
 	ModelicaFormatMessage("CANMessage start:\nBytes signed dec:   ");
@@ -79,7 +79,7 @@ void MDD_CANMessagePrint(void* p_cANMessage, int showBitVector) {
  */
 int MDD_CANMessageIntegerBitunpacking(void* p_cANMessage, int bitStartPosition, int width) {
 	CANMessage* msg = (CANMessage*) p_cANMessage;
-    unsigned char bits[64]; 
+    unsigned char bits[64];
     int i,j;
     int factor = 1;
     int data = 0;
@@ -223,7 +223,7 @@ void MDD_CANMessageDoubleBitpacking(void* p_cANMessage, double data) {
 /** Unpack IEEE double value from CAN data.
  *
  * @param[in] p_cANMessage pointer to the CANMessage
- * @return value of extracted IEEE double 
+ * @return value of extracted IEEE double
  */
 double MDD_CANMessageDoubleBitunpacking(void* p_cANMessage) {
 	CANMessage* msg = (CANMessage*) p_cANMessage;
@@ -233,7 +233,7 @@ double MDD_CANMessageDoubleBitunpacking(void* p_cANMessage) {
     return data;
 }
 
-#endif /* MDDCANMESSAGE_H_ */	
+#endif /* MDDCANMESSAGE_H_ */
 
 
 

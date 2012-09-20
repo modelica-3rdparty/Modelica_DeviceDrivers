@@ -1,5 +1,5 @@
 /** Map/Dictionary support (for CAN messages).
- * 
+ *
  * @file
  * @author      Bernhard Thiele <bernhard.thiele@dlr.de>
  * @version     $Id$
@@ -61,5 +61,5 @@ extern "C" {
 			i++;
 		}
 	}
-	
+
 }

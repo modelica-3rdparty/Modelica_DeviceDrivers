@@ -115,7 +115,7 @@ ezxml_t ezxml_vget(ezxml_t xml, va_list ap)
     int idx = -1;
 
     if (name && *name) {
-        idx = va_arg(ap, int);    
+        idx = va_arg(ap, int);
         xml = ezxml_child(xml, name);
     }
     return (idx < 0) ? xml : ezxml_vget(ezxml_idx(xml, idx), ap);
@@ -123,7 +123,7 @@ ezxml_t ezxml_vget(ezxml_t xml, va_list ap)
 
 // Traverses the xml tree to retrieve a specific subtag. Takes a variable
 // length list of tag names and indexes. The argument list must be terminated
-// by either an index of -1 or an empty string tag name. Example: 
+// by either an index of -1 or an empty string tag name. Example:
 // title = ezxml_get(library, \"shelf\", 0, \"book\", 2, \"title\", -1);
 // This retrieves the title of the 3rd book on the 1st shelf of library.
 // Returns NULL if not found.
@@ -157,7 +157,7 @@ ezxml_t ezxml_err(ezxml_root_t root, char *s, const char *err, ...)
     va_list ap;
     int line = 1;
     char *t, fmt[EZXML_ERRL];
-    
+
     for (t = root->s; t < s; t++) if (*t == '\\n') line++;
     snprintf(fmt, EZXML_ERRL, \"[error near line %d]: %s\", line, err);
 
@@ -185,7 +185,7 @@ char *ezxml_decode(char *s, char **ent, char t)
             if (*s == '\\n') memmove(s, (s + 1), strlen(s));
         }
     }
-    
+
     for (s = r; ; ) {
         while (*s && *s != '&' && (*s != '%' || t != '%') && !isspace(*s)) s++;
 
@@ -240,7 +240,7 @@ char *ezxml_decode(char *s, char **ent, char t)
 void ezxml_open_tag(ezxml_root_t root, char *name, char **attr)
 {
     ezxml_t xml = root->cur;
-    
+
     if (xml->name) xml = ezxml_add_child(xml, name, strlen(xml->txt));
     else xml->name = name; // first open tag
 
@@ -339,7 +339,7 @@ short ezxml_internal_dtd(ezxml_root_t root, char *s, size_t len)
 {
     char q, *c, *t, *n = NULL, *v, **ent, **pe;
     int i, j;
-    
+
     pe = memcpy(malloc(sizeof(EZXML_NIL)), EZXML_NIL, sizeof(EZXML_NIL));
 
     for (s[len] = '\\0'; s; ) {
@@ -420,7 +420,7 @@ short ezxml_internal_dtd(ezxml_root_t root, char *s, size_t len)
                 root->attr[i][j + 2] = c; // is it cdata?
                 root->attr[i][j + 1] = (v) ? ezxml_decode(v, root->ent, *c)
                                            : NULL;
-                root->attr[i][j] = n; // attribute name 
+                root->attr[i][j] = n; // attribute name
             }
         }
         else if (! strncmp(s, \"<!--\", 4)) s = strstr(s + 4, \"-->\"); // comments
@@ -473,7 +473,7 @@ char *ezxml_str2utf8(char **s, size_t *len)
 void ezxml_free_attr(char **attr) {
     int i = 0;
     char *m;
-    
+
     if (! attr || attr == EZXML_NIL) return; // nothing to free
     while (attr[i]) i += 2; // find end of attribute list
     m = attr[i + 1]; // list of which names and values are malloced
@@ -496,7 +496,7 @@ ezxml_t ezxml_parse_str(char *s, size_t len)
     if (! len) return ezxml_err(root, NULL, \"root tag missing\");
     root->u = ezxml_str2utf8(&s, &len); // convert utf-16 to utf-8
     root->e = (root->s = s) + len; // record start and end of work area
-    
+
     e = s[len - 1]; // save end char
     s[len - 1] = '\\0'; // turn end char into null terminator
 
@@ -506,14 +506,14 @@ ezxml_t ezxml_parse_str(char *s, size_t len)
     for (; ; ) {
         attr = (char **)EZXML_NIL;
         d = ++s;
-        
+
         if (isalpha(*s) || *s == '_' || *s == ':' || *s < '\\0') { // new tag
             if (! root->cur)
                 return ezxml_err(root, d, \"markup outside of root element\");
 
             s += strcspn(s, EZXML_WS \"/>\");
             while (isspace(*s)) *(s++) = '\\0'; // null terminate tag name
-  
+
             if (*s && *s != '/' && *s != '>') // find tag in default attr list
                 for (i = 0; (a = root->attr[i]) && strcmp(a[0], d); i++);
 
@@ -528,7 +528,7 @@ ezxml_t ezxml_parse_str(char *s, size_t len)
                 attr[l] = s; // set attribute name
 
                 s += strcspn(s, EZXML_WS \"=/>\");
-                if (*s == '=' || isspace(*s)) { 
+                if (*s == '=' || isspace(*s)) {
                     *(s++) = '\\0'; // null terminate tag attribute name
                     q = *(s += strspn(s, EZXML_WS \"=\"));
                     if (q == '\"' || q == '\\'') { // attribute value
@@ -566,7 +566,7 @@ ezxml_t ezxml_parse_str(char *s, size_t len)
             }
             else {
                 if (l) ezxml_free_attr(attr);
-                return ezxml_err(root, d, \"missing >\"); 
+                return ezxml_err(root, d, \"missing >\");
             }
         }
         else if (*s == '/') { // close tag
@@ -586,7 +586,7 @@ ezxml_t ezxml_parse_str(char *s, size_t len)
             else return ezxml_err(root, d, \"unclosed <![CDATA[\");
         }
         else if (! strncmp(s, \"!DOCTYPE\", 8)) { // dtd
-            for (l = 0; *s && ((! l && *s != '>') || (l && (*s != ']' || 
+            for (l = 0; *s && ((! l && *s != '>') || (l && (*s != ']' ||
                  *(s + strspn(s + 1, EZXML_WS) + 1) != '>')));
                  l = (*s == '[') ? 1 : l) s += strcspn(s + 1, \"[]>\") + 1;
             if (! *s && e != '>')
@@ -596,12 +596,12 @@ ezxml_t ezxml_parse_str(char *s, size_t len)
         }
         else if (*s == '?') { // <?...?> processing instructions
             do { s = strchr(s, '?'); } while (s && *(++s) && *s != '>');
-            if (! s || (! *s && e != '>')) 
+            if (! s || (! *s && e != '>'))
                 return ezxml_err(root, d, \"unclosed <?\");
             else ezxml_proc_inst(root, d + 1, s - d - 2);
         }
         else return ezxml_err(root, d, \"unexpected <\");
-        
+
         if (! s || ! *s) break;
         *s = '\\0';
         d = ++s;
@@ -676,7 +676,7 @@ ezxml_t ezxml_parse_file(const char *file)
 {
     int fd = open(file, O_RDONLY, 0);
     ezxml_t xml = ezxml_parse_fd(fd);
-    
+
     if (fd >= 0) close(fd);
     return xml;
 }
@@ -687,7 +687,7 @@ char *ezxml_ampencode(const char *s, size_t len, char **dst, size_t *dlen,
                       size_t *max, short a)
 {
     const char *e;
-    
+
     for (e = s + len; s != e; s++) {
         while (*dlen + 10 > *max) *dst = realloc(*dst, *max += EZXML_BUFSIZE);
 
@@ -748,7 +748,7 @@ char *ezxml_toxml_r(ezxml_t xml, char **s, size_t *len, size_t *max,
 
     *s = (xml->child) ? ezxml_toxml_r(xml->child, s, len, max, 0, attr) //child
                       : ezxml_ampencode(xml->txt, -1, s, len, max, 0);  //data
-    
+
     while (*len + strlen(xml->name) + 4 > *max) // reallocate s
         *s = realloc(*s, *max += EZXML_BUFSIZE);
 
@@ -826,7 +826,7 @@ void ezxml_free(ezxml_t xml)
             for (j = 1; root->pi[i][j]; j++);
             free(root->pi[i][j + 1]);
             free(root->pi[i]);
-        }            
+        }
         if (root->pi[0]) free(root->pi); // free processing instructions
 
         if (root->len == -1) free(root->m); // malloced xml data
@@ -854,7 +854,7 @@ ezxml_t ezxml_new(const char *name)
 {
     static char *ent[] = { \"lt;\", \"&#60;\", \"gt;\", \"&#62;\", \"quot;\", \"&#34;\",
                            \"apos;\", \"&#39;\", \"amp;\", \"&#38;\", NULL };
-    ezxml_root_t root = (ezxml_root_t)memset(malloc(sizeof(struct ezxml_root)), 
+    ezxml_root_t root = (ezxml_root_t)memset(malloc(sizeof(struct ezxml_root)),
                                              '\\0', sizeof(struct ezxml_root));
     root->xml.name = (char *)name;
     root->cur = &root->xml;
@@ -1009,7 +1009,7 @@ ezxml_t ezxml_cut(ezxml_t xml)
 
             while (cur->next && cur->next != xml) cur = cur->next;
             if (cur->next) cur->next = cur->next->next; // patch next list
-        }        
+        }
     }
     xml->ordered = xml->sibling = xml->next = NULL;
     return xml;
@@ -1034,8 +1034,8 @@ typedef unsigned short  u_short;
 typedef unsigned int    u_int;
 typedef unsigned long   u_long;
 typedef unsigned __int64 u_int64;
-#include <winsock2.h>//for compatibility reasons 
-#include <windows.h> 
+#include <winsock2.h>//for compatibility reasons
+#include <windows.h>
 
 #include <stdio.h>
 #include <string.h>
@@ -1049,27 +1049,27 @@ double parseParameter(const char * file, const char * name)
   char * namePos;
   double u;
   pFile = fopen (file,\"r\");
-  
+
   //file existent?
   if (pFile==NULL)
   {
     ModelicaFormatError(\"Could not open file %s.\\n\",file);
   }
-  
+
   //read every line of file one after another:
   while(fgets (line , 512 , pFile) != NULL )
   {
 
     //find the name of the variable in string
     namePos = strstr (line,name);
-    
+
     //if variable name found and the next character after the name is a space, tabulator or = then it is a valid name.
     if(namePos && (namePos[strlen(name)] == ' ' || namePos[strlen(name)] == '=' || namePos[strlen(name)] == '\t'))
     {
-      
+
       //find the =
       namePos=strchr(namePos+1,'=');
-      
+
       if(namePos)
       {
         u = atof(namePos+1);
@@ -1078,9 +1078,9 @@ double parseParameter(const char * file, const char * name)
 
       }
     }
-  
+
   }
-  
+
   fclose (pFile);
   ModelicaFormatError(\"Parameter name not found: %s\",name);
   return 0;

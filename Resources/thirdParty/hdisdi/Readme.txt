@@ -7,7 +7,7 @@ corresponding license sets limits on the distributability of the
 files. Consequently, the files are not distributed with this library.
 
 Please download the WDK 7.1.0 from the following address:
- 
+
 http://www.microsoft.com/en-us/download/details.aspx?id=11800
 
 Install it on your computer search for files given below within the

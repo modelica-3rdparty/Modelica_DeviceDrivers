@@ -5,7 +5,7 @@ int main(void) {
   double simTime, availableTime, calculationTime;
   double Ts = 0.1;
   int alwaysInTime = 1;
-  
+
   printf("Priority \"below normal\" with Ts=%lf...\n", Ts);
   MDD_setPriority(-1);
   for (simTime=Ts; simTime < 1.0; simTime += Ts) {
@@ -17,4 +17,4 @@ int main(void) {
 
   return !(alwaysInTime  > 0); /* Need to invert boolean value since a zero return value indicates success */
 }
-  
+

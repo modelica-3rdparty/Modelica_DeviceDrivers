@@ -99,8 +99,8 @@ table   { solid #000; border-collapse: collapse;}
 <body lang=\"en-US\">
 
 <p>All files in this directory (\"<i>Modelica_DeviceDrivers</i>\") and in all
-subdirectories, <b>except</b> for the contents of the directories 
-\"<i>Modelica_DeviceDrivers/Resources/Library</i>\", and \"<i>Modelica_DeviceDrivers/Resources/thirdParty</i>\", 
+subdirectories, <b>except</b> for the contents of the directories
+\"<i>Modelica_DeviceDrivers/Resources/Library</i>\", and \"<i>Modelica_DeviceDrivers/Resources/thirdParty</i>\",
 are licensed by <b>DLR</b> under the
 <b>Modelica License 2</b>.</p>
 
@@ -707,12 +707,12 @@ The tool must support the Modelica external funtion interface as specified in Se
 <b>Optionally</b> following requirements need to be additionally satisfied.
 </p>
 <ol>
-<li>For the (optional) use of the blocks provided in 
-<a href=\"modelica://Modelica_DeviceDrivers.ClockedBlocks\">ClockedBlocks</a> the 
+<li>For the (optional) use of the blocks provided in
+<a href=\"modelica://Modelica_DeviceDrivers.ClockedBlocks\">ClockedBlocks</a> the
 tool needs support for the Modelica 3.3 language elements of Chapter 16
 \"Synchronous Language Elements\" of the Modelica Language Specification 3.3 </li>
 <li>
-The examples provided for the ClockedBlocks depend on the 
+The examples provided for the ClockedBlocks depend on the
 <a href=\"modelica://Modelica_Synchronous\">Modelica_Synchronous</a> library.</li>
 </ol>
 <p>

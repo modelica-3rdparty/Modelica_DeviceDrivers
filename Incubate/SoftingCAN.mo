@@ -91,7 +91,6 @@ encapsulated function readInteger "Read Integer from CAN bus"
   input CANL2 cANL2 "Handle for device";
   input Integer identifier "Identifier of CAN object/message";
   input Integer width(min=0, max=32) = 32 "Width of bits to be read";
-  input Integer bitPosition(min=0,max=63) = 0 
       "Bit position start in CAN data field there data shall be read from";
   input Real simTime "simulation Time";
 
@@ -105,7 +104,6 @@ encapsulated function writeInteger "Write Integer to CAN bus"
   input CANL2 cANL2 "Handle for device";
   input Integer identifier = 100 "Identifier of CAN object/message";
   input Integer width = 32 "Width of bits to be written";
-  input Integer bitPosition(min=0,max=63) = 0 
       "Bit position start in CAN data field there data shall be written to";
   input Integer data;
 

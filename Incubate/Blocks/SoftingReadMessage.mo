@@ -1,7 +1,7 @@
 within Modelica_DeviceDrivers.Incubate.Blocks;
 block SoftingReadMessage
   import Modelica_DeviceDrivers;
-/*  
+/*
 extends Modelica_DeviceDrivers.Incubate.Interfaces.PartialSoftingCANMessage;
   import Modelica_DeviceDrivers.Incubate.SoftingCAN;
   import Modelica_DeviceDrivers.Incubate.Types;
@@ -12,17 +12,17 @@ parameter SI.Period sampleTime = 0.1 "Period at which messages are written";
 parameter SI.Time startTime = 0 "First sample time instant";
   Modelica_DeviceDrivers.Blocks.Interfaces.PackageOut pkgOut
     annotation (Placement(transformation(extent={{-20,-128},{20,-88}})));
-protected 
+protected
   Integer objectNumber;
   Modelica_DeviceDrivers.Packaging.SerialPackager
                  pkg = SerialPackager(8);
-initial equation 
+initial equation
   objectNumber = SoftingCAN.defineObject(
     softingCANBus.softingCAN,
     ident,
     Types.TransmissionType.standardReceive);
   softingCANBus.dummy = 1;
-equation 
+equation
   pkgOut.trigger = sample(startTime, sampleTime);
   when pkgOut.trigger then
     objectNumber = pre(objectNumber);

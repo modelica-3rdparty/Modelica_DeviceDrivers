@@ -58,7 +58,7 @@ package Communication
               textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=true,
                    extent={{-100,-100},{100,100}}), graphics),
       Documentation(info="<html>
-<p>Supports reading from a named shared memory partition. The name of the shared memory partition is 
+<p>Supports reading from a named shared memory partition. The name of the shared memory partition is
 provided by the parameter <b>memoryID</b>. If the shared memory partition does not yet exist during initialization, it is created.</p>
 </html>"));
   end SharedMemoryRead;
@@ -118,7 +118,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
               textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=true,
                     extent={{-100,-100},{100,100}}), graphics),
       Documentation(info="<html>
-<p>Supports writing to a named shared memory partition. The name of the shared memory partition is 
+<p>Supports writing to a named shared memory partition. The name of the shared memory partition is
 provided by the parameter <b>memoryID</b>. If the shared memory partition does not yet exist during initialization, it is created.</p>
 </html>"));
   end SharedMemoryWrite;

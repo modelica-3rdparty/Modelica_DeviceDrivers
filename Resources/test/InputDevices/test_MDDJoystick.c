@@ -1,7 +1,7 @@
 /** Test for MDDJoystick.
- * 
- * @file 
- * @author	Bernhard Thiele <bernhard.thiele@dlr.de> 
+ *
+ * @file
+ * @author	Bernhard Thiele <bernhard.thiele@dlr.de>
  * @version	$Id$
  * @since	2012-05-27
  * @copyright Modelica License 2

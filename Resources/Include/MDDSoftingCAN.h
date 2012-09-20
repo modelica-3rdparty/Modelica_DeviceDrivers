@@ -1,13 +1,13 @@
 /** Support for Softing's CANL2 API (header-only library).
- * 
+ *
  * @file
  * @author      Bernhard Thiele <bernhard.thiele@dlr.de>
  * @author      Miguel Neves <miguel.neves@dlr.de> (human readable error codes)
  * @version     $Id: MDDSoftingCAN.h 16335 2012-07-18 12:59:39Z thie_be $
  * @since       2012-06-18
  * @copyright Modelica License 2
- * 
- * Modelica external function interface to use CAN interface cards from 
+ *
+ * Modelica external function interface to use CAN interface cards from
  * Softing (http://www.softing.com/).
  * Tested with the CANusb card under windows.
 */
@@ -65,7 +65,7 @@ struct DataFrame_struct{
 };
 
 /** External Object data structure.
- * 
+ *
  */
 typedef struct  {
     char deviceName[256];
@@ -84,7 +84,7 @@ void* MDD_softingCANConstructor(const char* deviceName, int baudRate) {
 	int ret;
 
 	MDDSoftingCAN* mDDSoftingCAN = (MDDSoftingCAN*) malloc(sizeof(MDDSoftingCAN));
-  
+
 	ModelicaFormatMessage("SoftingCAN: Initialize channel %s ...", deviceName);
 	strcpy((char*)channel.sChannelName,deviceName);
 	strcpy(mDDSoftingCAN->deviceName, deviceName);
@@ -105,7 +105,7 @@ void* MDD_softingCANConstructor(const char* deviceName, int baudRate) {
 	ModelicaFormatMessage("\tOK.\n");
 
 	//Note: Here is the knob to tune the baud rate:
-	/*                               
+	/*
 						baud rate presc sjw tseg1 tseg2
 						1 Mbaud   1     1   4     3
 						800 kBaud 1     1   6     3
@@ -127,7 +127,7 @@ void* MDD_softingCANConstructor(const char* deviceName, int baudRate) {
 						TIME_SEG2_3, SAMPLE_3);
 			break;
 		default:
-			ModelicaFormatError("SoftingCAN (%s): Initializing chip with not (yet) supported Baud Rate (enum value %d)\n", 
+			ModelicaFormatError("SoftingCAN (%s): Initializing chip with not (yet) supported Baud Rate (enum value %d)\n",
 				mDDSoftingCAN->deviceName, baudRate);
 			exit(-1);
 	}
@@ -207,7 +207,7 @@ int MDD_softingCANDefineObject(void* p_mDDSoftingCAN, int ident, int type) {
 		exit(ret);
 	}
 	switch (type) {
-	case 1: 
+	case 1:
 		strcpy(msgtype, "std rx");
 		break;
 	case 2:
@@ -304,171 +304,171 @@ void MDD_softingCANStartChip(void* p_mDDSoftingCAN) {
 /** Turn Softing(USB)-CAN error code into human readable descriptive string.
 */
 static char * descriptiveError(int ret, const char * caller_function) {
-	
+
 	if (ret<0)
 		sprintf(mDDErrorMsg, "CANL2 Error nr: %i in function %s: \n", ret, caller_function);
 	switch (ret) {
-		case -1: 
+		case -1:
 		if (caller_function=="CANL2_write_signals") strcat(mDDErrorMsg, "CANL2_write_signals: signals have not yet been initialized, this must be done by using CANL2_init_signals() \n");
 		if (caller_function=="CANL2_set_rcv_fifo_size") strcat(mDDErrorMsg, "CANL2_set_rcv_fifo_size: The FIFO size can not be changed, because the CAN controller is already online \n");
 		if (caller_function=="CANL2_init_signals") strcat(mDDErrorMsg, "CANL2_init_signals: signals have already been initialized \n");
 		break;
 
-		case -2: 
+		case -2:
 		strcpy(mDDErrorMsg, "An exclusive input port has been defined as output. \n\n");
 		if (caller_function=="CANL2_write_signals")strcat(mDDErrorMsg, "CANL2_write_signals:write access to an input signal \n");
 		if (caller_function=="CANL2_init_signals")strcat(mDDErrorMsg, "CANL2_init_signals: An exclusive input port has been defined as output / Error: write access to an input signal \n\n");
 		break;
 
-		case -3: 
+		case -3:
 		strcat(mDDErrorMsg, "Error accessing DPRAM \n\n");
 		break;
 
-		case -4: 
+		case -4:
 		strcat(mDDErrorMsg, "Timeout firmware communication \n\n");
 		break;
 
-		case -99: 
+		case -99:
 		strcat(mDDErrorMsg, "Board not initialized: INIL2_initialize_channel() was not yet called or a INIL2_close_channel() was done \n\n");
 		break;
 
-		case -102: 
+		case -102:
 		strcat(mDDErrorMsg, "Parameter error / wrong parameter \n\n");
 		break;
 
-		case -104: 
+		case -104:
 		strcat(mDDErrorMsg, "Timeout firmware communication \n\n");
 		break;
 
-		case -108: 
+		case -108:
 		strcat(mDDErrorMsg, "Wrong hardware; (CANcard2 or EDICcard2 with 25MHz instead of 24MHz) \n\n");
 		break;
 
-		case -109: 
+		case -109:
 		strcat(mDDErrorMsg, "Dyn. Obj. buffer mode not enabled \n\n");
 		break;
 
-		case -110: 
+		case -110:
 		strcat(mDDErrorMsg, "Last request still pending \n\n");
 		break;
 
-		case -111: 
+		case -111:
 		strcat(mDDErrorMsg, "Receive data frame overrun \n\n");
 		break;
 
-		case -112: 
+		case -112:
 		strcat(mDDErrorMsg, "Receive remote frame overrun \n\n");
 		break;
 
-		case -113: 
+		case -113:
 		strcat(mDDErrorMsg, "Object is undefined \n\n");
 		break;
 
-		case -114: 
+		case -114:
 		strcat(mDDErrorMsg, "Transmit acknowledge overrun \n\n");
 		break;
 
-		case -115: 
+		case -115:
 		strcat(mDDErrorMsg, "Object is not defined / access to an abject denied, because the object has not been initialized with data using CANL2_supply_object() \n\n");
 		break;
 
-		case -116: 
+		case -116:
 		strcat(mDDErrorMsg, "Transmit request FIFO overrun \n\n");
 		break;
 
-		case -602: 
+		case -602:
 		strcat(mDDErrorMsg, "Unable to open USB pipe \n\n");
 		break;
 
-		case -603: 
+		case -603:
 		strcat(mDDErrorMsg, "Communication via USB pipe broken \n\n");
 		break;
 
-		case -604: 
+		case -604:
 		strcat(mDDErrorMsg, "No valid lookup table entry found \n\n");
 		break;
 
-		case -611: 
+		case -611:
 		strcat(mDDErrorMsg, "CANusb framework initialization failed \n\n");
 		break;
 
-		case -1000: 
+		case -1000:
 		strcat(mDDErrorMsg, "Invalid channel handle / Channel not initialized: INIL2_initialize_channel() was not yet called or a INIL2_close_channel() was done \n\n");
 		break;
 
-		case -1002: 
+		case -1002:
 		strcat(mDDErrorMsg, "Too many open channels. \n\n");
 		break;
 
-		case -1003: 
+		case -1003:
 		strcat(mDDErrorMsg, "Wrong DLL or driver version. \n\n");
 		break;
 
-		case -1004: 
+		case -1004:
 		strcat(mDDErrorMsg, "Error while loading the firmware. (This may be a DPRAM access error) \n\n");
 		break;
 
-		case -1005: 
+		case -1005:
 		strcat(mDDErrorMsg, "CANusb DLL (CANusbM.dll) not found \n\n");
 		break;
 
-		case -536215500: 
+		case -536215500:
 		strcat(mDDErrorMsg, "Error while calling a Windows function \n\n");
 		break;
 
-		case -536215511: 
+		case -536215511:
 		strcat(mDDErrorMsg, "Channel can not be accessed, because it is not open \n\n");
 		break;
 
-		case -536215512: 
+		case -536215512:
 		strcat(mDDErrorMsg, "An incompatible firmware is running on that device (CANalyzer/CANopen/DeviceNet firmware) \n\n");
 		break;
 
-		case -536215514: 
+		case -536215514:
 		strcat(mDDErrorMsg, "Device is already open \n\n");
 		break;
 
-		case -536215516: 
+		case -536215516:
 		strcat(mDDErrorMsg, "Interrupt does not work/Interrupt test failed! \n\n");
 		break;
 
-		case -536215519: 
+		case -536215519:
 		strcat(mDDErrorMsg, "Can not access the DPRAM memory \n\n");
 		break;
 
-		case -536215521: 
+		case -536215521:
 		strcat(mDDErrorMsg, "Error while accessing hardware \n\n");
 		break;
 
-		case -536215522: 
+		case -536215522:
 		strcat(mDDErrorMsg, "Can not get a free address region for DPRAM from system \n\n");
 		break;
 
-		case -536215523: 
+		case -536215523:
 		strcat(mDDErrorMsg, "Device not found \n\n");
 		break;
 
-		case -536215531: 
+		case -536215531:
 		strcat(mDDErrorMsg, "An error occurred while hooking the interrupt service routine \n\n");
 		break;
 
-		case -536215541: 
+		case -536215541:
 		strcat(mDDErrorMsg, "Out of memory \n\n");
 		break;
 
-		case -536215542: 
+		case -536215542:
 		strcat(mDDErrorMsg, "Driver not loaded / not installed, or device is not plugged. \n\n");
 		break;
 
-		case -536215546: 
+		case -536215546:
 		strcat(mDDErrorMsg, "Illegal driver call \n\n");
 		break;
 
-		case -536215550: 
+		case -536215550:
 		strcat(mDDErrorMsg, "General Error \n\n");
 		break;
 
-		case -536215551: 
+		case -536215551:
 		strcat(mDDErrorMsg, "Internal Error \n\n");
 		break;
 	}

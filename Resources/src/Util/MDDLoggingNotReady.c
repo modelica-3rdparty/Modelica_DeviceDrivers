@@ -1,5 +1,5 @@
 /** Basic logging stuff (not ready, not used, yet).
- * 
+ *
  * @file
  * @author      Bernhard Thiele <bernhard.thiele@dlr.de>
  * @version     $Id$

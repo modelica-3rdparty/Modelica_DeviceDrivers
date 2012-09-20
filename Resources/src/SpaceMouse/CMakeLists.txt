@@ -17,7 +17,7 @@ if (UNIX)
   else (srcXdrvlib)
     message("xdrvlib.c not found. No support for 3Dconnexion Space Mouse!")
   endif (srcXdrvlib)
-  # old logic  
+  # old logic
   # set(libSrcsMDDSpaceMouseLibrary MDDSpaceMouse.c ../../thirdParty/3DconnexionSDK/xdrvlib.c)
   # add_library(MDDSpaceMouse STATIC ${libSrcsMDDSpaceMouseLibrary})
   # target_link_libraries(MDDSpaceMouse m X11 pthread)
@@ -35,20 +35,20 @@ else (MSVC)
   else ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
 	  message(SEND_ERROR "Uups. Neither 64, nor 32 bit??")
   endif ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
-  if ( MSVC_HID_LIBRARY )  
+  if ( MSVC_HID_LIBRARY )
 	  set(libSrcsMDDSpaceMouseLibrary MDDSpaceMouse.c)
 	  add_library(MDDSpaceMouse STATIC ${libSrcsMDDSpaceMouseLibrary})
-	  # Unfortunately the following doesn't combine the libraries as intended, 
+	  # Unfortunately the following doesn't combine the libraries as intended,
 	  # and it seems not to be possible, yet:
 	  # http://cmake.3232098.n2.nabble.com/Merge-two-static-libraries-tp5602251p5602276.html
-	  # The libraries below get instead linked directly into the 
+	  # The libraries below get instead linked directly into the
 	  # test_MDDSpaceMouse executable.
 	  # ==> NEED TO COMBINE THE LIBRARIES *MANUALLY* IN MSVC!
 	  message("MDDSpaceMouse: Add libraries hid.lib and setupapi.lib manually to generated VS project, since not supported to do that automatically by cmake")
 	  target_link_libraries(MDDSpaceMouse ${MSVC_HID_LIBRARY} ${MSVC_SETUPAPI_LIBRARY})
-  else ( MSVC_HID_LIBRARY ) 
+  else ( MSVC_HID_LIBRARY )
 	message("hid.lib not found. No support for 3Dconnexion Space Mouse!")
-  endif ( MSVC_HID_LIBRARY ) 
+  endif ( MSVC_HID_LIBRARY )
 else (UNIX)
   message(SEND_ERROR "Uups. Not UNIX, not MSVC")
 endif (UNIX)

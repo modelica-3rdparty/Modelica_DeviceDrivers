@@ -6,7 +6,7 @@
  * @version	$Id: MDDSharedMemory.h 16377 2012-07-23 13:12:25Z thie_be $
  * @since	2012-06-04
  * @copyright Modelica License 2
- * 
+ *
  */
 
 #ifndef MDDSHAREDMEMORY_H_
@@ -19,7 +19,7 @@
 
 #include <stdio.h>
 #include <conio.h>
-#include <tchar.h> 
+#include <tchar.h>
 #include  "ModelicaUtilities.h"
 
 struct sharedMemoryBuffer
@@ -27,50 +27,50 @@ struct sharedMemoryBuffer
   char * sharedMemoryBuffer;
   HANDLE hMapFile;
 };
-  
+
 
 void* MDD_SharedMemoryConstructor(char * name, int bufSize) {
   struct sharedMemoryBuffer * smb = (struct sharedMemoryBuffer *)malloc(sizeof(struct sharedMemoryBuffer));
   smb->hMapFile = CreateFileMappingA(
 				     INVALID_HANDLE_VALUE,    // use paging file
-				     NULL,                    // default security 
+				     NULL,                    // default security
 				     PAGE_READWRITE,          // read/write access
-				     0,                       // maximum object size (high-order DWORD) 
-				     bufSize+ sizeof(int),    // maximum object size (low-order DWORD)  
+				     0,                       // maximum object size (high-order DWORD)
+				     bufSize+ sizeof(int),    // maximum object size (low-order DWORD)
 				     name);                 // name of mapping object
   if(GetLastError() == ERROR_ALREADY_EXISTS)
     {
-                
+
       smb->hMapFile = OpenFileMappingA(
 				       FILE_MAP_ALL_ACCESS,   // read/write access
 				       FALSE,                 // do not inherit the name
-				       name);                 // name of mapping object 
+				       name);                 // name of mapping object
       //printf(\"Opening existing FileMapping\\n\");
 
     }
 
-  if (smb->hMapFile == NULL) 
-    { 
-      ModelicaFormatError("Could not create file mapping object (%d).\n", 
+  if (smb->hMapFile == NULL)
+    {
+      ModelicaFormatError("Could not create file mapping object (%d).\n",
 			  GetLastError());
       return NULL;
     }
   smb->sharedMemoryBuffer = (char * ) MapViewOfFile(smb->hMapFile,   // handle to map object
 						    FILE_MAP_ALL_ACCESS, // read/write permission
-						    0,                   
-						    0,                   
-						    bufSize+ sizeof(int));           
+						    0,
+						    0,
+						    bufSize+ sizeof(int));
 
-  if (smb->sharedMemoryBuffer == NULL) 
-    { 
-      ModelicaFormatError("Could not map view of file (%d).\n", 
-			  GetLastError()); 
+  if (smb->sharedMemoryBuffer == NULL)
+    {
+      ModelicaFormatError("Could not map view of file (%d).\n",
+			  GetLastError());
 
       CloseHandle(smb->hMapFile);
 
       return NULL;
     }
-        
+
 
   return smb;
 }
@@ -80,7 +80,7 @@ void MDD_SharedMemoryDestructor(void* p_smb) {
   CloseHandle(smb->hMapFile);
   free(smb);
 }
-  
+
 
 unsigned int MDD_SharedMemoryGetDataSize(void * p_smb)
 {
@@ -92,13 +92,13 @@ unsigned int MDD_SharedMemoryGetDataSize(void * p_smb)
 const char * MDD_SharedMemoryRead(void * p_smb)
 {
   struct sharedMemoryBuffer * smb = (struct sharedMemoryBuffer *) p_smb;
-  //this is potentially dangerous.  
+  //this is potentially dangerous.
   return (const char*) smb->sharedMemoryBuffer+sizeof(int);
 }
 void MDD_SharedMemoryWrite(void * p_smb,char * buffer, unsigned int len)
 {
   struct sharedMemoryBuffer * smb = (struct sharedMemoryBuffer *) p_smb;
-  //struct sharedMemoryBuffer * smb = (struct sharedMemoryBuffer *) smbPointer; 
+  //struct sharedMemoryBuffer * smb = (struct sharedMemoryBuffer *) smbPointer;
   memcpy(smb->sharedMemoryBuffer + sizeof(unsigned int),buffer,len);
   memcpy(smb->sharedMemoryBuffer,&len,sizeof(unsigned int));
 }
@@ -116,7 +116,7 @@ void MDD_SharedMemoryWrite(void * p_smb,char * buffer, unsigned int len)
 
 typedef struct MDDMmap_struct MDDMmap;
 
-/** External object structure keeping track of persistent data 
+/** External object structure keeping track of persistent data
  */
 struct MDDMmap_struct {
         char shmname[30]; /**< name of memory partition */
@@ -145,13 +145,13 @@ void * MDD_SharedMemoryConstructor(const char * name, int bufSize) {
     ModelicaFormatError("MDDSharedMemory.h: sem_open failure (%s)\n", strerror(errno));
     exit(-1);
   }
-      
+
   sem_getvalue(smb->semdes, &sval);
   if (sval < 1) {
     ModelicaFormatMessage("Attention: Semaphore '%s' is locked (has currently value %d).\n"
 			  "Attention: Will have to wait until it is released (this may lock forever!)\n", smb->semname, sval);
   }
-      
+
   /* Lock the semaphore */
   if (!sem_wait(smb->semdes)) {
 
@@ -160,14 +160,14 @@ void * MDD_SharedMemoryConstructor(const char * name, int bufSize) {
       exit(-1);
     }
 
-    ModelicaFormatMessage("Open shared memory object '%s' for r/w\n", smb->shmname); 
+    ModelicaFormatMessage("Open shared memory object '%s' for r/w\n", smb->shmname);
     smb->shmdes = shm_open(smb->shmname, O_CREAT|O_RDWR|O_TRUNC, 0644);
     if ( smb->shmdes == -1 ) {
       ModelicaFormatError("MDDSharedMemory.h: shm_open failure (%s)", strerror(errno));
       exit(-1);
     }
 
-    /* 'truncate' shared memory object to needed size 
+    /* 'truncate' shared memory object to needed size
      * (preallocate the shared memory area) */
     ret = ftruncate(smb->shmdes, smb->shm_size);
     if (ret == -1){
@@ -189,13 +189,13 @@ void * MDD_SharedMemoryConstructor(const char * name, int bufSize) {
     if (sem_getvalue(smb->semdes, &sval)) {
       ModelicaFormatError("MDDSharedMemory.h: sem_getvalue failed (%s)\n", strerror(errno));
     }
-  }      
-      
+  }
+
   return (void*) smb;
 }
 
 void MDD_SharedMemoryDestructor(void * p_smb) {
-  MDDMmap* smb = (MDDMmap*) p_smb;  
+  MDDMmap* smb = (MDDMmap*) p_smb;
   int ret;
 
   munmap(smb->shmptr, smb->shm_size);
@@ -231,14 +231,14 @@ void MDD_SharedMemoryDestructor(void * p_smb) {
   } else {
     ModelicaFormatMessage("Semaphore '%s' successfully unlinked\n", smb->semname);
   }
-    
+
   free(smb);
 }
 
- 
+
 const char * MDD_SharedMemoryRead(void* p_smb) {
-  MDDMmap* smb = (MDDMmap*) p_smb;  
-  
+  MDDMmap* smb = (MDDMmap*) p_smb;
+
   /* Lock the semaphore */
   if(!sem_wait(smb->semdes)){
     /* Access to the shared memory area */
@@ -251,25 +251,25 @@ const char * MDD_SharedMemoryRead(void* p_smb) {
 
 void MDD_SharedMemoryWrite(void* p_smb, const char * buffer, unsigned int len) {
   MDDMmap* smb = (MDDMmap*) p_smb;
-    
+
   /* Lock the semaphore */
   if(!sem_wait(smb->semdes)){
     /* Access to the shared memory area */
     memcpy(smb->shmptr, buffer, len);
     /* Release the semaphore lock */
     sem_post(smb->semdes);
-  }    
+  }
 }
-  
+
 int MDD_SharedMemoryGetDataSize(void * p_smb) {
   MDDMmap* smb = (MDDMmap*) p_smb;
   return smb->shm_size;
 }
-  
+
 #else
 
 #error "Modelica_DeviceDrivers: No support of shared memory for your platform"
 
 #endif /* defined(_MSC_VER) */
- 
+
 #endif /* MDDSHAREDMEMORY_H_ */

@@ -1,13 +1,13 @@
 /** Serial packager to be used in Modelica (header-only library).
- * 
+ *
  * @file
  * @author      Bernhard Thiele <bernhard.thiele@dlr.de>
  * @version     $Id: MDDSerialPackager.h 16375 2012-07-23 12:01:12Z thie_be $
  * @since       2012-07-10
  * @copyright Modelica License 2
- * 
+ *
  * The first version of the packager ("MinimalSerialPackager") was written by Tobias Bellmann <tobias.bellmann@dlr.de>.
- * 
+ *
  *
 */
 
@@ -23,14 +23,14 @@
 
 typedef struct {
         unsigned int pos;
-        unsigned int bitOffset; 
+        unsigned int bitOffset;
         unsigned int size;
         unsigned char* data;
 } SerialPackager;
 
 
 /** External object constructor for SerialPackager.
- * 
+ *
  * @param[in] size size in bytes of package data
  * @return pointer to external SerialPackager object
  */
@@ -89,11 +89,11 @@ char *  MDD_SerialPackagerGetData(void* p_package) {
 }
 
 /** Copy data into the packager's payload data buffer.
- * 
+ *
  * If @c size is smaller than the physical size of the payload buffer, the
  * buffers @c size variable is silently set to the smaller size. If @c size is bigger,
  * the function exits with an error message.
- * 
+ *
  * The packager's @c pos and @c bitOffset variables are set to 0.
  *
  * @param[in,out] p_package pointer to the SerialPackager.
@@ -145,15 +145,15 @@ void MDD_SerialPackagerClear(void* p_package) {
  */
 void MDD_SerialPackagerAlignToByteBoundery(SerialPackager* p_package) {
         SerialPackager* pkg = (SerialPackager*) p_package;
-        pkg->pos += pkg->bitOffset % 8 == 0 ? 
-                        pkg->bitOffset / 8 : 
+        pkg->pos += pkg->bitOffset % 8 == 0 ?
+                        pkg->bitOffset / 8 :
                         pkg->bitOffset / 8 + 1;
         pkg->bitOffset = 0;
 }
 
 /** Add integer array at current byte position.
- * 
- * If p_package->bitOffset != 0 the value is aligned to the next byte boundery, 
+ *
+ * If p_package->bitOffset != 0 the value is aligned to the next byte boundery,
  * i.e., p_package->bitOffset set to 0 and p_package->pos++.
  * @param[in,out] p_package pointer to the SerialPackager
  * @param[in] u array of integer values
@@ -172,18 +172,18 @@ void MDD_SerialPackagerAddInteger(void* p_package, const int * u, int n) {
 }
 
 /** Get integer array at current byte position.
- * 
- * If p_package->bitOffset != 0 the value is read from the next byte boundery, 
+ *
+ * If p_package->bitOffset != 0 the value is read from the next byte boundery,
  * i.e., p_package->bitOffset set to 0 and p_package->pos++.
- * 
+ *
  * @param[in,out] p_package pointer to the SerialPackager
  * @param[out] y array of integer values
  * @param[in] n requested number of integer values
- * 
+ *
  */
 void MDD_SerialPackagerGetInteger(void* p_package, int * y, int n) {
         SerialPackager* pkg = (SerialPackager*) p_package;
-        
+
         if (pkg->bitOffset != 0) MDD_SerialPackagerAlignToByteBoundery(pkg);
         if (pkg->pos + n*sizeof(int) > pkg->size) {
                 ModelicaFormatError("SerialPackager: MDD_SerialPackagerGetInteger failed. Buffer overflow. Exiting.\n");
@@ -196,7 +196,7 @@ void MDD_SerialPackagerGetInteger(void* p_package, int * y, int n) {
 
 /** Add double array at current byte position.
  *
- * If p_package->bitOffset != 0 the value is aligned to the next byte boundery, 
+ * If p_package->bitOffset != 0 the value is aligned to the next byte boundery,
  * i.e., p_package->bitOffset set to 0 and p_package->pos++.
  * @param[in,out] p_package pointer to the SerialPackager
  * @param[in] u array of double values
@@ -214,13 +214,13 @@ void MDD_SerialPackagerAddDouble(void* p_package, const double * u, int n) {
 }
 
 /** Get double array at current byte position.
- * 
- * If p_package->bitOffset != 0 the value is read from to the next byte boundery, 
+ *
+ * If p_package->bitOffset != 0 the value is read from to the next byte boundery,
  * i.e., p_package->bitOffset set to 0 and p_package->pos++.
  * @param[in,out] p_package pointer to the SerialPackager
  * @param[out] y array of double values
  * @param[in] n requested number of values
- * 
+ *
  */
 void MDD_SerialPackagerGetDouble(void* p_package, double * y, int n) {
         SerialPackager* pkg = (SerialPackager*) p_package;
@@ -234,8 +234,8 @@ void MDD_SerialPackagerGetDouble(void* p_package, double * y, int n) {
 }
 
 /** Add string at current byte position.
- * 
- * If p_package->bitOffset != 0 the value is aligned to the next byte boundery, 
+ *
+ * If p_package->bitOffset != 0 the value is aligned to the next byte boundery,
  * i.e., p_package->bitOffset set to 0 and p_package->pos++.
  * @param[in,out] p_package pointer to the SerialPackager
  * @param[in] u zero terminated string
@@ -254,8 +254,8 @@ void MDD_SerialPackagerAddString(void* p_package, const char* u) {
 
 
 /** Get string from current byte position.
- * 
- * If p_package->bitOffset != 0 the value is aligned to the next byte boundery, 
+ *
+ * If p_package->bitOffset != 0 the value is aligned to the next byte boundery,
  * i.e., p_package->bitOffset set to 0 and p_package->pos++.
  * @param[in,out] p_package pointer to the SerialPackager
  * @param[out] y pointer to '\0' terminated string or NULL if no terminated '\0' found in package data.
@@ -270,15 +270,15 @@ char* MDD_SerialPackagerGetString(void* p_package) {
         if (pkg->pos + sizeof(char) > pkg->size) {
                 ModelicaFormatError("SerialPackager: MDD_SerialPackagerGetString failed. Buffer overflow. Exiting.\n");
                 exit(-1);
-        }        
-        
+        }
+
         for (i=pkg->pos; i < pkg->size - pkg->pos; i++) {
                 if (pkg->data[i] == '\0') {
                         found = 1;
                         break;
                 }
         }
-        
+
         if (!found) {
                 ModelicaFormatError("SerialPackager: MDD_SerialPackagerGetString failed. No terminating '\0' found in buffer\n");
                 y = NULL;
@@ -429,7 +429,7 @@ void MDD_SerialPackagerIntegerBitpack2(void* p_package, int bitOffset, int width
 /** Pack IEEE float value into CAN data.
  *
  * @deprecated This is from the original CANMessage code. However functionality to Pack IEEE float between non-byte bounderies might not be needed in practice?
- * 
+ *
  * @param[in] p_package pointer to the SerialPackager
  * @param[in] bitStartPosition data bit position where writing shall start
  * @param[in] int float value that shall be encoded into CAN message
@@ -468,7 +468,7 @@ void MDD_CANMessageFloatBitpacking(void* p_cANMessage, int bitStartPosition, dou
 /** Unpack IEEE float value from CAN data.
  *
  * @deprecated This is from the original CANMessage code. However functionality to Pack IEEE float between non-byte bounderies might not be needed in practice?
- * 
+ *
  * @param[in] p_cANMessage pointer to the CANMessage
  * @param[in] bitStartPosition data bit position where reading shall start (min=0)
  * @return value of extracted IEEE float converted to double in order to support Modelica's external function interface
@@ -503,9 +503,9 @@ double MDD_CANMessageFloatBitunpacking(void* p_cANMessage, int bitStartPosition)
 
 
 /** A memcpy which handles bit offsets and copies specified on bit length level.
- * 
+ *
  * @deprecated Never tested. Almost Certainly buggy. Probably this functionality is never needed?
- * 
+ *
  * Bit offset is counted in the direction of array layout. Assume an char a[2] vector with the following layout:
  @verbatim
      0        1
@@ -518,7 +518,7 @@ double MDD_CANMessageFloatBitunpacking(void* p_cANMessage, int bitStartPosition)
  * @param[out] destination target memory block
  * @param[in] source source memory block
  * @param[in] bitSourceOffset bit offset in source memory block (0-7)
- * @param[in] bitLength bit length of memory that shall be copied from offseted source to the destination 
+ * @param[in] bitLength bit length of memory that shall be copied from offseted source to the destination
  * @return Pointer to destination
  */
 void * MDD_SerialPackagerMemcpyBitRead(void* destination, const void* source, unsigned int bitSourceOffset, unsigned int bitLength) {
@@ -528,12 +528,12 @@ void * MDD_SerialPackagerMemcpyBitRead(void* destination, const void* source, un
         unsigned int nBytesSrc = (bitLength + bitSourceOffset) % 8 == 0 ? (bitLength + bitSourceOffset) / 8 : (bitLength + bitSourceOffset) / 8 + 1;
         unsigned int nBytesBuffer = bitLength % 8 == 0 ? bitLength / 8 : bitLength / 8 + 1;
         int i=0,nBits=bitLength;
-        
+
         if (bitSourceOffset > 7) {
                 ModelicaFormatError("MDDSerialPackager: bit offsets in MDD_SerialPackagerBitmemcpy greater than max value 7. Exiting.\n");
                 exit(-1);
         }
-        
+
         if (bitSourceOffset == 0 && bitLength % 8 == 0) {
                 assert(nBytesSrc == nBytesBuffer);
                 memcpy(dest, src, nBytesSrc);
@@ -545,25 +545,25 @@ void * MDD_SerialPackagerMemcpyBitRead(void* destination, const void* source, un
         } else if (bitSourceOffset != 0 && bitLength % 8 == 0) {
                 assert(nBytesSrc == nBytesBuffer + 1);
                 for (i=0; i < nBytesBuffer; i++) {
-                        dest[i] = src[i] << bitSourceOffset | ( src[i+1] >> (8-bitSourceOffset) ); 
-                }                
+                        dest[i] = src[i] << bitSourceOffset | ( src[i+1] >> (8-bitSourceOffset) );
+                }
         } else if (bitSourceOffset != 0 && bitLength % 8 != 0 && (bitLength + bitSourceOffset) % 8 == 0) {
                 assert(nBytesSrc == nBytesBuffer);
                 for (i=0; i < nBytesBuffer - 1; i++) {
-                        dest[i] = src[i] << bitSourceOffset | ( src[i+1] >> (8-bitSourceOffset) ); 
+                        dest[i] = src[i] << bitSourceOffset | ( src[i+1] >> (8-bitSourceOffset) );
                 }
-                /* The last element needs the lower bits of the src to be moved up in order to align at the 
+                /* The last element needs the lower bits of the src to be moved up in order to align at the
                  memory bounder between dest[nBytesSrc-2] and dest[nBytesSrc-1]*/
                 dest[nBytesSrc - 1] = src[nBytesSrc - 1] << bitSourceOffset;
         } else if (bitSourceOffset != 0 && bitLength % 8 != 0 && (bitLength + bitSourceOffset) % 8 != 0
                 && (bitLength % 8 + bitSourceOffset) < 8) {
                 assert(nBytesSrc == nBytesBuffer);
                 for (i=0; i < nBytesBuffer - 1; i++) {
-                        dest[i] = src[i] << bitSourceOffset | ( src[i+1] >> (8-bitSourceOffset) ); 
+                        dest[i] = src[i] << bitSourceOffset | ( src[i+1] >> (8-bitSourceOffset) );
                 }
-                /* The last element needs 
+                /* The last element needs
                  * a) the upper src bits wiped out
-                 * b) the remaining bits of the src to be moved up in order to align at the 
+                 * b) the remaining bits of the src to be moved up in order to align at the
                  *     memory bounder between dest[nBytesSrc-2] and dest[nBytesSrc-1]
                  */
                 dest[nBytesSrc - 1] = ( src[nBytesSrc - 1] >> (8 - (bitLength % 8 + bitSourceOffset)) ) << bitSourceOffset;
@@ -579,7 +579,7 @@ void * MDD_SerialPackagerMemcpyBitRead(void* destination, const void* source, un
                  * b) The (not-to-be-copied) bits of the last src element (src[nBytes]) wiped out
                  * c) Align the bits after the bits from the remaining bits of the second to last elment of src
                  */
-                dest[nBytesSrc - 1] = src[nBytesSrc - 1] << (8-bitSourceOffset) 
+                dest[nBytesSrc - 1] = src[nBytesSrc - 1] << (8-bitSourceOffset)
                         | ( (src[nBytesSrc] >> (8 - ((bitLength + bitSourceOffset) % 8) ) << (8 - ((bitLength + bitSourceOffset) % 8) ) ) >> bitSourceOffset );
         } else {
         ModelicaFormatError("MDDSerialPackager: Uups, it's not possible to get here!? Exiting.\n");

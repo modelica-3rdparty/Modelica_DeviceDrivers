@@ -1,14 +1,14 @@
  /** Test for MDDSerialPackager.
- * 
+ *
  * @file
- * @author      Bernhard Thiele <bernhard.thiele@dlr.de> 
+ * @author      Bernhard Thiele <bernhard.thiele@dlr.de>
  * @version     $Id$
  * @since       2012-07-10
  * @copyright Modelica License 2
  * @test Test for MDDSerialPackager.h.
- * 
+ *
 */
- 
+
 #include <stdio.h>
 #include <string.h>
 #include "../../Include/MDDSerialPackager.h"
@@ -42,11 +42,11 @@ int test_add2Pkg() {
         pkg = MDD_SerialPackagerConstructor(size);
         MDD_SerialPackagerAddInteger(pkg, a, 3);
         MDD_SerialPackagerAddDouble(pkg, c, 3);
-        
+
         MDD_SerialPackagerSetPos(pkg, 0);
         MDD_SerialPackagerGetInteger(pkg, b, 3);
-        MDD_SerialPackagerGetDouble(pkg, d, 3);        
-        
+        MDD_SerialPackagerGetDouble(pkg, d, 3);
+
         failure = (d[0] == 0.5 && d[1] == 1.5 && d[2] == 2.5) ? 0 : 1;
         failure = failure | (b[0] == 1 && b[1] == 2 && b[2] == 3) ? 0 : 1;
         MDD_SerialPackagerDestructor(pkg);
@@ -65,7 +65,7 @@ int test_add2PkgBoundery() {
         printf("test_add2PkgBoundery: Adding and getting from SerialPackager of size %d .. ", size);
         pkg = MDD_SerialPackagerConstructor(size);
         MDD_SerialPackagerAddInteger(pkg, &a, 1);
-        
+
         MDD_SerialPackagerSetPos(pkg, 0);
         MDD_SerialPackagerGetInteger(pkg, &b, 1);
 
@@ -91,7 +91,7 @@ int test_bitPack2Pkg() {
         a = MDD_SerialPackagerIntegerBitunpack(pkg, 3, 2);
         b = MDD_SerialPackagerIntegerBitunpack(pkg, 5, 12);
         failure = (a == 3 && b == 4095) ? 0 : 1;
-        
+
         if (failure) {
                 printf("\tFAILED\n");
         } else {
@@ -123,7 +123,7 @@ int test_addString() {
         failure = strcmp(a,a_) == 0 ? 0 : 1;
         failure = failure || b == b_ ? 0 : 1;
         failure = failure || strcmp(c,c_) == 0 ? 0 : 1;
-        
+
         if (failure) {
                 printf("\tFAILED\n");
         } else {

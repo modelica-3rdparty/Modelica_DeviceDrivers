@@ -1,4 +1,4 @@
 within Modelica_DeviceDrivers.Incubate;
-package Interfaces 
+package Interfaces
 
 end Interfaces;

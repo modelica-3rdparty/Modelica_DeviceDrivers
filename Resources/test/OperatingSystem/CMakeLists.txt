@@ -29,7 +29,7 @@ endif (NOT MSVC)
 add_test(test_MDDRealtimeSynchronize_low ${EXECUTABLE_OUTPUT_PATH}/test_MDDRealtimeSynchronize_low)
 
 add_executable(test_MDDRealtimeSynchronize_normal test_MDDRealtimeSynchronize_normal.c ../Util/ModelicaUtilities.c)
-if (NOT MSVC)  
+if (NOT MSVC)
   target_link_libraries(test_MDDRealtimeSynchronize_normal m rt)
 endif (NOT MSVC)
 add_test(test_MDDRealtimeSynchronize_normal ${EXECUTABLE_OUTPUT_PATH}/test_MDDRealtimeSynchronize_normal)

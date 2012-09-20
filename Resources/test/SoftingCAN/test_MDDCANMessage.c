@@ -1,5 +1,5 @@
 /** Test CAN message encoding/decoding.
- * 
+ *
  * @file
  * @author      Bernhard Thiele <bernhard.thiele@dlr.de>
  * @version     $Id$
@@ -28,7 +28,7 @@ int test_packAndUnpackFloatAtByteBoundery() {
     failed = fabs(value1 - 3.2) < 2*FLT_EPSILON ? 0 : 1;
 	MDD_CANMessageDestructor(msg1);
 	printf("%s .. Packed value: %lf, got value: %lf\n.", failed ? "FAILED!" : "OK", 3.2, value1);
-	
+
 	return failed;
 }
 
@@ -43,7 +43,7 @@ int test_packAndUnpackFloatWithOffsetToByteBoundery() {
 	value1 = MDD_CANMessageFloatBitunpacking(msg1, 9);
     failed = fabs(value1 - 3.3) < 2*FLT_EPSILON ? 0 : 1;
 	MDD_CANMessageDestructor(msg1);
-	printf("%s .. Packed value: %lf, got value: %lf\n.", failed ? "FAILED!" : "OK", 3.3, value1);	
+	printf("%s .. Packed value: %lf, got value: %lf\n.", failed ? "FAILED!" : "OK", 3.3, value1);
 	return failed;
 }
 
@@ -58,7 +58,7 @@ int test_packAndUnpackDouble() {
 	value1 = MDD_CANMessageDoubleBitunpacking(msg1);
     failed = fabs(value1 - 4.4) < 2*DBL_EPSILON ? 0 : 1;
 	MDD_CANMessageDestructor(msg1);
-	printf("%s .. Packed value: %lf, got value: %lf\n.", failed ? "FAILED!" : "OK", 4.4, value1);	
+	printf("%s .. Packed value: %lf, got value: %lf\n.", failed ? "FAILED!" : "OK", 4.4, value1);
 	return failed;
 }
 
@@ -71,7 +71,7 @@ int main() {
 	int myIntValueOut=0;
 
 	printf("Testing CAN message encoding/decoding\n");
-	
+
 	/* Is intel endianness correctly supported? */
 	memcpy(msg2->data+1, &myIntValueIn, sizeof(int));
 	myIntValueOut = MDD_CANMessageIntegerBitunpacking((void*)msg2, 8, 32);
