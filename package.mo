@@ -3,6 +3,15 @@ package Modelica_DeviceDrivers "A collection of drivers interfacing hardware lik
  extends Modelica.Icons.Package;
 
 
+
+
+
+
+
+
+
+
+
 annotation (preferredView="info",
   uses(Modelica(version="3.2")),
     version="1.0",
@@ -22,12 +31,12 @@ that interfaces hardware drivers. There is support for input devices, communicat
 For an introduction, have especially a look at:
 </p>
 <ul>
-<li> <a href=\"modelica://Modelica_Synchronous.UsersGuide.GettingStarted\">Getting started</a>
+<li> <a href=\"modelica://Modelica_DeviceDrivers.UsersGuide.GettingStarted\">Getting started</a>
      provides an overview of the Library
-     inside the <a href=\"modelica://Modelica_Synchronous.UsersGuide\">User's Guide</a>.</li>
-<li><a href=\"modelica://Modelica_Synchronous.UsersGuide.ReleaseNotes\">Release Notes</a>
+     inside the <a href=\"modelica://Modelica_DeviceDrivers.UsersGuide\">User's Guide</a>.</li>
+<li><a href=\"modelica://Modelica_DeviceDrivers.UsersGuide.ReleaseNotes\">Release Notes</a>
     summarizes the changes of new versions of this package.</li>
-<li> <a href=\"modelica://Modelica_Synchronous.UsersGuide.Contact\">Contact</a>
+<li> <a href=\"modelica://Modelica_DeviceDrivers.UsersGuide.Contact\">Contact</a>
      gives author and acknowledgement information for this library.</li>
 </ul>
 
