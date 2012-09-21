@@ -23,8 +23,40 @@ package UsersGuide "User's Guide"
 </html>"));
   end GettingStarted;
 
-  class Literature "Literature"
+  class Requirements "Requirements"
     extends Modelica.Icons.Information;
+    annotation (Documentation(info="<html>
+<p>
+The tool must support the Modelica external funtion interface as specified in Section 12.9 of the Modelica specification 3.2 and later.
+</p>
+<p>
+<b>Optionally</b> following requirements need to be additionally satisfied.
+</p>
+<ol>
+<li>For the (optional) use of the blocks provided in
+<a href=\"modelica://Modelica_DeviceDrivers.ClockedBlocks\">ClockedBlocks</a> the
+tool needs support for the Modelica 3.3 language elements of Chapter 16
+\"Synchronous Language Elements\" of the Modelica Language Specification 3.3 </li>
+<li>
+The examples provided for the ClockedBlocks depend on the
+<a href=\"modelica://Modelica_Synchronous\">Modelica_Synchronous</a> library.</li>
+</ol>
+<p>
+Please note that the package <a href=\"modelica://Modelica_DeviceDrivers.Blocks\">Blocks</a>
+realizes similar functionality as provided by ClockedBlocks, but is also usable by tools
+that have no support for the synchronous language elements.
+</p>
+<h4>Modelica tools known to work with that library</h4>
+<p>
+The library was tested with Dymola 2013 and a prototype of Dymola supporting the \"Synchrchronous Language Elements\" (see above).
+The library is known to work only partly with Dymola 2012FD0, due to a bug in handling external objects in that Dymola version.
+</p>
+</html>
+"));
+  end Requirements;
+
+  class References "References"
+    extends Modelica.Icons.References;
     annotation (Documentation(info="<html>
 <p>
 This library is based on various resources (mainly within the internet) describing the C-APIs of the devices supported in this library. Amongst others, following references were used:
@@ -42,42 +74,9 @@ This library is based on various resources (mainly within the internet) describi
 <dd> <b>The Open Group Base Specifications Issue 6</b>.
       <a href=\"http://pubs.opengroup.org/onlinepubs/009695399/\">http://pubs.opengroup.org/onlinepubs/009695399/</a>. <br>&nbsp;</dd>
 </dl>
-
 </html>
 "));
-  end Literature;
-
-  package ReleaseNotes "Release notes"
-    extends Modelica.Icons.Information;
-    class Version_0_9 "Version 0.9 (Aug. 28, 2012)"
-      extends Modelica.Icons.Information;
-      annotation (Documentation(info="<html>
-<p>
-First public version of the library.
-</p>
-
-</html>
-"));
-    end Version_0_9;
-
-    class Version_1_0 "Version 1.0 (Sept. 20, 2012)"
-      extends Modelica.Icons.Information;
-      annotation (Documentation(info="<html>
-<p>
-Improved documentation.
-</p>
-
-</html>
-"));
-    end Version_1_0;
-    annotation (Documentation(info="<html>
-<p>
-This section summarizes the changes that have been performed
-on the Modelica_Synchronous library.
-</p>
-
-</html>"));
-  end ReleaseNotes;
+  end References;
 
 class ModelicaLicense2 "Modelica License 2"
   extends Modelica.Icons.Information;
@@ -697,40 +696,40 @@ printing and shipping costs may be recovered.</p>
 </html>"));
 end ModelicaLicense2;
 
-  class Requirements "Requirements"
-    extends Modelica.Icons.Information;
-    annotation (Documentation(info="<html>
+  package ReleaseNotes "Release notes"
+    extends Modelica.Icons.ReleaseNotes;
+    class Version_0_9 "Version 0.9 (Aug. 28, 2012)"
+      extends Modelica.Icons.ReleaseNotes;
+      annotation (Documentation(info="<html>
 <p>
-The tool must support the Modelica external funtion interface as specified in Section 12.9 of the Modelica specification 3.2 and later.
+First public version of the library.
 </p>
-<p>
-<b>Optionally</b> following requirements need to be additionally satisfied.
-</p>
-<ol>
-<li>For the (optional) use of the blocks provided in
-<a href=\"modelica://Modelica_DeviceDrivers.ClockedBlocks\">ClockedBlocks</a> the
-tool needs support for the Modelica 3.3 language elements of Chapter 16
-\"Synchronous Language Elements\" of the Modelica Language Specification 3.3 </li>
-<li>
-The examples provided for the ClockedBlocks depend on the
-<a href=\"modelica://Modelica_Synchronous\">Modelica_Synchronous</a> library.</li>
-</ol>
-<p>
-Please note that the package <a href=\"modelica://Modelica_DeviceDrivers.Blocks\">Blocks</a>
-realizes similar functionality as provided by ClockedBlocks, but is also usable by tools
-that have no support for the synchronous language elements.
-</p>
-<h4>Modelica tools known to work with that library</h4>
-<p>
-The library was tested with Dymola 2013 and a prototype of Dymola supporting the \"Synchrchronous Language Elements\" (see above).
-The library is known to work only partly with Dymola 2012FD0, due to a bug in handling external objects in that Dymola version.
-</p>
+
 </html>
 "));
-  end Requirements;
+    end Version_0_9;
+
+    class Version_1_0 "Version 1.0 (Sept. 20, 2012)"
+      extends Modelica.Icons.ReleaseNotes;
+      annotation (Documentation(info="<html>
+<p>
+Improved documentation.
+</p>
+
+</html>
+"));
+    end Version_1_0;
+    annotation (Documentation(info="<html>
+<p>
+This section summarizes the changes that have been performed
+on the Modelica_Synchronous library.
+</p>
+
+</html>"));
+  end ReleaseNotes;
 
   class Contact "Contact"
-    extends Modelica.Icons.Information;
+    extends Modelica.Icons.Contact;
     annotation (Documentation(info="<html>
 <dl>
 <dt><b>Main Authors:</b></dt>
@@ -747,6 +746,9 @@ The library is known to work only partly with Dymola 2012FD0, due to a bug in ha
 </html>
 "));
   end Contact;
+
+
+
   annotation (DocumentationClass=true, Documentation(info="<html>
 <p>
 Library <b>Modelica_DeviceDrivers</b> is a Modelica package
