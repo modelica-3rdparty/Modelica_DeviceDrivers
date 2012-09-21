@@ -12,10 +12,5 @@ package Utilities "Library of utility classes usually not directly utilized by t
 <p>
 This package contains auxiliary packages and elements to be used in context with the PowerTrain library.
 </p>
-</html>",
-        revisions="<html>
-<img src=\"Modelica://Resources/Images/dlr_logo.png\"  width=60 >
- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- <b>      Copyright &copy; 2006-2007, DLR Institute of Robotics and Mechatronics</b>
 </html>"));
 end Utilities;
