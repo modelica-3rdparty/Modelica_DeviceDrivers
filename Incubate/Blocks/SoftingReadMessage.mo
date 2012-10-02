@@ -1,7 +1,7 @@
 within Modelica_DeviceDrivers.Incubate.Blocks;
 block SoftingReadMessage
   import Modelica_DeviceDrivers;
-/*
+
 extends Modelica_DeviceDrivers.Incubate.Interfaces.PartialSoftingCANMessage;
   import Modelica_DeviceDrivers.Incubate.SoftingCAN;
   import Modelica_DeviceDrivers.Incubate.Types;
@@ -49,5 +49,5 @@ equation
           lineColor={0,0,0},
           textString="(%startTime, %sampleTime) s")}),
     Diagram(graphics));
-*/
+
 end SoftingReadMessage;

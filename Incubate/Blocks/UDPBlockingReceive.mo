@@ -2,8 +2,6 @@ within Modelica_DeviceDrivers.Incubate.Blocks;
 model UDPBlockingReceive
   "(2012-05-24: Not yet adapted for synchronous elements) A block for receiving UDP packets which blocks if no new data is available"
 
-/* Otter. Made one comment, in order Check runs through:
-
   extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
   extends Modelica_DeviceDrivers.Utilities.Icons.UDPconnection;
   extends Modelica.Icons.UnderConstruction;
@@ -65,5 +63,5 @@ equation
             -100},{100,100}}), graphics={Text(extent={{-150,136},{150,96}},
             textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=true,
                  extent={{-100,-100},{100,100}}), graphics));
-*/
+
 end UDPBlockingReceive;
