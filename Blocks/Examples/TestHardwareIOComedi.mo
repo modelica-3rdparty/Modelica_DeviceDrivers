@@ -77,5 +77,5 @@ equation
           lineColor={0,0,255},
           textString="Example for USB-DUX D
 Assuming input channels are electrical connected to corresponding output channels we should read what we wrote")}),
-      experiment(StopTime=1.1));
+      experiment(StopTime=5.0));
 end TestHardwareIOComedi;

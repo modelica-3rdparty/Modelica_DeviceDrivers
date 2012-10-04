@@ -68,5 +68,5 @@ equation
       pattern=LinePattern.None,
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}), graphics), experiment(StopTime=1.1));
+            -100},{100,100}}), graphics), experiment(StopTime=5.0));
 end TestSerialPackager_SharedMemory;

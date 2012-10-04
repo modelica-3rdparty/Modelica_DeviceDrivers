@@ -122,7 +122,7 @@ package Examples
         thickness=0.5,
         smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-              -100},{100,100}}), graphics), experiment(StopTime=1.1));
+              -100},{100,100}}), graphics), experiment(StopTime=5.0));
   end TestSerialPackager;
 
   model TestSerialPackager_UDP
@@ -273,7 +273,7 @@ package Examples
         thickness=0.5,
         smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-              -100},{100,100}}), graphics), experiment(StopTime=1.1));
+              -100},{100,100}}), graphics), experiment(StopTime=5.0));
   end TestSerialPackager_UDP;
 
   model TestSerialPackagerBitPack_UDP
@@ -522,7 +522,7 @@ package Examples
         thickness=0.5,
         smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-              -100},{100,100}}), graphics), experiment(StopTime=1.1));
+              -100},{100,100}}), graphics), experiment(StopTime=5.0));
   end TestSerialPackagerBitPack_UDP;
 
   model TestSerialPackager_SharedMemory
@@ -665,7 +665,7 @@ package Examples
         color={255,127,0},
         smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-              -100},{100,100}}), graphics), experiment(StopTime=1.1));
+              -100},{100,100}}), graphics), experiment(StopTime=5.0));
   end TestSerialPackager_SharedMemory;
 
   model TestInputSpaceMouse
@@ -693,7 +693,7 @@ package Examples
         smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{
               -100,-100},{100,100}}),
-                        graphics), experiment(StopTime=1.1));
+                        graphics), experiment(StopTime=5.0));
   end TestInputSpaceMouse;
 
   model TestInputJoystick
@@ -721,7 +721,7 @@ package Examples
         smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{
               -100,-100},{100,100}}),
-                        graphics), experiment(StopTime=1.1));
+                        graphics), experiment(StopTime=5.0));
   end TestInputJoystick;
 
   model TestInputKeyboard
@@ -750,7 +750,7 @@ package Examples
         smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}),
-                        graphics), experiment(StopTime=1.1));
+                        graphics), experiment(StopTime=5.0));
   end TestInputKeyboard;
 
   model TestInputKeyboardKey
@@ -779,7 +779,7 @@ package Examples
         smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{
               -100,-100},{100,100}}),
-                        graphics), experiment(StopTime=1.1));
+                        graphics), experiment(StopTime=5.0));
   end TestInputKeyboardKey;
 
   model TestRandomRealSource

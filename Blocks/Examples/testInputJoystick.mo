@@ -5,5 +5,5 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   OperatingSystem.SynchronizeRealtime synchronizeRealtime
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  annotation (experiment(StopTime=1.1));
+  annotation (experiment(StopTime=5.0));
 end TestInputJoystick;

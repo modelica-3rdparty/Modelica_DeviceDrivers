@@ -5,5 +5,5 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   OperatingSystem.SynchronizeRealtime synchronizeRealtime
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  annotation (experiment(StopTime=1.1));
+  annotation (experiment(StopTime=5.0));
 end TestInputSpaceMouse;
