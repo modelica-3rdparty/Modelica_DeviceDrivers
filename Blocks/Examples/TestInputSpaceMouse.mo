@@ -1,5 +1,5 @@
 within Modelica_DeviceDrivers.Blocks.Examples;
-block TestInputSpaceMouse
+model TestInputSpaceMouse
 extends Modelica.Icons.Example;
   InputDevices.SpaceMouseInput spaceMouseInput
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));

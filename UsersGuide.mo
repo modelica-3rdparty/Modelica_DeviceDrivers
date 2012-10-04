@@ -747,8 +747,6 @@ on the Modelica_Synchronous library.
 "));
   end Contact;
 
-
-
   annotation (DocumentationClass=true, Documentation(info="<html>
 <p>
 Library <b>Modelica_DeviceDrivers</b> is a Modelica package
