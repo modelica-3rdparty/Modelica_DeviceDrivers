@@ -143,7 +143,7 @@ The Modelica License applies to any Original Work that contains the
 following licensing notice adjacent to the copyright notice(s) for
 this Original Work:</p>
 
-<p><b>Licensed by &lt;name of Licensor&gt; under the Modelica License 2</b></p>
+<p><b>Licensed by DLR under the Modelica License 2</b></p>
 
 <p><b>1. Definitions.</b></p>
 <ol type=\"a\">
