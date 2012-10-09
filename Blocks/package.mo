@@ -1,5 +1,11 @@
 within Modelica_DeviceDrivers;
-package Blocks "This package contains implementations of the drivers ready for use in models."
+package Blocks "This package contains Modelica 3.2 compatible drag'n'drop device driver blocks."
+
+
+
+
+
+
 
 
   annotation (Icon(graphics={            Rectangle(
@@ -24,5 +30,10 @@ package Blocks "This package contains implementations of the drivers ready for u
         points={{-32,-21},{-46,-17},{-46,-25},{-32,-21}},
         lineColor={0,0,0},
         fillColor={0,0,0},
-        fillPattern=FillPattern.Solid)}));
+        fillPattern=FillPattern.Solid)}), Documentation(info="<html>
+<h4><font color=\"#008000\">Modelica 3.2 compatible block interface</font></h4>
+<p>
+The blocks provided in this package use Modelica 3.2 compatible <b>when</b>-clauses and the <b>sample</b>-operator to periodically call external Modelica functions that interface to the hardware drivers.
+</p>
+</html>"));
 end Blocks;

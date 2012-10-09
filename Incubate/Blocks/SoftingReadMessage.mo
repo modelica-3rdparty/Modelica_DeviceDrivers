@@ -49,5 +49,4 @@ equation
           lineColor={0,0,0},
           textString="(%startTime, %sampleTime) s")}),
     Diagram(graphics));
-
 end SoftingReadMessage;

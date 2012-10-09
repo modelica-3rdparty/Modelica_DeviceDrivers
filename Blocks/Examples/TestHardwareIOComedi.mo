@@ -1,6 +1,6 @@
 within Modelica_DeviceDrivers.Blocks.Examples;
 model TestHardwareIOComedi
-  "Testing comedi daq support using USB-DUX D (http://www.linux-usb-daq.co.uk/)"
+  "Example for comedi daq support using USB-DUX D (http://www.linux-usb-daq.co.uk/)"
   import Modelica_DeviceDrivers;
 extends Modelica.Icons.Example;
   Modelica_DeviceDrivers.Blocks.HardwareIO.Comedi.DataWrite
@@ -77,5 +77,13 @@ equation
           lineColor={0,0,255},
           textString="Example for USB-DUX D
 Assuming input channels are electrical connected to corresponding output channels we should read what we wrote")}),
-      experiment(StopTime=5.0));
+      experiment(StopTime=5.0),
+    Documentation(info="<html>
+<p>
+<b>Important: Works only under Linux.</b> The reason for this is, that the interfaced <a href=\"http://www.comedi.org/\">Comedi</a> device drivers are only available for Linux.
+</p>
+<p>
+Example tested with <a href=\"http://www.linux-usb-daq.co.uk/tech2_usbdux/\">USB-DUX D</a>. Assuming input channels are electrical connected to corresponding output channels we should read what we wrote
+</p>
+</html>"));
 end TestHardwareIOComedi;

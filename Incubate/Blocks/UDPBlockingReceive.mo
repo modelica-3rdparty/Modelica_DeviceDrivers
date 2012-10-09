@@ -63,5 +63,4 @@ equation
             -100},{100,100}}), graphics={Text(extent={{-150,136},{150,96}},
             textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=true,
                  extent={{-100,-100},{100,100}}), graphics));
-
 end UDPBlockingReceive;

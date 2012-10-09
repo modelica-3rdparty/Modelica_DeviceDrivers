@@ -1,8 +1,9 @@
 within Modelica_DeviceDrivers.ClockedBlocks;
 package Examples
+  "Executable usage examples for the provided device driver blocks (require Modelica_Synchronous library!)"
   extends Modelica.Icons.ExamplesPackage;
 
-  model TestSerialPackager
+  model TestSerialPackager "Example for using the SerialPackager"
   extends Modelica.Icons.Example;
     Modelica.Blocks.Sources.IntegerExpression integerExpression(y=integer(3*sin(
           time) + 3))
@@ -122,10 +123,16 @@ package Examples
         thickness=0.5,
         smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-              -100},{100,100}}), graphics), experiment(StopTime=5.0));
+              -100},{100,100}}), graphics), experiment(StopTime=5.0),
+      Documentation(info="<html>
+<p>
+The example demonstrates that pack and unpack blocks of the <code>SerialPackager</code> package can be connected directly.
+</p>
+</html>"));
   end TestSerialPackager;
 
   model TestSerialPackager_UDP
+    "Example for combining UDP and SerialPackager blocks"
   extends Modelica.Icons.Example;
     Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Packager
                        packager
@@ -184,7 +191,7 @@ package Examples
         pattern=LinePattern.None,
         smooth=Smooth.None));
     connect(addInteger.pkgOut[1], uDPSend.pkgIn) annotation (Line(
-        points={{-30,-20.8},{-30,-30},{-30,-39.2},{-30,-39.2}},
+        points={{-30,-20.8},{-30,-39.2}},
         color={0,0,0},
         pattern=LinePattern.None,
         smooth=Smooth.None));
@@ -273,10 +280,19 @@ package Examples
         thickness=0.5,
         smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-              -100},{100,100}}), graphics), experiment(StopTime=5.0));
+              -100},{100,100}}), graphics), experiment(StopTime=5.0),
+      Documentation(info="<html>
+<p>
+The <code>uDPSend</code> block sends to the local port 10002. The <code>uDPReceive</code> block starts a background process that listens at port 10002. Consequently, the <code>uDPReceive</code> block receives what the <code>uDPSend</code> block sends.
+</p>
+<p>
+<b>Note:</b> There is no causality between the <code>uDPSend</code> block and the <code>uDPReceive</code> block. Therefore the execution order of the blocks is not determined. Additionally, the <code>uDPReceive</code> block starts an own receiving thread, so that the time the data was received is not equal to the time the external function within the <code>uDPReceive</code> block was called. This indeterminism may also show up in the plots.
+</p>
+</html>"));
   end TestSerialPackager_UDP;
 
   model TestSerialPackagerBitPack_UDP
+    "Example for the PackUnsignedInteger and UnpackUnsignedInteger blocks from the SerialPackager"
   extends Modelica.Icons.Example;
     Modelica_DeviceDrivers.ClockedBlocks.Communication.UDPSend
                                     uDPSend(port_send=10002)
@@ -522,10 +538,16 @@ package Examples
         thickness=0.5,
         smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-              -100},{100,100}}), graphics), experiment(StopTime=5.0));
+              -100},{100,100}}), graphics), experiment(StopTime=5.0),
+      Documentation(info="<html>
+<p>
+In particular this model demonstrates how integer values can be packed and unpacked at bit level using the <a href=\"modelica://Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.PackUnsignedInteger\"> <code>PackUnsignedInteger</code></a> and <a href=\"modelica://Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.UnpackUnsignedInteger\"><code>UnpackUnsignedInteger</code></a> blocks.
+</p>
+</html>"));
   end TestSerialPackagerBitPack_UDP;
 
   model TestSerialPackager_SharedMemory
+    "Example for combining SharedMemory and SerialPackager blocks"
   extends Modelica.Icons.Example;
     ClockedBlocks.Packaging.SerialPackager.Packager packager
       annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
@@ -665,10 +687,18 @@ package Examples
         color={255,127,0},
         smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-              -100},{100,100}}), graphics), experiment(StopTime=5.0));
+              -100},{100,100}}), graphics), experiment(StopTime=5.0),
+      Documentation(info="<html>
+<p>
+The <code>sharedMemoryWrite</code> block writes to the memory partition with <code>memoryID = \"sharedMemory\"</code>. The <code>sharedMemoryRead</code> block reads from that partition.
+</p>
+<p>
+<b>Note:</b> There is no causality between the <code>sharedMemoryWrite</code> block and the <code>sharedMemoryRead</code> block. Therefore the execution order of the blocks is not determined. This indeterminism may also show up in the plots.
+</p>
+</html>"));
   end TestSerialPackager_SharedMemory;
 
-  model TestInputSpaceMouse
+  model TestInputSpaceMouse "Example for a 3Dconnexion SpaceMouse"
     extends Modelica.Icons.Example;
     OperatingSystem.SynchronizeRealtime synchronizeRealtime
       annotation (Placement(transformation(extent={{-42,60},{-22,80}})));
@@ -693,10 +723,18 @@ package Examples
         smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{
               -100,-100},{100,100}}),
-                        graphics), experiment(StopTime=5.0));
+                        graphics), experiment(StopTime=5.0),
+      Documentation(info="<html>
+<p>
+Basic example of using inputs from a <a href=\"http://www.3dconnexion.com/\">3Dconnexion SpaceMouse</a>.
+</p>
+<p>
+<b>Important for Linux users:</b> In order to work under Linux it is needed that the <a href=\"http://www.3dconnexion.com/service/drivers.html\">linux drivers</a> provided by 3Dconnexion are installed and running.
+</p>
+</html>"));
   end TestInputSpaceMouse;
 
-  model TestInputJoystick
+  model TestInputJoystick "Example for a joystick/gamepad"
     extends Modelica.Icons.Example;
     InputDevices.JoystickInput joystickInput
       annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
@@ -721,10 +759,15 @@ package Examples
         smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{
               -100,-100},{100,100}}),
-                        graphics), experiment(StopTime=5.0));
+                        graphics), experiment(StopTime=5.0),
+      Documentation(info="<html>
+<p>
+Basic example of using inputs from a joystick/gamepad device.
+</p>
+</html>"));
   end TestInputJoystick;
 
-  model TestInputKeyboard
+  model TestInputKeyboard "Example for keyboard input"
     extends Modelica.Icons.Example;
     OperatingSystem.SynchronizeRealtime synchronizeRealtime
       annotation (Placement(transformation(extent={{-42,60},{-22,80}})));
@@ -750,10 +793,16 @@ package Examples
         smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}),
-                        graphics), experiment(StopTime=5.0));
+                        graphics), experiment(StopTime=5.0),
+      Documentation(info="<html>
+<p>
+Basic example of using a keyboard as input device.
+</p>
+</html>"));
   end TestInputKeyboard;
 
   model TestInputKeyboardKey
+    "Example for keyboard input using the KeyboardKeyInput block"
     extends Modelica.Icons.Example;
     OperatingSystem.SynchronizeRealtime synchronizeRealtime
       annotation (Placement(transformation(extent={{-42,60},{-22,80}})));
@@ -779,10 +828,14 @@ package Examples
         smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{
               -100,-100},{100,100}}),
-                        graphics), experiment(StopTime=5.0));
+                        graphics), experiment(StopTime=5.0),
+      Documentation(info="<html>
+<p>Basic example of using a keyboard as input device. For this example the parameter <code>keyCode</code> is set to the &QUOT;space&QUOT; key. Therefore, pressing <i>space</i> while the simulation is running will turn the output of the block to <b>true</b>, otherwise it is <b>false</b>
+</p>
+</html>"));
   end TestInputKeyboardKey;
 
-  model TestRandomRealSource
+  model TestRandomRealSource "Example for using the RandomRealSource block"
     extends Modelica.Icons.Example;
     Modelica_Synchronous.ClockSignals.Clocks.PeriodicRealClock periodicRealClock(period=
           0.1)

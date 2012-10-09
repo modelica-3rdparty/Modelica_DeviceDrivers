@@ -5,4 +5,5 @@ TestSerialPackager_SharedMemory
 TestInputSpaceMouse
 TestInputJoystick
 TestInputKeyboard
+TestInputKeyboardKey
 TestHardwareIOComedi

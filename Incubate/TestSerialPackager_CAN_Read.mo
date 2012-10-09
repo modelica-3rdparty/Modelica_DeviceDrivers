@@ -2,7 +2,7 @@ within Modelica_DeviceDrivers.Incubate;
 model TestSerialPackager_CAN_Read
     extends Modelica.Icons.Example;
 
-import Modelica_DeviceDrivers;
+  import Modelica_DeviceDrivers;
 Modelica_DeviceDrivers.Incubate.Blocks.SoftingCANConfig softingCANConfig(nu=2)
   annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
 Modelica_DeviceDrivers.Incubate.Blocks.SoftingReadMessage
@@ -184,5 +184,4 @@ connect(rxMessage1.pkgOut, unpackInt8.pkgIn) annotation (Line(
     pattern=LinePattern.None,
     smooth=Smooth.None));
 annotation (Diagram(graphics));
-
 end TestSerialPackager_CAN_Read;

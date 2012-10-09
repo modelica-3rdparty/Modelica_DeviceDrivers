@@ -1,5 +1,6 @@
 within Modelica_DeviceDrivers.Blocks.Examples;
 model TestSerialPackager_SharedMemory
+  "Example for combining SharedMemory and SerialPackager blocks"
 extends Modelica.Icons.Example;
   Packaging.SerialPackager.Packager
                      packager
@@ -19,7 +20,7 @@ extends Modelica.Icons.Example;
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={-30,-70})));
+        origin={-30,-68})));
   Packaging.SerialPackager.GetReal
                     getReal(n=3, nu=1)
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
@@ -53,7 +54,7 @@ equation
       pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(addInteger.pkgOut[1], sharedMemoryWrite.pkgIn) annotation (Line(
-      points={{-30,-40.8},{-30,-59.2}},
+      points={{-30,-40.8},{-30,-57.2}},
       color={0,0,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));
@@ -68,5 +69,13 @@ equation
       pattern=LinePattern.None,
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}), graphics), experiment(StopTime=5.0));
+            -100},{100,100}}), graphics), experiment(StopTime=5.0),
+    Documentation(info="<html>
+<p>
+The <code>sharedMemoryWrite</code> block writes to the memory partition with <code>memoryID = \"sharedMemory\"</code>. The <code>sharedMemoryRead</code> block reads from that partition.
+</p>
+<p>
+<b>Note:</b> There is no causality between the <code>sharedMemoryWrite</code> block and the <code>sharedMemoryRead</code> block. Therefore the execution order of the blocks is not determined. This indeterminism may also show up in the plots.
+</p>
+</html>"));
 end TestSerialPackager_SharedMemory;

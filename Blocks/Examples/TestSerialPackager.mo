@@ -1,5 +1,5 @@
 within Modelica_DeviceDrivers.Blocks.Examples;
-model TestSerialPackager
+model TestSerialPackager "Example for using the SerialPackager"
 extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.IntegerExpression integerExpression(y=integer(3*sin(
         time) + 3))
@@ -81,5 +81,10 @@ equation
       pattern=LinePattern.None,
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}), graphics), experiment(StopTime=5.0));
+            -100},{100,100}}), graphics), experiment(StopTime=5.0),
+    Documentation(info="<html>
+<p>
+The example demonstrates that pack and unpack blocks of the <code>SerialPackager</code> package can be connected directly.
+</p>
+</html>"));
 end TestSerialPackager;

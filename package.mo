@@ -3,15 +3,6 @@ package Modelica_DeviceDrivers "Modelica_DeviceDrivers (version 1.0) -  A collec
  extends Modelica.Icons.Package;
 
 
-
-
-
-
-
-
-
-
-
 annotation (preferredView="info",
   uses(Modelica(version="3.2")),
     version="1.0",
@@ -26,7 +17,7 @@ annotation (preferredView="info",
 Library <b>Modelica_DeviceDrivers</b> is a Modelica package
 that interfaces hardware drivers. There is support for input devices, communication devices, shared memory, analog-digital converters and others.
 </p>
-
+<p><img src=\"modelica://Modelica_DeviceDrivers/Resources/Images/BlockOverview.png\"/></p>
 <p>
 For an introduction, have especially a look at:
 </p>
