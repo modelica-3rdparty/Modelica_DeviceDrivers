@@ -712,9 +712,10 @@ First public version of the library.
     class Version_1_0 "Version 1.0 (Sept. 20, 2012)"
       extends Modelica.Icons.ReleaseNotes;
       annotation (Documentation(info="<html>
-<p>
-Improved documentation.
-</p>
+<ul>
+ <li>Improved documentation.</li>
+ <li>Included prototypical support for Softing CAN interfaces</li>
+</ul>
 
 </html>
 "));
@@ -742,9 +743,10 @@ on the Modelica_Synchronous library.
     Germany<br>
     email: <a href=mailto:\"Tobias.Bellmann@dlr.de\">Tobias.Bellmann@dlr.de</a> or <a href=mailto:\"Bernhard.Thiele@dlr.de\">Bernhard.Thiele@dlr.de</a><br></dd>
 </dl>
-
-</html>
-"));
+<p>
+The authors are open to include contributions.
+</p>
+</html>"));
   end Contact;
 
   annotation (DocumentationClass=true, Documentation(info="<html>

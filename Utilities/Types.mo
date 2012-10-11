@@ -1,5 +1,6 @@
-within Modelica_DeviceDrivers.Incubate;
-package Types
+within Modelica_DeviceDrivers.Utilities;
+package Types "Custom type definitions"
+  extends Modelica.Icons.Package;
   type SignalType = enumeration(
       integer "Integer value",
       float "IEEE float value",

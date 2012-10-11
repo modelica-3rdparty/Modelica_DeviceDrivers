@@ -1,9 +1,10 @@
 within Modelica_DeviceDrivers.Incubate;
-model TestSerialPackager_CAN_Write
+model TestSerialPackager_SoftingCAN_Write
     extends Modelica.Icons.Example;
   import Modelica_DeviceDrivers;
-  Modelica_DeviceDrivers.Incubate.Blocks.SoftingCANConfig softingCANConfig(nu=1)
-    annotation (Placement(transformation(extent={{-96,-80},{-76,-60}})));
+  Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN.SoftingCANConfig
+                                                          softingCANConfig(nu=1)
+    annotation (Placement(transformation(extent={{-72,-80},{-52,-60}})));
   Modelica_DeviceDrivers.Blocks.OperatingSystem.SynchronizeRealtime
     synchronizeRealtime
     annotation (Placement(transformation(extent={{70,70},{90,90}})));
@@ -15,7 +16,8 @@ model TestSerialPackager_CAN_Write
   Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.PackUnsignedInteger
     packInt1(width=8, nu=1)
     annotation (Placement(transformation(extent={{-40,48},{-20,68}})));
-  Modelica_DeviceDrivers.Incubate.Blocks.SoftingWriteMessage txMessage(ident=
+  Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN.SoftingWriteMessage
+                                                             txMessage(ident=
         100) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
@@ -45,7 +47,7 @@ equation
       smooth=Smooth.None));
   connect(txMessage.softingCANBus, softingCANConfig.softingCANBus[1])
     annotation (Line(
-      points={{-30,-60.8},{-30,-70},{-75.2,-70}},
+      points={{-30,-60.8},{-30,-70},{-51.2,-70}},
       color={0,0,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));
@@ -70,4 +72,4 @@ equation
       pattern=LinePattern.None,
       smooth=Smooth.None));
   annotation (Diagram(graphics));
-end TestSerialPackager_CAN_Write;
+end TestSerialPackager_SoftingCAN_Write;

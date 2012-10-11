@@ -24,7 +24,7 @@ elseif (MSVC)
 	target_link_libraries(test_MDDSoftingCAN MDDUtil ${CANL2_LIBRARY})
 	add_test(test_MDDSoftingCAN ${EXECUTABLE_OUTPUT_PATH}/test_MDDSoftingCAN)
   else ( CANL2_LIBRARY )
-  	message("Softing canL2 libraries not found. Skipping support for Softing CAN!")
+  	message("Softing canL2 libraries not found. No support for Softing CAN. Skipping ..")
   endif ( CANL2_LIBRARY )
 
 else (UNIX)

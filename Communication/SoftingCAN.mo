@@ -1,13 +1,15 @@
-within Modelica_DeviceDrivers.Incubate;
+within Modelica_DeviceDrivers.Communication;
 class SoftingCAN
-  "Support for Softing's CAN interfaces utilzing their CANL2 API library"
+  "Support for Softing's CAN interfaces utilizing their CANL2 API library"
 extends Modelica_DeviceDrivers.Utilities.Icons.DriverIcon;
 extends ExternalObject;
 encapsulated function constructor "Open Device"
-    import Modelica_DeviceDrivers.Incubate.SoftingCAN;
-    import Modelica_DeviceDrivers.Incubate.Types;
+    import Modelica_DeviceDrivers.Communication.SoftingCAN;
+    import Modelica_DeviceDrivers.Utilities.Types;
+    import Modelica_DeviceDrivers;
 input String deviceName;
-input Types.BaudRate baudRate;
+input Modelica_DeviceDrivers.Utilities.Types.BaudRate
+                     baudRate;
 output SoftingCAN softingCAN "Handle for device";
 
   external "C" softingCAN = MDD_softingCANConstructor(deviceName, baudRate);
@@ -17,7 +19,7 @@ output SoftingCAN softingCAN "Handle for device";
 end constructor;
 
 encapsulated function destructor "Destroy object, free resources"
-    import Modelica_DeviceDrivers.Incubate.SoftingCAN;
+    import Modelica_DeviceDrivers.Communication.SoftingCAN;
   input SoftingCAN softingCAN "Handle for device";
 
   external "C" MDD_softingCANDestructor(softingCAN);
@@ -27,11 +29,13 @@ encapsulated function destructor "Destroy object, free resources"
 end destructor;
 
 encapsulated function defineObject "Define available objects (CAN messages)"
-    import Modelica_DeviceDrivers.Incubate.SoftingCAN;
-    import Modelica_DeviceDrivers.Incubate.Types;
+    import Modelica_DeviceDrivers.Communication.SoftingCAN;
+    import Modelica_DeviceDrivers.Utilities.Types;
+    import Modelica_DeviceDrivers;
   input SoftingCAN softingCAN "Handle for device";
   input Integer ident "Identifier of CAN message (CAN Id)";
-  input Types.TransmissionType transType
+  input Modelica_DeviceDrivers.Utilities.Types.TransmissionType
+                               transType
       "transmission type (receiving or sending)";
   output Integer objectNumber
       "Object number of message. Needed for further queries regarding receiving/transmitting the message";
@@ -44,7 +48,7 @@ end defineObject;
 
 encapsulated function startChip
     "Put CAN controllers of both CAN channels into operational mode (all object definitions have to be completed before!)"
-    import Modelica_DeviceDrivers.Incubate.SoftingCAN;
+    import Modelica_DeviceDrivers.Communication.SoftingCAN;
   input SoftingCAN softingCAN "Handle for device";
 
   external "C" MDD_softingCANStartChip(softingCAN);
@@ -55,7 +59,7 @@ end startChip;
 
 encapsulated function writeObject
     "Write object (CAN message) to transmit buffer"
-    import Modelica_DeviceDrivers.Incubate.SoftingCAN;
+    import Modelica_DeviceDrivers.Communication.SoftingCAN;
 
   input SoftingCAN softingCAN "Handle for device";
   input Integer objectNumber "Object number of message (from defineObject(..))";
@@ -70,7 +74,7 @@ end writeObject;
 
 encapsulated function readRcvData "Read data from object (CAN message)"
 
-    import Modelica_DeviceDrivers.Incubate.SoftingCAN;
+    import Modelica_DeviceDrivers.Communication.SoftingCAN;
     import Modelica_DeviceDrivers.Obsolete.Communication.Packager.CANMessage;
 
 input SoftingCAN softingCAN "Handle for device";

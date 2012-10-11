@@ -3,12 +3,21 @@ package Modelica_DeviceDrivers "Modelica_DeviceDrivers (version 1.0) -  A collec
  extends Modelica.Icons.Package;
 
 
+
+
+
+
+
+
+
+
+
 annotation (preferredView="info",
   uses(Modelica(version="3.2")),
     version="1.0",
-    versionBuild=3,
+    versionBuild=4,
     versionDate="2012-09-20",
-    dateModified = "2012-10-04 12:26:53Z",
+    dateModified = "2012-10-09 15:09:51Z",
     revisionID="$Id$",
   Diagram(coordinateSystem(extent={{-120,-100},{80,100}})),
   Icon(coordinateSystem(extent={{-120,-100},{80,100}})),

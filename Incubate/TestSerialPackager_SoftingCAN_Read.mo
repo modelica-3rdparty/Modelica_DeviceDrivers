@@ -1,11 +1,12 @@
 within Modelica_DeviceDrivers.Incubate;
-model TestSerialPackager_CAN_Read
+model TestSerialPackager_SoftingCAN_Read
     extends Modelica.Icons.Example;
 
   import Modelica_DeviceDrivers;
-Modelica_DeviceDrivers.Incubate.Blocks.SoftingCANConfig softingCANConfig(nu=2)
+Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN.SoftingCANConfig
+                                                        softingCANConfig(nu=2)
   annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-Modelica_DeviceDrivers.Incubate.Blocks.SoftingReadMessage
+Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN.SoftingReadMessage
   rxMessage(ident=0)
   annotation (Placement(transformation(extent={{-38,62},{-18,82}})));
 Modelica_DeviceDrivers.Blocks.OperatingSystem.SynchronizeRealtime
@@ -49,7 +50,7 @@ Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.UnpackUnsignedInteger
                                                                    unpackInt7(
    width=8, bitOffset=0)
   annotation (Placement(transformation(extent={{2,-60},{22,-40}})));
-Modelica_DeviceDrivers.Incubate.Blocks.SoftingReadMessage
+Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN.SoftingReadMessage
   rxMessage1(ident=1)
   annotation (Placement(transformation(extent={{34,62},{54,82}})));
 Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.UnpackUnsignedInteger
@@ -184,4 +185,4 @@ connect(rxMessage1.pkgOut, unpackInt8.pkgIn) annotation (Line(
     pattern=LinePattern.None,
     smooth=Smooth.None));
 annotation (Diagram(graphics));
-end TestSerialPackager_CAN_Read;
+end TestSerialPackager_SoftingCAN_Read;

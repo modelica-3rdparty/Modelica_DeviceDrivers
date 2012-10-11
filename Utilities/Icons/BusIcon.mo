@@ -1,4 +1,4 @@
-within Modelica_DeviceDrivers.Incubate.Icons;
+within Modelica_DeviceDrivers.Utilities.Icons;
 partial block BusIcon "Icon for a communication bus"
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,

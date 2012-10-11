@@ -1,8 +1,9 @@
 within Modelica_DeviceDrivers;
-package Utilities "Library of utility classes usually not directly utilized by the user"
+package Utilities "Collection of utility elements used within the library"
   extends Modelica.Icons.Package;
 
  constant String RootDir=Modelica.Utilities.Files.fullPathName(classDirectory() + "..");
+
 
 
   annotation (

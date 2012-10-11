@@ -205,6 +205,252 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
 </html>"));
   end UDPSend;
 
+  package SoftingCAN
+    "Support for Softing's CAN interfaces utilizing their CANL2 API library"
+    extends Modelica.Icons.Package;
+
+    block SoftingCANConfig "Configuration for a softing CAN interface"
+      extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
+    extends Modelica_DeviceDrivers.Utilities.Icons.BusIcon;
+      import Modelica_DeviceDrivers.Utilities.Types.BaudRate;
+      import Modelica_DeviceDrivers.Communication.SoftingCAN;
+    parameter String deviceName = "CANusb_1" "Name of CAN device";
+    parameter BaudRate baudRate=BaudRate.kBaud500 "CAN baud rate";
+    parameter Integer nu(min=0)=0 "Number of input connections"
+        annotation(Dialog(connectorSizing=true), HideResult=true);
+
+    Modelica_DeviceDrivers.Blocks.Interfaces.SoftingCANOut softingCANBus[nu]
+                                                     annotation (Placement(
+            transformation(
+            extent={{-20,-20},{20,20}},
+            rotation=90,
+            origin={108,0})));
+
+    protected
+      Modelica_DeviceDrivers.Communication.SoftingCAN
+                 softingCAN = SoftingCAN(deviceName, baudRate);
+    initial equation
+      Modelica.Utilities.Streams.print("SoftingCAN ("+deviceName+"): Total number of defined messages: "+String(sum(softingCANBus.dummy))+".");
+      Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN.Internal.startChipDummy(
+         softingCAN, sum(softingCANBus.dummy));
+    equation
+      softingCANBus.softingCAN = fill(softingCAN, nu);
+      annotation (Icon(graphics={
+            Text(
+              extent={{-98,72},{94,46}},
+              lineColor={0,0,0},
+              textString="%deviceName")}),
+                                  Diagram(graphics),
+        Documentation(info="<html>
+<h4><font color=\"#008000\">Support for Softing CAN bus</font></h4>
+<p><b>Please, read the package information for <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN\"><code>SoftingCAN</code></a> first!</p>
+<h4><font color=\"#008000\">Example</font></h4>
+<p>
+See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackager_SoftingCAN\"><code>TestSerialPackager_SoftingCAN</code></a>.
+</p>
+</html>"));
+    end SoftingCANConfig;
+
+    block SoftingReadMessage "Set up a message for receiving data"
+      import Modelica_DeviceDrivers;
+
+    extends Modelica_DeviceDrivers.Blocks.Interfaces.PartialSoftingCANMessage;
+      import Modelica_DeviceDrivers.Communication.SoftingCAN;
+      import Modelica_DeviceDrivers.Utilities.Types;
+      import Modelica_DeviceDrivers.Packaging.SerialPackager;
+      import SI = Modelica.SIunits;
+    parameter Integer ident(min=0) "Identifier of CAN message (CAN Id)";
+    parameter SI.Period sampleTime = 0.1 "Period at which messages are written";
+    parameter SI.Time startTime = 0 "First sample time instant";
+      Modelica_DeviceDrivers.Blocks.Interfaces.PackageOut pkgOut
+        annotation (Placement(transformation(extent={{-20,-128},{20,-88}})));
+    protected
+      Integer objectNumber;
+      Modelica_DeviceDrivers.Packaging.SerialPackager
+                     pkg = SerialPackager(8);
+    initial equation
+      objectNumber = SoftingCAN.defineObject(
+        softingCANBus.softingCAN,
+        ident,
+        Types.TransmissionType.standardReceive);
+      softingCANBus.dummy = 1;
+    equation
+      pkgOut.trigger = sample(startTime, sampleTime);
+      when pkgOut.trigger then
+        objectNumber = pre(objectNumber);
+        pkgOut.dummy = Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.DummyFunctions.setPackage(
+        pkgOut.pkg,
+        SoftingCAN.readRcvData(
+          softingCANBus.softingCAN,
+          objectNumber,
+          SerialPackager.getPackage(pkgOut.pkg)),
+          8,
+          time);
+
+        softingCANBus.dummy = pre(softingCANBus.dummy);
+      end when;
+
+      pkgOut.pkg = pkg;
+      annotation (defaultComponentName="rxMessage",
+      Icon(graphics={Text(
+              extent={{-98,54},{98,26}},
+              lineColor={0,0,0},
+              textString="Rx id: %ident"),
+            Text(
+              extent={{-160,24},{160,-6}},
+              lineColor={0,0,0},
+              textString="(%startTime, %sampleTime) s")}),
+        Diagram(graphics),
+        Documentation(info="<html>
+<h4><font color=\"#008000\">Support for Softing CAN bus</font></h4>
+<p><b>Please, read the package information for <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN\"><code>SoftingCAN</code></a> first!</p>
+<h4><font color=\"#008000\">Example</font></h4>
+<p>
+See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackager_SoftingCAN\"><code>TestSerialPackager_SoftingCAN</code></a>.
+</p>
+</html>"));
+    end SoftingReadMessage;
+
+    block SoftingWriteMessage "Set up a message for transmitting data"
+      import Modelica_DeviceDrivers;
+      extends Modelica_DeviceDrivers.Blocks.Interfaces.PartialSoftingCANMessage;
+      import Modelica_DeviceDrivers.Communication.SoftingCAN;
+      import Modelica_DeviceDrivers.Packaging.SerialPackager;
+      import Modelica_DeviceDrivers.Utilities.Types;
+      import SI = Modelica.SIunits;
+    parameter Integer ident(min=0) "Identifier of CAN message (CAN Id)";
+    parameter Integer dlc(min=0,max=8) = 8
+        "Data length code (payload of data in bytes, max=8)";
+    parameter SI.Period sampleTime = 0.1 "Sample period of component";
+    parameter SI.Time startTime = 0 "First sample time instant";
+      Modelica_DeviceDrivers.Blocks.Interfaces.PackageIn pkgIn
+        annotation (Placement(transformation(extent={{-20,-128},{20,-88}})));
+    protected
+      Integer objectNumber;
+      Real dummy;
+    initial equation
+      objectNumber =  SoftingCAN.defineObject(
+        softingCANBus.softingCAN,
+        ident,
+        Types.TransmissionType.standardTransmit);
+      softingCANBus.dummy = 1;
+    equation
+      when initial() then
+        pkgIn.userPkgBitSize = dlc*8;
+        pkgIn.autoPkgBitSize = 0;
+      end when;
+
+      pkgIn.backwardTrigger = sample(startTime, sampleTime);
+      when pkgIn.trigger then
+        objectNumber = pre(objectNumber);
+        dummy = Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN.Internal.writeObjectDummy(
+          softingCANBus.softingCAN,
+          objectNumber,
+          dlc,
+          SerialPackager.getPackage(pkgIn.pkg),
+          pkgIn.dummy);
+
+        softingCANBus.dummy = pre(softingCANBus.dummy);
+      end when;
+      annotation (defaultComponentName="txMessage",
+      Icon(graphics={
+            Text(
+              extent={{-90,54},{96,24}},
+              lineColor={0,0,0},
+              textString="Tx id: %ident"),
+            Text(
+              extent={{-160,24},{160,-6}},
+              lineColor={0,0,0},
+              textString="(%startTime, %sampleTime) s")}),
+        Diagram(graphics),
+        Documentation(info="<html>
+<h4><font color=\"#008000\">Support for Softing CAN bus</font></h4>
+<p><b>Please, read the package information for <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN\"><code>SoftingCAN</code></a> first!</p>
+<h4><font color=\"#008000\">Example</font></h4>
+<p>
+See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackager_SoftingCAN\"><code>TestSerialPackager_SoftingCAN</code></a>.
+</p>
+</html>"));
+    end SoftingWriteMessage;
+
+    package Internal
+      extends Modelica_DeviceDrivers.Utilities.Icons.InternalPackage;
+    encapsulated function startChipDummy
+        import Modelica_DeviceDrivers.Communication.SoftingCAN;
+        import Modelica_DeviceDrivers;
+      input Modelica_DeviceDrivers.Communication.SoftingCAN
+                       softingCAN "Handle for device";
+      input Real dummy;
+    algorithm
+      SoftingCAN.startChip(softingCAN);
+    end startChipDummy;
+
+    encapsulated function writeObjectDummy
+        "Write object (CAN message) to transmit buffer"
+        import Modelica_DeviceDrivers.Communication.SoftingCAN;
+        import Modelica_DeviceDrivers;
+
+      input Modelica_DeviceDrivers.Communication.SoftingCAN
+                       softingCAN "Handle for device";
+      input Integer objectNumber
+          "Object number of message (from defineObject(..))";
+      input Integer dataLength "Length of message in bytes";
+      input String data "The payload data";
+      input Real dummy;
+      output Real dummy2;
+    algorithm
+      SoftingCAN.writeObject(softingCAN, objectNumber, dataLength, data);
+      dummy2 := dummy;
+    end writeObjectDummy;
+    end Internal;
+    annotation (preferredView="info",
+    Documentation(info="<html>
+<p><h4><font color=\"#008000\">Prototypical support for Softing CAN interfaces</font></h4></p>
+Please note, that the support for CAN is considered <b>prototypical</b>. Even more than for the other elements in this library there might be severe bugs in it and you use it on <b>your own risk</b>. Additionally, the API of the blocks is more likely to change in the future. So please, refrain from using it for building your next nuclear power plant or fly-by-wire system ...
+<h4><font color=\"#008000\">System Requirements</font></h4>
+<p>
+The needed files are freely available from Softing, however the
+corresponding license sets limits on the distributability of the
+files. Consequently, the files are not distributed with this library.
+</p>
+<p>
+There are exist drivers for Windows and Linux. However, the Linux package only supports very old Linux kernels (at least that was the case for June, 2012). Because of this, Softing CAN interfaces are currently only supported for Windows.
+</p>
+<p>
+Please download and install the Softing drivers including the CAN Layer2 API from Softing
+(e.g., start at <a href=\"http://industrial.softing.com/\">http://industrial.softing.com/</a> and click your way through).
+</p>
+<p>
+After installation of the software driver package available from Softing, please copy the files from
+\"$PATH_TO_SOFTING_API\\APIDLL\\*\" into the directory
+<code>$PATH_TO_MODELICA_DEVICEDRIVERS\\Modelica_DeviceDrivers\\Resources\\thirdParty\\softing</code> (on my computer the Softing installation path
+is \"C:\\Program Files (x86)\\Softing\\CAN\\CAN Layer2 V5.16\\APIDLL\"),
+so that you end up with the following directory tree:
+</p>
+<pre>
+.\\win32\\canL2.dll
+.\\win32\\canL2.lib
+.\\win32\\CANusbM.dll
+.\\win64\\canL2_64.dll
+.\\win64\\canL2_64.lib
+.\\win64\\CANusbM.dll
+.\\Can_def.h
+.\\CANL2.h
+</pre>
+
+<p>
+Finally, note that in order to translate and execute Modelica models utilizing this API it is necessary that the
+corresponding .lib and .dll files are found at compile and runtime. Prefered way to ensure this:
+</p>
+<p>
+Copy the <code>*.dll</code> and <code>*.lib</code> for your architecture into your simulation directory (note that working on a 64bit Windows does
+not necessary mean that your Modelica tool compiles 64bit binaries, i.e., if in doubt just try both). Additionally, rename
+<code>canL2_64.*</code> to <code>canL2.*</code> if using the 64bit libraries.
+</p>
+
+</html>"));
+  end SoftingCAN;
+
   package Internal
     extends Modelica_DeviceDrivers.Utilities.Icons.InternalPackage;
     package DummyFunctions
