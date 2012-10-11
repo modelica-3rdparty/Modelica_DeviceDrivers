@@ -33,16 +33,46 @@
 
 /* Bit timing (1 MBaud) */
 #define PRESCALER_1             1
-#define SYNC_JMP_WIDTH_1        3
+#define SYNC_JMP_WIDTH_1        3   /**< deviates from recommended value "1" */
 #define TIME_SEG1_1             4
 #define TIME_SEG2_1             3
 #define SAMPLE_1                0
+/* Bit timing (800 kBaud) */
+#define PRESCALER_2             1
+#define SYNC_JMP_WIDTH_2        3   /**< deviates from recommended value "1" */
+#define TIME_SEG1_2             6
+#define TIME_SEG2_2             3
+#define SAMPLE_2                0
 /* Bit timing (500 kBaud) */
 #define PRESCALER_3             1
-#define SYNC_JMP_WIDTH_3        3
+#define SYNC_JMP_WIDTH_3        3   /**< deviates from recommended value "1" */
 #define TIME_SEG1_3             8
 #define TIME_SEG2_3             7
 #define SAMPLE_3                0
+/* Bit timing (250 kBaud) */
+#define PRESCALER_4             2
+#define SYNC_JMP_WIDTH_4        3   /**< deviates from recommended value "1" */
+#define TIME_SEG1_4             8
+#define TIME_SEG2_4             7
+#define SAMPLE_4                0
+/* Bit timing (125 kBaud) */
+#define PRESCALER_5             4
+#define SYNC_JMP_WIDTH_5        3   /**< deviates from recommended value "1" */
+#define TIME_SEG1_5             8
+#define TIME_SEG2_5             7
+#define SAMPLE_5                0
+/* Bit timing (100 kBaud) */
+#define PRESCALER_6             4
+#define SYNC_JMP_WIDTH_6        4
+#define TIME_SEG1_6             11
+#define TIME_SEG2_6             8
+#define SAMPLE_6                0
+/* Bit timing (10 kBaud) */
+#define PRESCALER_7             32
+#define SYNC_JMP_WIDTH_7        4
+#define TIME_SEG1_7             16
+#define TIME_SEG2_7             8
+#define SAMPLE_7                0
 
 /* Acceptance filter */
 #define ACCEPT_MASK_1           0x0000
@@ -121,10 +151,35 @@ void* MDD_softingCANConstructor(const char* deviceName, int baudRate) {
 			ret = CANL2_initialize_chip(mDDSoftingCAN->can, PRESCALER_1, SYNC_JMP_WIDTH_1, TIME_SEG1_1,
 						TIME_SEG2_1, SAMPLE_1);
 			break;
+		case 2:
+			ModelicaFormatMessage("SoftingCAN (%s): Initializing chip with baud rate 800 kBaud ...", mDDSoftingCAN->deviceName);
+			ret = CANL2_initialize_chip(mDDSoftingCAN->can, PRESCALER_2, SYNC_JMP_WIDTH_2, TIME_SEG1_2,
+						TIME_SEG2_2, SAMPLE_2);
+			break;
 		case 3:
 			ModelicaFormatMessage("SoftingCAN (%s): Initializing chip with baud rate 500 kBaud ...", mDDSoftingCAN->deviceName);
 			ret = CANL2_initialize_chip(mDDSoftingCAN->can, PRESCALER_3, SYNC_JMP_WIDTH_3, TIME_SEG1_3,
 						TIME_SEG2_3, SAMPLE_3);
+			break;
+		case 4:
+			ModelicaFormatMessage("SoftingCAN (%s): Initializing chip with baud rate 500 kBaud ...", mDDSoftingCAN->deviceName);
+			ret = CANL2_initialize_chip(mDDSoftingCAN->can, PRESCALER_4, SYNC_JMP_WIDTH_4, TIME_SEG1_4,
+						TIME_SEG2_4, SAMPLE_4);
+			break;
+		case 5:
+			ModelicaFormatMessage("SoftingCAN (%s): Initializing chip with baud rate 500 kBaud ...", mDDSoftingCAN->deviceName);
+			ret = CANL2_initialize_chip(mDDSoftingCAN->can, PRESCALER_5, SYNC_JMP_WIDTH_5, TIME_SEG1_5,
+						TIME_SEG2_5, SAMPLE_5);
+			break;
+		case 6:
+			ModelicaFormatMessage("SoftingCAN (%s): Initializing chip with baud rate 500 kBaud ...", mDDSoftingCAN->deviceName);
+			ret = CANL2_initialize_chip(mDDSoftingCAN->can, PRESCALER_6, SYNC_JMP_WIDTH_6, TIME_SEG1_6,
+						TIME_SEG2_6, SAMPLE_6);
+			break;
+		case 7:
+			ModelicaFormatMessage("SoftingCAN (%s): Initializing chip with baud rate 500 kBaud ...", mDDSoftingCAN->deviceName);
+			ret = CANL2_initialize_chip(mDDSoftingCAN->can, PRESCALER_7, SYNC_JMP_WIDTH_7, TIME_SEG1_7,
+						TIME_SEG2_7, SAMPLE_7);
 			break;
 		default:
 			ModelicaFormatError("SoftingCAN (%s): Initializing chip with not (yet) supported Baud Rate (enum value %d)\n",
