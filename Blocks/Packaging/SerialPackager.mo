@@ -206,7 +206,26 @@ package SerialPackager "Blocks for constructing packages"
     annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
               -100},{100,100}}), graphics={Bitmap(extent={{-70,70},{70,-70}},
               fileName="Modelica://Modelica_DeviceDrivers/Resources/Images/Icons/package.PNG")}), Diagram(
-          graphics));
+          graphics),
+      Documentation(info="<html>
+<p>
+The <code>Packager</code> block creates a packager object to which payload can be added by subsequent blocks.
+</p>
+<p>
+<h5>Advanced parameter settings</h5>
+<p>
+With the default parameter settings the buffer size (size of the serialized package), as well as the sample time of the block is determined automatically by
+backward propagation. However, that values may also be set manually. An example there this functionality is used is the <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackager\"><code>TestSerialPackager</code></a> model. In that model the parameter <code>sampleTime</code> is explicitely set, since backward propagation is not possible in that case.
+</p>
+<h4>Examples</h4>
+<p>
+The block is used in several examples, e.g. in,
+<a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackager_UDP\"><code>TestSerialPackager_UDP</code></a>.
+The figure below shows an arrangement in which a <code>Packager</code> object is created and after that a payload of three Real values
+and one Integer value is added, serialized and finally sent using UDP.
+</p>
+<p><img src=\"modelica://Modelica_DeviceDrivers/Resources/Images/TestSerialPackager_UDP_model.png\"/></p>
+</html>"));
   end Packager;
 
   block AddBoolean "Add a Boolean vector to package"
@@ -255,7 +274,7 @@ package SerialPackager "Blocks for constructing packages"
             textString="%n * int32")}));
   end AddBoolean;
 
-  block AddInteger "Add an Integer array to package"
+  block AddInteger "Add an Integer vector to package"
     extends Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerWriteIcon;
     extends
       Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager;
@@ -291,7 +310,10 @@ package SerialPackager "Blocks for constructing packages"
                 -20},{6,0}},
             lineColor={255,127,0},
             fillColor={255,127,0},
-            fillPattern=FillPattern.Solid)}));
+            fillPattern=FillPattern.Solid)}),
+      Documentation(info="<html>
+
+</html>"));
   end AddInteger;
 
   block AddReal "Add a Real vector to package"
@@ -584,11 +606,29 @@ package SerialPackager "Blocks for constructing packages"
           Bitmap(extent={{-56,19},{8,-20}}, fileName=
                 "Modelica://Modelica_DeviceDrivers/Resources/Images/Icons/Int2BitArrow.png")}),
       Documentation(info="<html>
+<p>The block allows to pack unsigned integer values on bit level. The number of bits used for encoding is set by parameter <code>width</code>, therefore the maximum value of the integer signal that can be encoded is <code>2^width - 1</code>. The parameter <code>bitOffset</code> allows to specify the bit at which the encoding starts <b>relative</b> to the preceding block. </p>
+<p>If an <code>AddBoolean</code>, <code>AddInteger</code>, <code>AddReal</code> or <code>AddString</code> block follows a <code>PackUnsignedInteger</code> block the bit position after the <code>PackUnsignedInteger</code> block is aligned to the next byte boundery.<p>
+<h4>Endianness</h4>
 <p>Currently, the pack block only supports Intel-Endiannes (<b>little-endian!</b>).</p>
+<p>For information about endianness in computing see for example <a href\"http://en.wikipedia.org/wiki/Endianness\">http://en.wikipedia.org/wiki/Endianness</a></p>
+<h4>Example</h4>
+<p>
+The block is used in example
+<a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackagerBitPack_UDP\"><code>TestSerialPackagerBitPack_UDP</code></a>, depicted below.
+</p>
+<p><img src=\"modelica://Modelica_DeviceDrivers/Resources/Images/TestSerialPackagerBitPack_UDP_model.png\"/></p>
+The first 3*8 byte of the payload is used for the Real variables. After that two Integer variables are <b>packed</b> into the payload. Finally one Integer variable is added using an ordinary <code>AddInteger</code> block. Assuming that the value of the first Integer variable was <code>3 (decimal) == 11 (binary)</code> we would get the memory layout below. A '.' denotes that the bit is not part of the bits encoding the value (LSB = Least Significant Byte and MSB = Most Significant Byte).
+<pre>
+                                           byte 24                 byte 25
+                                             LSB                      MSB
+Relative bit position in Memory: (0  1  2  3  4  5  6  7)  (8  9  10 11 12 13 14 15) ( ..
+Value of bit                   : (0  0  0  0  0  0  1  1)  (.  .   .  .  .  .  0  0)
+</pre>
+<p>See also <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.UnpackUnsignedInteger\"><code>UnpackUnsignedInteger</code></a>.</p>
 </html>"));
   end PackUnsignedInteger;
 
-  model UnpackUnsignedInteger "Unpack integer value encoded at bit level"
+  model UnpackUnsignedInteger "decode integer value encoded at bit level"
     extends Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerReadIcon;
     extends
       Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager;
@@ -631,7 +671,26 @@ package SerialPackager "Blocks for constructing packages"
             lineColor={255,127,0},
             textString="I")}),
       Documentation(info="<html>
-<p>Currently, the unpack block only supports Intel-Endiannes (<b>little-endian!</b>).</p>
+<p>The block allows to unpack unsigned integer values on bit level. The number of bits used for decoding is set by parameter <code>width</code>. The parameter <code>bitOffset</code> allows to specify the bit at which the decoding starts <b>relative</b> to the preceding block. </p>
+<p>If an <code>GetBoolean</code>, <code>GetInteger</code>, <code>GetReal</code> or <code>GetString</code> block follows an <code>UnpackUnsignedInteger</code> block the bit position after the <code>UnpackUnsignedInteger</code> block is aligned to the next byte boundery.<p>
+<h4>Endianness</h4>
+<p>Currently, the pack block only supports Intel-Endiannes (<b>little-endian!</b>).</p>
+<p>For information about endianness in computing see for example <a href\"http://en.wikipedia.org/wiki/Endianness\">http://en.wikipedia.org/wiki/Endianness</a></p>
+<h4>Example</h4>
+<p>
+The block is used in example
+<a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackagerBitUnpack_UDP\"><code>TestSerialPackagerBitUnpack_UDP</code></a>, depicted below.
+</p>
+<p><img src=\"modelica://Modelica_DeviceDrivers/Resources/Images/TestSerialPackagerBitUnpack_UDP_model.png\"/></p>
+The first 3*8 byte of the payload is deserialized to Real variables. After that two Integer variables are unpacked from the payload. Finally one Integer variable is deserialized using an ordinary <code>GetInteger</code> block.  Assume that we had the memory layout below and would like to unpack the second Integer value. A '.' denotes that the bit is not part of the bits encoding the value (LSB = Least Significant Byte and MSB = Most Significant Byte).
+<pre>
+                                  byte 24  byte 25  byte 26          byte 27                    byte 28
+                                                                       LSB                         MSB
+Relative bit position in Memory:   0-7      8-15     16-23   (24 25 26 27 28 29 30 31) (32 33 34 35 36 37 38 39) (..
+Value of bit                   :                              .  .  .  .  .  .   0  1    0  0  0  0  0  0  0  1
+</pre>
+<p>The value of the unpacked second Integer value would be <code>5 (decimal) == 101 (binary)</code>.</p>
+<p>See also <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.PackUnsignedInteger\"><code>PackUnsignedInteger</code></a>.</p>
 </html>"));
   end UnpackUnsignedInteger;
 
