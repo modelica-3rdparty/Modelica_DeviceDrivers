@@ -75,7 +75,6 @@ end writeObject;
 encapsulated function readRcvData "Read data from object (CAN message)"
 
     import Modelica_DeviceDrivers.Communication.SoftingCAN;
-    import Modelica_DeviceDrivers.Obsolete.Communication.Packager.CANMessage;
 
 input SoftingCAN softingCAN "Handle for device";
 input Integer objectNumber "Object number of message (from defineObject(..))";
