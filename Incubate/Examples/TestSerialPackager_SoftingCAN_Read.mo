@@ -1,4 +1,4 @@
-within Modelica_DeviceDrivers.Incubate;
+within Modelica_DeviceDrivers.Incubate.Examples;
 model TestSerialPackager_SoftingCAN_Read
     extends Modelica.Icons.Example;
 
