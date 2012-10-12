@@ -687,7 +687,7 @@ The first 3*8 byte of the payload is deserialized to Real variables. After that 
                                   byte 24  byte 25  byte 26          byte 27                    byte 28
                                                                        LSB                         MSB
 Relative bit position in Memory:   0-7      8-15     16-23   (24 25 26 27 28 29 30 31) (32 33 34 35 36 37 38 39) (..
-Value of bit                   :                              .  .  .  .  .  .   0  1    0  0  0  0  0  0  0  1
+Value of bit                   :                               0  1  .  .  .  .  .  .    0  0  0  0  0  0  0  1
 </pre>
 <p>The value of the unpacked second Integer value would be <code>5 (decimal) == 101 (binary)</code>.</p>
 <p>See also <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.PackUnsignedInteger\"><code>PackUnsignedInteger</code></a>.</p>
