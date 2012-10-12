@@ -34,7 +34,7 @@ package InputDevices
               fileName="modelica://Modelica_DeviceDrivers/Resources/Images/Icons/joystick.png"),
                                                                   Text(extent={
                 {-150,140},{150,100}}, textString="%name")}),
-                preferedView="info",Documentation(info="<html>
+                preferredView="info",Documentation(info="<html>
 <p>This block reads data from the joystick ID (0 = first joystick appearing in windows control panel). Multible blocks can be used in order to retrieve data from more than one joysticks. Up to six axes and eight buttons are supported. The input values ranges between -1 and 1 and can be scaled by the vector <b>gain</b>.</p>
 </html>"));
   end JoystickInput;
@@ -137,7 +137,7 @@ package InputDevices
             fillColor={236,236,236},
             fillPattern=FillPattern.Solid,
             textString="%keyCode")}),
-              preferedView="info",Documentation(info="<html>
+              preferredView="info",Documentation(info="<html>
 <p>This block reads data from the keyboard. The monitored key is selected via the parameter <b>keyCode</b>. Note, that keystrokes will not be captured and the focused window will process them.</p>
 </html>"));
   end KeyboardKeyInput;
@@ -174,7 +174,7 @@ package InputDevices
               -100},{100,100}}), graphics={Text(extent={{-150,140},{150,100}},
               textString="%name"), Bitmap(extent={{-86,88},{88,-88}}, fileName=
                 "modelica://Modelica_DeviceDrivers/Resources/Images/Icons/Spacemouse.png")}),
-              preferedView="info",Documentation(info="<html>
+              preferredView="info",Documentation(info="<html>
 <p>This block reads data from the 3Dconnexion SpaceMouse. It provides the six axis and up to sixteen button inputs. Note, that only the first SpaceMouse attached on the system can be read.The input values ranges between approx. -1 and 1 and can be scaled by the vector <b>gain</b>.</p>
 <p><h4><font color=\"#008000\">Note for Linux</font></h4></p>
 <p>Using the SpaceMouse in Linux is possible, but requires that the Linux drivers offered by 3Dconnexion are installed and active (<a href=\"http://www.3dconnexion.com/\">http://www.3dconnexion.com/</a>).</p>
@@ -372,7 +372,7 @@ package InputDevices
             fillColor={95,95,95},
             fillPattern=FillPattern.Solid,
             textString="return")}),
-              preferedView="info",Documentation(info="<html>
+              preferredView="info",Documentation(info="<html>
 <p>This block reads data from the keyboard. The arrow keys, space and return are monitored. Note, that keystrokes will not be captured and the focused window will process them.</p>
 </html>"));
   end KeyboardInput;
@@ -381,7 +381,7 @@ package InputDevices
     extends Modelica.Icons.Package;
     type keyCodes =  Modelica.Icons.TypeString
     annotation (
-      preferedView="text",
+      preferredView="text",
       Evaluate=true,
       choices(
         choice="Return" "Return",

@@ -749,7 +749,7 @@ The authors are open to include contributions.
 </html>"));
   end Contact;
 
-  annotation (DocumentationClass=true, Documentation(info="<html>
+  annotation (__Dymola_DocumentationClass=true, Documentation(info="<html>
 <p>
 Library <b>Modelica_DeviceDrivers</b> is a Modelica package
 that interfaces hardware drivers. This package contains the <b>user's guide</b> for

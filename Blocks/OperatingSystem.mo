@@ -28,7 +28,7 @@ package OperatingSystem
     end when;
 
      (calculationTime,availableTime) = Modelica_DeviceDrivers.OperatingSystem.realtimeSynchronize(time,resolution);
-    annotation (preferedView="info",
+    annotation (preferredView="info",
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
               -100},{100,100}}), graphics={
           Bitmap(extent={{-60,60},{60,-60}}, fileName=
@@ -62,7 +62,7 @@ package OperatingSystem
 
   type ProcessPriority = Modelica.Icons.TypeString
   annotation (
-    preferedView="text",
+    preferredView="text",
     Evaluate=true,
     choices(
       choice="Idle" "Idle",
@@ -88,7 +88,7 @@ package OperatingSystem
           maxValue[i]);
       end for;
     end when;
-    annotation (preferedView="info",
+    annotation (preferredView="info",
         Diagram(graphics), Icon(graphics={
           Polygon(
             points={{-80,60},{-60,60},{-70,80},{-80,60}},

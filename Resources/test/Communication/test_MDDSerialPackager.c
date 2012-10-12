@@ -102,27 +102,32 @@ int test_bitPack2Pkg() {
 
 int test_addString() {
         void* pkg;
-        char* a = "He";
+        char* a = "Hey";
         int b = 4;
-        char* c = "Bye Pkg";
+        char* c = "you ";
+		char* d = "pkg";
         char* a_;
         int b_;
         char* c_;
+		char* d_;
         int failure = 0, size = 64;
         printf("test_addString: Adding and retrieving strings ..");
         pkg = MDD_SerialPackagerConstructor(size);
         MDD_SerialPackagerAddString(pkg, a);
         MDD_SerialPackagerAddInteger(pkg, &b, 1);
         MDD_SerialPackagerAddString(pkg, c);
+		MDD_SerialPackagerAddString(pkg, d);
 
         MDD_SerialPackagerSetPos(pkg, 0);
         a_ = MDD_SerialPackagerGetString(pkg);
         MDD_SerialPackagerGetInteger(pkg, &b_, 1);
         c_ = MDD_SerialPackagerGetString(pkg);
+		d_ = MDD_SerialPackagerGetString(pkg);
 
         failure = strcmp(a,a_) == 0 ? 0 : 1;
         failure = failure || b == b_ ? 0 : 1;
         failure = failure || strcmp(c,c_) == 0 ? 0 : 1;
+		failure = failure || strcmp(d,d_) == 0 ? 0 : 1;
 
         if (failure) {
                 printf("\tFAILED\n");
@@ -134,10 +139,12 @@ int test_addString() {
 
 int main(void) {
         int failure = 0;
+		/*
         failure = test_createPgk();
         failure = failure || test_add2PkgBoundery();
         failure = failure || test_add2Pkg();
         failure = failure || test_bitPack2Pkg();
+		*/
         failure = failure || test_addString();
         return failure;
 }

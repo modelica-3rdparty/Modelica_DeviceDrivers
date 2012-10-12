@@ -4,8 +4,7 @@ package Icons "Collection of icons used for library components"
 
 
   annotation (
-    preferedView="info",
-    classOrder={"Package","BaseClassPackage","VariantPackage","ParametrizedPackage","ExamplesPackage","*"},
+    preferredView="info",
     Documentation(
       info="<html>
 <p>

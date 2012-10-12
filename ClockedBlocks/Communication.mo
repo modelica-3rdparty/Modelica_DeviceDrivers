@@ -51,8 +51,7 @@ package Communication
       Modelica_DeviceDrivers.Communication.SharedMemory.read(sm),
       bufferSize,
       dummy);
-      annotation (preferedView="info",
-             Dialog(group="Incoming data"),
+      annotation (preferredView="info",
                 Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}), graphics={Text(extent={{-150,136},{150,96}},
               textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=true,
@@ -112,7 +111,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
       bufferSize,
       pkgIn.dummy);
 
-    annotation (preferedView="info",
+    annotation (preferredView="info",
             Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
               -100},{100,100}}), graphics={Text(extent={{-150,136},{150,96}},
               textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=true,
@@ -178,7 +177,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
       bufferSize,
       dummy);
 
-    annotation (preferedView="info",
+    annotation (preferredView="info",
             Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}), graphics={Text(extent={{-150,136},{150,96}},
               textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=true,
@@ -234,7 +233,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
       bufferSize,
       pkgIn.dummy);
 
-    annotation (preferedView="info",
+    annotation (preferredView="info",
             Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
               -100},{100,100}}), graphics={Text(extent={{-150,136},{150,96}},
               textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false,

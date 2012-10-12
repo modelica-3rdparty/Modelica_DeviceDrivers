@@ -260,7 +260,7 @@ void MDD_SerialPackagerAddString(void* p_package, const char* u) {
  * @param[in,out] p_package pointer to the SerialPackager
  * @param[out] y pointer to '\0' terminated string or NULL if no terminated '\0' found in package data.
  */
-char* MDD_SerialPackagerGetString(void* p_package) {
+const char* MDD_SerialPackagerGetString(void* p_package) {
         SerialPackager* pkg = (SerialPackager*) p_package;
         char* y;
         unsigned int i, found = 0;
@@ -284,9 +284,12 @@ char* MDD_SerialPackagerGetString(void* p_package) {
                 y = NULL;
         } else {
                 y = (char*) &(pkg->data[ pkg->pos ]);
-                pkg->pos += i+1;
+				/** TODO: Consider using ModelicaAllocateString() instead of (more efficient) direct buffer pointer, in order to be Modelica standard compliant */
+			    /* y = ModelicaAllocateString(i - pkg->pos);  // Modelica standard compliant form for Strings returned back to Modelica environment
+				   memcpy(y, &(pkg->data[ pkg->pos ]), i - pkg->pos); */
+                pkg->pos = i+1;
         }
-        return y;
+        return (const char*)y;
 }
 
 

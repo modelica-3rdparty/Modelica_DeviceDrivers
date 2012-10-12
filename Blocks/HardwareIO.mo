@@ -16,7 +16,7 @@ package HardwareIO
       final parameter Comedi dh = Comedi(deviceName) "Handle to comedi device";
 
       annotation (defaultComponentName="comedi",
-            preferedView="info",
+            preferredView="info",
             Icon(graphics={
             Text(
               extent={{-98,72},{94,46}},
@@ -54,7 +54,7 @@ package HardwareIO
       end when;
 
       annotation (defaultComponentName="dataWrite",
-              preferedView="info",
+              preferredView="info",
               Icon(graphics={                                       Text(extent={{-222,
                   88},{222,58}},
               lineColor={0,0,0},
@@ -99,7 +99,7 @@ package HardwareIO
       end when;
 
       annotation (defaultComponentName="dataRead",
-              preferedView="info",
+              preferredView="info",
               Icon(graphics={                                       Text(extent={{-222,
                   88},{222,58}},
               lineColor={0,0,0},
@@ -160,7 +160,7 @@ package HardwareIO
         Comedi.data_write(comedi, subDevice, channel, range, aref - 1,  rawData);
       end when;
       annotation (defaultComponentName="dataWrite",
-              preferedView="info",
+              preferredView="info",
               Icon(graphics={                                       Text(extent={{-222,
                   88},{222,58}},
               lineColor={0,0,0},
@@ -223,7 +223,7 @@ package HardwareIO
       end when;
 
       annotation (defaultComponentName="dataRead",
-              preferedView="info",
+              preferredView="info",
               Icon(graphics={                                       Text(extent={{-222,
                   88},{222,58}},
               lineColor={0,0,0},
@@ -268,7 +268,7 @@ package HardwareIO
       end when;
 
       annotation (defaultComponentName="dioWrite",
-              preferedView="info",
+              preferredView="info",
               Icon(graphics={                                       Text(extent={{-222,
                   88},{222,58}},
               lineColor={0,0,0},
@@ -314,7 +314,7 @@ package HardwareIO
       end when;
 
       annotation (defaultComponentName="dioRead",
-              preferedView="info",
+              preferredView="info",
               Icon(graphics={                                       Text(extent={{-222,
                   88},{222,58}},
               lineColor={0,0,0},
