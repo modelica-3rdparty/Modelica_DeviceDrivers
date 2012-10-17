@@ -42,4 +42,6 @@ it can be redistributed and/or modified under the terms of the [Modelica License
 ## Development and contribution
 Main developer: [Bernhard Thiele](mailto:bernhard.thiele@dlr.de)
 
-You may report any issues by using the [Modelica Issue Tracker](https://trac.modelica.org/Modelica/newticket?component=_Modelica_DeviceDrivers).
+You may report any issues with using the [Issues](../../issues) button.
+
+Contributions in shape of [Pull Requests](../../pulls) are always welcome.
