@@ -1,0 +1,13 @@
+*Licensed by the Copyright holders under the Modelica License 2
+(EXCEPT "Library" and "thirdParty" folder and their subfolders!)*
+
+Copyright 2012-..., DLR
+
+This C-source code is licensed as part of the Modelica package.
+
+The Modelica package (including this C code) is free software and the
+use is completely at your own risk; it can be redistributed and/or
+modified under the terms of the Modelica license 2, see the license
+conditions distributed with this package "ModelicaLicense2.html" or at
+"http://www.Modelica.org/licenses/ModelicaLicense2".
+
