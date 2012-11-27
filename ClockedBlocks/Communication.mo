@@ -90,7 +90,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
     Boolean initialized(start=false);
     Real dummy;
   algorithm
-    /* This stuff needs to be in algorithm section since otherwise there is an algebraic loop if used
+    /* FIXME: This stuff needs to be in algorithm section since otherwise there is an algebraic loop if used
      with the packger. Why? */
     if not initialized then
       sm := SharedMemory(memoryID, bufferSize);

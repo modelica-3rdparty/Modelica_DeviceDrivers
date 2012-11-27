@@ -155,7 +155,7 @@ package InputDevices
   public
     Modelica_DeviceDrivers.InputDevices.SpaceMouse spaceMouse
       annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-    Modelica.Blocks.Continuous.FirstOrder firstOrder[6](each T=.1)
+    Modelica.Blocks.Continuous.FirstOrder firstOrder[6](each T=0.1)
       annotation (Placement(transformation(extent={{-10,-10},{10,10}},
           rotation=0,
           origin={50,60})));

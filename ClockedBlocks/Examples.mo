@@ -862,4 +862,167 @@ Basic example of using a keyboard as input device.
               -100,-100},{100,100}}),
                         graphics), experiment(StopTime=1.1));
   end TestRandomRealSource;
+
+  model TestHardwareIOComedi
+    "Example for comedi daq support using USB-DUX D (http://www.linux-usb-daq.co.uk/)"
+    import Modelica_DeviceDrivers;
+  extends Modelica.Icons.Example;
+    Modelica_DeviceDrivers.ClockedBlocks.HardwareIO.Comedi.DataWrite
+                               dataWrite(comedi=comedi.dh, subDevice=1)
+      annotation (Placement(transformation(extent={{-14,20},{6,40}})));
+
+    Modelica_DeviceDrivers.Blocks.HardwareIO.Comedi.ComediConfig
+                                                          comedi
+      annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+    Modelica.Blocks.Sources.Sine sine(
+      freqHz=2,
+      amplitude=2000,
+      offset=2000)
+      annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
+    Modelica.Blocks.Math.RealToInteger realToInteger
+      annotation (Placement(transformation(extent={{-46,20},{-26,40}})));
+    Modelica_DeviceDrivers.ClockedBlocks.OperatingSystem.SynchronizeRealtime
+      synchronizeRealtime
+      annotation (Placement(transformation(extent={{60,60},{80,80}})));
+    Modelica_Synchronous.RealSignals.Sampler.SampleClocked sample
+      annotation (Placement(transformation(extent={{-70,24},{-58,36}})));
+    Modelica_Synchronous.ClockSignals.Clocks.PeriodicRealClock realClock(period=
+          0.1)
+      annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+    Modelica_DeviceDrivers.ClockedBlocks.HardwareIO.Comedi.DataRead dataRead(
+        comedi=comedi.dh, channel=0)
+      annotation (Placement(transformation(extent={{22,20},{42,40}})));
+    Modelica_Synchronous.IntegerSignals.Sampler.AssignClock assignClock1
+      annotation (Placement(transformation(extent={{54,24},{66,36}})));
+    Modelica.Blocks.Sources.Sine sine1(
+      freqHz=2,
+      amplitude=4,
+      offset=0)
+      annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
+    Modelica_Synchronous.RealSignals.Sampler.SampleClocked sample1
+      annotation (Placement(transformation(extent={{-70,-56},{-58,-44}})));
+    Modelica_DeviceDrivers.ClockedBlocks.HardwareIO.Comedi.PhysicalDataWrite
+      dataWrite1(comedi=comedi.dh, channel=1)
+      annotation (Placement(transformation(extent={{-46,-60},{-26,-40}})));
+    Modelica_Synchronous.RealSignals.Sampler.AssignClock assignClock2
+      annotation (Placement(transformation(extent={{38,-56},{50,-44}})));
+    Modelica_DeviceDrivers.ClockedBlocks.HardwareIO.Comedi.PhysicalDataRead
+      dataRead1(comedi=comedi.dh, channel=1)
+      annotation (Placement(transformation(extent={{8,-60},{28,-40}})));
+    Modelica.Blocks.Logical.Less less
+      annotation (Placement(transformation(extent={{-46,-20},{-26,0}})));
+    Modelica.Blocks.Sources.Constant const(k=2000)
+      annotation (Placement(transformation(extent={{-100,-28},{-80,-8}})));
+    Modelica_Synchronous.RealSignals.Sampler.SampleClocked sample2
+      annotation (Placement(transformation(extent={{-70,-24},{-58,-12}})));
+    Modelica_DeviceDrivers.ClockedBlocks.HardwareIO.Comedi.DIOWrite dioWrite(
+        comedi=comedi.dh)
+      annotation (Placement(transformation(extent={{-14,-20},{6,0}})));
+    Modelica_DeviceDrivers.ClockedBlocks.HardwareIO.Comedi.DIORead dioRead(
+        channel=1, comedi=comedi.dh)
+      annotation (Placement(transformation(extent={{20,-20},{40,0}})));
+    Modelica_Synchronous.BooleanSignals.Sampler.AssignClock assignClock3
+      annotation (Placement(transformation(extent={{54,-16},{66,-4}})));
+  equation
+    connect(realToInteger.y, dataWrite.u) annotation (Line(
+        points={{-25,30},{-16,30}},
+        color={255,127,0},
+        smooth=Smooth.None));
+    connect(sine.y, sample.u) annotation (Line(
+        points={{-79,30},{-71.2,30}},
+        color={0,0,127},
+        smooth=Smooth.None));
+    connect(sample.y, realToInteger.u) annotation (Line(
+        points={{-57.4,30},{-48,30}},
+        color={0,0,127},
+        smooth=Smooth.None));
+    connect(dataRead.y, assignClock1.u) annotation (Line(
+        points={{43,30},{52.8,30}},
+        color={255,127,0},
+        smooth=Smooth.None));
+    connect(sine1.y, sample1.u) annotation (Line(
+        points={{-79,-50},{-71.2,-50}},
+        color={0,0,127},
+        smooth=Smooth.None));
+    connect(sample1.clock, realClock.y) annotation (Line(
+        points={{-64,-57.2},{-64,-90},{-79,-90}},
+        color={175,175,175},
+        pattern=LinePattern.Dot,
+        thickness=0.5,
+        smooth=Smooth.None));
+    connect(sample1.y, dataWrite1.u) annotation (Line(
+        points={{-57.4,-50},{-48,-50}},
+        color={0,0,127},
+        smooth=Smooth.None));
+    connect(assignClock2.clock, realClock.y) annotation (Line(
+        points={{44,-57.2},{44,-90},{-79,-90}},
+        color={175,175,175},
+        pattern=LinePattern.Dot,
+        thickness=0.5,
+        smooth=Smooth.None));
+    connect(assignClock2.u, dataRead1.y) annotation (Line(
+        points={{36.8,-50},{29,-50}},
+        color={0,0,127},
+        smooth=Smooth.None));
+    connect(const.y, sample2.u) annotation (Line(
+        points={{-79,-18},{-71.2,-18}},
+        color={0,0,127},
+        smooth=Smooth.None));
+    connect(sample2.y, less.u2) annotation (Line(
+        points={{-57.4,-18},{-48,-18}},
+        color={0,0,127},
+        smooth=Smooth.None));
+    connect(less.u1, sample.y) annotation (Line(
+        points={{-48,-10},{-54,-10},{-54,30},{-57.4,30}},
+        color={0,0,127},
+        smooth=Smooth.None));
+    connect(sample2.clock, realClock.y) annotation (Line(
+        points={{-64,-25.2},{-64,-38},{-74,-38},{-74,-90},{-79,-90}},
+        color={175,175,175},
+        pattern=LinePattern.Dot,
+        thickness=0.5,
+        smooth=Smooth.None));
+    connect(sample.clock, realClock.y) annotation (Line(
+        points={{-64,22.8},{-64,0},{-74,0},{-74,-90},{-79,-90}},
+        color={175,175,175},
+        pattern=LinePattern.Dot,
+        thickness=0.5,
+        smooth=Smooth.None));
+    connect(less.y, dioWrite.u) annotation (Line(
+        points={{-25,-10},{-16,-10}},
+        color={255,0,255},
+        smooth=Smooth.None));
+    connect(dioRead.y, assignClock3.u) annotation (Line(
+        points={{41,-10},{52.8,-10}},
+        color={255,0,255},
+        smooth=Smooth.None));
+    connect(assignClock3.clock, realClock.y) annotation (Line(
+        points={{60,-17.2},{60,-90},{-79,-90}},
+        color={175,175,175},
+        pattern=LinePattern.Dot,
+        thickness=0.5,
+        smooth=Smooth.None));
+    connect(assignClock1.clock, realClock.y) annotation (Line(
+        points={{60,22.8},{60,4},{74,4},{74,-90},{-79,-90}},
+        color={175,175,175},
+        pattern=LinePattern.Dot,
+        thickness=0.5,
+        smooth=Smooth.None));
+    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+              -100},{100,100}}),
+                        graphics={Text(
+            extent={{-108,106},{108,76}},
+            lineColor={0,0,255},
+            textString="Example for USB-DUX D
+Assuming input channels are electrical connected to corresponding output channels we should read what we wrote")}),
+        experiment(StopTime=5.0),
+      Documentation(info="<html>
+<p>
+<b>Important: Works only under Linux.</b> The reason for this is, that the interfaced <a href=\"http://www.comedi.org/\">Comedi</a> device drivers are only available for Linux.
+</p>
+<p>
+Example tested with <a href=\"http://www.linux-usb-daq.co.uk/tech2_usbdux/\">USB-DUX D</a>. Assuming input channels are electrical connected to corresponding output channels we should read what we wrote
+</p>
+</html>"));
+  end TestHardwareIOComedi;
 end Examples;
