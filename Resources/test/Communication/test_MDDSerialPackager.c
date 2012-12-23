@@ -105,11 +105,11 @@ int test_addString() {
         char* a = "Hey";
         int b = 4;
         char* c = "you ";
-		char* d = "pkg";
-        char* a_;
+	char* d = "pkg";
+        const char* a_;
         int b_;
-        char* c_;
-		char* d_;
+        const char* c_;
+	const char* d_;
         int failure = 0, size = 64;
         printf("test_addString: Adding and retrieving strings ..");
         pkg = MDD_SerialPackagerConstructor(size);
@@ -122,7 +122,7 @@ int test_addString() {
         a_ = MDD_SerialPackagerGetString(pkg);
         MDD_SerialPackagerGetInteger(pkg, &b_, 1);
         c_ = MDD_SerialPackagerGetString(pkg);
-		d_ = MDD_SerialPackagerGetString(pkg);
+	d_ = MDD_SerialPackagerGetString(pkg);
 
         failure = strcmp(a,a_) == 0 ? 0 : 1;
         failure = failure || b == b_ ? 0 : 1;

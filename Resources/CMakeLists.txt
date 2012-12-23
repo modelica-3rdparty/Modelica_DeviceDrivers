@@ -40,6 +40,10 @@ add_subdirectory(test/Communication)
 add_subdirectory(test/SoftingCAN)
 # Linux comedi daq interface
 add_subdirectory(test/HardwareIO)
+# Linux socket CAN interface
+add_subdirectory(test/SocketCAN)
+# Utility module
+add_subdirectory(test/Util)
 
 
 # Forget about everything under this line

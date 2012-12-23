@@ -8,7 +8,7 @@
 */
 
 void ModelicaMessage(const char *string) {
-	printf(string);
+	printf("%s", string);
 }
 
 
@@ -22,7 +22,7 @@ void ModelicaFormatMessage(const char *string,...) {
 
 
 void ModelicaError(const char *string) {
-fprintf (stderr, string);
+   fprintf (stderr, "%s", string);
 }
 
 

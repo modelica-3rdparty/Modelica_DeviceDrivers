@@ -13,13 +13,21 @@ if (NOT MSVC)
 endif (NOT MSVC)
 add_test(test_MDDKeyboard ${EXECUTABLE_OUTPUT_PATH}/test_MDDKeyboard)
 
-add_executable(test_MDDSpaceMouse test_MDDSpaceMouse.c ../Util/ModelicaUtilities.c)
+# Only build test application in linux if library has been built sucessfully before
 if (MSVC)
+  add_executable(test_MDDSpaceMouse test_MDDSpaceMouse.c ../Util/ModelicaUtilities.c)
   target_link_libraries(test_MDDSpaceMouse MDDSpaceMouse)
+  add_test(test_MDDSpaceMouse ${EXECUTABLE_OUTPUT_PATH}/test_MDDSpaceMouse)
 else (MSVC)
-  target_link_libraries(test_MDDSpaceMouse X11 MDDSpaceMouse)
+  if (srcXdrvlib)
+    add_executable(test_MDDSpaceMouse test_MDDSpaceMouse.c ../Util/ModelicaUtilities.c)
+    target_link_libraries(test_MDDSpaceMouse X11 MDDSpaceMouse)
+    add_test(test_MDDSpaceMouse ${EXECUTABLE_OUTPUT_PATH}/test_MDDSpaceMouse)
+  else (srcXdrvlib)
+    message("xdrvlib.c not found. Skipping test generation for 3Dconnexion Space Mouse!")
+  endif (srcXdrvlib)
 endif (MSVC)
-add_test(test_MDDSpaceMouse ${EXECUTABLE_OUTPUT_PATH}/test_MDDSpaceMouse)
+
 
 
 
