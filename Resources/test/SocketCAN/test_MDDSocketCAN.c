@@ -94,16 +94,17 @@ int test_CANWriteRead() {
 int main() {
   int failed = 0;
   printf("Testing Socket CAN Support ..\n");
-  printf("NOTE that virtual can devices vcan0 and vcan1 must be up in order to run tests\n");
+  printf("PLEASE NOTE: the virtual can devices vcan0 and vcan1 must be up in order to run tests!\n");
   /* Setting up vcan0 and vcan1 can be done by uncommenting the line below, or manually by
      typing the commands in setup_VirtualCANDevices() in a console */
-  /* setup_VirtualCANDevices(); */
+  //setup_VirtualCANDevices();
 
-  failed = test_Constructor(); if (failed) return failed;
-  failed = test_CANWrite(); if (failed) return failed;
-  failed = test_CANWriteRead(); if (failed) return failed;
+  //failed = test_Constructor(); if (failed) goto END;
+  //failed = test_CANWrite(); if (failed) goto END;
+  failed = test_CANWriteRead(); if (failed) goto END;
 
-  printf("Testing Socket CAN Support %s\n", (failed != 0) ? "FAILED" : "OK");
+END:
+  printf("\nTesting Socket CAN Support %s\n", (failed != 0) ? "FAILED" : "OK");
   return failed;
 }
 
