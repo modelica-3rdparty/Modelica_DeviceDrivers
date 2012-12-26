@@ -450,6 +450,158 @@ not necessary mean that your Modelica tool compiles 64bit binaries, i.e., if in 
 </html>"));
   end SoftingCAN;
 
+  package SocketCAN
+    "Support for the Linux Controller Area Network Protocol Family (aka Socket CAN)"
+    extends Modelica.Icons.Package;
+    record SocketCANConfig
+    extends Modelica_DeviceDrivers.Utilities.Icons.SocketCANRecordIcon;
+      import Modelica_DeviceDrivers.Communication.SocketCAN;
+      parameter String ifr_name = "vcan0"
+        "CAN interface name (as displayed by ifconfig)";
+      final parameter SocketCAN dh = SocketCAN(ifr_name) "SocketCAN handle";
+      annotation (Icon(graphics={
+                     Text(
+              extent={{-98,70},{98,42}},
+              lineColor={0,0,0},
+              textString="%ifr_name")}));
+    end SocketCANConfig;
+
+    block ReadMessage "Set up a message for receiving data"
+      extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
+      import Modelica_DeviceDrivers;
+      import Modelica_DeviceDrivers.Communication.SocketCAN;
+      import Modelica_DeviceDrivers.Packaging.SerialPackager;
+      import SI = Modelica.SIunits;
+    parameter SocketCANConfig config annotation (__Dymola_componentsMatching=true);
+    parameter Integer can_id(min=0) "Identifier of CAN message (CAN Id)";
+    parameter Integer can_dlc(min=0,max=8) = 8
+        "Data length code (payload of data in bytes, max=8)";
+    parameter SI.Period sampleTime = 0.1 "Period at which messages are written";
+    parameter SI.Time startTime = 0 "First sample time instant";
+      Modelica_DeviceDrivers.Blocks.Interfaces.PackageOut pkgOut
+        annotation (Placement(transformation(extent={{-20,-128},{20,-88}})));
+    protected
+      Modelica_DeviceDrivers.Packaging.SerialPackager
+                     pkg = SerialPackager(can_dlc);
+    initial equation
+      SocketCAN.defineObject(
+        config.dh,
+        can_id,
+        can_dlc);
+    equation
+      pkgOut.trigger = sample(startTime, sampleTime);
+      when pkgOut.trigger then
+        pkgOut.dummy = Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.DummyFunctions.setPackage(
+        pkgOut.pkg,
+        SocketCAN.readObject(
+          config.dh,
+          can_id,
+          can_dlc,
+          SerialPackager.getPackage(pkgOut.pkg)),
+        can_dlc,
+        time);
+      end when;
+
+      pkgOut.pkg = pkg;
+      annotation (defaultComponentName="rxMessage",
+      Icon(graphics={Text(
+              extent={{-98,54},{98,26}},
+              lineColor={0,0,0},
+              textString="Rx id: %can_id"),
+            Text(
+              extent={{-160,24},{160,-6}},
+              lineColor={0,0,0},
+              textString="(%startTime, %sampleTime) s")}),
+        Diagram(graphics),
+        Documentation(info="<html>
+<h4><font color=\"#008000\">Support for Linux Socket CAN interface</font></h4>
+<p><b>Please, read the package information for <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SocketCAN\"><code>SocketCAN</code></a> first!</p>
+<h4><font color=\"#008000\">Example</font></h4>
+<p>
+See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackager_SocketCAN\"><code>TestSerialPackager_SocketCAN</code></a>.
+</p>
+</html>"));
+    end ReadMessage;
+
+    block WriteMessage "Set up a message for transmitting data"
+      extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
+      import Modelica_DeviceDrivers.Communication.SocketCAN;
+      import Modelica_DeviceDrivers.Packaging.SerialPackager;
+      import SI = Modelica.SIunits;
+    parameter SocketCANConfig config annotation (__Dymola_componentsMatching=true);
+    parameter Integer can_id(min=0) "Identifier of CAN message (CAN Id)";
+    parameter Integer can_dlc(min=0,max=8) = 8
+        "Data length code (payload of data in bytes, max=8)";
+    parameter SI.Period sampleTime = 0.1 "Sample period of component";
+    parameter SI.Time startTime = 0 "First sample time instant";
+      Modelica_DeviceDrivers.Blocks.Interfaces.PackageIn pkgIn
+        annotation (Placement(transformation(extent={{-20,-128},{20,-88}})));
+    protected
+      Real dummy;
+    equation
+      when initial() then
+        pkgIn.userPkgBitSize = can_dlc*8;
+        pkgIn.autoPkgBitSize = 0;
+        SocketCAN.defineObject(config.dh, can_id, can_dlc);
+      end when;
+
+      pkgIn.backwardTrigger = sample(startTime, sampleTime);
+      when pkgIn.trigger then
+        dummy = Modelica_DeviceDrivers.Blocks.Communication.SocketCAN.Internal.writeDummy(
+          config.dh,
+          can_id,
+          can_dlc,
+          SerialPackager.getPackage(pkgIn.pkg),
+          pkgIn.dummy);
+
+      end when;
+      annotation (defaultComponentName="txMessage",
+      Icon(graphics={
+            Text(
+              extent={{-90,54},{96,24}},
+              lineColor={0,0,0},
+              textString="Tx id: %can_id"),
+            Text(
+              extent={{-160,24},{160,-6}},
+              lineColor={0,0,0},
+              textString="(%startTime, %sampleTime) s")}),
+        Diagram(graphics),
+        Documentation(info="<html>
+<h4><font color=\"#008000\">Support for Linux Socket CAN interface</font></h4>
+<p><b>Please, read the package information for <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SocketCAN\"><code>SocketCAN</code></a> first!</p>
+<h4><font color=\"#008000\">Example</font></h4>
+<p>
+See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackager_SocketCAN\"><code>TestSerialPackager_SocketCAN</code></a>.
+</p>
+</html>"));
+    end WriteMessage;
+
+    package Internal
+      extends Modelica_DeviceDrivers.Utilities.Icons.InternalPackage;
+
+    encapsulated function writeDummy "Write CAN frame/message to socket"
+        import Modelica_DeviceDrivers.Communication.SocketCAN;
+
+      input SocketCAN socketCAN;
+      input Integer can_id "CAN frame identifier";
+      input Integer can_dlc(min=0,max=8)
+          " length of data in bytes (min=0, max=8)";
+      input String data "The payload data";
+      input Real dummy;
+      output Real dummy2;
+    algorithm
+      SocketCAN.write(socketCAN, can_id, can_dlc, data);
+      dummy2 := dummy;
+    end writeDummy;
+    end Internal;
+    annotation (preferredView="info",Documentation(info="<html>
+<h4><font color=\"#008000\">Support for Linux Socket CAN interface</font></h4>
+<p>
+<b>TODO: write documentation</b>
+</p>
+</html>"));
+  end SocketCAN;
+
   package Internal
     extends Modelica_DeviceDrivers.Utilities.Icons.InternalPackage;
     package DummyFunctions

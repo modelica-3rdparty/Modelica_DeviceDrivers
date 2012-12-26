@@ -250,8 +250,9 @@ void MDD_socketCANWrite(void* p_mDDSocketCAN, int can_id, int can_dlc,
  * @param[in] can_id CAN frame identifier
  * @param[in] can_dlc length of data in bytes (min=0, max=8)
  * @param[out] data up-to-date payload data for corresponding can_id
+ * @return pointer to the up-to-date payload data (== data)
  */
-void MDD_socketCANRead(void* p_mDDSocketCAN, int can_id,  int can_dlc, char* data) {
+const char * MDD_socketCANRead(void* p_mDDSocketCAN, int can_id,  int can_dlc, char* data) {
 	MDDSocketCAN * mDDSocketCAN = (MDDSocketCAN *) p_mDDSocketCAN;
 	void * value;
 
@@ -260,6 +261,7 @@ void MDD_socketCANRead(void* p_mDDSocketCAN, int can_id,  int can_dlc, char* dat
 	value = MDD_mapIntpVoidLookup(mDDSocketCAN->p_mDDMapIntpVoid, can_id);
 	memcpy(data, value, can_dlc);
 	pthread_mutex_unlock(&(mDDSocketCAN->mapMutex));
+	return data;
 }
 
 /** Dedicated thread for receiving CAN frames.

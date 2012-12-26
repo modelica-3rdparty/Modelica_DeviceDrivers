@@ -3,6 +3,7 @@ TestSerialPackager_UDP
 TestSerialPackagerBitPack_UDP
 TestSerialPackager_SharedMemory
 TestSerialPackager_SoftingCAN
+TestSerialPackager_SocketCAN
 TestInputSpaceMouse
 TestInputJoystick
 TestInputKeyboard

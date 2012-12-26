@@ -8,6 +8,8 @@ add_library(MDDUtil STATIC ${libSrcsMDDUtilLibrary})
 
 
 if (UNIX)
+  SET(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-m32") # force compile for 32 bit
+  # install to directory (CMAKE_INSTALL_PREFIX)
   if ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
 	install(TARGETS MDDUtil DESTINATION Library/linux64)
   elseif ( CMAKE_SIZEOF_VOID_P EQUAL 4 )

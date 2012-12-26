@@ -22,9 +22,7 @@
 void setup_VirtualCANDevices() {
   system("sudo modprobe vcan");
   system("sudo ip link add type vcan"); /* gives vcan0 */
-  system("sudo ip link add type vcan"); /* gives vcan1 */
   system("sudo ifconfig vcan0 up");
-  system("sudo ifconfig vcan1 up");
 }
 
 int test_Constructor() {
@@ -94,8 +92,8 @@ int test_CANWriteRead() {
 int main() {
   int failed = 0;
   printf("Testing Socket CAN Support ..\n");
-  printf("PLEASE NOTE: the virtual can devices vcan0 and vcan1 must be up in order to run tests!\n");
-  /* Setting up vcan0 and vcan1 can be done by uncommenting the line below, or manually by
+  printf("PLEASE NOTE: the virtual can device vcan0 must be up in order to run tests!\n");
+  /* Setting up vcan0 can be done by uncommenting the line below, or manually by
      typing the commands in setup_VirtualCANDevices() in a console */
   //setup_VirtualCANDevices();
 

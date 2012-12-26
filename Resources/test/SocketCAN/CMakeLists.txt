@@ -10,7 +10,6 @@ if (UNIX)
   find_package (Threads)
   target_link_libraries(test_MDDSocketCAN MDDUtil ${CMAKE_THREAD_LIBS_INIT})
   add_test(test_MDDSocketCAN ${EXECUTABLE_OUTPUT_PATH}/test_MDDSocketCAN)
-
 else (UNIX)
   message("Socket CAN support only available for linux. Skipping ..")
 endif (UNIX)
