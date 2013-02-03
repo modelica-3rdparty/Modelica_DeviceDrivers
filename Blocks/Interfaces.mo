@@ -3,8 +3,6 @@ package Interfaces
     extends Modelica.Icons.InterfacesPackage;
 
   connector PackageIn "Packager input connector"
-    import Modelica_DeviceDrivers.Packaging.SerialPackager;
-
     input Modelica_DeviceDrivers.Packaging.SerialPackager pkg;
     input Boolean trigger;
     input Real dummy;
@@ -34,17 +32,13 @@ package Interfaces
   end PackageIn;
 
   connector PackageOut "Packager output connector"
-    import Modelica_DeviceDrivers.Packaging.SerialPackager;
+    output Modelica_DeviceDrivers.Packaging.SerialPackager pkg;
+    output Boolean trigger;
+    output Real dummy;
 
     input Boolean backwardTrigger;
     input Integer userPkgBitSize;
     input Integer autoPkgBitSize;
-
-    output Modelica_DeviceDrivers.Packaging.SerialPackager
-                         pkg;
-    output Boolean trigger;
-    output Real dummy;
-
     annotation (defaultComponentName="pkgOut",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}},
           initialScale=0.2), graphics={Rectangle(
@@ -67,7 +61,6 @@ package Interfaces
   end PackageOut;
 
   connector SoftingCANOut
-    import Modelica_DeviceDrivers.Communication.SoftingCAN;
     output Modelica_DeviceDrivers.Communication.SoftingCAN
                       softingCAN;
     input Real dummy;
@@ -94,7 +87,6 @@ package Interfaces
   end SoftingCANOut;
 
   connector SoftingCANIn
-    import Modelica_DeviceDrivers.Communication.SoftingCAN;
     input Modelica_DeviceDrivers.Communication.SoftingCAN
                      softingCAN;
     output Real dummy;
