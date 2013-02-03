@@ -17,14 +17,11 @@ package InputDevices
              0)));
   protected
     Real AxesRaw[6] "unscaled joystick input";
-  public
-    Modelica_DeviceDrivers.InputDevices.GameController gameController
-      annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   equation
     when
         (sample(0,sampleTime)) then
       (AxesRaw,buttons,pOV) =
-        gameController.getData(ID);
+        Modelica_DeviceDrivers.InputDevices.GameController.getData(ID);
     end when;
     axes = (AxesRaw .- 32768)/32768 ./gain;
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
@@ -76,13 +73,10 @@ package InputDevices
                            if (keyCode == "F10") then 121 else
                            if (keyCode == "F11") then 122 else
                            if (keyCode == "F12") then 123 else 13;
-  public
-    Modelica_DeviceDrivers.InputDevices.Keyboard keyboard
-      annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   equation
     when
         (sample(0,sampleTime)) then
-      keyStateInt = keyboard.getKey(keyCodeInt);
+      keyStateInt = Modelica_DeviceDrivers.InputDevices.Keyboard.getKey(keyCodeInt);
                                               //getting the KeyCode
     end when;
     keyState = if (keyStateInt==1) then true else false;
@@ -153,8 +147,6 @@ package InputDevices
   protected
     Real AxesRaw[6] "unscaled SpaceMouse input";
   public
-    Modelica_DeviceDrivers.InputDevices.SpaceMouse spaceMouse
-      annotation (Placement(transformation(extent={{-20,20},{0,40}})));
     Modelica.Blocks.Continuous.FirstOrder firstOrder[6](each T=0.1)
       annotation (Placement(transformation(extent={{-10,-10},{10,10}},
           rotation=0,
@@ -162,7 +154,7 @@ package InputDevices
   equation
     when
         (sample(0,sampleTime)) then
-      (AxesRaw,buttons) = spaceMouse.getData();
+      (AxesRaw,buttons) = Modelica_DeviceDrivers.InputDevices.SpaceMouse.getData();
     end when;
     firstOrder.u = AxesRaw/400 .*gain;
     connect(firstOrder.y, axes) annotation (Line(
@@ -212,13 +204,10 @@ package InputDevices
              0)));
   protected
     Integer KeyCode[10](each start=0, each fixed=true);
-  public
-    Modelica_DeviceDrivers.InputDevices.Keyboard keyboard
-      annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   equation
     when
         (sample(0,sampleTime)) then
-      KeyCode = keyboard.getData();
+      KeyCode = Modelica_DeviceDrivers.InputDevices.Keyboard.getData();
                                               //getting the KeyCode
     end when;
     keyUp = if (KeyCode[1]==1) then true else false;

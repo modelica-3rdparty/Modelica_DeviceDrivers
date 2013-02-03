@@ -1,5 +1,5 @@
 within Modelica_DeviceDrivers.InputDevices;
-class SpaceMouse "A driver accessing the 3DConnexion SpaceMouse."
+package SpaceMouse "A driver accessing the 3DConnexion SpaceMouse."
 extends Modelica_DeviceDrivers.Utilities.Icons.DriverIcon;
 function getData "reads data from 3dConnexion SpaceMouse"
 output Real Axes[6] "Axes values";

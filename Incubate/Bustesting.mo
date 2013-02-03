@@ -52,7 +52,7 @@ end CAN_Msg2;
           origin={100,10})));
     Modelica.Blocks.Sources.Sine sine(freqHz=2)
       annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-    Modelica.Blocks.Sources.IntegerStep integerStep(startTime=.2)
+    Modelica.Blocks.Sources.IntegerStep integerStep(startTime=0.2)
       annotation (Placement(transformation(extent={{-56,-22},{-36,-2}})));
     Modelica.Blocks.Sources.BooleanPulse booleanPulse(period=0.2)
       annotation (Placement(transformation(extent={{-50,-68},{-30,-48}})));

@@ -8,6 +8,7 @@ package Communication
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
     import Modelica_DeviceDrivers.Packaging.alignAtByteBoundery;
     import Modelica_DeviceDrivers.Communication.SharedMemory;
+    import Modelica_DeviceDrivers.Communication.SharedMemory_;
     parameter Real sampleTime=0.01 "Sample time for input update";
     parameter Boolean autoBufferSize = false
       "true, buffer size is deduced automatically, otherwise set it manually"
@@ -36,7 +37,7 @@ package Communication
     when pkgOut.trigger then
       pkgOut.dummy = Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.DummyFunctions.setPackage(
         pkgOut.pkg,
-        Modelica_DeviceDrivers.Communication.SharedMemory.read(sm),
+        SharedMemory_.read(sm),
         bufferSize,
         time);
     end when;
@@ -52,6 +53,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
   end SharedMemoryRead;
 
   model SharedMemoryWrite "A block for writing data in a shared memory"
+    import Modelica_DeviceDrivers;
     extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
     extends Modelica_DeviceDrivers.Utilities.Icons.SharedMemoryIcon;
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
@@ -77,7 +79,8 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
     when (initial()) then
       pkgIn.userPkgBitSize = if autoBufferSize then -1 else userBufferSize*8;
       pkgIn.autoPkgBitSize = 0;
-      bufferSize = if autoBufferSize then SerialPackager.getBufferSize(pkgIn.pkg) else userBufferSize;
+      bufferSize = if autoBufferSize then Modelica_DeviceDrivers.Packaging.SerialPackager_.getBufferSize(
+                                                                       pkgIn.pkg) else userBufferSize;
       sm = SharedMemory(memoryID, bufferSize);
     end when;
     pkgIn.backwardTrigger = sample(0, sampleTime);
@@ -85,7 +88,8 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
       dummy =
         Modelica_DeviceDrivers.Blocks.Communication.Internal.DummyFunctions.writeSharedMemory(
         sm,
-        SerialPackager.getPackage(pkgIn.pkg),
+        Modelica_DeviceDrivers.Packaging.SerialPackager_.getPackage(
+                                  pkgIn.pkg),
         bufferSize,
         pkgIn.dummy);
     end when;
@@ -137,7 +141,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
     when pkgOut.trigger then
       pkgOut.dummy = Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.DummyFunctions.setPackage(
         pkgOut.pkg,
-        Modelica_DeviceDrivers.Communication.UDPSocket.read(socket),
+        Modelica_DeviceDrivers.Communication.UDPSocket_.read(socket),
         bufferSize,
         time);
     end when;
@@ -153,6 +157,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
   end UDPReceive;
 
   model UDPSend "A block for sending UDP datagrams"
+    import Modelica_DeviceDrivers;
     extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
     extends Modelica_DeviceDrivers.Utilities.Icons.UDPconnection;
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
@@ -180,7 +185,8 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
     when (initial()) then
       pkgIn.userPkgBitSize = if autoBufferSize then -1 else userBufferSize*8;
       pkgIn.autoPkgBitSize = 0;
-      bufferSize = if autoBufferSize then SerialPackager.getBufferSize(pkgIn.pkg) else userBufferSize;
+      bufferSize = if autoBufferSize then Modelica_DeviceDrivers.Packaging.SerialPackager_.getBufferSize(
+                                                                       pkgIn.pkg) else userBufferSize;
       socket = UDPSocket(0);
     end when;
     pkgIn.backwardTrigger = sample(0, sampleTime);
@@ -190,7 +196,8 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
         socket,
         IPAddress,
         port_send,
-        SerialPackager.getPackage(pkgIn.pkg),
+        Modelica_DeviceDrivers.Packaging.SerialPackager_.getPackage(
+                                  pkgIn.pkg),
         bufferSize,
         pkgIn.dummy);
     end when;
@@ -268,7 +275,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
       Modelica_DeviceDrivers.Packaging.SerialPackager
                      pkg = SerialPackager(8);
     initial equation
-      objectNumber = SoftingCAN.defineObject(
+      objectNumber = Modelica_DeviceDrivers.Communication.SoftingCAN_.defineObject(
         softingCANBus.softingCAN,
         ident,
         Types.TransmissionType.standardReceive);
@@ -279,12 +286,12 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
         objectNumber = pre(objectNumber);
         pkgOut.dummy = Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.DummyFunctions.setPackage(
         pkgOut.pkg,
-        SoftingCAN.readRcvData(
+        Modelica_DeviceDrivers.Communication.SoftingCAN_.readRcvData(
           softingCANBus.softingCAN,
           objectNumber,
-          SerialPackager.getPackage(pkgOut.pkg)),
-          8,
-          time);
+          Modelica_DeviceDrivers.Packaging.SerialPackager_.getPackage(pkgOut.pkg)),
+        8,
+        time);
 
         softingCANBus.dummy = pre(softingCANBus.dummy);
       end when;
@@ -328,7 +335,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
       Integer objectNumber;
       Real dummy;
     initial equation
-      objectNumber =  SoftingCAN.defineObject(
+      objectNumber =  Modelica_DeviceDrivers.Communication.SoftingCAN_.defineObject(
         softingCANBus.softingCAN,
         ident,
         Types.TransmissionType.standardTransmit);
@@ -346,7 +353,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
           softingCANBus.softingCAN,
           objectNumber,
           dlc,
-          SerialPackager.getPackage(pkgIn.pkg),
+          Modelica_DeviceDrivers.Packaging.SerialPackager_.getPackage(pkgIn.pkg),
           pkgIn.dummy);
 
         softingCANBus.dummy = pre(softingCANBus.dummy);
@@ -381,7 +388,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
                        softingCAN "Handle for device";
       input Real dummy;
     algorithm
-      SoftingCAN.startChip(softingCAN);
+      Modelica_DeviceDrivers.Communication.SoftingCAN_.startChip(softingCAN);
     end startChipDummy;
 
     encapsulated function writeObjectDummy
@@ -398,7 +405,8 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
       input Real dummy;
       output Real dummy2;
     algorithm
-      SoftingCAN.writeObject(softingCAN, objectNumber, dataLength, data);
+      Modelica_DeviceDrivers.Communication.SoftingCAN_.writeObject(
+                             softingCAN, objectNumber, dataLength, data);
       dummy2 := dummy;
     end writeObjectDummy;
     end Internal;
@@ -451,7 +459,7 @@ not necessary mean that your Modelica tool compiles 64bit binaries, i.e., if in 
   end SoftingCAN;
 
   package SocketCAN
-    "Support for the Linux Controller Area Network Protocol Family (aka Socket CAN)"
+    "ALPHA feature. Support for the Linux Controller Area Network Protocol Family (aka Socket CAN)"
     extends Modelica.Icons.Package;
     record SocketCANConfig
     extends Modelica_DeviceDrivers.Utilities.Icons.SocketCANRecordIcon;
@@ -484,7 +492,7 @@ not necessary mean that your Modelica tool compiles 64bit binaries, i.e., if in 
       Modelica_DeviceDrivers.Packaging.SerialPackager
                      pkg = SerialPackager(can_dlc);
     initial equation
-      SocketCAN.defineObject(
+      Modelica_DeviceDrivers.Communication.SocketCAN_.defineObject(
         config.dh,
         can_id,
         can_dlc);
@@ -493,11 +501,11 @@ not necessary mean that your Modelica tool compiles 64bit binaries, i.e., if in 
       when pkgOut.trigger then
         pkgOut.dummy = Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.DummyFunctions.setPackage(
         pkgOut.pkg,
-        SocketCAN.readObject(
+        Modelica_DeviceDrivers.Communication.SocketCAN_.readObject(
           config.dh,
           can_id,
           can_dlc,
-          SerialPackager.getPackage(pkgOut.pkg)),
+          Modelica_DeviceDrivers.Packaging.SerialPackager_.getPackage(pkgOut.pkg)),
         can_dlc,
         time);
       end when;
@@ -524,6 +532,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
     end ReadMessage;
 
     block WriteMessage "Set up a message for transmitting data"
+      import Modelica_DeviceDrivers;
       extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
       import Modelica_DeviceDrivers.Communication.SocketCAN;
       import Modelica_DeviceDrivers.Packaging.SerialPackager;
@@ -542,7 +551,8 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
       when initial() then
         pkgIn.userPkgBitSize = can_dlc*8;
         pkgIn.autoPkgBitSize = 0;
-        SocketCAN.defineObject(config.dh, can_id, can_dlc);
+        Modelica_DeviceDrivers.Communication.SocketCAN_.defineObject(
+                               config.dh, can_id, can_dlc);
       end when;
 
       pkgIn.backwardTrigger = sample(startTime, sampleTime);
@@ -551,7 +561,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
           config.dh,
           can_id,
           can_dlc,
-          SerialPackager.getPackage(pkgIn.pkg),
+          Modelica_DeviceDrivers.Packaging.SerialPackager_.getPackage(pkgIn.pkg),
           pkgIn.dummy);
 
       end when;
@@ -581,6 +591,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
 
     encapsulated function writeDummy "Write CAN frame/message to socket"
         import Modelica_DeviceDrivers.Communication.SocketCAN;
+        import Modelica_DeviceDrivers;
 
       input SocketCAN socketCAN;
       input Integer can_id "CAN frame identifier";
@@ -590,15 +601,14 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
       input Real dummy;
       output Real dummy2;
     algorithm
-      SocketCAN.write(socketCAN, can_id, can_dlc, data);
+      Modelica_DeviceDrivers.Communication.SocketCAN_.write(
+                      socketCAN, can_id, can_dlc, data);
       dummy2 := dummy;
     end writeDummy;
     end Internal;
     annotation (preferredView="info",Documentation(info="<html>
-<h4><font color=\"#008000\">Support for Linux Socket CAN interface</font></h4>
-<p>
-<b>TODO: write documentation</b>
-</p>
+<p><h4><font color=\"#008000\">Support for Linux Socket CAN interface</font></h4></p>
+<p><b>TODO: write documentation</b> </p>
 </html>"));
   end SocketCAN;
 
@@ -616,7 +626,8 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
         input Real dummy;
         output Real dummy2;
       algorithm
-        Modelica_DeviceDrivers.Communication.UDPSocket.sendTo(socket, ipAddress, port,data, dataSize);
+        Modelica_DeviceDrivers.Communication.UDPSocket_.sendTo(
+                            socket, ipAddress, port,data, dataSize);
         dummy2 :=dummy;
       end sendToUDP;
 
@@ -627,7 +638,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
         input Real dummy;
         output Real dummy2;
       algorithm
-        Modelica_DeviceDrivers.Communication.SharedMemory.write(sm,data,len);
+        Modelica_DeviceDrivers.Communication.SharedMemory_.write(sm,data,len);
         dummy2 :=dummy;
       end writeSharedMemory;
     end DummyFunctions;

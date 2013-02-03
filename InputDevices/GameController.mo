@@ -1,5 +1,5 @@
 within Modelica_DeviceDrivers.InputDevices;
-class GameController
+package GameController
   "A device driver accessing game controllers like joysticks, gamepads, etc."
 extends Modelica_DeviceDrivers.Utilities.Icons.DriverIcon;
 function getData "reads data from joystick ID"

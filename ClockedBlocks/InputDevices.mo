@@ -79,12 +79,9 @@ package InputDevices
                            if (keyCode == "F11") then 122 else
                            if (keyCode == "F12") then 123 else 13;
 
-  public
-    Modelica_DeviceDrivers.InputDevices.Keyboard keyboard
-      annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   equation
     when Clock() then
-      keyStateInt = keyboard.getKey(keyCodeInt); //getting the KeyCode
+      keyStateInt = Modelica_DeviceDrivers.InputDevices.Keyboard.getKey(keyCodeInt); //getting the KeyCode
       keyState = if (keyStateInt==1) then true else false;
     end when;
 
@@ -157,12 +154,9 @@ package InputDevices
 
   protected
     Real AxesRaw[6] "unscaled SpaceMouse input";
-  public
-    Modelica_DeviceDrivers.InputDevices.SpaceMouse spaceMouse
-      annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   equation
     when Clock() then
-      (AxesRaw,buttons) = spaceMouse.getData();
+      (AxesRaw,buttons) = Modelica_DeviceDrivers.InputDevices.SpaceMouse.getData();
       // Note that the original SpaceMouse block used PT1-Filtering for the axis. Not yet implemented for the clocked block.
       axes = AxesRaw;
     end when;
@@ -212,12 +206,9 @@ package InputDevices
 
   protected
     Integer KeyCode[10](each start=0, each fixed=true);
-  public
-    Modelica_DeviceDrivers.InputDevices.Keyboard keyboard
-      annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   equation
     when Clock() then
-      KeyCode = keyboard.getData(); //getting the KeyCode
+      KeyCode = Modelica_DeviceDrivers.InputDevices.Keyboard.getData(); //getting the KeyCode
     end when;
     keyUp = if (KeyCode[1]==1) then true else false;
     keyDown = if (KeyCode[2]==1) then true else false;

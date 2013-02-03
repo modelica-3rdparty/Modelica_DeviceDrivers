@@ -36,7 +36,8 @@ algorithm
   else
      while not newData loop
        // loop and block until new data was received
-       newData := Modelica_DeviceDrivers.Communication.UDPSocket.getRecievedBytes(socketID) > 0;
+       newData := Modelica_DeviceDrivers.Communication.UDPSocket_.getRecievedBytes(
+                                                                                  socketID) > 0;
      end while;
   end if;
 equation
@@ -53,7 +54,8 @@ equation
 
   when (sample(0, sampleTime)) then
     Modelica_DeviceDrivers.Obsolete.Communication.Packager.MinimalSerialPackager.setPackage(
-      packagerID, Modelica_DeviceDrivers.Communication.UDPSocket.read(socketID),
+      packagerID, Modelica_DeviceDrivers.Communication.UDPSocket_.read(
+                                                                      socketID),
       bufferSize);
     firstSample = false; // after the first sampling of this when statement set firstSample to false
     packageDataOutput.dummy = time;

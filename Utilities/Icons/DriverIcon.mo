@@ -1,5 +1,6 @@
 within Modelica_DeviceDrivers.Utilities.Icons;
-partial class DriverIcon "An icon for drivers."
+partial package DriverIcon
+  "An icon for a package with device driver functions."
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Icon(coordinateSystem(

@@ -14,11 +14,11 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{-76,-78},{-56,-58}})));
   Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.ResetPointer resetPointer(nu=1)
     annotation (Placement(transformation(extent={{36,36},{56,56}})));
-  Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.AddString addString(nu
-      =1, data="asdf")
+  Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.AddString addString(nu=
+       1, data="asdf")
     annotation (Placement(transformation(extent={{-40,-8},{-20,12}})));
-  Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.GetString getString(nu
-      =1) annotation (Placement(transformation(extent={{36,0},{56,20}})));
+  Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.GetString getString(nu=
+       1) annotation (Placement(transformation(extent={{36,0},{56,20}})));
   Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.GetInteger getInteger
     annotation (Placement(transformation(extent={{36,-44},{56,-24}})));
 equation

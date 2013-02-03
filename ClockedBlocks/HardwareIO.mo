@@ -33,6 +33,7 @@ package HardwareIO
     end ComediConfig;
 
     block DataWrite "Write raw Integer value to Comedi DAC channel"
+      import Modelica_DeviceDrivers;
       extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
       extends
         Modelica_DeviceDrivers.Utilities.Icons.PartialClockedDeviceDriverIcon;
@@ -51,7 +52,8 @@ package HardwareIO
         "(ground) Reference to use";
     equation
       when Clock() then
-         Comedi.data_write(comedi, subDevice, channel, range, aref - 1,  u);
+         Modelica_DeviceDrivers.HardwareIO.Comedi_.data_write(
+                           comedi, subDevice, channel, range, aref - 1,  u);
       end when;
 
       annotation (defaultComponentName="dataWrite",
@@ -76,6 +78,7 @@ package HardwareIO
     end DataWrite;
 
     block DataRead "Read raw Integer value from Comedi ADC channel"
+      import Modelica_DeviceDrivers;
       extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
       extends
         Modelica_DeviceDrivers.Utilities.Icons.PartialClockedDeviceDriverIcon;
@@ -94,7 +97,8 @@ package HardwareIO
         annotation (Placement(transformation(extent={{100,-10},{120,10}})));
     equation
       when Clock() then
-         y = Comedi.data_read(comedi, subDevice, channel, range, aref - 1);
+         y = Modelica_DeviceDrivers.HardwareIO.Comedi_.data_read(
+                              comedi, subDevice, channel, range, aref - 1);
       end when;
 
       annotation (defaultComponentName="dataRead",
@@ -120,6 +124,7 @@ package HardwareIO
 
     block PhysicalDataWrite
       "Write physical value (volts or milliamps) to Comedi DAC channel"
+      import Modelica_DeviceDrivers;
       extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
       extends
         Modelica_DeviceDrivers.Utilities.Icons.PartialClockedDeviceDriverIcon;
@@ -152,15 +157,19 @@ package HardwareIO
      equation section by the Modelica tool used by the author.
      Problem: Not granted that initialization is executed before first "when Clock()" */
       if (not initialized) then
-        (min, max, cUnit) :=Comedi.get_range(comedi, subDevice, channel, range);
+        (min, max, cUnit) :=Modelica_DeviceDrivers.HardwareIO.Comedi_.get_range(
+                                             comedi, subDevice, channel, range);
         converterUnit :=cUnit + 1; // convert magic int to readable Modelica enumeration value
-        maxData :=Comedi.get_maxdata(comedi, subDevice, channel);
+        maxData :=Modelica_DeviceDrivers.HardwareIO.Comedi_.get_maxdata(
+                                     comedi, subDevice, channel);
         initialized :=true;
       end if;
     equation
       when Clock() then
-        rawData = Comedi.from_phys(u, min, max, cUnit, maxData);
-        Comedi.data_write(comedi, subDevice, channel, range, aref - 1,  rawData);
+        rawData = Modelica_DeviceDrivers.HardwareIO.Comedi_.from_phys(
+                                   u, min, max, cUnit, maxData);
+        Modelica_DeviceDrivers.HardwareIO.Comedi_.data_write(
+                          comedi, subDevice, channel, range, aref - 1,  rawData);
       end when;
 
       annotation (defaultComponentName="dataWrite",
@@ -187,6 +196,7 @@ package HardwareIO
 
     block PhysicalDataRead
       "Read physical value (in volts or milliamps) from Comedi ADC channel"
+      import Modelica_DeviceDrivers;
       extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
       extends
         Modelica_DeviceDrivers.Utilities.Icons.PartialClockedDeviceDriverIcon;
@@ -218,15 +228,19 @@ package HardwareIO
      equation section by the Modelica tool used by the author.
      Problem: Not granted that initialization is executed before first "when Clock()" */
       if (not initialized) then
-        (min, max, cUnit) :=Comedi.get_range(comedi, subDevice, channel, range);
+        (min, max, cUnit) :=Modelica_DeviceDrivers.HardwareIO.Comedi_.get_range(
+                                             comedi, subDevice, channel, range);
         converterUnit :=cUnit + 1; // convert magic int to readable Modelica enumeration value
-        maxData :=Comedi.get_maxdata(comedi, subDevice, channel);
+        maxData :=Modelica_DeviceDrivers.HardwareIO.Comedi_.get_maxdata(
+                                     comedi, subDevice, channel);
         initialized :=true;
       end if;
     equation
       when Clock() then
-       rawData =  Comedi.data_read(comedi, subDevice, channel, range, aref - 1);
-       y =  Comedi.to_phys(rawData, min, max, cUnit, maxData);
+       rawData =  Modelica_DeviceDrivers.HardwareIO.Comedi_.data_read(
+                                   comedi, subDevice, channel, range, aref - 1);
+       y =  Modelica_DeviceDrivers.HardwareIO.Comedi_.to_phys(
+                           rawData, min, max, cUnit, maxData);
       end when;
       annotation (defaultComponentName="dataRead",
               preferredView="info",
@@ -250,6 +264,7 @@ package HardwareIO
     end PhysicalDataRead;
 
     block DIOWrite "Write value to Comedi DIO channel"
+      import Modelica_DeviceDrivers;
       extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
       extends
         Modelica_DeviceDrivers.Utilities.Icons.PartialClockedDeviceDriverIcon;
@@ -267,13 +282,15 @@ package HardwareIO
     algorithm
 
       if (not initialized) then
-        Comedi.dio_config(comedi, subDevice, channel, 1);
+        Modelica_DeviceDrivers.HardwareIO.Comedi_.dio_config(
+                          comedi, subDevice, channel, 1);
         initialized :=true;
       else
         initialized :=previous(initialized);
       end if;
 
-      Comedi.dio_write(comedi, subDevice, channel, u);
+      Modelica_DeviceDrivers.HardwareIO.Comedi_.dio_write(
+                       comedi, subDevice, channel, u);
 
       annotation (defaultComponentName="dioWrite",
               preferredView="info",
@@ -298,6 +315,7 @@ package HardwareIO
     end DIOWrite;
 
     block DIORead "Read value from Comedi DIO channel"
+      import Modelica_DeviceDrivers;
       extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
       extends
         Modelica_DeviceDrivers.Utilities.Icons.PartialClockedDeviceDriverIcon;
@@ -317,13 +335,15 @@ package HardwareIO
     algorithm
 
       if (not initialized) then
-        Comedi.dio_config(comedi, subDevice, channel, 0);
+        Modelica_DeviceDrivers.HardwareIO.Comedi_.dio_config(
+                          comedi, subDevice, channel, 0);
         initialized :=true;
       else
         initialized :=previous(initialized);
       end if;
 
-      y := Comedi.dio_read(comedi, subDevice, channel);
+      y := Modelica_DeviceDrivers.HardwareIO.Comedi_.dio_read(
+                           comedi, subDevice, channel);
 
       annotation (defaultComponentName="dioRead",
               preferredView="info",

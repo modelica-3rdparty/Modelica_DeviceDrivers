@@ -9,6 +9,7 @@ package Communication
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
     import Modelica_DeviceDrivers.Packaging.alignAtByteBoundery;
     import Modelica_DeviceDrivers.Communication.SharedMemory;
+    import Modelica_DeviceDrivers.Communication.SharedMemory_;
 
     parameter Boolean autoBufferSize = false
       "true, buffer size is deduced automatically, otherwise set it manually"
@@ -48,7 +49,7 @@ package Communication
     dummy = previous(dummy) + Ts;
     pkgOut.dummy = Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.DummyFunctions.setPackage(
       pkgOut.pkg,
-      Modelica_DeviceDrivers.Communication.SharedMemory.read(sm),
+      SharedMemory_.read(sm),
       bufferSize,
       dummy);
       annotation (preferredView="info",
@@ -64,6 +65,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
 
   model SharedMemoryWrite
     "A block for writing data into a shared memory buffer"
+    import Modelica_DeviceDrivers;
     extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
     extends Modelica_DeviceDrivers.Utilities.Icons.SharedMemoryIcon;
     extends
@@ -102,12 +104,14 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
   equation
     pkgIn.userPkgBitSize =  if autoBufferSize then -1 else userBufferSize*8;
     pkgIn.autoPkgBitSize =  0;
-    bufferSize =  if autoBufferSize then SerialPackager.getBufferSize(pkgIn.pkg)
+    bufferSize =  if autoBufferSize then Modelica_DeviceDrivers.Packaging.SerialPackager_.getBufferSize(
+                                                                      pkgIn.pkg)
        else userBufferSize;
     dummy =
       Modelica_DeviceDrivers.ClockedBlocks.Communication.Internal.DummyFunctions.writeSharedMemory(
       sm,
-      SerialPackager.getPackage(pkgIn.pkg),
+      Modelica_DeviceDrivers.Packaging.SerialPackager_.getPackage(
+                                pkgIn.pkg),
       bufferSize,
       pkgIn.dummy);
 
@@ -173,7 +177,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
     pkgOut.dummy =
       Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.DummyFunctions.setPackage(
       pkgOut.pkg,
-      Modelica_DeviceDrivers.Communication.UDPSocket.read(socket),
+      Modelica_DeviceDrivers.Communication.UDPSocket_.read(socket),
       bufferSize,
       dummy);
 
@@ -188,6 +192,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
   end UDPReceive;
 
   model UDPSend "A block for sending UDP datagrams"
+    import Modelica_DeviceDrivers;
     extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
     extends Modelica_DeviceDrivers.Utilities.Icons.UDPconnection;
     extends
@@ -219,7 +224,8 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
 
       pkgIn.userPkgBitSize = if autoBufferSize then -1 else userBufferSize*8;
       pkgIn.autoPkgBitSize = 0;
-      bufferSize = if autoBufferSize then SerialPackager.getBufferSize(pkgIn.pkg)
+      bufferSize = if autoBufferSize then Modelica_DeviceDrivers.Packaging.SerialPackager_.getBufferSize(
+                                                                       pkgIn.pkg)
          else userBufferSize;
 
   //    socket = previous(socket);
@@ -229,7 +235,8 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
       socket,
       IPAddress,
       port_send,
-      SerialPackager.getPackage(pkgIn.pkg),
+      Modelica_DeviceDrivers.Packaging.SerialPackager_.getPackage(
+                                pkgIn.pkg),
       bufferSize,
       pkgIn.dummy);
 
@@ -254,7 +261,8 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
         input Real dummy;
         output Real dummy2;
       algorithm
-        Modelica_DeviceDrivers.Communication.SharedMemory.write(sm,data,len);
+        Modelica_DeviceDrivers.Communication.SharedMemory_.write(
+                                                                sm,data,len);
         dummy2 :=dummy;
       end writeSharedMemory;
 
@@ -268,7 +276,8 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
         input Real dummy;
         output Real dummy2;
       algorithm
-        Modelica_DeviceDrivers.Communication.UDPSocket.sendTo(socket, ipAddress, port,data, dataSize);
+        Modelica_DeviceDrivers.Communication.UDPSocket_.sendTo(
+                                                              socket, ipAddress, port,data, dataSize);
         dummy2 :=dummy;
       end sendToUDP;
     end DummyFunctions;

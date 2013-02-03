@@ -1,5 +1,5 @@
 within Modelica_DeviceDrivers.Utilities.Icons;
-class InternalPackage
+partial package InternalPackage
   "Icon for packages that contain elements that are not intended to be directly used by library users"
 
    annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,

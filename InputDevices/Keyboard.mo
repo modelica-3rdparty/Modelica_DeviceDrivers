@@ -1,5 +1,5 @@
 within Modelica_DeviceDrivers.InputDevices;
-class Keyboard "A driver accessing the keyboard."
+package Keyboard "A driver accessing the keyboard."
 extends Modelica_DeviceDrivers.Utilities.Icons.DriverIcon;
 function getKey "reads data from a single key of the keyboard"
 input Integer keyCode "Key code";

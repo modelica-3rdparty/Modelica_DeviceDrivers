@@ -40,7 +40,7 @@ package Packaging
           input Real dummy;
           output Real dummy2;
         algorithm
-         Modelica_DeviceDrivers.Packaging.SerialPackager.addReal(pkg,u);
+         Modelica_DeviceDrivers.Packaging.SerialPackager_.addReal(pkg,u);
          dummy2 :=dummy;
         end addReal;
 
@@ -50,7 +50,7 @@ package Packaging
           input Real dummy;
           output Real dummy2;
         algorithm
-          Modelica_DeviceDrivers.Packaging.SerialPackager.addString(pkg,u);
+          Modelica_DeviceDrivers.Packaging.SerialPackager_.addString(pkg,u);
           dummy2 :=dummy;
         end addString;
 
@@ -60,7 +60,7 @@ package Packaging
           input Real dummy;
           output Real dummy2;
         algorithm
-         Modelica_DeviceDrivers.Packaging.SerialPackager.addInteger(pkg,u);
+         Modelica_DeviceDrivers.Packaging.SerialPackager_.addInteger(pkg,u);
          dummy2 := dummy;
         end addInteger;
 
@@ -71,7 +71,7 @@ package Packaging
           output Real y[n];
           output Real dummy2;
         algorithm
-          y := Modelica_DeviceDrivers.Packaging.SerialPackager.getReal(pkg, n);
+          y := Modelica_DeviceDrivers.Packaging.SerialPackager_.getReal(pkg, n);
           dummy2 :=dummy;
         end getReal;
 
@@ -80,7 +80,7 @@ package Packaging
           input Real dummy;
           output Real dummy2;
         algorithm
-          Modelica_DeviceDrivers.Packaging.SerialPackager.resetPointer(pkg);
+          Modelica_DeviceDrivers.Packaging.SerialPackager_.resetPointer(pkg);
           dummy2 :=dummy;
         end resetPointer;
 
@@ -91,7 +91,7 @@ package Packaging
           output Integer y[n];
           output Real dummy2;
         algorithm
-          y := Modelica_DeviceDrivers.Packaging.SerialPackager.getInteger(pkg, n);
+          y := Modelica_DeviceDrivers.Packaging.SerialPackager_.getInteger(pkg, n);
           dummy2 :=dummy;
         end getInteger;
 
@@ -101,7 +101,7 @@ package Packaging
           input Real dummy;
           output Real dummy2;
         algorithm
-          y := Modelica_DeviceDrivers.Packaging.SerialPackager.getString(pkg);
+          y := Modelica_DeviceDrivers.Packaging.SerialPackager_.getString(pkg);
           dummy2 :=dummy;
         end getString;
 
@@ -110,7 +110,7 @@ package Packaging
           input Real dummy;
           output Real dummy2;
         algorithm
-         Modelica_DeviceDrivers.Packaging.SerialPackager.clear(pkg);
+         Modelica_DeviceDrivers.Packaging.SerialPackager_.clear(pkg);
          dummy2 := dummy;
         end clear;
 
@@ -124,12 +124,13 @@ package Packaging
         input Real dummy;
         output Real dummy2;
       algorithm
-        SerialPackager.setPackage(pkg, data, dataSize);
+        Modelica_DeviceDrivers.Packaging.SerialPackager_.setPackage(pkg, data, dataSize);
         dummy2 := dummy;
       end setPackage;
 
       function integerBitPack "Encode integer value at bit level"
           import Modelica_DeviceDrivers.Packaging.SerialPackager;
+          import Modelica_DeviceDrivers;
         input Modelica_DeviceDrivers.Packaging.SerialPackager
                              pkg;
         input Integer bitOffset
@@ -139,7 +140,8 @@ package Packaging
         input Real dummy;
         output Real dummy2;
       algorithm
-         SerialPackager.integerBitPack(pkg, bitOffset, width, value);
+         Modelica_DeviceDrivers.Packaging.SerialPackager_.integerBitPack(
+                                       pkg, bitOffset, width, value);
          dummy2 := dummy;
       end integerBitPack;
 
@@ -155,7 +157,8 @@ package Packaging
         output Integer value "Decoded integer value";
         output Real dummy2;
       algorithm
-        value := SerialPackager.integerBitUnpack(pkg, bitOffset, width);
+        value := Modelica_DeviceDrivers.Packaging.SerialPackager_.integerBitUnpack(
+                                                 pkg, bitOffset, width);
         dummy2 := dummy;
       end integerBitUnpack;
       end DummyFunctions;
