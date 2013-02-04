@@ -159,7 +159,7 @@ void MDD_SerialPackagerAlignToByteBoundery(SerialPackager* p_package) {
  * @param[in] u array of integer values
  * @param[in] n number of values in u
  */
-void MDD_SerialPackagerAddInteger(void* p_package, const int * u, int n) {
+void MDD_SerialPackagerAddInteger(void* p_package, const int * u, size_t n) {
         SerialPackager* pkg = (SerialPackager*) p_package;
 
         if (pkg->bitOffset != 0) MDD_SerialPackagerAlignToByteBoundery(pkg);
@@ -181,7 +181,7 @@ void MDD_SerialPackagerAddInteger(void* p_package, const int * u, int n) {
  * @param[in] n requested number of integer values
  *
  */
-void MDD_SerialPackagerGetInteger(void* p_package, int * y, int n) {
+void MDD_SerialPackagerGetInteger(void* p_package, int * y, size_t n) {
         SerialPackager* pkg = (SerialPackager*) p_package;
 
         if (pkg->bitOffset != 0) MDD_SerialPackagerAlignToByteBoundery(pkg);
@@ -202,7 +202,7 @@ void MDD_SerialPackagerGetInteger(void* p_package, int * y, int n) {
  * @param[in] u array of double values
  * @param[in] n number of values in u
  */
-void MDD_SerialPackagerAddDouble(void* p_package, const double * u, int n) {
+void MDD_SerialPackagerAddDouble(void* p_package, const double * u, size_t n) {
         SerialPackager* pkg = (SerialPackager*) p_package;
         if (pkg->bitOffset != 0) MDD_SerialPackagerAlignToByteBoundery(pkg);
         if (pkg->pos + n*sizeof(double) > pkg->size) {
@@ -222,7 +222,7 @@ void MDD_SerialPackagerAddDouble(void* p_package, const double * u, int n) {
  * @param[in] n requested number of values
  *
  */
-void MDD_SerialPackagerGetDouble(void* p_package, double * y, int n) {
+void MDD_SerialPackagerGetDouble(void* p_package, double * y, size_t n) {
         SerialPackager* pkg = (SerialPackager*) p_package;
         if (pkg->bitOffset != 0) MDD_SerialPackagerAlignToByteBoundery(pkg);
         if (pkg->pos + n*sizeof(double) > pkg->size) {
