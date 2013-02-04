@@ -83,7 +83,7 @@ int MDD_SerialPackagerGetSize(void* p_package) {
  * @param[in] p_package pointer to the SerialPackager.
  * @return pointer to the payload.
  */
-char *  MDD_SerialPackagerGetData(void* p_package) {
+const char *  MDD_SerialPackagerGetData(void* p_package) {
         SerialPackager* pkg = (SerialPackager*) p_package;
         return (char*)pkg->data;
 }
@@ -100,7 +100,7 @@ char *  MDD_SerialPackagerGetData(void* p_package) {
  * @param[in] data pointer the data that shall be copied into the packager's payload data buffer.
  * @param[in] size number of bytes that shall be copied.
  */
-void MDD_SerialPackagerSetData( void* p_package, char * data, int size) {
+void MDD_SerialPackagerSetData( void* p_package, const char * data, int size) {
         SerialPackager* pkg = (SerialPackager*) p_package;
         memcpy(pkg->data, data,  size);
         if ( (unsigned int) size > pkg->size) {
@@ -181,7 +181,7 @@ void MDD_SerialPackagerAddInteger(void* p_package, const int * u, size_t n) {
  * @param[in] n requested number of integer values
  *
  */
-void MDD_SerialPackagerGetInteger(void* p_package, int * y, size_t n) {
+void MDD_SerialPackagerGetInteger(void* p_package, int * y, int n) {
         SerialPackager* pkg = (SerialPackager*) p_package;
 
         if (pkg->bitOffset != 0) MDD_SerialPackagerAlignToByteBoundery(pkg);
@@ -222,7 +222,7 @@ void MDD_SerialPackagerAddDouble(void* p_package, const double * u, size_t n) {
  * @param[in] n requested number of values
  *
  */
-void MDD_SerialPackagerGetDouble(void* p_package, double * y, size_t n) {
+void MDD_SerialPackagerGetDouble(void* p_package, double * y, int n) {
         SerialPackager* pkg = (SerialPackager*) p_package;
         if (pkg->bitOffset != 0) MDD_SerialPackagerAlignToByteBoundery(pkg);
         if (pkg->pos + n*sizeof(double) > pkg->size) {
