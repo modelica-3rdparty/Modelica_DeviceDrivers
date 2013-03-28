@@ -90,18 +90,18 @@ void * MDD_udpConstructor(int port, int bufferSize)
 		rc = bind(udp->SocketID,(SOCKADDR*)&addr,sizeof(SOCKADDR_IN));
 	if(rc==INVALID_SOCKET && port !=0)
 	{
-		ModelicaFormatMessage("Fehler bei Bind auf Socket\n");
+		ModelicaFormatMessage("MDDUDPSocket.h: Error at bind(..) to port %d\n", port);
 	}
 	else
 	{
 
                 if(port)
                 {
-			ModelicaFormatMessage("UDPSocket: Waiting for data on port %d.\n",port);
+			ModelicaFormatMessage("MDDUDPSocket.h:: Waiting for data on port %d.\n",port);
 			CreateThread(0,1024,MDD_udpReceivingThread,udp,0,&id1);
                 }
                 else
-			ModelicaFormatMessage("UDPSocket: No port specified, only sending possible.\n");
+			ModelicaFormatMessage("MDDUDPSocket.h: Opened socket for sending.\n");
 
 	}
 	return (void *) udp;
