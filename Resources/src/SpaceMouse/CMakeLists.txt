@@ -4,12 +4,11 @@ message(STATUS "WRITING BUILD FILES FOR MDDSpaceMouse library")
 
 if (CMAKE_COMPILER_IS_GNUCC)
 SET(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-pthread")
-# SET(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-pthread -m32") # force compile for 32 bit
+#SET(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-pthread -m32") # force compile for 32 bit
 endif (CMAKE_COMPILER_IS_GNUCC)
 
 if (UNIX)
-  # BUILD LOGIC NOT TESTED, YET
-  find_file(srcXdrvlib xdrvlib.c PATHS ${PROJECT_SOURCE_DIR}/thirdParty/3DconnexionSDK/xdrvlib.c)
+  find_file(srcXdrvlib xdrvlib.c PATHS ${PROJECT_SOURCE_DIR}/thirdParty/3DconnexionSDK)
   if (srcXdrvlib)
     set(libSrcsMDDSpaceMouseLibrary MDDSpaceMouse.c ${srcXdrvlib})
     add_library(MDDSpaceMouse STATIC ${libSrcsMDDSpaceMouseLibrary})
@@ -17,10 +16,6 @@ if (UNIX)
   else (srcXdrvlib)
     message("xdrvlib.c not found. No support for 3Dconnexion Space Mouse!")
   endif (srcXdrvlib)
-  # old logic
-  # set(libSrcsMDDSpaceMouseLibrary MDDSpaceMouse.c ../../thirdParty/3DconnexionSDK/xdrvlib.c)
-  # add_library(MDDSpaceMouse STATIC ${libSrcsMDDSpaceMouseLibrary})
-  # target_link_libraries(MDDSpaceMouse m X11 pthread)
 else (MSVC)
   if ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
 	  find_library( MSVC_HID_LIBRARY hid
