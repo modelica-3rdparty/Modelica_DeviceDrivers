@@ -62,7 +62,7 @@ __declspec( dllexport )
   typedef unsigned int    u_int;
   typedef unsigned long   u_long;
   typedef unsigned __int64 u_int64;
-  #include <winsock2.h>//for compatibility reasons
+  #include <winsock2.h> /* for compatibility reasons */
 #endif /*_MSC_VER */
 
 

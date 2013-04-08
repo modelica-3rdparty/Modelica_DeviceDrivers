@@ -39,7 +39,7 @@
   #include <windows.h>
 
   void MDD_keyboardGetKey(int iKeyCode,int * piKeyState) {
-    //getting state of interesting keys
+    /* getting state of interesting keys */
     int getc_unlocked(FILE *stream);
     if(GetAsyncKeyState(iKeyCode)) piKeyState[0] = 1;
          else piKeyState[0] = 0;
@@ -48,7 +48,7 @@
 
   void MDD_keyboardGetData(int * piKeyState)
   {
-          //getting state of interesting keys
+          /* getting state of interesting keys */
           if(GetAsyncKeyState(VK_UP)) piKeyState[0] = 1;
                           else piKeyState[0] = 0;
           if(GetAsyncKeyState(VK_DOWN)) piKeyState[1] = 1;

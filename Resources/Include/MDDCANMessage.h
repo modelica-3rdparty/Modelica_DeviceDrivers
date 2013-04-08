@@ -127,10 +127,10 @@ void MDD_CANMessageIntegerBitpacking(void* p_cANMessage, int bitStartPosition, i
 	base_i = i / 8;
 	rem_i  = i % 8;
 	if (bits[i]) {
-	    // set bit
+	    /* set bit */
 	    msg->data[base_i] |= (1 << rem_i);
 	} else {
-	    // unset bit
+	    /* unset bit */
 	    msg->data[base_i] &= ~(1 << rem_i);
 	}
 

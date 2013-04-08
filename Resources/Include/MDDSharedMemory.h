@@ -32,20 +32,20 @@ struct sharedMemoryBuffer
 void* MDD_SharedMemoryConstructor(char * name, int bufSize) {
   struct sharedMemoryBuffer * smb = (struct sharedMemoryBuffer *)malloc(sizeof(struct sharedMemoryBuffer));
   smb->hMapFile = CreateFileMappingA(
-				     INVALID_HANDLE_VALUE,    // use paging file
-				     NULL,                    // default security
-				     PAGE_READWRITE,          // read/write access
-				     0,                       // maximum object size (high-order DWORD)
-				     bufSize+ sizeof(int),    // maximum object size (low-order DWORD)
-				     name);                 // name of mapping object
+				     INVALID_HANDLE_VALUE,    /* use paging file */
+				     NULL,                    /* default security */
+				     PAGE_READWRITE,          /* read/write access */
+				     0,                       /* maximum object size (high-order DWORD) */
+				     bufSize+ sizeof(int),    /* maximum object size (low-order DWORD) */
+				     name);                 /* name of mapping object */
   if(GetLastError() == ERROR_ALREADY_EXISTS)
     {
 
       smb->hMapFile = OpenFileMappingA(
-				       FILE_MAP_ALL_ACCESS,   // read/write access
-				       FALSE,                 // do not inherit the name
-				       name);                 // name of mapping object
-      //printf(\"Opening existing FileMapping\\n\");
+				       FILE_MAP_ALL_ACCESS,   /* read/write access */
+				       FALSE,                 /* do not inherit the name */
+				       name);                 /* name of mapping object */
+      /* printf(\"Opening existing FileMapping\\n\"); */
 
     }
 
@@ -55,8 +55,8 @@ void* MDD_SharedMemoryConstructor(char * name, int bufSize) {
 			  GetLastError());
       return NULL;
     }
-  smb->sharedMemoryBuffer = (char * ) MapViewOfFile(smb->hMapFile,   // handle to map object
-						    FILE_MAP_ALL_ACCESS, // read/write permission
+  smb->sharedMemoryBuffer = (char * ) MapViewOfFile(smb->hMapFile,   /* handle to map object */
+						    FILE_MAP_ALL_ACCESS, /* read/write permission */
 						    0,
 						    0,
 						    bufSize+ sizeof(int));
@@ -92,13 +92,13 @@ unsigned int MDD_SharedMemoryGetDataSize(void * p_smb)
 const char * MDD_SharedMemoryRead(void * p_smb)
 {
   struct sharedMemoryBuffer * smb = (struct sharedMemoryBuffer *) p_smb;
-  //this is potentially dangerous.
+  /* this is potentially dangerous. */
   return (const char*) smb->sharedMemoryBuffer+sizeof(int);
 }
 void MDD_SharedMemoryWrite(void * p_smb,char * buffer, unsigned int len)
 {
   struct sharedMemoryBuffer * smb = (struct sharedMemoryBuffer *) p_smb;
-  //struct sharedMemoryBuffer * smb = (struct sharedMemoryBuffer *) smbPointer;
+  /* struct sharedMemoryBuffer * smb = (struct sharedMemoryBuffer *) smbPointer; */
   memcpy(smb->sharedMemoryBuffer + sizeof(unsigned int),buffer,len);
   memcpy(smb->sharedMemoryBuffer,&len,sizeof(unsigned int));
 }

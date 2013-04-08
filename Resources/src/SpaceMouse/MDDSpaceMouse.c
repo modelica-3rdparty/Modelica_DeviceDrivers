@@ -23,7 +23,7 @@
 
   #define MAX_DEVICES 10
   int SPC_nDevices  = 0;
-  //Struct for the HID devices
+  /* Struct for the HID devices */
   typedef struct _HidDevice {
           PSP_DEVICE_INTERFACE_DETAIL_DATA  pDevInterfaceDetailData;
           HANDLE handle;
@@ -46,7 +46,7 @@
   DWORD WINAPI MDD_spaceMouseGetDataThread(LPVOID pthis)
   {
 
-          //----------------------------------------- search for devices attached ----------------------------------------------------
+          /*------------ search for devices attached ------------------*/
           GUID hidGuid;
           DWORD requiredSize;
           int memberIndex=0;
@@ -71,10 +71,10 @@
           {
 
 
-                  // First call, just gets the size so we can malloc enough memory for the detail struct
+                  /* First call, just gets the size so we can malloc enough memory for the detail struct */
                   SetupDiGetDeviceInterfaceDetail( hDevInfo, &DevInterfaceData, NULL, 0, &requiredSize, NULL );
 
-                  // Second call gets the data
+                  /* Second call gets the data */
                   SPC_Devices[SPC_nDevices ].pDevInterfaceDetailData = (PSP_DEVICE_INTERFACE_DETAIL_DATA) malloc( requiredSize );
                   SPC_Devices[SPC_nDevices ].pDevInterfaceDetailData->cbSize = sizeof( SP_DEVICE_INTERFACE_DETAIL_DATA );
                   SetupDiGetDeviceInterfaceDetail( hDevInfo,
@@ -85,7 +85,7 @@
                                                                                   NULL );
 
 
-                  // Open this device
+                  /* Open this device */
                   SPC_Devices[SPC_nDevices ].handle = CreateFile(SPC_Devices[SPC_nDevices ].pDevInterfaceDetailData->DevicePath,
                                                                                                   GENERIC_READ | GENERIC_WRITE,
                                                                                                   FILE_SHARE_READ | FILE_SHARE_WRITE,
@@ -99,7 +99,7 @@
                           goto next;
                   }
 
-                  // Get the preparsedData struct
+                  /* Get the preparsedData struct */
                   if (HidD_GetPreparsedData( SPC_Devices[SPC_nDevices ].handle, &SPC_Devices[SPC_nDevices ].pPreparsedData ) != TRUE)
                   {
 
@@ -115,13 +115,13 @@
   next:
                   memberIndex++;
                   if (++SPC_nDevices  == MAX_DEVICES) {--SPC_nDevices ;}
-          } // end of while(SetupDiEnumDeviceInterfaces) loop
+          } /* end of while(SetupDiEnumDeviceInterfaces) loop */
 
-          // Done with devInfo list.  Release it.
+          /* Done with devInfo list.  Release it. */
           SetupDiDestroyDeviceInfoList( hDevInfo );
 
 
-          // Read data from each usagePage==1, usage==8 device
+          /* Read data from each usagePage==1, usage==8 device */
 
           waitListHandles = (HANDLE *)malloc(SPC_nDevices  * sizeof(HANDLE ));
           waitListItems  = (HidDevice **)malloc(SPC_nDevices  * sizeof(HidDevice*));
@@ -130,7 +130,7 @@
           {
                   if (SPC_Devices[listIndex].capabilities.UsagePage == 1 && SPC_Devices[listIndex].capabilities.Usage == 8)
                   {
-                          // Add its handle and a pointer to the waitList
+                          /* Add its handle and a pointer to the waitList */
                           waitListHandles[waitListIndex] = SPC_Devices[listIndex].handle;
                           pDev = SPC_Devices + listIndex;
                           waitListItems  [waitListIndex] = pDev;
@@ -151,12 +151,12 @@
                   int iButton;
                   while(SPC_bRun)
                   {
-                          // This only wakes for one of the HID devices.  Not sure why.
+                          /* This only wakes for one of the HID devices.  Not sure why. */
                           waitResult = WaitForMultipleObjects( waitListIndex, waitListHandles, FALSE, 10);
 
 
 
-                          // a HID device event
+                          /* a HID device event */
                           if (waitResult < WAIT_OBJECT_0 + waitListIndex )
                           {
                                   int index = waitResult - WAIT_OBJECT_0;
@@ -171,7 +171,7 @@
                                   switch ( pDev->buf[0] )
                                   {
                                           case 0x01:
-                                                  if (nread != 7) break; // something is wrong
+                                                  if (nread != 7) break; /* something is wrong */
 
                                                   pDev->bGotTranslationVector = TRUE;
                                                   pDev->allDOFs[0] = (pDev->buf[1] & 0x000000ff) | ((int)pDev->buf[2]<<8 & 0xffffff00);
@@ -180,7 +180,7 @@
                                                   break;
 
                                           case 0x02:
-                                                  if (nread != 7) break; // something is wrong
+                                                  if (nread != 7) break; /* something is wrong */
 
                                                   pDev->bGotRotationVector    = TRUE;
                                                   pDev->allDOFs[3] = (pDev->buf[1] & 0x000000ff) | ((int)pDev->buf[2]<<8 & 0xffffff00);
@@ -188,7 +188,7 @@
                                                   pDev->allDOFs[5] = (pDev->buf[5] & 0x000000ff) | ((int)pDev->buf[6]<<8 & 0xffffff00);
                                                   break;
 
-                                          case 0x03:  // Buttons (display most significant byte to least)
+                                          case 0x03:  /* Buttons (display most significant byte to least) */
 
                                                   iButton = (pDev->buf[1] + (pDev->buf[2] << 8)+ (pDev->buf[3] << 16));
 
@@ -232,15 +232,15 @@
 
                   for(i=0; i<SPC_nDevices ; i++)
                   {
-                          // Free the preparsedData
+                          /* Free the preparsedData */
                           if (SPC_Devices[i].pPreparsedData)
                                   HidD_FreePreparsedData( SPC_Devices[i].pPreparsedData );
 
-                          // Close handles
+                          /* Close handles */
                           if (SPC_Devices[i].handle != INVALID_HANDLE_VALUE)
                                   CloseHandle( SPC_Devices[i].handle );
 
-                          // Free pDevInterfaceDetailData
+                          /* Free pDevInterfaceDetailData */
                           if (SPC_Devices[i].pDevInterfaceDetailData)
                                   free ( SPC_Devices[i].pDevInterfaceDetailData );
 
@@ -273,10 +273,10 @@
    * error. So we temporarly rename Time to MDDTime and hope
    * for the best.
   */
-  //#define Time MDDTime
-//   #include <X11/Xlib.h>
-//   #include <X11/Xutil.h>
-  // #undef Time
+   /*#define Time MDDTime
+     #include <X11/Xlib.h>
+     #include <X11/Xutil.h>
+     #undef Time */
   #include <stdlib.h>
   #include <stdio.h>
   #include <errno.h>

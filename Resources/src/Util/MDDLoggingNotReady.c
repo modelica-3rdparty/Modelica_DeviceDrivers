@@ -24,7 +24,7 @@ int util_debug(const char *format, ...)
 #ifdef UTIL_LOG_DEBUG
 
 #ifdef UTIL_LOG_MODELICA
-  // TODO...
+  /* TODO... */
 #else
    va_list p_arg;
    int ret;
@@ -33,11 +33,11 @@ int util_debug(const char *format, ...)
    ret = vprintf(format,p_arg);
    va_end(p_arg);
    return ret;
-#endif // end log sink
+#endif /* end log sink */
 
 #else
    return 0;
-#endif  // end log level
+#endif  /* end log level */
 }
 
 
@@ -46,7 +46,7 @@ int util_info(const char *format, ...)
 #ifdef UTIL_LOG_INFO
 
 #ifdef UTIL_LOG_MODELICA
-  // TODO...
+  /* TODO... */
 #else
    va_list p_arg;
    int ret;
@@ -55,11 +55,11 @@ int util_info(const char *format, ...)
    ret = vprintf(format,p_arg);
    va_end(p_arg);
    return ret;
-#endif // end log sink
+#endif /* end log sink */
 
 #else
    return 0;
-#endif  // end log level
+#endif  /* end log level */
 }
 
 #if defined(__linux__)
@@ -75,7 +75,7 @@ void msleep(unsigned long millisec) {
 #elif defined(_MSC_VER)
 #include <windows.h>
 void msleep(unsigned long millisec) {
-	Sleep(millisec); // windows specific funktion to sleep some milliseconds
+	Sleep(millisec); /* windows specific funktion to sleep some milliseconds */
 }
 
 

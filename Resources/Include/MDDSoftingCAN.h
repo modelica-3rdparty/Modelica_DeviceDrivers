@@ -100,7 +100,7 @@ struct DataFrame_struct{
 typedef struct  {
     char deviceName[256];
     CAN_HANDLE can;
-//    DataFrame i2oMap[MAX_OBJECTS];
+    /*DataFrame i2oMap[MAX_OBJECTS]; */
 } MDDSoftingCAN;
 
 
@@ -134,7 +134,7 @@ void* MDD_softingCANConstructor(const char* deviceName, int baudRate) {
 	}
 	ModelicaFormatMessage("\tOK.\n");
 
-	//Note: Here is the knob to tune the baud rate:
+	/* Note: Here is the knob to tune the baud rate: */
 	/*
 						baud rate presc sjw tseg1 tseg2
 						1 Mbaud   1     1   4     3

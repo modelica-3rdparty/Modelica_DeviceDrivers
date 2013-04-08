@@ -68,7 +68,7 @@ DWORD WINAPI MDD_udpReceivingThread(LPVOID pUdp)
 void * MDD_udpConstructor(int port, int bufferSize)
 {
 
-	int rc;                //Fehlervariable
+	int rc;                /* Fehlervariable */
 	WSADATA wsa;
 	SOCKADDR_IN addr;
 	DWORD id1;
@@ -161,7 +161,7 @@ typedef struct MDDUDPSocket_s MDDUDPSocket;
 struct MDDUDPSocket_s {
 	int sock;  /**< connection socket. */
 	struct sockaddr_in sa;   /**< Target connection address.*/
-//      int socketMode;  /**< Mode of socket, e.g. sender or receiver */
+        /* int socketMode; */  /**< Mode of socket, e.g. sender or receiver */
 	size_t messageLength; /**< message length (only relevant for read socket) */
 	void* msgInternal;  /**< Internal UDP message buffer (only relevant for read socket) */
 	void* msgExport;  /**< UDP message buffer exported to Modelica (only relevant for read socket) */
