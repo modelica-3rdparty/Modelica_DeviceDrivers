@@ -461,17 +461,26 @@ not necessary mean that your Modelica tool compiles 64bit binaries, i.e., if in 
   package SocketCAN
     "ALPHA feature. Support for the Linux Controller Area Network Protocol Family (aka Socket CAN)"
     extends Modelica.Icons.Package;
-    record SocketCANConfig
+    record SocketCANConfig "Open socket to specified CAN interface"
     extends Modelica_DeviceDrivers.Utilities.Icons.SocketCANRecordIcon;
       import Modelica_DeviceDrivers.Communication.SocketCAN;
       parameter String ifr_name = "vcan0"
         "CAN interface name (as displayed by ifconfig)";
       final parameter SocketCAN dh = SocketCAN(ifr_name) "SocketCAN handle";
-      annotation (Icon(graphics={
+      annotation (
+              Icon(graphics={
                      Text(
               extent={{-98,70},{98,42}},
               lineColor={0,0,0},
-              textString="%ifr_name")}));
+              textString="%ifr_name")}),
+        Documentation(info="<html>
+<h4><font color=\"#008000\">Support for Linux Socket CAN bus</font></h4>
+<p><b>Please, read the package information for <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SocketCAN\"><code>SocketCAN</code></a> first!</p>
+<h4><font color=\"#008000\">Example</font></h4>
+<p>
+See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackager_SocketCAN\"><code>TestSerialPackager_SocketCAN</code></a>.
+</p>
+</html>"));
     end SocketCANConfig;
 
     block ReadMessage "Set up a message for receiving data"
@@ -608,7 +617,18 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
     end Internal;
     annotation (preferredView="info",Documentation(info="<html>
 <p><h4><font color=\"#008000\">Support for Linux Socket CAN interface</font></h4></p>
-<p><b>TODO: write documentation</b> </p>
+<p>Modelica external function interface to use the CAN socket interface of the Linux kernel (<a href=\"http://svn.berlios.de/wsvn/socketcan/trunk/kernel/2.6/Documentation/networking/can.txt\">http://svn.berlios.de/wsvn/socketcan/trunk/kernel/2.6/Documentation/networking/can.txt</a>). </p>
+<p><b>So far only testet with the virtual CAN interface &QUOT;vcan&QUOT;</b>. However, in principle it should work similarly with an underlying &QUOT;real&QUOT; CAN-device which is supported by the Socket CAN interface.</p>
+<p><h4><font color=\"#008000\">Setup of a virtual CAN interface</font></h4></p>
+<p>Even if a Linux computer doesn&apos;t have a CAN device, it is possible to setup a virtual CAN device that can be used similarly to a physical device. This section discusses the necessary steps to bring up a virtual CAN device (tested with Ubuntu 12.04) which can be used with the <a href=\"Modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackager_SocketCAN\">SocketCAN example model</a>. Note that this usually requires root rights. Also executing the Modelica example model might require root rights.</p>
+<p><ul>
+<li>Load the vcan kernel model:<br/><code>sudo modprobe vcan</code></li>
+<li>Create a virtual CAN device with default name (default name will be &QUOT;vcan0&QUOT;):<br/><code>sudo ip link add type vcan</code></li>
+<li>Bring the device up:<br/><code>sudo ifconfig vcan0 up</code></li>
+</ul></p>
+<p><h4><font color=\"#008000\">Setup of a physical CAN interface</font></h4></p>
+<p>Please have a look in the respective documentation to Socket CAN. A physical CAN interface will require more
+ configuration settings than the virtual interface (e.g., bitrate setting).</p>
 </html>"));
   end SocketCAN;
 

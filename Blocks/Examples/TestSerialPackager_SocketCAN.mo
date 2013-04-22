@@ -102,14 +102,18 @@ annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
           extent={{-94,92},{96,64}},
           lineColor={0,0,255},
           textString="Please see documentation for system requirements
-for using the Socket CAN bus interface!")}),
+for using the Linux Socket CAN bus interface!")}),
                                experiment(StopTime=1.0), Documentation(info="<html>
-<h4><font color=\"#008000\">Support for Linux Socket CAN interface</font></h4>
-<p><b>Please, read the package information for <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SocketCAN\"><code>SocketCAN</code></a> first!</p>
-<h4><font color=\"#008000\">The example</font></h4>
-<p>
-<b>TODO: write setup requirements </b>
-The example is configured for the \"CANusb\" interface card from Softing (<a href=\"http://www.softing.com/\">www.softing.com</a>) (but, given that the <code>deviceName</code> parameter is set correctly, should work with all of their interface cards supporting their Softing CAN Layer 2 software API). Two messages are defined: <code>txMessage</code> for sending and <code>rxMessage</code> for receiving. The <code>SerialPackager</code> blocks are used to add/retrieve data to/from the messages.
-</p>
+<p><h4><font color=\"#008000\">Example for Linux Socket CAN interface support</font></h4></p>
+<p><b>Will only work on Linux!</b><p>
+<p>Please, read the package information for <code><a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SocketCAN\">SocketCAN</a></code> first!</p>
+
+<p><h4><font color=\"#008000\">The example</font></h4></p>
+<p>The example is configured to use the virtual CAN interface &QUOT;<code>vcan0</code>&QUOT;. The 
+<code><a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SocketCAN\">SocketCAN</a></code> package documentation describes
+briefly how to bring up such a virtual CAN interface in Linux.</p>
+
+<p>Two sockets are opened in the example: One for sending messages, the other for receiving them. 
+The <code>SerialPackager</code> blocks are used to add/retrieve data to/from the messages. </p>
 </html>"));
 end TestSerialPackager_SocketCAN;
