@@ -3,8 +3,7 @@ message(STATUS "WRITING BUILD FILES FOR MDDSpaceMouse library")
 
 
 if (CMAKE_COMPILER_IS_GNUCC)
-SET(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-pthread")
-#SET(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-pthread -m32") # force compile for 32 bit
+SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -pthread")
 endif (CMAKE_COMPILER_IS_GNUCC)
 
 if (UNIX)
@@ -50,21 +49,21 @@ endif (UNIX)
 
 if ( MSVC_HID_LIBRARY OR srcXdrvlib )
 # Space Mouse libraries available: install to directory (CMAKE_INSTALL_PREFIX) into subdirectory "Library/.."
-if ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
+if ( (CMAKE_SIZEOF_VOID_P EQUAL 8) AND (NOT M32_FLAG) )
   if (UNIX)
 	install(TARGETS MDDSpaceMouse DESTINATION Library/linux64)
   else (UNIX)
 	install(TARGETS MDDSpaceMouse DESTINATION Library/win64)
   endif (UNIX)
-elseif ( CMAKE_SIZEOF_VOID_P EQUAL 4 )
+elseif ( (CMAKE_SIZEOF_VOID_P EQUAL 4) OR M32_FLAG)
   if (UNIX)
 	install(TARGETS MDDSpaceMouse DESTINATION Library/linux32)
   else (UNIX)
 	install(TARGETS MDDSpaceMouse DESTINATION Library/win32)
   endif (UNIX)
-else ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
+else ( (CMAKE_SIZEOF_VOID_P EQUAL 8) AND (NOT M32_FLAG) )
   message(SEND_ERROR "Uups. Neither 64, nor 32 bit??")
-endif ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
+endif ( (CMAKE_SIZEOF_VOID_P EQUAL 8) AND (NOT M32_FLAG) )
 endif ( MSVC_HID_LIBRARY OR srcXdrvlib )
 
 

@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 2.6)
 enable_testing()
 
 #set(CMAKE_VERBOSE_MAKEFILE on)
-set(CMAKE_BUILD_TYPE DEBUG)
+#set(CMAKE_BUILD_TYPE DEBUG)
 
 # All library installation will be relative to the "Resources" directory
 set(CMAKE_INSTALL_PREFIX ${PROJECT_SOURCE_DIR})
@@ -21,6 +21,20 @@ if (MSVC)
   # Dummy Windows X11 library for uniform treatment of GCC and MS Visual C within Modelica
   add_subdirectory(src/DummyX11Library)
 endif (MSVC)
+
+if (UNIX)
+  # Are we trying to force compilation for linux32 on a native linux64 platform?
+  if ( ($ENV{CFLAGS} MATCHES "-m32") AND ($ENV{CXXFLAGS} MATCHES "-m32") )
+    set(M32_FLAG TRUE)
+  endif()	
+  # Uncomment to force 32 bit compilation on Linux (this is needed if a Modelica tool
+  # uses 32 bit simulation executable also on 64 bit linux (as is/was the case for Dymola)
+  # Alternatively, that can be achieved by calling cmake (from Resources/build) like this:
+  # CFLAGS=-m32 CXXFLAGS=-m32 cmake ..
+  #set(M32_FLAG True)
+  #set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -m32") # force compile for 32 bit
+  #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m32") # force compile for 32 bit
+endif (UNIX)
 
 # Windows and linux library for 3Dconnexion space mouse support
 add_subdirectory(src/SpaceMouse)

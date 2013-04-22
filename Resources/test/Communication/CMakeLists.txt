@@ -5,7 +5,7 @@
 include_directories(../../Include)
 
 if (CMAKE_COMPILER_IS_GNUCC)
-SET(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-pthread")
+SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -pthread")
 endif (CMAKE_COMPILER_IS_GNUCC)
 add_executable(test_MDDUDPSocket test_MDDUDPSocket.c ../Util/ModelicaUtilities.c)
 add_test(test_MDDUDPSocket ${EXECUTABLE_OUTPUT_PATH}/test_MDDUDPSocket)

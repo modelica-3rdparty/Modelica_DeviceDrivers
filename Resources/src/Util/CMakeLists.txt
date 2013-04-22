@@ -1,4 +1,4 @@
-message(STATUS "WRITING BUILD FILES FOR Util library")
+message(STATUS "WRITING BUILD FILES FOR MDDUtil library")
 #message(STATUS "${CMAKE_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_BINARY_DIR} ${CMAKE_CURRENT_BINARY_DIR}")
 
 
@@ -8,15 +8,14 @@ add_library(MDDUtil STATIC ${libSrcsMDDUtilLibrary})
 
 
 if (UNIX)
-  SET(CMAKE_C_FLAGS ${CMAKE_C_FLAGS} "-m32") # force compile for 32 bit
   # install to directory (CMAKE_INSTALL_PREFIX)
-  if ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
+  if ( (CMAKE_SIZEOF_VOID_P EQUAL 8) AND (NOT M32_FLAG) )
 	install(TARGETS MDDUtil DESTINATION Library/linux64)
-  elseif ( CMAKE_SIZEOF_VOID_P EQUAL 4 )
+  elseif ( (CMAKE_SIZEOF_VOID_P EQUAL 4) OR (M32_FLAG) )
 	install(TARGETS MDDUtil DESTINATION Library/linux32)
-  else ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
+  else ( (CMAKE_SIZEOF_VOID_P EQUAL 8) AND (NOT M32_FLAG) )
     message(SEND_ERROR "Uups. Shouldn't be possible to get here")
-  endif ( CMAKE_SIZEOF_VOID_P EQUAL 8 ) 
+  endif ( (CMAKE_SIZEOF_VOID_P EQUAL 8) AND (NOT M32_FLAG) ) 
 elseif (MSVC)
   if ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
 	install(TARGETS MDDUtil DESTINATION Library/win64)

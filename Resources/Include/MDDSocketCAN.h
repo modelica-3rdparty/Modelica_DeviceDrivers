@@ -7,7 +7,7 @@
  * @copyright Modelica License 2
  * 
  * Modelica external function interface to use the CAN socket interface 
- * of the Linux kernel (http://www.softing.com/).
+ * of the Linux kernel (http://svn.berlios.de/wsvn/socketcan/trunk/kernel/2.6/Documentation/networking/can.txt).
  * Tested with the virtual CAN interface "vcan".
   - Create a virtual CAN network interface (vcan0):
        $ modprobe vcan

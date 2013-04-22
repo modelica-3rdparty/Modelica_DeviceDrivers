@@ -1,25 +1,32 @@
-* C-Sources for the Modelica_DeviceDrivers library *
+*** C-SOURCES FOR THE Modelica_DeviceDrivers LIBRARY ***
 
 If you want to compile the sources yourself the easiest way is to use
 cmake (http://www.cmake.org/).
 
-* Getting cmake
+* GETTING CMAKE
 
 Usually there will be a package
-available from your linux distribution. E.g. for Debian/Ubuntu you would do:
+available from your linux distribution. E.g., for Debian/Ubuntu you would do:
 
 aptitude install cmake
 
-For MS windows downlad it from http://www.cmake.org/
+For MS Windows download it from http://www.cmake.org/
 
-* Building the sources
+* BUILDING THE SOURCES
 
-cd ../Build
-cmake ../Source
+Check whether you need to build for 32bit on a native 64bit Linux architecture. If so,
+use "CFLAGS=-m32 CXXFLAGS=-m32 cmake .." instead of "cmake ..". Dymola needs/needed that.
+So, for Linux do:
+
+mkdir build
+cd build
+cmake ..
 make
 make install
 
-* Third Party dependencies
+For MS Windows you can use the cmake GUI to setup a (MS Visual) project and do the build.
+
+* THIRD-PARTY DEPENDENCIES
 
 Some drivers might have a dependency to libraries or source code provided by
 third parties (see folder "thirdParty").
