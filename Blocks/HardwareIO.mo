@@ -34,7 +34,6 @@ package HardwareIO
 
     block DataWrite "Write raw Integer value to Comedi DAC channel"
       import Modelica_DeviceDrivers;
-      extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
       extends Modelica_DeviceDrivers.Utilities.Icons.ComediBlockIcon;
       Modelica.Blocks.Interfaces.IntegerInput u
         annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
@@ -81,7 +80,6 @@ package HardwareIO
 
     block DataRead "Read raw Integer value from Comedi ADC channel"
       import Modelica_DeviceDrivers;
-      extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
       extends Modelica_DeviceDrivers.Utilities.Icons.ComediBlockIcon;
       import Modelica_DeviceDrivers.Blocks.HardwareIO.Comedi.Types;
       import Modelica_DeviceDrivers.HardwareIO.Comedi;
@@ -129,7 +127,6 @@ package HardwareIO
     block PhysicalDataWrite
       "Write physical value (volts or milliamps) to Comedi DAC channel"
       import Modelica_DeviceDrivers;
-      extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
       extends Modelica_DeviceDrivers.Utilities.Icons.ComediBlockIcon;
       Modelica.Blocks.Interfaces.RealInput    u
         annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
@@ -196,7 +193,6 @@ package HardwareIO
     block PhysicalDataRead
       "Read physical value (in volts or milliamps) from Comedi ADC channel"
       import Modelica_DeviceDrivers;
-      extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
       extends Modelica_DeviceDrivers.Utilities.Icons.ComediBlockIcon;
       import Modelica_DeviceDrivers.Blocks.HardwareIO.Comedi.Types;
       import Modelica_DeviceDrivers.HardwareIO.Comedi;
@@ -262,7 +258,6 @@ package HardwareIO
 
     block DIOWrite "Write value to Comedi DIO channel"
       import Modelica_DeviceDrivers;
-      extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
       extends Modelica_DeviceDrivers.Utilities.Icons.ComediBlockIcon;
       Modelica.Blocks.Interfaces.BooleanInput u
         annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
@@ -311,7 +306,6 @@ package HardwareIO
 
     block DIORead "Read value from Comedi DIO channel"
       import Modelica_DeviceDrivers;
-      extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
       extends Modelica_DeviceDrivers.Utilities.Icons.ComediBlockIcon;
       import Modelica_DeviceDrivers.Blocks.HardwareIO.Comedi.Types;
       import Modelica_DeviceDrivers.HardwareIO.Comedi;

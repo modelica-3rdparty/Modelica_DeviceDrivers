@@ -1,7 +1,6 @@
 within Modelica_DeviceDrivers.Utilities.Icons;
-block ComediBlockIcon
-  "Icon for comedi blocks (Tux from JZA placed into the public domain, http://openclipart.org/detail/168653/tux-enhanced-by-jza)."
-
-  annotation (Icon(graphics={
-          Bitmap(extent={{10,-22},{112,-92}},fileName="modelica://Modelica_DeviceDrivers/Resources/Images/Icons/tux-enhanced.png")}));
+partial block ComediBlockIcon "Icon for (Linux) Comedi blocks"
+  extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
+  extends Modelica_DeviceDrivers.Utilities.Icons.LinuxTuxBlockIcon;
+  annotation (Icon(graphics));
 end ComediBlockIcon;

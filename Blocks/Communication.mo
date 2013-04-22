@@ -485,18 +485,22 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
 
     block ReadMessage "Set up a message for receiving data"
       extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
+      extends Modelica_DeviceDrivers.Utilities.Icons.SocketCANBlockIcon;
       import Modelica_DeviceDrivers;
       import Modelica_DeviceDrivers.Communication.SocketCAN;
       import Modelica_DeviceDrivers.Packaging.SerialPackager;
       import SI = Modelica.SIunits;
-    parameter SocketCANConfig config annotation (__Dymola_componentsMatching=true);
+    parameter SocketCANConfig config
+        "Socket CAN configuration (socket) to use for this block"                              annotation (__Dymola_componentsMatching=true);
     parameter Integer can_id(min=0) "Identifier of CAN message (CAN Id)";
     parameter Integer can_dlc(min=0,max=8) = 8
         "Data length code (payload of data in bytes, max=8)";
     parameter SI.Period sampleTime = 0.1 "Period at which messages are written";
     parameter SI.Time startTime = 0 "First sample time instant";
       Modelica_DeviceDrivers.Blocks.Interfaces.PackageOut pkgOut
-        annotation (Placement(transformation(extent={{-20,-128},{20,-88}})));
+        annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+            rotation=90,
+            origin={108,0})));
     protected
       Modelica_DeviceDrivers.Packaging.SerialPackager
                      pkg = SerialPackager(can_dlc);
@@ -523,14 +527,17 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
       annotation (preferredView="info",
       defaultComponentName="rxMessage",
       Icon(graphics={Text(
-              extent={{-98,54},{98,26}},
+              extent={{-98,86},{98,58}},
               lineColor={0,0,0},
               textString="Rx id: %can_id"),
             Text(
-              extent={{-160,24},{160,-6}},
+              extent={{-92,-56},{36,-88}},
               lineColor={0,0,0},
-              textString="(%startTime, %sampleTime) s")}),
-        Diagram(graphics),
+              textString="(%startTime, %sampleTime) s",
+              horizontalAlignment=TextAlignment.Left)}),
+        Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+                {100,100}}),
+                graphics),
         Documentation(info="<html>
 <h4><font color=\"#008000\">Support for Linux Socket CAN interface</font></h4>
 <p><b>Please, read the package information for <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SocketCAN\"><code>SocketCAN</code></a> first!</p>
@@ -544,17 +551,21 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
     block WriteMessage "Set up a message for transmitting data"
       import Modelica_DeviceDrivers;
       extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
+      extends Modelica_DeviceDrivers.Utilities.Icons.SocketCANBlockIcon;
       import Modelica_DeviceDrivers.Communication.SocketCAN;
       import Modelica_DeviceDrivers.Packaging.SerialPackager;
       import SI = Modelica.SIunits;
-    parameter SocketCANConfig config annotation (__Dymola_componentsMatching=true);
+    parameter SocketCANConfig config
+        "Socket CAN configuration (socket) to use for this block"                              annotation (__Dymola_componentsMatching=true);
     parameter Integer can_id(min=0) "Identifier of CAN message (CAN Id)";
     parameter Integer can_dlc(min=0,max=8) = 8
         "Data length code (payload of data in bytes, max=8)";
     parameter SI.Period sampleTime = 0.1 "Sample period of component";
     parameter SI.Time startTime = 0 "First sample time instant";
       Modelica_DeviceDrivers.Blocks.Interfaces.PackageIn pkgIn
-        annotation (Placement(transformation(extent={{-20,-128},{20,-88}})));
+        annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+            rotation=-90,
+            origin={-108,0})));
     protected
       Real dummy;
     equation
@@ -577,16 +588,21 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
       end when;
       annotation (preferredView="info",
       defaultComponentName="txMessage",
-      Icon(graphics={
+      Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+                100}}),
+           graphics={
             Text(
-              extent={{-90,54},{96,24}},
+              extent={{-90,84},{96,54}},
               lineColor={0,0,0},
               textString="Tx id: %can_id"),
             Text(
-              extent={{-160,24},{160,-6}},
+              extent={{-92,-58},{36,-90}},
               lineColor={0,0,0},
-              textString="(%startTime, %sampleTime) s")}),
-        Diagram(graphics),
+              textString="(%startTime, %sampleTime) s",
+              horizontalAlignment=TextAlignment.Left)}),
+        Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+                {100,100}}),
+                graphics),
         Documentation(info="<html>
 <h4><font color=\"#008000\">Support for Linux Socket CAN interface</font></h4>
 <p><b>Please, read the package information for <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SocketCAN\"><code>SocketCAN</code></a> first!</p>

@@ -8,7 +8,9 @@ SerialPackagerReadIcon
 UDPconnection
 SharedMemoryIcon
 PartialClockedDeviceDriverIcon
+LinuxTuxBlockIcon
 ComediBlockIcon
 ComediRecordIcon
 BusIcon
 SocketCANRecordIcon
+SocketCANBlockIcon

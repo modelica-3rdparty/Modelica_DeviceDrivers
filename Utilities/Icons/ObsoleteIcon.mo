@@ -1,5 +1,5 @@
 within Modelica_DeviceDrivers.Utilities.Icons;
-model ObsoleteIcon
+partial model ObsoleteIcon
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={Rectangle(extent={{-100,100},{100,-100}},

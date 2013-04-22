@@ -8,13 +8,12 @@ model TestSerialPackager_SocketCAN
     annotation (Placement(transformation(extent={{-70,40},{-50,60}})));
   Modelica_DeviceDrivers.Blocks.Communication.SocketCAN.WriteMessage txMessage(
       can_id=2, config=socketCANConfig1) annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
+        extent={{10,10},{-10,-10}},
         rotation=180,
-        origin={-38,-66})));
+        origin={-22,-64})));
   Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.AddInteger addInteger(nu=1)
     annotation (Placement(transformation(extent={{-48,-22},{-28,-2}})));
-  Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.PackUnsignedInteger packInt2(width=16,
-      nu=1)
+  Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.PackUnsignedInteger packInt2(width=16, nu=1)
     annotation (Placement(transformation(extent={{-48,-48},{-28,-28}})));
   Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.PackUnsignedInteger
     packInt1(width=8, nu=1)
@@ -76,16 +75,6 @@ equation
       color={0,0,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));
-  connect(packInt2.pkgOut[1], txMessage.pkgIn) annotation (Line(
-      points={{-38,-48.8},{-38,-55.2}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
-  connect(rxMessage.pkgOut, unpackInt1.pkgIn) annotation (Line(
-      points={{30,29.2},{30,24.8}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
   connect(unpackInt1.pkgOut[1], getInteger.pkgIn) annotation (Line(
       points={{30,3.2},{30,-1.2}},
       color={0,0,0},
@@ -93,6 +82,16 @@ equation
       smooth=Smooth.None));
   connect(getInteger.pkgOut[1], unpackInt2.pkgIn) annotation (Line(
       points={{30,-22.8},{30,-31.2}},
+      color={0,0,0},
+      pattern=LinePattern.None,
+      smooth=Smooth.None));
+  connect(packInt2.pkgOut[1], txMessage.pkgIn) annotation (Line(
+      points={{-38,-48.8},{-38,-64},{-32.8,-64}},
+      color={0,0,0},
+      pattern=LinePattern.None,
+      smooth=Smooth.None));
+  connect(rxMessage.pkgOut, unpackInt1.pkgIn) annotation (Line(
+      points={{40.8,40},{44,40},{44,28},{30,28},{30,24.8}},
       color={0,0,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));

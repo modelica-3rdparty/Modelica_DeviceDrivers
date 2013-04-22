@@ -1,5 +1,5 @@
 within Modelica_DeviceDrivers.Utilities.Icons;
-record ComediRecordIcon
+partial record ComediRecordIcon
   "Icon for comedi records (Tux from JZA placed into the public domain, http://openclipart.org/detail/168653/tux-enhanced-by-jza)."
 
   annotation (Icon(graphics={
