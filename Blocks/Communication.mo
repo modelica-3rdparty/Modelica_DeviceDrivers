@@ -467,7 +467,7 @@ not necessary mean that your Modelica tool compiles 64bit binaries, i.e., if in 
       parameter String ifr_name = "vcan0"
         "CAN interface name (as displayed by ifconfig)";
       final parameter SocketCAN dh = SocketCAN(ifr_name) "SocketCAN handle";
-      annotation (
+      annotation (preferredView="info",
               Icon(graphics={
                      Text(
               extent={{-98,70},{98,42}},
@@ -520,7 +520,8 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
       end when;
 
       pkgOut.pkg = pkg;
-      annotation (defaultComponentName="rxMessage",
+      annotation (preferredView="info",
+      defaultComponentName="rxMessage",
       Icon(graphics={Text(
               extent={{-98,54},{98,26}},
               lineColor={0,0,0},
@@ -574,7 +575,8 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
           pkgIn.dummy);
 
       end when;
-      annotation (defaultComponentName="txMessage",
+      annotation (preferredView="info",
+      defaultComponentName="txMessage",
       Icon(graphics={
             Text(
               extent={{-90,54},{96,24}},
