@@ -239,17 +239,21 @@ void MDD_SerialPackagerGetDouble(void* p_package, double * y, int n) {
  * i.e., p_package->bitOffset set to 0 and p_package->pos++.
  * @param[in,out] p_package pointer to the SerialPackager
  * @param[in] u zero terminated string
+ * @param[in] bufferSize that was reserved for that string
  */
-void MDD_SerialPackagerAddString(void* p_package, const char* u) {
+void MDD_SerialPackagerAddString(void* p_package, const char* u, int bufferSize) {
         SerialPackager* pkg = (SerialPackager*) p_package;
-        unsigned int size = (strlen(u)+1)*sizeof(char);
+        //unsigned int size = (strlen(u)+1)*sizeof(char);
+	
         if (pkg->bitOffset != 0) MDD_SerialPackagerAlignToByteBoundery(pkg);
-        if (pkg->pos + size > pkg->size) {
+        if (pkg->pos + bufferSize > pkg->size) {
+		ModelicaFormatMessage("pkg->size: %d, pkg->pos+bufferSize: %d, bufferSize: %d, strlen(u): %d\n",
+				      pkg->size, pkg->pos+bufferSize, bufferSize, strlen(u));
                 ModelicaFormatError("SerialPackager: MDD_SerialPackagerAddString failed. Buffer overflow. Exiting.+\n");
                 exit(-1);
         }
-        memcpy(pkg->data + pkg->pos, u, size);
-        pkg->pos += size;
+        memcpy(pkg->data + pkg->pos, u, bufferSize);
+        pkg->pos += bufferSize;
 }
 
 
@@ -259,20 +263,20 @@ void MDD_SerialPackagerAddString(void* p_package, const char* u) {
  * i.e., p_package->bitOffset set to 0 and p_package->pos++.
  * @param[in,out] p_package pointer to the SerialPackager
  * @param[out] y pointer to '\0' terminated string or NULL if no terminated '\0' found in package data.
+ * @param[in] bufferSize that was reserved for that string
  */
-const char* MDD_SerialPackagerGetString(void* p_package) {
+const char* MDD_SerialPackagerGetString(void* p_package, int bufferSize) {
         SerialPackager* pkg = (SerialPackager*) p_package;
         char* y;
         unsigned int i, found = 0;
         if (pkg->bitOffset != 0) MDD_SerialPackagerAlignToByteBoundery(pkg);
 
-        /* at least a '\0' must be readable from pkg->pos */
-        if (pkg->pos + sizeof(char) > pkg->size) {
+        if (pkg->pos + bufferSize > pkg->size) {
                 ModelicaFormatError("SerialPackager: MDD_SerialPackagerGetString failed. Buffer overflow. Exiting.\n");
                 exit(-1);
         }
 
-        for (i=pkg->pos; i < pkg->size - pkg->pos; i++) {
+        for (i=pkg->pos; i < pkg->pos + bufferSize; i++) {
                 if (pkg->data[i] == '\0') {
                         found = 1;
                         break;
@@ -287,7 +291,7 @@ const char* MDD_SerialPackagerGetString(void* p_package) {
 				/** TODO: Consider using ModelicaAllocateString() instead of (more efficient) direct buffer pointer, in order to be Modelica standard compliant */
 			    /* y = ModelicaAllocateString(i - pkg->pos);  // Modelica standard compliant form for Strings returned back to Modelica environment
 				   memcpy(y, &(pkg->data[ pkg->pos ]), i - pkg->pos); */
-                pkg->pos = i+1;
+                pkg->pos += bufferSize;
         }
         return (const char*)y;
 }

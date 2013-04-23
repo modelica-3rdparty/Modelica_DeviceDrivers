@@ -1,4 +1,5 @@
 TestSerialPackager
+TestSerialPackager_String
 TestSerialPackager_UDP
 TestSerialPackagerBitPack_UDP
 TestSerialPackager_SharedMemory

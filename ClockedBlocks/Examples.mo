@@ -131,6 +131,118 @@ The example demonstrates that pack and unpack blocks of the <code>SerialPackager
 </html>"));
   end TestSerialPackager;
 
+  model TestSerialPackager_String
+    "Example for using the SerialPackager with the AddString and GetString block"
+  extends Modelica.Icons.Example;
+    Modelica.Blocks.Sources.IntegerExpression integerExpression(y=integer(3*sin(
+          time) + 3))
+      annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
+    ClockedBlocks.Packaging.SerialPackager.Packager packager
+      annotation (Placement(transformation(extent={{-50,70},{-30,90}})));
+    ClockedBlocks.Packaging.SerialPackager.PackUnsignedInteger packInt(      width=10, nu=1)
+      annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
+    ClockedBlocks.Packaging.SerialPackager.AddInteger addInteger(nu=1)
+      annotation (Placement(transformation(extent={{-50,-46},{-30,-26}})));
+    Modelica.Blocks.Sources.IntegerExpression integerExpression2(y=integer(5*sin(
+          time)))
+      annotation (Placement(transformation(extent={{-100,-46},{-80,-26}})));
+    ClockedBlocks.Packaging.SerialPackager.ResetPointer resetPointer(nu=1)
+      annotation (Placement(transformation(extent={{-12,64},{8,84}})));
+    ClockedBlocks.Packaging.SerialPackager.UnpackUnsignedInteger unpackInt(      width=10, nu=1)
+      annotation (Placement(transformation(extent={{-12,30},{8,50}})));
+    ClockedBlocks.Packaging.SerialPackager.GetInteger getInteger
+      annotation (Placement(transformation(extent={{-12,-44},{8,-24}})));
+    Modelica_Synchronous.IntegerSignals.Sampler.SampleClocked  sample1
+      annotation (Placement(transformation(extent={{-72,34},{-60,46}})));
+    Modelica_Synchronous.IntegerSignals.Sampler.SampleClocked  sample3
+      annotation (Placement(transformation(extent={{-72,-42},{-60,-30}})));
+    Modelica_Synchronous.ClockSignals.Clocks.PeriodicRealClock periodicRealClock(period=
+          0.1)
+      annotation (Placement(transformation(extent={{-98,-82},{-78,-62}})));
+    Packaging.SerialPackager.AddString addString(nu=1, data=stringEx.y)
+      annotation (Placement(transformation(extent={{-50,-6},{-30,14}})));
+    Packaging.SerialPackager.GetString getString(nu=1)
+      annotation (Placement(transformation(extent={{-12,-8},{8,12}})));
+    Modelica.Blocks.Sources.IntegerExpression findString(y=
+          Modelica.Utilities.Strings.find(getString.data, "examp"))
+      annotation (Placement(transformation(extent={{20,-10},{94,14}})));
+    Utilities.StringExpression stringEx
+      annotation (Placement(transformation(extent={{-92,-6},{-64,12}})));
+  equation
+    connect(packager.pkgOut, packInt.pkgIn) annotation (Line(
+        points={{-40,69.2},{-40,50.8}},
+        color={0,0,0},
+        pattern=LinePattern.None,
+        smooth=Smooth.None));
+    connect(addInteger.pkgOut[1], resetPointer.pkgIn) annotation (Line(
+        points={{-40,-46.8},{-40,-56},{-20,-56},{-20,94},{-2,94},{-2,84.8}},
+        color={0,0,0},
+        pattern=LinePattern.None,
+        smooth=Smooth.None));
+    connect(resetPointer.pkgOut[1], unpackInt.pkgIn) annotation (Line(
+        points={{-2,63.2},{-2,50.8}},
+        color={0,0,0},
+        pattern=LinePattern.None,
+        smooth=Smooth.None));
+    connect(integerExpression.y, sample1.u) annotation (Line(
+        points={{-79,40},{-73.2,40}},
+        color={255,127,0},
+        smooth=Smooth.None));
+    connect(sample1.y, packInt.u) annotation (Line(
+        points={{-59.4,40},{-52,40}},
+        color={255,127,0},
+        smooth=Smooth.None));
+    connect(integerExpression2.y, sample3.u) annotation (Line(
+        points={{-79,-36},{-73.2,-36}},
+        color={255,127,0},
+        smooth=Smooth.None));
+    connect(sample3.y, addInteger.u[1]) annotation (Line(
+        points={{-59.4,-36},{-52,-36}},
+        color={255,127,0},
+        smooth=Smooth.None));
+    connect(periodicRealClock.y, sample1.clock) annotation (Line(
+        points={{-77,-72},{-56,-72},{-56,28},{-66,28},{-66,32.8}},
+        color={135,135,135},
+        pattern=LinePattern.Dot,
+        thickness=0.5,
+        smooth=Smooth.None));
+    connect(sample3.clock, periodicRealClock.y) annotation (Line(
+        points={{-66,-43.2},{-66,-72},{-77,-72}},
+        color={175,175,175},
+        pattern=LinePattern.Dot,
+        thickness=0.5,
+        smooth=Smooth.None));
+    connect(packInt.pkgOut[1], addString.pkgIn) annotation (Line(
+        points={{-40,29.2},{-40,14.8}},
+        color={0,0,0},
+        pattern=LinePattern.None,
+        smooth=Smooth.None));
+    connect(addString.pkgOut[1], addInteger.pkgIn) annotation (Line(
+        points={{-40,-6.8},{-40,-25.2}},
+        color={0,0,0},
+        pattern=LinePattern.None,
+        smooth=Smooth.None));
+    connect(unpackInt.pkgOut[1], getString.pkgIn) annotation (Line(
+        points={{-2,29.2},{-2,12.8}},
+        color={0,0,0},
+        pattern=LinePattern.None,
+        smooth=Smooth.None));
+    connect(getString.pkgOut[1], getInteger.pkgIn) annotation (Line(
+        points={{-2,-8.8},{-2,-23.2}},
+        color={0,0,0},
+        pattern=LinePattern.None,
+        smooth=Smooth.None));
+    annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
+              {100,100}}),       graphics), experiment(StopTime=5.0),
+      Documentation(info="<html>
+<p>
+Using Strings in input or output connectors is not very common in Modelica. There are currently no standard connectors for
+Strings available in the MSL. Nevertheless, the <code>SerialPackager</code> package provides blocks for Strings, too. The use of this blocks
+is demonstrated in this example.
+</p>
+</html>"));
+  end TestSerialPackager_String;
+
   model TestSerialPackager_UDP
     "Example for combining UDP and SerialPackager blocks"
   extends Modelica.Icons.Example;

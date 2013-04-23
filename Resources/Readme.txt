@@ -31,8 +31,9 @@ For MS Windows you can use the cmake GUI to setup a (MS Visual) project and do t
 Some drivers might have a dependency to libraries or source code provided by
 third parties (see folder "thirdParty").
 These libraries/code may not be distributable by their licence
-conditions. If they are missing, please ensure yourself that you get them or
-exclude the respective dependent drivers from the build process.
+conditions. The build system tries to detect what is available and skips the rest. If you want/need
+the functionality provided by the thirdParty libraries, get the respective libraries and include
+them as described in "thirdParty" folder.
 
 * GENERATE DOCUMENTATION USING DOXYGEN
 

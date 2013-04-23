@@ -23,7 +23,8 @@ encapsulated function addString
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
   input SerialPackager pkg;
   input String u;
-  external "C" MDD_SerialPackagerAddString(pkg,u);
+  input Integer bufferSize;
+  external "C" MDD_SerialPackagerAddString(pkg,u,bufferSize);
   annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
              Include = "#include \"MDDSerialPackager.h\" ");
 end addString;
@@ -97,8 +98,9 @@ end getInteger;
 encapsulated function getString
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
   input SerialPackager pkg;
+  input Integer bufferSize;
   output String y;
-  external "C" y = MDD_SerialPackagerGetString(pkg);
+  external "C" y = MDD_SerialPackagerGetString(pkg, bufferSize);
   annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
              Include = "#include \"MDDSerialPackager.h\" ");
 end getString;

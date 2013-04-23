@@ -47,10 +47,11 @@ package Packaging
         function addString
           input Modelica_DeviceDrivers.Packaging.SerialPackager     pkg;
           input String u;
+          input Integer bufferSize;
           input Real dummy;
           output Real dummy2;
         algorithm
-          Modelica_DeviceDrivers.Packaging.SerialPackager_.addString(pkg,u);
+          Modelica_DeviceDrivers.Packaging.SerialPackager_.addString(pkg,u, bufferSize);
           dummy2 :=dummy;
         end addString;
 
@@ -98,10 +99,11 @@ package Packaging
         function getString
           input Modelica_DeviceDrivers.Packaging.SerialPackager     pkg;
           output String y;
+          input Integer bufferSize;
           input Real dummy;
           output Real dummy2;
         algorithm
-          y := Modelica_DeviceDrivers.Packaging.SerialPackager_.getString(pkg);
+          y := Modelica_DeviceDrivers.Packaging.SerialPackager_.getString(pkg, bufferSize);
           dummy2 :=dummy;
         end getString;
 
@@ -178,7 +180,7 @@ package Packaging
         annotation(Dialog(tab="Advanced"), choices(__Dymola_checkBox=true));
       parameter Integer userBufferSize = 16*1024
         "Buffer size for package if backward propagation of buffer size is deactivated"
-                                                                                        annotation (Dialog(enable = not useBackwardSampleTimePropagation, tab="Advanced"));
+                                                                                        annotation (Dialog(enable = not useBackwardPropagatedBufferSize, tab="Advanced"));
 
       Interfaces.PackageOut        pkgOut
         annotation (Placement(transformation(extent={{-20,-128},{20,-88}})));
@@ -335,15 +337,17 @@ package Packaging
         Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.PartialSerialPackager;
       import Modelica_DeviceDrivers.Packaging.alignAtByteBoundery;
       import Modelica.Utilities.Strings.length;
-      parameter Integer n = 1;
-      input String data annotation(Dialog=true);
+      parameter Integer bufferSize = 40
+        "Buffer size (in bytes) reserved for String (ensure that same buffer size is used in corresponding GetString block!)";
+      input String data = "A mostly harmless String" annotation(Dialog=true);
     equation
-      pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundery(pkgOut[1].autoPkgBitSize)*8 + length(data)+1 else length(data)+1;
+      pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundery(pkgOut[1].autoPkgBitSize)*8 + bufferSize*8 else bufferSize*8;
 
       pkgOut.dummy =
         Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.DummyFunctions.addString(
         pkgOut.pkg,
         data,
+        bufferSize,
         pkgIn.dummy);
 
       annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
@@ -357,7 +361,11 @@ package Packaging
                   {14,0}},
               lineColor={255,127,0},
               fillColor={255,127,0},
-              fillPattern=FillPattern.Solid)}));
+              fillPattern=FillPattern.Solid),
+            Text(
+              extent={{-100,-40},{100,-80}},
+              lineColor={255,127,0},
+              textString="%data")}));
     end AddString;
 
     model GetBoolean "Get Boolean vector from package"
@@ -494,17 +502,18 @@ package Packaging
         Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.PartialSerialPackager;
       import Modelica_DeviceDrivers.Packaging.alignAtByteBoundery;
       import Modelica.Utilities.Strings.length;
-      parameter Integer n = 1;
+      parameter Integer bufferSize = 40
+        "Buffer size (in bytes) reserved for String (ensure that same buffer size is used in corresponding AddString block!)";
       output String data;
     protected
       Real dummy;
     equation
       when Clock() then
-         pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundery(pkgOut[1].autoPkgBitSize)*8 + length(data)+1 else length(data)+1;
+         pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundery(pkgOut[1].autoPkgBitSize)*8 + bufferSize*8 else bufferSize*8;
 
         (data,dummy) =
             Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.DummyFunctions.getString(
-             pkgIn.pkg, pkgIn.dummy);
+             pkgIn.pkg, bufferSize, pkgIn.dummy);
         pkgOut.dummy = fill(dummy,nu);
       end when;
 

@@ -113,16 +113,16 @@ int test_addString() {
         int failure = 0, size = 64;
         printf("test_addString: Adding and retrieving strings ..");
         pkg = MDD_SerialPackagerConstructor(size);
-        MDD_SerialPackagerAddString(pkg, a);
+        MDD_SerialPackagerAddString(pkg, a, 5);
         MDD_SerialPackagerAddInteger(pkg, &b, 1);
-        MDD_SerialPackagerAddString(pkg, c);
-		MDD_SerialPackagerAddString(pkg, d);
+        MDD_SerialPackagerAddString(pkg, c, 5);
+        MDD_SerialPackagerAddString(pkg, d, 5);
 
         MDD_SerialPackagerSetPos(pkg, 0);
-        a_ = MDD_SerialPackagerGetString(pkg);
+        a_ = MDD_SerialPackagerGetString(pkg, 5);
         MDD_SerialPackagerGetInteger(pkg, &b_, 1);
-        c_ = MDD_SerialPackagerGetString(pkg);
-	d_ = MDD_SerialPackagerGetString(pkg);
+        c_ = MDD_SerialPackagerGetString(pkg, 5);
+	d_ = MDD_SerialPackagerGetString(pkg, 5);
 
         failure = strcmp(a,a_) == 0 ? 0 : 1;
         failure = failure || b == b_ ? 0 : 1;
@@ -139,12 +139,11 @@ int test_addString() {
 
 int main(void) {
         int failure = 0;
-		/*
+
         failure = test_createPgk();
         failure = failure || test_add2PkgBoundery();
         failure = failure || test_add2Pkg();
         failure = failure || test_bitPack2Pkg();
-		*/
         failure = failure || test_addString();
         return failure;
 }

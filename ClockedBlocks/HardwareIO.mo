@@ -37,7 +37,7 @@ package HardwareIO
       extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
       extends
         Modelica_DeviceDrivers.Utilities.Icons.PartialClockedDeviceDriverIcon;
-      extends Modelica_DeviceDrivers.Utilities.Icons.ComediBlockIcon;
+      extends Modelica_DeviceDrivers.Utilities.Icons.LinuxTuxBlockIcon;
       Modelica.Blocks.Interfaces.IntegerInput u
         annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
       import Modelica_DeviceDrivers.ClockedBlocks.HardwareIO.Comedi.Types;
@@ -82,7 +82,7 @@ package HardwareIO
       extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
       extends
         Modelica_DeviceDrivers.Utilities.Icons.PartialClockedDeviceDriverIcon;
-      extends Modelica_DeviceDrivers.Utilities.Icons.ComediBlockIcon;
+      extends Modelica_DeviceDrivers.Utilities.Icons.LinuxTuxBlockIcon;
       import Modelica_DeviceDrivers.ClockedBlocks.HardwareIO.Comedi.Types;
       import Modelica_DeviceDrivers.HardwareIO.Comedi;
 
@@ -128,7 +128,7 @@ package HardwareIO
       extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
       extends
         Modelica_DeviceDrivers.Utilities.Icons.PartialClockedDeviceDriverIcon;
-      extends Modelica_DeviceDrivers.Utilities.Icons.ComediBlockIcon;
+      extends Modelica_DeviceDrivers.Utilities.Icons.LinuxTuxBlockIcon;
       Modelica.Blocks.Interfaces.RealInput    u
         annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
       import Modelica_DeviceDrivers.ClockedBlocks.HardwareIO.Comedi.Types;
@@ -200,7 +200,7 @@ package HardwareIO
       extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
       extends
         Modelica_DeviceDrivers.Utilities.Icons.PartialClockedDeviceDriverIcon;
-      extends Modelica_DeviceDrivers.Utilities.Icons.ComediBlockIcon;
+      extends Modelica_DeviceDrivers.Utilities.Icons.LinuxTuxBlockIcon;
       import Modelica_DeviceDrivers.ClockedBlocks.HardwareIO.Comedi.Types;
       import Modelica_DeviceDrivers.HardwareIO.Comedi;
 
@@ -268,7 +268,7 @@ package HardwareIO
       extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
       extends
         Modelica_DeviceDrivers.Utilities.Icons.PartialClockedDeviceDriverIcon;
-      extends Modelica_DeviceDrivers.Utilities.Icons.ComediBlockIcon;
+      extends Modelica_DeviceDrivers.Utilities.Icons.LinuxTuxBlockIcon;
       Modelica.Blocks.Interfaces.BooleanInput u
         annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
       import Modelica_DeviceDrivers.ClockedBlocks.HardwareIO.Comedi.Types;
@@ -319,7 +319,7 @@ package HardwareIO
       extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
       extends
         Modelica_DeviceDrivers.Utilities.Icons.PartialClockedDeviceDriverIcon;
-      extends Modelica_DeviceDrivers.Utilities.Icons.ComediBlockIcon;
+      extends Modelica_DeviceDrivers.Utilities.Icons.LinuxTuxBlockIcon;
       import Modelica_DeviceDrivers.ClockedBlocks.HardwareIO.Comedi.Types;
       import Modelica_DeviceDrivers.HardwareIO.Comedi;
 

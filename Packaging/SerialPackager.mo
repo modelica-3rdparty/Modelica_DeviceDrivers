@@ -19,22 +19,4 @@ encapsulated function destructor "Free memory"
              Include = "#include \"MDDSerialPackager.h\" ");
 end destructor;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 end SerialPackager;

@@ -20,6 +20,4 @@ annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include
            Include = "#include \"MDDUDPSocket.h\" ");
 end destructor;
 
-
-
 end UDPSocket;
