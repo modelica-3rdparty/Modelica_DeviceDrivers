@@ -13,7 +13,6 @@
 #include "../../Include/MDDSoftingCAN.h"
 /* #include "../../Include/MDDCANMessage.h" // already used in MDDSoftingCAN library */
 #include "../../Include/MDDSerialPackager.h"
-#include "../../src/include/MDDObjectDict.h"
 #include "../../src/include/util.h"
 
 int test_Constructor() {
@@ -26,26 +25,6 @@ int test_Constructor() {
 
   MDD_softingCANDestructor(mDDCan);
 
-  return failed;
-}
-
-int test_ObjectDict() {
-  int failed, i = 0;
-  int mykeys[2];
-  void* dict;
-
-  dict = MDD_objectDictConstructor();
-  MDD_objectDictInsert(dict, 2, 3);
-  MDD_objectDictInsert(dict, 4, 6);
-
-  failed = MDD_objectDictLookup(dict, 4) == 6 ? 0 : 1;
-
-  MDD_objectDictGetKeys(dict, mykeys);
-  failed = failed || mykeys[0] != 2;
-  failed = failed || mykeys[1] != 4;
-
-  printf("test_objectDict .. %s\n", failed ? "failed" : "success");
-  MDD_objectDictDestructor(dict);
   return failed;
 }
 
@@ -139,7 +118,6 @@ int main() {
   int failed = 0;
   printf("Testing CAN Support\n");
 
-  // failed = test_ObjectDict(); if (failed) return failed;
   // failed = test_Constructor(); if (failed) return failed;
   //failed = test_Startup(); if (failed) return failed;
   failed = test_SendMessage(); if (failed) return failed;
