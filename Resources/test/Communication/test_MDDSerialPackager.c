@@ -11,6 +11,8 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
+#include <float.h>
 #include "../../Include/MDDSerialPackager.h"
 
 int test_createPgk() {
@@ -137,6 +139,29 @@ int test_addString() {
         return failure;
 }
 
+int test_addDoubleAsFloat() {
+        void* pkg;
+        double doublesIn[4] = {0.003, 0.001, 00.2, 1.1};
+        double doublesOut[4];
+        int i;
+        int failure = 0;
+        printf("test_addDoubleAsFloat: Adding and retrieving doubles that are casted to float to save memory/bandwidth ..");
+        pkg = MDD_SerialPackagerConstructor(4*sizeof(float));
+        MDD_SerialPackagerAddDoubleAsFloat(pkg, doublesIn, 4);
+        MDD_SerialPackagerSetPos(pkg, 0);
+        MDD_SerialPackagerGetFloatAsDouble(pkg, doublesOut, 4);
+        for (i=0; i < 4; i++) {
+                /* Thats not a good way to compare floating points, but should be enough for us */
+                failure = failure || fabs(doublesOut - doublesIn) < FLT_EPSILON ? 0 : 1; 
+        }
+        if (failure) {
+                printf("\tFAILED\n");
+        } else {
+                printf("\tOk\n");
+        }
+        return failure;
+}
+
 int main(void) {
         int failure = 0;
 
@@ -145,5 +170,6 @@ int main(void) {
         failure = failure || test_add2Pkg();
         failure = failure || test_bitPack2Pkg();
         failure = failure || test_addString();
+        failure = failure || test_addDoubleAsFloat();
         return failure;
 }

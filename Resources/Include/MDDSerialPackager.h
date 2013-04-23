@@ -233,6 +233,57 @@ void MDD_SerialPackagerGetDouble(void* p_package, double * y, int n) {
         pkg->pos += n*sizeof(double);
 }
 
+/** Cast double array values to float values and add them as float array at current byte position.
+ *
+ * If p_package->bitOffset != 0 the value is aligned to the next byte boundery,
+ * i.e., p_package->bitOffset set to 0 and p_package->pos++.
+ * @param[in,out] p_package pointer to the SerialPackager
+ * @param[in] u array of double values that will be casted to float values before adding them
+ * @param[in] n number of values in u
+ */
+void MDD_SerialPackagerAddDoubleAsFloat(void* p_package, const double * u, size_t n) {
+        SerialPackager* pkg = (SerialPackager*) p_package;
+        int i;
+        float castedDouble;
+        if (pkg->bitOffset != 0) MDD_SerialPackagerAlignToByteBoundery(pkg);
+        if (pkg->pos + n*sizeof(float) > pkg->size) {
+                ModelicaFormatError("SerialPackager: MDD_SerialPackagerAddDoubleAsFloat failed. Buffer overflow. Exiting.\n");
+                exit(-1);
+        }
+        for (i = 0; i < n; i++) {
+                castedDouble = (float) u[i];
+                memcpy(pkg->data + pkg->pos + i*sizeof(float), &castedDouble, sizeof(float));
+        }
+        pkg->pos += n*sizeof(float);
+}
+
+/** Get double array which consists of the values of the float array at current byte position casted to type double.
+ *
+ * If p_package->bitOffset != 0 the value is read from to the next byte boundery,
+ * i.e., p_package->bitOffset set to 0 and p_package->pos++.
+ * @param[in,out] p_package pointer to the SerialPackager
+ * @param[out] y array of double values
+ * @param[in] n requested number of values
+ *
+ */
+void MDD_SerialPackagerGetFloatAsDouble(void* p_package, double * y, int n) {
+        SerialPackager* pkg = (SerialPackager*) p_package;
+        int i;
+        float value;
+        if (pkg->bitOffset != 0) MDD_SerialPackagerAlignToByteBoundery(pkg);
+        if (pkg->pos + n*sizeof(float) > pkg->size) {
+                ModelicaFormatError("SerialPackager: MDD_SerialPackagerGetFloatAsDouble failed. Buffer overflow. Exiting.\n");
+                exit(-1);
+        }
+        for (i = 0; i < n; i++) {
+                memcpy(&value, pkg->data + pkg->pos + i*sizeof(float), sizeof(float));
+                y[i] = (double) value;
+        }
+        pkg->pos += n*sizeof(float);
+}
+
+
+
 /** Add string at current byte position.
  *
  * If p_package->bitOffset != 0 the value is aligned to the next byte boundery,

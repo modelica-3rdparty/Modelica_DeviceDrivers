@@ -260,16 +260,16 @@ is demonstrated in this example.
           transformation(
           extent={{-10,-10},{10,10}},
           rotation=270,
-          origin={-30,-50})));
+          origin={-30,-58})));
     Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.AddInteger
                          addInteger(nu=1)
-      annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
+      annotation (Placement(transformation(extent={{-40,-38},{-20,-18}})));
     Modelica.Blocks.Sources.IntegerExpression integerExpression(y=integer(10*sin(
           time)))
-      annotation (Placement(transformation(extent={{-96,-20},{-76,0}})));
+      annotation (Placement(transformation(extent={{-96,-38},{-76,-18}})));
     Modelica_Synchronous.IntegerSignals.Sampler.SampleClocked  sample1
-      annotation (Placement(transformation(extent={{-66,-16},{-54,-4}})));
-    Modelica_Synchronous.RealSignals.Sampler.SampleClocked  sample2[3]
+      annotation (Placement(transformation(extent={{-66,-34},{-54,-22}})));
+    Modelica_Synchronous.RealSignals.Sampler.SampleVectorizedAndClocked sample2(n=3)
       annotation (Placement(transformation(extent={{-66,24},{-54,36}})));
     Modelica_Synchronous.ClockSignals.Clocks.PeriodicRealClock periodicRealClock(period=
           0.1)
@@ -285,65 +285,43 @@ is demonstrated in this example.
       annotation (Placement(transformation(extent={{20,20},{40,40}})));
     Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.GetInteger
                          getInteger
-      annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-    Modelica_Synchronous.RealSignals.Sampler.AssignClock  assignClock1[3]
+      annotation (Placement(transformation(extent={{20,-44},{40,-24}})));
+    Modelica_Synchronous.RealSignals.Sampler.AssignClockVectorized assignClock1(n=3)
       annotation (Placement(transformation(extent={{52,24},{64,36}})));
     Modelica_Synchronous.IntegerSignals.Sampler.AssignClock
       assignClock2
-      annotation (Placement(transformation(extent={{52,-16},{64,-4}})));
+      annotation (Placement(transformation(extent={{52,-40},{64,-28}})));
+    Packaging.SerialPackager.AddFloat addFloat(nu=1, n=2)
+      annotation (Placement(transformation(extent={{-40,-8},{-20,12}})));
+    Modelica.Blocks.Sources.RealExpression realExpression1[2](y=sin(time)*{1,2})
+      annotation (Placement(transformation(extent={{-96,-8},{-76,12}})));
+    Modelica_Synchronous.RealSignals.Sampler.SampleVectorizedAndClocked sample3(n=2)
+      annotation (Placement(transformation(extent={{-66,-4},{-54,8}})));
+    Packaging.SerialPackager.GetFloat getFloat(nu=1, n=2)
+      annotation (Placement(transformation(extent={{20,-14},{40,6}})));
+    Modelica_Synchronous.RealSignals.Sampler.AssignClockVectorized assignClock3(n=2)
+      annotation (Placement(transformation(extent={{52,-10},{64,2}})));
   equation
     connect(packager.pkgOut, addReal.pkgIn) annotation (Line(
         points={{-30,59.2},{-30,40.8}},
         color={0,0,0},
         pattern=LinePattern.None,
         smooth=Smooth.None));
-    connect(addReal.pkgOut[1], addInteger.pkgIn) annotation (Line(
-        points={{-30,19.2},{-30,0.8}},
-        color={0,0,0},
-        pattern=LinePattern.None,
-        smooth=Smooth.None));
     connect(addInteger.pkgOut[1], uDPSend.pkgIn) annotation (Line(
-        points={{-30,-20.8},{-30,-39.2}},
+        points={{-30,-38.8},{-30,-47.2}},
         color={0,0,0},
         pattern=LinePattern.None,
         smooth=Smooth.None));
     connect(integerExpression.y, sample1.u) annotation (Line(
-        points={{-75,-10},{-67.2,-10}},
+        points={{-75,-28},{-67.2,-28}},
         color={255,127,0},
         smooth=Smooth.None));
     connect(sample1.y, addInteger.u[1]) annotation (Line(
-        points={{-53.4,-10},{-42,-10}},
+        points={{-53.4,-28},{-42,-28}},
         color={255,127,0},
         smooth=Smooth.None));
     connect(periodicRealClock.y, sample1.clock) annotation (Line(
-        points={{-73,-80},{-60,-80},{-60,-17.2}},
-        color={135,135,135},
-        pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
-    connect(realExpression.y, sample2.u) annotation (Line(
-        points={{-75,30},{-67.2,30}},
-        color={0,0,127},
-        smooth=Smooth.None));
-    connect(sample2.y, addReal.u) annotation (Line(
-        points={{-53.4,30},{-42,30}},
-        color={0,0,127},
-        smooth=Smooth.None));
-
-    connect(periodicRealClock.y, sample2[1].clock) annotation (Line(
-        points={{-73,-80},{-48,-80},{-48,12},{-60,12},{-60,22.8}},
-        color={128,0,255},
-        pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
-    connect(periodicRealClock.y, sample2[2].clock) annotation (Line(
-        points={{-73,-80},{-48,-80},{-48,12},{-60,12},{-60,22.8}},
-        color={128,0,255},
-        pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
-    connect(periodicRealClock.y, sample2[3].clock) annotation (Line(
-        points={{-73,-80},{-48,-80},{-48,12},{-60,12},{-60,22.8}},
+        points={{-73,-80},{-60,-80},{-60,-35.2}},
         color={135,135,135},
         pattern=LinePattern.Dot,
         thickness=0.5,
@@ -354,8 +332,61 @@ is demonstrated in this example.
         color={0,0,0},
         pattern=LinePattern.None,
         smooth=Smooth.None));
-    connect(getReal.pkgOut[1],getInteger. pkgIn) annotation (Line(
-        points={{30,19.2},{30,0.8}},
+    connect(getInteger.y[1], assignClock2.u) annotation (Line(
+        points={{41,-34},{50.8,-34}},
+        color={255,127,0},
+        smooth=Smooth.None));
+    connect(periodicRealClock.y, assignClock2.clock) annotation (Line(
+        points={{-73,-80},{58,-80},{58,-41.2}},
+        color={135,135,135},
+        pattern=LinePattern.Dot,
+        thickness=0.5,
+        smooth=Smooth.None));
+    connect(addReal.pkgOut[1], addFloat.pkgIn) annotation (Line(
+        points={{-30,19.2},{-30,12.8}},
+        color={0,0,0},
+        pattern=LinePattern.None,
+        smooth=Smooth.None));
+    connect(addFloat.pkgOut[1], addInteger.pkgIn) annotation (Line(
+        points={{-30,-8.8},{-30,-17.2}},
+        color={0,0,0},
+        pattern=LinePattern.None,
+        smooth=Smooth.None));
+    connect(realExpression1.y, sample3.u) annotation (Line(
+        points={{-75,2},{-67.2,2}},
+        color={0,0,127},
+        smooth=Smooth.None));
+    connect(realExpression.y, sample2.u) annotation (Line(
+        points={{-75,30},{-67.2,30}},
+        color={0,0,127},
+        smooth=Smooth.None));
+    connect(sample2.y, addReal.u) annotation (Line(
+        points={{-53.4,30},{-42,30}},
+        color={0,0,127},
+        smooth=Smooth.None));
+    connect(sample3.y, addFloat.u) annotation (Line(
+        points={{-53.4,2},{-42,2}},
+        color={0,0,127},
+        smooth=Smooth.None));
+    connect(periodicRealClock.y, sample3.clock) annotation (Line(
+        points={{-73,-80},{-50,-80},{-50,-16},{-60,-16},{-60,-5.2}},
+        color={175,175,175},
+        pattern=LinePattern.Dot,
+        thickness=0.5,
+        smooth=Smooth.None));
+    connect(periodicRealClock.y, sample2.clock) annotation (Line(
+        points={{-73,-80},{-50,-80},{-50,18},{-60,18},{-60,22.8}},
+        color={175,175,175},
+        pattern=LinePattern.Dot,
+        thickness=0.5,
+        smooth=Smooth.None));
+    connect(getReal.pkgOut[1], getFloat.pkgIn) annotation (Line(
+        points={{30,19.2},{30,6.8}},
+        color={0,0,0},
+        pattern=LinePattern.None,
+        smooth=Smooth.None));
+    connect(getFloat.pkgOut[1], getInteger.pkgIn) annotation (Line(
+        points={{30,-14.8},{30,-23.2}},
         color={0,0,0},
         pattern=LinePattern.None,
         smooth=Smooth.None));
@@ -363,35 +394,23 @@ is demonstrated in this example.
         points={{41,30},{50.8,30}},
         color={0,0,127},
         smooth=Smooth.None));
-    connect(getInteger.y[1], assignClock2.u) annotation (Line(
-        points={{41,-10},{50.8,-10}},
-        color={255,127,0},
-        smooth=Smooth.None));
-    connect(periodicRealClock.y, assignClock2.clock) annotation (Line(
-        points={{-73,-80},{58,-80},{58,-17.2}},
-        color={135,135,135},
+    connect(periodicRealClock.y, assignClock3.clock) annotation (Line(
+        points={{-73,-80},{72,-80},{72,-20},{58,-20},{58,-11.2}},
+        color={175,175,175},
         pattern=LinePattern.Dot,
         thickness=0.5,
         smooth=Smooth.None));
-    connect(periodicRealClock.y, assignClock1[1].clock) annotation (Line(
-        points={{-73,-80},{78,-80},{78,8},{58,8},{58,22.8}},
-        color={128,0,255},
+    connect(periodicRealClock.y, assignClock1.clock) annotation (Line(
+        points={{-73,-80},{80,-80},{80,14},{58,14},{58,22.8}},
+        color={175,175,175},
         pattern=LinePattern.Dot,
         thickness=0.5,
         smooth=Smooth.None));
-    connect(periodicRealClock.y, assignClock1[2].clock) annotation (Line(
-        points={{-73,-80},{78,-80},{78,8},{58,8},{58,22.8}},
-        color={128,0,255},
-        pattern=LinePattern.Dot,
-        thickness=0.5,
+    connect(getFloat.y, assignClock3.u) annotation (Line(
+        points={{41,-4},{50.8,-4}},
+        color={0,0,127},
         smooth=Smooth.None));
-    connect(periodicRealClock.y, assignClock1[3].clock) annotation (Line(
-        points={{-73,-80},{78,-80},{78,8},{58,8},{58,22.8}},
-        color={135,135,135},
-        pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+    annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
               -100},{100,100}}), graphics), experiment(StopTime=5.0),
       Documentation(info="<html>
 <p>

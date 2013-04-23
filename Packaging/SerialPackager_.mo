@@ -10,6 +10,16 @@ encapsulated function addReal "Add Modelica Real encoded as double"
              Include = "#include \"MDDSerialPackager.h\" ");
 end addReal;
 
+encapsulated function addRealAsFloat
+    "Add Modelica Real encoded as float (double is casted to float!)"
+    import Modelica_DeviceDrivers.Packaging.SerialPackager;
+  input SerialPackager pkg;
+  input Real u[:];
+  external "C" MDD_SerialPackagerAddDoubleAsFloat(pkg, u, size(u,1));
+  annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
+             Include = "#include \"MDDSerialPackager.h\" ");
+end addRealAsFloat;
+
 encapsulated function addInteger
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
   input SerialPackager pkg;
@@ -84,6 +94,17 @@ encapsulated function getReal
   annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
              Include = "#include \"MDDSerialPackager.h\" ");
 end getReal;
+
+encapsulated function getRealFromFloat
+    "Get float from package (float is casted to double)"
+    import Modelica_DeviceDrivers.Packaging.SerialPackager;
+  input SerialPackager pkg;
+  input Integer n;
+  output Real y[n];
+  external "C" MDD_SerialPackagerGetFloatAsDouble(pkg,y,n);
+  annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
+             Include = "#include \"MDDSerialPackager.h\" ");
+end getRealFromFloat;
 
 encapsulated function getInteger
     import Modelica_DeviceDrivers.Packaging.SerialPackager;

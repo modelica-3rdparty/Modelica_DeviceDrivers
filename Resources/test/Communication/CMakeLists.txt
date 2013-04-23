@@ -12,6 +12,9 @@ add_test(test_MDDUDPSocket ${EXECUTABLE_OUTPUT_PATH}/test_MDDUDPSocket)
 
 add_executable(test_MDDSerialPackager
   test_MDDSerialPackager.c ../Util/ModelicaUtilities.c)
+if (NOT MSVC)
+  target_link_libraries(test_MDDSerialPackager m)
+endif (NOT MSVC)
 add_test(test_MDDSerialPackager
   ${EXECUTABLE_OUTPUT_PATH}/test_MDDSerialPackager)
 
