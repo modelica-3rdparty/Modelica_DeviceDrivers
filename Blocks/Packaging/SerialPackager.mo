@@ -552,50 +552,6 @@ and one Integer value is added, serialized and finally sent using UDP.
             textString="%n * int32")}));
   end GetInteger;
 
-  model GetFloat
-    "Get float vector from package (all values casted to double before assigning it to Modelica Real array)"
-    extends Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerReadIcon;
-    extends
-      Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager;
-    import Modelica_DeviceDrivers.Packaging.alignAtByteBoundery;
-    parameter Integer n = 1;
-    Modelica.Blocks.Interfaces.RealOutput y[n]
-      annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  protected
-    Real dummy;
-  equation
-
-    when initial() then
-      pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundery(pkgOut[1].autoPkgBitSize)*8 + n*32 else n*32;
-    end when;
-
-    when (pkgIn.trigger) then
-      (y,dummy) =
-         Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.DummyFunctions.getRealFromFloat(
-          pkgIn.pkg,
-          n,
-          pkgIn.dummy);
-      pkgOut.dummy = fill(dummy,nu);
-    end when;
-
-    annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}),
-                     graphics={
-          Text(
-            extent={{30,40},{110,-40}},
-            lineColor={0,0,255},
-            fillPattern=FillPattern.Solid,
-            fillColor={0,0,255},
-            textString="R"),
-          Text(
-            extent={{-100,-50},{100,-90}},
-            lineColor={0,0,0},
-            textString="%n * float"),
-          Bitmap(extent={{-20,19},{46,-20}}, fileName=
-                "modelica://Modelica_DeviceDrivers/Resources/Images/Icons/Float2RealArrow.png")}),
-                                   Diagram(graphics));
-  end GetFloat;
-
   model GetReal "Get Real vector from package"
     extends Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerReadIcon;
     extends
@@ -640,6 +596,51 @@ and one Integer value is added, serialized and finally sent using UDP.
             textString="%n * double")}),
                                    Diagram(graphics));
   end GetReal;
+
+  model GetFloat
+    "Get float vector from package (all values casted to double before assigning it to Modelica Real array)"
+    extends Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerReadIcon;
+    extends
+      Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager;
+    import Modelica_DeviceDrivers.Packaging.alignAtByteBoundery;
+    parameter Integer n = 1;
+    Modelica.Blocks.Interfaces.RealOutput y[n]
+      annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+  protected
+    Real dummy;
+  equation
+
+    when initial() then
+      pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundery(pkgOut[1].autoPkgBitSize)*8 + n*32 else n*32;
+    end when;
+
+    when (pkgIn.trigger) then
+      (y,dummy) =
+         Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.DummyFunctions.getRealFromFloat(
+          pkgIn.pkg,
+          n,
+          pkgIn.dummy);
+      pkgOut.dummy = fill(dummy,nu);
+    end when;
+
+    annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+              -100},{100,100}}),
+                     graphics={
+          Text(
+            extent={{30,40},{110,-40}},
+            lineColor={0,0,255},
+            fillPattern=FillPattern.Solid,
+            fillColor={0,0,255},
+            textString="R"),
+          Text(
+            extent={{-100,-50},{100,-90}},
+            lineColor={0,0,0},
+            textString="%n * float"),
+          Bitmap(extent={{-20,19},{46,-20}}, fileName=
+                "modelica://Modelica_DeviceDrivers/Resources/Images/Icons/Float2RealArrow.png")}),
+                                   Diagram(graphics));
+  end GetFloat;
+
 
   model GetString "Get String from package"
     extends Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerReadIcon;

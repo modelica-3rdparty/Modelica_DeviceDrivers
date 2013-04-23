@@ -352,6 +352,39 @@ package Packaging
               fillPattern=FillPattern.Solid)}));
     end AddReal;
 
+    block AddFloat
+      "Cast all elements of Real vector to float and add to package (loss of precision!)"
+      extends Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerWriteIcon;
+      extends
+        Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.PartialSerialPackager;
+      import Modelica_DeviceDrivers.Packaging.alignAtByteBoundery;
+      parameter Integer n = 1;
+      Modelica.Blocks.Interfaces.RealInput u[n]
+        annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+    equation
+      pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundery(pkgOut[1].autoPkgBitSize)*8 + n*32 else n*32;
+
+      pkgOut.dummy =
+        Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.DummyFunctions.addRealAsFloat(
+        pkgOut.pkg,
+        u,
+        pkgIn.dummy);
+      annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+                -100},{100,100}}), graphics), Icon(graphics={
+            Text(
+              extent={{-100,-50},{100,-90}},
+              lineColor={0,0,0},
+              textString="%n * float"),
+            Text(
+              extent={{-112,40},{-32,-40}},
+              lineColor={0,0,255},
+              fillPattern=FillPattern.Solid,
+              fillColor={0,0,255},
+              textString="R"),
+            Bitmap(extent={{-42,22},{18,-22}}, fileName=
+                  "modelica://Modelica_DeviceDrivers/Resources/Images/Icons/Real2FloatArrow.png")}));
+    end AddFloat;
+
     block AddString "Add String to package"
       extends Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerWriteIcon;
       extends
@@ -517,6 +550,45 @@ package Packaging
                                      Diagram(graphics));
     end GetReal;
 
+    model GetFloat
+      "Get float vector from package (all values casted to double before assigning it to Modelica Real array)"
+      extends Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerReadIcon;
+      extends
+        Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.PartialSerialPackager;
+      import Modelica_DeviceDrivers.Packaging.alignAtByteBoundery;
+      parameter Integer n = 1;
+      Modelica.Blocks.Interfaces.RealOutput y[n]
+        annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    protected
+      Real dummy;
+    equation
+      when Clock() then
+         pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundery(pkgOut[1].autoPkgBitSize)*8 + n*32 else n*32;
+
+         (y,dummy) =
+            Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.DummyFunctions.getRealFromFloat(
+             pkgIn.pkg,
+             n,
+             pkgIn.dummy);
+         pkgOut.dummy = fill(dummy,nu);
+      end when;
+
+      annotation (Icon(graphics={
+            Text(
+              extent={{30,40},{110,-40}},
+              lineColor={0,0,255},
+              fillPattern=FillPattern.Solid,
+              fillColor={0,0,255},
+              textString="R"),
+            Text(
+              extent={{-100,-50},{100,-90}},
+              lineColor={0,0,0},
+              textString="%n * float"),
+            Bitmap(extent={{-18,20},{48,-19}}, fileName=
+                  "modelica://Modelica_DeviceDrivers/Resources/Images/Icons/Float2RealArrow.png")}),
+                                     Diagram(graphics));
+    end GetFloat;
+
     model GetString "Get String from package"
       extends Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerReadIcon;
       extends
@@ -641,38 +713,6 @@ package Packaging
 </html>"));
     end UnpackUnsignedInteger;
 
-    block AddFloat
-      "Cast all elements of Real vector to float and add to package (loss of precision!)"
-      extends Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerWriteIcon;
-      extends
-        Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.PartialSerialPackager;
-      import Modelica_DeviceDrivers.Packaging.alignAtByteBoundery;
-      parameter Integer n = 1;
-      Modelica.Blocks.Interfaces.RealInput u[n]
-        annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-    equation
-      pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundery(pkgOut[1].autoPkgBitSize)*8 + n*32 else n*32;
-
-      pkgOut.dummy =
-        Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.DummyFunctions.addRealAsFloat(
-        pkgOut.pkg,
-        u,
-        pkgIn.dummy);
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                -100},{100,100}}), graphics), Icon(graphics={
-            Text(
-              extent={{-100,-50},{100,-90}},
-              lineColor={0,0,0},
-              textString="%n * float"),
-            Text(
-              extent={{-112,40},{-32,-40}},
-              lineColor={0,0,255},
-              fillPattern=FillPattern.Solid,
-              fillColor={0,0,255},
-              textString="R"),
-            Bitmap(extent={{-42,22},{18,-22}}, fileName=
-                  "modelica://Modelica_DeviceDrivers/Resources/Images/Icons/Real2FloatArrow.png")}));
-    end AddFloat;
 
     block ResetPointer
       "Set current writing/reading position of package to zero"
@@ -715,44 +755,6 @@ package Packaging
               textString="Reset")}), Diagram(graphics));
     end ResetPointer;
 
-    model GetFloat
-      "Get float vector from package (all values casted to double before assigning it to Modelica Real array)"
-      extends Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerReadIcon;
-      extends
-        Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.PartialSerialPackager;
-      import Modelica_DeviceDrivers.Packaging.alignAtByteBoundery;
-      parameter Integer n = 1;
-      Modelica.Blocks.Interfaces.RealOutput y[n]
-        annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-    protected
-      Real dummy;
-    equation
-      when Clock() then
-         pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundery(pkgOut[1].autoPkgBitSize)*8 + n*32 else n*32;
-
-         (y,dummy) =
-            Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.DummyFunctions.getRealFromFloat(
-             pkgIn.pkg,
-             n,
-             pkgIn.dummy);
-         pkgOut.dummy = fill(dummy,nu);
-      end when;
-
-      annotation (Icon(graphics={
-            Text(
-              extent={{30,40},{110,-40}},
-              lineColor={0,0,255},
-              fillPattern=FillPattern.Solid,
-              fillColor={0,0,255},
-              textString="R"),
-            Text(
-              extent={{-100,-50},{100,-90}},
-              lineColor={0,0,0},
-              textString="%n * float"),
-            Bitmap(extent={{-18,20},{48,-19}}, fileName=
-                  "modelica://Modelica_DeviceDrivers/Resources/Images/Icons/Float2RealArrow.png")}),
-                                     Diagram(graphics));
-    end GetFloat;
     annotation (preferredView="info", Documentation(info="<html>
 <p>The concept of the SerialPackager is to allow adding/retrieving data to/from a package in a device independent manner. See <a href=\"modelica://Modelica_DeviceDrivers.UsersGuide.GettingStarted\">Getting started</a>.</p>
 </html>"));
