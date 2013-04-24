@@ -720,6 +720,20 @@ First public version of the library.
 </html>
 "));
     end Version_1_0;
+
+    class Version_1_1 "Version 1.1 (April 24, 2013)"
+      extends Modelica.Icons.ReleaseNotes;
+
+      annotation (Documentation(info="<html>
+<p><ul>
+<li>Improved Modelica 3.3 standard conformance (hopefully completely standard conform by now)</li>
+<li>Included support for the <i>Linux Controller Area Network Protocol Family</i> (aka <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SocketCAN\">Socket CAN</a>). This is considered an <i><b>alpha feature</b></i>. Therefore the API is not stable and testing has been very limited.</li>
+<li>The cmake based build system for the external C sources of this library has been improved to be more robust and better documented.</li>
+<li>Bugs in the SerialPackager&apos;s <code>AddString</code> and <code>GetString</code> blocks have been resolved and new blocks <code>AddFloat</code> and <code>GetFloat</code> are now available.</li>
+<li>Some smaller additional bugfixes and improvements.</li>
+</ul></p>
+</html>"));
+    end Version_1_1;
     annotation (Documentation(info="<html>
 <p>
 This section summarizes the changes that have been performed
@@ -746,6 +760,10 @@ on the Modelica_Synchronous library.
 <p>
 The authors are open to include contributions.
 </p>
+<p>
+Please note that there is a trac powered <a href=\"https://trac.modelica.org/Modelica/query?status=accepted&status=assigned&status=new&status=reopened&component=_Modelica_DeviceDrivers&group=component&order=priority\">issue tracker</a> available for the library.
+</p>
+<p>The subversion repository for this library is <a href=\"https://svn.modelica.org/projects/Modelica_EmbeddedSystems/trunk/Modelica_DeviceDrivers\">https://svn.modelica.org/projects/Modelica_EmbeddedSystems/trunk/Modelica_DeviceDrivers</a> (the repository is also mirrored at GitHub <a href=\"https://github.com/modelica/Modelica_DeviceDrivers\">https://github.com/modelica/Modelica_DeviceDrivers</a> with some delay).</p>
 </html>"));
   end Contact;
 
