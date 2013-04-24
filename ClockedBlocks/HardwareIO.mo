@@ -152,8 +152,8 @@ package HardwareIO
       Integer cUnit;
       Boolean initialized(start=false, fixed=true) "Initialization flag";
     algorithm
-      /* FIXME: Workaround using "algorithm" instead of if expression within "when Clock() then..". 
-     Reason: Non-scalarizable equations in if expression not supported in 
+      /* FIXME: Workaround using "algorithm" instead of if expression within "when Clock() then..".
+     Reason: Non-scalarizable equations in if expression not supported in
      equation section by the Modelica tool used by the author.
      Problem: Not granted that initialization is executed before first "when Clock()" */
       if (not initialized) then
@@ -223,8 +223,8 @@ package HardwareIO
       Integer cUnit;
       Boolean initialized(start=false, fixed=true) "Initialization flag";
     algorithm
-      /* FIXME: Workaround using "algorithm" instead of if expression within "when Clock() then..". 
-     Reason: Non-scalarizable equations in if expression not supported in 
+      /* FIXME: Workaround using "algorithm" instead of if expression within "when Clock() then..".
+     Reason: Non-scalarizable equations in if expression not supported in
      equation section by the Modelica tool used by the author.
      Problem: Not granted that initialization is executed before first "when Clock()" */
       if (not initialized) then

@@ -1,5 +1,5 @@
 /** Test for Socket CAN support.
- * 
+ *
  * @file
  * @author      Bernhard Thiele <bernhard.thiele@dlr.de>
  * @version     $Id$
@@ -17,7 +17,7 @@
 
 /** Bring up the necessary virtual can devices
  *
- * (At least this works for Ubuntu) 
+ * (At least this works for Ubuntu)
  */
 void setup_VirtualCANDevices() {
   system("sudo modprobe vcan");
@@ -28,28 +28,28 @@ void setup_VirtualCANDevices() {
 int test_Constructor() {
   void * mDDSocketCan;
   int failed;
-  
+
   mDDSocketCan = MDD_socketCANConstructor("vcan0");
   failed = mDDSocketCan == NULL ? 1 : 0;
-  
+
   MDD_socketCANDestructor(mDDSocketCan);
-  
+
   return failed;
 }
 
 int test_CANWrite() {
   void * mDDSocketCan;
-  char data[8]; 
+  char data[8];
   int failed;
-  
+
   mDDSocketCan = MDD_socketCANConstructor("vcan0");
   failed = mDDSocketCan == NULL ? 1 : 0;
-  
+
   strcpy(data, "Hello C");
   MDD_socketCANWrite(mDDSocketCan, 1, sizeof(data), data);
-  
+
   MDD_socketCANDestructor(mDDSocketCan);
-  
+
   return failed;
 }
 
@@ -57,9 +57,9 @@ int test_CANWriteRead() {
   void * mDDSocketCan0;
   void * mDDSocketCan1;
   char data_w[8];
-  char data_r[8]; 
+  char data_r[8];
   int failed, i;
-  
+
   mDDSocketCan0 = MDD_socketCANConstructor("vcan0");
   failed = mDDSocketCan0 == NULL ? 1 : 0;
   /* Need to bind *different* socket to *same* device in order
@@ -70,7 +70,7 @@ int test_CANWriteRead() {
   */
   mDDSocketCan1 = MDD_socketCANConstructor("vcan0");
   failed = mDDSocketCan1 == NULL ? 1 : 0;
-  
+
   MDD_socketCANDefineObject(mDDSocketCan1, 1, 8);
 
   for(i=0; i < 10; i++) {
@@ -80,7 +80,7 @@ int test_CANWriteRead() {
     MDD_socketCANRead(mDDSocketCan1, 1,  8, data_r);
     failed = strcmp(data_w, data_r) == 0 ? failed : 1;
   }
-  
+
   MDD_socketCANDestructor(mDDSocketCan0);
   MDD_socketCANDestructor(mDDSocketCan1);
 

@@ -3,12 +3,21 @@ package Modelica_DeviceDrivers "Modelica_DeviceDrivers (version 1.0) -  A collec
  extends Modelica.Icons.Package;
 
 
+
+
+
+
+
+
+
+
+
 annotation (preferredView="info",
   uses(Modelica(version="3.2"), Modelica_Synchronous(version="0.91")),
-    version="1.0",
-    versionBuild=5,
-    versionDate="2012-09-20",
-    dateModified = "2012-10-12 09:31:51Z",
+    version="1.1",
+    versionBuild=0,
+    versionDate="2013-04-24",
+    dateModified = "2012-04-24 09:31:51Z",
     revisionId="$Id$",
   Diagram(coordinateSystem(extent={{-120,-100},{80,100}})),
   Icon(coordinateSystem(extent={{-120,-100},{80,100}})),
@@ -30,7 +39,7 @@ For an introduction, have especially a look at:
 <li> <a href=\"modelica://Modelica_DeviceDrivers.UsersGuide.Contact\">Contact</a>
      gives author and acknowledgement information for this library.</li>
 </ul>
-<p>The subversion repository for this library is <a href=\"https://svn.modelica.org/projects/Modelica_EmbeddedSystems/trunk/Modelica_DeviceDrivers\">https://svn.modelica.org/projects/Modelica_EmbeddedSystems/trunk/Modelica_DeviceDrivers</a> (the repository is also mirrored at GitHub <a href=\"https://github.com/modelica/Modelica_DeviceDrivers\">https://github.com/modelica/Modelica_DeviceDrivers</a> with some delay). There is a trac powered <a href=\"https://trac.modelica.org/Modelica/query?status=accepted&status=assigned&status=new&status=reopened&component=_Modelica_DeviceDrivers&group=component&order=priority\">issue tracker</a> available for the library.</p>
+<p>The subversion development repository for this library is <a href=\"https://svn.modelica.org/projects/Modelica_EmbeddedSystems/trunk/Modelica_DeviceDrivers\">https://svn.modelica.org/projects/Modelica_EmbeddedSystems/trunk/Modelica_DeviceDrivers</a> (the repository is also mirrored at GitHub <a href=\"https://github.com/modelica/Modelica_DeviceDrivers\">https://github.com/modelica/Modelica_DeviceDrivers</a> with some delay). There is a trac powered <a href=\"https://trac.modelica.org/Modelica/query?status=accepted&status=assigned&status=new&status=reopened&component=_Modelica_DeviceDrivers&group=component&order=priority\">issue tracker</a> available for the library.</p>
 <p>
 <table border=\"0\" cellpadding=\"2\" cellspacing=\"2\">
 <tr><td colspan=\"1\" rowspan=\"2\" style=\"vertical-align: middle;\">

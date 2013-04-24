@@ -152,7 +152,7 @@ int test_addDoubleAsFloat() {
         MDD_SerialPackagerGetFloatAsDouble(pkg, doublesOut, 4);
         for (i=0; i < 4; i++) {
                 /* Thats not a good way to compare floating points, but should be enough for us */
-                failure = failure || fabs(doublesOut - doublesIn) < FLT_EPSILON ? 0 : 1; 
+                failure = failure || fabs(doublesOut - doublesIn) < FLT_EPSILON ? 0 : 1;
         }
         if (failure) {
                 printf("\tFAILED\n");

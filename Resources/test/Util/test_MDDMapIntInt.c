@@ -1,5 +1,5 @@
 /** Test for MDDMapIntInt.
- * 
+ *
  * @file
  * @author      Bernhard Thiele <bernhard.thiele@dlr.de>
  * @version     $Id$
@@ -16,10 +16,10 @@
 int test_mapIntInt() {
   void * p_mDDMap;
   int failed = 0, i, res, keys[10];
-  
+
   p_mDDMap = MDD_mapIntIntConstructor();
   failed = p_mDDMap == NULL ? 1 : failed;
-  
+
   for (i=0; i<10; i++) {
     MDD_mapIntIntInsert(p_mDDMap, i*2, i*3);
   }
@@ -37,7 +37,7 @@ int test_mapIntInt() {
   printf("\n");
 
   MDD_mapIntIntDestructor(p_mDDMap);
-  
+
   return failed;
 }
 

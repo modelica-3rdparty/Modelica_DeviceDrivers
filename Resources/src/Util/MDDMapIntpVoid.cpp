@@ -1,5 +1,5 @@
 /** Map/Dictionary support for int key and void* value.
- * 
+ *
  * @file
  * @author      Bernhard Thiele <bernhard.thiele@dlr.de>
  * @version     $Id$

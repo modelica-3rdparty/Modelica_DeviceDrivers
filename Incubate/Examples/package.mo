@@ -1,3 +1,3 @@
 within Modelica_DeviceDrivers.Incubate;
-package Examples 
+package Examples
 end Examples;

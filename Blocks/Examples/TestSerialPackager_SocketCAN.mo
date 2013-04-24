@@ -108,11 +108,11 @@ for using the Linux Socket CAN bus interface!")}),
 <p>Please, read the package information for <code><a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SocketCAN\">SocketCAN</a></code> first!</p>
 
 <p><h4><font color=\"#008000\">The example</font></h4></p>
-<p>The example is configured to use the virtual CAN interface &QUOT;<code>vcan0</code>&QUOT;. The 
+<p>The example is configured to use the virtual CAN interface &QUOT;<code>vcan0</code>&QUOT;. The
 <code><a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SocketCAN\">SocketCAN</a></code> package documentation describes
 briefly how to bring up such a virtual CAN interface in Linux.</p>
 
-<p>Two sockets are opened in the example: One for sending messages, the other for receiving them. 
+<p>Two sockets are opened in the example: One for sending messages, the other for receiving them.
 The <code>SerialPackager</code> blocks are used to add/retrieve data to/from the messages. </p>
 </html>"));
 end TestSerialPackager_SocketCAN;

@@ -26,7 +26,7 @@ if (UNIX)
   # Are we trying to force compilation for linux32 on a native linux64 platform?
   if ( ($ENV{CFLAGS} MATCHES "-m32") AND ($ENV{CXXFLAGS} MATCHES "-m32") )
     set(M32_FLAG TRUE)
-  endif()	
+  endif()
   # Uncomment to force 32 bit compilation on Linux (this is needed if a Modelica tool
   # uses 32 bit simulation executable also on 64 bit linux (as is/was the case for Dymola)
   # Alternatively, that can be achieved by calling cmake (from Resources/build) like this:

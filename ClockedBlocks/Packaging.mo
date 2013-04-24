@@ -713,7 +713,6 @@ package Packaging
 </html>"));
     end UnpackUnsignedInteger;
 
-
     block ResetPointer
       "Set current writing/reading position of package to zero"
       extends

@@ -27,8 +27,4 @@ encapsulated function destructor "Destroy object, free resources"
               Library={"canL2"});
 end destructor;
 
-
-
-
-
 end SoftingCAN;

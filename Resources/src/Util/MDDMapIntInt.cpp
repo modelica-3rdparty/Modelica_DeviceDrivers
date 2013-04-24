@@ -1,5 +1,5 @@
 /** Map/Dictionary support for int key and int value.
- * 
+ *
  * @file
  * @author      Bernhard Thiele <bernhard.thiele@dlr.de>
  * @version     $Id$
@@ -67,5 +67,5 @@ extern "C" {
 			i++;
 		}
 	}
-	
+
 }

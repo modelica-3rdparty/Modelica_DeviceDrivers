@@ -295,7 +295,7 @@ void MDD_SerialPackagerGetFloatAsDouble(void* p_package, double * y, int n) {
 void MDD_SerialPackagerAddString(void* p_package, const char* u, int bufferSize) {
         SerialPackager* pkg = (SerialPackager*) p_package;
         //unsigned int size = (strlen(u)+1)*sizeof(char);
-	
+
         if (pkg->bitOffset != 0) MDD_SerialPackagerAlignToByteBoundery(pkg);
         if (pkg->pos + bufferSize > pkg->size) {
 		ModelicaFormatMessage("pkg->size: %d, pkg->pos+bufferSize: %d, bufferSize: %d, strlen(u): %d\n",

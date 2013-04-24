@@ -641,7 +641,6 @@ and one Integer value is added, serialized and finally sent using UDP.
                                    Diagram(graphics));
   end GetFloat;
 
-
   model GetString "Get String from package"
     extends Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerReadIcon;
     extends

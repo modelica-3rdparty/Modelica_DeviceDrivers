@@ -23,7 +23,4 @@ input SocketCAN socketCAN;
               Library={"MDDUtil"});
 end destructor;
 
-
-
-
 end SocketCAN;

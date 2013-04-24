@@ -1,5 +1,5 @@
 /** Test for MDDMapIntpVoid.
- * 
+ *
  * @file
  * @author      Bernhard Thiele <bernhard.thiele@dlr.de>
  * @version     $Id$
@@ -18,7 +18,7 @@ int test_mapIntpVoid() {
   void * p_mDDMap;
   char* data, cmp[10];
   int failed = 0, i, keys[10];
-  
+
   p_mDDMap = MDD_mapIntpVoidConstructor();
   failed = p_mDDMap == NULL ? 1 : failed;
 
@@ -42,7 +42,7 @@ int test_mapIntpVoid() {
   printf("\n");
 
   MDD_mapIntpVoidDestructor(p_mDDMap);
-  
+
   return failed;
 }
 
