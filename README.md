@@ -30,7 +30,7 @@ The second interface uses the synchronous language elements introduced in Modeli
 
 Download [Modelica_DeviceDrivers v1.1 (2013-04-24)](../../archive/v1.1.zip)
 
-Please note that currently (2013-05-10) the only Modelica tool that is known to work well with the library is Dymola (preferable Dymola 2013 FD0 and later). If you tested the library successfully with another Modelica tool, please contact me (Bernhard), so that I can include that information.
+Please note that currently (2013-05-10) the only Modelica tool that is known to work well with the library is Dymola (preferable Dymola 2013FD01 and later). If you tested the library successfully with another Modelica tool, please contact me (Bernhard), so that I can include that information.
 
 #### Release notes
 *  [Version v1.1 (2013-04-23)](../../archive/v1.1.zip)
