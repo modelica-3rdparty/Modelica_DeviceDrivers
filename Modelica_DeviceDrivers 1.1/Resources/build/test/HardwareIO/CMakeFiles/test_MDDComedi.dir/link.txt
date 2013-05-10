@@ -1,0 +1,1 @@
+/usr/bin/gcc  -m32     CMakeFiles/test_MDDComedi.dir/test_MDDComedi.c.o CMakeFiles/test_MDDComedi.dir/__/Util/ModelicaUtilities.c.o  -o test_MDDComedi -rdynamic -lcomedi -lm 

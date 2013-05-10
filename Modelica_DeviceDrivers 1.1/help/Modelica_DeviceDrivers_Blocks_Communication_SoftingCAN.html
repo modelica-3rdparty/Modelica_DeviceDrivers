@@ -1,0 +1,188 @@
+<HTML>
+<HEAD>
+<TITLE>Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Support for Softing&#39;s CAN interfaces utilizing their CANL2 API library&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+</HEAD>
+<BODY><P></P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE SoftingCAN<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN"></A><A HREF="Modelica_DeviceDrivers_Blocks_Communication.html#Modelica_DeviceDrivers.Blocks.Communication"
+>Modelica_DeviceDrivers.Blocks.Communication</A>.SoftingCAN</H2>
+<B>Support for Softing&#39;s CAN interfaces utilizing their CANL2 API library</B>
+<P></P>
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p><h4><font color="#008000">Prototypical support for Softing CAN interfaces</font></h4></p>
+Please note, that the support for CAN is considered <b>prototypical</b>. Even more than for the other elements in this library there might be severe bugs in it and you use it on <b>your own risk</b>. Additionally, the API of the blocks is more likely to change in the future. So please, refrain from using it for building your next nuclear power plant or fly-by-wire system ...
+<h4><font color="#008000">System Requirements</font></h4>
+<p>
+The needed files are freely available from Softing, however the
+corresponding license sets limits on the distributability of the
+files. Consequently, the files are not distributed with this library.
+</p>
+<p>
+There are exist drivers for Windows and Linux. However, the Linux package only supports very old Linux kernels (at least that was the case for June, 2012). Because of this, Softing CAN interfaces are currently only supported for Windows.
+</p>
+<p>
+Please download and install the Softing drivers including the CAN Layer2 API from Softing
+(e.g., start at <a href="http://industrial.softing.com/">http://industrial.softing.com/</a> and click your way through).
+</p>
+<p>
+After installation of the software driver package available from Softing, please copy the files from
+"$PATH_TO_SOFTING_API\APIDLL\*" into the directory
+<code>$PATH_TO_MODELICA_DEVICEDRIVERS\Modelica_DeviceDrivers\Resources\thirdParty\softing</code> (on my computer the Softing installation path
+is "C:\Program Files (x86)\Softing\CAN\CAN Layer2 V5.16\APIDLL"),
+so that you end up with the following directory tree:
+</p>
+<pre>
+.\win32\canL2.dll
+.\win32\canL2.lib
+.\win32\CANusbM.dll
+.\win64\canL2_64.dll
+.\win64\canL2_64.lib
+.\win64\CANusbM.dll
+.\Can_def.h
+.\CANL2.h
+</pre>
+
+<p>
+Finally, note that in order to translate and execute Modelica models utilizing this API it is necessary that the
+corresponding .lib and .dll files are found at compile and runtime. Prefered way to ensure this:
+</p>
+<p>
+Copy the <code>*.dll</code> and <code>*.lib</code> for your architecture into your simulation directory (note that working on a 64bit Windows does
+not necessary mean that your Modelica tool compiles 64bit binaries, i.e., if in doubt just try both). Additionally, rename
+<code>canL2_64.*</code> to <code>canL2.*</code> if using the 64bit libraries.
+</p>
+
+<pre></PRE><P></P>
+Extends from Modelica.Icons.Package (Icon for standard packages).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Modelica_DeviceDrivers.Blf9167ec2985ef86fonfigS.png" ALT="Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN.SoftingCANConfig" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Modelica_DeviceDrivers_Blocks_Communication_SoftingCAN.html#Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN.SoftingCANConfig"
+>SoftingCANConfig</A>
+</TD><TD>Configuration for a softing CAN interface</TD></TR>
+<TR><TD><IMG SRC="Modelica_DeviceDrivers.Blc4293135ecfdc4d4ssageS.png" ALT="Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN.SoftingReadMessage" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Modelica_DeviceDrivers_Blocks_Communication_SoftingCAN.html#Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN.SoftingReadMessage"
+>SoftingReadMessage</A>
+</TD><TD>Set up a message for receiving data</TD></TR>
+<TR><TD><IMG SRC="Modelica_DeviceDrivers.Bl658b40c4b16093f2ssageS.png" ALT="Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN.SoftingWriteMessage" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Modelica_DeviceDrivers_Blocks_Communication_SoftingCAN.html#Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN.SoftingWriteMessage"
+>SoftingWriteMessage</A>
+</TD><TD>Set up a message for transmitting data</TD></TR>
+</TABLE>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE SoftingCANConfig<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Modelica_DeviceDrivers.Blf9167ec2985ef86fonfigI.png" ALT="Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN.SoftingCANConfig" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN.SoftingCANConfig"></A><A HREF="Modelica_DeviceDrivers_Blocks_Communication_SoftingCAN.html#Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN"
+>Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN</A>.SoftingCANConfig</H2>
+<B>Configuration for a softing CAN interface</B><p></P>
+<P></P><H3>Information</H3>
+<PRE></pre>
+<h4><font color="#008000">Support for Softing CAN bus</font></h4>
+<p><b>Please, read the package information for <A HREF="Modelica_DeviceDrivers_Blocks_Communication_SoftingCAN.html#Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN"
+><code>SoftingCAN</code></a> first!</p>
+<h4><font color="#008000">Example</font></h4>
+<p>
+See <A HREF="Modelica_DeviceDrivers_Blocks_Examples.html#Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackager_SoftingCAN"
+><code>TestSerialPackager_SoftingCAN</code></a>.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="Modelica_DeviceDrivers_Utilities_Icons.html#Modelica_DeviceDrivers.Utilities.Icons.BaseIcon"
+>Modelica_DeviceDrivers.Utilities.Icons.BaseIcon</A> (Base icon for blocks providing access to external devices), <A HREF="Modelica_DeviceDrivers_Utilities_Icons.html#Modelica_DeviceDrivers.Utilities.Icons.BusIcon"
+>Modelica_DeviceDrivers.Utilities.Icons.BusIcon</A> (Icon for a communication bus).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>deviceName</TD><TD>Name of CAN device</TD></TR>
+<TR><TD>baudRate</TD><TD>CAN baud rate</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>softingCANBus[nu]</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE SoftingReadMessage<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Modelica_DeviceDrivers.Blc4293135ecfdc4d4ssageI.png" ALT="Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN.SoftingReadMessage" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN.SoftingReadMessage"></A><A HREF="Modelica_DeviceDrivers_Blocks_Communication_SoftingCAN.html#Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN"
+>Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN</A>.SoftingReadMessage</H2>
+<B>Set up a message for receiving data</B><p></P>
+<P></P><H3>Information</H3>
+<PRE></pre>
+<h4><font color="#008000">Support for Softing CAN bus</font></h4>
+<p><b>Please, read the package information for <A HREF="Modelica_DeviceDrivers_Blocks_Communication_SoftingCAN.html#Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN"
+><code>SoftingCAN</code></a> first!</p>
+<h4><font color="#008000">Example</font></h4>
+<p>
+See <A HREF="Modelica_DeviceDrivers_Blocks_Examples.html#Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackager_SoftingCAN"
+><code>TestSerialPackager_SoftingCAN</code></a>.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="Modelica_DeviceDrivers_Blocks_Interfaces.html#Modelica_DeviceDrivers.Blocks.Interfaces.PartialSoftingCANMessage"
+>Modelica_DeviceDrivers.Blocks.Interfaces.PartialSoftingCANMessage</A>.
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>ident</TD><TD>Identifier of CAN message (CAN Id)</TD></TR>
+<TR><TD>sampleTime</TD><TD>Period at which messages are written [s]</TD></TR>
+<TR><TD>startTime</TD><TD>First sample time instant [s]</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>softingCANBus</TD><TD>&nbsp;</TD></TR>
+<TR><TD>pkgOut</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE SoftingWriteMessage<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Modelica_DeviceDrivers.Bl658b40c4b16093f2ssageI.png" ALT="Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN.SoftingWriteMessage" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN.SoftingWriteMessage"></A><A HREF="Modelica_DeviceDrivers_Blocks_Communication_SoftingCAN.html#Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN"
+>Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN</A>.SoftingWriteMessage</H2>
+<B>Set up a message for transmitting data</B><p></P>
+<P></P><H3>Information</H3>
+<PRE></pre>
+<h4><font color="#008000">Support for Softing CAN bus</font></h4>
+<p><b>Please, read the package information for <A HREF="Modelica_DeviceDrivers_Blocks_Communication_SoftingCAN.html#Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN"
+><code>SoftingCAN</code></a> first!</p>
+<h4><font color="#008000">Example</font></h4>
+<p>
+See <A HREF="Modelica_DeviceDrivers_Blocks_Examples.html#Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackager_SoftingCAN"
+><code>TestSerialPackager_SoftingCAN</code></a>.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="Modelica_DeviceDrivers_Blocks_Interfaces.html#Modelica_DeviceDrivers.Blocks.Interfaces.PartialSoftingCANMessage"
+>Modelica_DeviceDrivers.Blocks.Interfaces.PartialSoftingCANMessage</A>.
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>ident</TD><TD>Identifier of CAN message (CAN Id)</TD></TR>
+<TR><TD>dlc</TD><TD>Data length code (payload of data in bytes, max=8)</TD></TR>
+<TR><TD>sampleTime</TD><TD>Sample period of component [s]</TD></TR>
+<TR><TD>startTime</TD><TD>First sample time instant [s]</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>softingCANBus</TD><TD>&nbsp;</TD></TR>
+<TR><TD>pkgIn</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Fri May 10 16:37:58 2013.
+</address></BODY>
+</HTML>

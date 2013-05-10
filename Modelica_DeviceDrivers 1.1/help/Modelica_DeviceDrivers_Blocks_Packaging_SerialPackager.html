@@ -1,0 +1,468 @@
+<HTML>
+<HEAD>
+<TITLE>Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Blocks for constructing packages&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+</HEAD>
+<BODY><P></P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE SerialPackager<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager"></A><A HREF="Modelica_DeviceDrivers_Blocks_Packaging.html#Modelica_DeviceDrivers.Blocks.Packaging"
+>Modelica_DeviceDrivers.Blocks.Packaging</A>.SerialPackager</H2>
+<B>Blocks for constructing packages</B>
+<P></P>
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>The concept of the SerialPackager is to allow adding/retrieving data to/from a package in a device independent manner. See
+<A HREF="Modelica_DeviceDrivers_UsersGuide.html#Modelica_DeviceDrivers.UsersGuide.GettingStarted"
+>Getting started</a>.</p>
+<pre></PRE><P></P>
+Extends from Modelica.Icons.Package (Icon for standard packages).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Modelica_DeviceDrivers.Blf29a194595fe47fdkagerS.png" ALT="Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Packager" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Modelica_DeviceDrivers_Blocks_Packaging_SerialPackager.html#Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Packager"
+>Packager</A>
+</TD><TD>Create a package which allows to add signals of various types</TD></TR>
+<TR><TD><IMG SRC="Modelica_DeviceDrivers.Bl9309d578a5990ceboleanS.png" ALT="Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.AddBoolean" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Modelica_DeviceDrivers_Blocks_Packaging_SerialPackager.html#Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.AddBoolean"
+>AddBoolean</A>
+</TD><TD>Add a Boolean vector to package</TD></TR>
+<TR><TD><IMG SRC="Modelica_DeviceDrivers.Bldf3cc56e662d8475tegerS.png" ALT="Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.AddInteger" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Modelica_DeviceDrivers_Blocks_Packaging_SerialPackager.html#Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.AddInteger"
+>AddInteger</A>
+</TD><TD>Add an Integer vector to package</TD></TR>
+<TR><TD><IMG SRC="Modelica_DeviceDrivers.Blc415615a368362f1dRealS.png" ALT="Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.AddReal" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Modelica_DeviceDrivers_Blocks_Packaging_SerialPackager.html#Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.AddReal"
+>AddReal</A>
+</TD><TD>Add a Real vector to package</TD></TR>
+<TR><TD><IMG SRC="Modelica_DeviceDrivers.Bl854009d0d928e7f2FloatS.png" ALT="Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.AddFloat" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Modelica_DeviceDrivers_Blocks_Packaging_SerialPackager.html#Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.AddFloat"
+>AddFloat</A>
+</TD><TD>Cast all elements of Real vector to float and add to package (loss of precision!)</TD></TR>
+<TR><TD><IMG SRC="Modelica_DeviceDrivers.Bl82538b3d0e925d03tringS.png" ALT="Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.AddString" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Modelica_DeviceDrivers_Blocks_Packaging_SerialPackager.html#Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.AddString"
+>AddString</A>
+</TD><TD>Add string to package</TD></TR>
+<TR><TD><IMG SRC="Modelica_DeviceDrivers.Bl197ee41ba599cd6boleanS.png" ALT="Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.GetBoolean" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Modelica_DeviceDrivers_Blocks_Packaging_SerialPackager.html#Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.GetBoolean"
+>GetBoolean</A>
+</TD><TD>Get Boolean vector from package</TD></TR>
+<TR><TD><IMG SRC="Modelica_DeviceDrivers.Bl65b1d411662d45f5tegerS.png" ALT="Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.GetInteger" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Modelica_DeviceDrivers_Blocks_Packaging_SerialPackager.html#Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.GetInteger"
+>GetInteger</A>
+</TD><TD>Get Integer vector from package</TD></TR>
+<TR><TD><IMG SRC="Modelica_DeviceDrivers.Bl14a4b8f3b58362f0tRealS.png" ALT="Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.GetReal" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Modelica_DeviceDrivers_Blocks_Packaging_SerialPackager.html#Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.GetReal"
+>GetReal</A>
+</TD><TD>Get Real vector from package</TD></TR>
+<TR><TD><IMG SRC="Modelica_DeviceDrivers.Blbe99dd1bb928e7c2FloatS.png" ALT="Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.GetFloat" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Modelica_DeviceDrivers_Blocks_Packaging_SerialPackager.html#Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.GetFloat"
+>GetFloat</A>
+</TD><TD>Get float vector from package (all values casted to double before assigning it to Modelica Real array)</TD></TR>
+<TR><TD><IMG SRC="Modelica_DeviceDrivers.Bldb4aaa9e0e925b0ftringS.png" ALT="Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.GetString" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Modelica_DeviceDrivers_Blocks_Packaging_SerialPackager.html#Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.GetString"
+>GetString</A>
+</TD><TD>Get String from package</TD></TR>
+<TR><TD><IMG SRC="Modelica_DeviceDrivers.Blbdd459db087c44d0tegerS.png" ALT="Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.PackUnsignedInteger" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Modelica_DeviceDrivers_Blocks_Packaging_SerialPackager.html#Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.PackUnsignedInteger"
+>PackUnsignedInteger</A>
+</TD><TD>Encode (non-negative) integer value at bit level</TD></TR>
+<TR><TD><IMG SRC="Modelica_DeviceDrivers.Bl80d07e3248dc5574tegerS.png" ALT="Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.UnpackUnsignedInteger" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Modelica_DeviceDrivers_Blocks_Packaging_SerialPackager.html#Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.UnpackUnsignedInteger"
+>UnpackUnsignedInteger</A>
+</TD><TD>decode integer value encoded at bit level</TD></TR>
+<TR><TD><IMG SRC="Modelica_DeviceDrivers.Bl352cb99fab738d93interS.png" ALT="Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.ResetPointer" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Modelica_DeviceDrivers_Blocks_Packaging_SerialPackager.html#Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.ResetPointer"
+>ResetPointer</A>
+</TD><TD>Set current writing/reading position of package to zero</TD></TR>
+</TABLE>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Packager<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Modelica_DeviceDrivers.Blf29a194595fe47fdkagerI.png" ALT="Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Packager" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Packager"></A><A HREF="Modelica_DeviceDrivers_Blocks_Packaging_SerialPackager.html#Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager"
+>Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager</A>.Packager</H2>
+<B>Create a package which allows to add signals of various types</B><p></P>
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+The <code>Packager</code> block creates a packager object to which payload can be added by subsequent blocks.
+</p>
+<p>
+<h5>Advanced parameter settings</h5>
+<p>
+With the default parameter settings the buffer size (size of the serialized package), as well as the sample time of the block is determined automatically by
+backward propagation. However, that values may also be set manually. An example there this functionality is used is the <A HREF="Modelica_DeviceDrivers_Blocks_Examples.html#Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackager"
+><code>TestSerialPackager</code></a> model. In that model the parameter <code>sampleTime</code> is explicitely set, since backward propagation is not possible in that case.
+</p>
+<h4>Examples</h4>
+<p>
+The block is used in several examples, e.g. in,
+<A HREF="Modelica_DeviceDrivers_Blocks_Examples.html#Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackager_UDP"
+><code>TestSerialPackager_UDP</code></a>.
+The figure below shows an arrangement in which a <code>Packager</code> object is created and after that a payload of three Real values
+and one Integer value is added, serialized and finally sent using UDP.
+</p>
+<p><img src="../Resources/Images/TestSerialPackager_UDP_model.png"/></p>
+<pre></PRE><P></P>
+
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=2><B>Advanced</B></TD></TR>
+<TR><TD>useBackwardSampleTimePropagation</TD><TD>true, use backward propagation for sample time (default!), otherwise switch to forward propagation</TD></TR>
+<TR><TD>sampleTime</TD><TD>Sample time if forward propagation of sample time is used</TD></TR>
+<TR><TD>useBackwardPropagatedBufferSize</TD><TD>true, use backward propagated (automatic) buffer size for package (default!), otherwise use manually specified buffer size below</TD></TR>
+<TR><TD>userBufferSize</TD><TD>Buffer size for package if backward propagation of buffer size is deactivated</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>pkgOut</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE AddBoolean<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Modelica_DeviceDrivers.Bl9309d578a5990ceboleanI.png" ALT="Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.AddBoolean" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.AddBoolean"></A><A HREF="Modelica_DeviceDrivers_Blocks_Packaging_SerialPackager.html#Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager"
+>Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager</A>.AddBoolean</H2>
+<B>Add a Boolean vector to package</B><p></P>
+<P></P><H3>Information</H3>
+Extends from <A HREF="Modelica_DeviceDrivers_Utilities_Icons.html#Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerWriteIcon"
+>Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerWriteIcon</A>, <A HREF="Modelica_DeviceDrivers_Blocks_Packaging_SerialPackager_Internal.html#Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager"
+>Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager</A>.
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>n</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>pkgIn</TD><TD>&nbsp;</TD></TR>
+<TR><TD>pkgOut[nu]</TD><TD>&nbsp;</TD></TR>
+<TR><TD>u[n]</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE AddInteger<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Modelica_DeviceDrivers.Bldf3cc56e662d8475tegerI.png" ALT="Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.AddInteger" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.AddInteger"></A><A HREF="Modelica_DeviceDrivers_Blocks_Packaging_SerialPackager.html#Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager"
+>Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager</A>.AddInteger</H2>
+<B>Add an Integer vector to package</B><p></P>
+<P></P><H3>Information</H3>
+<PRE></pre>
+
+<pre></PRE><P></P>
+Extends from <A HREF="Modelica_DeviceDrivers_Utilities_Icons.html#Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerWriteIcon"
+>Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerWriteIcon</A>, <A HREF="Modelica_DeviceDrivers_Blocks_Packaging_SerialPackager_Internal.html#Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager"
+>Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager</A>.
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>n</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>pkgIn</TD><TD>&nbsp;</TD></TR>
+<TR><TD>pkgOut[nu]</TD><TD>&nbsp;</TD></TR>
+<TR><TD>u[n]</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE AddReal<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Modelica_DeviceDrivers.Blc415615a368362f1dRealI.png" ALT="Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.AddReal" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.AddReal"></A><A HREF="Modelica_DeviceDrivers_Blocks_Packaging_SerialPackager.html#Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager"
+>Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager</A>.AddReal</H2>
+<B>Add a Real vector to package</B><p></P>
+<P></P><H3>Information</H3>
+Extends from <A HREF="Modelica_DeviceDrivers_Utilities_Icons.html#Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerWriteIcon"
+>Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerWriteIcon</A>, <A HREF="Modelica_DeviceDrivers_Blocks_Packaging_SerialPackager_Internal.html#Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager"
+>Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager</A>.
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>n</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>pkgIn</TD><TD>&nbsp;</TD></TR>
+<TR><TD>pkgOut[nu]</TD><TD>&nbsp;</TD></TR>
+<TR><TD>u[n]</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE AddFloat<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Modelica_DeviceDrivers.Bl854009d0d928e7f2FloatI.png" ALT="Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.AddFloat" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.AddFloat"></A><A HREF="Modelica_DeviceDrivers_Blocks_Packaging_SerialPackager.html#Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager"
+>Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager</A>.AddFloat</H2>
+<B>Cast all elements of Real vector to float and add to package (loss of precision!)</B><p></P>
+<P></P><H3>Information</H3>
+Extends from <A HREF="Modelica_DeviceDrivers_Utilities_Icons.html#Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerWriteIcon"
+>Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerWriteIcon</A>, <A HREF="Modelica_DeviceDrivers_Blocks_Packaging_SerialPackager_Internal.html#Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager"
+>Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager</A>.
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>n</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>pkgIn</TD><TD>&nbsp;</TD></TR>
+<TR><TD>pkgOut[nu]</TD><TD>&nbsp;</TD></TR>
+<TR><TD>u[n]</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE AddString<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Modelica_DeviceDrivers.Bl82538b3d0e925d03tringI.png" ALT="Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.AddString" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.AddString"></A><A HREF="Modelica_DeviceDrivers_Blocks_Packaging_SerialPackager.html#Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager"
+>Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager</A>.AddString</H2>
+<B>Add string to package</B><p></P>
+<P></P><H3>Information</H3>
+Extends from <A HREF="Modelica_DeviceDrivers_Utilities_Icons.html#Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerWriteIcon"
+>Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerWriteIcon</A>, <A HREF="Modelica_DeviceDrivers_Blocks_Packaging_SerialPackager_Internal.html#Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager"
+>Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager</A>.
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>bufferSize</TD><TD>Buffer size (in bytes) reserved for String (ensure that same buffer size is used in corresponding GetString block!)</TD></TR>
+<TR><TD>data</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>pkgIn</TD><TD>&nbsp;</TD></TR>
+<TR><TD>pkgOut[nu]</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE GetBoolean<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Modelica_DeviceDrivers.Bl197ee41ba599cd6boleanI.png" ALT="Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.GetBoolean" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.GetBoolean"></A><A HREF="Modelica_DeviceDrivers_Blocks_Packaging_SerialPackager.html#Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager"
+>Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager</A>.GetBoolean</H2>
+<B>Get Boolean vector from package</B><p></P>
+<P></P><H3>Information</H3>
+Extends from <A HREF="Modelica_DeviceDrivers_Utilities_Icons.html#Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerReadIcon"
+>Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerReadIcon</A>, <A HREF="Modelica_DeviceDrivers_Blocks_Packaging_SerialPackager_Internal.html#Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager"
+>Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager</A>.
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>n</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>pkgIn</TD><TD>&nbsp;</TD></TR>
+<TR><TD>pkgOut[nu]</TD><TD>&nbsp;</TD></TR>
+<TR><TD>y[n]</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE GetInteger<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Modelica_DeviceDrivers.Bl65b1d411662d45f5tegerI.png" ALT="Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.GetInteger" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.GetInteger"></A><A HREF="Modelica_DeviceDrivers_Blocks_Packaging_SerialPackager.html#Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager"
+>Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager</A>.GetInteger</H2>
+<B>Get Integer vector from package</B><p></P>
+<P></P><H3>Information</H3>
+Extends from <A HREF="Modelica_DeviceDrivers_Utilities_Icons.html#Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerReadIcon"
+>Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerReadIcon</A>, <A HREF="Modelica_DeviceDrivers_Blocks_Packaging_SerialPackager_Internal.html#Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager"
+>Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager</A>.
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>n</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>pkgIn</TD><TD>&nbsp;</TD></TR>
+<TR><TD>pkgOut[nu]</TD><TD>&nbsp;</TD></TR>
+<TR><TD>y[n]</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE GetReal<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Modelica_DeviceDrivers.Bl14a4b8f3b58362f0tRealI.png" ALT="Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.GetReal" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.GetReal"></A><A HREF="Modelica_DeviceDrivers_Blocks_Packaging_SerialPackager.html#Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager"
+>Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager</A>.GetReal</H2>
+<B>Get Real vector from package</B><p></P>
+<P></P><H3>Information</H3>
+Extends from <A HREF="Modelica_DeviceDrivers_Utilities_Icons.html#Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerReadIcon"
+>Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerReadIcon</A>, <A HREF="Modelica_DeviceDrivers_Blocks_Packaging_SerialPackager_Internal.html#Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager"
+>Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager</A>.
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>n</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>pkgIn</TD><TD>&nbsp;</TD></TR>
+<TR><TD>pkgOut[nu]</TD><TD>&nbsp;</TD></TR>
+<TR><TD>y[n]</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE GetFloat<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Modelica_DeviceDrivers.Blbe99dd1bb928e7c2FloatI.png" ALT="Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.GetFloat" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.GetFloat"></A><A HREF="Modelica_DeviceDrivers_Blocks_Packaging_SerialPackager.html#Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager"
+>Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager</A>.GetFloat</H2>
+<B>Get float vector from package (all values casted to double before assigning it to Modelica Real array)</B><p></P>
+<P></P><H3>Information</H3>
+Extends from <A HREF="Modelica_DeviceDrivers_Utilities_Icons.html#Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerReadIcon"
+>Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerReadIcon</A>, <A HREF="Modelica_DeviceDrivers_Blocks_Packaging_SerialPackager_Internal.html#Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager"
+>Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager</A>.
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>n</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>pkgIn</TD><TD>&nbsp;</TD></TR>
+<TR><TD>pkgOut[nu]</TD><TD>&nbsp;</TD></TR>
+<TR><TD>y[n]</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE GetString<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Modelica_DeviceDrivers.Bldb4aaa9e0e925b0ftringI.png" ALT="Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.GetString" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.GetString"></A><A HREF="Modelica_DeviceDrivers_Blocks_Packaging_SerialPackager.html#Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager"
+>Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager</A>.GetString</H2>
+<B>Get String from package</B><p></P>
+<P></P><H3>Information</H3>
+Extends from <A HREF="Modelica_DeviceDrivers_Utilities_Icons.html#Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerReadIcon"
+>Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerReadIcon</A>, <A HREF="Modelica_DeviceDrivers_Blocks_Packaging_SerialPackager_Internal.html#Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager"
+>Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager</A>.
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>bufferSize</TD><TD>Buffer size (in bytes) reserved for String (ensure that same buffer size is used in corresponding AddString block!)</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>pkgIn</TD><TD>&nbsp;</TD></TR>
+<TR><TD>pkgOut[nu]</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE PackUnsignedInteger<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Modelica_DeviceDrivers.Blbdd459db087c44d0tegerI.png" ALT="Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.PackUnsignedInteger" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.PackUnsignedInteger"></A><A HREF="Modelica_DeviceDrivers_Blocks_Packaging_SerialPackager.html#Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager"
+>Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager</A>.PackUnsignedInteger</H2>
+<B>Encode (non-negative) integer value at bit level</B><p></P>
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>The block allows to pack unsigned integer values on bit level. The number of bits used for encoding is set by parameter <code>width</code>, therefore the maximum value of the integer signal that can be encoded is <code>2^width - 1</code>. The parameter <code>bitOffset</code> allows to specify the bit at which the encoding starts <b>relative</b> to the preceding block. </p>
+<p>If an <code>AddBoolean</code>, <code>AddInteger</code>, <code>AddReal</code> or <code>AddString</code> block follows a <code>PackUnsignedInteger</code> block the bit position after the <code>PackUnsignedInteger</code> block is aligned to the next byte boundery.<p>
+<h4><font color="#008000">Endianness</font></h4>
+<p>Currently, the pack block only supports Intel-Endiannes (<b>little-endian!</b>).</p>
+<p>For information about endianness in computing see for example <a href"http://en.wikipedia.org/wiki/Endianness">http://en.wikipedia.org/wiki/Endianness</a></p>
+<h4><font color="#008000">Example</font></h4>
+<p>
+The block is used in example
+<A HREF="Modelica_DeviceDrivers_Blocks_Examples.html#Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackagerBitPack_UDP"
+><code>TestSerialPackagerBitPack_UDP</code></a>, depicted below.
+</p>
+<p><img src="../Resources/Images/TestSerialPackagerBitPack_UDP_model.png"/></p>
+The first 3*8 byte of the payload is used for the Real variables. After that two Integer variables are <b>packed</b> into the payload. Finally one Integer variable is added using an ordinary <code>AddInteger</code> block. Assuming that the value of the first Integer variable was <code>3 (decimal) == 11 (binary)</code> we would get the memory layout below. A '.' denotes that the bit is not part of the bits encoding the value (LSB = Least Significant Byte and MSB = Most Significant Byte).
+<pre>
+                                           byte 24                 byte 25
+                                             LSB                      MSB
+Relative bit position in Memory: (0  1  2  3  4  5  6  7)  (8  9  10 11 12 13 14 15) ( ..
+Value of bit                   : (0  0  0  0  0  0  1  1)  (.  .   .  .  .  .  0  0)
+</pre>
+<p>See also <A HREF="Modelica_DeviceDrivers_Blocks_Packaging_SerialPackager.html#Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.UnpackUnsignedInteger"
+><code>UnpackUnsignedInteger</code></a>.</p>
+<pre></PRE><P></P>
+Extends from <A HREF="Modelica_DeviceDrivers_Utilities_Icons.html#Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerWriteIcon"
+>Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerWriteIcon</A>, <A HREF="Modelica_DeviceDrivers_Blocks_Packaging_SerialPackager_Internal.html#Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager"
+>Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager</A>.
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>bitOffset</TD><TD>Bit offset from current packager position until first encoding bit</TD></TR>
+<TR><TD>width</TD><TD>Number of bits that encode the integer value</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>pkgIn</TD><TD>&nbsp;</TD></TR>
+<TR><TD>pkgOut[nu]</TD><TD>&nbsp;</TD></TR>
+<TR><TD>u</TD><TD>Only postive (unsigned) values are supported</TD></TR>
+</TABLE>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE UnpackUnsignedInteger<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Modelica_DeviceDrivers.Bl80d07e3248dc5574tegerI.png" ALT="Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.UnpackUnsignedInteger" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.UnpackUnsignedInteger"></A><A HREF="Modelica_DeviceDrivers_Blocks_Packaging_SerialPackager.html#Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager"
+>Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager</A>.UnpackUnsignedInteger</H2>
+<B>decode integer value encoded at bit level</B><p></P>
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>The block allows to unpack unsigned integer values on bit level. The number of bits used for decoding is set by parameter <code>width</code>. The parameter <code>bitOffset</code> allows to specify the bit at which the decoding starts <b>relative</b> to the preceding block. </p>
+<p>If an <code>GetBoolean</code>, <code>GetInteger</code>, <code>GetReal</code> or <code>GetString</code> block follows an <code>UnpackUnsignedInteger</code> block the bit position after the <code>UnpackUnsignedInteger</code> block is aligned to the next byte boundery.<p>
+<h4><font color="#008000">Endianness</font></h4>
+<p>Currently, the pack block only supports Intel-Endiannes (<b>little-endian!</b>).</p>
+<p>For information about endianness in computing see for example <a href"http://en.wikipedia.org/wiki/Endianness">http://en.wikipedia.org/wiki/Endianness</a></p>
+<h4><font color="#008000">Example</font></h4>
+<p>
+The block is used in example
+<a href="modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackagerBitUnpack_UDP"><code>TestSerialPackagerBitUnpack_UDP</code></a>, depicted below.
+</p>
+<p><img src="../Resources/Images/TestSerialPackagerBitUnpack_UDP_model.png"/></p>
+The first 3*8 byte of the payload is deserialized to Real variables. After that two Integer variables are unpacked from the payload. Finally one Integer variable is deserialized using an ordinary <code>GetInteger</code> block.  Assume that we had the memory layout below and would like to unpack the second Integer value. A '.' denotes that the bit is not part of the bits encoding the value (LSB = Least Significant Byte and MSB = Most Significant Byte).
+<pre>
+                                  byte 24  byte 25  byte 26          byte 27                    byte 28
+                                                                       LSB                         MSB
+Relative bit position in Memory:   0-7      8-15     16-23   (24 25 26 27 28 29 30 31) (32 33 34 35 36 37 38 39) (..
+Value of bit                   :                               0  1  .  .  .  .  .  .    0  0  0  0  0  0  0  1
+</pre>
+<p>The value of the unpacked second Integer value would be <code>5 (decimal) == 101 (binary)</code>.</p>
+<p>See also <A HREF="Modelica_DeviceDrivers_Blocks_Packaging_SerialPackager.html#Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.PackUnsignedInteger"
+><code>PackUnsignedInteger</code></a>.</p>
+<pre></PRE><P></P>
+Extends from <A HREF="Modelica_DeviceDrivers_Utilities_Icons.html#Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerReadIcon"
+>Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerReadIcon</A>, <A HREF="Modelica_DeviceDrivers_Blocks_Packaging_SerialPackager_Internal.html#Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager"
+>Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager</A>.
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>bitOffset</TD><TD>Bit offset from current packager position until first encoding bit</TD></TR>
+<TR><TD>width</TD><TD>Number of bits that encode the integer value</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>pkgIn</TD><TD>&nbsp;</TD></TR>
+<TR><TD>pkgOut[nu]</TD><TD>&nbsp;</TD></TR>
+<TR><TD>y</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE ResetPointer<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Modelica_DeviceDrivers.Bl352cb99fab738d93interI.png" ALT="Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.ResetPointer" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.ResetPointer"></A><A HREF="Modelica_DeviceDrivers_Blocks_Packaging_SerialPackager.html#Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager"
+>Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager</A>.ResetPointer</H2>
+<B>Set current writing/reading position of package to zero</B><p></P>
+<P></P><H3>Information</H3>
+Extends from <A HREF="Modelica_DeviceDrivers_Blocks_Packaging_SerialPackager_Internal.html#Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager"
+>Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager</A>.
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>pkgIn</TD><TD>&nbsp;</TD></TR>
+<TR><TD>pkgOut[nu]</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Fri May 10 16:37:58 2013.
+</address></BODY>
+</HTML>

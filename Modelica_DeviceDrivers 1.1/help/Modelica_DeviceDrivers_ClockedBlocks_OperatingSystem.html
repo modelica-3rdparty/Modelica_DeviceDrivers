@@ -1,0 +1,99 @@
+<HTML>
+<HEAD>
+<TITLE>Modelica_DeviceDrivers.ClockedBlocks.OperatingSystem</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+</HEAD>
+<BODY><P></P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE OperatingSystem<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Modelica_DeviceDrivers.ClockedBlocks.OperatingSystem"></A><A HREF="Modelica_DeviceDrivers_ClockedBlocks.html#Modelica_DeviceDrivers.ClockedBlocks"
+>Modelica_DeviceDrivers.ClockedBlocks</A>.OperatingSystem</H2>
+<P></P><H3>Information</H3>
+Extends from Modelica.Icons.Package (Icon for standard packages).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Modelica_DeviceDrivers.Cl36518e2cc8a89de0ltimeS.png" ALT="Modelica_DeviceDrivers.ClockedBlocks.OperatingSystem.SynchronizeRealtime" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Modelica_DeviceDrivers_ClockedBlocks_OperatingSystem.html#Modelica_DeviceDrivers.ClockedBlocks.OperatingSystem.SynchronizeRealtime"
+>SynchronizeRealtime</A>
+</TD><TD>A pseudo realtime synchronization</TD></TR>
+<TR><TD><IMG SRC="Modelica_DeviceDrivers.Cl9f17e1c23a5b995eTypesS.png" ALT="Modelica_DeviceDrivers.ClockedBlocks.OperatingSystem.Types" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Modelica_DeviceDrivers_ClockedBlocks_OperatingSystem_Types.html#Modelica_DeviceDrivers.ClockedBlocks.OperatingSystem.Types"
+>Types</A>
+</TD><TD>&nbsp;</TD></TR>
+<TR><TD><IMG SRC="Modelica_DeviceDrivers.Cl559991bbee6879e6ourceS.png" ALT="Modelica_DeviceDrivers.ClockedBlocks.OperatingSystem.RandomRealSource" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Modelica_DeviceDrivers_ClockedBlocks_OperatingSystem.html#Modelica_DeviceDrivers.ClockedBlocks.OperatingSystem.RandomRealSource"
+>RandomRealSource</A>
+</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE SynchronizeRealtime<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Modelica_DeviceDrivers.Cl36518e2cc8a89de0ltimeI.png" ALT="Modelica_DeviceDrivers.ClockedBlocks.OperatingSystem.SynchronizeRealtime" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Modelica_DeviceDrivers.ClockedBlocks.OperatingSystem.SynchronizeRealtime"></A><A HREF="Modelica_DeviceDrivers_ClockedBlocks_OperatingSystem.html#Modelica_DeviceDrivers.ClockedBlocks.OperatingSystem"
+>Modelica_DeviceDrivers.ClockedBlocks.OperatingSystem</A>.SynchronizeRealtime</H2>
+<B>A pseudo realtime synchronization</B><p></P>
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>Synchronizes the simulation time of the simulation process with the operating system real-time clock. Different priority levels are supported:</p>
+<p><ul>
+<li>Idle</li>
+<li>Below Normal</li>
+<li>Normal</li>
+<li>High Priority</li>
+<li>Real-Time</li>
+</ul></p>
+<p>Note that the provided level of real-time synchronization is &QUOT;soft&QUOT;, meaning that there are no guarantees that dead lines are met or that latencies are restricted to a predictable (low) maximum. This is often enough to satisfy requirements for interactive simulations and can be compared to the real-time experience provided by computer games. However, applications requiring &QUOT;hard&QUOT; real-time synchronization (e.g. HIL simulations) are <b>not</b> satisfied!</p>
+<p>Using the &QUOT;High Priority&QUOT; and &QUOT;Real-Time&QUOT; priorities in Linux will usually require &QUOT;root&QUOT; privileges for the simulation process. Using the &QUOT;Real-Time&QUOT; priority in Linux with a low-latency kernel as provided by the PREEMPT_RT patch will even provide limited (however, implementation specific limitations given below still apply) &QUOT;hard&QUOT; real-time capabilities (see e.g., <a href="https://www.osadl.org/Realtime-Linux.projects-realtime-linux.0.html">https://www.osadl.org/Realtime-Linux.projects-realtime-linux.0.html</a>).</p>
+<p><b>IMPORTANT</b>: This real-time synchronization is a hack. <i><b>Don&apos;t rely on it in any (safety) relevant applications there precise timing is mandatory</b></i>!</p>
+<p><h4><font color="#008000">Implementation Notes</font></h4></p>
+<p>The block introduces an equation with a call to an external C-function that takes the current simulation time as an argument. Within the C-function the simulation time is compared to the operating system real-time clock and execution of the thread is halted until simulation time == real-time. This equation will be added to the other model equations and sorted according to the (tool dependent) sorting algorithm. Therefore, no prediction can be made when, within the simulation cycle, the real-time synchronization function is called (e.g., it might be before, or after (external) inputs are read from a device or (external) outputs are written to a device).</p>
+<p><h4><font color="#008000">Final Remark</font></h4></p>
+<p>If your Modelica tool provides a better mechanism to real-time synchronization, consider to use that mechanism instead of that block. E.g., Dymola provides a &QUOT;Synchronize with real-time&QUOT; option within the solver settings. If that option is ticked the &QUOT;SynchronizeRealtime&QUOT; block is not needed! However, Dymola only supports that option for Windows (at least Dymola 2013 and below). Also, experiences of the authors indicate that compile and run-time performance seems sometimes better using the &QUOT;hackish&QUOT; block, than using the &QUOT;official&QUOT; real-time synchronization of Dymola. Please test for yourself, which option works best for you.</p>
+<pre></PRE><P></P>
+Extends from <A HREF="Modelica_DeviceDrivers_Utilities_Icons.html#Modelica_DeviceDrivers.Utilities.Icons.BaseIcon"
+>Modelica_DeviceDrivers.Utilities.Icons.BaseIcon</A> (Base icon for blocks providing access to external devices).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>resolution</TD><TD>resolution of the timer</TD></TR>
+<TR><TD>priority</TD><TD>Priority of the simulation process</TD></TR>
+</TABLE>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE RandomRealSource<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Modelica_DeviceDrivers.Cl559991bbee6879e6ourceI.png" ALT="Modelica_DeviceDrivers.ClockedBlocks.OperatingSystem.RandomRealSource" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Modelica_DeviceDrivers.ClockedBlocks.OperatingSystem.RandomRealSource"></A><A HREF="Modelica_DeviceDrivers_ClockedBlocks_OperatingSystem.html#Modelica_DeviceDrivers.ClockedBlocks.OperatingSystem"
+>Modelica_DeviceDrivers.ClockedBlocks.OperatingSystem</A>.RandomRealSource</H2>
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>Uses the <code>rand()</code>function from the C standard library for creating pseudo-random numbers. The computers real-time clock is used to obtain seed values for the sequence of pseudo-random numbers.</p>
+<pre></PRE><P></P>
+Extends from <A HREF="Modelica_DeviceDrivers_Utilities_Icons.html#Modelica_DeviceDrivers.Utilities.Icons.BaseIcon"
+>Modelica_DeviceDrivers.Utilities.Icons.BaseIcon</A> (Base icon for blocks providing access to external devices), <A HREF="Modelica_DeviceDrivers_Utilities_Icons.html#Modelica_DeviceDrivers.Utilities.Icons.PartialClockedDeviceDriverIcon"
+>Modelica_DeviceDrivers.Utilities.Icons.PartialClockedDeviceDriverIcon</A>.
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>n</TD><TD>Dimension of output vector</TD></TR>
+<TR><TD>minValue[n]</TD><TD>maximum Value of random output</TD></TR>
+<TR><TD>maxValue[n]</TD><TD>maximum Value of random output</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>y[n]</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Fri May 10 16:37:59 2013.
+</address></BODY>
+</HTML>
