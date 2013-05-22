@@ -10,7 +10,6 @@ package Icons "Collection of icons used for library components"
 <p>
 A collection of basic icons to be used for different elements of the library.
 </p>
-<b></b><b></b><b></b><b></b><b></b>
 </html>",
       revisions="<html>
 <img src=\"../Extras/Images/dlr_logo.png\"  width=60 >

@@ -9,12 +9,12 @@ package UsersGuide "User's Guide"
 <p>In this section, a first introduction to the Modelica_DeviceDrivers library is given at hand of several examples. </p>
 <p><h4><font color=\"#008000\">Introduction</font></h4></p>
 <p>The library allows to access some selected external devices in Modelica models. This is achieved by using the Modelica external C interface to call the appropriate C driver functions provided by the underlying operating system. Currently MS Windows and Linux is supported.</p>
-<p>The library is organized in several layers as indicated below. It is noteworthy that the library provides two high-level Drag &AMP; Drop block interfaces. The first (.Blocks) is compatible to Modelica 3.2, using the traditional &quot;when sample()&quot; element for periodically calling Modelica functions from the Function Layer. The second (.ClockedBlocks) uses the<i> Synchronous Language Elements</i> extension introduced in Modelica 3.3 for periodic execution.</p>
+<p>The library is organized in several layers as indicated below. It is noteworthy that the library provides two high-level Drag &amp; Drop block interfaces. The first (.Blocks) is compatible to Modelica 3.2, using the traditional &quot;when sample()&quot; element for periodically calling Modelica functions from the Function Layer. The second (.ClockedBlocks) uses the<i> Synchronous Language Elements</i> extension introduced in Modelica 3.3 for periodic execution.</p>
 <p><img src=\"modelica://Modelica_DeviceDrivers/Resources/Images/DeviceDrivers_LayeredArchitecture.png\"/> </p>
 <p><h4><font color=\"#008000\">Usage Examples</font></h4></p>
 <p>Looking at the examples in <code>.Blocks.Examples</code> (or <code>.ClockedBlocks.Examples</code>, respectively) the usage of the library should be self-explanatory. In the following two exemplarily examples are considered.</p>
 <p><h5>User Input devices</h5></p>
-<p> E.g., using a joystick or gamepad as input for a real-time simulation just requires to drag &AMP; drop two blocks: <code>.Blocks.OperatingSystem.SynchronizeRealtime</code> and <code>.Blocks.InputDevices.JoystickInput</code> (or respectively, <code>.ClockedBlocks.OperatingSystem.SynchronizeRealtime</code> and <code>.ClockedBlocks.InputDevices.JoystickInput</code>). See the executable example at <code>.(Clocked)Blocks.Examples.TestInputJoystick</code>:</p>
+<p> E.g., using a joystick or gamepad as input for a real-time simulation just requires to drag &amp; drop two blocks: <code>.Blocks.OperatingSystem.SynchronizeRealtime</code> and <code>.Blocks.InputDevices.JoystickInput</code> (or respectively, <code>.ClockedBlocks.OperatingSystem.SynchronizeRealtime</code> and <code>.ClockedBlocks.InputDevices.JoystickInput</code>). See the executable example at <code>.(Clocked)Blocks.Examples.TestInputJoystick</code>:</p>
 <p><img src=\"modelica://Modelica_DeviceDrivers/Resources/Images/TestInputJoystick.png\"/></p>
 <p>The <code>SynchronizeRealtime</code> block synchronizes the simulation time with the operating systems real-time clock. That allows interactive Modelica simulations, e.g., a vehicle driving simulation using a gamepad for user inputs.</p>
 <p><h5>Communication Devices</h5></p>
@@ -755,7 +755,7 @@ on the Modelica_Synchronous library.
     Postfach 1116<br>
     D-82230 Wessling<br>
     Germany<br>
-    email: <a href=mailto:\"Tobias.Bellmann@dlr.de\">Tobias.Bellmann@dlr.de</a> or <a href=mailto:\"Bernhard.Thiele@dlr.de\">Bernhard.Thiele@dlr.de</a><br></dd>
+    email: <a href=\"mailto:Tobias.Bellmann@dlr.de\">Tobias.Bellmann@dlr.de</a> or <a href=\"mailto:Bernhard.Thiele@dlr.de\">Bernhard.Thiele@dlr.de</a><br></dd>
 </dl>
 <p>
 The authors are open to include contributions.

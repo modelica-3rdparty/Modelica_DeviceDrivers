@@ -727,7 +727,7 @@ and one Integer value is added, serialized and finally sent using UDP.
 <p>If an <code>AddBoolean</code>, <code>AddInteger</code>, <code>AddReal</code> or <code>AddString</code> block follows a <code>PackUnsignedInteger</code> block the bit position after the <code>PackUnsignedInteger</code> block is aligned to the next byte boundery.<p>
 <h4><font color=\"#008000\">Endianness</font></h4>
 <p>Currently, the pack block only supports Intel-Endiannes (<b>little-endian!</b>).</p>
-<p>For information about endianness in computing see for example <a href\"http://en.wikipedia.org/wiki/Endianness\">http://en.wikipedia.org/wiki/Endianness</a></p>
+<p>For information about endianness in computing see for example <a href=\"http://en.wikipedia.org/wiki/Endianness\">http://en.wikipedia.org/wiki/Endianness</a></p>
 <h4><font color=\"#008000\">Example</font></h4>
 <p>
 The block is used in example
@@ -792,7 +792,7 @@ Value of bit                   : (0  0  0  0  0  0  1  1)  (.  .   .  .  .  .  0
 <p>If an <code>GetBoolean</code>, <code>GetInteger</code>, <code>GetReal</code> or <code>GetString</code> block follows an <code>UnpackUnsignedInteger</code> block the bit position after the <code>UnpackUnsignedInteger</code> block is aligned to the next byte boundery.<p>
 <h4><font color=\"#008000\">Endianness</font></h4>
 <p>Currently, the pack block only supports Intel-Endiannes (<b>little-endian!</b>).</p>
-<p>For information about endianness in computing see for example <a href\"http://en.wikipedia.org/wiki/Endianness\">http://en.wikipedia.org/wiki/Endianness</a></p>
+<p>For information about endianness in computing see for example <a href=\"http://en.wikipedia.org/wiki/Endianness\">http://en.wikipedia.org/wiki/Endianness</a></p>
 <h4><font color=\"#008000\">Example</font></h4>
 <p>
 The block is used in example
