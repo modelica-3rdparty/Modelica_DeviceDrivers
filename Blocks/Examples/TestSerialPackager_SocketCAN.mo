@@ -108,7 +108,7 @@ for using the Linux Socket CAN bus interface!")}),
 <p>Please, read the package information for <code><a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SocketCAN\">SocketCAN</a></code> first!</p>
 
 <p><h4><font color=\"#008000\">The example</font></h4></p>
-<p>The example is configured to use the virtual CAN interface &QUOT;<code>vcan0</code>&QUOT;. The
+<p>The example is configured to use the virtual CAN interface &quot;<code>vcan0</code>&quot;. The
 <code><a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SocketCAN\">SocketCAN</a></code> package documentation describes
 briefly how to bring up such a virtual CAN interface in Linux.</p>
 
