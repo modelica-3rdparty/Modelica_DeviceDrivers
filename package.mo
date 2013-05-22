@@ -38,7 +38,7 @@ For an introduction, have especially a look at:
     </td>
     <td style=\"vertical-align: top;\"><br><b>Licensed by DLR under the Modelica License 2</b></td>
 </tr>
-<tr><td style=\"vertical-align: top;\"><b>Copyright &copy; 2012, DLR Institute of System Dynamics and Control</b></td>
+<tr><td style=\"vertical-align: top;\"><b>Copyright &copy; 2012-2013, DLR Institute of System Dynamics and Control</b></td>
 </tr>
 </table>
 </p>
