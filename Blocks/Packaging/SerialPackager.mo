@@ -796,7 +796,7 @@ Value of bit                   : (0  0  0  0  0  0  1  1)  (.  .   .  .  .  .  0
 <h4><font color=\"#008000\">Example</font></h4>
 <p>
 The block is used in example
-<a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackagerBitUnpack_UDP\"><code>TestSerialPackagerBitUnpack_UDP</code></a>, depicted below.
+<a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackagerBitPack_UDP\"><code>TestSerialPackagerBitPack_UDP</code></a>, depicted below.
 </p>
 <p><img src=\"modelica://Modelica_DeviceDrivers/Resources/Images/TestSerialPackagerBitUnpack_UDP_model.png\"/></p>
 The first 3*8 byte of the payload is deserialized to Real variables. After that two Integer variables are unpacked from the payload. Finally one Integer variable is deserialized using an ordinary <code>GetInteger</code> block.  Assume that we had the memory layout below and would like to unpack the second Integer value. A '.' denotes that the bit is not part of the bits encoding the value (LSB = Least Significant Byte and MSB = Most Significant Byte).
