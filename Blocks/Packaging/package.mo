@@ -1,4 +1,4 @@
 within Modelica_DeviceDrivers.Blocks;
-package Packaging
+package Packaging 
   extends Modelica.Icons.Package;
 end Packaging;

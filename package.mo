@@ -3,6 +3,15 @@ package Modelica_DeviceDrivers "Modelica_DeviceDrivers (version 1.1) -  A collec
  extends Modelica.Icons.Package;
 
 
+
+
+
+
+
+
+
+
+
 annotation (preferredView="info",
   uses(Modelica(version="3.2"), Modelica_Synchronous(version="0.91")),
     version="1.1",
@@ -31,7 +40,7 @@ For an introduction, have especially a look at:
      gives author and acknowledgement information for this library.</li>
 </ul>
 <p>The library is developed at <a href=\"https://github.com/modelica/Modelica_DeviceDrivers/\">https://github.com/modelica/Modelica_DeviceDrivers/</a> (switch to the <i>master</i> branch for the latest development version). You can use the issue tracker provided by GitHub to report bugs or other issues (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues\">https://github.com/modelica/Modelica_DeviceDrivers/issues</a>).</p>
-<p>
+
 <table border=\"0\" cellpadding=\"2\" cellspacing=\"2\">
 <tr><td colspan=\"1\" rowspan=\"2\" style=\"vertical-align: middle;\">
     <img src=\"modelica://Modelica_DeviceDrivers/Resources/Images/dlr_logo.png\">
@@ -41,7 +50,6 @@ For an introduction, have especially a look at:
 <tr><td style=\"vertical-align: top;\"><b>Copyright &copy; 2012-2013, DLR Institute of System Dynamics and Control</b></td>
 </tr>
 </table>
-</p>
 
 <p>
 <i>This Modelica package is <u>free</u> software and

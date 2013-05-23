@@ -40,19 +40,19 @@ package OperatingSystem
               textString="%name")}),
       Documentation(info="<html>
 <p>Synchronizes the simulation time of the simulation process with the operating system real-time clock. Different priority levels are supported:</p>
-<p><ul>
+<ul>
 <li>Idle</li>
 <li>Below Normal</li>
 <li>Normal</li>
 <li>High Priority</li>
 <li>Real-Time</li>
-</ul></p>
+</ul>
 <p>Note that the provided level of real-time synchronization is &quot;soft&quot;, meaning that there are no guarantees that dead lines are met or that latencies are restricted to a predictable (low) maximum. This is often enough to satisfy requirements for interactive simulations and can be compared to the real-time experience provided by computer games. However, applications requiring &quot;hard&quot; real-time synchronization (e.g. HIL simulations) are <b>not</b> satisfied!</p>
 <p>Using the &quot;High Priority&quot; and &quot;Real-Time&quot; priorities in Linux will usually require &quot;root&quot; privileges for the simulation process. Using the &quot;Real-Time&quot; priority in Linux with a low-latency kernel as provided by the PREEMPT_RT patch will even provide limited (however, implementation specific limitations given below still apply) &quot;hard&quot; real-time capabilities (see e.g., <a href=\"https://www.osadl.org/Realtime-Linux.projects-realtime-linux.0.html\">https://www.osadl.org/Realtime-Linux.projects-realtime-linux.0.html</a>).</p>
 <p><b>IMPORTANT</b>: This real-time synchronization is a hack. <i><b>Don&apos;t rely on it in any (safety) relevant applications there precise timing is mandatory</b></i>!</p>
-<p><h4><font color=\"#008000\">Implementation Notes</font></h4></p>
+<h4><font color=\"#008000\">Implementation Notes</font></h4>
 <p>The block introduces an equation with a call to an external C-function that takes the current simulation time as an argument. Within the C-function the simulation time is compared to the operating system real-time clock and execution of the thread is halted until simulation time == real-time. This equation will be added to the other model equations and sorted according to the (tool dependent) sorting algorithm. Therefore, no prediction can be made when, within the simulation cycle, the real-time synchronization function is called (e.g., it might be before, or after (external) inputs are read from a device or (external) outputs are written to a device).</p>
-<p><h4><font color=\"#008000\">Final Remark</font></h4></p>
+<h4><font color=\"#008000\">Final Remark</font></h4>
 <p>If your Modelica tool provides a better mechanism to real-time synchronization, consider to use that mechanism instead of that block. E.g., Dymola provides a &quot;Synchronize with real-time&quot; option within the solver settings. If that option is ticked the &quot;SynchronizeRealtime&quot; block is not needed! However, Dymola only supports that option for Windows (at least Dymola 2013 and below). Also, experiences of the authors indicate that compile and run-time performance seems sometimes better using the &quot;hackish&quot; block, than using the &quot;official&quot; real-time synchronization of Dymola. Please test for yourself, which option works best for you.</p>
 </html>"));
   end SynchronizeRealtime;

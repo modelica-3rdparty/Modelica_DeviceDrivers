@@ -7,17 +7,17 @@ package UsersGuide "User's Guide"
 
     annotation (Documentation(info="<html>
 <p>In this section, a first introduction to the Modelica_DeviceDrivers library is given at hand of several examples. </p>
-<p><h4><font color=\"#008000\">Introduction</font></h4></p>
+<h4><font color=\"#008000\">Introduction</font></h4>
 <p>The library allows to access some selected external devices in Modelica models. This is achieved by using the Modelica external C interface to call the appropriate C driver functions provided by the underlying operating system. Currently MS Windows and Linux is supported.</p>
 <p>The library is organized in several layers as indicated below. It is noteworthy that the library provides two high-level Drag &amp; Drop block interfaces. The first (.Blocks) is compatible to Modelica 3.2, using the traditional &quot;when sample()&quot; element for periodically calling Modelica functions from the Function Layer. The second (.ClockedBlocks) uses the<i> Synchronous Language Elements</i> extension introduced in Modelica 3.3 for periodic execution.</p>
 <p><img src=\"modelica://Modelica_DeviceDrivers/Resources/Images/DeviceDrivers_LayeredArchitecture.png\"/> </p>
-<p><h4><font color=\"#008000\">Usage Examples</font></h4></p>
+<h4><font color=\"#008000\">Usage Examples</font></h4>
 <p>Looking at the examples in <code>.Blocks.Examples</code> (or <code>.ClockedBlocks.Examples</code>, respectively) the usage of the library should be self-explanatory. In the following two exemplarily examples are considered.</p>
-<p><h5>User Input devices</h5></p>
+<h5>User Input devices</h5>
 <p> E.g., using a joystick or gamepad as input for a real-time simulation just requires to drag &amp; drop two blocks: <code>.Blocks.OperatingSystem.SynchronizeRealtime</code> and <code>.Blocks.InputDevices.JoystickInput</code> (or respectively, <code>.ClockedBlocks.OperatingSystem.SynchronizeRealtime</code> and <code>.ClockedBlocks.InputDevices.JoystickInput</code>). See the executable example at <code>.(Clocked)Blocks.Examples.TestInputJoystick</code>:</p>
 <p><img src=\"modelica://Modelica_DeviceDrivers/Resources/Images/TestInputJoystick.png\"/></p>
 <p>The <code>SynchronizeRealtime</code> block synchronizes the simulation time with the operating systems real-time clock. That allows interactive Modelica simulations, e.g., a vehicle driving simulation using a gamepad for user inputs.</p>
-<p><h5>Communication Devices</h5></p>
+<h5>Communication Devices</h5>
 <p>Communication devices like UDP or shared memory use a common packaging concept in order to send or receive data. Therefore the same Packager can be used with different communication devices, as indicated in the figure below.</p>
 <p><img src=\"modelica://Modelica_DeviceDrivers/Resources/Images/PackagingConcept.png\"/></p>
 </html>"));
@@ -107,13 +107,13 @@ First public version of the library.
       extends Modelica.Icons.ReleaseNotes;
 
       annotation (Documentation(info="<html>
-<p><ul>
+<ul>
 <li>Improved Modelica 3.3 standard conformance (hopefully completely standard conform by now)</li>
 <li>Included support for the <i>Linux Controller Area Network Protocol Family</i> (aka <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SocketCAN\">Socket CAN</a>). This is considered an <i><b>alpha feature</b></i>. Therefore the API is not stable and testing has been very limited.</li>
 <li>The cmake based build system for the external C sources of this library has been improved to be more robust and better documented.</li>
 <li>Bugs in the SerialPackager&apos;s <code>AddString</code> and <code>GetString</code> blocks have been resolved and new blocks <code>AddFloat</code> and <code>GetFloat</code> are now available.</li>
 <li>Some smaller additional bugfixes and improvements.</li>
-</ul></p>
+</ul>
 </html>"));
     end Version_1_1;
     annotation (Documentation(info="<html>
