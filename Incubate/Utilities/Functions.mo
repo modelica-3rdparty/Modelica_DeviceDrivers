@@ -1045,21 +1045,9 @@ ezxml_t ezxml_cut(ezxml_t xml)
   external"C" u=  parseParameter(file, name);
 
     annotation (Include="
-#define VOID void
-typedef char CHAR;
-typedef short SHORT;
-typedef long LONG;
-typedef unsigned char   u_char;
-typedef unsigned short  u_short;
-typedef unsigned int    u_int;
-typedef unsigned long   u_long;
-typedef unsigned __int64 u_int64;
-#include <winsock2.h>//for compatibility reasons 
-#include <windows.h> 
-
 #include <stdio.h>
 #include <string.h>
-#include <stdlib.h>
+
 
 #include <ModelicaUtilities.h>
 double parseParameter(const char * file, const char * name)
