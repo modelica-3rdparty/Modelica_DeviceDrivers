@@ -42,7 +42,7 @@ package Communication
     else
        while not newData loop
          // loop and block until new data was received
-         newData := Modelica_DeviceDrivers.Communication.UDPSocket_.getRecievedBytes(socket) > 0;
+         newData := Modelica_DeviceDrivers.Communication.UDPSocket_.getReceivedBytes(socket) > 0;
        end while;
     end if;
 
