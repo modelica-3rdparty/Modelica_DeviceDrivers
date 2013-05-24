@@ -104,7 +104,7 @@ annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
 for using the Linux Socket CAN bus interface!")}),
                                experiment(StopTime=1.0), Documentation(info="<html>
 <h4><font color=\"#008000\">Example for Linux Socket CAN interface support</font></h4>
-<p><b>Will only work on Linux!</b><p>
+<p><b>Will only work on Linux!</b></p>
 <p>Please, read the package information for <code><a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SocketCAN\">SocketCAN</a></code> first!</p>
 
 <h4><font color=\"#008000\">The example</font></h4>

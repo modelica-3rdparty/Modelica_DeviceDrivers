@@ -56,7 +56,7 @@ package OperatingSystem
 <p><b>IMPORTANT</b>: This real-time synchronization is a hack. <i><b>Don&apos;t rely on it in any (safety) relevant applications there precise timing is mandatory</b></i>!</p>
 <h4><font color=\"#008000\">Implementation Notes</font></h4>
 <p>The block introduces an equation with a call to an external C-function that takes the current simulation time as an argument. Within the C-function the simulation time is compared to the operating system real-time clock and execution of the thread is halted until simulation time == real-time. This equation will be added to the other model equations and sorted according to the (tool dependent) sorting algorithm. Therefore, no prediction can be made when, within the simulation cycle, the real-time synchronization function is called (e.g., it might be before, or after (external) inputs are read from a device or (external) outputs are written to a device).</p>
-<h4><font color=\"#008000\">Final Remark</font>
+<h4><font color=\"#008000\">Final Remark</font></h4>
 <p>If your Modelica tool provides a better mechanism to real-time synchronization, consider to use that mechanism instead of that block. E.g., Dymola provides a &quot;Synchronize with real-time&quot; option within the solver settings. If that option is ticked the &quot;SynchronizeRealtime&quot; block is not needed! However, Dymola only supports that option for Windows (at least Dymola 2013 and below). Also, experiences of the authors indicate that compile and run-time performance seems sometimes better using the &quot;hackish&quot; block, than using the &quot;official&quot; real-time synchronization of Dymola. Please test for yourself, which option works best for you.</p>
 </html>"));
   end SynchronizeRealtime;
