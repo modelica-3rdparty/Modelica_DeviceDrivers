@@ -1047,7 +1047,7 @@ ezxml_t ezxml_cut(ezxml_t xml)
     annotation (Include="
 #include <stdio.h>
 #include <string.h>
-
+#include <stdlib.h>
 
 #include <ModelicaUtilities.h>
 double parseParameter(const char * file, const char * name)
