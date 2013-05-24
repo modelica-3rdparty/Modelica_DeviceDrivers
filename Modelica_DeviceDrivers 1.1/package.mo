@@ -3,12 +3,21 @@ package Modelica_DeviceDrivers "Modelica_DeviceDrivers (version 1.1) -  A collec
  extends Modelica.Icons.Package;
 
 
+
+
+
+
+
+
+
+
+
 annotation (preferredView="info",
   uses(Modelica(version="3.2"), Modelica_Synchronous(version="0.91")),
     version="1.1",
-    versionBuild=1,
+    versionBuild=2,
     versionDate="2013-04-24",
-    dateModified = "2013-05-10 13:52:51Z",
+    dateModified = "2013-05-24 18:16:51Z",
     revisionId="$Id$",
   Diagram(coordinateSystem(extent={{-120,-100},{80,100}})),
   Icon(coordinateSystem(extent={{-120,-100},{80,100}})),
@@ -31,17 +40,16 @@ For an introduction, have especially a look at:
      gives author and acknowledgement information for this library.</li>
 </ul>
 <p>The library is developed at <a href=\"https://github.com/modelica/Modelica_DeviceDrivers/\">https://github.com/modelica/Modelica_DeviceDrivers/</a> (switch to the <i>master</i> branch for the latest development version). You can use the issue tracker provided by GitHub to report bugs or other issues (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues\">https://github.com/modelica/Modelica_DeviceDrivers/issues</a>).</p>
-<p>
+
 <table border=\"0\" cellpadding=\"2\" cellspacing=\"2\">
 <tr><td colspan=\"1\" rowspan=\"2\" style=\"vertical-align: middle;\">
     <img src=\"modelica://Modelica_DeviceDrivers/Resources/Images/dlr_logo.png\">
     </td>
     <td style=\"vertical-align: top;\"><br><b>Licensed by DLR under the Modelica License 2</b></td>
 </tr>
-<tr><td style=\"vertical-align: top;\"><b>Copyright &copy; 2012, DLR Institute of System Dynamics and Control</b></td>
+<tr><td style=\"vertical-align: top;\"><b>Copyright &copy; 2012-2013, DLR Institute of System Dynamics and Control</b></td>
 </tr>
 </table>
-</p>
 
 <p>
 <i>This Modelica package is <u>free</u> software and
@@ -49,7 +57,7 @@ the use is completely at <u>your own risk</u>;
 it can be redistributed and/or modified under the terms of the
 Modelica license 2, see the license conditions (including the
 disclaimer of warranty)
-<a href=\"modelica://Modelica_DeviceDrivers.UsersGuide.ModelicaLicense2\">here</a></u>
+<a href=\"modelica://Modelica_DeviceDrivers.UsersGuide.ModelicaLicense2\">here</a>
 or at
 <a href=\"http://www.Modelica.org/licenses/ModelicaLicense2\">
 http://www.Modelica.org/licenses/ModelicaLicense2</a>.</i>

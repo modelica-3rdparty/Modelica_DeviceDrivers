@@ -235,7 +235,6 @@ package SerialPackager "Blocks for constructing packages"
 <p>
 The <code>Packager</code> block creates a packager object to which payload can be added by subsequent blocks.
 </p>
-<p>
 <h5>Advanced parameter settings</h5>
 <p>
 With the default parameter settings the buffer size (size of the serialized package), as well as the sample time of the block is determined automatically by
@@ -724,10 +723,10 @@ and one Integer value is added, serialized and finally sent using UDP.
                 "Modelica://Modelica_DeviceDrivers/Resources/Images/Icons/Int2BitArrow.png")}),
       Documentation(info="<html>
 <p>The block allows to pack unsigned integer values on bit level. The number of bits used for encoding is set by parameter <code>width</code>, therefore the maximum value of the integer signal that can be encoded is <code>2^width - 1</code>. The parameter <code>bitOffset</code> allows to specify the bit at which the encoding starts <b>relative</b> to the preceding block. </p>
-<p>If an <code>AddBoolean</code>, <code>AddInteger</code>, <code>AddReal</code> or <code>AddString</code> block follows a <code>PackUnsignedInteger</code> block the bit position after the <code>PackUnsignedInteger</code> block is aligned to the next byte boundery.<p>
+<p>If an <code>AddBoolean</code>, <code>AddInteger</code>, <code>AddReal</code> or <code>AddString</code> block follows a <code>PackUnsignedInteger</code> block the bit position after the <code>PackUnsignedInteger</code> block is aligned to the next byte boundery.</p>
 <h4><font color=\"#008000\">Endianness</font></h4>
 <p>Currently, the pack block only supports Intel-Endiannes (<b>little-endian!</b>).</p>
-<p>For information about endianness in computing see for example <a href\"http://en.wikipedia.org/wiki/Endianness\">http://en.wikipedia.org/wiki/Endianness</a></p>
+<p>For information about endianness in computing see for example <a href=\"http://en.wikipedia.org/wiki/Endianness\">http://en.wikipedia.org/wiki/Endianness</a></p>
 <h4><font color=\"#008000\">Example</font></h4>
 <p>
 The block is used in example
@@ -789,14 +788,14 @@ Value of bit                   : (0  0  0  0  0  0  1  1)  (.  .   .  .  .  .  0
             textString="I")}),
       Documentation(info="<html>
 <p>The block allows to unpack unsigned integer values on bit level. The number of bits used for decoding is set by parameter <code>width</code>. The parameter <code>bitOffset</code> allows to specify the bit at which the decoding starts <b>relative</b> to the preceding block. </p>
-<p>If an <code>GetBoolean</code>, <code>GetInteger</code>, <code>GetReal</code> or <code>GetString</code> block follows an <code>UnpackUnsignedInteger</code> block the bit position after the <code>UnpackUnsignedInteger</code> block is aligned to the next byte boundery.<p>
+<p>If an <code>GetBoolean</code>, <code>GetInteger</code>, <code>GetReal</code> or <code>GetString</code> block follows an <code>UnpackUnsignedInteger</code> block the bit position after the <code>UnpackUnsignedInteger</code> block is aligned to the next byte boundery.</p>
 <h4><font color=\"#008000\">Endianness</font></h4>
 <p>Currently, the pack block only supports Intel-Endiannes (<b>little-endian!</b>).</p>
-<p>For information about endianness in computing see for example <a href\"http://en.wikipedia.org/wiki/Endianness\">http://en.wikipedia.org/wiki/Endianness</a></p>
+<p>For information about endianness in computing see for example <a href=\"http://en.wikipedia.org/wiki/Endianness\">http://en.wikipedia.org/wiki/Endianness</a></p>
 <h4><font color=\"#008000\">Example</font></h4>
 <p>
 The block is used in example
-<a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackagerBitUnpack_UDP\"><code>TestSerialPackagerBitUnpack_UDP</code></a>, depicted below.
+<a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackagerBitPack_UDP\"><code>TestSerialPackagerBitPack_UDP</code></a>, depicted below.
 </p>
 <p><img src=\"modelica://Modelica_DeviceDrivers/Resources/Images/TestSerialPackagerBitUnpack_UDP_model.png\"/></p>
 The first 3*8 byte of the payload is deserialized to Real variables. After that two Integer variables are unpacked from the payload. Finally one Integer variable is deserialized using an ordinary <code>GetInteger</code> block.  Assume that we had the memory layout below and would like to unpack the second Integer value. A '.' denotes that the bit is not part of the bits encoding the value (LSB = Least Significant Byte and MSB = Most Significant Byte).

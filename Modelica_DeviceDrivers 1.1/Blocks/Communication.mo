@@ -249,7 +249,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
                                   Diagram(graphics),
         Documentation(info="<html>
 <h4><font color=\"#008000\">Support for Softing CAN bus</font></h4>
-<p><b>Please, read the package information for <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN\"><code>SoftingCAN</code></a> first!</p>
+<p><b>Please, read the package information for <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN\"><code>SoftingCAN</code></a> first!</b></p>
 <h4><font color=\"#008000\">Example</font></h4>
 <p>
 See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackager_SoftingCAN\"><code>TestSerialPackager_SoftingCAN</code></a>.
@@ -309,7 +309,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
         Diagram(graphics),
         Documentation(info="<html>
 <h4><font color=\"#008000\">Support for Softing CAN bus</font></h4>
-<p><b>Please, read the package information for <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN\"><code>SoftingCAN</code></a> first!</p>
+<p><b>Please, read the package information for <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN\"><code>SoftingCAN</code></a> first!</b></p>
 <h4><font color=\"#008000\">Example</font></h4>
 <p>
 See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackager_SoftingCAN\"><code>TestSerialPackager_SoftingCAN</code></a>.
@@ -371,7 +371,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
         Diagram(graphics),
         Documentation(info="<html>
 <h4><font color=\"#008000\">Support for Softing CAN bus</font></h4>
-<p><b>Please, read the package information for <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN\"><code>SoftingCAN</code></a> first!</p>
+<p><b>Please, read the package information for <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN\"><code>SoftingCAN</code></a> first!</b></p>
 <h4><font color=\"#008000\">Example</font></h4>
 <p>
 See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackager_SoftingCAN\"><code>TestSerialPackager_SoftingCAN</code></a>.
@@ -412,9 +412,9 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
     end Internal;
     annotation (preferredView="info",
     Documentation(info="<html>
-<p><h4><font color=\"#008000\">Prototypical support for Softing CAN interfaces</font></h4></p>
+<h4><font color=\"#008000\">Prototypical support for Softing CAN interfaces</font></h4>
 Please note, that the support for CAN is considered <b>prototypical</b>. Even more than for the other elements in this library there might be severe bugs in it and you use it on <b>your own risk</b>. Additionally, the API of the blocks is more likely to change in the future. So please, refrain from using it for building your next nuclear power plant or fly-by-wire system ...
-<h4><font color=\"#008000\">System Requirements</font></h4>
+<font color=\"#008000\">System Requirements</font>
 <p>
 The needed files are freely available from Softing, however the
 corresponding license sets limits on the distributability of the
@@ -475,7 +475,7 @@ not necessary mean that your Modelica tool compiles 64bit binaries, i.e., if in 
               textString="%ifr_name")}),
         Documentation(info="<html>
 <h4><font color=\"#008000\">Support for Linux Socket CAN bus</font></h4>
-<p><b>Please, read the package information for <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SocketCAN\"><code>SocketCAN</code></a> first!</p>
+<p><b>Please, read the package information for <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SocketCAN\"><code>SocketCAN</code></a> first!</b></p>
 <h4><font color=\"#008000\">Example</font></h4>
 <p>
 See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackager_SocketCAN\"><code>TestSerialPackager_SocketCAN</code></a>.
@@ -540,7 +540,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
                 graphics),
         Documentation(info="<html>
 <h4><font color=\"#008000\">Support for Linux Socket CAN interface</font></h4>
-<p><b>Please, read the package information for <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SocketCAN\"><code>SocketCAN</code></a> first!</p>
+<p><b>Please, read the package information for <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SocketCAN\"><code>SocketCAN</code></a> first!</b></p>
 <h4><font color=\"#008000\">Example</font></h4>
 <p>
 See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackager_SocketCAN\"><code>TestSerialPackager_SocketCAN</code></a>.
@@ -605,7 +605,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
                 graphics),
         Documentation(info="<html>
 <h4><font color=\"#008000\">Support for Linux Socket CAN interface</font></h4>
-<p><b>Please, read the package information for <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SocketCAN\"><code>SocketCAN</code></a> first!</p>
+<p><b>Please, read the package information for <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SocketCAN\"><code>SocketCAN</code></a> first!</b></p>
 <h4><font color=\"#008000\">Example</font></h4>
 <p>
 See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackager_SocketCAN\"><code>TestSerialPackager_SocketCAN</code></a>.
@@ -634,19 +634,18 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
     end writeDummy;
     end Internal;
     annotation (preferredView="info",Documentation(info="<html>
-<p><h4><font color=\"#008000\">Support for Linux Socket CAN interface</font></h4></p>
+<h4><font color=\"#008000\">Support for Linux Socket CAN interface</font></h4>
 <p>Modelica external function interface to use the CAN socket interface of the Linux kernel (<a href=\"http://svn.berlios.de/wsvn/socketcan/trunk/kernel/2.6/Documentation/networking/can.txt\">http://svn.berlios.de/wsvn/socketcan/trunk/kernel/2.6/Documentation/networking/can.txt</a>). </p>
-<p><b>So far only testet with the virtual CAN interface &QUOT;vcan&QUOT;</b>. However, in principle it should work similarly with an underlying &QUOT;real&QUOT; CAN-device which is supported by the Socket CAN interface.</p>
-<p><h4><font color=\"#008000\">Setup of a virtual CAN interface</font></h4></p>
+<p><b>So far only testet with the virtual CAN interface &quot;vcan&quot;</b>. However, in principle it should work similarly with an underlying &quot;real&quot; CAN-device which is supported by the Socket CAN interface.</p>
+<h4><font color=\"#008000\">Setup of a virtual CAN interface</font></h4>
 <p>Even if a Linux computer doesn&apos;t have a CAN device, it is possible to setup a virtual CAN device that can be used similarly to a physical device. This section discusses the necessary steps to bring up a virtual CAN device (tested with Ubuntu 12.04) which can be used with the <a href=\"Modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackager_SocketCAN\">SocketCAN example model</a>. Note that this usually requires root rights. Also executing the Modelica example model might require root rights.</p>
-<p><ul>
+<ul>
 <li>Load the vcan kernel model:<br/><code>sudo modprobe vcan</code></li>
-<li>Create a virtual CAN device with default name (default name will be &QUOT;vcan0&QUOT;):<br/><code>sudo ip link add type vcan</code></li>
+<li>Create a virtual CAN device with default name (default name will be &quot;vcan0&quot;):<br/><code>sudo ip link add type vcan</code></li>
 <li>Bring the device up:<br/><code>sudo ifconfig vcan0 up</code></li>
-</ul></p>
-<p><h4><font color=\"#008000\">Setup of a physical CAN interface</font></h4></p>
-<p>Please have a look in the respective documentation to Socket CAN. A physical CAN interface will require more
- configuration settings than the virtual interface (e.g., bitrate setting).</p>
+</ul>
+<h4><font color=\"#008000\">Setup of a physical CAN interface</font></h4>
+<p>Please have a look in the respective documentation to Socket CAN. A physical CAN interface will require more configuration settings than the virtual interface (e.g., bitrate setting).</p>
 </html>"));
   end SocketCAN;
 

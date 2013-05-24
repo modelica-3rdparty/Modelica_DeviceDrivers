@@ -22,12 +22,12 @@ annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include
            Include = "#include \"MDDUDPSocket.h\" ");
 end sendTo;
 
-encapsulated function getRecievedBytes
+encapsulated function getReceivedBytes
     import Modelica_DeviceDrivers.Communication.UDPSocket;
   input UDPSocket socket;
-  output Integer receivedBytes "number of Bytes recieved";
-  external "C" receivedBytes =  MDD_udpGetRecievedBytes(socket);
+  output Integer receivedBytes "number of Bytes received";
+  external "C" receivedBytes =  MDD_udpGetReceivedBytes(socket);
   annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
            Include = "#include \"MDDUDPSocket.h\" ");
-end getRecievedBytes;
+end getReceivedBytes;
 end UDPSocket_;

@@ -7,7 +7,7 @@ extends Modelica.Icons.Example;
   InputDevices.KeyboardKeyInput keyboardKeyInput(keyCode="Space")
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   annotation (experiment(StopTime=5.0), Documentation(info="<html>
-<p>Basic example of using a keyboard as input device. For this example the parameter <code>keyCode</code> is set to the &QUOT;space&QUOT; key. Therefore, pressing <i>space</i> while the simulation is running will turn the output of the block to <b>true</b>, otherwise it is <b>false</b>
+<p>Basic example of using a keyboard as input device. For this example the parameter <code>keyCode</code> is set to the &quot;space&quot; key. Therefore, pressing <i>space</i> while the simulation is running will turn the output of the block to <b>true</b>, otherwise it is <b>false</b>
 </p>
 </html>"));
 end TestInputKeyboardKey;
