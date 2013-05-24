@@ -64,8 +64,8 @@ Extends from Modelica.Icons.Package (Icon for standard packages).
 <P></P><H3>Information</H3>
 <PRE></pre>
 <p>Record for configuring a Comedi device. At initialization time the comedi device given by the parameter <code>deviceName </code>will be opened and a handle to that device will be assigned to the final parameter<code> dh.</code>This handle needs to be passed as parameter to the remaining Comedi read and write blocks<code>.</code></p>
-<p><h4><font color="#008000">Note</font></h4></p>
-<p>Only supported for Linux, since Comedi is only available for linux (<a href="http://www.comedi.org/">http://www.comedi.org/</a>). Requires that Comedilib is installed and that the simulation process has sufficiant privileges to access the intended device (usually that requires &QUOT;root&QUOT; privileges).  </p>
+<h4><font color="#008000">Note</font></h4>
+<p>Only supported for Linux, since Comedi is only available for linux (<a href="http://www.comedi.org/">http://www.comedi.org/</a>). Requires that Comedilib is installed and that the simulation process has sufficiant privileges to access the intended device (usually that requires &quot;root&quot; privileges).  </p>
 <pre></PRE><P></P>
 Extends from <A HREF="Modelica_DeviceDrivers_Utilities_Icons.html#Modelica_DeviceDrivers.Utilities.Icons.ComediRecordIcon"
 >Modelica_DeviceDrivers.Utilities.Icons.ComediRecordIcon</A> (Icon for comedi records (Tux from JZA placed into the public domain, http://openclipart.org/detail/168653/tux-enhanced-by-jza).).
@@ -84,9 +84,9 @@ Extends from <A HREF="Modelica_DeviceDrivers_Utilities_Icons.html#Modelica_Devic
 <P></P><H3>Information</H3>
 <PRE></pre>
 <p>The parameter <code>comedi</code> needs to be set to a valid Comedi device handle, i.e., needs to be set to the record member <code>dh</code> of a <code>ComediConfig</code> record instance.</p>
-<p>Wraps the Comedi function<code> comedi_data_write(..)</code>. See the Comedi documentation for the meanings of the parameters <code>subDevice, channel, range, aref</code>.</p>
-<p><h4><font color="#008000">Note</font></h4></p>
-<p>Only supported for Linux, since Comedi is only available for linux (<a href="http://www.comedi.org/">http://www.comedi.org/</a>). Requires that Comedilib is installed and that the simulation process has sufficiant privileges to access the intended device (usually that means &QUOT;root&QUOT; privileges). </p>
+<p>Wraps the Comedi function<code> comedi_data_write(..)</code>. See the Comedi documentation for the meanings of the parameters <code>subDevice, channel, range, aref</code>.</
+<h4><font color="#008000">Note</font></h4>
+<p>Only supported for Linux, since Comedi is only available for linux (<a href="http://www.comedi.org/">http://www.comedi.org/</a>). Requires that Comedilib is installed and that the simulation process has sufficiant privileges to access the intended device (usually that means &quot;root&quot; privileges). </p>
 <pre></PRE><P></P>
 Extends from <A HREF="Modelica_DeviceDrivers_Utilities_Icons.html#Modelica_DeviceDrivers.Utilities.Icons.ComediBlockIcon"
 >Modelica_DeviceDrivers.Utilities.Icons.ComediBlockIcon</A> (Icon for (Linux) Comedi blocks).
@@ -116,8 +116,8 @@ Extends from <A HREF="Modelica_DeviceDrivers_Utilities_Icons.html#Modelica_Devic
 <PRE></pre>
 <p>The parameter <code>comedi</code> needs to be set to a valid Comedi device handle, i.e., needs to be set to the record member <code>dh</code> of a <code>ComediConfig</code> record instance.</p>
 <p>Wraps the Comedi function<code> comedi_data_read(..)</code>. See the Comedi documentation for the meanings of the parameters <code>subDevice, channel, range, aref</code>.</p>
-<p><h4><font color="#008000">Note</font></h4></p>
-<p>Only supported for Linux, since Comedi is only available for linux (<a href="http://www.comedi.org/">http://www.comedi.org/</a>). Requires that Comedilib is installed and that the simulation process has sufficiant privileges to access the intended device (usually that means &QUOT;root&QUOT; privileges). </p>
+<h4><font color="#008000">Note</font></h4>
+<p>Only supported for Linux, since Comedi is only available for linux (<a href="http://www.comedi.org/">http://www.comedi.org/</a>). Requires that Comedilib is installed and that the simulation process has sufficiant privileges to access the intended device (usually that means &quot;root&quot; privileges). </p>
 <pre></PRE><P></P>
 Extends from <A HREF="Modelica_DeviceDrivers_Utilities_Icons.html#Modelica_DeviceDrivers.Utilities.Icons.ComediBlockIcon"
 >Modelica_DeviceDrivers.Utilities.Icons.ComediBlockIcon</A> (Icon for (Linux) Comedi blocks).
@@ -147,8 +147,8 @@ Extends from <A HREF="Modelica_DeviceDrivers_Utilities_Icons.html#Modelica_Devic
 <PRE></pre>
 <p>The parameter <code>comedi</code> needs to be set to a valid Comedi device handle, i.e., needs to be set to the record member <code>dh</code> of a <code>ComediConfig</code> record instance.</p>
 <p>Uses the Comedi function<code> comedi_from_phys(..)</code> to support providing a physical value (volts or milliamps) as input to the DAC. See the Comedi documentation for the meanings of the parameters <code>subDevice, channel, range, aref.</code></p>
-<p><h4><font color="#008000">Note</font></h4></p>
-<p>Only supported for Linux, since Comedi is only available for linux (<a href="http://www.comedi.org/">http://www.comedi.org/</a>). Requires that Comedilib is installed and that the simulation process has sufficiant privileges to access the intended device (usually that means &QUOT;root&QUOT; privileges). </p>
+<h4><font color="#008000">Note</font></h4>
+<p>Only supported for Linux, since Comedi is only available for linux (<a href="http://www.comedi.org/">http://www.comedi.org/</a>). Requires that Comedilib is installed and that the simulation process has sufficiant privileges to access the intended device (usually that means &quot;root&quot; privileges). </p>
 <pre></PRE><P></P>
 Extends from <A HREF="Modelica_DeviceDrivers_Utilities_Icons.html#Modelica_DeviceDrivers.Utilities.Icons.ComediBlockIcon"
 >Modelica_DeviceDrivers.Utilities.Icons.ComediBlockIcon</A> (Icon for (Linux) Comedi blocks).
@@ -178,8 +178,8 @@ Extends from <A HREF="Modelica_DeviceDrivers_Utilities_Icons.html#Modelica_Devic
 <PRE></pre>
 <p>The parameter <code>comedi</code> needs to be set to a valid Comedi device handle, i.e., needs to be set to the record member <code>dh</code> of a <code>ComediConfig</code> record instance.</p>
 <p>Uses the Comedi function<code> comedi_to_phys(..)</code> to convert a raw input obtained from the ADC to a physical value (volts or milliamps) . See the Comedi documentation for the meanings of the parameters <code>subDevice, channel, range, aref.</code></p>
-<p><h4><font color="#008000">Note</font></h4></p>
-<p>Only supported for Linux, since Comedi is only available for linux (<a href="http://www.comedi.org/">http://www.comedi.org/</a>). Requires that Comedilib is installed and that the simulation process has sufficiant privileges to access the intended device (usually that means &QUOT;root&QUOT; privileges). </p>
+<h4><font color="#008000">Note</font></h4>
+<p>Only supported for Linux, since Comedi is only available for linux (<a href="http://www.comedi.org/">http://www.comedi.org/</a>). Requires that Comedilib is installed and that the simulation process has sufficiant privileges to access the intended device (usually that means &quot;root&quot; privileges). </p>
 <pre></PRE><P></P>
 Extends from <A HREF="Modelica_DeviceDrivers_Utilities_Icons.html#Modelica_DeviceDrivers.Utilities.Icons.ComediBlockIcon"
 >Modelica_DeviceDrivers.Utilities.Icons.ComediBlockIcon</A> (Icon for (Linux) Comedi blocks).
@@ -209,8 +209,8 @@ Extends from <A HREF="Modelica_DeviceDrivers_Utilities_Icons.html#Modelica_Devic
 <PRE></pre>
 <p>The parameter <code>comedi</code> needs to be set to a valid Comedi device handle, i.e., needs to be set to the record member <code>dh</code> of a <code>ComediConfig</code> record instance.</p>
 <p>Wraps the Comedi function<code> comedi_dio_write(..)</code>. See the Comedi documentation for the meanings of the parameters <code>subDevice </code>and<code> channel</code>.</p>
-<p><h4><font color="#008000">Note</font></h4></p>
-<p>Only supported for Linux, since Comedi is only available for linux (<a href="http://www.comedi.org/">http://www.comedi.org/</a>). Requires that Comedilib is installed and that the simulation process has sufficiant privileges to access the intended device (usually that means &QUOT;root&QUOT; privileges). </p>
+<h4><font color="#008000">Note</font></h4>
+<p>Only supported for Linux, since Comedi is only available for linux (<a href="http://www.comedi.org/">http://www.comedi.org/</a>). Requires that Comedilib is installed and that the simulation process has sufficiant privileges to access the intended device (usually that means &quot;root&quot; privileges). </p>
 <pre></PRE><P></P>
 Extends from <A HREF="Modelica_DeviceDrivers_Utilities_Icons.html#Modelica_DeviceDrivers.Utilities.Icons.ComediBlockIcon"
 >Modelica_DeviceDrivers.Utilities.Icons.ComediBlockIcon</A> (Icon for (Linux) Comedi blocks).
@@ -238,8 +238,8 @@ Extends from <A HREF="Modelica_DeviceDrivers_Utilities_Icons.html#Modelica_Devic
 <PRE></pre>
 <p>The parameter <code>comedi</code> needs to be set to a valid Comedi device handle, i.e., needs to be set to the record member <code>dh</code> of a <code>ComediConfig</code> record instance.</p>
 <p>Wraps the Comedi function<code> comedi_dio_read(..)</code>. See the Comedi documentation for the meanings of the parameters <code>subDevice </code>and<code> channel</code>.</p>
-<p><h4><font color="#008000">Note</font></h4></p>
-<p>Only supported for Linux, since Comedi is only available for linux (<a href="http://www.comedi.org/">http://www.comedi.org/</a>). Requires that Comedilib is installed and that the simulation process has sufficiant privileges to access the intended device (usually that means &QUOT;root&QUOT; privileges). </p>
+<h4><font color="#008000">Note</font></h4>
+<p>Only supported for Linux, since Comedi is only available for linux (<a href="http://www.comedi.org/">http://www.comedi.org/</a>). Requires that Comedilib is installed and that the simulation process has sufficiant privileges to access the intended device (usually that means &quot;root&quot; privileges). </p>
 <pre></PRE><P></P>
 Extends from <A HREF="Modelica_DeviceDrivers_Utilities_Icons.html#Modelica_DeviceDrivers.Utilities.Icons.ComediBlockIcon"
 >Modelica_DeviceDrivers.Utilities.Icons.ComediBlockIcon</A> (Icon for (Linux) Comedi blocks).
@@ -256,6 +256,6 @@ Extends from <A HREF="Modelica_DeviceDrivers_Utilities_Icons.html#Modelica_Devic
 <TR><TH>Name</TH><TH>Description</TH></TR>
 <TR><TD>y</TD><TD>&nbsp;</TD></TR>
 </TABLE>
-<address><a href="http://www.3ds.com/">Automatically generated</a> Fri May 10 16:37:58 2013.
+<address><a href="http://www.3ds.com/">Automatically generated</a> Fri May 24 18:40:06 2013.
 </address></BODY>
 </HTML>
