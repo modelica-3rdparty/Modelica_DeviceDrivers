@@ -1,7 +1,7 @@
 within Modelica_DeviceDrivers.Incubate.Utilities;
 package Functions
   extends Modelica.Icons.Package;
-  function vectorToString "for printing in files"
+  function vectorToString "Writing vectors to files"
     input Real v[:];
     output String s;
   algorithm
@@ -14,7 +14,7 @@ package Functions
     end for;
   end vectorToString;
 
-  function matrixToString "converts a matrix to string for printing in files"
+  function matrixToString "Converts a matrix to string for printing in files"
     input Real A[:,:];
     output String s;
   algorithm
@@ -1038,7 +1038,7 @@ ezxml_t ezxml_cut(ezxml_t xml)
 ");
   end xmlLoader;
 
-  function loadRealParameter "loads a parameter from file"
+  function loadRealParameter "Loads a parameter from file"
     input String file="Washout.ini";
     input String name="K_Px";
     output Real u;
@@ -1110,7 +1110,7 @@ double parseParameter(const char * file, const char * name)
 
   end loadRealParameter;
 
-  function loadRealParameterVector "reads a parameter Vector from File"
+  function loadRealParameterVector "Reads a parameter Vector from File"
     import readRealParameter =
       Modelica_DeviceDrivers.Incubate.Utilities.Functions.loadRealParameter;
     input String file "name of configuration file";
@@ -1147,7 +1147,7 @@ void activateSplashScreen()
   end activateSplashScreen;
 
   function incrementalCounter
-    "an incremental integer counter, implemented as file"
+    "Incremental integer counter, implemented as file"
     input String filename="counter.txt";
     output Integer y "incremental counter";
   external"C" y=  MD_getCounter(filename);
