@@ -5,7 +5,7 @@
  * @version     $Id$
  * @since       2012-12-22
  * @copyright Modelica License 2
- * @test Test for MDDSocketCAN.c.
+ * @test Test for MDDSocketCAN.h
  *
 */
 
