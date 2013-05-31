@@ -48,7 +48,9 @@ package InputDevices
               0)));
   protected
     Integer keyStateInt(start=0,fixed=true);
-    Integer keyCodeInt =   if (keyCode == "Return") then 13 else
+    Integer keyCodeInt =   if (keyCode == "Y") then 89 else
+                           if (keyCode == "Z") then 90 else
+                           if (keyCode == "Return") then 13 else
                            if (keyCode == "Control") then 17 else
                            if (keyCode == "Space") then 32 else
                            if (keyCode == "Alt") then 18 else
@@ -61,6 +63,20 @@ package InputDevices
                            if (keyCode == "Page Up") then 33 else
                            if (keyCode == "Page Down") then 34 else
                            if (keyCode == "Tab") then 9 else
+                           if (keyCode == "Num0") then 96 else
+                           if (keyCode == "Num1") then 97 else
+                           if (keyCode == "Num2") then 98 else
+                           if (keyCode == "Num3") then 99 else
+                           if (keyCode == "Num4") then 100 else
+                           if (keyCode == "Num5") then 101 else
+                           if (keyCode == "Num6") then 102 else
+                           if (keyCode == "Num7") then 103 else
+                           if (keyCode == "Num8") then 104 else
+                           if (keyCode == "Num9") then 105 else
+                           if (keyCode == "Add") then 107 else
+                           if (keyCode == "Sub") then 109 else
+                           if (keyCode == "Mult") then 106 else
+                           if (keyCode == "Div") then 111 else
                            if (keyCode == "F1") then 112 else
                            if (keyCode == "F2") then 113 else
                            if (keyCode == "F3") then 114 else
@@ -371,9 +387,11 @@ package InputDevices
       extends Modelica.Icons.Package;
     type keyCodes =  Modelica.Icons.TypeString
     annotation (
-      preferredView="text",
+      preferedView="text",
       Evaluate=true,
       choices(
+        choice="Y" "Y",
+        choice="Z" "Z",
         choice="Return" "Return",
         choice="Control" "Control",
         choice="Space" "Space",
@@ -387,6 +405,20 @@ package InputDevices
         choice="Page Up" "Page Up",
         choice="Page Down" "Page Down",
         choice="Tab" "Tab",
+        choice="Num0" "Num0",
+        choice="Num1" "Num1",
+        choice="Num2" "Num2",
+        choice="Num3" "Num3",
+        choice="Num4" "Num4",
+        choice="Num5" "Num5",
+        choice="Num6" "Num6",
+        choice="Num7" "Num7",
+        choice="Num8" "Num8",
+        choice="Num9" "Num9",
+        choice="Add" "Add",
+        choice="Sub" "Sub",
+        choice="Mult" "Mult",
+        choice="Div" "Div",
         choice="F1" "F1",
         choice="F2" "F2",
         choice="F3" "F3",

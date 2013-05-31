@@ -95,7 +95,9 @@
     for (i=0; i<124; i++) {
       w2lKey[i] = 0;
     }
-
+    /* Windows seems not to distinguish between upper/lower case. We decide to map to lower */
+    w2lKey[89] = XKeysymToKeycode(display, XK_y);
+    w2lKey[90] = XKeysymToKeycode(display, XK_z);
     w2lKey[13] = XKeysymToKeycode(display, XK_Return);
     /* left control key is set, right would be XK_Control_R */
     w2lKey[17] = XKeysymToKeycode(display, XK_Control_L);
@@ -111,6 +113,22 @@
     w2lKey[33] = XKeysymToKeycode(display, XK_Page_Up);
     w2lKey[34] = XKeysymToKeycode(display, XK_Page_Down);
     w2lKey[9]  = XKeysymToKeycode(display, XK_Tab);
+    /* Keypad numbers */
+    w2lKey[96]  = XKeysymToKeycode(display, XK_KP_0);
+    w2lKey[97]  = XKeysymToKeycode(display, XK_KP_1);
+    w2lKey[98]  = XKeysymToKeycode(display, XK_KP_2);
+    w2lKey[99]  = XKeysymToKeycode(display, XK_KP_3);
+    w2lKey[100]  = XKeysymToKeycode(display, XK_KP_4);
+    w2lKey[101]  = XKeysymToKeycode(display, XK_KP_5);
+    w2lKey[102]  = XKeysymToKeycode(display, XK_KP_6);
+    w2lKey[103]  = XKeysymToKeycode(display, XK_KP_7);
+    w2lKey[104]  = XKeysymToKeycode(display, XK_KP_8);
+    w2lKey[105]  = XKeysymToKeycode(display, XK_KP_9);
+    /* Keypad functions hopefully map unambiguously to respective windows virtual keys ... */
+    w2lKey[107]  = XKeysymToKeycode(display, XK_KP_Add);
+    w2lKey[109]  = XKeysymToKeycode(display, XK_KP_Subtract);
+    w2lKey[106]  = XKeysymToKeycode(display, XK_KP_Multiply);
+    w2lKey[111]  = XKeysymToKeycode(display, XK_KP_Divide);
     /* Note that XK_F1 - XK_F4 might also be at the keypad in which
      * they have the code XK_KP_F1 - XK_KP_F4 */
     w2lKey[112] = XKeysymToKeycode(display, XK_F1);
