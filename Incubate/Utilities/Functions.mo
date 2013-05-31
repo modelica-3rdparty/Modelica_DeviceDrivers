@@ -1042,59 +1042,10 @@ ezxml_t ezxml_cut(ezxml_t xml)
     input String file="Washout.ini";
     input String name="K_Px";
     output Real u;
-  external"C" u=  parseParameter(file, name);
 
-    annotation (Include="
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-
-#include <ModelicaUtilities.h>
-double parseParameter(const char * file, const char * name)
-{
-  FILE * pFile;
-  char line[512];
-  char * namePos;
-  double u;
-  pFile = fopen (file,\"r\");
-  
-  //file existent?
-  if (pFile==NULL)
-  {
-    ModelicaFormatError(\"Could not open file %s.\\n\",file);
-  }
-  
-  //read every line of file one after another:
-  while(fgets (line , 512 , pFile) != NULL )
-  {
-
-    //find the name of the variable in string
-    namePos = strstr (line,name);
-    
-    //if variable name found and the next character after the name is a space, tabulator or = then it is a valid name.
-    if(namePos && (namePos[strlen(name)] == ' ' || namePos[strlen(name)] == '=' || namePos[strlen(name)] == '\t'))
-    {
-      
-      //find the =
-      namePos=strchr(namePos+1,'=');
-      
-      if(namePos)
-      {
-        u = atof(namePos+1);
-        fclose (pFile);
-        return u;
-
-      }
-    }
-  
-  }
-  
-  fclose (pFile);
-  ModelicaFormatError(\"Parameter name not found: %s\",name);
-  return 0;
-}
-
-");
+  external"C" u=  MDD_utilitiesLoadRealParameter(file, name);
+  annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
+             Include = "#include \"MDDUtilities.h\" ");
 
   end loadRealParameter;
 

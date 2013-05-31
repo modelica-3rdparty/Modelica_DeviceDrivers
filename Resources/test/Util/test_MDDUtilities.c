@@ -13,12 +13,12 @@
 #include <string.h>
 #include "../../Include/MDDUtilities.h"
 
-int test_parseParameter() {
+int test_MDD_utilitiesLoadRealParameter() {
   int failed = 0;
   double result;
   const double expected = 13;
 
-  result = parseParameter("parameterInitValues.txt", "var1");
+  result = MDD_utilitiesLoadRealParameter("parameterInitValues.txt", "var1");
   failed = (result == expected ? 0 : 1);
 
   return failed;
@@ -27,7 +27,7 @@ int test_parseParameter() {
 int main() {
   int failed = 0;
   printf("Testing parseParameter() from MDDUtilities.h ...");
-  failed = test_parseParameter();
+  failed = test_MDD_utilitiesLoadRealParameter();
 
   failed == 0 ? printf("\tOK.\n") : printf("\tFAILED\n");
   return failed;

@@ -17,7 +17,7 @@
 #include <stdlib.h>
 #include <ModelicaUtilities.h>
 
-double parseParameter(const char * file, const char * name)
+double MDD_utilitiesLoadRealParameter(const char * file, const char * name)
 {
   FILE * pFile;
   char line[512];
