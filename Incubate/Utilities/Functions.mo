@@ -1038,29 +1038,7 @@ ezxml_t ezxml_cut(ezxml_t xml)
 ");
   end xmlLoader;
 
-  function loadRealParameter "Loads a parameter from file"
-    input String file="Washout.ini";
-    input String name="K_Px";
-    output Real u;
 
-  external"C" u=  MDD_utilitiesLoadRealParameter(file, name);
-  annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
-             Include = "#include \"MDDUtilities.h\" ");
-
-  end loadRealParameter;
-
-  function loadRealParameterVector "Reads a parameter Vector from File"
-    import readRealParameter =
-      Modelica_DeviceDrivers.Incubate.Utilities.Functions.loadRealParameter;
-    input String file "name of configuration file";
-    input String name "name of parameter";
-    input Integer n "length of vector";
-    output Real u[n] "parameter vector";
-  algorithm
-    for i in 1:n loop
-      u[i] := readRealParameter(file, name + "_" + String(i));
-    end for;
-  end loadRealParameterVector;
 
   function activateSplashScreen
 
