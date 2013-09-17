@@ -28,12 +28,13 @@ The second interface uses the synchronous language elements introduced in Modeli
 
 ## Current release
 
-Download [Modelica_DeviceDrivers v1.1 (2013-04-24)](../../archive/v1.1build2.zip)
+Download [Modelica_DeviceDrivers v1.1 (2013-04-24)](../../archive/v1.1build3.zip)
 
 Please note that currently (2013-05-10) the only Modelica tool that is known to work well with the library is Dymola (preferable Dymola 2013FD01 and later). If you tested the library successfully with another Modelica tool, please contact me (Bernhard), so that I can include that information.
 
 #### Release notes
-*  [Version v1.1 (2013-04-23)](../../archive/v1.1build2.zip)
+*  [Version v1.1 (2013-04-23)](../../archive/v1.1build3.zip)
+  * Latest build (2013-09-17) uses latest Modelica Standard Library version 3.2.1, but will also work with previous version 3.2.
   * Improved Modelica 3.3 standard conformance (hopefully completely standard conform by now)
   * Included support for the Linux Controller Area Network Protocol Family (aka Socket CAN). This is considered an alpha feature. Therefore the API is not stable and testing has been very limited
   * The cmake based build system for the external C sources of this library has been improved to be more robust and better documented.
