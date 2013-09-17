@@ -13,11 +13,11 @@ package Modelica_DeviceDrivers "Modelica_DeviceDrivers (version 1.1) -  A collec
 
 
 annotation (preferredView="info",
-  uses(Modelica(version="3.2"), Modelica_Synchronous(version="0.91")),
+  uses(Modelica(version="3.2.1"), Modelica_Synchronous(version="0.91")),
     version="1.1",
-    versionBuild=2,
+    versionBuild=3,
     versionDate="2013-04-24",
-    dateModified = "2013-05-24 18:16:51Z",
+    dateModified = "2013-09-17 13:30:00Z",
     revisionId="$Id$",
   Diagram(coordinateSystem(extent={{-120,-100},{80,100}})),
   Icon(coordinateSystem(extent={{-120,-100},{80,100}})),
