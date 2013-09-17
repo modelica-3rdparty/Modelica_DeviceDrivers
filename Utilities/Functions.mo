@@ -13,7 +13,7 @@ package Functions
 <h4><font color=\"#008000\">Load parameters from file during initialization</font></h4>
 <p>The function expects a file format in the style <code>&quot;identifier=value&quot;</code>.</p>
 <h4><font color=\"#008000\">Example</font></h4>
-<p>Consider following example file and assume it saved under location<br/>
+<p>Consider following example file and assume it's saved under location<br/>
 <code>Modelica_DeviceDrivers.Utilities.RootDir+&quot;/Resources/test/Util/parameterInitValues.txt&quot;</code>:</p>
 <pre>
 arrayvar_1=0.1
