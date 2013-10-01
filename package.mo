@@ -13,12 +13,12 @@ package Modelica_DeviceDrivers "Modelica_DeviceDrivers - A collection of drivers
 
 
 annotation (preferredView="info",
-  uses(                           Modelica_Synchronous(version="0.91"),
+  uses(Modelica_Synchronous(version="0.92"),
       Modelica(version="3.2.1")),
-    version="1.2 Develop",
+    version="1.2",
     versionBuild=1,
-    versionDate="2013-04-24",
-    dateModified = "2013-05-31 17:10:51Z",
+    versionDate="2013-10-01",
+    dateModified = "2013-10-01 14:10:51Z",
     revisionId="$Id$",
   Diagram(coordinateSystem(extent={{-120,-100},{80,100}})),
   Icon(coordinateSystem(extent={{-120,-100},{80,100}})),

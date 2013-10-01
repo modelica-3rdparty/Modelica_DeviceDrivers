@@ -116,6 +116,17 @@ First public version of the library.
 </ul>
 </html>"));
     end Version_1_1;
+
+    class Version_1_2 "Version 1.2 (Octobre 01, 2013)"
+      extends Modelica.Icons.ReleaseNotes;
+
+      annotation (Documentation(info="<html>
+<ul>
+<li>Adapted to the conventions of the Modelica Standard Library 3.2.1 and Modelica_Synchronous 0.92.</li>
+<li>Utility functions to load parameters from a file.</li>
+</ul>
+</html>"));
+    end Version_1_2;
     annotation (Documentation(info="<html>
 <p>
 This section summarizes the changes that have been performed
@@ -742,7 +753,6 @@ printing and shipping costs may be recovered.</p>
 </body>
 </html>"));
 end ModelicaLicense2;
-
 
   class Contact "Contact"
     extends Modelica.Icons.Contact;
