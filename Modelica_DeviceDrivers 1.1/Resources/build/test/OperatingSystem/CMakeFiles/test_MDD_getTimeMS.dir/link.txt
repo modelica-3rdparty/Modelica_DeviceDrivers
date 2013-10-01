@@ -1,1 +1,0 @@
-/usr/bin/gcc  -m32     CMakeFiles/test_MDD_getTimeMS.dir/test_MDD_getTimeMS.c.o CMakeFiles/test_MDD_getTimeMS.dir/__/Util/ModelicaUtilities.c.o  -o test_MDD_getTimeMS -rdynamic -lm -lrt 

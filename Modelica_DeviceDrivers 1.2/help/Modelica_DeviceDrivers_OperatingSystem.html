@@ -1,0 +1,137 @@
+<HTML>
+<HEAD>
+<TITLE>Modelica_DeviceDrivers.OperatingSystem</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;This package contains several useful implementations of the OS API, for example, a mutex,  a sleep command, etc&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+</HEAD>
+<BODY><P></P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE OperatingSystem<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Modelica_DeviceDrivers.OperatingSystem"></A><A HREF="Modelica_DeviceDrivers.html#Modelica_DeviceDrivers"
+>Modelica_DeviceDrivers</A>.OperatingSystem</H2>
+<B>This package contains several useful implementations of the OS API, for example, a mutex,  a sleep command, etc</B>
+<P></P>
+<P></P><H3>Information</H3>
+Extends from <A HREF="../../../worklibrary/Modelica SVN/help/Modelica_Icons_Package.html#Modelica.Icons.Package"
+>Modelica.Icons.Package</A> (Icon for standard packages).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Modelica_DeviceDrivers.Indf6783c106e8feeatDataS.png" ALT="Modelica_DeviceDrivers.OperatingSystem.beep" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Modelica_DeviceDrivers_OperatingSystem.html#Modelica_DeviceDrivers.OperatingSystem.beep"
+>beep</A>
+</TD><TD>it beeps.</TD></TR>
+<TR><TD><IMG SRC="Modelica_DeviceDrivers.Indf6783c106e8feeatDataS.png" ALT="Modelica_DeviceDrivers.OperatingSystem.clock" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Modelica_DeviceDrivers_OperatingSystem.html#Modelica_DeviceDrivers.OperatingSystem.clock"
+>clock</A>
+</TD><TD>the time since OS startup in ms</TD></TR>
+<TR><TD><IMG SRC="Modelica_DeviceDrivers.Indf6783c106e8feeatDataS.png" ALT="Modelica_DeviceDrivers.OperatingSystem.randomReal" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Modelica_DeviceDrivers_OperatingSystem.html#Modelica_DeviceDrivers.OperatingSystem.randomReal"
+>randomReal</A>
+</TD><TD>returns a random real within the given Range.</TD></TR>
+<TR><TD><IMG SRC="Modelica_DeviceDrivers.Indf6783c106e8feeatDataS.png" ALT="Modelica_DeviceDrivers.OperatingSystem.realtimeSynchronize" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Modelica_DeviceDrivers_OperatingSystem.html#Modelica_DeviceDrivers.OperatingSystem.realtimeSynchronize"
+>realtimeSynchronize</A>
+</TD><TD>pauses the simulation until synchronisation with realtime is achieved</TD></TR>
+<TR><TD><IMG SRC="Modelica_DeviceDrivers.Indf6783c106e8feeatDataS.png" ALT="Modelica_DeviceDrivers.OperatingSystem.setProcessPriority" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Modelica_DeviceDrivers_OperatingSystem.html#Modelica_DeviceDrivers.OperatingSystem.setProcessPriority"
+>setProcessPriority</A>
+</TD><TD>&nbsp;</TD></TR>
+<TR><TD><IMG SRC="Modelica_DeviceDrivers.Indf6783c106e8feeatDataS.png" ALT="Modelica_DeviceDrivers.OperatingSystem.sleep" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Modelica_DeviceDrivers_OperatingSystem.html#Modelica_DeviceDrivers.OperatingSystem.sleep"
+>sleep</A>
+</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE beep<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Modelica_DeviceDrivers.OperatingSystem.beep"></A><A HREF="Modelica_DeviceDrivers_OperatingSystem.html#Modelica_DeviceDrivers.OperatingSystem"
+>Modelica_DeviceDrivers.OperatingSystem</A>.beep</H2>
+<B>it beeps.</B><p></P>
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>frequency</TD><TD>&nbsp;</TD></TR>
+<TR><TD>duration</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE clock<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Modelica_DeviceDrivers.OperatingSystem.clock"></A><A HREF="Modelica_DeviceDrivers_OperatingSystem.html#Modelica_DeviceDrivers.OperatingSystem"
+>Modelica_DeviceDrivers.OperatingSystem</A>.clock</H2>
+<B>the time since OS startup in ms</B><p></P>
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>resolution</TD><TD>resultion of timer in ms</TD></TR>
+</TABLE>
+<P><H3>Outputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>clock</TD><TD>time in ms</TD></TR>
+</TABLE>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE randomReal<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Modelica_DeviceDrivers.OperatingSystem.randomReal"></A><A HREF="Modelica_DeviceDrivers_OperatingSystem.html#Modelica_DeviceDrivers.OperatingSystem"
+>Modelica_DeviceDrivers.OperatingSystem</A>.randomReal</H2>
+<B>returns a random real within the given Range.</B><p></P>
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>minValue</TD><TD>&nbsp;</TD></TR>
+<TR><TD>maxValue</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P><H3>Outputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>y</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE realtimeSynchronize<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Modelica_DeviceDrivers.OperatingSystem.realtimeSynchronize"></A><A HREF="Modelica_DeviceDrivers_OperatingSystem.html#Modelica_DeviceDrivers.OperatingSystem"
+>Modelica_DeviceDrivers.OperatingSystem</A>.realtimeSynchronize</H2>
+<B>pauses the simulation until synchronisation with realtime is achieved</B><p></P>
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>simTime</TD><TD>&nbsp;</TD></TR>
+<TR><TD>resolution</TD><TD>Only supported with Windows. Ignored if executing on Linux</TD></TR>
+</TABLE>
+<P><H3>Outputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>calculationTime</TD><TD>&nbsp;</TD></TR>
+<TR><TD>availableTime</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE setProcessPriority<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Modelica_DeviceDrivers.OperatingSystem.setProcessPriority"></A><A HREF="Modelica_DeviceDrivers_OperatingSystem.html#Modelica_DeviceDrivers.OperatingSystem"
+>Modelica_DeviceDrivers.OperatingSystem</A>.setProcessPriority</H2>
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>priority</TD><TD>Simulation process priority (-2(lowest)..2(realtime))</TD></TR>
+</TABLE>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE sleep<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Modelica_DeviceDrivers.OperatingSystem.sleep"></A><A HREF="Modelica_DeviceDrivers_OperatingSystem.html#Modelica_DeviceDrivers.OperatingSystem"
+>Modelica_DeviceDrivers.OperatingSystem</A>.sleep</H2>
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>sleepingTime</TD><TD>time (in seconds) during the simulation does nothing.</TD></TR>
+</TABLE>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Tue Oct  1 14:26:58 2013.
+</address></BODY>
+</HTML>

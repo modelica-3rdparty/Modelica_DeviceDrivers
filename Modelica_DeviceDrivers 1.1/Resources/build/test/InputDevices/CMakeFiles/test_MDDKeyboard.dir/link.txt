@@ -1,1 +1,0 @@
-/usr/bin/gcc  -m32     CMakeFiles/test_MDDKeyboard.dir/test_MDDKeyboard.c.o CMakeFiles/test_MDDKeyboard.dir/__/Util/ModelicaUtilities.c.o  -o test_MDDKeyboard -rdynamic -lX11 

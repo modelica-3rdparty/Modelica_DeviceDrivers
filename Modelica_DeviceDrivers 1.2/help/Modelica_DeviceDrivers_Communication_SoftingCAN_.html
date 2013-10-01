@@ -1,0 +1,109 @@
+<HTML>
+<HEAD>
+<TITLE>Modelica_DeviceDrivers.Communication.SoftingCAN_</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Accompanying functions for the SoftingCAN object&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+</HEAD>
+<BODY><P></P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE SoftingCAN_<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Modelica_DeviceDrivers.Communication.SoftingCAN_"></A><A HREF="Modelica_DeviceDrivers_Communication.html#Modelica_DeviceDrivers.Communication"
+>Modelica_DeviceDrivers.Communication</A>.SoftingCAN_</H2>
+<B>Accompanying functions for the SoftingCAN object</B>
+<P></P>
+<P></P><H3>Information</H3>
+Extends from <A HREF="Modelica_DeviceDrivers_Utilities_Icons_DriverIcon.html#Modelica_DeviceDrivers.Utilities.Icons.DriverIcon"
+>Modelica_DeviceDrivers.Utilities.Icons.DriverIcon</A> (An icon for a package with device driver functions.).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Modelica_DeviceDrivers.Co28b1d23969d3b939.readS.png" ALT="Modelica_DeviceDrivers.Communication.SoftingCAN_.defineObject" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Modelica_DeviceDrivers_Communication_SoftingCAN_.html#Modelica_DeviceDrivers.Communication.SoftingCAN_.defineObject"
+>defineObject</A>
+</TD><TD>Define available objects (CAN messages)</TD></TR>
+<TR><TD><IMG SRC="Modelica_DeviceDrivers.Co28b1d23969d3b939.readS.png" ALT="Modelica_DeviceDrivers.Communication.SoftingCAN_.startChip" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Modelica_DeviceDrivers_Communication_SoftingCAN_.html#Modelica_DeviceDrivers.Communication.SoftingCAN_.startChip"
+>startChip</A>
+</TD><TD>Put CAN controllers of both CAN channels into operational mode (all object definitions have to be completed before!)</TD></TR>
+<TR><TD><IMG SRC="Modelica_DeviceDrivers.Co28b1d23969d3b939.readS.png" ALT="Modelica_DeviceDrivers.Communication.SoftingCAN_.writeObject" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Modelica_DeviceDrivers_Communication_SoftingCAN_.html#Modelica_DeviceDrivers.Communication.SoftingCAN_.writeObject"
+>writeObject</A>
+</TD><TD>Write object (CAN message) to transmit buffer</TD></TR>
+<TR><TD><IMG SRC="Modelica_DeviceDrivers.Co28b1d23969d3b939.readS.png" ALT="Modelica_DeviceDrivers.Communication.SoftingCAN_.readRcvData" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Modelica_DeviceDrivers_Communication_SoftingCAN_.html#Modelica_DeviceDrivers.Communication.SoftingCAN_.readRcvData"
+>readRcvData</A>
+</TD><TD>Read data from object (CAN message)</TD></TR>
+</TABLE>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE defineObject<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Modelica_DeviceDrivers.Communication.SoftingCAN_.defineObject"></A><A HREF="Modelica_DeviceDrivers_Communication_SoftingCAN_.html#Modelica_DeviceDrivers.Communication.SoftingCAN_"
+>Modelica_DeviceDrivers.Communication.SoftingCAN_</A>.defineObject</H2>
+<B>Define available objects (CAN messages)</B><p></P>
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>softingCAN</TD><TD>Handle for device</TD></TR>
+<TR><TD>ident</TD><TD>Identifier of CAN message (CAN Id)</TD></TR>
+<TR><TD>transType</TD><TD>transmission type (receiving or sending)</TD></TR>
+</TABLE>
+<P><H3>Outputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>objectNumber</TD><TD>Object number of message. Needed for further queries regarding receiving/transmitting the message</TD></TR>
+</TABLE>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE startChip<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Modelica_DeviceDrivers.Communication.SoftingCAN_.startChip"></A><A HREF="Modelica_DeviceDrivers_Communication_SoftingCAN_.html#Modelica_DeviceDrivers.Communication.SoftingCAN_"
+>Modelica_DeviceDrivers.Communication.SoftingCAN_</A>.startChip</H2>
+<B>Put CAN controllers of both CAN channels into operational mode (all object definitions have to be completed before!)</B><p></P>
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>softingCAN</TD><TD>Handle for device</TD></TR>
+</TABLE>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE writeObject<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Modelica_DeviceDrivers.Communication.SoftingCAN_.writeObject"></A><A HREF="Modelica_DeviceDrivers_Communication_SoftingCAN_.html#Modelica_DeviceDrivers.Communication.SoftingCAN_"
+>Modelica_DeviceDrivers.Communication.SoftingCAN_</A>.writeObject</H2>
+<B>Write object (CAN message) to transmit buffer</B><p></P>
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>softingCAN</TD><TD>Handle for device</TD></TR>
+<TR><TD>objectNumber</TD><TD>Object number of message (from defineObject(..))</TD></TR>
+<TR><TD>dataLength</TD><TD>Length of message in bytes</TD></TR>
+<TR><TD>data</TD><TD>The payload data</TD></TR>
+</TABLE>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE readRcvData<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Modelica_DeviceDrivers.Communication.SoftingCAN_.readRcvData"></A><A HREF="Modelica_DeviceDrivers_Communication_SoftingCAN_.html#Modelica_DeviceDrivers.Communication.SoftingCAN_"
+>Modelica_DeviceDrivers.Communication.SoftingCAN_</A>.readRcvData</H2>
+<B>Read data from object (CAN message)</B><p></P>
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>softingCAN</TD><TD>Handle for device</TD></TR>
+<TR><TD>objectNumber</TD><TD>Object number of message (from defineObject(..))</TD></TR>
+<TR><TD>buffer</TD><TD>String which is capable to take at least 8 elements</TD></TR>
+</TABLE>
+<P><H3>Outputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>data</TD><TD>Payload data</TD></TR>
+</TABLE>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Tue Oct  1 14:26:58 2013.
+</address></BODY>
+</HTML>
