@@ -19,4 +19,12 @@ package Types "Custom type definitions"
       extendedReceive "Extended receive object",
       extendedTransmit "Extended transmit object")
     "Transmission type of CAN message";
+  type SerialBaudRate = enumeration(
+      B115200 "115.2k baud",
+      B57600 "56k baud",
+      B38400 "38.4k baud",
+      B19200 "19.2k baud",
+      B9600 "9600 baud",
+      B4800 "4800 baud",
+      B2400 "2400 baud") "Baud rate of serial device";
 end Types;

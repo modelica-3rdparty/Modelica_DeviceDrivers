@@ -211,6 +211,146 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
 </html>"));
   end UDPSend;
 
+  model SerialPortReceive
+    "A block for receiving serial datagrams using the serial interface"
+    extends Modelica_DeviceDrivers.Utilities.Icons.SerialPortIcon;
+    import Modelica_DeviceDrivers.Packaging.SerialPackager;
+    import Modelica_DeviceDrivers.Packaging.alignAtByteBoundery;
+    import Modelica_DeviceDrivers.Communication.SerialPort;
+    import Modelica_DeviceDrivers.Utilities.Types.SerialBaudRate;
+    parameter Real sampleTime=0.01 "Sample time for input update";
+    parameter Boolean autoBufferSize = true
+      "true, buffer size is deduced automatically, otherwise set it manually"
+      annotation(Dialog(group="Incoming data"), choices(__Dymola_checkBox=true));
+    parameter Integer userBufferSize=16*64
+      "Buffer size of message data in bytes (if not deduced automatically)" annotation(Dialog(enable=not autoBufferSize, group="Incoming data"));
+    parameter String Serial_Port="/dev/ttyPS1" "Serial port to send data"
+     annotation (Dialog(group="Incoming data"));
+    parameter SerialBaudRate baud= SerialBaudRate.B9600 "Serial port baud rate"
+    annotation (Dialog(group="Incoming data"));
+    parameter Integer parity = 0
+      "set parity (0 - no parity, 1 - even, 2 - odd)"
+        annotation (Dialog(group="Outgoing data"));
+    Modelica_DeviceDrivers.Blocks.Interfaces.PackageOut pkgOut
+                                       annotation (Placement(transformation(
+          extent={{-20,-20},{20,20}},
+          rotation=90,
+          origin={108,0})));
+
+  protected
+    Integer bufferSize;
+    SerialPort sPort;
+    parameter Integer receiver = 1 "Set to be a receiver port";
+
+  equation
+    when (initial()) then
+      bufferSize = if autoBufferSize then alignAtByteBoundery(pkgOut.autoPkgBitSize)
+        else userBufferSize;
+      pkgOut.pkg = SerialPackager(bufferSize);
+  //    Modelica.Utilities.Streams.print("Open Socket "+String(port_recv)+" with bufferSize "+String(bufferSize));
+      sPort = SerialPort(Serial_Port,bufferSize,parity,receiver,baud);
+    end when;
+    pkgOut.trigger = sample(0,sampleTime);
+
+    when pkgOut.trigger then
+      pkgOut.dummy =
+        Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.DummyFunctions.setPackage(
+        pkgOut.pkg,
+        Modelica_DeviceDrivers.Communication.SerialPort_.read(sPort),
+        bufferSize,
+        time);
+    end when;
+
+    annotation (preferredView="info",
+            Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+              -100},{100,100}}), graphics={Text(extent={{-150,136},{150,96}},
+              textString="%name"),         Text(extent={{-150,82},{150,42}},
+            textString="%Serial_Port",
+            lineColor={0,0,0}),            Text(extent={{-152,-48},{148,-88}},
+            lineColor={0,0,0},
+            textString="%baud")}),   Diagram(coordinateSystem(preserveAspectRatio=true,
+                   extent={{-100,-100},{100,100}}), graphics),
+      Documentation(info="<html>
+<h4><font color=\"#008000\">Support for receiving datagrams over a serial port</font></h4>
+<p><b>Currently only supported for Linux!</b></p>
+<h4><font color=\"#008000\">Example</font></h4>
+<p>
+See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackager_SerialPort\"><code>TestSerialPackager_SerialPort</code></a>.
+</p>
+</html>"));
+  end SerialPortReceive;
+
+  model SerialPortSend
+    "A block for sending serial datagrams using the serial interface"
+    extends Modelica_DeviceDrivers.Utilities.Icons.SerialPortIcon;
+    import Modelica_DeviceDrivers.Packaging.SerialPackager;
+    import Modelica_DeviceDrivers.Communication.SerialPort;
+    import Modelica_DeviceDrivers.Utilities.Types.SerialBaudRate;
+
+    parameter Real sampleTime=0.01 "Sample time for update";
+    parameter Boolean autoBufferSize = true
+      "true, buffer size is deduced automatically, otherwise set it manually."
+      annotation(Dialog(group="Outgoing data"), choices(__Dymola_checkBox=true));
+    parameter Integer userBufferSize=16*64
+      "Buffer size of message data in bytes (if not deduced automatically)." annotation(Dialog(enable=not autoBufferSize, group="Outgoing data"));
+                                             //16*1024
+    parameter String Serial_Port="/dev/ttyPS0" "SerialPort to sendData"
+        annotation (Dialog(group="Outgoing data"));
+    parameter SerialBaudRate baud = SerialBaudRate.B9600
+      "Serial port baud rate"
+        annotation (Dialog(group="Outgoing data"));
+    parameter Integer parity = 0
+      "set parity (0 - no parity, 1 - even, 2 - odd)"
+        annotation (Dialog(group="Outgoing data"));
+
+    Modelica_DeviceDrivers.Blocks.Interfaces.PackageIn pkgIn annotation (
+        Placement(transformation(
+          extent={{-20,-20},{20,20}},
+          rotation=270,
+          origin={-108,0})));
+  protected
+    SerialPort sPort;
+    Integer bufferSize;
+    parameter Integer receiver = 0 "Set to be a sender port";
+    Real dummy;
+  equation
+    when (initial()) then
+      pkgIn.userPkgBitSize = if autoBufferSize then -1 else userBufferSize*8;
+      pkgIn.autoPkgBitSize = 0;
+      bufferSize = if autoBufferSize then Modelica_DeviceDrivers.Packaging.SerialPackager_.getBufferSize(
+                                                                       pkgIn.pkg) else userBufferSize;
+      sPort = SerialPort(Serial_Port,bufferSize,parity,receiver,baud); // Creating port object from device
+    end when;
+
+    pkgIn.backwardTrigger = sample(0, sampleTime);
+
+    when pkgIn.trigger then
+       dummy =
+         Modelica_DeviceDrivers.Blocks.Communication.Internal.DummyFunctions.sendToSerial(
+           sPort,
+           Modelica_DeviceDrivers.Packaging.SerialPackager_.getPackage(pkgIn.pkg),
+           bufferSize,
+           pkgIn.dummy);
+    end when;
+    annotation (preferredView="info",
+            Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+              -100},{100,100}}), graphics={Text(extent={{-150,136},{150,96}},
+              textString="%name"),         Text(extent={{-150,82},{150,42}},
+            textString="%Serial_Port",
+            lineColor={0,0,0}),            Text(extent={{-154,-44},{146,-84}},
+            lineColor={0,0,0},
+            textString="%baud")}),   Diagram(coordinateSystem(preserveAspectRatio=true,
+                    extent={{-100,-100},{100,100}}), graphics),
+      Documentation(info="<html>
+<h4><font color=\"#008000\">Support for sending datagrams over a serial port</font></h4>
+<p><b>Currently only supported for Linux!</b></p>
+<h4><font color=\"#008000\">Example</font></h4>
+<p>
+See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackager_SerialPort\"><code>TestSerialPackager_SerialPort</code></a>.
+</p>
+</html>"));
+  end SerialPortSend;
+
   package SoftingCAN
     "Support for Softing's CAN interfaces utilizing their CANL2 API library"
     extends Modelica.Icons.Package;
@@ -678,6 +818,21 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
         Modelica_DeviceDrivers.Communication.SharedMemory_.write(sm,data,len);
         dummy2 :=dummy;
       end writeSharedMemory;
+
+      function sendToSerial
+        import Modelica_DeviceDrivers.Communication.SerialPort;
+        input SerialPort sPort "Serial Port object";
+        input String data "Data to be sent";
+        input Integer dataSize "Size of data";
+        input Real dummy;
+        output Real dummy2;
+      algorithm
+        Modelica_DeviceDrivers.Communication.SerialPort_.sendTo(
+          sPort,
+          data,
+          dataSize);
+        dummy2 :=dummy;
+      end sendToSerial;
     end DummyFunctions;
   end Internal;
 end Communication;

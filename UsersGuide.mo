@@ -772,6 +772,24 @@ end ModelicaLicense2;
 The authors are open to include contributions.
 </p>
 <p> Please note that You can use the <b>issue tracker</b> provided by GitHub to report bugs or other issues (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues\">https://github.com/modelica/Modelica_DeviceDrivers/issues</a>)</p>
+
+<p>
+The following people have directly contributed to the implementation
+of the library:
+</p>
+
+<table border=1 cellspacing=0 cellpadding=2>
+<tr><td valign=\"top\"><b>Dominik Sommer</b> </td>
+   <td valign=\"top\"> Institute of System Dynamics and Control<br>
+     DLR, German Aerospace Center, <br>
+     Oberpfaffenhofen, Germany</td>
+   <td valign=\"top\"> Blocks.Communication.SerialPortReceive<br>
+                    Blocks.Communication.SerialPortSend<br>
+                    Communication.SerialPort<br>
+                    Communication.SerialPort_</td>
+</tr>
+
+</table>
 </html>"));
   end Contact;
 
