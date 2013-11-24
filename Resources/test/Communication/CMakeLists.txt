@@ -26,6 +26,11 @@ endif (NOT MSVC)
 add_test(test_MDDSharedMemory
   ${EXECUTABLE_OUTPUT_PATH}/test_MDDSharedMemory)
 
+add_executable(test_EndiannessConversion
+  test_EndiannessConversion.c ../Util/ModelicaUtilities.c)
+add_test(test_EndiannessConversion
+  ${EXECUTABLE_OUTPUT_PATH}/test_EndiannessConversion)
+
 
 # Following is suggested in forums for getting the right threading library
 # but unfortunately it doesn't work for me:
