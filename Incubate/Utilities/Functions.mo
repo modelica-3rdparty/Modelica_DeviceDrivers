@@ -1038,8 +1038,6 @@ ezxml_t ezxml_cut(ezxml_t xml)
 ");
   end xmlLoader;
 
-
-
   function activateSplashScreen
 
   external"C" activateSplashScreen();
@@ -1084,7 +1082,8 @@ int MD_getCounter(const char * filename)
     fscanf(pFile, \"%d\", &counter);
     rewind(pFile);
     fprintf(pFile,  \"%d\", ++counter);
-  }
+    }
+  fclose(pFile);
   return counter;
 }
 
