@@ -15,7 +15,7 @@ double OS_getRandomNumberDouble(double minValue, double maxValue)
   double randomDouble;
   if(!_randomGeneratorInitialized)
   {
-    srand ( clock(NULL) * time(NULL) );
+    srand ( clock() * time(NULL) );
     _randomGeneratorInitialized = 1;
   }
   randomInteger = rand();
