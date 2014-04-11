@@ -159,7 +159,7 @@ void MDD_SerialPackagerAlignToByteBoundery(SerialPackager* p_package) {
  * @param[in] u array of integer values
  * @param[in] n number of values in u
  */
-void MDD_SerialPackagerAddInteger(void* p_package, const int * u, size_t n) {
+void MDD_SerialPackagerAddInteger(void* p_package, int * u, size_t n) {
         SerialPackager* pkg = (SerialPackager*) p_package;
 
         if (pkg->bitOffset != 0) MDD_SerialPackagerAlignToByteBoundery(pkg);
@@ -243,7 +243,7 @@ void MDD_SerialPackagerGetDouble(void* p_package, double * y, int n) {
  */
 void MDD_SerialPackagerAddDoubleAsFloat(void* p_package, const double * u, size_t n) {
         SerialPackager* pkg = (SerialPackager*) p_package;
-        int i;
+        size_t i;
         float castedDouble;
         if (pkg->bitOffset != 0) MDD_SerialPackagerAlignToByteBoundery(pkg);
         if (pkg->pos + n*sizeof(float) > pkg->size) {
@@ -316,7 +316,7 @@ void MDD_SerialPackagerAddString(void* p_package, const char* u, int bufferSize)
  * @param[out] y pointer to '\0' terminated string or NULL if no terminated '\0' found in package data.
  * @param[in] bufferSize that was reserved for that string
  */
-const char* MDD_SerialPackagerGetString(void* p_package, int bufferSize) {
+char* MDD_SerialPackagerGetString(void* p_package, int bufferSize) {
         SerialPackager* pkg = (SerialPackager*) p_package;
         char* y;
         unsigned int i, found = 0;
@@ -344,7 +344,7 @@ const char* MDD_SerialPackagerGetString(void* p_package, int bufferSize) {
 				   memcpy(y, &(pkg->data[ pkg->pos ]), i - pkg->pos); */
                 pkg->pos += bufferSize;
         }
-        return (const char*)y;
+        return (char*)y;
 }
 
 
@@ -443,7 +443,7 @@ void MDD_SerialPackagerIntegerBitpack(void* p_package, int bitOffset, int width,
                 "which is lower than the current Packager bitOffset %d. Exiting.\n", bitOffset, pkg->bitOffset);
                 exit(-1);
         }
-        if ( width < 32 && (unsigned int)data >= 0x1 << (unsigned int)width ) {
+        if ( width < 32 && (unsigned int)data >= 0x1u << (unsigned int)width ) {
                 ModelicaFormatError("SerialPackager: Warning: Value %d can't be encoded into %d bits or is negative (no signed int support)!\n", data, width);
         }
         posEnd = (bitOffset + width) % 8 == 0 ? pkg->pos + (bitOffset + width) / 8 : pkg->pos + (bitOffset + width) / 8 + 1;
