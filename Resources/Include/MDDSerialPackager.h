@@ -202,7 +202,7 @@ void MDD_SerialPackagerGetInteger(void* p_package, int * y, int n) {
  * @param[in] u array of double values
  * @param[in] n number of values in u
  */
-void MDD_SerialPackagerAddDouble(void* p_package, const double * u, size_t n) {
+void MDD_SerialPackagerAddDouble(void* p_package, double * u, size_t n) {
         SerialPackager* pkg = (SerialPackager*) p_package;
         if (pkg->bitOffset != 0) MDD_SerialPackagerAlignToByteBoundery(pkg);
         if (pkg->pos + n*sizeof(double) > pkg->size) {
