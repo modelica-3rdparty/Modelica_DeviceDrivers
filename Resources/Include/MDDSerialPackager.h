@@ -241,7 +241,7 @@ void MDD_SerialPackagerGetDouble(void* p_package, double * y, int n) {
  * @param[in] u array of double values that will be casted to float values before adding them
  * @param[in] n number of values in u
  */
-void MDD_SerialPackagerAddDoubleAsFloat(void* p_package, const double * u, size_t n) {
+void MDD_SerialPackagerAddDoubleAsFloat(void* p_package, double * u, size_t n) {
         SerialPackager* pkg = (SerialPackager*) p_package;
         size_t i;
         float castedDouble;
