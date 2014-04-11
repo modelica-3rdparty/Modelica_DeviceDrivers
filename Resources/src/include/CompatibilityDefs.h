@@ -40,9 +40,9 @@
 
 /* Compile dll and so from same source */
 #if defined(_MSC_VER)
-# define DllImport
+# define DllImport \
 __declspec( dllimport )
-# define DllExport
+# define DllExport \
 __declspec( dllexport )
 #else
 # define DllImport
