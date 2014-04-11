@@ -28,7 +28,7 @@ struct sharedMemoryBuffer
 };
 
 
-void* MDD_SharedMemoryConstructor(char * name, int bufSize) {
+void* MDD_SharedMemoryConstructor(const char * name, int bufSize) {
   struct sharedMemoryBuffer * smb = (struct sharedMemoryBuffer *)malloc(sizeof(struct sharedMemoryBuffer));
   smb->hMapFile = CreateFileMappingA(
 				     INVALID_HANDLE_VALUE,    /* use paging file */
@@ -94,7 +94,7 @@ const char * MDD_SharedMemoryRead(void * p_smb)
   /* this is potentially dangerous. */
   return (const char*) smb->sharedMemoryBuf+sizeof(int);
 }
-void MDD_SharedMemoryWrite(void * p_smb,char * buffer, unsigned int len)
+void MDD_SharedMemoryWrite(void * p_smb, const char * buffer, int len)
 {
   struct sharedMemoryBuffer * smb = (struct sharedMemoryBuffer *) p_smb;
   /* struct sharedMemoryBuffer * smb = (struct sharedMemoryBuffer *) smbPointer; */
