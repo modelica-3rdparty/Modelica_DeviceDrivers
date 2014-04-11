@@ -62,7 +62,7 @@ DWORD WINAPI MDD_udpReceivingThread(LPVOID pUdp)
 			ModelicaFormatMessage("UDPSocket: recieving not possible, Socket not valid.\n");
 		}
 	}
-
+	return 0;
 }
 
 void * MDD_udpConstructor(int port, int bufferSize)

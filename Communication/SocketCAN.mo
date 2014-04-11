@@ -7,7 +7,7 @@ encapsulated function constructor "Open Socket / Create external object"
 input String ifr_name;
 output SocketCAN softingCAN;
 
-  external "C" softingCAN = MDD_socketCANConstructor(ifr_name);
+  external "C" softingCAN = MDD_socketCANConstructor(ifr_name)
   annotation (IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
     Include="#include \"MDDSocketCAN.h\"",
               Library={"MDDUtil"});
@@ -17,7 +17,7 @@ encapsulated function destructor "Destroy object, free resources"
 import Modelica_DeviceDrivers.Communication.SocketCAN;
 input SocketCAN socketCAN;
 
-  external "C" MDD_socketCANDestructor(socketCAN);
+  external "C" MDD_socketCANDestructor(socketCAN)
   annotation (IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
               Include="#include \"MDDSocketCAN.h\"",
               Library={"MDDUtil"});

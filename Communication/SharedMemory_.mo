@@ -5,7 +5,7 @@ package SharedMemory_ "Accompanying functions for the SharedMemory object"
     import Modelica_DeviceDrivers.Communication.SharedMemory;
     input SharedMemory sm;
     output String data;
-    external "C" data=  MDD_SharedMemoryRead(sm);
+    external "C" data=  MDD_SharedMemoryRead(sm)
     annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
            Include = "#include \"MDDSharedMemory.h\" ",
            Library = "rt");
@@ -16,7 +16,7 @@ package SharedMemory_ "Accompanying functions for the SharedMemory object"
     input SharedMemory sm;
     input String data;
     input Integer len;
-    external "C" MDD_SharedMemoryWrite(sm,data,len);
+    external "C" MDD_SharedMemoryWrite(sm,data,len)
     annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
            Include = "#include \"MDDSharedMemory.h\" ",
            Library = "rt");
@@ -26,7 +26,7 @@ package SharedMemory_ "Accompanying functions for the SharedMemory object"
     import Modelica_DeviceDrivers.Communication.SharedMemory;
     input SharedMemory sm;
     output Integer length;
-    external "C" length=  MDD_SharedMemoryGetDataSize(sm);
+    external "C" length=  MDD_SharedMemoryGetDataSize(sm)
     annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
            Include = "#include \"MDDSharedMemory.h\" ");
   end getDataSize;

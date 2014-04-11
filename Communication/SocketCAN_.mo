@@ -9,7 +9,7 @@ encapsulated function write "Write CAN frame/message to socket"
   input Integer can_dlc(min=0,max=8) " length of data in bytes (min=0, max=8)";
   input String data "The payload data";
 
-  external "C" MDD_socketCANWrite(socketCAN, can_id, can_dlc, data);
+  external "C" MDD_socketCANWrite(socketCAN, can_id, can_dlc, data)
   annotation (IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
               Include="#include \"MDDSocketCAN.h\"",
               Library={"MDDUtil"});
@@ -22,7 +22,7 @@ encapsulated function defineObject
   input Integer can_id "CAN frame identifier";
   input Integer can_dlc(min=0,max=8) " length of data in bytes (min=0, max=8)";
 
-  external "C" MDD_socketCANDefineObject(socketCAN, can_id, can_dlc);
+  external "C" MDD_socketCANDefineObject(socketCAN, can_id, can_dlc)
   annotation (IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
               Include="#include \"MDDSocketCAN.h\"",
               Library={"MDDUtil"});
@@ -39,7 +39,7 @@ encapsulated function readObject
       "String which is capable to take at least can_dlc elements";
   output String data "Payload data";
 
-external "C" data = MDD_socketCANRead(socketCAN, can_id, can_dlc, buffer);
+external "C" data = MDD_socketCANRead(socketCAN, can_id, can_dlc, buffer)
 annotation (IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
             Include="#include \"MDDSocketCAN.h\"",
             Library={"MDDUtil"});

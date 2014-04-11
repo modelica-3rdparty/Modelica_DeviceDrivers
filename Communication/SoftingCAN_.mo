@@ -13,7 +13,7 @@ encapsulated function defineObject "Define available objects (CAN messages)"
   output Integer objectNumber
       "Object number of message. Needed for further queries regarding receiving/transmitting the message";
 
-  external "C" objectNumber = MDD_softingCANDefineObject(softingCAN, ident, transType);
+  external "C" objectNumber = MDD_softingCANDefineObject(softingCAN, ident, transType)
   annotation (IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
               Include="#include \"MDDSoftingCAN.h\"",
               Library={"canL2"});
@@ -24,7 +24,7 @@ encapsulated function startChip
     import Modelica_DeviceDrivers.Communication.SoftingCAN;
   input SoftingCAN softingCAN "Handle for device";
 
-  external "C" MDD_softingCANStartChip(softingCAN);
+  external "C" MDD_softingCANStartChip(softingCAN)
   annotation (IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
               Include="#include \"MDDSoftingCAN.h\"",
               Library={"canL2"});
@@ -39,7 +39,7 @@ encapsulated function writeObject
   input Integer dataLength "Length of message in bytes";
   input String data "The payload data";
 
-  external "C" MDD_softingCANWriteObject(softingCAN, objectNumber, dataLength, data);
+  external "C" MDD_softingCANWriteObject(softingCAN, objectNumber, dataLength, data)
   annotation (IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
               Include="#include \"MDDSoftingCAN.h\"",
               Library={"canL2"});
@@ -54,7 +54,7 @@ input Integer objectNumber "Object number of message (from defineObject(..))";
 input String buffer "String which is capable to take at least 8 elements";
 output String data "Payload data";
 
-external "C" data = MDD_softingCANReadRcvData(softingCAN, objectNumber, buffer);
+external "C" data = MDD_softingCANReadRcvData(softingCAN, objectNumber, buffer)
 annotation (IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
             Include="#include \"MDDSoftingCAN.h\"",
             Library={"canL2"});

@@ -10,7 +10,7 @@ encapsulated function constructor
   input Integer receiver = 1 "0 - sender, 1 - receiver";
   input Integer baud = 0;
   output SerialPort sPort;
-external "C" sPort = MDD_serialPortConstructor(deviceName, bufferSize, parity,receiver,baud);
+external "C" sPort = MDD_serialPortConstructor(deviceName, bufferSize, parity,receiver,baud)
 annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
            Include = "#include \"MDDSerialPort.h\" ");
 end constructor;
@@ -18,7 +18,7 @@ end constructor;
 encapsulated function destructor
     import Modelica_DeviceDrivers.Communication.SerialPort;
   input SerialPort sPort;
-external "C" MDD_serialPortDestructor(sPort);
+external "C" MDD_serialPortDestructor(sPort)
 annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
            Include = "#include \"MDDSerialPort.h\" ");
 end destructor;

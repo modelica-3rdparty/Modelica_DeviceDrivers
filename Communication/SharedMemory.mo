@@ -7,7 +7,7 @@ extends ExternalObject;
     input String memoryName;
     input Integer bufferSize = 16* 1024;
     output SharedMemory sm;
-    external "C" sm=   MDD_SharedMemoryConstructor(memoryName,bufferSize);
+    external "C" sm=   MDD_SharedMemoryConstructor(memoryName,bufferSize)
     annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
            Include = "#include \"MDDSharedMemory.h\" ",
            Library = "rt");
@@ -16,7 +16,7 @@ extends ExternalObject;
   encapsulated function destructor
     import Modelica_DeviceDrivers.Communication.SharedMemory;
     input SharedMemory sm;
-    external "C" MDD_SharedMemoryDestructor(sm);
+    external "C" MDD_SharedMemoryDestructor(sm)
     annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
            Include = "#include \"MDDSharedMemory.h\" ",
            Library = "rt");
