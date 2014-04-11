@@ -118,7 +118,7 @@ void MDD_SerialPackagerSetData( void* p_package, const char * data, int size) {
  */
 void MDD_SerialPackagerPrint(void* p_package) {
         SerialPackager* pkg = (SerialPackager*) p_package;
-        unsigned int i,j;
+        unsigned int j;
 
         ModelicaFormatMessage("SerialPackager start: size %d, pos %d, bitOffset %d\n", pkg->size, pkg->pos, pkg->bitOffset);
         ModelicaFormatMessage("Bytes signed dec:   ");
