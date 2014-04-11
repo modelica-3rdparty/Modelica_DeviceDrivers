@@ -39,6 +39,8 @@
   #include <windows.h>
   #include <stdio.h>
 
+  #pragma comment(lib, "User32.lib") 
+
   void MDD_keyboardGetKey(int iKeyCode,int * piKeyState) {
     /* getting state of interesting keys */
     int getc_unlocked(FILE *stream);
