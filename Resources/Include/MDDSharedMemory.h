@@ -20,11 +20,10 @@
 #include <stdio.h>
 #include <conio.h>
 #include <tchar.h>
-#include  "ModelicaUtilities.h"
 
 struct sharedMemoryBuffer
 {
-  char * sharedMemoryBuffer;
+  char * sharedMemoryBuf;
   HANDLE hMapFile;
 };
 
@@ -55,13 +54,13 @@ void* MDD_SharedMemoryConstructor(char * name, int bufSize) {
 			  GetLastError());
       return NULL;
     }
-  smb->sharedMemoryBuffer = (char * ) MapViewOfFile(smb->hMapFile,   /* handle to map object */
+  smb->sharedMemoryBuf = (char * ) MapViewOfFile(smb->hMapFile,   /* handle to map object */
 						    FILE_MAP_ALL_ACCESS, /* read/write permission */
 						    0,
 						    0,
 						    bufSize+ sizeof(int));
 
-  if (smb->sharedMemoryBuffer == NULL)
+  if (smb->sharedMemoryBuf == NULL)
     {
       ModelicaFormatError("Could not map view of file (%d).\n",
 			  GetLastError());
@@ -86,21 +85,21 @@ unsigned int MDD_SharedMemoryGetDataSize(void * p_smb)
 {
   struct sharedMemoryBuffer * smb = (struct sharedMemoryBuffer *) p_smb;
   int len;
-  memcpy(&len,smb->sharedMemoryBuffer,sizeof(unsigned int));
+  memcpy(&len,smb->sharedMemoryBuf,sizeof(unsigned int));
   return len;
 }
 const char * MDD_SharedMemoryRead(void * p_smb)
 {
   struct sharedMemoryBuffer * smb = (struct sharedMemoryBuffer *) p_smb;
   /* this is potentially dangerous. */
-  return (const char*) smb->sharedMemoryBuffer+sizeof(int);
+  return (const char*) smb->sharedMemoryBuf+sizeof(int);
 }
 void MDD_SharedMemoryWrite(void * p_smb,char * buffer, unsigned int len)
 {
   struct sharedMemoryBuffer * smb = (struct sharedMemoryBuffer *) p_smb;
   /* struct sharedMemoryBuffer * smb = (struct sharedMemoryBuffer *) smbPointer; */
-  memcpy(smb->sharedMemoryBuffer + sizeof(unsigned int),buffer,len);
-  memcpy(smb->sharedMemoryBuffer,&len,sizeof(unsigned int));
+  memcpy(smb->sharedMemoryBuf + sizeof(unsigned int),buffer,len);
+  memcpy(smb->sharedMemoryBuf,&len,sizeof(unsigned int));
 }
 
 #elif defined(__linux__)
