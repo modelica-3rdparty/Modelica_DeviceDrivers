@@ -14,6 +14,7 @@
 #define MDDMinimalSerialPackager_H_
 
 #include <stdlib.h>
+#include <string.h>
 #include "ModelicaUtilities.h"
 
 struct MSP_PackagerData

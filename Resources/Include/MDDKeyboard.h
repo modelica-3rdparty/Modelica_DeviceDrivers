@@ -37,6 +37,7 @@
 #if defined(_MSC_VER)
 
   #include <windows.h>
+  #include <stdio.h>
 
   void MDD_keyboardGetKey(int iKeyCode,int * piKeyState) {
     /* getting state of interesting keys */
