@@ -11,7 +11,7 @@ input Modelica_DeviceDrivers.Utilities.Types.BaudRate
                      baudRate;
 output SoftingCAN softingCAN "Handle for device";
 
-  external "C" softingCAN = MDD_softingCANConstructor(deviceName, baudRate);
+  external "C" softingCAN = MDD_softingCANConstructor(deviceName, baudRate)
   annotation (IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
     Include="#include \"MDDSoftingCAN.h\"",
               Library={"canL2"});
@@ -21,7 +21,7 @@ encapsulated function destructor "Destroy object, free resources"
     import Modelica_DeviceDrivers.Communication.SoftingCAN;
   input SoftingCAN softingCAN "Handle for device";
 
-  external "C" MDD_softingCANDestructor(softingCAN);
+  external "C" MDD_softingCANDestructor(softingCAN)
   annotation (IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
               Include="#include \"MDDSoftingCAN.h\"",
               Library={"canL2"});

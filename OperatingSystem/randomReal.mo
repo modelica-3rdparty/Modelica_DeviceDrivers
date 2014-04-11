@@ -3,7 +3,7 @@ function randomReal "returns a random real within the given Range."
 input Real minValue = 0;
 input Real maxValue = 1;
 output Real y;
-external "C" y = OS_getRandomNumberDouble(minValue, maxValue);
+external "C" y = OS_getRandomNumberDouble(minValue, maxValue)
 annotation (Include = "
 
 #include <stdlib.h>

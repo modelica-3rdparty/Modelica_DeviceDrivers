@@ -6,7 +6,7 @@ package Functions
     input String name="K_Px";
     output Real u;
 
-  external"C" u=  MDD_utilitiesLoadRealParameter(file, name);
+  external"C" u=  MDD_utilitiesLoadRealParameter(file, name)
   annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
              Include = "#include \"MDDUtilities.h\" ",
       Documentation(info="<html>

@@ -8,7 +8,7 @@ input Integer joystickID = 0
 output Real Axes[6] "Axes values from -1 to 1";
 output Integer Buttons[8] "Buttons values";
 output Integer POV "angle of POV";
-external "C" MDD_joystickGetData(joystickID,Axes, Buttons, POV);
+external "C" MDD_joystickGetData(joystickID,Axes, Buttons, POV)
 annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
            Include = "#include \"MDDJoystick.h\" ");
 end getData;

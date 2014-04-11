@@ -7,7 +7,7 @@ encapsulated function constructor
   input Integer port "listening port";
   input Integer bufferSize=16*1024 "Size of receive buffer";
   output UDPSocket socket;
-external "C" socket = MDD_udpConstructor(port,bufferSize);
+external "C" socket = MDD_udpConstructor(port,bufferSize)
 annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
            Include = "#include \"MDDUDPSocket.h\" ");
 end constructor;
@@ -15,7 +15,7 @@ end constructor;
 encapsulated function destructor
     import Modelica_DeviceDrivers.Communication.UDPSocket;
   input UDPSocket socket;
-external "C" MDD_udpDestructor(socket);
+external "C" MDD_udpDestructor(socket)
 annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
            Include = "#include \"MDDUDPSocket.h\" ");
 end destructor;
