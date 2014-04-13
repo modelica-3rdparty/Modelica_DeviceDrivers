@@ -2,7 +2,6 @@
  *
  * @file
  * @author      Bernhard Thiele <bernhard.thiele@dlr.de>
- * @version     $Id: MDDSerialPackager.h 16375 2012-07-23 12:01:12Z thie_be $
  * @since       2012-07-10
  * @copyright Modelica License 2
  *
@@ -18,6 +17,7 @@
 #include <stdlib.h>
 #include <stddef.h>
 #include <assert.h>
+#include "../src/include/CompatibilityDefs.h"
 #include "ModelicaUtilities.h"
 
 
@@ -34,7 +34,7 @@ typedef struct {
  * @param[in] size size in bytes of package data
  * @return pointer to external SerialPackager object
  */
-void* MDD_SerialPackagerConstructor(int size) {
+DllExport void* MDD_SerialPackagerConstructor(int size) {
         SerialPackager* pkg = (SerialPackager*) calloc(1, sizeof(SerialPackager)); /* all bits initialized to zero */
         pkg->data = (unsigned char*) calloc(size, sizeof(unsigned char));
         pkg->pos = 0;
@@ -43,7 +43,7 @@ void* MDD_SerialPackagerConstructor(int size) {
         return (void*) pkg;
 }
 
-void MDD_SerialPackagerDestructor(void* p_package) {
+DllExport void MDD_SerialPackagerDestructor(void* p_package) {
         SerialPackager* pkg = (SerialPackager*) p_package;
         free(pkg->data);
         free(pkg);
@@ -51,7 +51,7 @@ void MDD_SerialPackagerDestructor(void* p_package) {
 
 /** Set byte position in package (if bit offset != 0 it will be set to 0).
  */
-void MDD_SerialPackagerSetPos(void* p_package, int pos) {
+DllExport void MDD_SerialPackagerSetPos(void* p_package, int pos) {
         SerialPackager* pkg = (SerialPackager*) p_package;
         pkg->pos = (unsigned int) pos;
         pkg->bitOffset = 0;
@@ -59,21 +59,21 @@ void MDD_SerialPackagerSetPos(void* p_package, int pos) {
 
 /** Get byte position in package.
  */
-int MDD_SerialPackagerGetPos(void* p_package) {
+DllExport int MDD_SerialPackagerGetPos(void* p_package) {
         SerialPackager* pkg = (SerialPackager*) p_package;
         return pkg->pos;
 }
 
 /** Get bit offset in package.
  */
-int MDD_SerialPackagerGetBitOffset(void* p_package) {
+DllExport int MDD_SerialPackagerGetBitOffset(void* p_package) {
         SerialPackager* pkg = (SerialPackager*) p_package;
         return pkg->bitOffset;
 }
 
 /** Get size of package data buffer.
  */
-int MDD_SerialPackagerGetSize(void* p_package) {
+DllExport int MDD_SerialPackagerGetSize(void* p_package) {
         SerialPackager* pkg = (SerialPackager*) p_package;
         return pkg->size;
 }
@@ -100,7 +100,7 @@ const char *  MDD_SerialPackagerGetData(void* p_package) {
  * @param[in] data pointer the data that shall be copied into the packager's payload data buffer.
  * @param[in] size number of bytes that shall be copied.
  */
-void MDD_SerialPackagerSetData( void* p_package, const char * data, int size) {
+DllExport void MDD_SerialPackagerSetData( void* p_package, const char * data, int size) {
         SerialPackager* pkg = (SerialPackager*) p_package;
         memcpy(pkg->data, data,  size);
         if ( (unsigned int) size > pkg->size) {
@@ -116,7 +116,7 @@ void MDD_SerialPackagerSetData( void* p_package, const char * data, int size) {
 /** Print content of package.
  * @param[in] p_packager pointer to the SerialPackager
  */
-void MDD_SerialPackagerPrint(void* p_package) {
+DllExport void MDD_SerialPackagerPrint(void* p_package) {
         SerialPackager* pkg = (SerialPackager*) p_package;
         unsigned int j;
 
@@ -134,7 +134,7 @@ void MDD_SerialPackagerPrint(void* p_package) {
 
 /** Set payload bytes to 0. Reset pos and bitOffset to 0.
  */
-void MDD_SerialPackagerClear(void* p_package) {
+DllExport void MDD_SerialPackagerClear(void* p_package) {
         SerialPackager* pkg = (SerialPackager*) p_package;
         memset(pkg->data,0, pkg->size);
         pkg->pos = 0;
@@ -143,7 +143,7 @@ void MDD_SerialPackagerClear(void* p_package) {
 
 /** If there is a bit offset, align pos to next byte boundery after bit offset
  */
-void MDD_SerialPackagerAlignToByteBoundery(SerialPackager* p_package) {
+DllExport void MDD_SerialPackagerAlignToByteBoundery(SerialPackager* p_package) {
         SerialPackager* pkg = (SerialPackager*) p_package;
         pkg->pos += pkg->bitOffset % 8 == 0 ?
                         pkg->bitOffset / 8 :
@@ -159,7 +159,7 @@ void MDD_SerialPackagerAlignToByteBoundery(SerialPackager* p_package) {
  * @param[in] u array of integer values
  * @param[in] n number of values in u
  */
-void MDD_SerialPackagerAddInteger(void* p_package, int * u, size_t n) {
+DllExport void MDD_SerialPackagerAddInteger(void* p_package, int * u, size_t n) {
         SerialPackager* pkg = (SerialPackager*) p_package;
 
         if (pkg->bitOffset != 0) MDD_SerialPackagerAlignToByteBoundery(pkg);
@@ -181,7 +181,7 @@ void MDD_SerialPackagerAddInteger(void* p_package, int * u, size_t n) {
  * @param[in] n requested number of integer values
  *
  */
-void MDD_SerialPackagerGetInteger(void* p_package, int * y, int n) {
+DllExport void MDD_SerialPackagerGetInteger(void* p_package, int * y, int n) {
         SerialPackager* pkg = (SerialPackager*) p_package;
 
         if (pkg->bitOffset != 0) MDD_SerialPackagerAlignToByteBoundery(pkg);
@@ -202,7 +202,7 @@ void MDD_SerialPackagerGetInteger(void* p_package, int * y, int n) {
  * @param[in] u array of double values
  * @param[in] n number of values in u
  */
-void MDD_SerialPackagerAddDouble(void* p_package, double * u, size_t n) {
+DllExport void MDD_SerialPackagerAddDouble(void* p_package, double * u, size_t n) {
         SerialPackager* pkg = (SerialPackager*) p_package;
         if (pkg->bitOffset != 0) MDD_SerialPackagerAlignToByteBoundery(pkg);
         if (pkg->pos + n*sizeof(double) > pkg->size) {
@@ -222,7 +222,7 @@ void MDD_SerialPackagerAddDouble(void* p_package, double * u, size_t n) {
  * @param[in] n requested number of values
  *
  */
-void MDD_SerialPackagerGetDouble(void* p_package, double * y, int n) {
+DllExport void MDD_SerialPackagerGetDouble(void* p_package, double * y, int n) {
         SerialPackager* pkg = (SerialPackager*) p_package;
         if (pkg->bitOffset != 0) MDD_SerialPackagerAlignToByteBoundery(pkg);
         if (pkg->pos + n*sizeof(double) > pkg->size) {
@@ -241,7 +241,7 @@ void MDD_SerialPackagerGetDouble(void* p_package, double * y, int n) {
  * @param[in] u array of double values that will be casted to float values before adding them
  * @param[in] n number of values in u
  */
-void MDD_SerialPackagerAddDoubleAsFloat(void* p_package, double * u, size_t n) {
+DllExport void MDD_SerialPackagerAddDoubleAsFloat(void* p_package, double * u, size_t n) {
         SerialPackager* pkg = (SerialPackager*) p_package;
         size_t i;
         float castedDouble;
@@ -266,7 +266,7 @@ void MDD_SerialPackagerAddDoubleAsFloat(void* p_package, double * u, size_t n) {
  * @param[in] n requested number of values
  *
  */
-void MDD_SerialPackagerGetFloatAsDouble(void* p_package, double * y, int n) {
+DllExport void MDD_SerialPackagerGetFloatAsDouble(void* p_package, double * y, int n) {
         SerialPackager* pkg = (SerialPackager*) p_package;
         int i;
         float value;
@@ -292,7 +292,7 @@ void MDD_SerialPackagerGetFloatAsDouble(void* p_package, double * y, int n) {
  * @param[in] u zero terminated string
  * @param[in] bufferSize that was reserved for that string
  */
-void MDD_SerialPackagerAddString(void* p_package, const char* u, int bufferSize) {
+DllExport void MDD_SerialPackagerAddString(void* p_package, const char* u, int bufferSize) {
         SerialPackager* pkg = (SerialPackager*) p_package;
         //unsigned int size = (strlen(u)+1)*sizeof(char);
 
@@ -316,7 +316,7 @@ void MDD_SerialPackagerAddString(void* p_package, const char* u, int bufferSize)
  * @param[out] y pointer to '\0' terminated string or NULL if no terminated '\0' found in package data.
  * @param[in] bufferSize that was reserved for that string
  */
-char* MDD_SerialPackagerGetString(void* p_package, int bufferSize) {
+DllExport char* MDD_SerialPackagerGetString(void* p_package, int bufferSize) {
         SerialPackager* pkg = (SerialPackager*) p_package;
         char* y;
         unsigned int i, found = 0;
@@ -358,7 +358,7 @@ char* MDD_SerialPackagerGetString(void* p_package, int bufferSize) {
  * @param[in] width bit-width of region encoding the integer value (max=32)
  * @return Extracted integer value
  */
-int MDD_SerialPackagerIntegerBitunpack(void* p_package, int bitOffset, int width) {
+DllExport int MDD_SerialPackagerIntegerBitunpack(void* p_package, int bitOffset, int width) {
         SerialPackager* pkg = (SerialPackager*) p_package;
         unsigned char bits[32];
         unsigned int i,j, posEnd, posStart, factor = 1, data = 0;
@@ -412,7 +412,7 @@ int MDD_SerialPackagerIntegerBitunpack(void* p_package, int bitOffset, int width
  * @param[in] width bit-width of region encoding the integer value (max=32)
  * @return Extracted integer value
  */
-int MDD_SerialPackagerIntegerBitunpack2(void* p_package, int bitOffset, int width) {
+DllExport int MDD_SerialPackagerIntegerBitunpack2(void* p_package, int bitOffset, int width) {
         SerialPackager* pkg = (SerialPackager*) p_package;
 
 		return MDD_SerialPackagerIntegerBitunpack(p_package, pkg->bitOffset + bitOffset, width);
@@ -428,7 +428,7 @@ int MDD_SerialPackagerIntegerBitunpack2(void* p_package, int bitOffset, int widt
  * @param[in] width bit-width of region encoding the integer value (max=32)
  * @param[in] data integer value that shall be encoded into package
  */
-void MDD_SerialPackagerIntegerBitpack(void* p_package, int bitOffset, int width, int data) {
+DllExport void MDD_SerialPackagerIntegerBitpack(void* p_package, int bitOffset, int width, int data) {
         SerialPackager* pkg = (SerialPackager*) p_package;
         unsigned char bits[40];
         unsigned int i, j, base_j, rem_j, posEnd;
@@ -475,7 +475,7 @@ void MDD_SerialPackagerIntegerBitpack(void* p_package, int bitOffset, int width,
  * @param[in] width bit-width of region encoding the integer value (max=32)
  * @param[in] data integer value that shall be encoded into package
  */
-void MDD_SerialPackagerIntegerBitpack2(void* p_package, int bitOffset, int width, int data) {
+DllExport void MDD_SerialPackagerIntegerBitpack2(void* p_package, int bitOffset, int width, int data) {
         SerialPackager* pkg = (SerialPackager*) p_package;
 
 		MDD_SerialPackagerIntegerBitpack(p_package, pkg->bitOffset + bitOffset, width, data);

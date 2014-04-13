@@ -41,7 +41,7 @@
 
   #pragma comment(lib, "User32.lib") 
 
-  void MDD_keyboardGetKey(int iKeyCode,int * piKeyState) {
+DllExport void MDD_keyboardGetKey(int iKeyCode,int * piKeyState) {
     /* getting state of interesting keys */
     int getc_unlocked(FILE *stream);
     if(GetAsyncKeyState(iKeyCode)) piKeyState[0] = 1;
@@ -49,7 +49,7 @@
 
   }
 
-  void MDD_keyboardGetData(int * piKeyState)
+DllExport void MDD_keyboardGetData(int * piKeyState)
   {
           /* getting state of interesting keys */
           if(GetAsyncKeyState(VK_UP)) piKeyState[0] = 1;

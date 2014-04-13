@@ -24,7 +24,7 @@
    * @param[in] duration (s) sound duration
    * @return Dummy return value
    */
-  double MDD_beep(double frequency, double duration) {
+DllExport double MDD_beep(double frequency, double duration) {
     int freq = (int)frequency;
     int duration_ms = (int)(duration * 1000);
     Beep(freq,duration_ms);

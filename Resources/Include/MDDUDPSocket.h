@@ -46,7 +46,7 @@ struct MDDUDPSocket_s
 	int receivedBytes;
 };
 
-DWORD WINAPI MDD_udpReceivingThread(LPVOID pUdp)
+DllExport DWORD WINAPI MDD_udpReceivingThread(LPVOID pUdp)
 {
 
 	SOCKADDR remoteAddr;
@@ -65,7 +65,7 @@ DWORD WINAPI MDD_udpReceivingThread(LPVOID pUdp)
 	return 0;
 }
 
-void * MDD_udpConstructor(int port, int bufferSize)
+DllExport void * MDD_udpConstructor(int port, int bufferSize)
 {
 
 	int rc;                /* Fehlervariable */
@@ -106,7 +106,7 @@ void * MDD_udpConstructor(int port, int bufferSize)
 	}
 	return (void *) udp;
 }
-void MDD_udpDestructor(void * p_udp)
+DllExport void MDD_udpDestructor(void * p_udp)
 {
         MDDUDPSocket * udp = (MDDUDPSocket *) p_udp;
 	udp->recieving = 0;
@@ -114,7 +114,7 @@ void MDD_udpDestructor(void * p_udp)
 	free(udp->receiveBuffer);
 	free(udp);
 }
-void MDD_udpSend(void * p_udp, const char * ipAddress, int port,
+DllExport void MDD_udpSend(void * p_udp, const char * ipAddress, int port,
 		 const char * data, int dataSize)
 {
 	MDDUDPSocket * udp = (MDDUDPSocket *) p_udp;
@@ -125,7 +125,7 @@ void MDD_udpSend(void * p_udp, const char * ipAddress, int port,
 	sendto(udp->SocketID,data,dataSize,0,(SOCKADDR*)&addr,sizeof(SOCKADDR_IN));
 
 }
-const char * MDD_udpRead(void * p_udp)
+DllExport const char * MDD_udpRead(void * p_udp)
 {
 	MDDUDPSocket * udp = (MDDUDPSocket *) p_udp;
 	udp->receivedBytes = 0;
@@ -133,7 +133,7 @@ const char * MDD_udpRead(void * p_udp)
 
 }
 
-int MDD_udpGetReceivedBytes(void * p_udp)
+DllExport int MDD_udpGetReceivedBytes(void * p_udp)
 {
 	MDDUDPSocket * udp = (MDDUDPSocket *) p_udp;
 	return udp->receivedBytes;

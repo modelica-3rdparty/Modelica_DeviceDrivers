@@ -16,7 +16,7 @@
 #include "../src/include/CompatibilityDefs.h"
 #include "ModelicaUtilities.h"
 
-double MDD_OS_getRandomNumberDouble(double minValue, double maxValue) {
+DllExport double MDD_OS_getRandomNumberDouble(double minValue, double maxValue) {
   static int _randomGeneratorInitialized = 0;
   int randomInteger;
   double randomDouble;
@@ -32,7 +32,7 @@ double MDD_OS_getRandomNumberDouble(double minValue, double maxValue) {
 
 #if defined(_MSC_VER)
 
-  void MDD_OS_Sleep(double sleepingTime)
+DllExport void MDD_OS_Sleep(double sleepingTime)
   {
 
     int time_ms = (int)(sleepingTime*1000);

@@ -28,7 +28,7 @@ struct sharedMemoryBuffer
 };
 
 
-void* MDD_SharedMemoryConstructor(const char * name, int bufSize) {
+DllExport void* MDD_SharedMemoryConstructor(const char * name, int bufSize) {
   struct sharedMemoryBuffer * smb = (struct sharedMemoryBuffer *)malloc(sizeof(struct sharedMemoryBuffer));
   smb->hMapFile = CreateFileMappingA(
 				     INVALID_HANDLE_VALUE,    /* use paging file */
@@ -74,27 +74,27 @@ void* MDD_SharedMemoryConstructor(const char * name, int bufSize) {
   return smb;
 }
 
-void MDD_SharedMemoryDestructor(void* p_smb) {
+DllExport void MDD_SharedMemoryDestructor(void* p_smb) {
   struct sharedMemoryBuffer * smb = (struct sharedMemoryBuffer *) p_smb;
   CloseHandle(smb->hMapFile);
   free(smb);
 }
 
 
-unsigned int MDD_SharedMemoryGetDataSize(void * p_smb)
+DllExport unsigned int MDD_SharedMemoryGetDataSize(void * p_smb)
 {
   struct sharedMemoryBuffer * smb = (struct sharedMemoryBuffer *) p_smb;
   int len;
   memcpy(&len,smb->sharedMemoryBuf,sizeof(unsigned int));
   return len;
 }
-const char * MDD_SharedMemoryRead(void * p_smb)
+DllExport const char * MDD_SharedMemoryRead(void * p_smb)
 {
   struct sharedMemoryBuffer * smb = (struct sharedMemoryBuffer *) p_smb;
   /* this is potentially dangerous. */
   return (const char*) smb->sharedMemoryBuf+sizeof(int);
 }
-void MDD_SharedMemoryWrite(void * p_smb, const char * buffer, int len)
+DllExport void MDD_SharedMemoryWrite(void * p_smb, const char * buffer, int len)
 {
   struct sharedMemoryBuffer * smb = (struct sharedMemoryBuffer *) p_smb;
   /* struct sharedMemoryBuffer * smb = (struct sharedMemoryBuffer *) smbPointer; */

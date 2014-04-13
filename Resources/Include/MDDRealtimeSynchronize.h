@@ -19,7 +19,7 @@
   #include <windows.h>
   #pragma comment( lib, "Winmm.lib" )
 
-  void MDD_setPriority(int priority)
+DllExport void MDD_setPriority(int priority)
   {
     ModelicaFormatMessage("ProcessPriority: %d!!\n",priority);
     switch(priority)
@@ -69,7 +69,7 @@
    * @param[in] resolution windows specific clock resolution (ignored in linux).
    * @return (ms) time in milliseconds.
    */
-  double MDD_getTimeMS(int resolution)
+DllExport double MDD_getTimeMS(int resolution)
   {
     DWORD ms;
 
@@ -81,7 +81,7 @@
 
   };
 
-  double MDD_realtimeSynchronize(double simTime, int resolution, double * availableTime)
+DllExport double MDD_realtimeSynchronize(double simTime, int resolution, double * availableTime)
   {
     static double MDD_lastTime = 0;
     static double MDD_startTime = 0;

@@ -29,7 +29,7 @@
    *         we do not, we just guess.
    * @warning Don't know how to get POV in linux, defaulting to 7 in linux.
    */
-  void MDD_joystickGetData(int iJSID,double * pdAxes, int * piButtons, int * piPOV) {
+DllExport void MDD_joystickGetData(int iJSID,double * pdAxes, int * piButtons, int * piPOV) {
     JOYINFOEX JoyInfo; /* joystick data structure */
     JoyInfo.dwFlags = JOY_RETURNALL;
     JoyInfo.dwSize = sizeof(JOYINFOEX);
