@@ -12,7 +12,7 @@
  * However, this approach is not supported by all tools. Some tools need to load an 
  * DLL which provides the respective functions.
  *
- * This file just includes most (but not all!) of the provided header-only files
+ * This file just includes most (but not all) of the provided header-only files
  * in order to wrap them into one DLL. 
  *
  * In the moment, some files have been omited, since they might require some extra considerations.
@@ -21,6 +21,7 @@
 #include "../../Include/MDDBeep.h"
 #include "../../Include/MDDJoystick.h"
 #include "../../Include/MDDKeyboard.h"
+#include "../../Include/MDDOperatingSystem.h"
 #include "../../Include/MDDRealtimeSynchronize.h"
 #include "../../Include/MDDSerialPackager.h"
 #include "../../Include/MDDSharedMemory.h"

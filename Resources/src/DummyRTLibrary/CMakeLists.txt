@@ -5,7 +5,12 @@ set(libSrcsMDDDummyRTLibrary MDDDummyRTLibrary.c)
 
 add_library(rt SHARED ${libSrcsMDDDummyRTLibrary})
 
-# Create a static library of the same name (Probably not needed, but not yet sure)
+# 2014-04-11: Logic to create a static library of the same name.
+# Seems not be needed. Even if simulation executable is compiled with DLL dependency,
+# this dependency is not required when executing the simulation executable
+# (i.e., possible to copy around simulation executable _without_ the DLL)
+# However, currently can't exclude that having a static lib is better in some cases
+# => Only commented the logic below instead of deleting it for the moment ...
 # add_library(rtStatic STATIC ${libSrcsMDDDummyRTLibrary})
 # set_target_properties(rtStatic PROPERTIES OUTPUT_NAME rt)
 
