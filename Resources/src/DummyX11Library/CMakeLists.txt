@@ -3,7 +3,7 @@ message(STATUS "WRITING BUILD FILES FOR DummyRTLibrary")
 
 set(libSrcsMDDDummyX11Library MDDDummyX11Library.c)
 
-add_library(X11 STATIC ${libSrcsMDDDummyX11Library})
+add_library(X11 SHARED ${libSrcsMDDDummyX11Library})
 
 # install to directory (CMAKE_INSTALL_PREFIX) into subdirectory "lib"
 if ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
