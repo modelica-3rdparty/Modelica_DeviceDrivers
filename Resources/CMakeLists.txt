@@ -20,8 +20,8 @@ if (MSVC)
   add_subdirectory(src/DummyRTLibrary)
   # Dummy Windows X11 library for uniform treatment of GCC and MS Visual C within Modelica
   add_subdirectory(src/DummyX11Library)
-  # Create a DLL wrapper library (required by some tools)
-  add_subdirectory(src/WrapperLibrary)
+  # Create a SimulationX specific DLL wrapper library
+  add_subdirectory(src/ITI_ModelicaDeviceDrivers)
 endif (MSVC)
 
 if (UNIX)

@@ -7,7 +7,8 @@ encapsulated function read
 output String data;
 external "C" data = MDD_udpRead(socket)
 annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
-           Include = "#include \"MDDUDPSocket.h\" ");
+           Include = "#include \"MDDUDPSocket.h\" ",
+           __iti_dll = "ITI_ModelicaDeviceDrivers.dll");
 end read;
 
 encapsulated function sendTo
@@ -19,7 +20,8 @@ encapsulated function sendTo
   input Integer dataSize "Size of data";
 external "C" MDD_udpSend(socket, ipAddress, port, data, dataSize)
 annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
-           Include = "#include \"MDDUDPSocket.h\" ");
+           Include = "#include \"MDDUDPSocket.h\" ",
+           __iti_dll = "ITI_ModelicaDeviceDrivers.dll");
 end sendTo;
 
 encapsulated function getReceivedBytes
@@ -28,6 +30,7 @@ encapsulated function getReceivedBytes
   output Integer receivedBytes "number of Bytes received";
   external "C" receivedBytes =  MDD_udpGetReceivedBytes(socket)
   annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
-           Include = "#include \"MDDUDPSocket.h\" ");
+           Include = "#include \"MDDUDPSocket.h\" ",
+           __iti_dll = "ITI_ModelicaDeviceDrivers.dll");
 end getReceivedBytes;
 end UDPSocket_;

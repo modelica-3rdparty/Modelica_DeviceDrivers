@@ -5,6 +5,9 @@ package Utilities "Collection of utility elements used within the library"
  constant String RootDir=Modelica.Utilities.Files.fullPathName(classDirectory() + "..");
 
 
+
+
+
   annotation (
    preferredView="info",
    Documentation(info="<html>

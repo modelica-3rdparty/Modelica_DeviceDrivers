@@ -3,8 +3,17 @@ package Modelica_DeviceDrivers "Modelica_DeviceDrivers - A collection of drivers
  extends Modelica.Icons.Package;
 
 
+
+
+
+
+
+
+
+
+
 annotation (preferredView="info",
-  uses(Modelica_Synchronous(version="0.92"), 
+  uses(Modelica_Synchronous(version="0.92"),
        Modelica(version="3.2.1")),
     version="1.2",
     versionBuild=1,

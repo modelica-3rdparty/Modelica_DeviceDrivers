@@ -9,5 +9,6 @@ output Real availableTime;
 external "C" calculationTime = MDD_realtimeSynchronize(simTime,resolution,availableTime)
 annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
            Include = "#include \"MDDRealtimeSynchronize.h\" ",
-           Library = "rt");
+           Library = "rt",
+           __iti_dll = "ITI_ModelicaDeviceDrivers.dll");
 end realtimeSynchronize;

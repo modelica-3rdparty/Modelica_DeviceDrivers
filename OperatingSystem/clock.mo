@@ -5,5 +5,6 @@ function clock "the time since OS startup in ms"
 external "C" clock = MDD_getTimeMS(resolution)
 annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
            Include = "#include \"MDDRealtimeSynchronize.h\" ",
-           Library = "rt");
+           Library = "rt",
+           __iti_dll = "ITI_ModelicaDeviceDrivers.dll");
 end clock;

@@ -13,7 +13,7 @@ package Logging "a collection of logging blocks"
     when
         (sample(0,sampleTime)) then
     Modelica.Utilities.Streams.print(Modelica_DeviceDrivers.Incubate.Utilities.Functions.vectorToString(
-                                                                                               u),filename);
+                                                                                              u),filename);
     end when;
     annotation (Icon(graphics={Ellipse(extent={{-80,0},{80,-60}},   lineColor={0,0,
                 255},
