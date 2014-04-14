@@ -10,6 +10,7 @@
 */
 
 #include <stdio.h>
+#define MDDSOFTINGCANUSECMAKE
 #include "../../Include/MDDSoftingCAN.h"
 /* #include "../../Include/MDDCANMessage.h" // already used in MDDSoftingCAN library */
 #include "../../Include/MDDSerialPackager.h"

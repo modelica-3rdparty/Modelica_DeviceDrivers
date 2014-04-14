@@ -18,17 +18,33 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "../src/include/CompatibilityDefs.h"
 #if defined(_MSC_VER)
-	#include <windows.h>
+
+#	include "../src/include/CompatibilityDefs.h"
+#	include <windows.h>
+	/* CAN LAYER 2 LIBRARY INCLUDE FILES */
+#	include "../thirdParty/softing/Can_def.h"  /* dll import and export definitions */
+#	include "../thirdParty/softing/CANL2.H"    /* definition of the API functions an the structures */
+#	include "ModelicaUtilities.h"
+#	include "MDDCANMessage.h"
+#	if  defined(MDDSOFTINGCANUSECMAKE)
+ 		/* use cmake to resolve linking dependencies */
+#	else
+		/* Used as header-only library => add linking dependencies here: */
+#		if defined(_WIN64)
+ 			/* @FIXME Not sure which of the two (if any) will work with Dymola 
+ 			 * Needs available hardware to test, and I don't have access to it at the moment*/
+			/*#pragma comment(linker, "/DEFAULTLIB:\"..\\thirdParty\\softing\\Win64\\canL2_64.lib\"")*/
+#			pragma comment( lib, "canL2_64.lib" )
+#		else
+			/*#pragma comment(linker, "/DEFAULTLIB:\"..\\thirdParty\\softing\\Win32\\canL2.lib\"")*/
+#			pragma comment( lib, "canL2.lib" ) 
+#		endif /* defined(_WIN64) */
+#	endif /*MDDSOFTINGCANWRAPPER_C_*/
+#else
+#	error "Modelica_DeviceDrivers: SoftingCAN driver only supported on WINDOWS!"
 #endif /* _MSC_VER */
 
-#include "ModelicaUtilities.h"
-#include "MDDCANMessage.h"
-
-/* CAN LAYER 2 LIBRARY INCLUDE FILES */
-#include "../thirdParty/softing/Can_def.h"  /* dll import and export definitions */
-#include "../thirdParty/softing/CANL2.H"    /* definition of the API functions an the structures */
 
 
 /* Bit timing (1 MBaud) */

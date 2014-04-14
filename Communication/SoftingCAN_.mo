@@ -16,7 +16,7 @@ encapsulated function defineObject "Define available objects (CAN messages)"
   external "C" objectNumber = MDD_softingCANDefineObject(softingCAN, ident, transType)
   annotation (IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
               Include="#include \"MDDSoftingCAN.h\"",
-              Library={"canL2"});
+              __iti_dll = "ITI_ModelicaDeviceDriversSoftingCAN.dll");
 end defineObject;
 
 encapsulated function startChip
@@ -27,7 +27,7 @@ encapsulated function startChip
   external "C" MDD_softingCANStartChip(softingCAN)
   annotation (IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
               Include="#include \"MDDSoftingCAN.h\"",
-              Library={"canL2"});
+              __iti_dll = "ITI_ModelicaDeviceDriversSoftingCAN.dll");
 end startChip;
 
 encapsulated function writeObject
@@ -42,7 +42,7 @@ encapsulated function writeObject
   external "C" MDD_softingCANWriteObject(softingCAN, objectNumber, dataLength, data)
   annotation (IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
               Include="#include \"MDDSoftingCAN.h\"",
-              Library={"canL2"});
+              __iti_dll = "ITI_ModelicaDeviceDriversSoftingCAN.dll");
 end writeObject;
 
 encapsulated function readRcvData "Read data from object (CAN message)"
@@ -57,7 +57,7 @@ output String data "Payload data";
 external "C" data = MDD_softingCANReadRcvData(softingCAN, objectNumber, buffer)
 annotation (IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
             Include="#include \"MDDSoftingCAN.h\"",
-            Library={"canL2"});
+            __iti_dll = "ITI_ModelicaDeviceDriversSoftingCAN.dll");
 
 end readRcvData;
 end SoftingCAN_;

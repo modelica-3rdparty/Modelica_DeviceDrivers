@@ -30,6 +30,6 @@ so that you end up with the following directory tree:
 Finally, note that in order to translate and execute Modelica models utilizing this API it is necessary that the
 corresponding .lib and .dll files are found at compile and runtime. Prefered way to ensure this:
 
-Copy the *.dll and *.lib for your architecture into your simulation directory (note that working on a 64bit Windows does not necessary mean that your Modelica tool compiles 64bit binaries, i.e., if in doubt just try both). Additionally, rename canL2_64.* to canL2.* if using the 64bit libraries.
+Copy the *.dll and *.lib for your architecture into your simulation directory (note that working on a 64bit Windows does not necessary mean that your Modelica tool compiles 64bit binaries, i.e., if in doubt copy both).
 
 
