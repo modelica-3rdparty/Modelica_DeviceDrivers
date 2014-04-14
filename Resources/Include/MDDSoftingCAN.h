@@ -125,7 +125,7 @@ char mDDErrorMsg[1024];
 static char * descriptiveError(int ret, const char * caller_function);
 
 
-void* MDD_softingCANConstructor(const char* deviceName, int baudRate) {
+DllExport void* MDD_softingCANConstructor(const char* deviceName, int baudRate) {
 	CANL2_CH_STRUCT channel;
 	int ret;
 
@@ -246,7 +246,7 @@ void* MDD_softingCANConstructor(const char* deviceName, int baudRate) {
 }
 
 
-void MDD_softingCANDestructor(void* p_mDDSoftingCAN) {
+DllExport void MDD_softingCANDestructor(void* p_mDDSoftingCAN) {
     MDDSoftingCAN * mDDSoftingCAN = (MDDSoftingCAN *) p_mDDSoftingCAN;
     ModelicaFormatMessage("SoftingCAN (%s): Closing CAN_HANDLE %lu and cleaning up ...", mDDSoftingCAN->deviceName, mDDSoftingCAN->can);
     INIL2_close_channel(mDDSoftingCAN->can);
@@ -265,7 +265,7 @@ void MDD_softingCANDestructor(void* p_mDDSoftingCAN) {
  *        @arg 3: Extended transmit object
  * @return object number of related object list
  */
-int MDD_softingCANDefineObject(void* p_mDDSoftingCAN, int ident, int type) {
+DllExport int MDD_softingCANDefineObject(void* p_mDDSoftingCAN, int ident, int type) {
 	MDDSoftingCAN * mDDSoftingCAN = (MDDSoftingCAN *) p_mDDSoftingCAN;
 	int objectNumber, ret;
 	char msgtype[80];
@@ -300,7 +300,7 @@ int MDD_softingCANDefineObject(void* p_mDDSoftingCAN, int ident, int type) {
 	return objectNumber;
 }
 
-void MDD_softingCANWriteObject(void* p_mDDSoftingCAN, int objectNumber, int dataLength,
+DllExport void MDD_softingCANWriteObject(void* p_mDDSoftingCAN, int objectNumber, int dataLength,
 			     const char* data) {
 	MDDSoftingCAN * mDDSoftingCAN = (MDDSoftingCAN *) p_mDDSoftingCAN;
     int ret;
@@ -313,7 +313,7 @@ void MDD_softingCANWriteObject(void* p_mDDSoftingCAN, int objectNumber, int data
 	}
 }
 
-const char* MDD_softingCANReadRcvData(void* p_mDDSoftingCAN, int objectNumber, char* data) {
+DllExport const char* MDD_softingCANReadRcvData(void* p_mDDSoftingCAN, int objectNumber, char* data) {
 	MDDSoftingCAN * mDDSoftingCAN = (MDDSoftingCAN *) p_mDDSoftingCAN;
 	int frc = CANL2_RA_NO_DATA;
 	byte rcvBuffer[8];
@@ -358,7 +358,7 @@ const char* MDD_softingCANReadRcvData(void* p_mDDSoftingCAN, int objectNumber, c
 /** Start chips, needs to be called *after* all objects are defined.
  * Calls CANL2_start_chip(..)
  */
-void MDD_softingCANStartChip(void* p_mDDSoftingCAN) {
+DllExport void MDD_softingCANStartChip(void* p_mDDSoftingCAN) {
 	MDDSoftingCAN * mDDSoftingCAN = (MDDSoftingCAN *) p_mDDSoftingCAN;
 	int ret;
 	ModelicaFormatMessage("SoftingCAN (%s): Starting chip ...", mDDSoftingCAN->deviceName);
