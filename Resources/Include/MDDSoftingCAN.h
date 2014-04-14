@@ -371,7 +371,7 @@ static char * descriptiveError(int ret, const char * caller_function) {
 
 		case -2:
 		strcpy(mDDErrorMsg, "An exclusive input port has been defined as output. \n\n");
-		if (caller_function=="CANL2_write_signals")strcat(mDDErrorMsg, "CANL2_write_signals:write access to an input signal \n");
+		if (caller_function=="CANL2_write_signals")strcat(mDDErrorMsg, "CANL2_write_signals: write access to an input signal \n");
 		if (caller_function=="CANL2_init_signals")strcat(mDDErrorMsg, "CANL2_init_signals: An exclusive input port has been defined as output / Error: write access to an input signal \n\n");
 		break;
 
