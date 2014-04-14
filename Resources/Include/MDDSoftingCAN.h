@@ -162,22 +162,22 @@ void* MDD_softingCANConstructor(const char* deviceName, int baudRate) {
 						TIME_SEG2_3, SAMPLE_3);
 			break;
 		case 4:
-			ModelicaFormatMessage("SoftingCAN (%s): Initializing chip with baud rate 500 kBaud ...", mDDSoftingCAN->deviceName);
+			ModelicaFormatMessage("SoftingCAN (%s): Initializing chip with baud rate 250 kBaud ...", mDDSoftingCAN->deviceName);
 			ret = CANL2_initialize_chip(mDDSoftingCAN->can, PRESCALER_4, SYNC_JMP_WIDTH_4, TIME_SEG1_4,
 						TIME_SEG2_4, SAMPLE_4);
 			break;
 		case 5:
-			ModelicaFormatMessage("SoftingCAN (%s): Initializing chip with baud rate 500 kBaud ...", mDDSoftingCAN->deviceName);
+			ModelicaFormatMessage("SoftingCAN (%s): Initializing chip with baud rate 125 kBaud ...", mDDSoftingCAN->deviceName);
 			ret = CANL2_initialize_chip(mDDSoftingCAN->can, PRESCALER_5, SYNC_JMP_WIDTH_5, TIME_SEG1_5,
 						TIME_SEG2_5, SAMPLE_5);
 			break;
 		case 6:
-			ModelicaFormatMessage("SoftingCAN (%s): Initializing chip with baud rate 500 kBaud ...", mDDSoftingCAN->deviceName);
+			ModelicaFormatMessage("SoftingCAN (%s): Initializing chip with baud rate 100 kBaud ...", mDDSoftingCAN->deviceName);
 			ret = CANL2_initialize_chip(mDDSoftingCAN->can, PRESCALER_6, SYNC_JMP_WIDTH_6, TIME_SEG1_6,
 						TIME_SEG2_6, SAMPLE_6);
 			break;
 		case 7:
-			ModelicaFormatMessage("SoftingCAN (%s): Initializing chip with baud rate 500 kBaud ...", mDDSoftingCAN->deviceName);
+			ModelicaFormatMessage("SoftingCAN (%s): Initializing chip with baud rate 10 kBaud ...", mDDSoftingCAN->deviceName);
 			ret = CANL2_initialize_chip(mDDSoftingCAN->can, PRESCALER_7, SYNC_JMP_WIDTH_7, TIME_SEG1_7,
 						TIME_SEG2_7, SAMPLE_7);
 			break;
