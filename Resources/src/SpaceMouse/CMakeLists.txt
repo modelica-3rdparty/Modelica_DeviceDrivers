@@ -32,16 +32,20 @@ else (MSVC)
   if ( MSVC_HID_LIBRARY )
 	  set(libSrcsMDDSpaceMouseLibrary MDDSpaceMouse.c)
 	  add_library(MDDSpaceMouse SHARED ${libSrcsMDDSpaceMouseLibrary})
-	  # ALTERNATIVE: If a static library shall be used:
-	  # add_library(MDDSpaceMouse STATIC ${libSrcsMDDSpaceMouseLibrary})
+	  target_link_libraries(MDDSpaceMouse ${MSVC_HID_LIBRARY} ${MSVC_SETUPAPI_LIBRARY})
+	  # 2014-04-14: Hack to create a static library of the same name that overwrites previously created import lib.
+	  add_library(MDDSpaceMouseStatic STATIC ${libSrcsMDDSpaceMouseLibrary})
+	  set_target_properties(MDDSpaceMouseStatic PROPERTIES OUTPUT_NAME MDDSpaceMouse)
 	  # Unfortunately the following doesn't combine the libraries as intended,
 	  # and it seems not to be possible, yet:
 	  # http://cmake.3232098.n2.nabble.com/Merge-two-static-libraries-tp5602251p5602276.html
 	  # The libraries below get instead linked directly into the
 	  # test_MDDSpaceMouse executable.
 	  # ==> NEED TO COMBINE THE LIBRARIES *MANUALLY* IN MSVC!
-	  #message("MDDSpaceMouse: Add libraries hid.lib and setupapi.lib manually to generated VS project, since not supported to do that  automatically by cmake")
-	  target_link_libraries(MDDSpaceMouse ${MSVC_HID_LIBRARY} ${MSVC_SETUPAPI_LIBRARY})
+	  message("MDDSpaceMouseStatic: Add libraries hid.lib and setupapi.lib manually to generated VS project, since not supported to do that  automatically by cmake")
+	  target_link_libraries(MDDSpaceMouseStatic ${MSVC_HID_LIBRARY} ${MSVC_SETUPAPI_LIBRARY})
+	  # Force 'MDDSpaceMouse' to be built before 'MDDSpaceMouseStatic':
+	  add_dependencies(MDDSpaceMouseStatic MDDSpaceMouse)
   else ( MSVC_HID_LIBRARY )
 	message("hid.lib not found. No support for 3Dconnexion Space Mouse!")
   endif ( MSVC_HID_LIBRARY )
@@ -60,8 +64,10 @@ if ( (CMAKE_SIZEOF_VOID_P EQUAL 8) AND (NOT M32_FLAG) )
 elseif ( (CMAKE_SIZEOF_VOID_P EQUAL 4) OR M32_FLAG)
   if (UNIX)
 	install(TARGETS MDDSpaceMouse DESTINATION Library/linux32)
+	install(TARGETS MDDSpaceMouseStatic DESTINATION Library/linux32)
   else (UNIX)
 	install(TARGETS MDDSpaceMouse DESTINATION Library/win32)
+	install(TARGETS MDDSpaceMouseStatic DESTINATION Library/win32)
   endif (UNIX)
 else ( (CMAKE_SIZEOF_VOID_P EQUAL 8) AND (NOT M32_FLAG) )
   message(SEND_ERROR "Uups. Neither 64, nor 32 bit??")

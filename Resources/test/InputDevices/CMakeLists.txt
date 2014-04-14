@@ -16,7 +16,7 @@ add_test(test_MDDKeyboard ${EXECUTABLE_OUTPUT_PATH}/test_MDDKeyboard)
 # Only build test application in linux if library has been built sucessfully before
 if (MSVC)
   add_executable(test_MDDSpaceMouse test_MDDSpaceMouse.c ../Util/ModelicaUtilities.c)
-  target_link_libraries(test_MDDSpaceMouse MDDSpaceMouse)
+  target_link_libraries(test_MDDSpaceMouse MDDSpaceMouseStatic)
   add_test(test_MDDSpaceMouse ${EXECUTABLE_OUTPUT_PATH}/test_MDDSpaceMouse)
 else (MSVC)
   if (srcXdrvlib)
