@@ -19,11 +19,13 @@ else ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
 endif ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
 
 add_library(ITI_ModelicaDeviceDrivers SHARED ${libSrcsITI_ModelicaDeviceDriversLibrary})
-target_link_libraries(ITI_ModelicaDeviceDrivers ${MODELICA_EXTERNAL_C})
+# FIXME ${MDDUtil} might not be needed
+target_link_libraries(ITI_ModelicaDeviceDrivers ${MODELICA_EXTERNAL_C} ${MDDUtil})
 
 if ( CANL2_LIBRARY )
 	add_library(ITI_ModelicaDeviceDriversSoftingCAN SHARED ${libSrcsITI_ModelicaDeviceDriversSoftingCANLibrary})
-	target_link_libraries(ITI_ModelicaDeviceDriversSoftingCAN ${MODELICA_EXTERNAL_C} ${CANL2_LIBRARY})
+	# FIXME ${MDDUtil} might not be needed
+	target_link_libraries(ITI_ModelicaDeviceDriversSoftingCAN ${MODELICA_EXTERNAL_C} ${MDDUtil} ${CANL2_LIBRARY})
 else ( CANL2_LIBRARY )
   	message("Softing canL2 libraries not found. Skipping build of ITI_ModelicaDeviceDriversSoftingCAN.dll ...")
 endif ( CANL2_LIBRARY )

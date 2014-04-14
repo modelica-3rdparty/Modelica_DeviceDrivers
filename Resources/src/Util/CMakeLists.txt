@@ -6,7 +6,6 @@ message(STATUS "WRITING BUILD FILES FOR MDDUtil library")
 set(libSrcsMDDUtilLibrary MDDMapIntInt.cpp MDDMapIntpVoid)
 add_library(MDDUtil STATIC ${libSrcsMDDUtilLibrary})
 
-
 if (UNIX)
   # install to directory (CMAKE_INSTALL_PREFIX)
   if ( (CMAKE_SIZEOF_VOID_P EQUAL 8) AND (NOT M32_FLAG) )
