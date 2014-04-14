@@ -126,7 +126,7 @@ void* MDD_softingCANConstructor(const char* deviceName, int baudRate) {
 	mDDSoftingCAN->can = channel.ulChannelHandle;
 	ModelicaFormatMessage("\tOK.\n");
 
-	ModelicaFormatMessage("SoftingCAN (%s): Reseting chip ...", mDDSoftingCAN->deviceName);
+	ModelicaFormatMessage("SoftingCAN (%s): Resetting chip ...", mDDSoftingCAN->deviceName);
 	ret = CANL2_reset_chip(mDDSoftingCAN->can);
 	if(ret) {
 		ModelicaFormatError("%s",descriptiveError(ret, "CANL2_reset_chip"));
