@@ -31,14 +31,16 @@ else (MSVC)
   endif ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
   if ( MSVC_HID_LIBRARY )
 	  set(libSrcsMDDSpaceMouseLibrary MDDSpaceMouse.c)
-	  add_library(MDDSpaceMouse STATIC ${libSrcsMDDSpaceMouseLibrary})
+	  add_library(MDDSpaceMouse SHARED ${libSrcsMDDSpaceMouseLibrary})
+	  # ALTERNATIVE: If a static library shall be used:
+	  # add_library(MDDSpaceMouse STATIC ${libSrcsMDDSpaceMouseLibrary})
 	  # Unfortunately the following doesn't combine the libraries as intended,
 	  # and it seems not to be possible, yet:
 	  # http://cmake.3232098.n2.nabble.com/Merge-two-static-libraries-tp5602251p5602276.html
 	  # The libraries below get instead linked directly into the
 	  # test_MDDSpaceMouse executable.
 	  # ==> NEED TO COMBINE THE LIBRARIES *MANUALLY* IN MSVC!
-	  message("MDDSpaceMouse: Add libraries hid.lib and setupapi.lib manually to generated VS project, since not supported to do that automatically by cmake")
+	  #message("MDDSpaceMouse: Add libraries hid.lib and setupapi.lib manually to generated VS project, since not supported to do that  automatically by cmake")
 	  target_link_libraries(MDDSpaceMouse ${MSVC_HID_LIBRARY} ${MSVC_SETUPAPI_LIBRARY})
   else ( MSVC_HID_LIBRARY )
 	message("hid.lib not found. No support for 3Dconnexion Space Mouse!")
