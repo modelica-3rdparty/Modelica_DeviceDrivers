@@ -117,7 +117,7 @@ First public version of the library.
 </html>"));
     end Version_1_1;
 
-    class Version_1_2 "Version 1.2 (Octobre 01, 2013)"
+    class Version_1_2 "Version 1.2 (October 01, 2013)"
       extends Modelica.Icons.ReleaseNotes;
 
       annotation (Documentation(info="<html>
