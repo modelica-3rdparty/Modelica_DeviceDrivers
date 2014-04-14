@@ -424,7 +424,7 @@ static char * descriptiveError(int ret, const char * caller_function) {
 		break;
 
 		case -115:
-		strcat(mDDErrorMsg, "Object is not defined / access to an abject denied, because the object has not been initialized with data using CANL2_supply_object() \n\n");
+		strcat(mDDErrorMsg, "Object is not defined / access to an object denied, because the object has not been initialized with data using CANL2_supply_object() \n\n");
 		break;
 
 		case -116:
