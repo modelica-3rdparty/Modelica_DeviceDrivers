@@ -6,5 +6,5 @@ external "C" clock = MDD_getTimeMS(resolution)
 annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
            Include = "#include \"MDDRealtimeSynchronize.h\" ",
            Library = "rt",
-           __iti_dll = "ITI_ModelicaDeviceDrivers.dll");
+           __iti_dll = "ITI_MDD.dll");
 end clock;

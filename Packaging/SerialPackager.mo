@@ -9,7 +9,7 @@ encapsulated function constructor "Claim the memory"
   external "C" pkg = MDD_SerialPackagerConstructor(bufferSize)
   annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
              Include = "#include \"MDDSerialPackager.h\" ",
-             __iti_dll = "ITI_ModelicaDeviceDrivers.dll");
+             __iti_dll = "ITI_MDD.dll");
 end constructor;
 
 encapsulated function destructor "Free memory"
@@ -18,7 +18,7 @@ encapsulated function destructor "Free memory"
   external "C" MDD_SerialPackagerDestructor(pkg)
   annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
              Include = "#include \"MDDSerialPackager.h\" ",
-             __iti_dll = "ITI_ModelicaDeviceDrivers.dll");
+             __iti_dll = "ITI_MDD.dll");
 end destructor;
 
 end SerialPackager;

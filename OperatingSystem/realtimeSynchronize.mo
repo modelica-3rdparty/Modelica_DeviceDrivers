@@ -10,5 +10,5 @@ external "C" calculationTime = MDD_realtimeSynchronize(simTime,resolution,availa
 annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
            Include = "#include \"MDDRealtimeSynchronize.h\" ",
            Library = "rt",
-           __iti_dll = "ITI_ModelicaDeviceDrivers.dll");
+           __iti_dll = "ITI_MDD.dll");
 end realtimeSynchronize;

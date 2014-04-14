@@ -11,6 +11,6 @@ output Integer POV "angle of POV";
 external "C" MDD_joystickGetData(joystickID,Axes, Buttons, POV)
 annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
            Include = "#include \"MDDJoystick.h\" ",
-           __iti_dll = "ITI_ModelicaDeviceDrivers.dll");
+           __iti_dll = "ITI_MDD.dll");
 end getData;
 end GameController;

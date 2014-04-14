@@ -1,8 +1,8 @@
-message(STATUS "WRITING BUILD FILES FOR ITI_ModelicaDeviceDrivers")
+message(STATUS "WRITING BUILD FILES FOR ITI_MDD")
 #message(STATUS "${CMAKE_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_BINARY_DIR} ${CMAKE_CURRENT_BINARY_DIR}")
 
-set(libSrcsITI_ModelicaDeviceDriversLibrary MDDWrapper.c)
-set(libSrcsITI_ModelicaDeviceDriversSoftingCANLibrary MDDSoftingCANWrapper.c)
+set(libSrcsITI_MDDLibrary MDDWrapper.c)
+set(libSrcsITI_MDDSoftingCANLibrary MDDSoftingCANWrapper.c)
 
 if ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
   find_library( MODELICA_EXTERNAL_C ModelicaExternalC
@@ -18,27 +18,27 @@ else ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
   message(SEND_ERROR "Uups. Neither 64, nor 32 bit??")
 endif ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
 
-add_library(ITI_ModelicaDeviceDrivers SHARED ${libSrcsITI_ModelicaDeviceDriversLibrary})
-target_link_libraries(ITI_ModelicaDeviceDrivers ${MODELICA_EXTERNAL_C})
+add_library(ITI_MDD SHARED ${libSrcsITI_MDDLibrary})
+target_link_libraries(ITI_MDD ${MODELICA_EXTERNAL_C})
 
 if ( CANL2_LIBRARY )
-	add_library(ITI_ModelicaDeviceDriversSoftingCAN SHARED ${libSrcsITI_ModelicaDeviceDriversSoftingCANLibrary})
-	target_link_libraries(ITI_ModelicaDeviceDriversSoftingCAN ${MODELICA_EXTERNAL_C} ${CANL2_LIBRARY})
+	add_library(ITI_MDDSoftingCAN SHARED ${libSrcsITI_MDDSoftingCANLibrary})
+	target_link_libraries(ITI_MDDSoftingCAN ${MODELICA_EXTERNAL_C} ${CANL2_LIBRARY})
 else ( CANL2_LIBRARY )
-  	message("Softing canL2 libraries not found. Skipping build of ITI_ModelicaDeviceDriversSoftingCAN.dll ...")
+  	message("Softing canL2 libraries not found. Skipping build of ITI_MDDSoftingCAN.dll ...")
 endif ( CANL2_LIBRARY )
 
 
 # install to directory (CMAKE_INSTALL_PREFIX) into subdirectory "lib"
 if ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
-  install(TARGETS ITI_ModelicaDeviceDrivers DESTINATION Library/win64)
+  install(TARGETS ITI_MDD DESTINATION Library/win64)
   if ( CANL2_LIBRARY )
-	install(TARGETS ITI_ModelicaDeviceDriversSoftingCAN DESTINATION Library/win64)
+	install(TARGETS ITI_MDDSoftingCAN DESTINATION Library/win64)
   endif ( CANL2_LIBRARY )
 elseif ( CMAKE_SIZEOF_VOID_P EQUAL 4 )
-  install(TARGETS ITI_ModelicaDeviceDrivers DESTINATION Library/win32)
+  install(TARGETS ITI_MDD DESTINATION Library/win32)
   if ( CANL2_LIBRARY )
-	install(TARGETS ITI_ModelicaDeviceDriversSoftingCAN DESTINATION Library/win32)
+	install(TARGETS ITI_MDDSoftingCAN DESTINATION Library/win32)
   endif ( CANL2_LIBRARY )
 else ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
   message(SEND_ERROR "Uups. Shouldn't be possible to get here")

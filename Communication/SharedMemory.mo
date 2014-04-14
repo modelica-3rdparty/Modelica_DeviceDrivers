@@ -11,7 +11,7 @@ extends ExternalObject;
     annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
            Include = "#include \"MDDSharedMemory.h\" ",
            Library = "rt",
-           __iti_dll = "ITI_ModelicaDeviceDrivers.dll");
+           __iti_dll = "ITI_MDD.dll");
   end constructor;
 
   encapsulated function destructor
@@ -21,6 +21,6 @@ extends ExternalObject;
     annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
            Include = "#include \"MDDSharedMemory.h\" ",
            Library = "rt",
-           __iti_dll = "ITI_ModelicaDeviceDrivers.dll");
+           __iti_dll = "ITI_MDD.dll");
   end destructor;
 end SharedMemory;

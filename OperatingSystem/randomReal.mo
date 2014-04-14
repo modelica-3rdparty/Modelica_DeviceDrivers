@@ -5,5 +5,5 @@ input Real maxValue = 1;
 output Real y;
 external "C" y = MDD_OS_getRandomNumberDouble(minValue, maxValue)
 annotation (Include = "#include \"MDDOperatingSystem.h\"",
-            __iti_dll = "ITI_ModelicaDeviceDrivers.dll");
+            __iti_dll = "ITI_MDD.dll");
 end randomReal;

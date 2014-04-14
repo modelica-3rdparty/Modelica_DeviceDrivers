@@ -9,7 +9,7 @@ package SharedMemory_ "Accompanying functions for the SharedMemory object"
     annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
            Include = "#include \"MDDSharedMemory.h\" ",
            Library = "rt",
-           __iti_dll = "ITI_ModelicaDeviceDrivers.dll");
+           __iti_dll = "ITI_MDD.dll");
   end read;
 
   encapsulated function write
@@ -21,7 +21,7 @@ package SharedMemory_ "Accompanying functions for the SharedMemory object"
     annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
            Include = "#include \"MDDSharedMemory.h\" ",
            Library = "rt",
-           __iti_dll = "ITI_ModelicaDeviceDrivers.dll");
+           __iti_dll = "ITI_MDD.dll");
   end write;
 
   encapsulated function getDataSize
@@ -31,6 +31,6 @@ package SharedMemory_ "Accompanying functions for the SharedMemory object"
     external "C" length=  MDD_SharedMemoryGetDataSize(sm)
     annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
            Include = "#include \"MDDSharedMemory.h\" ",
-           __iti_dll = "ITI_ModelicaDeviceDrivers.dll");
+           __iti_dll = "ITI_MDD.dll");
   end getDataSize;
 end SharedMemory_;
