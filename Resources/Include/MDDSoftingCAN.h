@@ -119,6 +119,14 @@ typedef struct  {
     /*DataFrame i2oMap[MAX_OBJECTS]; */
 } MDDSoftingCAN;
 
+/** Structure for initializing a channel
+ *
+ * https://github.com/modelica/Modelica_DeviceDrivers/issues/18
+ */
+typedef struct mdd_canl2_ch_s {
+    CAN_HANDLE     ulChannelHandle;
+    unsigned char  sChannelName[80];
+} MDD_CANL2_CH_STRUCT;
 
 char mDDErrorMsg[1024];
 
@@ -126,7 +134,7 @@ static char * descriptiveError(int ret, const char * caller_function);
 
 
 DllExport void* MDD_softingCANConstructor(const char* deviceName, int baudRate) {
-	CANL2_CH_STRUCT channel;
+	MDD_CANL2_CH_STRUCT channel;
 	int ret;
 
 	MDDSoftingCAN* mDDSoftingCAN = (MDDSoftingCAN*) malloc(sizeof(MDDSoftingCAN));
