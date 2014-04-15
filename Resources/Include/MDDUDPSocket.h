@@ -46,7 +46,7 @@ struct MDDUDPSocket_s
 	int receivedBytes;
 };
 
-DllExport DWORD WINAPI MDD_udpReceivingThread(LPVOID pUdp)
+DWORD WINAPI MDD_udpReceivingThread(LPVOID pUdp)
 {
 
 	SOCKADDR remoteAddr;
