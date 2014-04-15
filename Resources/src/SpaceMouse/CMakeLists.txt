@@ -36,6 +36,8 @@ else (MSVC)
 	  # 2014-04-14: Hack to create a static library of the same name that overwrites previously created import lib.
 	  add_library(MDDSpaceMouseStatic STATIC ${libSrcsMDDSpaceMouseLibrary})
 	  set_target_properties(MDDSpaceMouseStatic PROPERTIES OUTPUT_NAME MDDSpaceMouse)
+	  # Overwrite compile flag /MD with /MT to silence some compiler warnings when using lib with Dymola
+	  set_target_properties(MDDSpaceMouseStatic PROPERTIES COMPILE_FLAGS "${STATIC_FLAGS} /MT")
 	  # Unfortunately the following doesn't combine the libraries as intended,
 	  # and it seems not to be possible, yet:
 	  # http://cmake.3232098.n2.nabble.com/Merge-two-static-libraries-tp5602251p5602276.html
