@@ -11,7 +11,7 @@
 #ifndef UTIL_H_
 #define UTIL_H_
 
-#include "CompatibilityDefs.h"
+
 
 
 #ifdef __cplusplus
@@ -21,6 +21,8 @@ extern "C" {
 
 #if defined(_MSC_VER)
 
+  #include <windows.h>
+  #include "CompatibilityDefs.h"
   /** Sleep for some milliseconds
   *
   * @param ms  milliseconds to sleep
@@ -31,6 +33,7 @@ extern "C" {
 
 #else
   #include <unistd.h>
+  #include "CompatibilityDefs.h"
 
   void MDD_msleep(unsigned long ms) {
     usleep(ms*1000);
