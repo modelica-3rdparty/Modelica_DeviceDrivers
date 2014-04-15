@@ -11,12 +11,12 @@
 #ifndef MDDREALTIMESYNCHRONIZE_H_
 #define MDDREALTIMESYNCHRONIZE_H_
 
-#include "../src/include/CompatibilityDefs.h"
 #include "ModelicaUtilities.h"
 
 #if defined(_MSC_VER)
 
   #include <windows.h>
+  #include "../src/include/CompatibilityDefs.h"
   #pragma comment( lib, "Winmm.lib" )
 
 DllExport void MDD_setPriority(int priority)
@@ -120,6 +120,7 @@ DllExport double MDD_realtimeSynchronize(double simTime, int resolution, double 
   #include <unistd.h>
   #include <errno.h>
   #include <sys/mman.h>
+  #include "../src/include/CompatibilityDefs.h"
   #define MY_RT_PRIORITY (49) /**< we use 49 since PRREMPT_RT use 50
                                  as the priority of kernel tasklets
                                  and interrupt handlers by default */

@@ -23,12 +23,12 @@
 #ifndef MDDUDPSocket_H_
 #define MDDUDPSocket_H_
 
-#include "../src/include/CompatibilityDefs.h"
 #include "ModelicaUtilities.h"
 
 #if defined(_MSC_VER)
 
-#include <winsock2.h>
+#include <windows.h>
+#include "../src/include/CompatibilityDefs.h"
 #include <stdio.h>
 #include <conio.h>
 #include <tchar.h>
@@ -148,7 +148,7 @@ DllExport int MDD_udpGetReceivedBytes(void * p_udp)
 #include <sys/poll.h>
 #include <netdb.h>
 #include <pthread.h>
-
+#include "../src/include/CompatibilityDefs.h"
 
 
 struct hostent *hostlist;   /* List of hosts returned

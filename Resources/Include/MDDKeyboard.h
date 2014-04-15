@@ -31,12 +31,12 @@
 #ifndef MDDKEYBOARD_H_
 #define MDDKEYBOARD_H_
 
-#include "../src/include/CompatibilityDefs.h"
 #include "ModelicaUtilities.h"
 
 #if defined(_MSC_VER)
 
   #include <windows.h>
+  #include "../src/include/CompatibilityDefs.h"
   #include <stdio.h>
 
   #pragma comment(lib, "User32.lib") 
@@ -86,6 +86,7 @@ DllExport void MDD_keyboardGetData(int * piKeyState)
   #include <X11/Xutil.h>
   #include <X11/keysymdef.h>
   #undef Time
+  #include "../src/include/CompatibilityDefs.h"
 
   /** mapping from windows key code to linux key code */
   int w2lKey[124];

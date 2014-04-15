@@ -13,13 +13,12 @@
 #ifndef MDDJOYSTICK_H_
 #define MDDJOYSTICK_H_
 
-#include "../src/include/CompatibilityDefs.h"
-#include "ModelicaUtilities.h"
+  #include "ModelicaUtilities.h"
 
-#if defined(_MSC_VER)
-
+  #if defined(_MSC_VER)
 
   #include <windows.h>
+  #include "../src/include/CompatibilityDefs.h"
   #pragma comment( lib, "Winmm.lib" )
 
   /** Get data from joystick device.
@@ -29,7 +28,7 @@
    *         we do not, we just guess.
    * @warning Don't know how to get POV in linux, defaulting to 7 in linux.
    */
-DllExport void MDD_joystickGetData(int iJSID,double * pdAxes, int * piButtons, int * piPOV) {
+  DllExport void MDD_joystickGetData(int iJSID,double * pdAxes, int * piButtons, int * piPOV) {
     JOYINFOEX JoyInfo; /* joystick data structure */
     JoyInfo.dwFlags = JOY_RETURNALL;
     JoyInfo.dwSize = sizeof(JOYINFOEX);

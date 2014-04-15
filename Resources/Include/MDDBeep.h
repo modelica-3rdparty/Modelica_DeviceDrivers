@@ -11,12 +11,13 @@
 #ifndef MDDBEEP_H_
 #define MDDBEEP_H_
 
-#include "../src/include/CompatibilityDefs.h"
+
 #include "ModelicaUtilities.h"
 
 #if defined(_MSC_VER)
 
-  #include <windows.h>
+#include <windows.h>
+#include "../src/include/CompatibilityDefs.h"
 
   /** Raise system beep.
    *
@@ -33,9 +34,9 @@ DllExport double MDD_beep(double frequency, double duration) {
 
 #elif defined(__linux__)
 
-  #warning "MDD_beep(..) not necessarily working under linux (known bug)"
-
-  #include <X11/Xlib.h>
+#include "../src/include/CompatibilityDefs.h"
+#include <X11/Xlib.h>
+#warning "MDD_beep(..) not necessarily working under linux (known bug)"
 
   double MDD_beep(double frequency, double duration) {
     Display* display = XOpenDisplay(0);

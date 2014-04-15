@@ -12,11 +12,12 @@
 #ifndef MDDSHAREDMEMORY_H_
 #define MDDSHAREDMEMORY_H_
 
-#include "../src/include/CompatibilityDefs.h"
 #include "ModelicaUtilities.h"
 
 #if defined(_MSC_VER)
 
+#include <windows.h>
+#include "../src/include/CompatibilityDefs.h"
 #include <stdio.h>
 #include <conio.h>
 #include <tchar.h>
@@ -111,7 +112,7 @@ DllExport void MDD_SharedMemoryWrite(void * p_smb, const char * buffer, int len)
 #include <semaphore.h>
 #include <sys/fcntl.h>
 #include <sys/mman.h>
-
+#include "../src/include/CompatibilityDefs.h"
 
 typedef struct MDDMmap_struct MDDMmap;
 

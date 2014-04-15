@@ -3,7 +3,6 @@
  * @file
  * @author		Bernhard Thiele <bernhard.thiele@dlr.de> (Linux)
  * @author		Dominik Sommer <dominik.sommer@dlr.de> (Linux)
- * @version	$Id$
  * @since		2012-05-29
  * @copyright Modelica License 2
  *
@@ -14,12 +13,12 @@
 #ifndef MDDSERIALPORT_H_
 #define MDDSERIALPORT_H_
 
-#include "../src/include/CompatibilityDefs.h"
 #include "ModelicaUtilities.h"
 
 #if defined(_MSC_VER)
 
-#include <winsock2.h>
+#include <windows.h>
+#include "../src/include/CompatibilityDefs.h"
 #include <stdio.h>
 #include <conio.h>
 #include <tchar.h>
@@ -43,7 +42,7 @@
 #include <unistd.h>  	/* Serial specific */
 #include <fcntl.h>	    /* Serial specific */
 #include <termios.h>	/* Serial specific */
-
+#include "../src/include/CompatibilityDefs.h"
 
 /** Serial port object */
 typedef struct {
