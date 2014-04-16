@@ -15,9 +15,10 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <ModelicaUtilities.h>
+#include "../src/include/CompatibilityDefs.h"
+#include "ModelicaUtilities.h"
 
-double MDD_utilitiesLoadRealParameter(const char * file, const char * name)
+DllExport double MDD_utilitiesLoadRealParameter(const char * file, const char * name)
 {
   FILE * pFile;
   char line[512];
