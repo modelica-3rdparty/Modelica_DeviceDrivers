@@ -1,24 +1,6 @@
 within Modelica_DeviceDrivers.Utilities;
 package Icons "Collection of icons used for library components"
   extends Modelica.Icons.Package;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   annotation (
     preferredView="info",
     Documentation(

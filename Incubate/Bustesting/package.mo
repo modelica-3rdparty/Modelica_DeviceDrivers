@@ -1,12 +1,4 @@
 within Modelica_DeviceDrivers.Incubate;
-package Bustesting 
+package Bustesting
   extends Modelica.Icons.UnderConstruction;
-
-
-
-
-
-
-
-
 end Bustesting;
