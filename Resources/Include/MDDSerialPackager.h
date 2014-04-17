@@ -83,9 +83,9 @@ DllExport int MDD_SerialPackagerGetSize(void* p_package) {
  * @param[in] p_package pointer to the SerialPackager.
  * @return pointer to the payload.
  */
-const char *  MDD_SerialPackagerGetData(void* p_package) {
+DllExport const char *  MDD_SerialPackagerGetData(void* p_package) {
         SerialPackager* pkg = (SerialPackager*) p_package;
-        return (char*)pkg->data;
+        return (const char*)pkg->data;
 }
 
 /** Copy data into the packager's payload data buffer.
