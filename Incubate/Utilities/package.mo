@@ -1,3 +1,3 @@
 within Modelica_DeviceDrivers.Incubate;
-package Utilities 
+package Utilities
 end Utilities;

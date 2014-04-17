@@ -1,4 +1,3 @@
 within Modelica_DeviceDrivers.Incubate;
-package OperatingSystem 
-
+package OperatingSystem
 end OperatingSystem;

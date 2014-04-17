@@ -1,14 +1,6 @@
 within Modelica_DeviceDrivers;
 package Blocks "This package contains Modelica 3.2 compatible drag'n'drop device driver blocks."
-
-
-
-
-
-
-
-
-  annotation (Icon(graphics={            Rectangle(
+  annotation (Icon(graphics={Rectangle(
           extent={{-80,100},{100,-80}},
           lineColor={0,0,0},
           fillColor={215,230,240},
