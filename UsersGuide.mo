@@ -6,11 +6,11 @@ package UsersGuide "User's Guide"
       extends Modelica.Icons.Information;
 
     annotation (Documentation(info="<html>
-<p>In this section, a first introduction to the Modelica_DeviceDrivers library is given at hand of several examples. </p>
+<p>In this section, a first introduction to the Modelica_DeviceDrivers library is given at hand of several examples.</p>
 <h4><font color=\"#008000\">Introduction</font></h4>
-<p>The library allows to access some selected external devices in Modelica models. This is achieved by using the Modelica external C interface to call the appropriate C driver functions provided by the underlying operating system. Currently MS Windows and Linux is supported.</p>
+<p>The library allows to access some selected external devices in Modelica models. This is achieved by using the Modelica external C interface to call the appropriate C driver functions provided by the underlying operating system. Currently MS Windows and Linux are supported.</p>
 <p>The library is organized in several layers as indicated below. It is noteworthy that the library provides two high-level Drag &amp; Drop block interfaces. The first (.Blocks) is compatible to Modelica 3.2, using the traditional &quot;when sample()&quot; element for periodically calling Modelica functions from the Function Layer. The second (.ClockedBlocks) uses the<i> Synchronous Language Elements</i> extension introduced in Modelica 3.3 for periodic execution.</p>
-<p><img src=\"modelica://Modelica_DeviceDrivers/Resources/Images/DeviceDrivers_LayeredArchitecture.png\"/> </p>
+<p><img src=\"modelica://Modelica_DeviceDrivers/Resources/Images/DeviceDrivers_LayeredArchitecture.png\"/></p>
 <h4><font color=\"#008000\">Usage Examples</font></h4>
 <p>Looking at the examples in <code>.Blocks.Examples</code> (or <code>.ClockedBlocks.Examples</code>, respectively) the usage of the library should be self-explanatory. In the following two exemplarily examples are considered.</p>
 <h5>User Input devices</h5>
