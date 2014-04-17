@@ -13,9 +13,7 @@
 #include <cstdlib>
 #include <cstdio>
 
-extern "C" {
 #include "ModelicaUtilities.h"
-}
 
 
 typedef std::map<int, void*> MapIntpVoid;
