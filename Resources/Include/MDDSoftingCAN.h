@@ -321,12 +321,13 @@ DllExport void MDD_softingCANWriteObject(void* p_mDDSoftingCAN, int objectNumber
 	}
 }
 
-DllExport const char* MDD_softingCANReadRcvData(void* p_mDDSoftingCAN, int objectNumber, char* data) {
+DllExport const char* MDD_softingCANReadRcvData(void* p_mDDSoftingCAN, int objectNumber, const char* data) {
 	MDDSoftingCAN * mDDSoftingCAN = (MDDSoftingCAN *) p_mDDSoftingCAN;
 	int frc = CANL2_RA_NO_DATA;
-	byte rcvBuffer[8];
+	byte* rcvBuffer;
 	unsigned long Time;
 
+	rcvBuffer = (byte*) ModelicaAllocateString(8);
 	frc = CANL2_read_rcv_data(mDDSoftingCAN->can, objectNumber,
 		rcvBuffer, &Time);
 	if (frc < 0) {
@@ -350,7 +351,6 @@ DllExport const char* MDD_softingCANReadRcvData(void* p_mDDSoftingCAN, int objec
 		       msg->data[6],
 		       msg->data[7]);
 		#endif
-		memcpy(data, rcvBuffer, sizeof(rcvBuffer));
 	    break;
 	case 2: /* Remote frame received */
 	    ModelicaFormatError("RCV Remote: CAN%lu Ident0x%lX  Obj0x%x  Time%lu\n",
@@ -360,7 +360,7 @@ DllExport const char* MDD_softingCANReadRcvData(void* p_mDDSoftingCAN, int objec
 	default:
 	    break;
 	}
-	return (const char*) data;
+	return (const char*) rcvBuffer;
 }
 
 /** Start chips, needs to be called *after* all objects are defined.
