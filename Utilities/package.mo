@@ -1,13 +1,7 @@
 within Modelica_DeviceDrivers;
 package Utilities "Collection of utility elements used within the library"
   extends Modelica.Icons.Package;
-
- constant String RootDir=Modelica.Utilities.Files.fullPathName(classDirectory() + "..");
-
-
-
-
-
+  constant String RootDir=Modelica.Utilities.Files.fullPathName(classDirectory() + "..");
   annotation (
    preferredView="info",
    Documentation(info="<html>
