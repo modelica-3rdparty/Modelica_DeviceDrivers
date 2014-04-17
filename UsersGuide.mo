@@ -27,7 +27,7 @@ package UsersGuide "User's Guide"
     extends Modelica.Icons.Information;
     annotation (Documentation(info="<html>
 <p>
-The tool must support the Modelica external funtion interface as specified in Section 12.9 of the Modelica specification 3.2 and later.
+The tool must support the Modelica external function interface as specified in Section 12.9 of the Modelica specification 3.2 and later.
 </p>
 <p>
 <b>Optionally</b> following requirements need to be additionally satisfied.
