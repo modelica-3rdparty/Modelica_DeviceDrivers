@@ -25,10 +25,7 @@ package Interfaces
           Line(
             points={{-52,-40},{0,0},{50,-40}},
             color={95,95,95},
-            smooth=Smooth.None)}),Diagram(coordinateSystem(
-          preserveAspectRatio=true,
-          extent={{-100,-100},{100,100}},
-          initialScale=0.2)));
+            smooth=Smooth.None)}));
   end PackageIn;
 
   connector PackageOut "Packager output connector"
@@ -57,9 +54,6 @@ package Interfaces
           Line(
             points={{-50,40},{2,0},{52,40}},
             color={95,95,95},
-            smooth=Smooth.None)}),Diagram(coordinateSystem(
-          preserveAspectRatio=true,
-          extent={{-100,-100},{100,100}},
-          initialScale=0.2)));
+            smooth=Smooth.None)}));
   end PackageOut;
 end Interfaces;

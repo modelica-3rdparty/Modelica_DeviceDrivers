@@ -41,5 +41,4 @@ equation
       points={{36,36},{67,36},{67,10},{100,10}},
       color={0,0,255},
       smooth=Smooth.None));
-  annotation (Diagram(graphics));
 end Comp1;

@@ -1,10 +1,7 @@
 within Modelica_DeviceDrivers.Utilities.Icons;
 partial block SharedMemoryIcon "Base icon for shared memory blocks"
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                      graphics),
-                            Icon(coordinateSystem(preserveAspectRatio=true,
+  annotation (Icon(coordinateSystem(preserveAspectRatio=true,
           extent={{-100,-100},{100,100}}), graphics={Bitmap(
           extent={{-128,56},{128,-56}},
           fileName=

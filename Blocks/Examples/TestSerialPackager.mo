@@ -80,8 +80,7 @@ equation
       color={0,0,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}), graphics), experiment(StopTime=5.0),
+  annotation (experiment(StopTime=5.0),
     Documentation(info="<html>
 <p>
 The example demonstrates that pack and unpack blocks of the <code>SerialPackager</code> package can be connected directly.

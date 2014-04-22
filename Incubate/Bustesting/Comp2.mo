@@ -34,5 +34,4 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  annotation (Diagram(graphics));
 end Comp2;

@@ -16,8 +16,7 @@ equation
     CANMessage.floatBitPacking(msgOut.msg, bitStartPosition, u);
   end when;
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-            -100},{100,100}}), graphics), Icon(graphics={
+  annotation (Icon(graphics={
         Text(
           extent={{-130,58},{-30,-62}},
           lineColor={0,0,127},

@@ -1,10 +1,7 @@
 within Modelica_DeviceDrivers.Utilities.Icons;
 partial block UDPconnection "Base icon for models of network connections"
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                      graphics),
-                            Icon(coordinateSystem(preserveAspectRatio=false,
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}), graphics={
         Line(points={{-80,0},{80,0}}, color={65,65,65}),
         Ellipse(
