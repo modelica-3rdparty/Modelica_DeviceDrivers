@@ -24,10 +24,7 @@ package InputDevices
         Modelica_DeviceDrivers.InputDevices.GameController.getData(ID);
     end when;
     axes = (AxesRaw .- 32768)/32768 ./gain;
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-              -100},{100,100}}),
-                        graphics),
-                         Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+    annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}), graphics={Bitmap(extent={{-86,88},{88,-88}},
               fileName="../Resources/Images/Icons/joystick.png"), Text(extent={
                 {-150,140},{150,100}}, textString="%name")}),
@@ -107,8 +104,6 @@ package InputDevices
     keyState = if (not useKeyKombination and keyStateInt == 1 and additionalKeyStateInt == 0) then true else
       if (useKeyKombination and keyStateInt == 1 and additionalKeyStateInt == 1) then true else false;
     annotation (
-      Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-              100}}), graphics),
       Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
           graphics={
           Text(extent={{-150,140},{150,100}}, textString="%name"),
@@ -188,10 +183,7 @@ package InputDevices
         points={{61,60},{110,60}},
         color={0,0,127},
         smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-              -100},{100,100}}),
-                        graphics),
-                         Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+    annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}), graphics={Text(extent={{-150,140},{150,100}},
               textString="%name"), Bitmap(extent={{-86,88},{88,-88}}, fileName=
                 "modelica://Modelica_DeviceDrivers/Resources/Images/Icons/Spacemouse.png")}),
@@ -243,10 +235,7 @@ package InputDevices
     keyLeft = if (KeyCode[4]==1) then true else false;
     keyReturn = if (KeyCode[5]==1) then true else false;
     keySpace = if (KeyCode[6]==1) then true else false;
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}),
-                        graphics),
-                         Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+    annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}), graphics={
           Text(extent={{-150,140},{150,100}}, textString="%name"),
           Rectangle(

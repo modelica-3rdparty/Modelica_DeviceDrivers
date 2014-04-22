@@ -55,9 +55,7 @@ package Communication
       annotation (preferredView="info",
                 Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}), graphics={Text(extent={{-150,136},{150,96}},
-              textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=true,
-                   extent={{-100,-100},{100,100}}), graphics),
-      Documentation(info="<html>
+              textString="%name")}), Documentation(info="<html>
 <p>Supports reading from a named shared memory partition. The name of the shared memory partition is
 provided by the parameter <b>memoryID</b>. If the shared memory partition does not yet exist during initialization, it is created.</p>
 </html>"));
@@ -118,9 +116,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
     annotation (preferredView="info",
             Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
               -100},{100,100}}), graphics={Text(extent={{-150,136},{150,96}},
-              textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=true,
-                    extent={{-100,-100},{100,100}}), graphics),
-      Documentation(info="<html>
+              textString="%name")}), Documentation(info="<html>
 <p>Supports writing to a named shared memory partition. The name of the shared memory partition is
 provided by the parameter <b>memoryID</b>. If the shared memory partition does not yet exist during initialization, it is created.</p>
 </html>"));
@@ -184,9 +180,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
     annotation (preferredView="info",
             Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}), graphics={Text(extent={{-150,136},{150,96}},
-              textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=true,
-                   extent={{-100,-100},{100,100}}), graphics),
-      Documentation(info="<html>
+              textString="%name")}), Documentation(info="<html>
 <p>Supports receiving of User Datagram Protocol (UDP) datagrams.</p>
 </html>"));
   end UDPReceive;
@@ -243,9 +237,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
     annotation (preferredView="info",
             Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
               -100},{100,100}}), graphics={Text(extent={{-150,136},{150,96}},
-              textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false,
-                    extent={{-100,-100},{100,100}}), graphics),
-      Documentation(info="<html>
+              textString="%name")}), Documentation(info="<html>
 <p>Supports sending of User Datagram Protocol (UDP) datagrams.</p>
 </html>"));
   end UDPSend;

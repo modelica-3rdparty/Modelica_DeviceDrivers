@@ -10,5 +10,4 @@ equation
       points={{-60,31},{-20,31}},
       color={0,0,255},
       smooth=Smooth.None));
-  annotation (Diagram(graphics));
 end TestTheBus;

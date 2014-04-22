@@ -15,19 +15,19 @@ class DynamicArray
   external"C" ArrayID=  MDD_initMemory(m, n);
     annotation (Include="
     #include <stdio.h>
-    #include <stdlib.h> 
+    #include <stdlib.h>
     #include <ModelicaUtilities.h>
-    typedef struct 
+    typedef struct
     {
       double * data;
       int m;
       int n;
       int maxIndex;
     }MDD_Array;
-    
+
     void * MDD_initMemory(int m, int n)
     {
-      MDD_Array * array = malloc(sizeof(MDD_Array));  
+      MDD_Array * array = malloc(sizeof(MDD_Array));
       array->data = (double*) malloc(n * m * sizeof (double));
       array->m = m;
       array->n = n;
@@ -35,7 +35,7 @@ class DynamicArray
       ModelicaFormatMessage(\"Allocating  Memory. m-dim: %i, n-dim: %i \\n\",array->m, array->n);
       return array;
     }
-    
+
     void MDD_freeMemory(void * arrayPtr)
     {
       MDD_Array * array = (MDD_Array*)arrayPtr;
@@ -43,7 +43,7 @@ class DynamicArray
       free(array);
       ModelicaFormatMessage(\"Memory freed\\n\");
     }
-    
+
     void MDD_setMatrix(void * arrayPtr, const double * u, int index)
     {
       MDD_Array * array = (MDD_Array*)arrayPtr;
@@ -61,34 +61,34 @@ class DynamicArray
         newArraySize = newIndex * sizeof(double) * (array->m * array->n);
         newData = (double*) realloc(array->data,newArraySize);
         ModelicaFormatMessage(\"Memory reallocated. New size (bytes):%d \\n\", newArraySize);
-        
+
         if(newData!=NULL)
           array->data = newData;
         else
           ModelicaFormatError(\"Error allocating more memory for dynamic Array. Used memory: %i\\n\",  newIndex * sizeof(double) * array->m * array->n);
-          
+
         array->maxIndex = newIndex;
       }
-      
-      
+
+
       memcpy( array->data +  ( index - 1 )  * array->m * array->n, u, sizeof(double) * array->m * array->n );
-      
+
     }
-    
+
     void MDD_getMatrix(void * arrayPtr, double * u, int index)
     {
       MDD_Array * array = (MDD_Array*)arrayPtr;
       if (index > array->maxIndex)
             ModelicaFormatError(\"Error: Memory access out of range. Inquired index: %i, maxIndex: %i \\n \",index, array->maxIndex);
-      
+
       memcpy(u, array->data + (index-1)  * array->m * array->n ,sizeof(double) *  array->m * array->n);
     }
-    
+
     int MDD_getSize(void * arrayPtr)
     {
       MDD_Array * array = (MDD_Array*)arrayPtr;
       return array->maxIndex;
-    }   
+    }
     ");
 
   end constructor;

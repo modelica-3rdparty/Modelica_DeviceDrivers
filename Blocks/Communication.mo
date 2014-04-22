@@ -44,9 +44,7 @@ package Communication
       annotation (preferredView="info",
                 Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}), graphics={Text(extent={{-150,136},{150,96}},
-              textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=true,
-                   extent={{-100,-100},{100,100}}), graphics),
-      Documentation(info="<html>
+              textString="%name")}), Documentation(info="<html>
 <p>Supports reading from a named shared memory partition. The name of the shared memory partition is
 provided by the parameter <b>memoryID</b>. If the shared memory partition does not yet exist during initialization, it is created.</p>
 </html>"));
@@ -96,9 +94,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
     annotation (preferredView="info",
             Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
               -100},{100,100}}), graphics={Text(extent={{-150,136},{150,96}},
-              textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=true,
-                    extent={{-100,-100},{100,100}}), graphics),
-      Documentation(info="<html>
+              textString="%name")}), Documentation(info="<html>
 <p>Supports writing to a named shared memory partition. The name of the shared memory partition is
 provided by the parameter <b>memoryID</b>. If the shared memory partition does not yet exist during initialization, it is created.</p>
 </html>"));
@@ -149,9 +145,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
     annotation (preferredView="info",
             Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}), graphics={Text(extent={{-150,136},{150,96}},
-              textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=true,
-                   extent={{-100,-100},{100,100}}), graphics),
-      Documentation(info="<html>
+              textString="%name")}), Documentation(info="<html>
 <p>Supports receiving of User Datagram Protocol (UDP) datagrams.</p>
 </html>"));
   end UDPReceive;
@@ -204,9 +198,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
     annotation (preferredView="info",
             Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
               -100},{100,100}}), graphics={Text(extent={{-150,136},{150,96}},
-              textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=true,
-                    extent={{-100,-100},{100,100}}), graphics),
-      Documentation(info="<html>
+              textString="%name")}), Documentation(info="<html>
 <p>Supports sending of User Datagram Protocol (UDP) datagrams.</p>
 </html>"));
   end UDPSend;
@@ -268,9 +260,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
             textString="%Serial_Port",
             lineColor={0,0,0}),            Text(extent={{-152,-48},{148,-88}},
             lineColor={0,0,0},
-            textString="%baud")}),   Diagram(coordinateSystem(preserveAspectRatio=true,
-                   extent={{-100,-100},{100,100}}), graphics),
-      Documentation(info="<html>
+            textString="%baud")}), Documentation(info="<html>
 <h4><font color=\"#008000\">Support for receiving datagrams over a serial port</font></h4>
 <p><b>Currently only supported for Linux!</b></p>
 <h4><font color=\"#008000\">Example</font></h4>
@@ -339,9 +329,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
             textString="%Serial_Port",
             lineColor={0,0,0}),            Text(extent={{-154,-44},{146,-84}},
             lineColor={0,0,0},
-            textString="%baud")}),   Diagram(coordinateSystem(preserveAspectRatio=true,
-                    extent={{-100,-100},{100,100}}), graphics),
-      Documentation(info="<html>
+            textString="%baud")}), Documentation(info="<html>
 <h4><font color=\"#008000\">Support for sending datagrams over a serial port</font></h4>
 <p><b>Currently only supported for Linux!</b></p>
 <h4><font color=\"#008000\">Example</font></h4>
@@ -386,7 +374,6 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
               extent={{-98,72},{94,46}},
               lineColor={0,0,0},
               textString="%deviceName")}),
-                                  Diagram(graphics),
         Documentation(info="<html>
 <h4><font color=\"#008000\">Support for Softing CAN bus</font></h4>
 <p><b>Please, read the package information for <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN\"><code>SoftingCAN</code></a> first!</b></p>
@@ -446,7 +433,6 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
               extent={{-160,24},{160,-6}},
               lineColor={0,0,0},
               textString="(%startTime, %sampleTime) s")}),
-        Diagram(graphics),
         Documentation(info="<html>
 <h4><font color=\"#008000\">Support for Softing CAN bus</font></h4>
 <p><b>Please, read the package information for <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN\"><code>SoftingCAN</code></a> first!</b></p>
@@ -508,7 +494,6 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
               extent={{-160,24},{160,-6}},
               lineColor={0,0,0},
               textString="(%startTime, %sampleTime) s")}),
-        Diagram(graphics),
         Documentation(info="<html>
 <h4><font color=\"#008000\">Support for Softing CAN bus</font></h4>
 <p><b>Please, read the package information for <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN\"><code>SoftingCAN</code></a> first!</b></p>
@@ -675,9 +660,6 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
               lineColor={0,0,0},
               textString="(%startTime, %sampleTime) s",
               horizontalAlignment=TextAlignment.Left)}),
-        Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-                {100,100}}),
-                graphics),
         Documentation(info="<html>
 <h4><font color=\"#008000\">Support for Linux Socket CAN interface</font></h4>
 <p><b>Please, read the package information for <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SocketCAN\"><code>SocketCAN</code></a> first!</b></p>
@@ -740,9 +722,6 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
               lineColor={0,0,0},
               textString="(%startTime, %sampleTime) s",
               horizontalAlignment=TextAlignment.Left)}),
-        Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-                {100,100}}),
-                graphics),
         Documentation(info="<html>
 <h4><font color=\"#008000\">Support for Linux Socket CAN interface</font></h4>
 <p><b>Please, read the package information for <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SocketCAN\"><code>SocketCAN</code></a> first!</b></p>

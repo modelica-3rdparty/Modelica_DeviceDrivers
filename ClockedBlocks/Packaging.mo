@@ -25,11 +25,6 @@ package Packaging
           pkgIn.userPkgBitSize = -1;
         end if;
 
-        annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-                  {100,100}}),       graphics),
-                                       Diagram(coordinateSystem(
-                preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
-              graphics));
       end PartialSerialPackager;
 
       package DummyFunctions
@@ -236,8 +231,7 @@ package Packaging
 
       annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
                 -100},{100,100}}), graphics={Bitmap(extent={{-70,70},{70,-70}},
-                fileName="Modelica://Modelica_DeviceDrivers/Resources/Images/Icons/package.PNG")}), Diagram(
-            graphics));
+                fileName="Modelica://Modelica_DeviceDrivers/Resources/Images/Icons/package.PNG")}));
     end Packager;
 
     block AddBoolean "Add a Boolean vector to package"
@@ -264,8 +258,7 @@ package Packaging
           u_int,
           pkgIn.dummy);
 
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-                {100,100}}),       graphics), Icon(graphics={
+      annotation (Icon(graphics={
             Text(
               extent={{-118,40},{-38,-40}},
               lineColor={255,0,255},
@@ -298,8 +291,7 @@ package Packaging
         pkgOut.pkg,
         u,
         pkgIn.dummy);
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-                {100,100}}),       graphics), Icon(graphics={
+      annotation (Icon(graphics={
             Text(
               extent={{-100,-50},{100,-90}},
               lineColor={0,0,0},
@@ -332,8 +324,7 @@ package Packaging
         pkgOut.pkg,
         u,
         pkgIn.dummy);
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                -100},{100,100}}), graphics), Icon(graphics={
+      annotation (Icon(graphics={
             Text(
               extent={{-100,-50},{100,-90}},
               lineColor={0,0,0},
@@ -369,8 +360,7 @@ package Packaging
         pkgOut.pkg,
         u,
         pkgIn.dummy);
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                -100},{100,100}}), graphics), Icon(graphics={
+      annotation (Icon(graphics={
             Text(
               extent={{-100,-50},{100,-90}},
               lineColor={0,0,0},
@@ -404,8 +394,7 @@ package Packaging
         bufferSize,
         pkgIn.dummy);
 
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                -100},{100,100}}), graphics), Icon(graphics={
+      annotation (Icon(graphics={
             Text(
               extent={{-112,40},{-32,-40}},
               lineColor={255,127,0},
@@ -450,8 +439,7 @@ package Packaging
           end for;
       end when;
 
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-                -100},{100,100}}), graphics), Icon(graphics={
+      annotation (Icon(graphics={
             Text(
               extent={{30,40},{110,-40}},
               lineColor={255,0,255},
@@ -490,8 +478,7 @@ package Packaging
         pkgOut.dummy = fill(dummy,nu);
       end when;
 
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-                -100},{100,100}}), graphics), Icon(graphics={
+      annotation (Icon(graphics={
             Text(
               extent={{40,40},{120,-40}},
               lineColor={255,127,0},
@@ -546,8 +533,7 @@ package Packaging
             Text(
               extent={{-100,-50},{100,-90}},
               lineColor={0,0,0},
-              textString="%n * double")}),
-                                     Diagram(graphics));
+              textString="%n * double")}));
     end GetReal;
 
     model GetFloat
@@ -585,8 +571,7 @@ package Packaging
               lineColor={0,0,0},
               textString="%n * float"),
             Bitmap(extent={{-18,20},{48,-19}}, fileName=
-                  "modelica://Modelica_DeviceDrivers/Resources/Images/Icons/Float2RealArrow.png")}),
-                                     Diagram(graphics));
+                  "modelica://Modelica_DeviceDrivers/Resources/Images/Icons/Float2RealArrow.png")}));
     end GetFloat;
 
     model GetString "Get String from package"
@@ -610,8 +595,7 @@ package Packaging
         pkgOut.dummy = fill(dummy,nu);
       end when;
 
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-                -100},{100,100}}), graphics), Icon(graphics={
+      annotation (Icon(graphics={
             Text(
               extent={{38,40},{118,-40}},
               lineColor={255,127,0},
@@ -649,8 +633,7 @@ package Packaging
               pkgIn.dummy);
       end when;
       annotation (defaultComponentName="packInt",
-      Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-                {100,100}}),       graphics), Icon(graphics={
+ Icon(graphics={
             Text(
               extent={{-120,40},{-40,-40}},
               lineColor={255,127,0},
@@ -694,8 +677,7 @@ package Packaging
       end when;
 
       annotation (defaultComponentName="unpackInt",
-      Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-                -100},{100,100}}), graphics), Icon(graphics={
+ Icon(graphics={
             Bitmap(extent={{-7,19},{57,-20}}, fileName=
                   "Modelica://Modelica_DeviceDrivers/Resources/Images/Icons/Bit2IntArrow.png"),
             Text(
@@ -751,7 +733,7 @@ package Packaging
               lineColor={0,0,0},
               fillColor={0,0,0},
               fillPattern=FillPattern.Solid,
-              textString="Reset")}), Diagram(graphics));
+              textString="Reset")}));
     end ResetPointer;
 
     annotation (preferredView="info", Documentation(info="<html>

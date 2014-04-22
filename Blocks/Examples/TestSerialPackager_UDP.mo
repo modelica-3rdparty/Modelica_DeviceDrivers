@@ -91,8 +91,7 @@ equation
       color={0,0,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-            -100},{100,100}}), graphics), experiment(StopTime=5.0),
+  annotation (experiment(StopTime=5.0),
     Documentation(info="<html>
 <p>
 The <code>uDPSend</code> block sends to the local port 10002. The <code>uDPReceive</code> block starts a background process that listens at port 10002. Consequently, the <code>uDPReceive</code> block receives what the <code>uDPSend</code> block sends.

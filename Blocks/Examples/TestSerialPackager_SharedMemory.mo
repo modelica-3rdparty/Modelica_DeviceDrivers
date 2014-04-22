@@ -68,8 +68,7 @@ equation
       color={0,0,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}), graphics), experiment(StopTime=5.0),
+  annotation (experiment(StopTime=5.0),
     Documentation(info="<html>
 <p>
 The <code>sharedMemoryWrite</code> block writes to the memory partition with <code>memoryID = \"sharedMemory\"</code>. The <code>sharedMemoryRead</code> block reads from that partition.

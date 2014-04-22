@@ -15,8 +15,7 @@ equation
   when msgIn.trigger then
     y = CANMessage.integerBitUnpacking(msgIn.msg, bitStartPosition, length);
   end when;
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-            -100},{100,100}}), graphics), Icon(graphics={
+  annotation (Icon(graphics={
         Text(
           extent={{30,60},{130,-60}},
           lineColor={255,127,0},
