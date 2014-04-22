@@ -2,9 +2,7 @@ within Modelica_DeviceDrivers.Utilities.Icons;
 partial block BaseIcon
   "Base icon for blocks providing access to external devices"
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics),
-                            Icon(coordinateSystem(preserveAspectRatio=false,
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}), graphics={Polygon(
           points={{0,-100},{-80,-100},{-88,-98},{-94,-94},{-98,-88},{-100,-80},
               {-100,80},{-98,88},{-94,94},{-88,98},{-80,100},{80,100},{88,98},{

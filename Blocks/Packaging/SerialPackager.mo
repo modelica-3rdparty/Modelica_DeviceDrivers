@@ -23,11 +23,6 @@ package SerialPackager "Blocks for constructing packages"
         pkgIn.userPkgBitSize = -1;
       end if;
 
-      annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                -100},{100,100}}), graphics),
-                                     Diagram(coordinateSystem(
-              preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
-            graphics));
     end PartialSerialPackager;
 
     package DummyFunctions
@@ -229,9 +224,7 @@ package SerialPackager "Blocks for constructing packages"
 
     annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
               -100},{100,100}}), graphics={Bitmap(extent={{-70,70},{70,-70}},
-              fileName="Modelica://Modelica_DeviceDrivers/Resources/Images/Icons/package.PNG")}), Diagram(
-          graphics),
-      Documentation(info="<html>
+              fileName="Modelica://Modelica_DeviceDrivers/Resources/Images/Icons/package.PNG")}), Documentation(info="<html>
 <p>
 The <code>Packager</code> block creates a packager object to which payload can be added by subsequent blocks.
 </p>
@@ -279,8 +272,7 @@ and one Integer value is added, serialized and finally sent using UDP.
           pkgIn.dummy);
     end when;
 
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-              {100,100}}),       graphics), Icon(graphics={
+    annotation (Icon(graphics={
           Text(
             extent={{-118,40},{-38,-40}},
             lineColor={255,0,255},
@@ -318,8 +310,7 @@ and one Integer value is added, serialized and finally sent using UDP.
           pkgIn.dummy);
     end when;
 
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-              {100,100}}),       graphics), Icon(graphics={
+    annotation (Icon(graphics={
           Text(
             extent={{-100,-50},{100,-90}},
             lineColor={0,0,0},
@@ -360,8 +351,7 @@ and one Integer value is added, serialized and finally sent using UDP.
           u,
           pkgIn.dummy);
     end when;
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-              -100},{100,100}}), graphics), Icon(graphics={
+    annotation (Icon(graphics={
           Text(
             extent={{-100,-50},{100,-90}},
             lineColor={0,0,0},
@@ -402,8 +392,7 @@ and one Integer value is added, serialized and finally sent using UDP.
           u,
           pkgIn.dummy);
     end when;
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-              -100},{100,100}}), graphics), Icon(coordinateSystem(
+    annotation (Icon(coordinateSystem(
             preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                                                  graphics={
           Text(
@@ -443,8 +432,7 @@ and one Integer value is added, serialized and finally sent using UDP.
           bufferSize,
           pkgIn.dummy);
     end when;
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-              -100},{100,100}}), graphics), Icon(graphics={
+    annotation (Icon(graphics={
           Text(
             extent={{-112,40},{-32,-40}},
             lineColor={255,127,0},
@@ -491,8 +479,7 @@ and one Integer value is added, serialized and finally sent using UDP.
       y[i] = if    (y_int[i] == 1) then true else false;
     end for;
 
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-              -100},{100,100}}), graphics), Icon(graphics={
+    annotation (Icon(graphics={
           Text(
             extent={{30,40},{110,-40}},
             lineColor={255,0,255},
@@ -533,8 +520,7 @@ and one Integer value is added, serialized and finally sent using UDP.
       pkgOut.dummy = fill(dummy,nu);
     end when;
 
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}), graphics), Icon(graphics={
+    annotation (Icon(graphics={
           Text(
             extent={{40,40},{120,-40}},
             lineColor={255,127,0},
@@ -592,8 +578,7 @@ and one Integer value is added, serialized and finally sent using UDP.
           Text(
             extent={{-100,-50},{100,-90}},
             lineColor={0,0,0},
-            textString="%n * double")}),
-                                   Diagram(graphics));
+            textString="%n * double")}));
   end GetReal;
 
   model GetFloat
@@ -636,8 +621,7 @@ and one Integer value is added, serialized and finally sent using UDP.
             lineColor={0,0,0},
             textString="%n * float"),
           Bitmap(extent={{-20,19},{46,-20}}, fileName=
-                "modelica://Modelica_DeviceDrivers/Resources/Images/Icons/Float2RealArrow.png")}),
-                                   Diagram(graphics));
+                "modelica://Modelica_DeviceDrivers/Resources/Images/Icons/Float2RealArrow.png")}));
   end GetFloat;
 
   model GetString "Get String from package"
@@ -666,8 +650,7 @@ and one Integer value is added, serialized and finally sent using UDP.
       pkgOut.dummy = fill(dummy,nu);
     end when;
 
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}), graphics), Icon(graphics={
+    annotation (Icon(graphics={
           Text(
             extent={{38,40},{118,-40}},
             lineColor={255,127,0},
@@ -707,8 +690,7 @@ and one Integer value is added, serialized and finally sent using UDP.
     end when;
 
     annotation (defaultComponentName="packInt",
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-              {100,100}}),       graphics), Icon(graphics={
+ Icon(graphics={
           Text(
             extent={{-120,40},{-40,-40}},
             lineColor={255,127,0},
@@ -772,8 +754,7 @@ Value of bit                   : (0  0  0  0  0  0  1  1)  (.  .   .  .  .  .  0
     end when;
 
     annotation (defaultComponentName="unpackInt",
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}), graphics), Icon(graphics={
+ Icon(graphics={
           Bitmap(extent={{-7,19},{57,-20}}, fileName=
                 "Modelica://Modelica_DeviceDrivers/Resources/Images/Icons/Bit2IntArrow.png"),
           Text(
@@ -848,7 +829,7 @@ Value of bit                   :                               0  1  .  .  .  . 
             lineColor={0,0,0},
             fillColor={0,0,0},
             fillPattern=FillPattern.Solid,
-            textString="Reset")}), Diagram(graphics));
+            textString="Reset")}));
   end ResetPointer;
 annotation (preferredView="info", Documentation(info="<html>
 <p>The concept of the SerialPackager is to allow adding/retrieving data to/from a package in a device independent manner. See

@@ -93,7 +93,7 @@ package OperatingSystem
       end for;
     end when;
     annotation (preferredView="info",
-        Diagram(graphics), Icon(graphics={
+ Icon(graphics={
           Polygon(
             points={{-80,60},{-60,60},{-70,80},{-80,60}},
             lineColor={0,0,0},

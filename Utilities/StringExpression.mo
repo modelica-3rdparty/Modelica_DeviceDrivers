@@ -25,10 +25,6 @@ block StringExpression "Set output to a (time varying) String expression"
           extent={{-150,90},{140,50}},
           textString="%name",
           lineColor={0,0,255})}),
-    Diagram(coordinateSystem(
-        preserveAspectRatio=true,
-        extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics),
     Documentation(info="<html>
 <p>
 The (time varying) String output of this block can be defined in its

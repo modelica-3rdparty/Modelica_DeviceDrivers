@@ -9,8 +9,6 @@ package Modelica_DeviceDrivers "Modelica_DeviceDrivers - A collection of drivers
     versionDate="2013-10-01",
     dateModified = "2013-10-01 14:10:51Z",
     revisionId="$Id$",
-  Diagram(coordinateSystem(extent={{-120,-100},{80,100}})),
-  Icon(coordinateSystem(extent={{-120,-100},{80,100}})),
     Documentation(info="<html>
 <p>
 Library <b>Modelica_DeviceDrivers</b> is a Modelica package

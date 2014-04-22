@@ -51,8 +51,7 @@ that have no support for the synchronous language elements.
 The library was tested with Dymola 2013 and a prototype of Dymola supporting the \"Synchrchronous Language Elements\" (see above).
 The library is known to work only partly with Dymola 2012FD0, due to a bug in handling external objects in that Dymola version.
 </p>
-</html>
-"));
+</html>"));
   end Requirements;
 
   class References "References"
@@ -74,8 +73,7 @@ This library is based on various resources (mainly within the internet) describi
 <dd> <b>The Open Group Base Specifications Issue 6</b>.
       <a href=\"http://pubs.opengroup.org/onlinepubs/009695399/\">http://pubs.opengroup.org/onlinepubs/009695399/</a>. <br>&nbsp;</dd>
 </dl>
-</html>
-"));
+</html>"));
   end References;
 
   package ReleaseNotes "Release notes"
@@ -87,8 +85,7 @@ This library is based on various resources (mainly within the internet) describi
 First public version of the library.
 </p>
 
-</html>
-"));
+</html>"));
     end Version_0_9;
 
     class Version_1_0 "Version 1.0 (Sept. 20, 2012)"
@@ -99,8 +96,7 @@ First public version of the library.
  <li>Included prototypical support for Softing CAN interfaces</li>
 </ul>
 
-</html>
-"));
+</html>"));
     end Version_1_0;
 
     class Version_1_1 "Version 1.1 (April 24, 2013)"

@@ -35,7 +35,7 @@
 #		if defined(_WIN64)
 #			pragma comment( lib, "canL2_64.lib" )
 #		else
-#			pragma comment( lib, "canL2.lib" ) 
+#			pragma comment( lib, "canL2.lib" )
 #		endif /* defined(_WIN64) */
 #	endif /*MDDSOFTINGCANWRAPPER_C_*/
 #else

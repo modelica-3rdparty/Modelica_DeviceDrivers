@@ -119,8 +119,7 @@ equation
       color={0,0,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}), graphics), experiment(StopTime=5.0),
+  annotation (experiment(StopTime=5.0),
     Documentation(info="<html>
 <p>
 In particular this model demonstrates how integer values can be packed and unpacked at bit level using the <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.PackUnsignedInteger\"> <code>PackUnsignedInteger</code></a> and <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.UnpackUnsignedInteger\"><code>UnpackUnsignedInteger</code></a> blocks.

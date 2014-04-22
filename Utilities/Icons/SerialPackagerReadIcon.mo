@@ -6,8 +6,5 @@ partial block SerialPackagerReadIcon
           extent={{-100,96},{100,56}},
           lineColor={0,0,0},
           textString="%name"),           Bitmap(extent={{-94,40},{-14,-40}},
-            fileName="modelica://Modelica_DeviceDrivers/Resources/Images/Icons/package.PNG")}),
-                                 Diagram(coordinateSystem(
-          preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
-        graphics));
+            fileName="modelica://Modelica_DeviceDrivers/Resources/Images/Icons/package.PNG")}));
 end SerialPackagerReadIcon;

@@ -122,8 +122,7 @@ package Examples
         pattern=LinePattern.Dot,
         thickness=0.5,
         smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-              -100},{100,100}}), graphics), experiment(StopTime=5.0),
+    annotation (experiment(StopTime=5.0),
       Documentation(info="<html>
 <p>
 The example demonstrates that pack and unpack blocks of the <code>SerialPackager</code> package can be connected directly.
@@ -232,8 +231,7 @@ The example demonstrates that pack and unpack blocks of the <code>SerialPackager
         color={0,0,0},
         pattern=LinePattern.None,
         smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},
-              {100,100}}),       graphics), experiment(StopTime=5.0),
+    annotation (experiment(StopTime=5.0),
       Documentation(info="<html>
 <p>
 Using Strings in input or output connectors is not very common in Modelica. There are currently no standard connectors for
@@ -410,8 +408,7 @@ is demonstrated in this example.
         points={{41,-4},{50.8,-4}},
         color={0,0,127},
         smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
-              -100},{100,100}}), graphics), experiment(StopTime=5.0),
+    annotation (experiment(StopTime=5.0),
       Documentation(info="<html>
 <p>
 The <code>uDPSend</code> block sends to the local port 10002. The <code>uDPReceive</code> block starts a background process that listens at port 10002. Consequently, the <code>uDPReceive</code> block receives what the <code>uDPSend</code> block sends.
@@ -668,8 +665,7 @@ The <code>uDPSend</code> block sends to the local port 10002. The <code>uDPRecei
         pattern=LinePattern.Dot,
         thickness=0.5,
         smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-              -100},{100,100}}), graphics), experiment(StopTime=5.0),
+    annotation (experiment(StopTime=5.0),
       Documentation(info="<html>
 <p>
 In particular this model demonstrates how integer values can be packed and unpacked at bit level using the <a href=\"modelica://Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.PackUnsignedInteger\"> <code>PackUnsignedInteger</code></a> and <a href=\"modelica://Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.UnpackUnsignedInteger\"><code>UnpackUnsignedInteger</code></a> blocks.
@@ -817,8 +813,7 @@ In particular this model demonstrates how integer values can be packed and unpac
         points={{51,0},{60.8,0}},
         color={255,127,0},
         smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-              -100},{100,100}}), graphics), experiment(StopTime=5.0),
+    annotation (experiment(StopTime=5.0),
       Documentation(info="<html>
 <p>
 The <code>sharedMemoryWrite</code> block writes to the memory partition with <code>memoryID = \"sharedMemory\"</code>. The <code>sharedMemoryRead</code> block reads from that partition.
@@ -852,9 +847,7 @@ The <code>sharedMemoryWrite</code> block writes to the memory partition with <co
         pattern=LinePattern.Dot,
         thickness=0.5,
         smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{
-              -100,-100},{100,100}}),
-                        graphics), experiment(StopTime=5.0),
+    annotation (experiment(StopTime=5.0),
       Documentation(info="<html>
 <p>
 Basic example of using inputs from a <a href=\"http://www.3dconnexion.com/\">3Dconnexion SpaceMouse</a>.
@@ -888,9 +881,7 @@ Basic example of using inputs from a <a href=\"http://www.3dconnexion.com/\">3Dc
         pattern=LinePattern.Dot,
         thickness=0.5,
         smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{
-              -100,-100},{100,100}}),
-                        graphics), experiment(StopTime=5.0),
+    annotation (experiment(StopTime=5.0),
       Documentation(info="<html>
 <p>
 Basic example of using inputs from a joystick/gamepad device.
@@ -922,9 +913,7 @@ Basic example of using inputs from a joystick/gamepad device.
         points={{-61,38},{-48,38},{-48,30},{-31.2,30}},
         color={255,0,255},
         smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}),
-                        graphics), experiment(StopTime=5.0),
+    annotation (experiment(StopTime=5.0),
       Documentation(info="<html>
 <p>
 Basic example of using a keyboard as input device.
@@ -957,9 +946,7 @@ Basic example of using a keyboard as input device.
         pattern=LinePattern.Dot,
         thickness=0.5,
         smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{
-              -100,-100},{100,100}}),
-                        graphics), experiment(StopTime=5.0),
+    annotation (experiment(StopTime=5.0),
       Documentation(info="<html>
 <p>Basic example of using a keyboard as input device. For this example the parameter <code>keyCode</code> is set to the &quot;space&quot; key. Therefore, pressing <i>space</i> while the simulation is running will turn the output of the block to <b>true</b>, otherwise it is <b>false</b>
 </p>
@@ -989,9 +976,7 @@ Basic example of using a keyboard as input device.
         pattern=LinePattern.Dot,
         thickness=0.5,
         smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{
-              -100,-100},{100,100}}),
-                        graphics), experiment(StopTime=1.1));
+    annotation (experiment(StopTime=1.1));
   end TestRandomRealSource;
 
   model TestHardwareIOComedi
