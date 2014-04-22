@@ -39,7 +39,7 @@
   #include "../src/include/CompatibilityDefs.h"
   #include <stdio.h>
 
-  #pragma comment(lib, "User32.lib") 
+  #pragma comment(lib, "User32.lib")
 
 DllExport void MDD_keyboardGetKey(int iKeyCode,int * piKeyState) {
     /* getting state of interesting keys */
@@ -126,7 +126,7 @@ DllExport void MDD_keyboardGetData(int * piKeyState)
 	w2lKey[88] = XKeysymToKeycode(display, XK_x);
 	w2lKey[89] = XKeysymToKeycode(display, XK_y);
 	w2lKey[90] = XKeysymToKeycode(display, XK_z);
-    
+
 	w2lKey[48] = XKeysymToKeycode(display, XK_0);
 	w2lKey[49] = XKeysymToKeycode(display, XK_1);
 	w2lKey[50] = XKeysymToKeycode(display, XK_2);
@@ -137,7 +137,7 @@ DllExport void MDD_keyboardGetData(int * piKeyState)
 	w2lKey[55] = XKeysymToKeycode(display, XK_7);
 	w2lKey[56] = XKeysymToKeycode(display, XK_8);
 	w2lKey[57] = XKeysymToKeycode(display, XK_9);
-    
+
     w2lKey[13] = XKeysymToKeycode(display, XK_Return);
     /* left control key is set, right would be XK_Control_R */
     w2lKey[17] = XKeysymToKeycode(display, XK_Control_L);

@@ -4,7 +4,7 @@
  * @author		Bernhard Thiele <bernhard.thiele@dlr.de>
  * @since		2014-04-12
  * @copyright Modelica License 2
- * 
+ *
  *
 */
 #define MDDSOFTINGCANUSECMAKE

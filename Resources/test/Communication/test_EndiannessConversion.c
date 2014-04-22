@@ -69,7 +69,7 @@ int test_BSWAP64() {
         printf("test_BSWAP64 ... ");
         //printf("a: %llx, BSWAP64(a): %llx\n", a, BSWAP64(a));
         failure = BSWAP64(a) == 0xFF00000000000000 ? 0 : 1;
-        
+
         if (failure) {
                 printf("\tFAILED\n");
         } else {
