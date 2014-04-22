@@ -46,15 +46,16 @@ encapsulated function writeObject
 end writeObject;
 
 encapsulated function readRcvData "Read data from object (CAN message)"
-
-    import Modelica_DeviceDrivers.Communication.SoftingCAN;
+import Modelica_DeviceDrivers.Communication.SoftingCAN;
+import Modelica_DeviceDrivers.Packaging.SerialPackager;
 
 input SoftingCAN softingCAN "Handle for device";
 input Integer objectNumber "Object number of message (from defineObject(..))";
-input String buffer "String which is capable to take at least 8 elements";
+input SerialPackager serialPackager
+      "Serial packager object with data buffer which is capable to take at least 8 elements";
 output String data "Payload data";
 
-external "C" data = MDD_softingCANReadRcvData(softingCAN, objectNumber, buffer)
+external "C" data = MDD_softingCANReadRcvData(softingCAN, objectNumber, serialPackager)
 annotation (IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
             Include="#include \"MDDSoftingCAN.h\"",
             __iti_dll = "ITI_MDDSoftingCAN.dll");

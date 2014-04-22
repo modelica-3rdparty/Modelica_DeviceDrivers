@@ -27,17 +27,14 @@
 #	include "../thirdParty/softing/CANL2.H"    /* definition of the API functions an the structures */
 #	include "ModelicaUtilities.h"
 #	include "MDDCANMessage.h"
+#   include "MDDSerialPackager.h"
 #	if  defined(MDDSOFTINGCANUSECMAKE)
  		/* use cmake to resolve linking dependencies */
 #	else
 		/* Used as header-only library => add linking dependencies here: */
 #		if defined(_WIN64)
- 			/* @FIXME Not sure which of the two (if any) will work with Dymola 
- 			 * Needs available hardware to test, and I don't have access to it at the moment*/
-			/*#pragma comment(linker, "/DEFAULTLIB:\"..\\thirdParty\\softing\\Win64\\canL2_64.lib\"")*/
 #			pragma comment( lib, "canL2_64.lib" )
 #		else
-			/*#pragma comment(linker, "/DEFAULTLIB:\"..\\thirdParty\\softing\\Win32\\canL2.lib\"")*/
 #			pragma comment( lib, "canL2.lib" ) 
 #		endif /* defined(_WIN64) */
 #	endif /*MDDSOFTINGCANWRAPPER_C_*/
@@ -321,8 +318,16 @@ DllExport void MDD_softingCANWriteObject(void* p_mDDSoftingCAN, int objectNumber
 	}
 }
 
-DllExport const char* MDD_softingCANReadRcvData(void* p_mDDSoftingCAN, int objectNumber, char* data) {
+/** Read received data for a particular CAN object
+ * If no new data is available for the requested object a logging message is
+ * written using ModelicaFormatMessage and
+ * the data from "serialPackager->data" is returned. That particularly allows to return
+ * old values (i.e., data received at the last successful retrieval), if there is no
+ * new data available
+ */
+DllExport const char* MDD_softingCANReadRcvData(void* p_mDDSoftingCAN, int objectNumber, void* p_serialPackager) {
 	MDDSoftingCAN * mDDSoftingCAN = (MDDSoftingCAN *) p_mDDSoftingCAN;
+	SerialPackager * serialPackager = (SerialPackager *) p_serialPackager;
 	int frc = CANL2_RA_NO_DATA;
 	byte rcvBuffer[8];
 	unsigned long Time;
@@ -350,7 +355,7 @@ DllExport const char* MDD_softingCANReadRcvData(void* p_mDDSoftingCAN, int objec
 		       msg->data[6],
 		       msg->data[7]);
 		#endif
-		memcpy(data, rcvBuffer, sizeof(rcvBuffer));
+		memcpy(serialPackager->data, rcvBuffer, sizeof(rcvBuffer));
 	    break;
 	case 2: /* Remote frame received */
 	    ModelicaFormatError("RCV Remote: CAN%lu Ident0x%lX  Obj0x%x  Time%lu\n",
@@ -360,7 +365,7 @@ DllExport const char* MDD_softingCANReadRcvData(void* p_mDDSoftingCAN, int objec
 	default:
 	    break;
 	}
-	return (const char*) data;
+	return (const char*) serialPackager->data;
 }
 
 /** Start chips, needs to be called *after* all objects are defined.

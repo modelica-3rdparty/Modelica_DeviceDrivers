@@ -429,7 +429,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
         Modelica_DeviceDrivers.Communication.SoftingCAN_.readRcvData(
           softingCANBus.softingCAN,
           objectNumber,
-          Modelica_DeviceDrivers.Packaging.SerialPackager_.getPackage(pkgOut.pkg)),
+          pkgOut.pkg),
         8,
         time);
 
