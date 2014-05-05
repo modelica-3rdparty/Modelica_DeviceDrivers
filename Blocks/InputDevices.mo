@@ -9,12 +9,11 @@ package InputDevices
     parameter Integer ID= 0
       "ID number of the joystick (0 = first joystick attached to the system)";
     Modelica.Blocks.Interfaces.RealOutput axes[6](start=zeros(6))
-      annotation (Placement(transformation(extent={{100,50},{120,70}}, rotation=0)));
+      annotation (Placement(transformation(extent={{100,50},{120,70}})));
     Modelica.Blocks.Interfaces.RealOutput pOV annotation (Placement(
-          transformation(extent={{100,-10},{120,10}}, rotation=0)));
+          transformation(extent={{100,-10},{120,10}})));
     Modelica.Blocks.Interfaces.IntegerOutput buttons[8]
-      annotation (Placement(transformation(extent={{100,-70},{120,-50}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
   protected
     Real AxesRaw[6] "unscaled joystick input";
   equation
@@ -47,7 +46,7 @@ package InputDevices
       additionalKeyCode="Control"
       "Additional monitored key for key combination" annotation(Dialog(enable=useKeyKombination));
     Modelica.Blocks.Interfaces.BooleanOutput keyState
-      annotation (Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
+      annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   protected
     encapsulated function getKeyCode
@@ -162,16 +161,14 @@ package InputDevices
     parameter Real sampleTime = 0.01 "sample time for input update";
     parameter Real gain[6] = ones(6) "gain of axis output";
     Modelica.Blocks.Interfaces.RealOutput axes[6]
-      annotation (Placement(transformation(extent={{100,50},{120,70}}, rotation=0)));
+      annotation (Placement(transformation(extent={{100,50},{120,70}})));
     Modelica.Blocks.Interfaces.IntegerOutput buttons[16]
-      annotation (Placement(transformation(extent={{100,-70},{120,-50}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
   protected
     Real AxesRaw[6] "unscaled SpaceMouse input";
   public
     Modelica.Blocks.Continuous.FirstOrder firstOrder[6](each T=0.1)
       annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-          rotation=0,
           origin={50,60})));
   equation
     when
@@ -199,7 +196,7 @@ package InputDevices
     extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
     parameter Real sampleTime = 0.01 "sample time for input update";
     Modelica.Blocks.Interfaces.BooleanOutput keyUp
-      annotation (Placement(transformation(extent={{100,50},{120,70}}, rotation=0)));
+      annotation (Placement(transformation(extent={{100,50},{120,70}})));
     Modelica.Blocks.Interfaces.BooleanOutput keyDown
       annotation (Placement(transformation(
           origin={0,-110},
@@ -216,11 +213,9 @@ package InputDevices
           extent={{-10,-10},{10,10}},
           rotation=270)));
     Modelica.Blocks.Interfaces.BooleanOutput keyReturn
-      annotation (Placement(transformation(extent={{100,-10},{120,10}}, rotation=
-              0)));
+      annotation (Placement(transformation(extent={{100,-10},{120,10}})));
     Modelica.Blocks.Interfaces.BooleanOutput keySpace
-      annotation (Placement(transformation(extent={{100,-70},{120,-50}}, rotation=
-             0)));
+      annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
   protected
     Integer KeyCode[10](each start=0, each fixed=true);
   equation

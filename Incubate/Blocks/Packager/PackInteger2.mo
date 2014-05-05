@@ -12,7 +12,6 @@ model PackInteger2 "Pack integer value into CAN message"
   Interfaces.PackOut  msgOut annotation (
       Placement(transformation(
         extent={{-20,-20},{20,20}},
-        rotation=0,
         origin={0,-108})));
   Interfaces.PackIn msgIn
     annotation (Placement(transformation(extent={{-20,88},{20,128}})));

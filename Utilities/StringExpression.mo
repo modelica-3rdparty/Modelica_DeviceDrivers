@@ -4,7 +4,7 @@ block StringExpression "Set output to a (time varying) String expression"
   output String y="An example String" "Value of String output"
     annotation (Dialog(group=
           "Time varying output signal"), Placement(transformation(extent={{
-            100,-10},{120,10}}, rotation=0)));
+            100,-10},{120,10}})));
 
   annotation (
     Icon(coordinateSystem(
