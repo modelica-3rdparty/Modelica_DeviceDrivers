@@ -6,7 +6,6 @@ partial block SharedMemoryIcon "Base icon for shared memory blocks"
           extent={{-128,56},{128,-56}},
           fileName=
               "modelica://Modelica_DeviceDrivers/Resources/Images/Icons/sharedmemory.png",
-          origin={0,0},
           rotation=270)}),
     Documentation(info="<html>
 <p>
