@@ -5,7 +5,6 @@ partial block BusIcon "Icon for a communication bus"
             -100},{100,100}}), graphics={
         Text(
           extent={{-150,102},{150,142}},
-          lineColor={0,0,0},
           fillColor={85,85,255},
           fillPattern=FillPattern.Solid,
           textString="%name"),
@@ -16,7 +15,6 @@ partial block BusIcon "Icon for a communication bus"
           rotation=360),
         Rectangle(
           extent={{-16,10},{16,-10}},
-          lineColor={0,0,0},
           fillPattern=FillPattern.Solid,
           fillColor={215,215,215},
           origin={-60,30},
@@ -53,28 +51,24 @@ partial block BusIcon "Icon for a communication bus"
           rotation=360),
         Rectangle(
           extent={{-16,10},{16,-10}},
-          lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           origin={0,30},
           rotation=360),
         Rectangle(
           extent={{-16,10},{16,-10}},
-          lineColor={0,0,0},
           fillPattern=FillPattern.Solid,
           fillColor={215,215,215},
           origin={60,30},
           rotation=360),
         Rectangle(
           extent={{-16,10},{16,-10}},
-          lineColor={0,0,0},
           fillPattern=FillPattern.Solid,
           fillColor={215,215,215},
           origin={30,-30},
           rotation=360),
         Rectangle(
           extent={{-16,10},{16,-10}},
-          lineColor={0,0,0},
           fillPattern=FillPattern.Solid,
           fillColor={215,215,215},
           origin={-30,-30},

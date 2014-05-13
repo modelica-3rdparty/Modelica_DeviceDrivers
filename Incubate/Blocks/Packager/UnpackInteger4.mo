@@ -30,13 +30,11 @@ equation
             fileName="modelica://Modelica_DeviceDrivers/Resources/Images/Icons/package.PNG"),
         Text(
           extent={{-100,74},{100,48}},
-          lineColor={0,0,0},
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid,
           textString="Start bit:  %bitStartPosition"),
         Text(
           extent={{-100,-46},{100,-74}},
-          lineColor={0,0,0},
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid,
           textString="Length: %length bits")}));

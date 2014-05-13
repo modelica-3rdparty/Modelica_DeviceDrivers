@@ -29,7 +29,6 @@ partial record SocketCANRecordIcon
           rotation=360),
         Rectangle(
           extent={{-16,10},{16,-10}},
-          lineColor={0,0,0},
           fillPattern=FillPattern.Solid,
           fillColor={215,215,215},
           origin={-62,30},
@@ -66,28 +65,24 @@ partial record SocketCANRecordIcon
           rotation=360),
         Rectangle(
           extent={{-16,10},{16,-10}},
-          lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           origin={-2,30},
           rotation=360),
         Rectangle(
           extent={{-16,10},{16,-10}},
-          lineColor={0,0,0},
           fillPattern=FillPattern.Solid,
           fillColor={215,215,215},
           origin={58,30},
           rotation=360),
         Rectangle(
           extent={{-16,10},{16,-10}},
-          lineColor={0,0,0},
           fillPattern=FillPattern.Solid,
           fillColor={215,215,215},
           origin={28,-30},
           rotation=360),
         Rectangle(
           extent={{-16,10},{16,-10}},
-          lineColor={0,0,0},
           fillPattern=FillPattern.Solid,
           fillColor={215,215,215},
           origin={-32,-30},

@@ -35,7 +35,6 @@ package OperatingSystem
                 "../Resources/Images/Icons/clock.png"),
           Text(
             extent={{-100,-100},{100,-140}},
-            lineColor={0,0,0},
             textString="%priority"),       Text(extent={{-150,142},{150,102}},
               textString="%name")}),
       Documentation(info="<html>
@@ -92,7 +91,6 @@ package OperatingSystem
  Icon(graphics={
           Polygon(
             points={{-80,60},{-60,60},{-70,80},{-80,60}},
-            lineColor={0,0,0},
             smooth=Smooth.None),
           Line(
             points={{-70,60},{-70,-70},{60,-70}},
@@ -100,7 +98,6 @@ package OperatingSystem
             smooth=Smooth.None),
           Polygon(
             points={{60,-60},{60,-80},{80,-70},{60,-60}},
-            lineColor={0,0,0},
             smooth=Smooth.None),
           Line(
             points={{-70,0},{-64,-20},{-58,14},{-52,-40},{-48,-8},{-42,0},{-34,-48},

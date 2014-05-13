@@ -20,7 +20,6 @@ package HardwareIO
             Icon(graphics={
             Text(
               extent={{-98,72},{94,46}},
-              lineColor={0,0,0},
               textString="%deviceName"),
               Bitmap(extent={{-96,20},{10,-92}},     fileName=
                   "modelica://Modelica_DeviceDrivers/Resources/Images/Icons/gears.png")}),
@@ -59,13 +58,10 @@ package HardwareIO
               preferredView="info",
               Icon(graphics={                                       Text(extent={{-222,
                   88},{222,58}},
-              lineColor={0,0,0},
               textString="Subdevice: %subDevice"),                  Text(extent={{-222,
                   54},{222,24}},
-              lineColor={0,0,0},
               textString="Channel: %channel"),                      Text(extent={{-220,
                   -104},{224,-134}},
-              lineColor={0,0,0},
               textString="Device: %comedi"), Text(extent={{-150,142},{150,102}},
                 textString="%name")}),
         Documentation(info="<html>
@@ -104,13 +100,10 @@ package HardwareIO
               preferredView="info",
               Icon(graphics={                                       Text(extent={{-222,
                   88},{222,58}},
-              lineColor={0,0,0},
               textString="Subdevice: %subDevice"),                  Text(extent={{-222,
                   54},{222,24}},
-              lineColor={0,0,0},
               textString="Channel: %channel"),                      Text(extent={{-220,
                   -104},{224,-134}},
-              lineColor={0,0,0},
               textString="Device: %comedi"), Text(extent={{-152,142},{148,102}},
                 textString="%name")}),        Documentation(info="<html>
 <p>The parameter <code>comedi</code> needs to be set to a valid Comedi device handle, i.e., needs to be set to the record member <code>dh</code> of a <code>ComediConfig</code> record instance.</p>
@@ -174,13 +167,10 @@ package HardwareIO
               preferredView="info",
               Icon(graphics={                                       Text(extent={{-222,
                   88},{222,58}},
-              lineColor={0,0,0},
               textString="Subdevice: %subDevice"),                  Text(extent={{-222,
                   54},{222,24}},
-              lineColor={0,0,0},
               textString="Channel: %channel"),                      Text(extent={{-220,
                   -104},{224,-134}},
-              lineColor={0,0,0},
               textString="Device: %comedi"), Text(extent={{-150,142},{150,102}},
                 textString="%name")}),
         Documentation(info="<html>
@@ -243,13 +233,10 @@ package HardwareIO
               preferredView="info",
               Icon(graphics={                                       Text(extent={{-222,
                   88},{222,58}},
-              lineColor={0,0,0},
               textString="Subdevice: %subDevice"),                  Text(extent={{-222,
                   54},{222,24}},
-              lineColor={0,0,0},
               textString="Channel: %channel"),                      Text(extent={{-220,
                   -104},{224,-134}},
-              lineColor={0,0,0},
               textString="Device: %comedi"), Text(extent={{-152,142},{148,102}},
                 textString="%name")}),        Documentation(info="<html>
 <p>The parameter <code>comedi</code> needs to be set to a valid Comedi device handle, i.e., needs to be set to the record member <code>dh</code> of a <code>ComediConfig</code> record instance.</p>
@@ -292,13 +279,10 @@ package HardwareIO
               preferredView="info",
               Icon(graphics={                                       Text(extent={{-222,
                   88},{222,58}},
-              lineColor={0,0,0},
               textString="Subdevice: %subDevice"),                  Text(extent={{-222,
                   54},{222,24}},
-              lineColor={0,0,0},
               textString="Channel: %channel"),                      Text(extent={{-220,
                   -104},{224,-134}},
-              lineColor={0,0,0},
               textString="Device: %comedi"), Text(extent={{-150,142},{150,102}},
                 textString="%name")}),
         Documentation(info="<html>
@@ -344,13 +328,10 @@ package HardwareIO
               preferredView="info",
               Icon(graphics={                                       Text(extent={{-222,
                   88},{222,58}},
-              lineColor={0,0,0},
               textString="Subdevice: %subDevice"),                  Text(extent={{-222,
                   54},{222,24}},
-              lineColor={0,0,0},
               textString="Channel: %channel"),                      Text(extent={{-220,
                   -104},{224,-134}},
-              lineColor={0,0,0},
               textString="Device: %comedi"), Text(extent={{-150,142},{150,102}},
                 textString="%name")}),
         Documentation(info="<html>

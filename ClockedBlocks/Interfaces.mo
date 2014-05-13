@@ -16,8 +16,7 @@ package Interfaces
             extent={{-100,40},{100,-40}},
             fillColor={255,255,0},
             fillPattern=FillPattern.Sphere,
-            pattern=LinePattern.None,
-            lineColor={0,0,0}),
+            pattern=LinePattern.None),
           Line(
             points={{-100,-40},{0,40},{100,-40}},
             color={95,95,95},
@@ -45,8 +44,7 @@ package Interfaces
             extent={{-100,40},{100,-40}},
             fillColor={255,255,0},
             fillPattern=FillPattern.Sphere,
-            pattern=LinePattern.None,
-            lineColor={0,0,0}),
+            pattern=LinePattern.None),
           Line(
             points={{-100,40},{0,-40},{100,40}},
             color={95,95,95},
