@@ -23,8 +23,6 @@ partial record SocketCANRecordIcon
           Bitmap(extent={{16,-24},{118,-94}},fileName="modelica://Modelica_DeviceDrivers/Resources/Images/Icons/tux-enhanced.png"),
         Line(
           points={{-92,0},{92,0}},
-          color={0,0,0},
-          smooth=Smooth.None,
           origin={-2,0},
           rotation=360),
         Rectangle(
@@ -35,32 +33,22 @@ partial record SocketCANRecordIcon
           rotation=360),
         Line(
           points={{0,-10},{0,10}},
-          color={0,0,0},
-          smooth=Smooth.None,
           origin={-2,10},
           rotation=360),
         Line(
           points={{0,-10},{0,10}},
-          color={0,0,0},
-          smooth=Smooth.None,
           origin={-62,10},
           rotation=360),
         Line(
           points={{0,-10},{0,10}},
-          color={0,0,0},
-          smooth=Smooth.None,
           origin={58,10},
           rotation=360),
         Line(
           points={{0,-10},{0,10}},
-          color={0,0,0},
-          smooth=Smooth.None,
           origin={-32,-10},
           rotation=360),
         Line(
           points={{0,-10},{0,10}},
-          color={0,0,0},
-          smooth=Smooth.None,
           origin={28,-10},
           rotation=360),
         Rectangle(

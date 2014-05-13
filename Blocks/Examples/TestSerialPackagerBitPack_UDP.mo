@@ -60,65 +60,43 @@ extends Modelica.Icons.Example;
 equation
   connect(integerExpression.y, packInt.u) annotation (Line(
       points={{-48.3,14},{-42,14}},
-      color={255,127,0},
-      smooth=Smooth.None));
+      color={255,127,0}));
   connect(integerExpression1.y, packInt1.u) annotation (Line(
       points={{-48.2,-14},{-42,-14}},
-      color={255,127,0},
-      smooth=Smooth.None));
+      color={255,127,0}));
   connect(integerConstant1.y,addInteger1. u[1]) annotation (Line(
       points={{-53.2,-40},{-42,-40}},
-      color={255,127,0},
-      smooth=Smooth.None));
+      color={255,127,0}));
   connect(realExpression.y, addReal.u) annotation (Line(
       points={{-48.8,40},{-42,40}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(packager.pkgOut, addReal.pkgIn) annotation (Line(
       points={{-30,55.2},{-30,50.8}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
+      pattern=LinePattern.None));
   connect(addReal.pkgOut[1], packInt.pkgIn) annotation (Line(
       points={{-30,29.2},{-30,24.8}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
+      pattern=LinePattern.None));
   connect(packInt.pkgOut[1], packInt1.pkgIn) annotation (Line(
       points={{-30,3.2},{-30,-3.2}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
+      pattern=LinePattern.None));
   connect(packInt1.pkgOut[1], addInteger1.pkgIn) annotation (Line(
       points={{-30,-24.8},{-30,-29.2}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
+      pattern=LinePattern.None));
   connect(addInteger1.pkgOut[1], uDPSend.pkgIn) annotation (Line(
       points={{-30,-50.8},{-30,-57.2}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
+      pattern=LinePattern.None));
   connect(uDPReceive.pkgOut, getReal.pkgIn)    annotation (Line(
       points={{30,57.2},{30,48.8}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
+      pattern=LinePattern.None));
   connect(getReal.pkgOut[1], unpackInt.pkgIn) annotation (Line(
       points={{30,27.2},{30,16.8}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
+      pattern=LinePattern.None));
   connect(unpackInt.pkgOut[1], unpackInt1.pkgIn) annotation (Line(
       points={{30,-4.8},{30,-13.2}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
+      pattern=LinePattern.None));
   connect(unpackInt1.pkgOut[1], getInteger1.pkgIn) annotation (Line(
       points={{30,-34.8},{30,-43.2}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
+      pattern=LinePattern.None));
   annotation (experiment(StopTime=5.0),
     Documentation(info="<html>
 <p>

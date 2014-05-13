@@ -10,8 +10,6 @@ partial block BusIcon "Icon for a communication bus"
           textString="%name"),
         Line(
           points={{-92,0},{92,0}},
-          color={0,0,0},
-          smooth=Smooth.None,
           rotation=360),
         Rectangle(
           extent={{-16,10},{16,-10}},
@@ -21,32 +19,22 @@ partial block BusIcon "Icon for a communication bus"
           rotation=360),
         Line(
           points={{0,-10},{0,10}},
-          color={0,0,0},
-          smooth=Smooth.None,
           origin={0,10},
           rotation=360),
         Line(
           points={{0,-10},{0,10}},
-          color={0,0,0},
-          smooth=Smooth.None,
           origin={-60,10},
           rotation=360),
         Line(
           points={{0,-10},{0,10}},
-          color={0,0,0},
-          smooth=Smooth.None,
           origin={60,10},
           rotation=360),
         Line(
           points={{0,-10},{0,10}},
-          color={0,0,0},
-          smooth=Smooth.None,
           origin={-30,-10},
           rotation=360),
         Line(
           points={{0,-10},{0,10}},
-          color={0,0,0},
-          smooth=Smooth.None,
           origin={30,-10},
           rotation=360),
         Rectangle(

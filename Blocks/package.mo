@@ -9,8 +9,8 @@ package Blocks "This package contains Modelica 3.2 compatible drag'n'drop device
           fillPattern=FillPattern.Solid),
       Rectangle(extent={{-32,-6},{16,-35}}),
       Rectangle(extent={{-32,-56},{16,-85}}),
-      Line(points={{16,-20},{49,-20},{49,-71},{16,-71}}, color={0,0,0}),
-      Line(points={{-32,-72},{-64,-72},{-64,-21},{-32,-21}}, color={0,0,0}),
+      Line(points={{16,-20},{49,-20},{49,-71},{16,-71}}),
+      Line(points={{-32,-72},{-64,-72},{-64,-21},{-32,-21}}),
       Polygon(
         points={{16,-71},{29,-67},{29,-74},{16,-71}},
         fillPattern=FillPattern.Solid),

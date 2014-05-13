@@ -50,28 +50,22 @@ extends Modelica.Icons.Example;
 equation
   connect(sine.y, realToInteger.u) annotation (Line(
       points={{-79,30},{-74,30}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(realToInteger.y, dataWrite.u) annotation (Line(
       points={{-51,30},{-42,30}},
-      color={255,127,0},
-      smooth=Smooth.None));
+      color={255,127,0}));
   connect(const.y, less.u2) annotation (Line(
       points={{-79,-50},{-76,-50},{-76,-18},{-72,-18}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(less.u1, sine.y) annotation (Line(
       points={{-72,-10},{-78,-10},{-78,30},{-79,30}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   connect(less.y, dioWrite.u) annotation (Line(
       points={{-49,-10},{-42,-10}},
-      color={255,0,255},
-      smooth=Smooth.None));
+      color={255,0,255}));
   connect(sine1.y, dataWrite1.u) annotation (Line(
       points={{-79,-90},{-72,-90},{-72,-70},{-62,-70}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (Diagram(graphics={Text(
           extent={{-108,106},{108,76}},
           lineColor={0,0,255},

@@ -15,22 +15,19 @@ equation
 
   connect(cANBus.cAN_Msg1.iSig1, integerToReal.u) annotation (Line(
       points={{-100,10},{-72,10},{-72,-10},{-42,-10}},
-      color={0,0,255},
-      smooth=Smooth.None), Text(
+      color={0,0,255}), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(cANBus.cAN_Msg1.rSi1, gain.u) annotation (Line(
       points={{-100,10},{-72,10},{-72,34},{-42,34}},
-      color={0,0,255},
-      smooth=Smooth.None), Text(
+      color={0,0,255}), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(gain1.u, cANBus.cAN_Msg1.myParam) annotation (Line(
       points={{-42,76},{-42,47},{-100,47},{-100,10}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
+      color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));

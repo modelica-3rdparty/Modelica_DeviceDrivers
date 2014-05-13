@@ -46,47 +46,31 @@ extends Modelica.Icons.Example;
 equation
   connect(unpackInt.pkgOut[1],getString. pkgIn) annotation (Line(
       points={{-8,-2.8},{-8,-13.2}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
+      pattern=LinePattern.None));
   connect(integerExpression.y,packInt. u) annotation (Line(
       points={{-72.7,10},{-58,10}},
-      color={255,127,0},
-      smooth=Smooth.None));
+      color={255,127,0}));
   connect(packInt.pkgOut[1],addString. pkgIn) annotation (Line(
       points={{-46,-0.8},{-46,-9.2}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
+      pattern=LinePattern.None));
   connect(serialReceive.pkgOut, unpackInt.pkgIn) annotation (Line(
       points={{-9.2,50},{-8,50},{-8,18.8}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
+      pattern=LinePattern.None));
   connect(packager.pkgOut, packInt.pkgIn) annotation (Line(
       points={{-48,41.2},{-48,31.6},{-46,31.6},{-46,20.8}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
+      pattern=LinePattern.None));
   connect(addString.pkgOut[1], addInteger.pkgIn) annotation (Line(
       points={{-46,-30.8},{-46,-45.2}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
+      pattern=LinePattern.None));
   connect(addInteger.pkgOut[1], serialSend.pkgIn) annotation (Line(
       points={{-46,-66.8},{-46,-79.2}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
+      pattern=LinePattern.None));
   connect(integerExpression1.y, addInteger.u[1]) annotation (Line(
       points={{-70.6,-56},{-58,-56}},
-      color={255,127,0},
-      smooth=Smooth.None));
+      color={255,127,0}));
   connect(getString.pkgOut[1], getInteger.pkgIn) annotation (Line(
       points={{-8,-34.8},{-8,-45.2}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
+      pattern=LinePattern.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={Text(
           extent={{-104,96},{96,76}},

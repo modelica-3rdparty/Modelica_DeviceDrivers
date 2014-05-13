@@ -18,27 +18,23 @@ equation
 
   connect(booleanPulse.y, cANBus.booleanSignal) annotation (Line(
       points={{-29,-58},{36,-58},{36,10},{100,10}},
-      color={255,0,255},
-      smooth=Smooth.None), Text(
+      color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(sine.y, cAN_Msg1_1.rSi1) annotation (Line(
       points={{-39,30},{-4,30},{-4,36},{36,36}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
+      color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(integerStep.y, cAN_Msg1_1.iSig1) annotation (Line(
       points={{-35,-12},{0,-12},{0,36},{36,36}},
-      color={255,127,0},
-      smooth=Smooth.None), Text(
+      color={255,127,0}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cAN_Msg1_1, cANBus.cAN_Msg1) annotation (Line(
       points={{36,36},{67,36},{67,10},{100,10}},
-      color={0,0,255},
-      smooth=Smooth.None));
+      color={0,0,255}));
 end Comp1;

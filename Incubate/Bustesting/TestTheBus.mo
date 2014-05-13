@@ -8,6 +8,5 @@ model TestTheBus
 equation
   connect(comp1_1.cANBus, comp2_1.cANBus) annotation (Line(
       points={{-60,31},{-20,31}},
-      color={0,0,255},
-      smooth=Smooth.None));
+      color={0,0,255}));
 end TestTheBus;

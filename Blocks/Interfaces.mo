@@ -19,12 +19,10 @@ package Interfaces
             pattern=LinePattern.None),
           Line(
             points={{-100,-40},{0,40},{100,-40}},
-            color={95,95,95},
-            smooth=Smooth.None),
+            color={95,95,95}),
           Line(
             points={{-52,-40},{0,0},{50,-40}},
-            color={95,95,95},
-            smooth=Smooth.None)}));
+            color={95,95,95})}));
   end PackageIn;
 
   connector PackageOut "Packager output connector"
@@ -44,12 +42,10 @@ package Interfaces
             pattern=LinePattern.None),
           Line(
             points={{-100,40},{0,-40},{100,40}},
-            color={95,95,95},
-            smooth=Smooth.None),
+            color={95,95,95}),
           Line(
             points={{-50,40},{2,0},{52,40}},
-            color={95,95,95},
-            smooth=Smooth.None)}));
+            color={95,95,95})}));
   end PackageOut;
 
   connector SoftingCANOut
@@ -66,12 +62,10 @@ package Interfaces
             pattern=LinePattern.None),
           Line(
             points={{-100,40},{0,-40},{100,40}},
-            color={95,95,95},
-            smooth=Smooth.None),
+            color={95,95,95}),
           Line(
             points={{-50,38},{2,-2},{52,38}},
-            color={95,95,95},
-            smooth=Smooth.None)}));
+            color={95,95,95})}));
   end SoftingCANOut;
 
   connector SoftingCANIn
@@ -88,12 +82,10 @@ package Interfaces
             pattern=LinePattern.None),
           Line(
             points={{-100,-40},{0,40},{100,-40}},
-            color={95,95,95},
-            smooth=Smooth.None),
+            color={95,95,95}),
           Line(
             points={{-52,-40},{0,0},{50,-40}},
-            color={95,95,95},
-            smooth=Smooth.None)}));
+            color={95,95,95})}));
   end SoftingCANIn;
 
   partial block PartialSoftingCANMessage

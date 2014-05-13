@@ -178,8 +178,7 @@ package InputDevices
     firstOrder.u = AxesRaw/400 .*gain;
     connect(firstOrder.y, axes) annotation (Line(
         points={{61,60},{110,60}},
-        color={0,0,127},
-        smooth=Smooth.None));
+        color={0,0,127}));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}), graphics={Text(extent={{-150,140},{150,100}},
               textString="%name"), Bitmap(extent={{-86,88},{88,-88}}, fileName=
