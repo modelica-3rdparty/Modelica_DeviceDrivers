@@ -28,11 +28,15 @@ The second interface uses the synchronous language elements introduced in Modeli
 
 ## Current release
 
-Download [Modelica_DeviceDrivers v1.2 (2013-10-01)](../../archive/v1.2+build.1.zip)
+Download [Modelica_DeviceDrivers v1.3 (2014-05-19)](../../archive/v1.3+build.1.zip)
 
-Please note that currently (2013-09-20) the only Modelica tool that is known to work well with the library is Dymola (preferable Dymola 2013FD01 and later). If you tested the library successfully with another Modelica tool, please contact me (Bernhard), so that I can include that information.
+Please note that currently (2014-05-19) the library is known to work with Dymola (preferable Dymola 2013FD01 and later) and with SimulationX (except of the `SerialPackager` blocks). The `SerialPackager` blocks are known to work currently *only* in Dymola. If you tested the library successfully with another Modelica tool, please contact me (Bernhard), so that I can include that information.
 
 #### Release notes
+*  [Version v1.3 (2013-10-01)](../../archive/v1.2+build.1.zip)
+  * Fixed many issues in order to support SimulationX (with the indispensable help of [tbeu](https://github.com/tbeu/)).
+  * Particularly, a SimulationX compatible wrapper DLL to give access to the external C functions was added.
+  * Added serial port support for Linux.
 *  [Version v1.2 (2013-10-01)](../../archive/v1.2+build.1.zip)
   * Adapted to the conventions of the Modelica Standard Library 3.2.1 and Modelica_Synchronous 0.92.
   * Added utility functions to load parameters from a file.
@@ -62,3 +66,4 @@ Contributions in shape of [Pull Requests](../../pulls) are always welcome.
 
 The following people have directly contributed to the implementation of the library (many more have contributed by providing feedback and suggestions):
 * [Dominik Sommer](mailto:dominik.sommer@dlr.de), code for Linux serial port support.
+* [tbeu](https://github.com/tbeu/), many fixes and good proposals, especially regarding the SimulationX support.
