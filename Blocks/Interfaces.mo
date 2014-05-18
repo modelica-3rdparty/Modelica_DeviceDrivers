@@ -16,16 +16,13 @@ package Interfaces
             extent={{-100,40},{100,-40}},
             fillColor={255,255,0},
             fillPattern=FillPattern.Sphere,
-            pattern=LinePattern.None,
-            lineColor={0,0,0}),
+            pattern=LinePattern.None),
           Line(
             points={{-100,-40},{0,40},{100,-40}},
-            color={95,95,95},
-            smooth=Smooth.None),
+            color={95,95,95}),
           Line(
             points={{-52,-40},{0,0},{50,-40}},
-            color={95,95,95},
-            smooth=Smooth.None)}));
+            color={95,95,95})}));
   end PackageIn;
 
   connector PackageOut "Packager output connector"
@@ -42,16 +39,13 @@ package Interfaces
             extent={{-100,40},{100,-40}},
             fillColor={255,255,0},
             fillPattern=FillPattern.Sphere,
-            pattern=LinePattern.None,
-            lineColor={0,0,0}),
+            pattern=LinePattern.None),
           Line(
             points={{-100,40},{0,-40},{100,40}},
-            color={95,95,95},
-            smooth=Smooth.None),
+            color={95,95,95}),
           Line(
             points={{-50,40},{2,0},{52,40}},
-            color={95,95,95},
-            smooth=Smooth.None)}));
+            color={95,95,95})}));
   end PackageOut;
 
   connector SoftingCANOut
@@ -65,16 +59,13 @@ package Interfaces
             extent={{-100,40},{100,-40}},
             fillColor={200,200,200},
             fillPattern=FillPattern.Sphere,
-            pattern=LinePattern.None,
-            lineColor={0,0,0}),
+            pattern=LinePattern.None),
           Line(
             points={{-100,40},{0,-40},{100,40}},
-            color={95,95,95},
-            smooth=Smooth.None),
+            color={95,95,95}),
           Line(
             points={{-50,38},{2,-2},{52,38}},
-            color={95,95,95},
-            smooth=Smooth.None)}));
+            color={95,95,95})}));
   end SoftingCANOut;
 
   connector SoftingCANIn
@@ -88,16 +79,13 @@ package Interfaces
             extent={{-100,40},{100,-40}},
             fillColor={200,200,200},
             fillPattern=FillPattern.Sphere,
-            pattern=LinePattern.None,
-            lineColor={0,0,0}),
+            pattern=LinePattern.None),
           Line(
             points={{-100,-40},{0,40},{100,-40}},
-            color={95,95,95},
-            smooth=Smooth.None),
+            color={95,95,95}),
           Line(
             points={{-52,-40},{0,0},{50,-40}},
-            color={95,95,95},
-            smooth=Smooth.None)}));
+            color={95,95,95})}));
   end SoftingCANIn;
 
   partial block PartialSoftingCANMessage
@@ -108,7 +96,6 @@ package Interfaces
     annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
               {100,100}}),       graphics={                      Text(
             extent={{-142,100},{148,58}},
-            lineColor={0,0,0},
             textString="%name"),           Bitmap(extent={{-40,-16},{40,-96}},
               fileName=
                 "modelica://Modelica_DeviceDrivers/Resources/Images/Icons/package.PNG")}));

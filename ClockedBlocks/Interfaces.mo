@@ -16,16 +16,13 @@ package Interfaces
             extent={{-100,40},{100,-40}},
             fillColor={255,255,0},
             fillPattern=FillPattern.Sphere,
-            pattern=LinePattern.None,
-            lineColor={0,0,0}),
+            pattern=LinePattern.None),
           Line(
             points={{-100,-40},{0,40},{100,-40}},
-            color={95,95,95},
-            smooth=Smooth.None),
+            color={95,95,95}),
           Line(
             points={{-52,-40},{0,0},{50,-40}},
-            color={95,95,95},
-            smooth=Smooth.None)}));
+            color={95,95,95})}));
   end PackageIn;
 
   connector PackageOut "Packager output connector"
@@ -45,15 +42,12 @@ package Interfaces
             extent={{-100,40},{100,-40}},
             fillColor={255,255,0},
             fillPattern=FillPattern.Sphere,
-            pattern=LinePattern.None,
-            lineColor={0,0,0}),
+            pattern=LinePattern.None),
           Line(
             points={{-100,40},{0,-40},{100,40}},
-            color={95,95,95},
-            smooth=Smooth.None),
+            color={95,95,95}),
           Line(
             points={{-50,40},{2,0},{52,40}},
-            color={95,95,95},
-            smooth=Smooth.None)}));
+            color={95,95,95})}));
   end PackageOut;
 end Interfaces;

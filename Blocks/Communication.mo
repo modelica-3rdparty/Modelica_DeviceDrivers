@@ -257,9 +257,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
             Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}), graphics={Text(extent={{-150,136},{150,96}},
               textString="%name"),         Text(extent={{-150,82},{150,42}},
-            textString="%Serial_Port",
-            lineColor={0,0,0}),            Text(extent={{-152,-48},{148,-88}},
-            lineColor={0,0,0},
+            textString="%Serial_Port"),            Text(extent={{-152,-48},{148,-88}},
             textString="%baud")}), Documentation(info="<html>
 <h4><font color=\"#008000\">Support for receiving datagrams over a serial port</font></h4>
 <p><b>Currently only supported for Linux!</b></p>
@@ -326,9 +324,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
             Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
               -100},{100,100}}), graphics={Text(extent={{-150,136},{150,96}},
               textString="%name"),         Text(extent={{-150,82},{150,42}},
-            textString="%Serial_Port",
-            lineColor={0,0,0}),            Text(extent={{-154,-44},{146,-84}},
-            lineColor={0,0,0},
+            textString="%Serial_Port"),            Text(extent={{-154,-44},{146,-84}},
             textString="%baud")}), Documentation(info="<html>
 <h4><font color=\"#008000\">Support for sending datagrams over a serial port</font></h4>
 <p><b>Currently only supported for Linux!</b></p>
@@ -372,7 +368,6 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
       annotation (Icon(graphics={
             Text(
               extent={{-98,72},{94,46}},
-              lineColor={0,0,0},
               textString="%deviceName")}),
         Documentation(info="<html>
 <h4><font color=\"#008000\">Support for Softing CAN bus</font></h4>
@@ -427,11 +422,9 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
       annotation (defaultComponentName="rxMessage",
       Icon(graphics={Text(
               extent={{-98,54},{98,26}},
-              lineColor={0,0,0},
               textString="Rx id: %ident"),
             Text(
               extent={{-160,24},{160,-6}},
-              lineColor={0,0,0},
               textString="(%startTime, %sampleTime) s")}),
         Documentation(info="<html>
 <h4><font color=\"#008000\">Support for Softing CAN bus</font></h4>
@@ -488,11 +481,9 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
       Icon(graphics={
             Text(
               extent={{-90,54},{96,24}},
-              lineColor={0,0,0},
               textString="Tx id: %ident"),
             Text(
               extent={{-160,24},{160,-6}},
-              lineColor={0,0,0},
               textString="(%startTime, %sampleTime) s")}),
         Documentation(info="<html>
 <h4><font color=\"#008000\">Support for Softing CAN bus</font></h4>
@@ -596,7 +587,6 @@ not necessary mean that your Modelica tool compiles 64bit binaries, i.e., if in 
               Icon(graphics={
                      Text(
               extent={{-98,70},{98,42}},
-              lineColor={0,0,0},
               textString="%ifr_name")}),
         Documentation(info="<html>
 <h4><font color=\"#008000\">Support for Linux Socket CAN bus</font></h4>
@@ -653,11 +643,9 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
       defaultComponentName="rxMessage",
       Icon(graphics={Text(
               extent={{-98,86},{98,58}},
-              lineColor={0,0,0},
               textString="Rx id: %can_id"),
             Text(
               extent={{-92,-56},{36,-88}},
-              lineColor={0,0,0},
               textString="(%startTime, %sampleTime) s",
               horizontalAlignment=TextAlignment.Left)}),
         Documentation(info="<html>
@@ -715,11 +703,9 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
            graphics={
             Text(
               extent={{-90,84},{96,54}},
-              lineColor={0,0,0},
               textString="Tx id: %can_id"),
             Text(
               extent={{-92,-58},{36,-90}},
-              lineColor={0,0,0},
               textString="(%startTime, %sampleTime) s",
               horizontalAlignment=TextAlignment.Left)}),
         Documentation(info="<html>

@@ -285,7 +285,6 @@ and one Integer value is added, serialized and finally sent using UDP.
             fillPattern=FillPattern.Solid),
           Text(
             extent={{-100,-50},{100,-90}},
-            lineColor={0,0,0},
             textString="%n * int32")}));
   end AddBoolean;
 
@@ -313,7 +312,6 @@ and one Integer value is added, serialized and finally sent using UDP.
     annotation (Icon(graphics={
           Text(
             extent={{-100,-50},{100,-90}},
-            lineColor={0,0,0},
             textString="%n * int32"),
           Text(
             extent={{-120,40},{-40,-40}},
@@ -354,7 +352,6 @@ and one Integer value is added, serialized and finally sent using UDP.
     annotation (Icon(graphics={
           Text(
             extent={{-100,-50},{100,-90}},
-            lineColor={0,0,0},
             textString="%n * double"),
           Text(
             extent={{-112,40},{-32,-40}},
@@ -397,7 +394,6 @@ and one Integer value is added, serialized and finally sent using UDP.
                                                  graphics={
           Text(
             extent={{-100,-50},{100,-90}},
-            lineColor={0,0,0},
             textString="%n * float"),
           Text(
             extent={{-112,40},{-32,-40}},
@@ -492,7 +488,6 @@ and one Integer value is added, serialized and finally sent using UDP.
             fillPattern=FillPattern.Solid),
           Text(
             extent={{-100,-52},{100,-92}},
-            lineColor={0,0,0},
             textString="%n * int32")}));
   end GetBoolean;
 
@@ -533,7 +528,6 @@ and one Integer value is added, serialized and finally sent using UDP.
             fillPattern=FillPattern.Solid),
           Text(
             extent={{-100,-50},{100,-90}},
-            lineColor={0,0,0},
             textString="%n * int32")}));
   end GetInteger;
 
@@ -577,7 +571,6 @@ and one Integer value is added, serialized and finally sent using UDP.
             fillPattern=FillPattern.Solid),
           Text(
             extent={{-100,-50},{100,-90}},
-            lineColor={0,0,0},
             textString="%n * double")}));
   end GetReal;
 
@@ -618,7 +611,6 @@ and one Integer value is added, serialized and finally sent using UDP.
             textString="R"),
           Text(
             extent={{-100,-50},{100,-90}},
-            lineColor={0,0,0},
             textString="%n * float"),
           Bitmap(extent={{-20,19},{46,-20}}, fileName=
                 "modelica://Modelica_DeviceDrivers/Resources/Images/Icons/Float2RealArrow.png")}));
@@ -697,7 +689,6 @@ and one Integer value is added, serialized and finally sent using UDP.
             textString="I"),
           Text(
             extent={{-100,-50},{100,-90}},
-            lineColor={0,0,0},
             fillColor={0,0,127},
             fillPattern=FillPattern.Solid,
             textString="%bitOffset + %width bits"),
@@ -759,7 +750,6 @@ Value of bit                   : (0  0  0  0  0  0  1  1)  (.  .   .  .  .  .  0
                 "Modelica://Modelica_DeviceDrivers/Resources/Images/Icons/Bit2IntArrow.png"),
           Text(
             extent={{-100,-50},{100,-90}},
-            lineColor={0,0,0},
             fillColor={0,0,127},
             fillPattern=FillPattern.Solid,
             textString="%bitOffset + %width bits"),
@@ -808,13 +798,10 @@ Value of bit                   :                               0  1  .  .  .  . 
 
     annotation (Icon(graphics={
             Ellipse(
-              extent={{39,-20},{-41,60}},
-              lineColor={0,0,0}),
+              extent={{39,-20},{-41,60}}),
                                Rectangle(
             extent={{-3,70},{3,48}},
-            lineColor={0,0,0},
-            fillPattern=FillPattern.Solid,
-            fillColor={0,0,0}),Rectangle(
+            fillPattern=FillPattern.Solid),Rectangle(
             extent={{-7,76},{-3,44}},
             lineColor={255,255,255},
             fillPattern=FillPattern.Solid,
@@ -826,8 +813,6 @@ Value of bit                   :                               0  1  .  .  .  . 
             fillColor={255,255,255}),
           Text(
             extent={{-100,-40},{100,-80}},
-            lineColor={0,0,0},
-            fillColor={0,0,0},
             fillPattern=FillPattern.Solid,
             textString="Reset")}));
   end ResetPointer;

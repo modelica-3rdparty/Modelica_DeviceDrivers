@@ -29,12 +29,10 @@ package Logging "a collection of logging blocks"
             fillPattern=FillPattern.Solid),
           Line(
             points={{-102,0},{-86,0},{-86,68},{0,68},{0,34}},
-            color={0,0,255},
-            smooth=Smooth.None),
+            color={0,0,255}),
           Polygon(
             points={{-16,34},{16,34},{0,12},{-16,34}},
             lineColor={0,0,255},
-            smooth=Smooth.None,
             fillColor={0,0,255},
             fillPattern=FillPattern.Solid)}));
   end LogVector;

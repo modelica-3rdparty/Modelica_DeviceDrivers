@@ -13,13 +13,11 @@ block StringExpression "Set output to a (time varying) String expression"
         grid={2,2}), graphics={
         Rectangle(
           extent={{-100,40},{100,-40}},
-          lineColor={0,0,0},
           fillColor={235,235,235},
           fillPattern=FillPattern.Solid,
           borderPattern=BorderPattern.Raised),
         Text(
           extent={{-96,15},{96,-15}},
-          lineColor={0,0,0},
           textString="%y"),
         Text(
           extent={{-150,90},{140,50}},

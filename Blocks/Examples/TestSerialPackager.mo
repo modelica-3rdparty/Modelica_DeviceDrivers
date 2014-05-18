@@ -35,51 +35,34 @@ extends Modelica.Icons.Example;
 equation
   connect(integerExpression.y, packInt.u) annotation (Line(
       points={{-59,10},{-42,10}},
-      color={255,127,0},
-      smooth=Smooth.None));
+      color={255,127,0}));
   connect(packager.pkgOut, packInt.pkgIn) annotation (Line(
       points={{-30,39.2},{-30,20.8}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
+      pattern=LinePattern.None));
   connect(integerExpression2.y, addInteger.u[1]) annotation (Line(
       points={{-55,-68},{-48,-68},{-48,-66},{-42,-66}},
-      color={255,127,0},
-      smooth=Smooth.None));
+      color={255,127,0}));
   connect(integerExpression1.y, packInt1.u) annotation (Line(
       points={{-59,-28},{-42,-28}},
-      color={255,127,0},
-      smooth=Smooth.None));
+      color={255,127,0}));
   connect(packInt.pkgOut[1], packInt1.pkgIn) annotation (Line(
       points={{-30,-0.8},{-30,-17.2}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
+      pattern=LinePattern.None));
   connect(packInt1.pkgOut[1], addInteger.pkgIn) annotation (Line(
       points={{-30,-38.8},{-30,-55.2}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
+      pattern=LinePattern.None));
   connect(addInteger.pkgOut[1], resetPointer.pkgIn) annotation (Line(
       points={{-30,-76.8},{-30,-86},{10,-86},{10,64},{46,64},{46,56.8}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
+      pattern=LinePattern.None));
   connect(resetPointer.pkgOut[1], unpackInt.pkgIn) annotation (Line(
       points={{46,35.2},{46,22.8}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
+      pattern=LinePattern.None));
   connect(unpackInt.pkgOut[1], unpackInt1.pkgIn) annotation (Line(
       points={{46,1.2},{46,-13.2}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
+      pattern=LinePattern.None));
   connect(unpackInt1.pkgOut[1], getInteger.pkgIn) annotation (Line(
       points={{46,-34.8},{46,-51.2}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
+      pattern=LinePattern.None));
   annotation (experiment(StopTime=5.0),
     Documentation(info="<html>
 <p>

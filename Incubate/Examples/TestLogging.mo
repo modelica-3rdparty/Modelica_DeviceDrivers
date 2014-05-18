@@ -9,6 +9,5 @@ extends Modelica.Icons.Example;
 equation
   connect(realExpression.y, logVector.u) annotation (Line(
       points={{-59,-10},{-22,-10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
 end TestLogging;

@@ -271,7 +271,6 @@ package Packaging
               fillPattern=FillPattern.Solid),
             Text(
               extent={{-100,-50},{100,-90}},
-              lineColor={0,0,0},
               textString="%n * int32")}));
     end AddBoolean;
 
@@ -294,7 +293,6 @@ package Packaging
       annotation (Icon(graphics={
             Text(
               extent={{-100,-50},{100,-90}},
-              lineColor={0,0,0},
               textString="%n * int32"),
             Text(
               extent={{-120,40},{-40,-40}},
@@ -327,7 +325,6 @@ package Packaging
       annotation (Icon(graphics={
             Text(
               extent={{-100,-50},{100,-90}},
-              lineColor={0,0,0},
               textString="%n * double"),
             Text(
               extent={{-112,40},{-32,-40}},
@@ -363,7 +360,6 @@ package Packaging
       annotation (Icon(graphics={
             Text(
               extent={{-100,-50},{100,-90}},
-              lineColor={0,0,0},
               textString="%n * float"),
             Text(
               extent={{-112,40},{-32,-40}},
@@ -452,7 +448,6 @@ package Packaging
               fillPattern=FillPattern.Solid),
             Text(
               extent={{-100,-52},{100,-92}},
-              lineColor={0,0,0},
               textString="%n * int32")}));
     end GetBoolean;
 
@@ -491,7 +486,6 @@ package Packaging
               fillPattern=FillPattern.Solid),
             Text(
               extent={{-100,-50},{100,-90}},
-              lineColor={0,0,0},
               textString="%n * int32")}));
     end GetInteger;
 
@@ -532,7 +526,6 @@ package Packaging
               fillPattern=FillPattern.Solid),
             Text(
               extent={{-100,-50},{100,-90}},
-              lineColor={0,0,0},
               textString="%n * double")}));
     end GetReal;
 
@@ -568,7 +561,6 @@ package Packaging
               textString="R"),
             Text(
               extent={{-100,-50},{100,-90}},
-              lineColor={0,0,0},
               textString="%n * float"),
             Bitmap(extent={{-18,20},{48,-19}}, fileName=
                   "modelica://Modelica_DeviceDrivers/Resources/Images/Icons/Float2RealArrow.png")}));
@@ -640,7 +632,6 @@ package Packaging
               textString="I"),
             Text(
               extent={{-100,-50},{100,-90}},
-              lineColor={0,0,0},
               fillColor={0,0,127},
               fillPattern=FillPattern.Solid,
               textString="%bitOffset + %width bits"),
@@ -682,7 +673,6 @@ package Packaging
                   "Modelica://Modelica_DeviceDrivers/Resources/Images/Icons/Bit2IntArrow.png"),
             Text(
               extent={{-100,-50},{100,-90}},
-              lineColor={0,0,0},
               fillColor={0,0,127},
               fillPattern=FillPattern.Solid,
               textString="%bitOffset + %width bits"),
@@ -712,13 +702,10 @@ package Packaging
 
       annotation (Icon(graphics={
               Ellipse(
-                extent={{39,-20},{-41,60}},
-                lineColor={0,0,0}),
+                extent={{39,-20},{-41,60}}),
                                  Rectangle(
               extent={{-3,70},{3,48}},
-              lineColor={0,0,0},
-              fillPattern=FillPattern.Solid,
-              fillColor={0,0,0}),Rectangle(
+              fillPattern=FillPattern.Solid),Rectangle(
               extent={{-7,76},{-3,44}},
               lineColor={255,255,255},
               fillPattern=FillPattern.Solid,
@@ -730,8 +717,6 @@ package Packaging
               fillColor={255,255,255}),
             Text(
               extent={{-100,-40},{100,-80}},
-              lineColor={0,0,0},
-              fillColor={0,0,0},
               fillPattern=FillPattern.Solid,
               textString="Reset")}));
     end ResetPointer;

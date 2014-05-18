@@ -28,13 +28,11 @@ equation
             fileName="modelica://Modelica_DeviceDrivers/Resources/Images/Icons/package.PNG"),
         Text(
           extent={{-100,-46},{100,-74}},
-          lineColor={0,0,0},
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid,
           textString="64 bit double"),
         Text(
           extent={{-100,72},{100,46}},
-          lineColor={0,0,0},
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid,
           textString="Start bit: 0")}));

@@ -35,7 +35,6 @@ package OperatingSystem
                 "../Resources/Images/Icons/clock.png"),
           Text(
             extent={{-100,-100},{100,-140}},
-            lineColor={0,0,0},
             textString="%priority"),       Text(extent={{-150,142},{150,102}},
               textString="%name")}),
       Documentation(info="<html>
@@ -91,33 +90,21 @@ package OperatingSystem
     annotation (preferredView="info",
  Icon(graphics={
           Polygon(
-            points={{-80,60},{-60,60},{-70,80},{-80,60}},
-            lineColor={0,0,0},
-            smooth=Smooth.None),
+            points={{-80,60},{-60,60},{-70,80},{-80,60}}),
           Line(
-            points={{-70,60},{-70,-70},{60,-70}},
-            color={0,0,0},
-            smooth=Smooth.None),
+            points={{-70,60},{-70,-70},{60,-70}}),
           Polygon(
-            points={{60,-60},{60,-80},{80,-70},{60,-60}},
-            lineColor={0,0,0},
-            smooth=Smooth.None),
+            points={{60,-60},{60,-80},{80,-70},{60,-60}}),
           Line(
             points={{-70,0},{-64,-20},{-58,14},{-52,-40},{-48,-8},{-42,0},{-34,-48},
                 {-28,28},{-20,-28},{-14,8},{-12,50},{-6,-28},{2,22},{6,-6},{12,-52},
                 {12,-50},{18,52},{22,-6},{26,32},{30,-20},{38,36},{42,-14},{48,38},
-                {54,-48},{60,-18}},
-            color={0,0,0},
-            smooth=Smooth.None),
+                {54,-48},{60,-18}}),
           Line(
             points={{-70,54},{62,54}},
-            color={0,0,0},
-            smooth=Smooth.None,
             pattern=LinePattern.Dash),
           Line(
             points={{-70,-52},{62,-52}},
-            color={0,0,0},
-            smooth=Smooth.None,
             pattern=LinePattern.Dash),
           Text(
             extent={{-100,62},{-72,46}},

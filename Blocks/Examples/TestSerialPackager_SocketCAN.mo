@@ -48,53 +48,36 @@ Modelica_DeviceDrivers.Blocks.OperatingSystem.SynchronizeRealtime
 equation
   connect(integerExpression1.y,addInteger. u[1]) annotation (Line(
       points={{-67,-12},{-50,-12}},
-      color={255,127,0},
-      smooth=Smooth.None));
+      color={255,127,0}));
   connect(integerExpression2.y, packInt2.u)
                                            annotation (Line(
       points={{-67,-38},{-50,-38}},
-      color={255,127,0},
-      smooth=Smooth.None));
+      color={255,127,0}));
   connect(integerConstant.y,packInt1. u) annotation (Line(
       points={{-67,14},{-50,14}},
-      color={255,127,0},
-      smooth=Smooth.None));
+      color={255,127,0}));
   connect(packager.pkgOut,packInt1. pkgIn) annotation (Line(
       points={{-38,29.2},{-38,24.8}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
+      pattern=LinePattern.None));
   connect(packInt1.pkgOut[1],addInteger. pkgIn) annotation (Line(
       points={{-38,3.2},{-38,-1.2}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
+      pattern=LinePattern.None));
   connect(addInteger.pkgOut[1], packInt2.pkgIn)
                                                annotation (Line(
       points={{-38,-22.8},{-38,-27.2}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
+      pattern=LinePattern.None));
   connect(unpackInt1.pkgOut[1], getInteger.pkgIn) annotation (Line(
       points={{30,3.2},{30,-1.2}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
+      pattern=LinePattern.None));
   connect(getInteger.pkgOut[1], unpackInt2.pkgIn) annotation (Line(
       points={{30,-22.8},{30,-31.2}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
+      pattern=LinePattern.None));
   connect(packInt2.pkgOut[1], txMessage.pkgIn) annotation (Line(
       points={{-38,-48.8},{-38,-64},{-32.8,-64}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
+      pattern=LinePattern.None));
   connect(rxMessage.pkgOut, unpackInt1.pkgIn) annotation (Line(
       points={{40.8,40},{44,40},{44,28},{30,28},{30,24.8}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
+      pattern=LinePattern.None));
 annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                     graphics={Text(

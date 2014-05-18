@@ -77,88 +77,57 @@ Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.UnpackUnsignedInteger
 equation
 connect(unpackInt2.pkgOut[1], unpackInt3.pkgIn) annotation (Line(
     points={{22,-58.8},{22,-63.2}},
-    color={0,0,0},
-    pattern=LinePattern.None,
-    smooth=Smooth.None));
+    pattern=LinePattern.None));
 connect(unpackInt3.pkgOut[1], unpackInt4.pkgIn) annotation (Line(
     points={{22,-84.8},{22,-90},{38,-90},{38,18},{54,18},{54,14.8}},
-    color={0,0,0},
-    pattern=LinePattern.None,
-    smooth=Smooth.None));
+    pattern=LinePattern.None));
 connect(unpackInt4.pkgOut[1], unpackInt5.pkgIn) annotation (Line(
     points={{54,-6.8},{54,-11.2}},
-    color={0,0,0},
-    pattern=LinePattern.None,
-    smooth=Smooth.None));
+    pattern=LinePattern.None));
 connect(unpackInt5.pkgOut[1], unpackInt6.pkgIn) annotation (Line(
     points={{54,-32.8},{54,-37.2}},
-    color={0,0,0},
-    pattern=LinePattern.None,
-    smooth=Smooth.None));
+    pattern=LinePattern.None));
 connect(unpackInt6.pkgOut[1], unpackInt7.pkgIn) annotation (Line(
     points={{54,-58.8},{54,-63.2}},
-    color={0,0,0},
-    pattern=LinePattern.None,
-    smooth=Smooth.None));
+    pattern=LinePattern.None));
 connect(unpackInt.pkgOut[1], unpackInt1.pkgIn) annotation (Line(
     points={{22,-6.8},{22,-11.2}},
-    color={0,0,0},
-    pattern=LinePattern.None,
-    smooth=Smooth.None));
+    pattern=LinePattern.None));
 connect(unpackInt1.pkgOut[1], unpackInt2.pkgIn) annotation (Line(
     points={{22,-32.8},{22,-37.2}},
-    color={0,0,0},
-    pattern=LinePattern.None,
-    smooth=Smooth.None));
+    pattern=LinePattern.None));
 connect(rxMessage.pkgOut, unpackInt.pkgIn) annotation (Line(
     points={{22,19.2},{22,14.8}},
-    color={0,0,0},
-    pattern=LinePattern.None,
-    smooth=Smooth.None));
+    pattern=LinePattern.None));
   connect(integerExpression1.y,addInteger. u[1]) annotation (Line(
       points={{-53,-22},{-36,-22}},
-      color={255,127,0},
-      smooth=Smooth.None));
+      color={255,127,0}));
   connect(integerExpression2.y,packInt. u) annotation (Line(
       points={{-53,-48},{-36,-48}},
-      color={255,127,0},
-      smooth=Smooth.None));
+      color={255,127,0}));
   connect(integerConstant.y,packInt1. u) annotation (Line(
       points={{-53,4},{-36,4}},
-      color={255,127,0},
-      smooth=Smooth.None));
+      color={255,127,0}));
   connect(packager.pkgOut,packInt1. pkgIn) annotation (Line(
       points={{-24,19.2},{-24,14.8}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
+      pattern=LinePattern.None));
   connect(packInt1.pkgOut[1],addInteger. pkgIn) annotation (Line(
       points={{-24,-6.8},{-24,-11.2}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
+      pattern=LinePattern.None));
   connect(addInteger.pkgOut[1],packInt. pkgIn) annotation (Line(
       points={{-24,-32.8},{-24,-37.2}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
+      pattern=LinePattern.None));
   connect(packInt.pkgOut[1],txMessage. pkgIn) annotation (Line(
       points={{-24,-58.8},{-24,-63.2}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
+      pattern=LinePattern.None));
   connect(txMessage.softingCANBus, softingCANConfig.softingCANBus[1])
     annotation (Line(
       points={{-24,-84.8},{-24,-88},{-6,-88},{-6,41},{-43.2,41}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
+      pattern=LinePattern.None));
   connect(rxMessage.softingCANBus, softingCANConfig.softingCANBus[2])
     annotation (Line(
       points={{22,40.8},{22,43},{-43.2,43}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
+      pattern=LinePattern.None));
 annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                     graphics={Text(

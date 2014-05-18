@@ -47,81 +47,58 @@ package Examples
   equation
     connect(packager.pkgOut, packInt.pkgIn) annotation (Line(
         points={{-40,69.2},{-40,50.8}},
-        color={0,0,0},
-        pattern=LinePattern.None,
-        smooth=Smooth.None));
+        pattern=LinePattern.None));
     connect(packInt.pkgOut[1], packInt1.pkgIn) annotation (Line(
         points={{-40,29.2},{-40,12.8}},
-        color={0,0,0},
-        pattern=LinePattern.None,
-        smooth=Smooth.None));
+        pattern=LinePattern.None));
     connect(packInt1.pkgOut[1], addInteger.pkgIn) annotation (Line(
         points={{-40,-8.8},{-40,-25.2}},
-        color={0,0,0},
-        pattern=LinePattern.None,
-        smooth=Smooth.None));
+        pattern=LinePattern.None));
     connect(addInteger.pkgOut[1], resetPointer.pkgIn) annotation (Line(
         points={{-40,-46.8},{-40,-56},{0,-56},{0,94},{36,94},{36,86.8}},
-        color={0,0,0},
-        pattern=LinePattern.None,
-        smooth=Smooth.None));
+        pattern=LinePattern.None));
     connect(resetPointer.pkgOut[1], unpackInt.pkgIn) annotation (Line(
         points={{36,65.2},{36,52.8}},
-        color={0,0,0},
-        pattern=LinePattern.None,
-        smooth=Smooth.None));
+        pattern=LinePattern.None));
     connect(unpackInt.pkgOut[1], unpackInt1.pkgIn) annotation (Line(
         points={{36,31.2},{36,16.8}},
-        color={0,0,0},
-        pattern=LinePattern.None,
-        smooth=Smooth.None));
+        pattern=LinePattern.None));
     connect(unpackInt1.pkgOut[1], getInteger.pkgIn) annotation (Line(
         points={{36,-4.8},{36,-21.2}},
-        color={0,0,0},
-        pattern=LinePattern.None,
-        smooth=Smooth.None));
+        pattern=LinePattern.None));
     connect(integerExpression.y, sample1.u) annotation (Line(
         points={{-79,40},{-73.2,40}},
-        color={255,127,0},
-        smooth=Smooth.None));
+        color={255,127,0}));
     connect(sample1.y, packInt.u) annotation (Line(
         points={{-59.4,40},{-52,40}},
-        color={255,127,0},
-        smooth=Smooth.None));
+        color={255,127,0}));
     connect(integerExpression1.y, sample2.u) annotation (Line(
         points={{-79,2},{-73.2,2}},
-        color={255,127,0},
-        smooth=Smooth.None));
+        color={255,127,0}));
     connect(sample2.y, packInt1.u) annotation (Line(
         points={{-59.4,2},{-52,2}},
-        color={255,127,0},
-        smooth=Smooth.None));
+        color={255,127,0}));
     connect(integerExpression2.y, sample3.u) annotation (Line(
         points={{-79,-36},{-73.2,-36}},
-        color={255,127,0},
-        smooth=Smooth.None));
+        color={255,127,0}));
     connect(sample3.y, addInteger.u[1]) annotation (Line(
         points={{-59.4,-36},{-52,-36}},
-        color={255,127,0},
-        smooth=Smooth.None));
+        color={255,127,0}));
     connect(periodicRealClock.y, sample1.clock) annotation (Line(
         points={{-77,-72},{-56,-72},{-56,28},{-66,28},{-66,32.8}},
         color={135,135,135},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
     connect(sample2.clock, periodicRealClock.y) annotation (Line(
         points={{-66,-5.2},{-66,-18},{-56,-18},{-56,-72},{-77,-72}},
         color={175,175,175},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
     connect(sample3.clock, periodicRealClock.y) annotation (Line(
         points={{-66,-43.2},{-66,-72},{-77,-72}},
         color={175,175,175},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
     annotation (experiment(StopTime=5.0),
       Documentation(info="<html>
 <p>
@@ -170,67 +147,47 @@ The example demonstrates that pack and unpack blocks of the <code>SerialPackager
   equation
     connect(packager.pkgOut, packInt.pkgIn) annotation (Line(
         points={{-40,69.2},{-40,50.8}},
-        color={0,0,0},
-        pattern=LinePattern.None,
-        smooth=Smooth.None));
+        pattern=LinePattern.None));
     connect(addInteger.pkgOut[1], resetPointer.pkgIn) annotation (Line(
         points={{-40,-46.8},{-40,-56},{-20,-56},{-20,94},{-2,94},{-2,84.8}},
-        color={0,0,0},
-        pattern=LinePattern.None,
-        smooth=Smooth.None));
+        pattern=LinePattern.None));
     connect(resetPointer.pkgOut[1], unpackInt.pkgIn) annotation (Line(
         points={{-2,63.2},{-2,50.8}},
-        color={0,0,0},
-        pattern=LinePattern.None,
-        smooth=Smooth.None));
+        pattern=LinePattern.None));
     connect(integerExpression.y, sample1.u) annotation (Line(
         points={{-79,40},{-73.2,40}},
-        color={255,127,0},
-        smooth=Smooth.None));
+        color={255,127,0}));
     connect(sample1.y, packInt.u) annotation (Line(
         points={{-59.4,40},{-52,40}},
-        color={255,127,0},
-        smooth=Smooth.None));
+        color={255,127,0}));
     connect(integerExpression2.y, sample3.u) annotation (Line(
         points={{-79,-36},{-73.2,-36}},
-        color={255,127,0},
-        smooth=Smooth.None));
+        color={255,127,0}));
     connect(sample3.y, addInteger.u[1]) annotation (Line(
         points={{-59.4,-36},{-52,-36}},
-        color={255,127,0},
-        smooth=Smooth.None));
+        color={255,127,0}));
     connect(periodicRealClock.y, sample1.clock) annotation (Line(
         points={{-77,-72},{-56,-72},{-56,28},{-66,28},{-66,32.8}},
         color={135,135,135},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
     connect(sample3.clock, periodicRealClock.y) annotation (Line(
         points={{-66,-43.2},{-66,-72},{-77,-72}},
         color={175,175,175},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
     connect(packInt.pkgOut[1], addString.pkgIn) annotation (Line(
         points={{-40,29.2},{-40,14.8}},
-        color={0,0,0},
-        pattern=LinePattern.None,
-        smooth=Smooth.None));
+        pattern=LinePattern.None));
     connect(addString.pkgOut[1], addInteger.pkgIn) annotation (Line(
         points={{-40,-6.8},{-40,-25.2}},
-        color={0,0,0},
-        pattern=LinePattern.None,
-        smooth=Smooth.None));
+        pattern=LinePattern.None));
     connect(unpackInt.pkgOut[1], getString.pkgIn) annotation (Line(
         points={{-2,29.2},{-2,12.8}},
-        color={0,0,0},
-        pattern=LinePattern.None,
-        smooth=Smooth.None));
+        pattern=LinePattern.None));
     connect(getString.pkgOut[1], getInteger.pkgIn) annotation (Line(
         points={{-2,-8.8},{-2,-23.2}},
-        color={0,0,0},
-        pattern=LinePattern.None,
-        smooth=Smooth.None));
+        pattern=LinePattern.None));
     annotation (experiment(StopTime=5.0),
       Documentation(info="<html>
 <p>
@@ -302,112 +259,83 @@ is demonstrated in this example.
   equation
     connect(packager.pkgOut, addReal.pkgIn) annotation (Line(
         points={{-30,59.2},{-30,40.8}},
-        color={0,0,0},
-        pattern=LinePattern.None,
-        smooth=Smooth.None));
+        pattern=LinePattern.None));
     connect(addInteger.pkgOut[1], uDPSend.pkgIn) annotation (Line(
         points={{-30,-38.8},{-30,-47.2}},
-        color={0,0,0},
-        pattern=LinePattern.None,
-        smooth=Smooth.None));
+        pattern=LinePattern.None));
     connect(integerExpression.y, sample1.u) annotation (Line(
         points={{-75,-28},{-67.2,-28}},
-        color={255,127,0},
-        smooth=Smooth.None));
+        color={255,127,0}));
     connect(sample1.y, addInteger.u[1]) annotation (Line(
         points={{-53.4,-28},{-42,-28}},
-        color={255,127,0},
-        smooth=Smooth.None));
+        color={255,127,0}));
     connect(periodicRealClock.y, sample1.clock) annotation (Line(
         points={{-73,-80},{-60,-80},{-60,-35.2}},
         color={135,135,135},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
 
     connect(uDPReceive.pkgOut,getReal. pkgIn) annotation (Line(
         points={{30,59.2},{30,50},{30,50},{30,40.8}},
-        color={0,0,0},
-        pattern=LinePattern.None,
-        smooth=Smooth.None));
+        pattern=LinePattern.None));
     connect(getInteger.y[1], assignClock2.u) annotation (Line(
         points={{41,-34},{50.8,-34}},
-        color={255,127,0},
-        smooth=Smooth.None));
+        color={255,127,0}));
     connect(periodicRealClock.y, assignClock2.clock) annotation (Line(
         points={{-73,-80},{58,-80},{58,-41.2}},
         color={135,135,135},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
     connect(addReal.pkgOut[1], addFloat.pkgIn) annotation (Line(
         points={{-30,19.2},{-30,12.8}},
-        color={0,0,0},
-        pattern=LinePattern.None,
-        smooth=Smooth.None));
+        pattern=LinePattern.None));
     connect(addFloat.pkgOut[1], addInteger.pkgIn) annotation (Line(
         points={{-30,-8.8},{-30,-17.2}},
-        color={0,0,0},
-        pattern=LinePattern.None,
-        smooth=Smooth.None));
+        pattern=LinePattern.None));
     connect(realExpression1.y, sample3.u) annotation (Line(
         points={{-75,2},{-67.2,2}},
-        color={0,0,127},
-        smooth=Smooth.None));
+        color={0,0,127}));
     connect(realExpression.y, sample2.u) annotation (Line(
         points={{-75,30},{-67.2,30}},
-        color={0,0,127},
-        smooth=Smooth.None));
+        color={0,0,127}));
     connect(sample2.y, addReal.u) annotation (Line(
         points={{-53.4,30},{-42,30}},
-        color={0,0,127},
-        smooth=Smooth.None));
+        color={0,0,127}));
     connect(sample3.y, addFloat.u) annotation (Line(
         points={{-53.4,2},{-42,2}},
-        color={0,0,127},
-        smooth=Smooth.None));
+        color={0,0,127}));
     connect(periodicRealClock.y, sample3.clock) annotation (Line(
         points={{-73,-80},{-50,-80},{-50,-16},{-60,-16},{-60,-5.2}},
         color={175,175,175},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
     connect(periodicRealClock.y, sample2.clock) annotation (Line(
         points={{-73,-80},{-50,-80},{-50,18},{-60,18},{-60,22.8}},
         color={175,175,175},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
     connect(getReal.pkgOut[1], getFloat.pkgIn) annotation (Line(
         points={{30,19.2},{30,6.8}},
-        color={0,0,0},
-        pattern=LinePattern.None,
-        smooth=Smooth.None));
+        pattern=LinePattern.None));
     connect(getFloat.pkgOut[1], getInteger.pkgIn) annotation (Line(
         points={{30,-14.8},{30,-23.2}},
-        color={0,0,0},
-        pattern=LinePattern.None,
-        smooth=Smooth.None));
+        pattern=LinePattern.None));
     connect(getReal.y, assignClock1.u) annotation (Line(
         points={{41,30},{50.8,30}},
-        color={0,0,127},
-        smooth=Smooth.None));
+        color={0,0,127}));
     connect(periodicRealClock.y, assignClock3.clock) annotation (Line(
         points={{-73,-80},{72,-80},{72,-20},{58,-20},{58,-11.2}},
         color={175,175,175},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
     connect(periodicRealClock.y, assignClock1.clock) annotation (Line(
         points={{-73,-80},{80,-80},{80,14},{58,14},{58,22.8}},
         color={175,175,175},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
     connect(getFloat.y, assignClock3.u) annotation (Line(
         points={{41,-4},{50.8,-4}},
-        color={0,0,127},
-        smooth=Smooth.None));
+        color={0,0,127}));
     annotation (experiment(StopTime=5.0),
       Documentation(info="<html>
 <p>
@@ -502,169 +430,127 @@ The <code>uDPSend</code> block sends to the local port 10002. The <code>uDPRecei
   equation
     connect(packager.pkgOut, addReal.pkgIn) annotation (Line(
         points={{-28,79.2},{-28,68.8}},
-        color={0,0,0},
-        pattern=LinePattern.None,
-        smooth=Smooth.None));
+        pattern=LinePattern.None));
     connect(addReal.pkgOut[1], packInt.pkgIn) annotation (Line(
         points={{-28,47.2},{-28,36.8}},
-        color={0,0,0},
-        pattern=LinePattern.None,
-        smooth=Smooth.None));
+        pattern=LinePattern.None));
     connect(packInt.pkgOut[1], packInt1.pkgIn) annotation (Line(
         points={{-28,15.2},{-28,4.8}},
-        color={0,0,0},
-        pattern=LinePattern.None,
-        smooth=Smooth.None));
+        pattern=LinePattern.None));
     connect(packInt1.pkgOut[1], addInteger1.pkgIn) annotation (Line(
         points={{-28,-16.8},{-28,-25.2}},
-        color={0,0,0},
-        pattern=LinePattern.None,
-        smooth=Smooth.None));
+        pattern=LinePattern.None));
     connect(addInteger1.pkgOut[1], uDPSend.pkgIn) annotation (Line(
         points={{-28,-46.8},{-28,-52},{-28,-57.2},{-28,-57.2}},
-        color={0,0,0},
-        pattern=LinePattern.None,
-        smooth=Smooth.None));
+        pattern=LinePattern.None));
     connect(uDPReceive2_1.pkgOut, getReal.pkgIn) annotation (Line(
         points={{30,75.2},{30,71.4},{30,66.8},{30,66.8}},
-        color={0,0,0},
-        pattern=LinePattern.None,
-        smooth=Smooth.None));
+        pattern=LinePattern.None));
     connect(getReal.pkgOut[1], unpackInt.pkgIn) annotation (Line(
         points={{30,45.2},{30,34.8}},
-        color={0,0,0},
-        pattern=LinePattern.None,
-        smooth=Smooth.None));
+        pattern=LinePattern.None));
     connect(unpackInt.pkgOut[1], unpackInt1.pkgIn) annotation (Line(
         points={{30,13.2},{30,4.8}},
-        color={0,0,0},
-        pattern=LinePattern.None,
-        smooth=Smooth.None));
+        pattern=LinePattern.None));
     connect(unpackInt1.pkgOut[1], getInteger1.pkgIn) annotation (Line(
         points={{30,-16.8},{30,-31.2}},
-        color={0,0,0},
-        pattern=LinePattern.None,
-        smooth=Smooth.None));
+        pattern=LinePattern.None));
     connect(realExpression.y, sample2.u) annotation (Line(
         points={{-73,58},{-65.2,58}},
-        color={0,0,127},
-        smooth=Smooth.None));
+        color={0,0,127}));
     connect(sample2.y, addReal.u) annotation (Line(
         points={{-51.4,58},{-40,58}},
-        color={0,0,127},
-        smooth=Smooth.None));
+        color={0,0,127}));
     connect(periodicRealClock.y, sample4.clock) annotation (Line(
         points={{-73,-84},{-58,-84},{-58,-43.2}},
         color={135,135,135},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
     connect(integerConstant1.y, sample4.u) annotation (Line(
         points={{-73,-36},{-65.2,-36}},
-        color={255,127,0},
-        smooth=Smooth.None));
+        color={255,127,0}));
     connect(sample4.y, addInteger1.u[1]) annotation (Line(
         points={{-51.4,-36},{-40,-36}},
-        color={255,127,0},
-        smooth=Smooth.None));
+        color={255,127,0}));
     connect(integerExpression1.y, sample3.u) annotation (Line(
         points={{-73,-6},{-65.2,-6}},
-        color={255,127,0},
-        smooth=Smooth.None));
+        color={255,127,0}));
     connect(sample3.y, packInt1.u) annotation (Line(
         points={{-51.4,-6},{-40,-6}},
-        color={255,127,0},
-        smooth=Smooth.None));
+        color={255,127,0}));
     connect(integerExpression.y, sample1.u) annotation (Line(
         points={{-73,26},{-65.2,26}},
-        color={255,127,0},
-        smooth=Smooth.None));
+        color={255,127,0}));
     connect(sample1.y, packInt.u) annotation (Line(
         points={{-51.4,26},{-40,26}},
-        color={255,127,0},
-        smooth=Smooth.None));
+        color={255,127,0}));
     connect(periodicRealClock.y, sample3.clock) annotation (Line(
         points={{-73,-84},{-46,-84},{-46,-20},{-58,-20},{-58,-13.2}},
         color={135,135,135},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
     connect(periodicRealClock.y, sample1.clock) annotation (Line(
         points={{-73,-84},{-46,-84},{-46,14},{-58,14},{-58,18.8}},
         color={135,135,135},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
     connect(periodicRealClock.y, sample2[1].clock) annotation (Line(
         points={{-73,-84},{-46,-84},{-46,46},{-58,46},{-58,50.8}},
         color={128,0,255},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
     connect(periodicRealClock.y, sample2[2].clock) annotation (Line(
         points={{-73,-84},{-46,-84},{-46,46},{-58,46},{-58,50.8}},
         color={128,0,255},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
     connect(periodicRealClock.y, sample2[3].clock) annotation (Line(
         points={{-73,-84},{-46,-84},{-46,46},{-58,46},{-58,50.8}},
         color={135,135,135},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
     connect(unpackInt.y, assignClock2.u) annotation (Line(
         points={{41,24},{52.8,24}},
-        color={255,127,0},
-        smooth=Smooth.None));
+        color={255,127,0}));
     connect(unpackInt1.y, assignClock3.u) annotation (Line(
         points={{41,-6},{52.8,-6}},
-        color={255,127,0},
-        smooth=Smooth.None));
+        color={255,127,0}));
     connect(getInteger1.y[1], assignClock4.u) annotation (Line(
         points={{41,-42},{52.8,-42}},
-        color={255,127,0},
-        smooth=Smooth.None));
+        color={255,127,0}));
     connect(periodicRealClock.y, assignClock4.clock) annotation (Line(
         points={{-73,-84},{60,-84},{60,-49.2}},
         color={135,135,135},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
     connect(periodicRealClock.y, assignClock3.clock) annotation (Line(
         points={{-73,-84},{74,-84},{74,-28},{60,-28},{60,-13.2}},
         color={135,135,135},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
     connect(periodicRealClock.y, assignClock2.clock) annotation (Line(
         points={{-73,-84},{74,-84},{74,8},{60,8},{60,16.8}},
         color={135,135,135},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
     connect(periodicRealClock.y, assignClock1[1].clock) annotation (Line(
         points={{-73,-84},{74,-84},{74,40},{60,40},{60,48.8}},
         color={128,0,255},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
     connect(getReal.y, assignClock1.u) annotation (Line(
         points={{41,56},{52.8,56}},
-        color={0,0,127},
-        smooth=Smooth.None));
+        color={0,0,127}));
     connect(periodicRealClock.y, assignClock1[2].clock) annotation (Line(
         points={{-73,-84},{74,-84},{74,40},{60,40},{60,48.8}},
         color={128,0,255},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
     connect(periodicRealClock.y, assignClock1[3].clock) annotation (Line(
         points={{-73,-84},{74,-84},{74,40},{60,40},{60,48.8}},
         color={135,135,135},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
     annotation (experiment(StopTime=5.0),
       Documentation(info="<html>
 <p>
@@ -718,101 +604,77 @@ In particular this model demonstrates how integer values can be packed and unpac
   equation
     connect(packager.pkgOut, addReal.pkgIn) annotation (Line(
         points={{-30,59.2},{-30,40.8}},
-        color={0,0,0},
-        pattern=LinePattern.None,
-        smooth=Smooth.None));
+        pattern=LinePattern.None));
     connect(addReal.pkgOut[1], addInteger.pkgIn) annotation (Line(
         points={{-30,19.2},{-30,0.8}},
-        color={0,0,0},
-        pattern=LinePattern.None,
-        smooth=Smooth.None));
+        pattern=LinePattern.None));
     connect(addInteger.pkgOut[1], sharedMemoryWrite.pkgIn) annotation (Line(
         points={{-30,-20.8},{-30,-30},{-30,-39.2},{-30,-39.2}},
-        color={0,0,0},
-        pattern=LinePattern.None,
-        smooth=Smooth.None));
+        pattern=LinePattern.None));
     connect(integerExpression.y,sample1. u) annotation (Line(
         points={{-75,-10},{-67.2,-10}},
-        color={255,127,0},
-        smooth=Smooth.None));
+        color={255,127,0}));
     connect(sample1.y, addInteger.u[1]) annotation (Line(
         points={{-53.4,-10},{-42,-10}},
-        color={255,127,0},
-        smooth=Smooth.None));
+        color={255,127,0}));
     connect(periodicRealClock.y,sample1. clock) annotation (Line(
         points={{-73,-80},{-60,-80},{-60,-17.2}},
         color={135,135,135},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
     connect(realExpression.y,sample2. u) annotation (Line(
         points={{-75,30},{-67.2,30}},
-        color={0,0,127},
-        smooth=Smooth.None));
+        color={0,0,127}));
     connect(periodicRealClock.y, sample2[1].clock) annotation (Line(
         points={{-73,-80},{-48,-80},{-48,12},{-60,12},{-60,22.8}},
         color={128,0,255},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
     connect(periodicRealClock.y, sample2[2].clock) annotation (Line(
         points={{-73,-80},{-48,-80},{-48,12},{-60,12},{-60,22.8}},
         color={128,0,255},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
     connect(periodicRealClock.y, sample2[3].clock) annotation (Line(
         points={{-73,-80},{-48,-80},{-48,12},{-60,12},{-60,22.8}},
         color={135,135,135},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
     connect(sample2.y, addReal.u) annotation (Line(
         points={{-53.4,30},{-42,30}},
-        color={0,0,127},
-        smooth=Smooth.None));
+        color={0,0,127}));
     connect(periodicRealClock.y, assignClock2.clock) annotation (Line(
         points={{-73,-80},{68,-80},{68,-7.2}},
         color={135,135,135},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
     connect(periodicRealClock.y, assignClock1[1].clock) annotation (Line(
         points={{-73,-80},{88,-80},{88,18},{68,18},{68,32.8}},
         color={128,0,255},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
     connect(periodicRealClock.y, assignClock1[2].clock) annotation (Line(
         points={{-73,-80},{88,-80},{88,18},{68,18},{68,32.8}},
         color={128,0,255},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
     connect(periodicRealClock.y, assignClock1[3].clock) annotation (Line(
         points={{-73,-80},{88,-80},{88,18},{68,18},{68,32.8}},
         color={135,135,135},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
     connect(sharedMemoryRead.pkgOut, getReal.pkgIn) annotation (Line(
         points={{40,69.2},{40,50.8}},
-        color={0,0,0},
-        pattern=LinePattern.None,
-        smooth=Smooth.None));
+        pattern=LinePattern.None));
     connect(getReal.pkgOut[1], getInteger.pkgIn) annotation (Line(
         points={{40,29.2},{40,10.8}},
-        color={0,0,0},
-        pattern=LinePattern.None,
-        smooth=Smooth.None));
+        pattern=LinePattern.None));
     connect(getReal.y, assignClock1.u) annotation (Line(
         points={{51,40},{60.8,40}},
-        color={0,0,127},
-        smooth=Smooth.None));
+        color={0,0,127}));
     connect(getInteger.y[1], assignClock2.u) annotation (Line(
         points={{51,0},{60.8,0}},
-        color={255,127,0},
-        smooth=Smooth.None));
+        color={255,127,0}));
     annotation (experiment(StopTime=5.0),
       Documentation(info="<html>
 <p>
@@ -839,14 +701,12 @@ The <code>sharedMemoryWrite</code> block writes to the memory partition with <co
 
     connect(spaceMouseInput.axes[1], assignClock1.u) annotation (Line(
         points={{-57,33.1667},{-47.7,33.1667},{-47.7,34},{-37.2,34}},
-        color={0,0,127},
-        smooth=Smooth.None));
+        color={0,0,127}));
     connect(periodicRealClock.y, assignClock1.clock) annotation (Line(
         points={{-53,-8},{-30,-8},{-30,26.8}},
         color={175,175,175},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
     annotation (experiment(StopTime=5.0),
       Documentation(info="<html>
 <p>
@@ -873,14 +733,12 @@ Basic example of using inputs from a <a href=\"http://www.3dconnexion.com/\">3Dc
 
     connect(assignClock1.u, joystickInput.pOV) annotation (Line(
         points={{-27.2,34},{-42,34},{-42,30},{-59,30}},
-        color={0,0,127},
-        smooth=Smooth.None));
+        color={0,0,127}));
     connect(periodicRealClock.y, assignClock1.clock) annotation (Line(
         points={{-53,-8},{-20,-8},{-20,26.8}},
         color={175,175,175},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
     annotation (experiment(StopTime=5.0),
       Documentation(info="<html>
 <p>
@@ -907,12 +765,10 @@ Basic example of using inputs from a joystick/gamepad device.
         points={{-53,-8},{-24,-8},{-24,22.8}},
         color={175,175,175},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
     connect(keyboardInput.keyUp, assignClock1.u) annotation (Line(
         points={{-61,38},{-48,38},{-48,30},{-31.2,30}},
-        color={255,0,255},
-        smooth=Smooth.None));
+        color={255,0,255}));
     annotation (experiment(StopTime=5.0),
       Documentation(info="<html>
 <p>
@@ -938,14 +794,12 @@ Basic example of using a keyboard as input device.
 
     connect(keyboardKeyInput.keyState, assignClock1.u) annotation (Line(
         points={{-57,30},{-31.2,30}},
-        color={255,0,255},
-        smooth=Smooth.None));
+        color={255,0,255}));
     connect(periodicRealClock.y, assignClock1.clock) annotation (Line(
         points={{-53,-8},{-24,-8},{-24,22.8}},
         color={175,175,175},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
     annotation (experiment(StopTime=5.0),
       Documentation(info="<html>
 <p>Basic example of using a keyboard as input device. For this example the parameter <code>keyCode</code> is set to the &quot;space&quot; key. Therefore, pressing <i>space</i> while the simulation is running will turn the output of the block to <b>true</b>, otherwise it is <b>false</b>
@@ -968,14 +822,12 @@ Basic example of using a keyboard as input device.
 
     connect(randomRealSource.y[1], assignClock1.u) annotation (Line(
         points={{-53,34},{-19.2,34}},
-        color={0,0,127},
-        smooth=Smooth.None));
+        color={0,0,127}));
     connect(periodicRealClock.y, assignClock1.clock) annotation (Line(
         points={{-45,-2},{-12,-2},{-12,26.8}},
         color={175,175,175},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
     annotation (experiment(StopTime=1.1));
   end TestRandomRealSource;
 
@@ -1042,88 +894,70 @@ Basic example of using a keyboard as input device.
   equation
     connect(realToInteger.y, dataWrite.u) annotation (Line(
         points={{-25,30},{-16,30}},
-        color={255,127,0},
-        smooth=Smooth.None));
+        color={255,127,0}));
     connect(sine.y, sample.u) annotation (Line(
         points={{-79,30},{-71.2,30}},
-        color={0,0,127},
-        smooth=Smooth.None));
+        color={0,0,127}));
     connect(sample.y, realToInteger.u) annotation (Line(
         points={{-57.4,30},{-48,30}},
-        color={0,0,127},
-        smooth=Smooth.None));
+        color={0,0,127}));
     connect(dataRead.y, assignClock1.u) annotation (Line(
         points={{43,30},{52.8,30}},
-        color={255,127,0},
-        smooth=Smooth.None));
+        color={255,127,0}));
     connect(sine1.y, sample1.u) annotation (Line(
         points={{-79,-50},{-71.2,-50}},
-        color={0,0,127},
-        smooth=Smooth.None));
+        color={0,0,127}));
     connect(sample1.clock, realClock.y) annotation (Line(
         points={{-64,-57.2},{-64,-90},{-79,-90}},
         color={175,175,175},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
     connect(sample1.y, dataWrite1.u) annotation (Line(
         points={{-57.4,-50},{-48,-50}},
-        color={0,0,127},
-        smooth=Smooth.None));
+        color={0,0,127}));
     connect(assignClock2.clock, realClock.y) annotation (Line(
         points={{44,-57.2},{44,-90},{-79,-90}},
         color={175,175,175},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
     connect(assignClock2.u, dataRead1.y) annotation (Line(
         points={{36.8,-50},{29,-50}},
-        color={0,0,127},
-        smooth=Smooth.None));
+        color={0,0,127}));
     connect(const.y, sample2.u) annotation (Line(
         points={{-79,-18},{-71.2,-18}},
-        color={0,0,127},
-        smooth=Smooth.None));
+        color={0,0,127}));
     connect(sample2.y, less.u2) annotation (Line(
         points={{-57.4,-18},{-48,-18}},
-        color={0,0,127},
-        smooth=Smooth.None));
+        color={0,0,127}));
     connect(less.u1, sample.y) annotation (Line(
         points={{-48,-10},{-54,-10},{-54,30},{-57.4,30}},
-        color={0,0,127},
-        smooth=Smooth.None));
+        color={0,0,127}));
     connect(sample2.clock, realClock.y) annotation (Line(
         points={{-64,-25.2},{-64,-38},{-74,-38},{-74,-90},{-79,-90}},
         color={175,175,175},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
     connect(sample.clock, realClock.y) annotation (Line(
         points={{-64,22.8},{-64,0},{-74,0},{-74,-90},{-79,-90}},
         color={175,175,175},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
     connect(less.y, dioWrite.u) annotation (Line(
         points={{-25,-10},{-16,-10}},
-        color={255,0,255},
-        smooth=Smooth.None));
+        color={255,0,255}));
     connect(dioRead.y, assignClock3.u) annotation (Line(
         points={{41,-10},{52.8,-10}},
-        color={255,0,255},
-        smooth=Smooth.None));
+        color={255,0,255}));
     connect(assignClock3.clock, realClock.y) annotation (Line(
         points={{60,-17.2},{60,-90},{-79,-90}},
         color={175,175,175},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
     connect(assignClock1.clock, realClock.y) annotation (Line(
         points={{60,22.8},{60,4},{74,4},{74,-90},{-79,-90}},
         color={175,175,175},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}),
                         graphics={Text(
