@@ -1,0 +1,1 @@
+/usr/bin/gcc      CMakeFiles/test_MDDJoystick.dir/test_MDDJoystick.c.o CMakeFiles/test_MDDJoystick.dir/__/Util/ModelicaUtilities.c.o  -o test_MDDJoystick -rdynamic 

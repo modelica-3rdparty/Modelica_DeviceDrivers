@@ -1,0 +1,131 @@
+within Modelica_DeviceDrivers.Blocks.Examples;
+model TestSerialPackager_SerialPort_Linux
+  "Test case to send two integer values using serial interface"
+extends Modelica.Icons.Example;
+  Modelica_DeviceDrivers.Blocks.Communication.SerialPortSend serialSend(
+    sampleTime=0.2,
+    autoBufferSize=true,
+    baud=Modelica_DeviceDrivers.Utilities.Types.SerialBaudRate.B57600,
+    Serial_Port="/dev/pts/4") annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-42,-86})));
+  Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Packager packager
+    annotation (Placement(transformation(extent={{-52,50},{-32,70}})));
+  Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.AddInteger addInteger(nu=1)
+    annotation (Placement(transformation(extent={{-52,22},{-32,42}})));
+  Modelica.Blocks.Sources.IntegerConstant IntegerValue1(k=48)
+    annotation (Placement(transformation(extent={{-84,22},{-64,42}})));
+  Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.AddInteger addInteger1(nu=1)
+    annotation (Placement(transformation(extent={{-52,-8},{-32,12}})));
+  Modelica.Blocks.Sources.IntegerConstant IntegerValue2(k=49)
+    annotation (Placement(transformation(extent={{-84,-8},{-64,12}})));
+  Modelica.Blocks.Sources.IntegerConstant NL(k=10) "NewLine Character"
+    annotation (Placement(transformation(extent={{-84,-42},{-64,-22}})));
+  Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.AddInteger addInteger2(nu=1)
+    annotation (Placement(transformation(extent={{-52,-42},{-32,-22}})));
+  Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.AddInteger addInteger3(nu=1)
+    annotation (Placement(transformation(extent={{-52,-68},{-32,-48}})));
+  Modelica.Blocks.Sources.IntegerConstant CR(k=13) "Carriage Return character"
+    annotation (Placement(transformation(extent={{-84,-76},{-64,-56}})));
+  Modelica_DeviceDrivers.Blocks.Communication.SerialPortReceive serialReceive(
+      baud=Modelica_DeviceDrivers.Utilities.Types.SerialBaudRate.B57600,
+      Serial_Port="/dev/pts/3")
+    annotation (Placement(transformation(extent={{8,46},{28,66}})));
+  Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.GetInteger getInteger(nu=1)
+    annotation (Placement(transformation(extent={{32,24},{52,44}})));
+  Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.GetInteger getInteger1(nu=1)
+    annotation (Placement(transformation(extent={{32,-8},{52,12}})));
+  Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.GetInteger getInteger2(nu=1)
+    annotation (Placement(transformation(extent={{32,-38},{52,-18}})));
+  Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.GetInteger getInteger3
+    annotation (Placement(transformation(extent={{32,-72},{52,-52}})));
+  Modelica_DeviceDrivers.Blocks.OperatingSystem.SynchronizeRealtime synchronizeRealtime
+    annotation (Placement(transformation(extent={{62,70},{82,90}})));
+equation
+  connect(packager.pkgOut, addInteger.pkgIn) annotation (Line(
+      points={{-42,49.2},{-42,42.8}},
+      color={0,0,0},
+      pattern=LinePattern.None,
+      smooth=Smooth.None));
+  connect(IntegerValue1.y, addInteger.u[1]) annotation (Line(
+      points={{-63,32},{-54,32}},
+      color={255,127,0},
+      smooth=Smooth.None));
+  connect(addInteger.pkgOut[1], addInteger1.pkgIn) annotation (Line(
+      points={{-42,21.2},{-42,12.8}},
+      color={0,0,0},
+      pattern=LinePattern.None,
+      smooth=Smooth.None));
+  connect(IntegerValue2.y, addInteger1.u[1]) annotation (Line(
+      points={{-63,2},{-54,2}},
+      color={255,127,0},
+      smooth=Smooth.None));
+  connect(serialSend.pkgIn, addInteger3.pkgOut[1]) annotation (Line(
+      points={{-42,-75.2},{-42,-68.8}},
+      color={0,0,0},
+      pattern=LinePattern.None,
+      smooth=Smooth.None));
+  connect(addInteger2.pkgOut[1], addInteger3.pkgIn) annotation (Line(
+      points={{-42,-42.8},{-42,-47.2}},
+      color={0,0,0},
+      pattern=LinePattern.None,
+      smooth=Smooth.None));
+  connect(addInteger1.pkgOut[1], addInteger2.pkgIn) annotation (Line(
+      points={{-42,-8.8},{-42,-21.2}},
+      color={0,0,0},
+      pattern=LinePattern.None,
+      smooth=Smooth.None));
+  connect(NL.y, addInteger2.u[1]) annotation (Line(
+      points={{-63,-32},{-54,-32}},
+      color={255,127,0},
+      smooth=Smooth.None));
+  connect(CR.y, addInteger3.u[1]) annotation (Line(
+      points={{-63,-66},{-60,-66},{-60,-58},{-54,-58}},
+      color={255,127,0},
+      smooth=Smooth.None));
+  connect(serialReceive.pkgOut, getInteger.pkgIn) annotation (Line(
+      points={{28.8,56},{36,56},{36,44.8},{42,44.8}},
+      color={0,0,0},
+      pattern=LinePattern.None,
+      smooth=Smooth.None));
+  connect(getInteger.pkgOut[1], getInteger1.pkgIn) annotation (Line(
+      points={{42,23.2},{42,12.8}},
+      color={0,0,0},
+      pattern=LinePattern.None,
+      smooth=Smooth.None));
+  connect(getInteger1.pkgOut[1], getInteger2.pkgIn) annotation (Line(
+      points={{42,-8.8},{42,-17.2}},
+      color={0,0,0},
+      pattern=LinePattern.None,
+      smooth=Smooth.None));
+  connect(getInteger2.pkgOut[1], getInteger3.pkgIn) annotation (Line(
+      points={{42,-38.8},{42,-51.2}},
+      color={0,0,0},
+      pattern=LinePattern.None,
+      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}), graphics={Text(
+          extent={{-78,80},{12,74}},
+          lineColor={0,0,255},
+          textString="This test case sends periodically a dec2string value \"01\"
+Int 48 represents ASCII \"0\"
+Int 49 represents ASCII \"1\"")}), Documentation(info="<html>
+<h4><span style=\"color:#008000\">Example for serial port support</span></h4>
+<h4>Currently only supported for Linux!</h4>
+<h4><span style=\"color:#008000\">Hardware setup</span></h4>
+<p>In order to execute the example an appropriate phyiscal connection between the sending and the receiving serial port needs to be established, (e.g., by using a null modem cable between the two serial port interfaces <a href=\"http://en.wikipedia.org/wiki/Null_modem\">http://en.wikipedia.org/wiki/Null_modem</a>). In fact a minimal mull modem with lines (<code>TxD</code>, <code>Rxd</code> and <code>GND</code>) is sufficient. Next,t he <code>SerialPortReceive</code> and <code>SerialPortSend</code> blocks parameters must be updated with the device filenames corresponding to the connected physical serial ports. Now, the example can be executed. </p>
+<h4><span style=\"color:#008000\">Alternative: Using virtual serial port devices for test purposes</span></h4>
+<p>The run the example without serial port hardware, it is possible to resort to virtual serial ports. One possible way of doing this is described in the following. </p>
+<p>Make sure that <i>socat</i> is installed, e.g., on an Ubuntu machine do </p>
+<pre>sudo aptitude install socat</pre>
+<p>Now open a console and create two virtual serial port interfaces using socat: </p>
+<pre>socat -d -d pty,raw,echo=0 pty,raw,echo=0</pre>
+<p>The socat program will print the device file names that it created. The output will resemble the following:</p>
+<pre>2013/11/24 15:20:21 socat[3262] N PTY is /dev/pts/1
+2013/11/24 15:20:21 socat[3262] N PTY is /dev/pts/3
+2013/11/24 15:20:21 socat[3262] N starting data transfer loop with FDs [3,3] and [5,5]</pre>
+<p>Use them in the Send and Receive block. E.g., for the output above you would use <code>&QUOT;/dev/pts/1&QUOT;</code> in <code>SerialPortReceive</code> and <code>&QUOT;/dev/pts/3&QUOT;</code> in <code>SerialPortSend</code>. </p>
+<p>You may have also have a look at the discussion about virtual serial port devices on stackoverflow<a href=\"http://stackoverflow.com/questions/52187/virtual-serial-port-for-linux\">http://stackoverflow.com/questions/52187/virtual-serial-port-for-linux</a>.</p>
+</html>"));
+end TestSerialPackager_SerialPort_Linux;

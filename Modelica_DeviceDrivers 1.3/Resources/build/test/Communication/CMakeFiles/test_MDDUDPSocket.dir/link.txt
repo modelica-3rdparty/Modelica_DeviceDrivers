@@ -1,0 +1,1 @@
+/usr/bin/gcc   -pthread    CMakeFiles/test_MDDUDPSocket.dir/test_MDDUDPSocket.c.o CMakeFiles/test_MDDUDPSocket.dir/__/Util/ModelicaUtilities.c.o  -o test_MDDUDPSocket -rdynamic 

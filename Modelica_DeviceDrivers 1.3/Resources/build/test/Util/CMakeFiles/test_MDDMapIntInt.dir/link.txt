@@ -1,0 +1,1 @@
+/usr/bin/c++       CMakeFiles/test_MDDMapIntInt.dir/test_MDDMapIntInt.c.o CMakeFiles/test_MDDMapIntInt.dir/ModelicaUtilities.c.o  -o test_MDDMapIntInt -rdynamic ../../libMDDUtil.a 

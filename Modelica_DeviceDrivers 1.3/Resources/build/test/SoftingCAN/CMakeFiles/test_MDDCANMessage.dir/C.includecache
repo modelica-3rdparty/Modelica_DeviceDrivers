@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../src/include/ModelicaUtilities.h
+stddef.h
+-
+
+../test/SoftingCAN/../../Include/MDDCANMessage.h
+string.h
+-
+stdlib.h
+-
+ModelicaUtilities.h
+../test/SoftingCAN/../../Include/ModelicaUtilities.h
+
+/home/bernhard/bt/workrepos/Modelica_DeviceDrivers/Resources/test/SoftingCAN/test_MDDCANMessage.c
+stdio.h
+-
+string.h
+-
+float.h
+-
+math.h
+-
+MDDCANMessage.h
+/home/bernhard/bt/workrepos/Modelica_DeviceDrivers/Resources/test/SoftingCAN/MDDCANMessage.h
+
+/home/bernhard/bt/workrepos/Modelica_DeviceDrivers/Resources/test/Util/ModelicaUtilities.c
+ModelicaUtilities.h
+/home/bernhard/bt/workrepos/Modelica_DeviceDrivers/Resources/test/Util/ModelicaUtilities.h
+stdio.h
+-
+stdlib.h
+-
+stdarg.h
+-
+

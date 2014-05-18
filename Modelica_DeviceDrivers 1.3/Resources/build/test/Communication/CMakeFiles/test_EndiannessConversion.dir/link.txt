@@ -1,0 +1,1 @@
+/usr/bin/gcc   -pthread    CMakeFiles/test_EndiannessConversion.dir/test_EndiannessConversion.c.o CMakeFiles/test_EndiannessConversion.dir/__/Util/ModelicaUtilities.c.o  -o test_EndiannessConversion -rdynamic 

@@ -1,0 +1,5 @@
+# Example test file. To be used with the "loadRealParameter" function.
+arrayvar_1=0.1
+arrayvar_2=0.2
+arrayvar_3=0.3
+var1=13

@@ -1,0 +1,1 @@
+/usr/bin/gcc   -pthread    CMakeFiles/test_MDDSharedMemory.dir/test_MDDSharedMemory.c.o CMakeFiles/test_MDDSharedMemory.dir/__/Util/ModelicaUtilities.c.o  -o test_MDDSharedMemory -rdynamic -lrt 

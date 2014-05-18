@@ -1,0 +1,40 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../src/include/ModelicaUtilities.h
+stddef.h
+-
+
+/home/bernhard/bt/workrepos/Modelica_DeviceDrivers/Resources/test/Util/../../Include/MDDUtilities.h
+stdio.h
+-
+string.h
+-
+stdlib.h
+-
+ModelicaUtilities.h
+-
+
+/home/bernhard/bt/workrepos/Modelica_DeviceDrivers/Resources/test/Util/ModelicaUtilities.c
+ModelicaUtilities.h
+/home/bernhard/bt/workrepos/Modelica_DeviceDrivers/Resources/test/Util/ModelicaUtilities.h
+stdio.h
+-
+stdlib.h
+-
+stdarg.h
+-
+
+/home/bernhard/bt/workrepos/Modelica_DeviceDrivers/Resources/test/Util/test_MDDUtilities.c
+stdio.h
+-
+string.h
+-
+../../Include/MDDUtilities.h
+/home/bernhard/bt/workrepos/Modelica_DeviceDrivers/Resources/test/Util/../../Include/MDDUtilities.h
+
