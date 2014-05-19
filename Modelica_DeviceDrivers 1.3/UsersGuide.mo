@@ -123,6 +123,18 @@ First public version of the library.
 </ul>
 </html>"));
     end Version_1_2;
+
+    class Version_1_3 "Version 1.3 (May 19, 2014)"
+      extends Modelica.Icons.ReleaseNotes;
+
+      annotation (Documentation(info="<html>
+<ul>
+<li>Fixed many issues in order to support SimulationX.</li>
+<li>Particularly, a SimulationX compatible wrapper DLL to give access to the external C functions was added.</li>
+<li>Added serial port support for Linux.</li>
+</ul>
+</html>"));
+    end Version_1_3;
     annotation (Documentation(info="<html>
 <p>
 This section summarizes the changes that have been performed
@@ -755,14 +767,16 @@ end ModelicaLicense2;
     annotation (Documentation(info="<html>
 <dl>
 <dt><b>Main Authors:</b></dt>
-<dd>Tobias Bellmann and Bernhard Thiele<br>
+<dd>Bernhard Thiele<br>
+    <a href=\"https://github.com/bernhard-thiele\">at Github</a><br></dd>
+<dd>Tobias Bellmann<br>
     German Aerospace Center (DLR)<br>
     Robotics and Mechatronics Center<br>
     Institute of System Dynamics and Control<br>
     Postfach 1116<br>
     D-82230 Wessling<br>
     Germany<br>
-    email: <a href=\"mailto:Tobias.Bellmann@dlr.de\">Tobias.Bellmann@dlr.de</a> or <a href=\"mailto:Bernhard.Thiele@dlr.de\">Bernhard.Thiele@dlr.de</a><br></dd>
+    email: <a href=\"mailto:Tobias.Bellmann@dlr.de\">Tobias.Bellmann@dlr.de</a><br></dd>
 </dl>
 <p>
 The authors are open to include contributions.
@@ -783,6 +797,10 @@ of the library:
                     Blocks.Communication.SerialPortSend<br>
                     Communication.SerialPort<br>
                     Communication.SerialPort_</td>
+</tr>
+<tr><td valign=\"top\"><b><a href=\"https://github.com/tbeu/\">tbeu</a></b> </td>
+   <td valign=\"top\"></td>
+   <td valign=\"top\"> Many fixes and good proposals, especially regarding the SimulationX support.</td>
 </tr>
 
 </table>

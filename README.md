@@ -28,12 +28,12 @@ The second interface uses the synchronous language elements introduced in Modeli
 
 ## Current release
 
-Download [Modelica_DeviceDrivers v1.3 (2014-05-19)](../../archive/v1.3+build.1.zip)
+Download [Modelica_DeviceDrivers v1.3 (2014-05-19)](../../archive/v1.3+build.2.zip)
 
 Please note that currently (2014-05-19) the library is known to work with Dymola (preferable Dymola 2013FD01 and later) and with SimulationX (except of the `SerialPackager` blocks). The `SerialPackager` blocks are known to work currently *only* in Dymola. If you tested the library successfully with another Modelica tool, please contact me (Bernhard), so that I can include that information.
 
 #### Release notes
-*  [Version v1.3 (2013-10-01)](../../archive/v1.3+build.1.zip)
+*  [Version v1.3 (2014-05-19)](../../archive/v1.3+build.2.zip)
   * Fixed many issues in order to support SimulationX (with the indispensable help of [tbeu](https://github.com/tbeu/)).
   * Particularly, a SimulationX compatible wrapper DLL to give access to the external C functions was added.
   * Added serial port support for Linux.
@@ -57,7 +57,7 @@ it can be redistributed and/or modified under the terms of the [Modelica License
 
 ## Development and contribution
 Main developers:
-* [Bernhard Thiele](mailto:bernhard.thiele@dlr.de), release management and the Linux specific code.
+* [Bernhard Thiele](https://github.com/bernhard-thiele), release management and the Linux specific code.
 * [Tobias Bellmann](mailto:tobias.bellmann@dlr.de), most of the MS Windows specific code.
 
 You may report any issues with using the [Issues](../../issues) button.
