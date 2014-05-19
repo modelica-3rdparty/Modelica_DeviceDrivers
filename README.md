@@ -57,7 +57,7 @@ it can be redistributed and/or modified under the terms of the [Modelica License
 
 ## Development and contribution
 Main developers:
-* [Bernhard Thiele](mailto:bernhard.thiele@dlr.de), release management and the Linux specific code.
+* [Bernhard Thiele](https://github.com/bernhard-thiele), release management and the Linux specific code.
 * [Tobias Bellmann](mailto:tobias.bellmann@dlr.de), most of the MS Windows specific code.
 
 You may report any issues with using the [Issues](../../issues) button.
