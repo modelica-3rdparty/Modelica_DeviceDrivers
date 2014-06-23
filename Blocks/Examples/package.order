@@ -11,3 +11,4 @@ TestInputJoystick
 TestInputKeyboard
 TestInputKeyboardKey
 TestHardwareIOComedi
+TestSerialPackager_UDPMinimalForOMCTest
