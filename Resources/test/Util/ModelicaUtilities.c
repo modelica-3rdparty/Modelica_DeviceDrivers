@@ -35,13 +35,13 @@ void ModelicaFormatError(const char *string,...) {
 
 
 char* ModelicaAllocateString(size_t len) {
-  char* str = (char*) malloc(len);
+  char* str = (char*) malloc(len + 1);
   return str;
 }
 
 char* ModelicaAllocateStringWithErrorReturn(size_t len) {
   /* TODO: Implementation with correct behaviour */
-  char* str = (char*) malloc(len);
+  char* str = (char*) malloc(len + 1);
   return str;
 }
 
