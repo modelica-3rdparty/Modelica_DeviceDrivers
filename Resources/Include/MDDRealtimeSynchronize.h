@@ -83,28 +83,29 @@ DllExport double MDD_getTimeMS(int resolution)
 
 DllExport double MDD_realtimeSynchronize(double simTime, int resolution, double * availableTime)
   {
-    static double MDD_lastTime = 0;
-    static double MDD_startTime = 0;
+    static LARGE_INTEGER MDD_lastTime = {0};
+    static LARGE_INTEGER MDD_startTime = {0};
     static double MDD_lastSimTime = 0;
     static double MDD_lastAvailableTime = 0;
-    DWORD exitCode= 0;
     double calculationTime = 0;
+    LARGE_INTEGER now;
+    LARGE_INTEGER f;
 
-    if(MDD_startTime == 0) MDD_startTime = MDD_getTimeMS(resolution);
-    if(MDD_lastTime == 0) MDD_lastTime = MDD_getTimeMS(resolution);
+    if(MDD_startTime.QuadPart == 0) QueryPerformanceCounter(&MDD_startTime);
+    if(MDD_lastTime.QuadPart == 0) QueryPerformanceCounter(&MDD_lastTime);
 
     *availableTime = MDD_lastAvailableTime;
     if(simTime != MDD_lastSimTime)
     {
-
-      calculationTime = (MDD_getTimeMS(resolution) - MDD_lastTime)/1000;
-
+      QueryPerformanceFrequency(&f); /* This actually is a constant (that should be moved to a constructor of an external object) */
+      QueryPerformanceCounter(&now);
+      calculationTime = (double)(now.QuadPart - MDD_lastTime.QuadPart)/(double)f.QuadPart;
       *availableTime = simTime - MDD_lastSimTime;
-      while((MDD_getTimeMS(resolution)- MDD_startTime)/1000 <= simTime)
+      while((double)(now.QuadPart - MDD_startTime.QuadPart)/(double)f.QuadPart <= simTime)
       {
-        Sleep(0);
+        QueryPerformanceCounter(&now);
       }
-      MDD_lastTime = MDD_getTimeMS(resolution);
+      QueryPerformanceCounter(&MDD_lastTime);
       MDD_lastSimTime = simTime;
       MDD_lastAvailableTime = *availableTime;
     }
