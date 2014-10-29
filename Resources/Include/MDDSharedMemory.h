@@ -53,7 +53,8 @@ DllExport void* MDD_SharedMemoryConstructor(const char * name, int bufSize) {
     {
       ModelicaFormatError("Could not create file mapping object (%d).\n",
 			  GetLastError());
-      return NULL;
+	  free(smb);
+	  return NULL;
     }
   smb->sharedMemoryBuf = (char * ) MapViewOfFile(smb->hMapFile,   /* handle to map object */
 						    FILE_MAP_ALL_ACCESS, /* read/write permission */
@@ -67,18 +68,20 @@ DllExport void* MDD_SharedMemoryConstructor(const char * name, int bufSize) {
 			  GetLastError());
 
       CloseHandle(smb->hMapFile);
-
+      free(smb);
       return NULL;
     }
-
 
   return smb;
 }
 
 DllExport void MDD_SharedMemoryDestructor(void* p_smb) {
   struct sharedMemoryBuffer * smb = (struct sharedMemoryBuffer *) p_smb;
-  CloseHandle(smb->hMapFile);
-  free(smb);
+  if (smb)
+  {
+    CloseHandle(smb->hMapFile);
+    free(smb);
+  }
 }
 
 
