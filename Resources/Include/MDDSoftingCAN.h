@@ -138,7 +138,7 @@ DllExport void* MDD_softingCANConstructor(const char* deviceName, int baudRate) 
 
 	ModelicaFormatMessage("SoftingCAN: Initialize channel %s ...", deviceName);
 	strcpy((char*)channel.sChannelName,deviceName);
-	strcpy(mDDSoftingCAN->deviceName, deviceName);
+	strcpy(&mDDSoftingCAN->deviceName[0], deviceName);
 	ret = INIL2_initialize_channel(&channel.ulChannelHandle, (char*) channel.sChannelName);
 	if(ret) {
 		ModelicaFormatError("%s",descriptiveError(ret, "INIL2_initialize_channel"));
