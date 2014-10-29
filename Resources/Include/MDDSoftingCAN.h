@@ -393,15 +393,15 @@ static char * descriptiveError(int ret, const char * caller_function) {
 		sprintf(mDDErrorMsg, "CANL2 Error nr: %i in function %s: \n", ret, caller_function);
 	switch (ret) {
 		case -1:
-		if (caller_function=="CANL2_write_signals") strcat(mDDErrorMsg, "CANL2_write_signals: signals have not yet been initialized, this must be done by using CANL2_init_signals() \n");
-		else if (caller_function=="CANL2_set_rcv_fifo_size") strcat(mDDErrorMsg, "CANL2_set_rcv_fifo_size: The FIFO size can not be changed, because the CAN controller is already online \n");
-		else if (caller_function=="CANL2_init_signals") strcat(mDDErrorMsg, "CANL2_init_signals: signals have already been initialized \n");
+		if (strcmp(caller_function,"CANL2_write_signals") == 0) strcat(mDDErrorMsg, "CANL2_write_signals: signals have not yet been initialized, this must be done by using CANL2_init_signals() \n");
+		else if (strcmp(caller_function,"CANL2_set_rcv_fifo_size") == 0) strcat(mDDErrorMsg, "CANL2_set_rcv_fifo_size: The FIFO size can not be changed, because the CAN controller is already online \n");
+		else if (strcmp(caller_function,"CANL2_init_signals") == 0) strcat(mDDErrorMsg, "CANL2_init_signals: signals have already been initialized \n");
 		break;
 
 		case -2:
 		strcpy(mDDErrorMsg, "An exclusive input port has been defined as output. \n\n");
-		if (caller_function=="CANL2_write_signals")strcat(mDDErrorMsg, "CANL2_write_signals: write access to an input signal \n");
-		else if (caller_function=="CANL2_init_signals")strcat(mDDErrorMsg, "CANL2_init_signals: An exclusive input port has been defined as output / Error: write access to an input signal \n\n");
+		if (strcmp(caller_function,"CANL2_write_signals") == 0) strcat(mDDErrorMsg, "CANL2_write_signals: write access to an input signal \n");
+		else if (strcmp(caller_function, "CANL2_init_signals") == 0) strcat(mDDErrorMsg, "CANL2_init_signals: An exclusive input port has been defined as output / Error: write access to an input signal \n\n");
 		break;
 
 		case -3:
