@@ -66,50 +66,139 @@ DllExport void MDD_setPriority(int priority)
 
   /** Request time from a monotonic increasing real-time clock.
    *
-   * @param[in] resolution windows specific clock resolution (ignored in linux).
+   * @param[in] resolution windows specific clock resolution. TODO remove resolution since ignored in (new) implementation
    * @return (ms) time in milliseconds.
    */
 DllExport double MDD_getTimeMS(int resolution)
   {
-    DWORD ms;
+	LARGE_INTEGER ticks, frequency;
 
-    if(timeBeginPeriod(resolution))
-      ModelicaFormatError("realtimeSynchronize: Resolution not supported by hardware!");
-    ms = timeGetTime();
-    timeEndPeriod(resolution);
-    return (double)ms;
+	QueryPerformanceFrequency(&frequency);
+	QueryPerformanceCounter(&ticks);
+	ticks.QuadPart *= 1000000;
+	ticks.QuadPart /= (frequency.QuadPart);
 
-  };
+	return (double)ticks.QuadPart / 1000.0;
+  }
+
+long long MDD_QPCMicroseconds()
+{
+	LARGE_INTEGER ticks, frequency;
+
+	QueryPerformanceFrequency(&frequency);
+	QueryPerformanceCounter(&ticks);
+	ticks.QuadPart *= 1000000;
+	ticks.QuadPart /= frequency.QuadPart;
+	return ticks.QuadPart;
+}
+
+// TODO remove resolution since it is ignored in (new) implementation 
+DllExport double MDD_realtimeSynchronize(double simTime, int resolution, double * integratorTimeStep)
+{
+	static long long MDD_lastTime = 0;
+	static long long MDD_startTime = 0;
+	static double MDD_lastSimTime = 0;
+	static double MDD_lastintegratorTimeStep = 0;
+	double calculationTime = 0;
+	long long simTimeMicroseconds;
+	long long timeLeft;
+	int sleepCycleMs;
+	//int debugCounter=0;
+	//int debugCounter2=0;
+	if (MDD_startTime == 0) MDD_startTime = MDD_QPCMicroseconds();
+	if (MDD_lastTime == 0) MDD_lastTime = MDD_QPCMicroseconds();
+
+	*integratorTimeStep = 0;
+
+	if (simTime != MDD_lastSimTime)
+	{
+		calculationTime = ((double)(MDD_QPCMicroseconds() - MDD_lastTime)) / 1000000.0;
+		*integratorTimeStep = simTime - MDD_lastSimTime;
+
+		simTimeMicroseconds = simTime * 1000 * 1000;
+		timeLeft = simTimeMicroseconds - (MDD_QPCMicroseconds() - MDD_startTime);
+
+		while (timeLeft > 0)
+		{
+
+			if (timeLeft > 1000)
+			{
+				sleepCycleMs = timeLeft / 1000;
+				if (timeBeginPeriod(1))
+					ModelicaFormatError("realtimeSynchronize: Resolution not supported by hardware!");
+				Sleep(sleepCycleMs);
+				timeEndPeriod(1);
+				//debugCounter2+=sleepCycleMs;
+			}
+			else
+			{
+				Sleep(0);
+				//debugCounter++;
+			}
+
+			timeLeft = simTimeMicroseconds - (MDD_QPCMicroseconds() - MDD_startTime);
+		}
+		//*integratorTimeStep = debugCounter;
+		MDD_lastSimTime = simTime;
+		MDD_lastTime = MDD_QPCMicroseconds();
+
+		MDD_lastintegratorTimeStep = *integratorTimeStep;
+	}
+	return calculationTime;
+	//return debugCounter2;
+}
+
+#if 0
+// OLD IMPLEMENTATION. Preliminary kept as reference for comparison
+
+/** Request time from a monotonic increasing real-time clock.
+*
+* @param[in] resolution windows specific clock resolution (ignored in linux).
+* @return (ms) time in milliseconds.
+*/
+DllExport double MDD_getTimeMS(int resolution)
+{
+	DWORD ms;
+
+	if(timeBeginPeriod(resolution))
+		ModelicaFormatError("realtimeSynchronize: Resolution not supported by hardware!");
+	ms = timeGetTime();
+	timeEndPeriod(resolution);
+	return (double)ms;
+
+};
 
 DllExport double MDD_realtimeSynchronize(double simTime, int resolution, double * availableTime)
-  {
-    static double MDD_lastTime = 0;
-    static double MDD_startTime = 0;
-    static double MDD_lastSimTime = 0;
-    static double MDD_lastAvailableTime = 0;
-    DWORD exitCode= 0;
-    double calculationTime = 0;
+{
+	static double MDD_lastTime = 0;
+	static double MDD_startTime = 0;
+	static double MDD_lastSimTime = 0;
+	static double MDD_lastAvailableTime = 0;
+	DWORD exitCode = 0;
+	double calculationTime = 0;
 
-    if(MDD_startTime == 0) MDD_startTime = MDD_getTimeMS(resolution);
-    if(MDD_lastTime == 0) MDD_lastTime = MDD_getTimeMS(resolution);
+	if (MDD_startTime == 0) MDD_startTime = MDD_getTimeMS(resolution);
+	if (MDD_lastTime == 0) MDD_lastTime = MDD_getTimeMS(resolution);
 
-    *availableTime = MDD_lastAvailableTime;
-    if(simTime != MDD_lastSimTime)
-    {
+	*availableTime = MDD_lastAvailableTime;
+	if (simTime != MDD_lastSimTime)
+	{
 
-      calculationTime = (MDD_getTimeMS(resolution) - MDD_lastTime)/1000;
+		calculationTime = (MDD_getTimeMS(resolution) - MDD_lastTime) / 1000;
 
-      *availableTime = simTime - MDD_lastSimTime;
-      while((MDD_getTimeMS(resolution)- MDD_startTime)/1000 <= simTime)
-      {
-        Sleep(0);
-      }
-      MDD_lastTime = MDD_getTimeMS(resolution);
-      MDD_lastSimTime = simTime;
-      MDD_lastAvailableTime = *availableTime;
-    }
-    return calculationTime;
-  }
+		*availableTime = simTime - MDD_lastSimTime;
+		while ((MDD_getTimeMS(resolution) - MDD_startTime) / 1000 <= simTime)
+		{
+			Sleep(0);
+		}
+		MDD_lastTime = MDD_getTimeMS(resolution);
+		MDD_lastSimTime = simTime;
+		MDD_lastAvailableTime = *availableTime;
+	}
+	return calculationTime;
+}
+#endif // 0
+
 
 #elif defined(__linux__)
 
@@ -129,7 +218,7 @@ DllExport double MDD_realtimeSynchronize(double simTime, int resolution, double 
   /** Set process priority.
    *
    * Function maps directly on windows API. For linux a mapping was chosen that seemed
-   * seemed to be sensible.
+   * to be reasonable.
    * @param[in] priority range: (-2: idle, -1: below normal, 0: normal, 1: high, 2: realtime)
    */
   void MDD_setPriority(int priority) {

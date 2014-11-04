@@ -11,6 +11,9 @@ package OperatingSystem
     output Real calculationTime "Time needed for calculation";
     output Real availableTime
       "Time available for calculation (integrator step size)";
+  protected
+    Real dummyState
+      "dummy state to be integrated, to force synchronization in every integration step";
   equation
     when (initial()) then
       Modelica_DeviceDrivers.OperatingSystem.setProcessPriority(
@@ -28,6 +31,7 @@ package OperatingSystem
     end when;
 
      (calculationTime,availableTime) = Modelica_DeviceDrivers.OperatingSystem.realtimeSynchronize(time,resolution);
+     der(dummyState) =calculationTime;
     annotation (preferredView="info",
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
               -100},{100,100}}), graphics={
@@ -88,7 +92,7 @@ package OperatingSystem
       end for;
     end when;
     annotation (preferredView="info",
- Icon(graphics={
+      Icon(graphics={
           Polygon(
             points={{-80,60},{-60,60},{-70,80},{-80,60}}),
           Line(
