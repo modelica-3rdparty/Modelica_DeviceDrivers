@@ -132,7 +132,7 @@ struct MDDMmap_struct {
 };
 
 void * MDD_SharedMemoryConstructor(const char * name, int bufSize) {
-  int ret, sval;
+  int sval;
   MDDMmap* smb = (MDDMmap*) malloc(sizeof(MDDMmap));
   smb->shm_size = bufSize;
   smb->shmReadBuffer = (char *) malloc(smb->shm_size);
@@ -157,6 +157,7 @@ void * MDD_SharedMemoryConstructor(const char * name, int bufSize) {
 
   /* Lock the semaphore */
   if (!sem_wait(smb->semdes)) {
+    int ret;
 
     if (sem_getvalue(smb->semdes, &sval)) {
       ModelicaFormatError("MDDSharedMemory.h: sem_getvalue failed (%s)\n", strerror(errno));

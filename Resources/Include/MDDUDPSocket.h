@@ -183,7 +183,6 @@ int MDD_udpReceivingThread(void * p_udp) {
 	MDDUDPSocket * udp = (MDDUDPSocket *) p_udp;
 	socklen_t sa_len = sizeof(struct sockaddr_in);  /*  Size of sa. */
         struct pollfd sock_poll;
-        int ret;
 
 	ModelicaFormatMessage("Started dedicted UDP receiving thread listening at port %d\n",
 			      udp->sock);
@@ -192,7 +191,7 @@ int MDD_udpReceivingThread(void * p_udp) {
         sock_poll.events = POLLIN | POLLHUP;
 
         while (udp->runReceive) {
-                ret = poll(&sock_poll, 1, 100);
+                int ret = poll(&sock_poll, 1, 100);
 
                 switch (ret) {
                 case -1:
@@ -330,7 +329,7 @@ void MDD_udpSend(void * p_udp, const char * ipAddress, int port,
 
 	int ret;
 	/* Buffer for converting the resolved address to a readable format. */
-	char dotted_ip[15];
+	/* char dotted_ip[15]; */
 
 	/* Look up the hostname with DNS. gethostbyname
 	   (at least most UNIX versions of it) properly
@@ -406,7 +405,7 @@ int MDD_udpGetReceivedBytes(void * p_udp) {
  */
 void * MDD_udpConstructor(int port, int bufferSize) {
 	MDDUDPSocket* udp = (MDDUDPSocket*) malloc(sizeof(MDDUDPSocket));
-	int i, ret;
+	int ret;
 
 	udp->messageLength = bufferSize;
 	udp->runReceive = 0;

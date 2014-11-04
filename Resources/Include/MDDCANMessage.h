@@ -38,28 +38,28 @@ void MDD_CANMessageDestructor(void* p_cANMessage) {
  */
 void MDD_CANMessagePrint(void* p_cANMessage, int showBitVector) {
 	CANMessage* msg = (CANMessage*) p_cANMessage;
-	unsigned char bits[64];
-	int i,j;
+	int i;
 
 	ModelicaFormatMessage("CANMessage start:\nBytes signed dec:   ");
-    for(j=0; j < 8; j++) {
-		ModelicaFormatMessage(" d%d, ", msg->data[j]);
+    for(i=0; i < 8; i++) {
+		ModelicaFormatMessage(" d%d, ", msg->data[i]);
     }
 	ModelicaFormatMessage("\nBytes unsigned hex: ");
-	for(j=0; j < 8; j++) {
-		ModelicaFormatMessage("0x%X, ", msg->data[j]);
+	for(i=0; i < 8; i++) {
+		ModelicaFormatMessage("0x%X, ", msg->data[i]);
     }
 	if (showBitVector) {
-		    for (i=0; i<8; i++) {
-				bits[i*8 + 0] = msg->data[i] & 0x01;
-				bits[i*8 + 1] = (msg->data[i] & 0x02) >> 1;
-				bits[i*8 + 2] = (msg->data[i] & 0x04) >> 2;
-				bits[i*8 + 3] = (msg->data[i] & 0x08) >> 3;
-				bits[i*8 + 4] = (msg->data[i] & 0x10) >> 4;
-				bits[i*8 + 5] = (msg->data[i] & 0x20) >> 5;
-				bits[i*8 + 6] = (msg->data[i] & 0x40) >> 6;
-				bits[i*8 + 7] = (msg->data[i] & 0x80) >> 7;
-			}
+		unsigned char bits[64];
+		for (i=0; i<8; i++) {
+			bits[i*8 + 0] = msg->data[i] & 0x01;
+			bits[i*8 + 1] = (msg->data[i] & 0x02) >> 1;
+			bits[i*8 + 2] = (msg->data[i] & 0x04) >> 2;
+			bits[i*8 + 3] = (msg->data[i] & 0x08) >> 3;
+			bits[i*8 + 4] = (msg->data[i] & 0x10) >> 4;
+			bits[i*8 + 5] = (msg->data[i] & 0x20) >> 5;
+			bits[i*8 + 6] = (msg->data[i] & 0x40) >> 6;
+			bits[i*8 + 7] = (msg->data[i] & 0x80) >> 7;
+		}
 		ModelicaFormatMessage("\nBit vector:\n");
 		for (i=0; i < 64; i++)  ModelicaFormatMessage("%2d,", i); ModelicaFormatMessage("\n");
 		for (i=0; i < 64; i++)  ModelicaFormatMessage("%2d ", bits[i]);
@@ -119,21 +119,18 @@ void MDD_CANMessageIntegerBitpacking(void* p_cANMessage, int bitStartPosition, i
     unsigned char bits[64];
     int i;
     int j=0;
-    int base_i;
-    int rem_i;
     for (i=0; i<64; i++) bits[i] = 0;
     for (i=bitStartPosition, j=0; i < bitStartPosition + width; i++, j++) {
-	bits[(bitStartPosition + j)] = 0x0001 & (data >> j);
-	base_i = i / 8;
-	rem_i  = i % 8;
-	if (bits[i]) {
-	    /* set bit */
-	    msg->data[base_i] |= (1 << rem_i);
-	} else {
-	    /* unset bit */
-	    msg->data[base_i] &= ~(1 << rem_i);
-	}
-
+		int base_i = i / 8;
+		int rem_i  = i % 8;
+		bits[(bitStartPosition + j)] = 0x0001 & (data >> j);
+		if (bits[i]) {
+			/* set bit */
+			msg->data[base_i] |= (1 << rem_i);
+		} else {
+			/* unset bit */
+			msg->data[base_i] &= ~(1 << rem_i);
+		}
     }
 }
 
@@ -149,8 +146,6 @@ void MDD_CANMessageFloatBitpacking(void* p_cANMessage, int bitStartPosition, dou
 	float fdata = (float)data;
 	int byteStartPosition = bitStartPosition / 8;
 	int byteBitOffset = bitStartPosition % 8;
-	unsigned char floatData[4];
-	unsigned int i, j;
 
 	ModelicaFormatMessage("Packing byteStartPosition: %d, byteBitOffset: %d\n", byteStartPosition, byteBitOffset);
 
@@ -160,6 +155,8 @@ void MDD_CANMessageFloatBitpacking(void* p_cANMessage, int bitStartPosition, dou
 	}
 
 	if (byteBitOffset != 0) {
+		unsigned char floatData[4];
+		unsigned int i, j;
 		/* Need to assemble the float which is not aligned to the byte borders! */
 		memcpy(floatData, &fdata, sizeof(float));
 		for (i=byteStartPosition, j=0; i < byteStartPosition+sizeof(float); i++, j++) {
@@ -185,8 +182,6 @@ double MDD_CANMessageFloatBitunpacking(void* p_cANMessage, int bitStartPosition)
 	float data;
 	int byteStartPosition = bitStartPosition / 8;
 	int byteBitOffset = bitStartPosition % 8;
-	unsigned char floatData[4];
-	unsigned int i, j, lower, upper;
 
 	if (bitStartPosition > 32) {
 		ModelicaFormatError("MDDCANMessage: Error: Bit start position for reading IEEE float > 32 => size(float) exceeds message size!\n");
@@ -194,10 +189,12 @@ double MDD_CANMessageFloatBitunpacking(void* p_cANMessage, int bitStartPosition)
 	}
 
 	if (byteBitOffset != 0) {
+		unsigned int i, j;
+		unsigned char floatData[4];
 		/* Need to assemble the float which is not aligned to the byte borders! */
 		for (i=byteStartPosition, j=0; i < byteStartPosition+sizeof(float); i++, j++) {
-			lower = (msg->data[i] << byteBitOffset);
-			upper = (msg->data[i+1] >> (8-byteBitOffset));
+			unsigned int lower = (msg->data[i] << byteBitOffset);
+			unsigned int upper = (msg->data[i+1] >> (8-byteBitOffset));
 			floatData[j] = lower | upper;
 		}
 		memcpy(&data, floatData, sizeof(float));
