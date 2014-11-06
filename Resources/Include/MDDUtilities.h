@@ -22,7 +22,6 @@ DllExport double MDD_utilitiesLoadRealParameter(const char * file, const char * 
 {
   FILE * pFile;
   char line[512];
-  char * namePos;
   double u;
   pFile = fopen (file,"r");
 
@@ -37,7 +36,7 @@ DllExport double MDD_utilitiesLoadRealParameter(const char * file, const char * 
   {
 
     //find the name of the variable in string
-    namePos = strstr (line,name);
+    char * namePos = strstr (line,name);
 
     //if variable name found and the next character after the name is a space, tabulator or = then it is a valid name.
     if(namePos && (namePos[strlen(name)] == ' ' || namePos[strlen(name)] == '=' || namePos[strlen(name)] == '\t'))

@@ -429,43 +429,43 @@ DllExport int MDD_SerialPackagerIntegerBitunpack2(void* p_package, int bitOffset
  * @param[in] data integer value that shall be encoded into package
  */
 DllExport void MDD_SerialPackagerIntegerBitpack(void* p_package, int bitOffset, int width, int data) {
-        SerialPackager* pkg = (SerialPackager*) p_package;
-        unsigned char bits[40];
-        unsigned int i, j, base_j, rem_j, posEnd;
+	SerialPackager* pkg = (SerialPackager*) p_package;
+	unsigned char bits[40];
+	unsigned int i, j, posEnd;
 
-        if (width > 32) {
-                ModelicaFormatError("SerialPackager: MDD_SerialPackagerIntegerBitpack failed."
-                "width > 32. Exiting.\n");
-                exit(-1);
-        }
-        if ((unsigned int)bitOffset < pkg->bitOffset) {
-                ModelicaFormatError("SerialPackager: Cowardly refusing to start writing at bitOffset %d "
-                "which is lower than the current Packager bitOffset %d. Exiting.\n", bitOffset, pkg->bitOffset);
-                exit(-1);
-        }
-        if ( width < 32 && (unsigned int)data >= 0x1u << (unsigned int)width ) {
-                ModelicaFormatError("SerialPackager: Warning: Value %d can't be encoded into %d bits or is negative (no signed int support)!\n", data, width);
-        }
-        posEnd = (bitOffset + width) % 8 == 0 ? pkg->pos + (bitOffset + width) / 8 : pkg->pos + (bitOffset + width) / 8 + 1;
-        if (posEnd > pkg->size) {
-                ModelicaFormatError("SerialPackager: MDD_SerialPackagerIntegerBitpack failed. Buffer overflow. Exiting.\n");
-                exit(-1);
-        }
+	if (width > 32) {
+			ModelicaFormatError("SerialPackager: MDD_SerialPackagerIntegerBitpack failed."
+			"width > 32. Exiting.\n");
+			exit(-1);
+	}
+	if ((unsigned int)bitOffset < pkg->bitOffset) {
+			ModelicaFormatError("SerialPackager: Cowardly refusing to start writing at bitOffset %d "
+			"which is lower than the current Packager bitOffset %d. Exiting.\n", bitOffset, pkg->bitOffset);
+			exit(-1);
+	}
+	if ( width < 32 && (unsigned int)data >= 0x1u << (unsigned int)width ) {
+			ModelicaFormatError("SerialPackager: Warning: Value %d can't be encoded into %d bits or is negative (no signed int support)!\n", data, width);
+	}
+	posEnd = (bitOffset + width) % 8 == 0 ? pkg->pos + (bitOffset + width) / 8 : pkg->pos + (bitOffset + width) / 8 + 1;
+	if (posEnd > pkg->size) {
+			ModelicaFormatError("SerialPackager: MDD_SerialPackagerIntegerBitpack failed. Buffer overflow. Exiting.\n");
+			exit(-1);
+	}
 
-        memset(bits, 0, 40);
-        for ( i = bitOffset % 8, j=0; j < (unsigned int)width; i++, j++ ) {
-                bits[i] = 0x0001 & (data >> j);
-                base_j = pkg->pos + ( (bitOffset + j) / 8 );
-                rem_j = (bitOffset + j) % 8;
-                if (bits[i]) {
-                        /* set bit */
-                        pkg->data[base_j] |= (1 << rem_j);
-                } else {
-                        /* unset bit */
-                        pkg->data[base_j] &= ~(1 << rem_j);
-                }
-        }
-        pkg->bitOffset = bitOffset + width;
+	memset(bits, 0, 40);
+	for ( i = bitOffset % 8, j=0; j < (unsigned int)width; i++, j++ ) {
+		unsigned int base_j = pkg->pos + ( (bitOffset + j) / 8 );
+		unsigned int rem_j = (bitOffset + j) % 8;
+		bits[i] = 0x0001 & (data >> j);
+		if (bits[i]) {
+				/* set bit */
+				pkg->data[base_j] |= (1 << rem_j);
+		} else {
+				/* unset bit */
+				pkg->data[base_j] &= ~(1 << rem_j);
+		}
+	}
+	pkg->bitOffset = bitOffset + width;
 }
 
 /** Pack integer value into package relative to current BIT position (using Intel endianness).
