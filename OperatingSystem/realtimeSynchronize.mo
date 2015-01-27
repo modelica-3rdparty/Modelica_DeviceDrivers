@@ -11,4 +11,5 @@ annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include
            Include = "#include \"MDDRealtimeSynchronize.h\" ",
            Library = "rt",
            __iti_dll = "ITI_MDD.dll");
+annotation(__OpenModelica_Impure=true);
 end realtimeSynchronize;

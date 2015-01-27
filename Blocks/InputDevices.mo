@@ -218,11 +218,11 @@ package InputDevices
   protected
     Integer KeyCode[10](each start=0, each fixed=true);
   equation
-    when
-        (sample(0,sampleTime)) then
+    when (sample(0,sampleTime)) then
       KeyCode = Modelica_DeviceDrivers.InputDevices.Keyboard.getData();
-                                              //getting the KeyCode
+      //getting the KeyCode
     end when;
+  equation
     keyUp = if (KeyCode[1]==1) then true else false;
     keyDown = if (KeyCode[2]==1) then true else false;
     keyRight = if (KeyCode[3]==1) then true else false;

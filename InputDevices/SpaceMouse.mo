@@ -8,5 +8,6 @@ external "C" MDD_spaceMouseGetData(Axes, Buttons)
 annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
            Include = "#include \"MDDSpaceMouse.h\" ",
            Library = {"MDDSpaceMouse", "X11"});
+annotation(__OpenModelica_Impure=true);
 end getData;
 end SpaceMouse;
