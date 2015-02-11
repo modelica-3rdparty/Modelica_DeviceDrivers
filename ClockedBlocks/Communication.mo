@@ -7,7 +7,7 @@ package Communication
     extends
       Modelica_DeviceDrivers.Utilities.Icons.PartialClockedDeviceDriverIcon;
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
-    import Modelica_DeviceDrivers.Packaging.alignAtByteBoundery;
+    import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
     import Modelica_DeviceDrivers.Communication.SharedMemory;
     import Modelica_DeviceDrivers.Communication.SharedMemory_;
 
@@ -34,7 +34,7 @@ package Communication
   equation
 
     if not previous(initialized) then
-      bufferSize = if autoBufferSize then alignAtByteBoundery(pkgOut.autoPkgBitSize)
+      bufferSize = if autoBufferSize then alignAtByteBoundary(pkgOut.autoPkgBitSize)
          else userBufferSize;
       pkgOut.pkg = SerialPackager(bufferSize);
       sm = SharedMemory(memoryID,bufferSize);
@@ -128,7 +128,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
     extends
       Modelica_DeviceDrivers.Utilities.Icons.PartialClockedDeviceDriverIcon;
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
-    import Modelica_DeviceDrivers.Packaging.alignAtByteBoundery;
+    import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
     import Modelica_DeviceDrivers.Communication.UDPSocket;
 
     parameter Boolean autoBufferSize = true
@@ -155,7 +155,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
   equation
 
     if not previous(initialized) then
-      bufferSize = if autoBufferSize then alignAtByteBoundery(pkgOut.autoPkgBitSize)
+      bufferSize = if autoBufferSize then alignAtByteBoundary(pkgOut.autoPkgBitSize)
          else userBufferSize;
       pkgOut.pkg = SerialPackager(bufferSize);
   //    Modelica.Utilities.Streams.print("Open Socket "+String(port_recv)+" with bufferSize "+String(bufferSize));

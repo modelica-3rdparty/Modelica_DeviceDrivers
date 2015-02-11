@@ -1,6 +1,6 @@
 within Modelica_DeviceDrivers.ClockedBlocks;
 package HardwareIO
-  "Data aquisition hardware like digital-analog converter, analog-digital converter and other interface hardware."
+  "Data acquisition hardware like digital-analog converter, analog-digital converter and other interface hardware."
  extends Modelica.Icons.Package;
 
   package Comedi

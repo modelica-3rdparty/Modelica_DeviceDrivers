@@ -277,7 +277,7 @@ int MDD_serialPortReceivingThread(void * p_serial) {
                 }
                 break;
             default:
-                ModelicaFormatError("MDDSerialPort.h: Poll returnd %d. That should not happen. Exiting\n", ret);
+                ModelicaFormatError("MDDSerialPort.h: Poll returned %d. That should not happen. Exiting\n", ret);
                 exit(1);
             }
 	}

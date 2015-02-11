@@ -42,7 +42,7 @@ struct MDDUDPSocket_s
 	char * receiveBuffer;
 	int bufferSize;
 	SOCKET SocketID;
-	int recieving;
+	int receiving;
 	int receivedBytes;
 };
 
@@ -52,14 +52,14 @@ DWORD WINAPI MDD_udpReceivingThread(LPVOID pUdp)
 	SOCKADDR remoteAddr;
 	int remoteAddrLen;
 	MDDUDPSocket * udp = (MDDUDPSocket *)pUdp;
-	while(udp->recieving)
+	while(udp->receiving)
 	{
 
 		remoteAddrLen=sizeof(SOCKADDR);
 		udp->receivedBytes=recvfrom(udp->SocketID,udp->receiveBuffer,udp->bufferSize,0,&remoteAddr,&remoteAddrLen);
 		if(udp->receivedBytes==SOCKET_ERROR)
 		{
-			ModelicaFormatMessage("UDPSocket: recieving not possible, Socket not valid.\n");
+			ModelicaFormatMessage("UDPSocket: receiving not possible, Socket not valid.\n");
 		}
 	}
 	return 0;
@@ -75,7 +75,7 @@ DllExport void * MDD_udpConstructor(int port, int bufferSize)
 	MDDUDPSocket * udp = (MDDUDPSocket *)malloc(sizeof(MDDUDPSocket));
 
 	udp->receiveBuffer = (char*)malloc(bufferSize);
-	udp->recieving = 1;
+	udp->receiving = 1;
 	udp->bufferSize = bufferSize;
 	udp->receivedBytes = 0;
 
@@ -109,7 +109,7 @@ DllExport void * MDD_udpConstructor(int port, int bufferSize)
 DllExport void MDD_udpDestructor(void * p_udp)
 {
         MDDUDPSocket * udp = (MDDUDPSocket *) p_udp;
-	udp->recieving = 0;
+	udp->receiving = 0;
 	closesocket(udp->SocketID);
 	free(udp->receiveBuffer);
 	free(udp);
@@ -225,7 +225,7 @@ int MDD_udpReceivingThread(void * p_udp) {
                                 break;
                         }
                 default:
-                        ModelicaFormatError("MDDUDPSocket.h: Poll returnd %d. That should not happen. Exiting\n", ret);
+                        ModelicaFormatError("MDDUDPSocket.h: Poll returned %d. That should not happen. Exiting\n", ret);
                         exit(1);
                 }
 
@@ -305,7 +305,7 @@ const char * MDD_udpNonBlockingRead(void * p_udp) {
 			break;
 		}
 	default:
-		ModelicaFormatError("MDDUDPSocket.h: Poll returnd %d. That should not happen. Exiting\n", ret);
+		ModelicaFormatError("MDDUDPSocket.h: Poll returned %d. That should not happen. Exiting\n", ret);
 		exit(1);
 	}
 
