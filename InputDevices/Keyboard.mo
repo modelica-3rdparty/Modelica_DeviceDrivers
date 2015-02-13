@@ -9,7 +9,7 @@ annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include
            Include = "#include \"MDDKeyboard.h\" ",
            Library = "X11",
            __iti_dll = "ITI_MDD.dll");
-annotation(__OpenModelica_Impure=true);
+annotation(__OpenModelica_Impure=true, __iti_Impure=true);
 end getKey;
 
 function getData "reads data from several keyboard keys"
@@ -19,6 +19,6 @@ annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include
            Include = "#include \"MDDKeyboard.h\" ",
            Library = "X11",
            __iti_dll = "ITI_MDD.dll");
-annotation(__OpenModelica_Impure=true);
+annotation(__OpenModelica_Impure=true, __iti_Impure=true);
 end getData;
 end Keyboard;

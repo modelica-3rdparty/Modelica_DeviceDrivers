@@ -6,5 +6,5 @@ output Real y;
 external "C" y = MDD_OS_getRandomNumberDouble(minValue, maxValue)
 annotation (Include = "#include \"MDDOperatingSystem.h\"",
             __iti_dll = "ITI_MDD.dll");
-annotation(__OpenModelica_Impure=true);
+annotation(__OpenModelica_Impure=true, __iti_Impure=true);
 end randomReal;
