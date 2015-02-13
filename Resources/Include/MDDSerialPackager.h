@@ -141,9 +141,9 @@ DllExport void MDD_SerialPackagerClear(void* p_package) {
         pkg->bitOffset = 0;
 }
 
-/** If there is a bit offset, align pos to next byte boundery after bit offset
+/** If there is a bit offset, align pos to next byte boundary after bit offset
  */
-DllExport void MDD_SerialPackagerAlignToByteBoundery(SerialPackager* p_package) {
+DllExport void MDD_SerialPackagerAlignToByteBoundary(SerialPackager* p_package) {
         SerialPackager* pkg = (SerialPackager*) p_package;
         pkg->pos += pkg->bitOffset % 8 == 0 ?
                         pkg->bitOffset / 8 :
@@ -153,7 +153,7 @@ DllExport void MDD_SerialPackagerAlignToByteBoundery(SerialPackager* p_package) 
 
 /** Add integer array at current byte position.
  *
- * If p_package->bitOffset != 0 the value is aligned to the next byte boundery,
+ * If p_package->bitOffset != 0 the value is aligned to the next byte boundary,
  * i.e., p_package->bitOffset set to 0 and p_package->pos++.
  * @param[in,out] p_package pointer to the SerialPackager
  * @param[in] u array of integer values
@@ -162,7 +162,7 @@ DllExport void MDD_SerialPackagerAlignToByteBoundery(SerialPackager* p_package) 
 DllExport void MDD_SerialPackagerAddInteger(void* p_package, int * u, size_t n) {
         SerialPackager* pkg = (SerialPackager*) p_package;
 
-        if (pkg->bitOffset != 0) MDD_SerialPackagerAlignToByteBoundery(pkg);
+        if (pkg->bitOffset != 0) MDD_SerialPackagerAlignToByteBoundary(pkg);
         if (pkg->pos + n*sizeof(int) > pkg->size) {
                 ModelicaFormatError("SerialPackager: MDD_SerialPackagerAddInteger failed. Buffer overflow. Exiting.+\n");
                 exit(-1);
@@ -173,7 +173,7 @@ DllExport void MDD_SerialPackagerAddInteger(void* p_package, int * u, size_t n) 
 
 /** Get integer array at current byte position.
  *
- * If p_package->bitOffset != 0 the value is read from the next byte boundery,
+ * If p_package->bitOffset != 0 the value is read from the next byte boundary,
  * i.e., p_package->bitOffset set to 0 and p_package->pos++.
  *
  * @param[in,out] p_package pointer to the SerialPackager
@@ -184,7 +184,7 @@ DllExport void MDD_SerialPackagerAddInteger(void* p_package, int * u, size_t n) 
 DllExport void MDD_SerialPackagerGetInteger(void* p_package, int * y, int n) {
         SerialPackager* pkg = (SerialPackager*) p_package;
 
-        if (pkg->bitOffset != 0) MDD_SerialPackagerAlignToByteBoundery(pkg);
+        if (pkg->bitOffset != 0) MDD_SerialPackagerAlignToByteBoundary(pkg);
         if (pkg->pos + n*sizeof(int) > pkg->size) {
                 ModelicaFormatError("SerialPackager: MDD_SerialPackagerGetInteger failed. Buffer overflow. Exiting.\n");
                 exit(-1);
@@ -196,7 +196,7 @@ DllExport void MDD_SerialPackagerGetInteger(void* p_package, int * y, int n) {
 
 /** Add double array at current byte position.
  *
- * If p_package->bitOffset != 0 the value is aligned to the next byte boundery,
+ * If p_package->bitOffset != 0 the value is aligned to the next byte boundary,
  * i.e., p_package->bitOffset set to 0 and p_package->pos++.
  * @param[in,out] p_package pointer to the SerialPackager
  * @param[in] u array of double values
@@ -204,7 +204,7 @@ DllExport void MDD_SerialPackagerGetInteger(void* p_package, int * y, int n) {
  */
 DllExport void MDD_SerialPackagerAddDouble(void* p_package, double * u, size_t n) {
         SerialPackager* pkg = (SerialPackager*) p_package;
-        if (pkg->bitOffset != 0) MDD_SerialPackagerAlignToByteBoundery(pkg);
+        if (pkg->bitOffset != 0) MDD_SerialPackagerAlignToByteBoundary(pkg);
         if (pkg->pos + n*sizeof(double) > pkg->size) {
                 ModelicaFormatError("SerialPackager: MDD_SerialPackagerAddDouble failed. Buffer overflow. Exiting.\n");
                 exit(-1);
@@ -215,7 +215,7 @@ DllExport void MDD_SerialPackagerAddDouble(void* p_package, double * u, size_t n
 
 /** Get double array at current byte position.
  *
- * If p_package->bitOffset != 0 the value is read from to the next byte boundery,
+ * If p_package->bitOffset != 0 the value is read from to the next byte boundary,
  * i.e., p_package->bitOffset set to 0 and p_package->pos++.
  * @param[in,out] p_package pointer to the SerialPackager
  * @param[out] y array of double values
@@ -224,7 +224,7 @@ DllExport void MDD_SerialPackagerAddDouble(void* p_package, double * u, size_t n
  */
 DllExport void MDD_SerialPackagerGetDouble(void* p_package, double * y, int n) {
         SerialPackager* pkg = (SerialPackager*) p_package;
-        if (pkg->bitOffset != 0) MDD_SerialPackagerAlignToByteBoundery(pkg);
+        if (pkg->bitOffset != 0) MDD_SerialPackagerAlignToByteBoundary(pkg);
         if (pkg->pos + n*sizeof(double) > pkg->size) {
                 ModelicaFormatError("SerialPackager: MDD_SerialPackagerGetDouble failed. Buffer overflow. Exiting.\n");
                 exit(-1);
@@ -235,7 +235,7 @@ DllExport void MDD_SerialPackagerGetDouble(void* p_package, double * y, int n) {
 
 /** Cast double array values to float values and add them as float array at current byte position.
  *
- * If p_package->bitOffset != 0 the value is aligned to the next byte boundery,
+ * If p_package->bitOffset != 0 the value is aligned to the next byte boundary,
  * i.e., p_package->bitOffset set to 0 and p_package->pos++.
  * @param[in,out] p_package pointer to the SerialPackager
  * @param[in] u array of double values that will be casted to float values before adding them
@@ -245,7 +245,7 @@ DllExport void MDD_SerialPackagerAddDoubleAsFloat(void* p_package, double * u, s
         SerialPackager* pkg = (SerialPackager*) p_package;
         size_t i;
         float castedDouble;
-        if (pkg->bitOffset != 0) MDD_SerialPackagerAlignToByteBoundery(pkg);
+        if (pkg->bitOffset != 0) MDD_SerialPackagerAlignToByteBoundary(pkg);
         if (pkg->pos + n*sizeof(float) > pkg->size) {
                 ModelicaFormatError("SerialPackager: MDD_SerialPackagerAddDoubleAsFloat failed. Buffer overflow. Exiting.\n");
                 exit(-1);
@@ -259,7 +259,7 @@ DllExport void MDD_SerialPackagerAddDoubleAsFloat(void* p_package, double * u, s
 
 /** Get double array which consists of the values of the float array at current byte position casted to type double.
  *
- * If p_package->bitOffset != 0 the value is read from to the next byte boundery,
+ * If p_package->bitOffset != 0 the value is read from to the next byte boundary,
  * i.e., p_package->bitOffset set to 0 and p_package->pos++.
  * @param[in,out] p_package pointer to the SerialPackager
  * @param[out] y array of double values
@@ -270,7 +270,7 @@ DllExport void MDD_SerialPackagerGetFloatAsDouble(void* p_package, double * y, i
         SerialPackager* pkg = (SerialPackager*) p_package;
         int i;
         float value;
-        if (pkg->bitOffset != 0) MDD_SerialPackagerAlignToByteBoundery(pkg);
+        if (pkg->bitOffset != 0) MDD_SerialPackagerAlignToByteBoundary(pkg);
         if (pkg->pos + n*sizeof(float) > pkg->size) {
                 ModelicaFormatError("SerialPackager: MDD_SerialPackagerGetFloatAsDouble failed. Buffer overflow. Exiting.\n");
                 exit(-1);
@@ -286,7 +286,7 @@ DllExport void MDD_SerialPackagerGetFloatAsDouble(void* p_package, double * y, i
 
 /** Add string at current byte position.
  *
- * If p_package->bitOffset != 0 the value is aligned to the next byte boundery,
+ * If p_package->bitOffset != 0 the value is aligned to the next byte boundary,
  * i.e., p_package->bitOffset set to 0 and p_package->pos++.
  * @param[in,out] p_package pointer to the SerialPackager
  * @param[in] u zero terminated string
@@ -296,7 +296,7 @@ DllExport void MDD_SerialPackagerAddString(void* p_package, const char* u, int b
         SerialPackager* pkg = (SerialPackager*) p_package;
         //unsigned int size = (strlen(u)+1)*sizeof(char);
 
-        if (pkg->bitOffset != 0) MDD_SerialPackagerAlignToByteBoundery(pkg);
+        if (pkg->bitOffset != 0) MDD_SerialPackagerAlignToByteBoundary(pkg);
         if (pkg->pos + bufferSize > pkg->size) {
 		ModelicaFormatMessage("pkg->size: %d, pkg->pos+bufferSize: %d, bufferSize: %d, strlen(u): %d\n",
 				      pkg->size, pkg->pos+bufferSize, bufferSize, strlen(u));
@@ -310,7 +310,7 @@ DllExport void MDD_SerialPackagerAddString(void* p_package, const char* u, int b
 
 /** Get string from current byte position.
  *
- * If p_package->bitOffset != 0 the value is aligned to the next byte boundery,
+ * If p_package->bitOffset != 0 the value is aligned to the next byte boundary,
  * i.e., p_package->bitOffset set to 0 and p_package->pos++.
  * @param[in,out] p_package pointer to the SerialPackager
  * @param[out] y pointer to '\0' terminated string or NULL if no terminated '\0' found in package data.
@@ -320,7 +320,7 @@ DllExport char* MDD_SerialPackagerGetString(void* p_package, int bufferSize) {
         SerialPackager* pkg = (SerialPackager*) p_package;
         char* y;
         unsigned int i, found = 0;
-        if (pkg->bitOffset != 0) MDD_SerialPackagerAlignToByteBoundery(pkg);
+        if (pkg->bitOffset != 0) MDD_SerialPackagerAlignToByteBoundary(pkg);
 
         if (pkg->pos + bufferSize > pkg->size) {
                 ModelicaFormatError("SerialPackager: MDD_SerialPackagerGetString failed. Buffer overflow. Exiting.\n");
@@ -635,7 +635,7 @@ void * MDD_SerialPackagerMemcpyBitRead(void* destination, const void* source, un
                 /* The last element needs
                  * a) The lower, remaining bits of the second to last element of src (src[nBytes - 1]) shifted up
                  * b) The (not-to-be-copied) bits of the last src element (src[nBytes]) wiped out
-                 * c) Align the bits after the bits from the remaining bits of the second to last elment of src
+                 * c) Align the bits after the bits from the remaining bits of the second to last element of src
                  */
                 dest[nBytesSrc - 1] = src[nBytesSrc - 1] << (8-bitSourceOffset)
                         | ( (src[nBytesSrc] >> (8 - ((bitLength + bitSourceOffset) % 8) ) << (8 - ((bitLength + bitSourceOffset) % 8) ) ) >> bitSourceOffset );

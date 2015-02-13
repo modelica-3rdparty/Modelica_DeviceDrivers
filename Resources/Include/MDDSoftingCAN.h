@@ -223,7 +223,7 @@ DllExport void* MDD_softingCANConstructor(const char* deviceName, int baudRate) 
 	}
 	ModelicaFormatMessage("\tOK.\n");
 
-	ModelicaFormatMessage("SoftingCAN (%s): Set ouput control ...", mDDSoftingCAN->deviceName);
+	ModelicaFormatMessage("SoftingCAN (%s): Set output control ...", mDDSoftingCAN->deviceName);
 	ret = CANL2_set_output_control(mDDSoftingCAN->can, OUTPUT_CONTROL_1);
 	if(ret) {
 		ModelicaFormatError("%s",descriptiveError(ret, "CANL2_set_output_control"));

@@ -319,7 +319,7 @@ int MDD_socketCANRxThread(MDDSocketCAN * mDDSocketCAN) {
 	   break;
 	 }
        default:
-	 ModelicaFormatError("MDDSocketCAN.h: Poll returnd %d. That should not happen. Exiting\n", ret);
+	 ModelicaFormatError("MDDSocketCAN.h: Poll returned %d. That should not happen. Exiting\n", ret);
 	 exit(1);
      }
    }

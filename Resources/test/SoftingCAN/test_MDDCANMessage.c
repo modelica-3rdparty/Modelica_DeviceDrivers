@@ -16,12 +16,12 @@
 #include "MDDCANMessage.h"
 
 
-int test_packAndUnpackFloatAtByteBoundery() {
+int test_packAndUnpackFloatAtByteBoundary() {
 	CANMessage* msg1;
 	double value1;
 	int failed;
 
-	printf("Pack and unpack IEEE float value at byte boundery:\n");
+	printf("Pack and unpack IEEE float value at byte boundary:\n");
 	msg1 = (CANMessage*) MDD_CANMessageConstructor();
 	MDD_CANMessageFloatBitpacking(msg1, 24, 3.2);
 	value1 = MDD_CANMessageFloatBitunpacking(msg1, 24);
@@ -32,12 +32,12 @@ int test_packAndUnpackFloatAtByteBoundery() {
 	return failed;
 }
 
-int test_packAndUnpackFloatWithOffsetToByteBoundery() {
+int test_packAndUnpackFloatWithOffsetToByteBoundary() {
 	CANMessage* msg1;
 	double value1;
 	int failed;
 
-	printf("Pack and unpack IEEE float value with offset to byte boundery:\n");
+	printf("Pack and unpack IEEE float value with offset to byte boundary:\n");
 	msg1 = (CANMessage*) MDD_CANMessageConstructor();
 	MDD_CANMessageFloatBitpacking(msg1, 9, 3.3);
 	value1 = MDD_CANMessageFloatBitunpacking(msg1, 9);
@@ -85,9 +85,9 @@ int main() {
     failed = failed || value1 == 20 ? 0 : 1;
 	printf("Packed value: %d, got value: %d\n", 20, value1);
 
-	failed = failed || test_packAndUnpackFloatAtByteBoundery();
+	failed = failed || test_packAndUnpackFloatAtByteBoundary();
 
-	failed = failed || test_packAndUnpackFloatWithOffsetToByteBoundery();
+	failed = failed || test_packAndUnpackFloatWithOffsetToByteBoundary();
 
 	failed = failed || test_packAndUnpackDouble();
 

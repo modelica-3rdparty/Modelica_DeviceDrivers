@@ -7,7 +7,7 @@ package Communication
     extends Modelica_DeviceDrivers.Utilities.Icons.UDPconnection;
     extends Modelica.Icons.UnderConstruction;
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
-    import Modelica_DeviceDrivers.Packaging.alignAtByteBoundery;
+    import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
     import Modelica_DeviceDrivers.Communication.UDPSocket;
     parameter Real sampleTime=0.01 "Sample time for input update";
     parameter Boolean autoBufferSize = true
@@ -48,7 +48,7 @@ package Communication
 
   equation
     when (initial()) then
-      bufferSize =  if autoBufferSize then alignAtByteBoundery(pkgOut.autoPkgBitSize)
+      bufferSize =  if autoBufferSize then alignAtByteBoundary(pkgOut.autoPkgBitSize)
          else userBufferSize;
       pkgOut.pkg =  SerialPackager(bufferSize);
   //    Modelica.Utilities.Streams.print("Open Socket "+String(port_recv)+" with bufferSize "+String(bufferSize));

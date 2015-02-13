@@ -189,7 +189,7 @@ package Packaging
       import
         Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.DummyFunctions;
       import Modelica_DeviceDrivers.Packaging.SerialPackager;
-      import Modelica_DeviceDrivers.Packaging.alignAtByteBoundery;
+      import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
 
       parameter Boolean useBackwardPropagatedBufferSize = true
         "true, use backward propagated (automatic) buffer size for package (default!), otherwise use manually specified buffer size below"
@@ -210,7 +210,7 @@ package Packaging
       if not previous(initialized) then
         /* If userPkgBitSize is set, use it. Otherwise use auto package size. */
         backwardPropagatedBufferSize = if pkgOut.userPkgBitSize > 0 then
-          alignAtByteBoundery(pkgOut.userPkgBitSize) else alignAtByteBoundery(
+          alignAtByteBoundary(pkgOut.userPkgBitSize) else alignAtByteBoundary(
           pkgOut.autoPkgBitSize);
         bufferSize =  if useBackwardPropagatedBufferSize then
           backwardPropagatedBufferSize else userBufferSize;
@@ -238,7 +238,7 @@ package Packaging
       extends Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerWriteIcon;
       extends
         Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.PartialSerialPackager;
-      import Modelica_DeviceDrivers.Packaging.alignAtByteBoundery;
+      import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
       parameter Integer n = 1;
       Modelica.Blocks.Interfaces.BooleanInput u[n]
         annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
@@ -246,7 +246,7 @@ package Packaging
       Integer u_int[n];
     equation
 
-        pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundery(pkgOut[1].autoPkgBitSize)
+        pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundary(pkgOut[1].autoPkgBitSize)
           *8 + n*32 else n*32;
 
         for i in 1:n loop
@@ -278,12 +278,12 @@ package Packaging
       extends Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerWriteIcon;
       extends
         Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.PartialSerialPackager;
-      import Modelica_DeviceDrivers.Packaging.alignAtByteBoundery;
+      import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
       parameter Integer n = 1;
       Modelica.Blocks.Interfaces.IntegerInput u[n]
         annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
     equation
-      pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundery(pkgOut[1].autoPkgBitSize)*8 + n*32 else n*32;
+      pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundary(pkgOut[1].autoPkgBitSize)*8 + n*32 else n*32;
 
       pkgOut.dummy =
         Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.DummyFunctions.addInteger(
@@ -310,12 +310,12 @@ package Packaging
       extends Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerWriteIcon;
       extends
         Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.PartialSerialPackager;
-      import Modelica_DeviceDrivers.Packaging.alignAtByteBoundery;
+      import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
       parameter Integer n = 1;
       Modelica.Blocks.Interfaces.RealInput u[n]
         annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
     equation
-      pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundery(pkgOut[1].autoPkgBitSize)*8 + n*64 else n*64;
+      pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundary(pkgOut[1].autoPkgBitSize)*8 + n*64 else n*64;
 
       pkgOut.dummy =
         Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.DummyFunctions.addReal(
@@ -345,12 +345,12 @@ package Packaging
       extends Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerWriteIcon;
       extends
         Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.PartialSerialPackager;
-      import Modelica_DeviceDrivers.Packaging.alignAtByteBoundery;
+      import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
       parameter Integer n = 1;
       Modelica.Blocks.Interfaces.RealInput u[n]
         annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
     equation
-      pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundery(pkgOut[1].autoPkgBitSize)*8 + n*32 else n*32;
+      pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundary(pkgOut[1].autoPkgBitSize)*8 + n*32 else n*32;
 
       pkgOut.dummy =
         Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.DummyFunctions.addRealAsFloat(
@@ -375,13 +375,13 @@ package Packaging
       extends Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerWriteIcon;
       extends
         Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.PartialSerialPackager;
-      import Modelica_DeviceDrivers.Packaging.alignAtByteBoundery;
+      import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
       import Modelica.Utilities.Strings.length;
       parameter Integer bufferSize = 40
         "Buffer size (in bytes) reserved for String (ensure that same buffer size is used in corresponding GetString block!)";
       input String data = "A mostly harmless String" annotation(Dialog=true);
     equation
-      pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundery(pkgOut[1].autoPkgBitSize)*8 + bufferSize*8 else bufferSize*8;
+      pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundary(pkgOut[1].autoPkgBitSize)*8 + bufferSize*8 else bufferSize*8;
 
       pkgOut.dummy =
         Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.DummyFunctions.addString(
@@ -411,7 +411,7 @@ package Packaging
       extends Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerReadIcon;
       extends
         Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.PartialSerialPackager;
-      import Modelica_DeviceDrivers.Packaging.alignAtByteBoundery;
+      import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
       parameter Integer n = 1;
       Modelica.Blocks.Interfaces.BooleanOutput y[
                                               n]
@@ -421,7 +421,7 @@ package Packaging
       Real dummy;
     equation
       when Clock() then
-         pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundery( pkgOut[1].autoPkgBitSize)*8 + n*32 else n*32;
+         pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundary( pkgOut[1].autoPkgBitSize)*8 + n*32 else n*32;
 
          (y_int,dummy) =
            Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.DummyFunctions.getInteger(
@@ -455,7 +455,7 @@ package Packaging
       extends Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerReadIcon;
       extends
         Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.PartialSerialPackager;
-      import Modelica_DeviceDrivers.Packaging.alignAtByteBoundery;
+      import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
       parameter Integer n = 1;
       Modelica.Blocks.Interfaces.IntegerOutput y[n]
         annotation (Placement(transformation(extent={{100,-10},{120,10}})));
@@ -463,7 +463,7 @@ package Packaging
       Real dummy;
     equation
       when Clock() then
-        pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundery( pkgOut[1].autoPkgBitSize)*8 + n*32 else n*32;
+        pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundary( pkgOut[1].autoPkgBitSize)*8 + n*32 else n*32;
 
        (y,dummy) =
            Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.DummyFunctions.getInteger(
@@ -493,7 +493,7 @@ package Packaging
       extends Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerReadIcon;
       extends
         Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.PartialSerialPackager;
-      import Modelica_DeviceDrivers.Packaging.alignAtByteBoundery;
+      import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
       parameter Integer n = 1;
       Modelica.Blocks.Interfaces.RealOutput y[n]
         annotation (Placement(transformation(extent={{100,-10},{120,10}})));
@@ -501,7 +501,7 @@ package Packaging
       Real dummy;
     equation
       when Clock() then
-         pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundery(pkgOut[1].autoPkgBitSize)*8 + n*64 else n*64;
+         pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundary(pkgOut[1].autoPkgBitSize)*8 + n*64 else n*64;
 
          (y,dummy) =
             Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.DummyFunctions.getReal(
@@ -534,7 +534,7 @@ package Packaging
       extends Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerReadIcon;
       extends
         Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.PartialSerialPackager;
-      import Modelica_DeviceDrivers.Packaging.alignAtByteBoundery;
+      import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
       parameter Integer n = 1;
       Modelica.Blocks.Interfaces.RealOutput y[n]
         annotation (Placement(transformation(extent={{100,-10},{120,10}})));
@@ -542,7 +542,7 @@ package Packaging
       Real dummy;
     equation
       when Clock() then
-         pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundery(pkgOut[1].autoPkgBitSize)*8 + n*32 else n*32;
+         pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundary(pkgOut[1].autoPkgBitSize)*8 + n*32 else n*32;
 
          (y,dummy) =
             Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.DummyFunctions.getRealFromFloat(
@@ -570,7 +570,7 @@ package Packaging
       extends Modelica_DeviceDrivers.Utilities.Icons.SerialPackagerReadIcon;
       extends
         Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.PartialSerialPackager;
-      import Modelica_DeviceDrivers.Packaging.alignAtByteBoundery;
+      import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
       import Modelica.Utilities.Strings.length;
       parameter Integer bufferSize = 40
         "Buffer size (in bytes) reserved for String (ensure that same buffer size is used in corresponding AddString block!)";
@@ -579,7 +579,7 @@ package Packaging
       Real dummy;
     equation
       when Clock() then
-         pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundery(pkgOut[1].autoPkgBitSize)*8 + bufferSize*8 else bufferSize*8;
+         pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundary(pkgOut[1].autoPkgBitSize)*8 + bufferSize*8 else bufferSize*8;
 
         (data,dummy) =
             Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.DummyFunctions.getString(
@@ -610,7 +610,7 @@ package Packaging
       parameter Integer width = 32
         "Number of bits that encode the integer value";
       Modelica.Blocks.Interfaces.IntegerInput u(min=0)
-        "Only postive (unsigned) values are supported"
+        "Only positive (unsigned) values are supported"
         annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
     equation
       when Clock() then

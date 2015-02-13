@@ -15,7 +15,7 @@
  * This file just includes most (but not all) of the provided header-only files
  * in order to wrap them into one DLL.
  *
- * In the moment, some files have been omited, since they might require some extra considerations.
+ * In the moment, some files have been omitted, since they might require some extra considerations.
  *
 */
 #include "../../Include/MDDBeep.h"

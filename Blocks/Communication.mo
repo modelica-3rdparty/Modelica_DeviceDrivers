@@ -6,7 +6,7 @@ package Communication
     extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
     extends Modelica_DeviceDrivers.Utilities.Icons.SharedMemoryIcon;
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
-    import Modelica_DeviceDrivers.Packaging.alignAtByteBoundery;
+    import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
     import Modelica_DeviceDrivers.Communication.SharedMemory;
     import Modelica_DeviceDrivers.Communication.SharedMemory_;
     parameter Real sampleTime=0.01 "Sample time for input update";
@@ -28,7 +28,7 @@ package Communication
     Integer bufferSize;
   equation
     when (initial()) then
-      bufferSize = if autoBufferSize then alignAtByteBoundery(pkgOut.autoPkgBitSize)
+      bufferSize = if autoBufferSize then alignAtByteBoundary(pkgOut.autoPkgBitSize)
         else userBufferSize;
       pkgOut.pkg = SerialPackager( bufferSize);
       sm = SharedMemory(memoryID,bufferSize);
@@ -104,7 +104,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
     extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
     extends Modelica_DeviceDrivers.Utilities.Icons.UDPconnection;
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
-    import Modelica_DeviceDrivers.Packaging.alignAtByteBoundery;
+    import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
     import Modelica_DeviceDrivers.Communication.UDPSocket;
     parameter Real sampleTime=0.01 "Sample time for input update";
     parameter Boolean autoBufferSize = true
@@ -126,7 +126,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
     UDPSocket socket;
   equation
     when (initial()) then
-      bufferSize = if autoBufferSize then alignAtByteBoundery(pkgOut.autoPkgBitSize)
+      bufferSize = if autoBufferSize then alignAtByteBoundary(pkgOut.autoPkgBitSize)
         else userBufferSize;
       pkgOut.pkg = SerialPackager( bufferSize);
   //    Modelica.Utilities.Streams.print("Open Socket "+String(port_recv)+" with bufferSize "+String(bufferSize));
@@ -207,7 +207,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
     "A block for receiving serial datagrams using the serial interface"
     extends Modelica_DeviceDrivers.Utilities.Icons.SerialPortIcon;
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
-    import Modelica_DeviceDrivers.Packaging.alignAtByteBoundery;
+    import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
     import Modelica_DeviceDrivers.Communication.SerialPort;
     import Modelica_DeviceDrivers.Utilities.Types.SerialBaudRate;
     parameter Real sampleTime=0.01 "Sample time for input update";
@@ -236,7 +236,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
 
   equation
     when (initial()) then
-      bufferSize = if autoBufferSize then alignAtByteBoundery(pkgOut.autoPkgBitSize)
+      bufferSize = if autoBufferSize then alignAtByteBoundary(pkgOut.autoPkgBitSize)
         else userBufferSize;
       pkgOut.pkg = SerialPackager(bufferSize);
   //    Modelica.Utilities.Streams.print("Open Socket "+String(port_recv)+" with bufferSize "+String(bufferSize));
@@ -563,7 +563,7 @@ so that you end up with the following directory tree:
 
 <p>
 Finally, note that in order to translate and execute Modelica models utilizing this API it is necessary that the
-corresponding .lib and .dll files are found at compile and runtime. Prefered way to ensure this:
+corresponding .lib and .dll files are found at compile and runtime. Preferred way to ensure this:
 </p>
 <p>
 Copy the <code>*.dll</code> and <code>*.lib</code> for your architecture into your simulation directory (note that working on a 64bit Windows does

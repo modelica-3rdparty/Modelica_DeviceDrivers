@@ -60,11 +60,11 @@ int test_add2Pkg() {
         return failure;
 }
 
-int test_add2PkgBoundery() {
+int test_add2PkgBoundary() {
         void* pkg;
         int ret, failure = 0, size = 4;
         int a = 100, b;
-        printf("test_add2PkgBoundery: Adding and getting from SerialPackager of size %d .. ", size);
+        printf("test_add2PkgBoundary: Adding and getting from SerialPackager of size %d .. ", size);
         pkg = MDD_SerialPackagerConstructor(size);
         MDD_SerialPackagerAddInteger(pkg, &a, 1);
 
@@ -166,7 +166,7 @@ int main(void) {
         int failure = 0;
 
         failure = test_createPgk();
-        failure = failure || test_add2PkgBoundery();
+        failure = failure || test_add2PkgBoundary();
         failure = failure || test_add2Pkg();
         failure = failure || test_bitPack2Pkg();
         failure = failure || test_addString();
