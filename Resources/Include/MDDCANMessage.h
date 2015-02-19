@@ -23,13 +23,13 @@ typedef struct {
 
 
 void* MDD_CANMessageConstructor() {
-	CANMessage* msg = (CANMessage*) calloc(1, sizeof(CANMessage)); /* all bits initialized to zero */
-	return (void*) msg;
+    CANMessage* msg = (CANMessage*) calloc(1, sizeof(CANMessage)); /* all bits initialized to zero */
+    return (void*) msg;
 }
 
 void MDD_CANMessageDestructor(void* p_cANMessage) {
-	CANMessage* msg = (CANMessage*) p_cANMessage;
-	free(msg);
+    CANMessage* msg = (CANMessage*) p_cANMessage;
+    free(msg);
 }
 
 /** Print content of message
@@ -37,33 +37,38 @@ void MDD_CANMessageDestructor(void* p_cANMessage) {
  * @param showBitVector additionally to the bytes, print out every single bit
  */
 void MDD_CANMessagePrint(void* p_cANMessage, int showBitVector) {
-	CANMessage* msg = (CANMessage*) p_cANMessage;
-	int i;
+    CANMessage* msg = (CANMessage*) p_cANMessage;
+    int i;
 
-	ModelicaFormatMessage("CANMessage start:\nBytes signed dec:   ");
+    ModelicaFormatMessage("CANMessage start:\nBytes signed dec:   ");
     for(i=0; i < 8; i++) {
-		ModelicaFormatMessage(" d%d, ", msg->data[i]);
+        ModelicaFormatMessage(" d%d, ", msg->data[i]);
     }
-	ModelicaFormatMessage("\nBytes unsigned hex: ");
-	for(i=0; i < 8; i++) {
-		ModelicaFormatMessage("0x%X, ", msg->data[i]);
+    ModelicaFormatMessage("\nBytes unsigned hex: ");
+    for(i=0; i < 8; i++) {
+        ModelicaFormatMessage("0x%X, ", msg->data[i]);
     }
-	if (showBitVector) {
-		unsigned char bits[64];
-		for (i=0; i<8; i++) {
-			bits[i*8 + 0] = msg->data[i] & 0x01;
-			bits[i*8 + 1] = (msg->data[i] & 0x02) >> 1;
-			bits[i*8 + 2] = (msg->data[i] & 0x04) >> 2;
-			bits[i*8 + 3] = (msg->data[i] & 0x08) >> 3;
-			bits[i*8 + 4] = (msg->data[i] & 0x10) >> 4;
-			bits[i*8 + 5] = (msg->data[i] & 0x20) >> 5;
-			bits[i*8 + 6] = (msg->data[i] & 0x40) >> 6;
-			bits[i*8 + 7] = (msg->data[i] & 0x80) >> 7;
-		}
-		ModelicaFormatMessage("\nBit vector:\n");
-		for (i=0; i < 64; i++)  ModelicaFormatMessage("%2d,", i); ModelicaFormatMessage("\n");
-		for (i=0; i < 64; i++)  ModelicaFormatMessage("%2d ", bits[i]);
-	}
+    if (showBitVector) {
+        unsigned char bits[64];
+        for (i=0; i<8; i++) {
+            bits[i*8 + 0] = msg->data[i] & 0x01;
+            bits[i*8 + 1] = (msg->data[i] & 0x02) >> 1;
+            bits[i*8 + 2] = (msg->data[i] & 0x04) >> 2;
+            bits[i*8 + 3] = (msg->data[i] & 0x08) >> 3;
+            bits[i*8 + 4] = (msg->data[i] & 0x10) >> 4;
+            bits[i*8 + 5] = (msg->data[i] & 0x20) >> 5;
+            bits[i*8 + 6] = (msg->data[i] & 0x40) >> 6;
+            bits[i*8 + 7] = (msg->data[i] & 0x80) >> 7;
+        }
+        ModelicaFormatMessage("\nBit vector:\n");
+        for (i=0; i < 64; i++) {
+            ModelicaFormatMessage("%2d,", i);
+        }
+        ModelicaFormatMessage("\n");
+        for (i=0; i < 64; i++) {
+            ModelicaFormatMessage("%2d ", bits[i]);
+        }
+    }
     ModelicaFormatMessage("\nCANMessage end.");
 }
 
@@ -78,26 +83,26 @@ void MDD_CANMessagePrint(void* p_cANMessage, int showBitVector) {
  * @return value of extracted integer
  */
 int MDD_CANMessageIntegerBitunpacking(void* p_cANMessage, int bitStartPosition, int width) {
-	CANMessage* msg = (CANMessage*) p_cANMessage;
+    CANMessage* msg = (CANMessage*) p_cANMessage;
     unsigned char bits[64];
     int i,j;
     int factor = 1;
     int data = 0;
 
     for (i=0; i<8; i++) {
-	bits[i*8 + 0] = msg->data[i] & 0x01;
-	bits[i*8 + 1] = (msg->data[i] & 0x02) >> 1;
-	bits[i*8 + 2] = (msg->data[i] & 0x04) >> 2;
-	bits[i*8 + 3] = (msg->data[i] & 0x08) >> 3;
-	bits[i*8 + 4] = (msg->data[i] & 0x10) >> 4;
-	bits[i*8 + 5] = (msg->data[i] & 0x20) >> 5;
-	bits[i*8 + 6] = (msg->data[i] & 0x40) >> 6;
-	bits[i*8 + 7] = (msg->data[i] & 0x80) >> 7;
+        bits[i*8 + 0] = msg->data[i] & 0x01;
+        bits[i*8 + 1] = (msg->data[i] & 0x02) >> 1;
+        bits[i*8 + 2] = (msg->data[i] & 0x04) >> 2;
+        bits[i*8 + 3] = (msg->data[i] & 0x08) >> 3;
+        bits[i*8 + 4] = (msg->data[i] & 0x10) >> 4;
+        bits[i*8 + 5] = (msg->data[i] & 0x20) >> 5;
+        bits[i*8 + 6] = (msg->data[i] & 0x40) >> 6;
+        bits[i*8 + 7] = (msg->data[i] & 0x80) >> 7;
     }
 
     for (i=bitStartPosition, j=0; i < bitStartPosition + width; i++, j++) {
-	data = data + bits[i]*factor;
-	factor = 2 << j;
+        data = data + bits[i]*factor;
+        factor = 2 << j;
     }
 
     return data;
@@ -115,22 +120,25 @@ int MDD_CANMessageIntegerBitunpacking(void* p_cANMessage, int bitStartPosition, 
  * @param[in] data integer value that shall be encoded into CAN message
  */
 void MDD_CANMessageIntegerBitpacking(void* p_cANMessage, int bitStartPosition, int width, int data) {
-	CANMessage* msg = (CANMessage*) p_cANMessage;
+    CANMessage* msg = (CANMessage*) p_cANMessage;
     unsigned char bits[64];
     int i;
     int j=0;
-    for (i=0; i<64; i++) bits[i] = 0;
+    for (i=0; i<64; i++) {
+        bits[i] = 0;
+    }
     for (i=bitStartPosition, j=0; i < bitStartPosition + width; i++, j++) {
-		int base_i = i / 8;
-		int rem_i  = i % 8;
-		bits[(bitStartPosition + j)] = 0x0001 & (data >> j);
-		if (bits[i]) {
-			/* set bit */
-			msg->data[base_i] |= (1 << rem_i);
-		} else {
-			/* unset bit */
-			msg->data[base_i] &= ~(1 << rem_i);
-		}
+        int base_i = i / 8;
+        int rem_i  = i % 8;
+        bits[(bitStartPosition + j)] = 0x0001 & (data >> j);
+        if (bits[i]) {
+            /* set bit */
+            msg->data[base_i] |= (1 << rem_i);
+        }
+        else {
+            /* unset bit */
+            msg->data[base_i] &= ~(1 << rem_i);
+        }
     }
 }
 
@@ -142,33 +150,34 @@ void MDD_CANMessageIntegerBitpacking(void* p_cANMessage, int bitStartPosition, i
  *            (passsed in as double in order to conform to Modelica's external function interface)
  */
 void MDD_CANMessageFloatBitpacking(void* p_cANMessage, int bitStartPosition, double data) {
-	CANMessage* msg = (CANMessage*) p_cANMessage;
-	float fdata = (float)data;
-	int byteStartPosition = bitStartPosition / 8;
-	int byteBitOffset = bitStartPosition % 8;
+    CANMessage* msg = (CANMessage*) p_cANMessage;
+    float fdata = (float)data;
+    int byteStartPosition = bitStartPosition / 8;
+    int byteBitOffset = bitStartPosition % 8;
 
-	ModelicaFormatMessage("Packing byteStartPosition: %d, byteBitOffset: %d\n", byteStartPosition, byteBitOffset);
+    ModelicaFormatMessage("Packing byteStartPosition: %d, byteBitOffset: %d\n", byteStartPosition, byteBitOffset);
 
-	if (bitStartPosition > 32) {
-		ModelicaFormatError("MDDCANMessage: Error: Bit start position for writing IEEE float > 32 => size(float) exceeds message size!\n");
-		exit(-1);
-	}
+    if (bitStartPosition > 32) {
+        ModelicaFormatError("MDDCANMessage: Error: Bit start position for writing IEEE float > 32 => size(float) exceeds message size!\n");
+        exit(-1);
+    }
 
-	if (byteBitOffset != 0) {
-		unsigned char floatData[4];
-		unsigned int i, j;
-		/* Need to assemble the float which is not aligned to the byte borders! */
-		memcpy(floatData, &fdata, sizeof(float));
-		for (i=byteStartPosition, j=0; i < byteStartPosition+sizeof(float); i++, j++) {
-			/* Need to preserve the first byteBitOffset-1 bits in msg->data[i] and overwrite the remaining with the bits from data */
-			msg->data[i] = ( (msg->data[i] >> (8-byteBitOffset)) << (8-byteBitOffset) ) | (floatData[j] >> byteBitOffset);
-			/* Need to overwrite the first byteBitOffset bits in msg->data[i+1] and preserve the remaining bits of msg->data[i+1] */
-			msg->data[i+1] = ( (msg->data[i+1] << byteBitOffset) >> byteBitOffset ) | (floatData[j] << (8-byteBitOffset));
-		}
-	} else {
-		/* Float aligned to byte borders. That should be easy */
-		memcpy(&(msg->data[byteStartPosition]), &fdata, sizeof(float));
-	}
+    if (byteBitOffset != 0) {
+        unsigned char floatData[4];
+        unsigned int i, j;
+        /* Need to assemble the float which is not aligned to the byte borders! */
+        memcpy(floatData, &fdata, sizeof(float));
+        for (i=byteStartPosition, j=0; i < byteStartPosition+sizeof(float); i++, j++) {
+            /* Need to preserve the first byteBitOffset-1 bits in msg->data[i] and overwrite the remaining with the bits from data */
+            msg->data[i] = ( (msg->data[i] >> (8-byteBitOffset)) << (8-byteBitOffset) ) | (floatData[j] >> byteBitOffset);
+            /* Need to overwrite the first byteBitOffset bits in msg->data[i+1] and preserve the remaining bits of msg->data[i+1] */
+            msg->data[i+1] = ( (msg->data[i+1] << byteBitOffset) >> byteBitOffset ) | (floatData[j] << (8-byteBitOffset));
+        }
+    }
+    else {
+        /* Float aligned to byte borders. That should be easy */
+        memcpy(&(msg->data[byteStartPosition]), &fdata, sizeof(float));
+    }
 }
 
 /** Unpack IEEE float value from CAN data.
@@ -178,30 +187,31 @@ void MDD_CANMessageFloatBitpacking(void* p_cANMessage, int bitStartPosition, dou
  * @return value of extracted IEEE float converted to double in order to support Modelica's external function interface
  */
 double MDD_CANMessageFloatBitunpacking(void* p_cANMessage, int bitStartPosition) {
-	CANMessage* msg = (CANMessage*) p_cANMessage;
-	float data;
-	int byteStartPosition = bitStartPosition / 8;
-	int byteBitOffset = bitStartPosition % 8;
+    CANMessage* msg = (CANMessage*) p_cANMessage;
+    float data;
+    int byteStartPosition = bitStartPosition / 8;
+    int byteBitOffset = bitStartPosition % 8;
 
-	if (bitStartPosition > 32) {
-		ModelicaFormatError("MDDCANMessage: Error: Bit start position for reading IEEE float > 32 => size(float) exceeds message size!\n");
-		exit(-1);
-	}
+    if (bitStartPosition > 32) {
+        ModelicaFormatError("MDDCANMessage: Error: Bit start position for reading IEEE float > 32 => size(float) exceeds message size!\n");
+        exit(-1);
+    }
 
-	if (byteBitOffset != 0) {
-		unsigned int i, j;
-		unsigned char floatData[4];
-		/* Need to assemble the float which is not aligned to the byte borders! */
-		for (i=byteStartPosition, j=0; i < byteStartPosition+sizeof(float); i++, j++) {
-			unsigned int lower = (msg->data[i] << byteBitOffset);
-			unsigned int upper = (msg->data[i+1] >> (8-byteBitOffset));
-			floatData[j] = lower | upper;
-		}
-		memcpy(&data, floatData, sizeof(float));
-	} else {
-		/* Float aligned to byte borders. That should be easy */
-		memcpy(&data, &(msg->data[byteStartPosition]), sizeof(float));
-	}
+    if (byteBitOffset != 0) {
+        unsigned int i, j;
+        unsigned char floatData[4];
+        /* Need to assemble the float which is not aligned to the byte borders! */
+        for (i=byteStartPosition, j=0; i < byteStartPosition+sizeof(float); i++, j++) {
+            unsigned int lower = (msg->data[i] << byteBitOffset);
+            unsigned int upper = (msg->data[i+1] >> (8-byteBitOffset));
+            floatData[j] = lower | upper;
+        }
+        memcpy(&data, floatData, sizeof(float));
+    }
+    else {
+        /* Float aligned to byte borders. That should be easy */
+        memcpy(&data, &(msg->data[byteStartPosition]), sizeof(float));
+    }
     return (double)data;
 }
 
@@ -212,9 +222,9 @@ double MDD_CANMessageFloatBitunpacking(void* p_cANMessage, int bitStartPosition)
  * @param[in] data double value that shall be encoded into CAN message
  */
 void MDD_CANMessageDoubleBitpacking(void* p_cANMessage, double data) {
-	CANMessage* msg = (CANMessage*) p_cANMessage;
+    CANMessage* msg = (CANMessage*) p_cANMessage;
 
-	memcpy(msg->data, &data, sizeof(double));
+    memcpy(msg->data, &data, sizeof(double));
 }
 
 /** Unpack IEEE double value from CAN data.
@@ -223,10 +233,10 @@ void MDD_CANMessageDoubleBitpacking(void* p_cANMessage, double data) {
  * @return value of extracted IEEE double
  */
 double MDD_CANMessageDoubleBitunpacking(void* p_cANMessage) {
-	CANMessage* msg = (CANMessage*) p_cANMessage;
-	double data;
+    CANMessage* msg = (CANMessage*) p_cANMessage;
+    double data;
 
-	memcpy(&data, msg->data, sizeof(double));
+    memcpy(&data, msg->data, sizeof(double));
     return data;
 }
 

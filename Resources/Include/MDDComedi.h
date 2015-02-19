@@ -26,98 +26,98 @@
 #if defined(__linux__)
 
 void* MDD_comedi_open(const char* devicename) {
-  comedi_t* device;
+    comedi_t* device;
 
-  ModelicaFormatMessage("MDDComedi: Opening device %s (needs special (root) privileges!) ..", devicename);
+    ModelicaFormatMessage("MDDComedi: Opening device %s (needs special (root) privileges!) ..", devicename);
 
-  device = comedi_open(devicename);
+    device = comedi_open(devicename);
 
-  if(device == NULL) {
-    ModelicaFormatError("\nMDDComedi.h: comedi_open failure (%s)\n",
-                        comedi_strerror(comedi_errno()) );
-     exit(-1);
-  }
-  ModelicaFormatMessage("\tOK (fd=%d).\n", comedi_fileno(device));
-  ModelicaFormatMessage("           Opened comedi device fd=%d: board name=%s, driver name=%s.\n",
-                        comedi_fileno(device), comedi_get_board_name(device), comedi_get_driver_name(device));
-  return (void*) device;
+    if(device == NULL) {
+        ModelicaFormatError("\nMDDComedi.h: comedi_open failure (%s)\n",
+                            comedi_strerror(comedi_errno()) );
+        exit(-1);
+    }
+    ModelicaFormatMessage("\tOK (fd=%d).\n", comedi_fileno(device));
+    ModelicaFormatMessage("           Opened comedi device fd=%d: board name=%s, driver name=%s.\n",
+                          comedi_fileno(device), comedi_get_board_name(device), comedi_get_driver_name(device));
+    return (void*) device;
 }
 
 void MDD_comedi_close(void* p_device) {
-  comedi_t* device = (comedi_t*) p_device;
-  int ret;
+    comedi_t* device = (comedi_t*) p_device;
+    int ret;
 
-  ModelicaFormatMessage("MDDComedi: Closing device with fd=%d.\n", comedi_fileno(device));
-  ret = comedi_close(device);
-  if (ret == -1) {
-     ModelicaFormatError("MDDComedi.h: comedi_close failure (%s)\n",
-                        comedi_strerror(comedi_errno()) );
-  }
+    ModelicaFormatMessage("MDDComedi: Closing device with fd=%d.\n", comedi_fileno(device));
+    ret = comedi_close(device);
+    if (ret == -1) {
+        ModelicaFormatError("MDDComedi.h: comedi_close failure (%s)\n",
+                            comedi_strerror(comedi_errno()) );
+    }
 }
 
 void MDD_comedi_data_write(void* p_device, int subDevice, int channel,
-			 int range, int aref, int data) {
-  comedi_t* device = (comedi_t*) p_device;
-  lsampl_t udata = (lsampl_t) data;
-  int ret;
+                           int range, int aref, int data) {
+    comedi_t* device = (comedi_t*) p_device;
+    lsampl_t udata = (lsampl_t) data;
+    int ret;
 
-  ret = comedi_data_write(device, subDevice, channel,
-			      range, aref, udata);
-  if (ret == -1) {
-     ModelicaFormatError("MDDComedi.h: comedi_data_write failure (%s)\n",
-                        comedi_strerror(comedi_errno()) );
-  }
+    ret = comedi_data_write(device, subDevice, channel,
+                            range, aref, udata);
+    if (ret == -1) {
+        ModelicaFormatError("MDDComedi.h: comedi_data_write failure (%s)\n",
+                            comedi_strerror(comedi_errno()) );
+    }
 }
 
 int MDD_comedi_data_read(void* p_device, int subDevice, int channel,
-		       int range, int aref) {
-  comedi_t* device = (comedi_t*) p_device;
-  lsampl_t data;
-  int ret;
+                         int range, int aref) {
+    comedi_t* device = (comedi_t*) p_device;
+    lsampl_t data;
+    int ret;
 
-  ret = comedi_data_read(device, subDevice, channel,
-			     range, aref, &data);
-  if ( ret == -1) {
-    ModelicaFormatError("MDDComedi.h: comedi_data_read failure (%s).\n",
-                        comedi_strerror(comedi_errno()) );
-  }
-  return (int) data;
+    ret = comedi_data_read(device, subDevice, channel,
+                           range, aref, &data);
+    if ( ret == -1) {
+        ModelicaFormatError("MDDComedi.h: comedi_data_read failure (%s).\n",
+                            comedi_strerror(comedi_errno()) );
+    }
+    return (int) data;
 }
 
 
 void MDD_comedi_dio_config(void* p_device, int subdevice, int channel, int direction) {
-  comedi_t* device = (comedi_t*) p_device;
-  int ret;
+    comedi_t* device = (comedi_t*) p_device;
+    int ret;
 
-  ret = comedi_dio_config(device, subdevice, channel, direction);
-  if ( ret == -1) {
-    ModelicaFormatError("MDDComedi.h: comedi_dio_config failure (%s).\n",
-                        comedi_strerror(comedi_errno()) );
-    exit(-1);
-  }
+    ret = comedi_dio_config(device, subdevice, channel, direction);
+    if ( ret == -1) {
+        ModelicaFormatError("MDDComedi.h: comedi_dio_config failure (%s).\n",
+                            comedi_strerror(comedi_errno()) );
+        exit(-1);
+    }
 }
 
 void MDD_comedi_dio_write(void* p_device, int subDevice, int channel, int bit) {
-  comedi_t* device = (comedi_t*) p_device;
-  int ret;
+    comedi_t* device = (comedi_t*) p_device;
+    int ret;
 
-  ret = comedi_dio_write(device, subDevice, channel, bit);
-  if ( ret == -1) {
-    ModelicaFormatError("MDDComedi.h: comedi_dio_write failure (%s).\n",
-                        comedi_strerror(comedi_errno()) );
-  }
+    ret = comedi_dio_write(device, subDevice, channel, bit);
+    if ( ret == -1) {
+        ModelicaFormatError("MDDComedi.h: comedi_dio_write failure (%s).\n",
+                            comedi_strerror(comedi_errno()) );
+    }
 }
 
 int MDD_comedi_dio_read(void* p_device, int subDevice, int channel) {
-  comedi_t* device = (comedi_t*) p_device;
-  unsigned int bit;
-  int ret;
-  ret = comedi_dio_read(device, subDevice, channel, &bit);
-  if ( ret == -1) {
-    ModelicaFormatError("MDDComedi.h: comedi_dio_read failure (%s).\n",
-                        comedi_strerror(comedi_errno()) );
-  }
-  return (int) bit;
+    comedi_t* device = (comedi_t*) p_device;
+    unsigned int bit;
+    int ret;
+    ret = comedi_dio_read(device, subDevice, channel, &bit);
+    if ( ret == -1) {
+        ModelicaFormatError("MDDComedi.h: comedi_dio_read failure (%s).\n",
+                            comedi_strerror(comedi_errno()) );
+    }
+    return (int) bit;
 }
 
 /**
@@ -125,19 +125,19 @@ int MDD_comedi_dio_read(void* p_device, int subDevice, int channel) {
  * COMEDI_OOR_NAN = 1
  */
 int MDD_comedi_set_global_oor_behavior(int behavior) {
-  enum comedi_oor_behavior oldBehavior;
+    enum comedi_oor_behavior oldBehavior;
 
-  if (behavior >= 2) {
-    ModelicaFormatError("MDDComedi: Error, not valid argument to MDD_comedi_set_global_oor_behavior (was %d). Exiting\n",
-                        behavior);
-    exit(-1);
-  }
+    if (behavior >= 2) {
+        ModelicaFormatError("MDDComedi: Error, not valid argument to MDD_comedi_set_global_oor_behavior (was %d). Exiting\n",
+                            behavior);
+        exit(-1);
+    }
 
-  ModelicaFormatMessage("MDDComedi: Setting the global out-of-range behavior to %s\n",
-    behavior == COMEDI_OOR_NAN ? "COMEDI_OOR_NAN => endpoint values are converted to NAN"
-    : "COMEDI_OOR_NUMBER => the endpoint values are converted similarly to other values");
-  oldBehavior = comedi_set_global_oor_behavior(behavior);
-  return oldBehavior;
+    ModelicaFormatMessage("MDDComedi: Setting the global out-of-range behavior to %s\n",
+                          behavior == COMEDI_OOR_NAN ? "COMEDI_OOR_NAN => endpoint values are converted to NAN"
+                          : "COMEDI_OOR_NUMBER => the endpoint values are converted similarly to other values");
+    oldBehavior = comedi_set_global_oor_behavior(behavior);
+    return oldBehavior;
 }
 
 /** Get range information about channel
@@ -147,22 +147,22 @@ int MDD_comedi_set_global_oor_behavior(int behavior) {
  */
 void MDD_comedi_get_range(void* p_device, int subdevice, int channel, int range,
                           double* min, double* max, int* unit) {
-  comedi_t* device = (comedi_t*) p_device;
-  comedi_range* p_range;
-  p_range = comedi_get_range(device, (unsigned int)subdevice, (unsigned int)channel, (unsigned int)range);
-  if (p_range == NULL) {
-    ModelicaFormatError("MDDComedi: MDD_comedi_get_range failed. exiting.\n");
-    exit(-1);
-  }
-  *min = p_range->min;
-  *max = p_range->max;
-  *unit = p_range->unit;
+    comedi_t* device = (comedi_t*) p_device;
+    comedi_range* p_range;
+    p_range = comedi_get_range(device, (unsigned int)subdevice, (unsigned int)channel, (unsigned int)range);
+    if (p_range == NULL) {
+        ModelicaFormatError("MDDComedi: MDD_comedi_get_range failed. exiting.\n");
+        exit(-1);
+    }
+    *min = p_range->min;
+    *max = p_range->max;
+    *unit = p_range->unit;
 }
 
 int MDD_comedi_get_maxdata(void* p_device, int subdevice, int channel) {
-  comedi_t* device = (comedi_t*) p_device;
-  lsampl_t data = comedi_get_maxdata(device, (unsigned int)subdevice, (unsigned int)channel);
-  return (int)data;
+    comedi_t* device = (comedi_t*) p_device;
+    lsampl_t data = comedi_get_maxdata(device, (unsigned int)subdevice, (unsigned int)channel);
+    return (int)data;
 }
 
 /**
@@ -174,8 +174,8 @@ int MDD_comedi_get_maxdata(void* p_device, int subdevice, int channel) {
  * @return Physical value in unit indicated by unit type
  */
 double MDD_comedi_to_phys(int data, double min, double max, int unit, int maxdata) {
-  comedi_range range = {min, max, (unsigned int)unit};
-  return comedi_to_phys( (lsampl_t)data, &range, (lsampl_t)maxdata);
+    comedi_range range = {min, max, (unsigned int)unit};
+    return comedi_to_phys( (lsampl_t)data, &range, (lsampl_t)maxdata);
 }
 
 /**
@@ -187,14 +187,14 @@ double MDD_comedi_to_phys(int data, double min, double max, int unit, int maxdat
  * @return Raw value of channel
  */
 int MDD_comedi_from_phys(double data, double min, double max, int unit, int maxdata) {
-  comedi_range range = {min, max, (unsigned int)unit};
-  return (int)comedi_from_phys(data, &range, (lsampl_t)maxdata);
+    comedi_range range = {min, max, (unsigned int)unit};
+    return (int)comedi_from_phys(data, &range, (lsampl_t)maxdata);
 }
 
 
 #else
 
-  #error "Modelica_DeviceDrivers: Comedi DAQ drivers only supported on linux!"
+#error "Modelica_DeviceDrivers: Comedi DAQ drivers only supported on linux!"
 
 #endif /* defined(__linux__) */
 
