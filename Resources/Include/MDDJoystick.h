@@ -90,7 +90,6 @@
       }
       if (fd == -1) { /* Failed again, giving up */
         ModelicaError("MDDJoystic: Neither could open /dev/input/js0, nor /dev/js0. Have the required privileges?\n");
-        exit(-1);
       }
 
       ioctl(fd, JSIOCGAXES, &nAxis);
@@ -123,7 +122,6 @@
 
     if (errno != EAGAIN) {
      	ModelicaError("\nMDDJoystic: error reading\n");
-      exit(-1);
   	}
 
     /* output axes (default to 0): */
