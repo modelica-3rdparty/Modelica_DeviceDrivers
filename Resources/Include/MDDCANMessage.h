@@ -151,7 +151,6 @@ void MDD_CANMessageFloatBitpacking(void* p_cANMessage, int bitStartPosition, dou
 
 	if (bitStartPosition > 32) {
 		ModelicaFormatError("MDDCANMessage: Error: Bit start position for writing IEEE float > 32 => size(float) exceeds message size!\n");
-		exit(-1);
 	}
 
 	if (byteBitOffset != 0) {
@@ -185,7 +184,6 @@ double MDD_CANMessageFloatBitunpacking(void* p_cANMessage, int bitStartPosition)
 
 	if (bitStartPosition > 32) {
 		ModelicaFormatError("MDDCANMessage: Error: Bit start position for reading IEEE float > 32 => size(float) exceeds message size!\n");
-		exit(-1);
 	}
 
 	if (byteBitOffset != 0) {
