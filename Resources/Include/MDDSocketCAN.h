@@ -82,14 +82,14 @@
 
 /** External Object data structure. */
 typedef struct {
-  int skt;
-  struct ifreq ifr;
-  struct sockaddr_can addr;
-  void * p_mDDMapIntpVoid; /**< pointer to MDDMapIntpVoid map (util.h) associating CAN
+    int skt;
+    struct ifreq ifr;
+    struct sockaddr_can addr;
+    void * p_mDDMapIntpVoid; /**< pointer to MDDMapIntpVoid map (util.h) associating CAN
                               identifier (key) to corresponding frame payload data (value) */
-  pthread_mutex_t mapMutex; /**< Exclusive access to p_mDDMapIntpVoid */
-  pthread_t thread;
-  int runReceive; /**< Run receiving thread as long as runReceive != 0  */
+    pthread_mutex_t mapMutex; /**< Exclusive access to p_mDDMapIntpVoid */
+    pthread_t thread;
+    int runReceive; /**< Run receiving thread as long as runReceive != 0  */
 } MDDSocketCAN;
 
 int MDD_socketCANRxThread(MDDSocketCAN * mDDSocketCAN);
@@ -104,91 +104,93 @@ int MDD_socketCANRxThread(MDDSocketCAN * mDDSocketCAN);
  * @return Modelica external object (MDDSocketCAN)
  */
 void* MDD_socketCANConstructor(const char* ifname) {
-  MDDSocketCAN* mDDSocketCAN = (MDDSocketCAN*) malloc(sizeof(MDDSocketCAN));
-  int ret;
+    MDDSocketCAN* mDDSocketCAN = (MDDSocketCAN*) malloc(sizeof(MDDSocketCAN));
+    int ret;
 
-  ModelicaFormatMessage("SocketCAN (%s): Creating CAN_RAW socket ...", ifname);
-  mDDSocketCAN->skt = socket(PF_CAN, SOCK_RAW, CAN_RAW);
-  if(mDDSocketCAN->skt == -1) {
-    ModelicaFormatError("MDDSocketCAN.h: socket failure (%s)\n", strerror(errno));
-    exit(-1);
-  } else {
-	  ModelicaFormatMessage("\tOK (socket descriptor %d)\n", mDDSocketCAN->skt);
-  }
+    ModelicaFormatMessage("SocketCAN (%s): Creating CAN_RAW socket ...", ifname);
+    mDDSocketCAN->skt = socket(PF_CAN, SOCK_RAW, CAN_RAW);
+    if(mDDSocketCAN->skt == -1) {
+        ModelicaFormatError("MDDSocketCAN.h: socket failure (%s)\n", strerror(errno));
+        exit(-1);
+    }
+    else {
+        ModelicaFormatMessage("\tOK (socket descriptor %d)\n", mDDSocketCAN->skt);
+    }
 
-  /* Locate the interface you wish to use */
-  ModelicaFormatMessage("SocketCAN (%s): Searching for CAN interface %s ...", ifname, ifname);
-  strcpy(mDDSocketCAN->ifr.ifr_name, ifname);
-  /* ifr.ifr_ifindex gets filled with that device's index: */
-  if (ioctl(mDDSocketCAN->skt, SIOCGIFINDEX, &(mDDSocketCAN->ifr)) == -1) {
-    ModelicaFormatError("MDDSocketCAN.h: ioctl failure (%s)\n", strerror(errno));
-    exit(-1);
-  }
-  ModelicaFormatMessage("\tOK\n", ifname);
+    /* Locate the interface you wish to use */
+    ModelicaFormatMessage("SocketCAN (%s): Searching for CAN interface %s ...", ifname, ifname);
+    strcpy(mDDSocketCAN->ifr.ifr_name, ifname);
+    /* ifr.ifr_ifindex gets filled with that device's index: */
+    if (ioctl(mDDSocketCAN->skt, SIOCGIFINDEX, &(mDDSocketCAN->ifr)) == -1) {
+        ModelicaFormatError("MDDSocketCAN.h: ioctl failure (%s)\n", strerror(errno));
+        exit(-1);
+    }
+    ModelicaFormatMessage("\tOK\n", ifname);
 
-  /* Select that CAN interface, and bind the socket to it. */
-  ModelicaFormatMessage("SocketCAN (%s): Bind socket (descriptor %d) to interface %s ...",
-			ifname, mDDSocketCAN->skt, ifname);
-  struct sockaddr_can addr;
-  mDDSocketCAN->addr.can_family = AF_CAN;
-  mDDSocketCAN->addr.can_ifindex = mDDSocketCAN->ifr.ifr_ifindex;
-  if ( bind( mDDSocketCAN->skt, (struct sockaddr*)&(mDDSocketCAN->addr), sizeof(mDDSocketCAN->addr) ) == -1) {
-    ModelicaFormatError("MDDSocketCAN.h: bind failure (%s)\n", strerror(errno));
-  } else {
-    ModelicaFormatMessage("\tOK\n");
-  }
+    /* Select that CAN interface, and bind the socket to it. */
+    ModelicaFormatMessage("SocketCAN (%s): Bind socket (descriptor %d) to interface %s ...",
+                          ifname, mDDSocketCAN->skt, ifname);
+    struct sockaddr_can addr;
+    mDDSocketCAN->addr.can_family = AF_CAN;
+    mDDSocketCAN->addr.can_ifindex = mDDSocketCAN->ifr.ifr_ifindex;
+    if ( bind( mDDSocketCAN->skt, (struct sockaddr*)&(mDDSocketCAN->addr), sizeof(mDDSocketCAN->addr) ) == -1) {
+        ModelicaFormatError("MDDSocketCAN.h: bind failure (%s)\n", strerror(errno));
+    }
+    else {
+        ModelicaFormatMessage("\tOK\n");
+    }
 
-  /* Create map for storing frame identifiers as keys and pointers to the corresponding frame payload data
-   * as values */
-  mDDSocketCAN->p_mDDMapIntpVoid = MDD_mapIntpVoidConstructor();
-  /* Init mutex with defaults */
-  ret = pthread_mutex_init(&(mDDSocketCAN->mapMutex), NULL);
-  if (ret != 0) {
-    ModelicaFormatError("MDDSocketCAN.h: pthread_mutex_init() failed (%s)\n",
-			strerror(errno));
-    exit(1);
-  }
+    /* Create map for storing frame identifiers as keys and pointers to the corresponding frame payload data
+     * as values */
+    mDDSocketCAN->p_mDDMapIntpVoid = MDD_mapIntpVoidConstructor();
+    /* Init mutex with defaults */
+    ret = pthread_mutex_init(&(mDDSocketCAN->mapMutex), NULL);
+    if (ret != 0) {
+        ModelicaFormatError("MDDSocketCAN.h: pthread_mutex_init() failed (%s)\n",
+                            strerror(errno));
+        exit(1);
+    }
 
-  /* Start dedicated receiver thread */
-  mDDSocketCAN->runReceive = 1;
-  ret = pthread_create(&mDDSocketCAN->thread, 0, (void *) MDD_socketCANRxThread, mDDSocketCAN);
-  if (ret) {
-	  ModelicaFormatError("MDDSocketCAN.h: pthread(..) failed\n");
-	  exit (1);
-  }
+    /* Start dedicated receiver thread */
+    mDDSocketCAN->runReceive = 1;
+    ret = pthread_create(&mDDSocketCAN->thread, 0, (void *) MDD_socketCANRxThread, mDDSocketCAN);
+    if (ret) {
+        ModelicaFormatError("MDDSocketCAN.h: pthread(..) failed\n");
+        exit (1);
+    }
 
-  return mDDSocketCAN;
+    return mDDSocketCAN;
 }
 
 void MDD_socketCANDestructor(void* p_mDDSocketCAN) {
-  MDDSocketCAN * mDDSocketCAN = (MDDSocketCAN *) p_mDDSocketCAN;
-  int * keys, nKeys, i;
-  void * pRet;
-  char * data;
+    MDDSocketCAN * mDDSocketCAN = (MDDSocketCAN *) p_mDDSocketCAN;
+    int * keys, nKeys, i;
+    void * pRet;
+    char * data;
 
-  /* stop receiving thread if any */
-  if (mDDSocketCAN->runReceive) {
-  	  mDDSocketCAN->runReceive = 0;
-  	  pthread_join(mDDSocketCAN->thread, &pRet);
-  	  pthread_detach(mDDSocketCAN->thread);
-  }
+    /* stop receiving thread if any */
+    if (mDDSocketCAN->runReceive) {
+        mDDSocketCAN->runReceive = 0;
+        pthread_join(mDDSocketCAN->thread, &pRet);
+        pthread_detach(mDDSocketCAN->thread);
+    }
 
-  ModelicaFormatMessage("SocketCAN (%s): Closing descriptor %d and cleaning up ...",
-    mDDSocketCAN->ifr.ifr_name, mDDSocketCAN->skt);
-	if (close(mDDSocketCAN->skt) == -1) {
-    ModelicaFormatError("MDDSocketCAN.h: close() failed (%s)\n", strerror(errno));
-  }
-  nKeys = MDD_mapIntpVoidSize(mDDSocketCAN->p_mDDMapIntpVoid);
-  keys = calloc(sizeof(int), nKeys);
-  MDD_mapIntpVoidGetKeys(mDDSocketCAN->p_mDDMapIntpVoid, keys);
-  for (i=0; i < nKeys; i++) {
-    data = MDD_mapIntpVoidLookup(mDDSocketCAN->p_mDDMapIntpVoid, keys[i]);
-    free(data);
-  }
-  MDD_mapIntpVoidDestructor(mDDSocketCAN->p_mDDMapIntpVoid);
+    ModelicaFormatMessage("SocketCAN (%s): Closing descriptor %d and cleaning up ...",
+                          mDDSocketCAN->ifr.ifr_name, mDDSocketCAN->skt);
+    if (close(mDDSocketCAN->skt) == -1) {
+        ModelicaFormatError("MDDSocketCAN.h: close() failed (%s)\n", strerror(errno));
+    }
+    nKeys = MDD_mapIntpVoidSize(mDDSocketCAN->p_mDDMapIntpVoid);
+    keys = calloc(sizeof(int), nKeys);
+    MDD_mapIntpVoidGetKeys(mDDSocketCAN->p_mDDMapIntpVoid, keys);
+    for (i=0; i < nKeys; i++) {
+        data = MDD_mapIntpVoidLookup(mDDSocketCAN->p_mDDMapIntpVoid, keys[i]);
+        free(data);
+    }
+    MDD_mapIntpVoidDestructor(mDDSocketCAN->p_mDDMapIntpVoid);
 
-  free(mDDSocketCAN);
-  ModelicaFormatMessage("\tOK.\n");
+    free(mDDSocketCAN);
+    ModelicaFormatMessage("\tOK.\n");
 }
 
 /** Define key/value pair for map associating identifiers to frame payload data.
@@ -198,18 +200,18 @@ void MDD_socketCANDestructor(void* p_mDDSocketCAN) {
  * @param[in] can_dlc length of data in bytes (min=0, max=8)
  */
 void MDD_socketCANDefineObject(void* p_mDDSocketCAN, int can_id, int can_dlc) {
-	MDDSocketCAN * mDDSocketCAN = (MDDSocketCAN *) p_mDDSocketCAN;
-	char * data;
+    MDDSocketCAN * mDDSocketCAN = (MDDSocketCAN *) p_mDDSocketCAN;
+    char * data;
 
-	data = calloc(sizeof(char), can_dlc);
+    data = calloc(sizeof(char), can_dlc);
 
-        /* Exclusive access to map */
-	pthread_mutex_lock(&(mDDSocketCAN->mapMutex));
-	MDD_mapIntpVoidInsert(mDDSocketCAN->p_mDDMapIntpVoid, can_id, data);
-	pthread_mutex_unlock(&(mDDSocketCAN->mapMutex));
+    /* Exclusive access to map */
+    pthread_mutex_lock(&(mDDSocketCAN->mapMutex));
+    MDD_mapIntpVoidInsert(mDDSocketCAN->p_mDDMapIntpVoid, can_id, data);
+    pthread_mutex_unlock(&(mDDSocketCAN->mapMutex));
 
-	ModelicaFormatMessage("SocketCAN (%s): Defined %d byte buffer slot for frame id %d.\n",
-		mDDSocketCAN->ifr.ifr_name, can_dlc, can_id);
+    ModelicaFormatMessage("SocketCAN (%s): Defined %d byte buffer slot for frame id %d.\n",
+                          mDDSocketCAN->ifr.ifr_name, can_dlc, can_id);
 }
 
 
@@ -220,23 +222,23 @@ void MDD_socketCANDefineObject(void* p_mDDSocketCAN, int can_id, int can_dlc) {
  * @param[in] data the data that shall be transmitted
  */
 void MDD_socketCANWrite(void* p_mDDSocketCAN, int can_id, int can_dlc,
-			     const char* data) {
-  MDDSocketCAN * mDDSocketCAN = (MDDSocketCAN *) p_mDDSocketCAN;
-  ssize_t bytes_sent;
-  struct can_frame txframe;
-  txframe.can_id = can_id;
-  memcpy(txframe.data, data, can_dlc);
-  txframe.can_dlc = can_dlc;
+                        const char* data) {
+    MDDSocketCAN * mDDSocketCAN = (MDDSocketCAN *) p_mDDSocketCAN;
+    ssize_t bytes_sent;
+    struct can_frame txframe;
+    txframe.can_id = can_id;
+    memcpy(txframe.data, data, can_dlc);
+    txframe.can_dlc = can_dlc;
 
-  bytes_sent = write( mDDSocketCAN->skt, &txframe, sizeof(txframe) );
-  if (bytes_sent != sizeof(txframe)) {
-    if (bytes_sent == -1)
-      ModelicaFormatError("MDDSocketCAN.h: write() of CAN ID %d to %s failed (%s)\n",
-        can_id, mDDSocketCAN->ifr.ifr_name, strerror(errno));
-    else
-      ModelicaFormatError("MDDSocketCAN.h: write() CAN ID %d to %s only wrote %d of %d bytes\n",
-        can_id, mDDSocketCAN->ifr.ifr_name, bytes_sent, sizeof(txframe));
-  }
+    bytes_sent = write( mDDSocketCAN->skt, &txframe, sizeof(txframe) );
+    if (bytes_sent != sizeof(txframe)) {
+        if (bytes_sent == -1)
+            ModelicaFormatError("MDDSocketCAN.h: write() of CAN ID %d to %s failed (%s)\n",
+                                can_id, mDDSocketCAN->ifr.ifr_name, strerror(errno));
+        else
+            ModelicaFormatError("MDDSocketCAN.h: write() CAN ID %d to %s only wrote %d of %d bytes\n",
+                                can_id, mDDSocketCAN->ifr.ifr_name, bytes_sent, sizeof(txframe));
+    }
 }
 
 /** Read CAN frame/message from CAN interface.
@@ -253,15 +255,15 @@ void MDD_socketCANWrite(void* p_mDDSocketCAN, int can_id, int can_dlc,
  * @return pointer to the up-to-date payload data (== data)
  */
 const char * MDD_socketCANRead(void* p_mDDSocketCAN, int can_id,  int can_dlc, char* data) {
-	MDDSocketCAN * mDDSocketCAN = (MDDSocketCAN *) p_mDDSocketCAN;
-	void * value;
+    MDDSocketCAN * mDDSocketCAN = (MDDSocketCAN *) p_mDDSocketCAN;
+    void * value;
 
-	/* Ensure exclusive access to map */
-	pthread_mutex_lock(&(mDDSocketCAN->mapMutex));
-	value = MDD_mapIntpVoidLookup(mDDSocketCAN->p_mDDMapIntpVoid, can_id);
-	memcpy(data, value, can_dlc);
-	pthread_mutex_unlock(&(mDDSocketCAN->mapMutex));
-	return data;
+    /* Ensure exclusive access to map */
+    pthread_mutex_lock(&(mDDSocketCAN->mapMutex));
+    value = MDD_mapIntpVoidLookup(mDDSocketCAN->p_mDDMapIntpVoid, can_id);
+    memcpy(data, value, can_dlc);
+    pthread_mutex_unlock(&(mDDSocketCAN->mapMutex));
+    return data;
 }
 
 /** Dedicated thread for receiving CAN frames.
@@ -270,60 +272,63 @@ const char * MDD_socketCANRead(void* p_mDDSocketCAN, int can_id,  int can_dlc, c
  * @return 0 (if thread stopped by mDDSocketCAN->runReceive == 0)
  */
 int MDD_socketCANRxThread(MDDSocketCAN * mDDSocketCAN) {
-   struct can_frame rxframe;
-   int bytes_read, ret;
-   void * data;
-   struct pollfd sock_poll;
+    struct can_frame rxframe;
+    int bytes_read, ret;
+    void * data;
+    struct pollfd sock_poll;
 
-   ModelicaFormatMessage("SocketCAN (%s): Started dedicted CAN frames receiving thread (socket descriptor %d).\n",
-   			 mDDSocketCAN->ifr.ifr_name, mDDSocketCAN->skt);
+    ModelicaFormatMessage("SocketCAN (%s): Started dedicted CAN frames receiving thread (socket descriptor %d).\n",
+                          mDDSocketCAN->ifr.ifr_name, mDDSocketCAN->skt);
 
 
-   sock_poll.fd = mDDSocketCAN->skt;
-   sock_poll.events = POLLIN | POLLHUP;
+    sock_poll.fd = mDDSocketCAN->skt;
+    sock_poll.events = POLLIN | POLLHUP;
 
-   while (mDDSocketCAN->runReceive) {
-     ret = poll(&sock_poll, 1, 100);
-     switch (ret) {
-       case -1:
-         ModelicaFormatError("MDDSocketCAN.h: poll(..) failed (%s) \n",
-			     strerror(errno));
-	 break;
-       case 0: /* no new data available. Just check if mDDSocketCAN->runReceive still true and go on */
-	 break;
-       case 1: /* new data available */
-	 if(sock_poll.revents & POLLHUP) {
-	   ModelicaFormatMessage("SocketCAN (%s): The CAN socket was disconnected. Exiting.\n",
-			   mDDSocketCAN->ifr.ifr_name);
-	   exit(1);
-	 } else {
-	   /* Receive the next CAN frame  */
-	   bytes_read = read( mDDSocketCAN->skt, &rxframe, sizeof(rxframe) );
-	   if (bytes_read < 0) {
-	     ModelicaFormatError("MDDSocketCAN.h: read(..) failed (%s)\n",
-				 strerror(errno));
-	   } else if (bytes_read == 0) {
-	     ModelicaFormatError("MDDSocketCAN.h: Error (zero bytes read): %s\n",
-				 strerror(errno));
-	   } else {
-	     /* Lock access to map  */
-	     pthread_mutex_lock(&(mDDSocketCAN->mapMutex));
-	     /* Check if can identifier exists in map before accessing the element.
-                If it doesn't exist, just silently ignore the frame */
-	     if (MDD_mapIntpVoidCount(mDDSocketCAN->p_mDDMapIntpVoid,  rxframe.can_id) > 0) {
-	       data = MDD_mapIntpVoidLookup(mDDSocketCAN->p_mDDMapIntpVoid, rxframe.can_id);
-	       memcpy(data, rxframe.data, rxframe.can_dlc);
-	     }
-	     pthread_mutex_unlock(&(mDDSocketCAN->mapMutex));
-	   }
-	   break;
-	 }
-       default:
-	 ModelicaFormatError("MDDSocketCAN.h: Poll returned %d. That should not happen. Exiting\n", ret);
-	 exit(1);
-     }
-   }
-   return 0;
+    while (mDDSocketCAN->runReceive) {
+        ret = poll(&sock_poll, 1, 100);
+        switch (ret) {
+            case -1:
+                ModelicaFormatError("MDDSocketCAN.h: poll(..) failed (%s) \n",
+                                    strerror(errno));
+                break;
+            case 0: /* no new data available. Just check if mDDSocketCAN->runReceive still true and go on */
+                break;
+            case 1: /* new data available */
+                if(sock_poll.revents & POLLHUP) {
+                    ModelicaFormatMessage("SocketCAN (%s): The CAN socket was disconnected. Exiting.\n",
+                                          mDDSocketCAN->ifr.ifr_name);
+                    exit(1);
+                }
+                else {
+                    /* Receive the next CAN frame  */
+                    bytes_read = read( mDDSocketCAN->skt, &rxframe, sizeof(rxframe) );
+                    if (bytes_read < 0) {
+                        ModelicaFormatError("MDDSocketCAN.h: read(..) failed (%s)\n",
+                                            strerror(errno));
+                    }
+                    else if (bytes_read == 0) {
+                        ModelicaFormatError("MDDSocketCAN.h: Error (zero bytes read): %s\n",
+                                            strerror(errno));
+                    }
+                    else {
+                        /* Lock access to map  */
+                        pthread_mutex_lock(&(mDDSocketCAN->mapMutex));
+                        /* Check if can identifier exists in map before accessing the element.
+                               If it doesn't exist, just silently ignore the frame */
+                        if (MDD_mapIntpVoidCount(mDDSocketCAN->p_mDDMapIntpVoid,  rxframe.can_id) > 0) {
+                            data = MDD_mapIntpVoidLookup(mDDSocketCAN->p_mDDMapIntpVoid, rxframe.can_id);
+                            memcpy(data, rxframe.data, rxframe.can_dlc);
+                        }
+                        pthread_mutex_unlock(&(mDDSocketCAN->mapMutex));
+                    }
+                    break;
+                }
+            default:
+                ModelicaFormatError("MDDSocketCAN.h: Poll returned %d. That should not happen. Exiting\n", ret);
+                exit(1);
+        }
+    }
+    return 0;
 }
 
 /** Dedicated thread for receiving CAN frames.
@@ -335,39 +340,41 @@ int MDD_socketCANRxThread(MDDSocketCAN * mDDSocketCAN) {
  * @return 0 (if thread stopped by mDDSocketCAN->runReceive == 0)
  */
 int MDD_socketCANRxThread_DEPRECATED(MDDSocketCAN * mDDSocketCAN) {
-   struct can_frame rxframe;
-   int bytes_read, ret;
-   void * data;
-   ModelicaFormatMessage("SocketCAN (%s): Started dedicted CAN frames receiving thread, (socket descriptor %d).\n",
-   			 mDDSocketCAN->ifr.ifr_name,  mDDSocketCAN->skt);
+    struct can_frame rxframe;
+    int bytes_read, ret;
+    void * data;
+    ModelicaFormatMessage("SocketCAN (%s): Started dedicted CAN frames receiving thread, (socket descriptor %d).\n",
+                          mDDSocketCAN->ifr.ifr_name,  mDDSocketCAN->skt);
 
-   while (mDDSocketCAN->runReceive) {
-	   /* Receive the next CAN frame  */
-	   bytes_read = read( mDDSocketCAN->skt, &rxframe, sizeof(struct can_frame) );
-	   if (bytes_read < 0) {
-	     ModelicaFormatError("MDDSocketCAN.h: read(..) failed (%s)\n",
-				 strerror(errno));
-	   } else if (bytes_read == 0) {
-	     ModelicaFormatError("MDDSocketCAN.h: Error (zero bytes read): %s\n",
-				 strerror(errno));
-	   } else {
-	     /* Lock access to map  */
-	     pthread_mutex_lock(&(mDDSocketCAN->mapMutex));
-	     /* Check if can identifier exists in map before accessing the element.
-                If it doesn't exist, just silently ignore the frame */
-	     if (MDD_mapIntpVoidCount(mDDSocketCAN->p_mDDMapIntpVoid,  rxframe.can_id) > 0) {
-	       data = MDD_mapIntpVoidLookup(mDDSocketCAN->p_mDDMapIntpVoid, rxframe.can_id);
-	       memcpy(data, rxframe.data, rxframe.can_dlc);
-	     }
-	     pthread_mutex_unlock(&(mDDSocketCAN->mapMutex));
-	   }
-     }
-   return 0;
+    while (mDDSocketCAN->runReceive) {
+        /* Receive the next CAN frame  */
+        bytes_read = read( mDDSocketCAN->skt, &rxframe, sizeof(struct can_frame) );
+        if (bytes_read < 0) {
+            ModelicaFormatError("MDDSocketCAN.h: read(..) failed (%s)\n",
+                                strerror(errno));
+        }
+        else if (bytes_read == 0) {
+            ModelicaFormatError("MDDSocketCAN.h: Error (zero bytes read): %s\n",
+                                strerror(errno));
+        }
+        else {
+            /* Lock access to map  */
+            pthread_mutex_lock(&(mDDSocketCAN->mapMutex));
+            /* Check if can identifier exists in map before accessing the element.
+                   If it doesn't exist, just silently ignore the frame */
+            if (MDD_mapIntpVoidCount(mDDSocketCAN->p_mDDMapIntpVoid,  rxframe.can_id) > 0) {
+                data = MDD_mapIntpVoidLookup(mDDSocketCAN->p_mDDMapIntpVoid, rxframe.can_id);
+                memcpy(data, rxframe.data, rxframe.can_dlc);
+            }
+            pthread_mutex_unlock(&(mDDSocketCAN->mapMutex));
+        }
+    }
+    return 0;
 }
 
 #else
 
-  #error "Modelica_DeviceDrivers: Socket CAN driver only supported on linux!"
+#error "Modelica_DeviceDrivers: Socket CAN driver only supported on linux!"
 
 #endif /* defined(__linux__) */
 

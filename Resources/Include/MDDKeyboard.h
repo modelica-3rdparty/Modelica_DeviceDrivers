@@ -35,114 +35,157 @@
 
 #if defined(_MSC_VER)
 
-  #include <windows.h>
-  #include "../src/include/CompatibilityDefs.h"
-  #include <stdio.h>
+#include <windows.h>
+#include "../src/include/CompatibilityDefs.h"
+#include <stdio.h>
 
-  #pragma comment(lib, "User32.lib")
+#pragma comment(lib, "User32.lib")
 
 DllExport void MDD_keyboardGetKey(int iKeyCode,int * piKeyState) {
     /* getting state of interesting keys */
     int getc_unlocked(FILE *stream);
-    if(GetAsyncKeyState(iKeyCode)) piKeyState[0] = 1;
-         else piKeyState[0] = 0;
+    if(GetAsyncKeyState(iKeyCode)) {
+        piKeyState[0] = 1;
+    }
+    else {
+        piKeyState[0] = 0;
+    }
 
-  }
+}
 
-DllExport void MDD_keyboardGetData(int * piKeyState)
-  {
-          /* getting state of interesting keys */
-          if(GetAsyncKeyState(VK_UP)) piKeyState[0] = 1;
-                          else piKeyState[0] = 0;
-          if(GetAsyncKeyState(VK_DOWN)) piKeyState[1] = 1;
-                  else piKeyState[1] = 0;
-          if(GetAsyncKeyState(VK_RIGHT)) piKeyState[2] = 1;
-                  else piKeyState[2] = 0;
-          if(GetAsyncKeyState(VK_LEFT)) piKeyState[3] = 1;
-                  else piKeyState[3] = 0;
-          if(GetAsyncKeyState(VK_RETURN)) piKeyState[4] = 1;
-                  else piKeyState[4] = 0;
-          if(GetAsyncKeyState(VK_SPACE)) piKeyState[5] = 1;
-                  else piKeyState[5] = 0;
-          if(GetAsyncKeyState(VK_F9)) piKeyState[6] = 1;
-                  else piKeyState[6] = 0;
-          if(GetAsyncKeyState(VK_F10)) piKeyState[7] = 1;
-                  else piKeyState[7] = 0;
-          if(GetAsyncKeyState(VK_F11)) piKeyState[8] = 1;
-                  else piKeyState[8] = 0;
-          if(GetAsyncKeyState(VK_F12)) piKeyState[9] = 1;
-                  else piKeyState[9] = 0;
-  }
+DllExport void MDD_keyboardGetData(int * piKeyState) {
+    /* getting state of interesting keys */
+    if(GetAsyncKeyState(VK_UP)) {
+        piKeyState[0] = 1;
+    }
+    else {
+        piKeyState[0] = 0;
+    }
+    if(GetAsyncKeyState(VK_DOWN)) {
+        piKeyState[1] = 1;
+    }
+    else {
+        piKeyState[1] = 0;
+    }
+    if(GetAsyncKeyState(VK_RIGHT)) {
+        piKeyState[2] = 1;
+    }
+    else {
+        piKeyState[2] = 0;
+    }
+    if(GetAsyncKeyState(VK_LEFT)) {
+        piKeyState[3] = 1;
+    }
+    else {
+        piKeyState[3] = 0;
+    }
+    if(GetAsyncKeyState(VK_RETURN)) {
+        piKeyState[4] = 1;
+    }
+    else {
+        piKeyState[4] = 0;
+    }
+    if(GetAsyncKeyState(VK_SPACE)) {
+        piKeyState[5] = 1;
+    }
+    else {
+        piKeyState[5] = 0;
+    }
+    if(GetAsyncKeyState(VK_F9)) {
+        piKeyState[6] = 1;
+    }
+    else {
+        piKeyState[6] = 0;
+    }
+    if(GetAsyncKeyState(VK_F10)) {
+        piKeyState[7] = 1;
+    }
+    else {
+        piKeyState[7] = 0;
+    }
+    if(GetAsyncKeyState(VK_F11)) {
+        piKeyState[8] = 1;
+    }
+    else {
+        piKeyState[8] = 0;
+    }
+    if(GetAsyncKeyState(VK_F12)) {
+        piKeyState[9] = 1;
+    }
+    else {
+        piKeyState[9] = 0;
+    }
+}
 
 #elif defined(__linux__)
 
-  /* This #define is a hack needed since X11 declares "Time" and
-   * also Dymola declares "Time" which then results in a compile
-   * error. So we temporarly rename Time to MDDTime and hope
-   * for the best.
-  */
-  #define Time MDDTime
-  #include <X11/Xlib.h>
-  #include <X11/Xutil.h>
-  #include <X11/keysymdef.h>
-  #undef Time
-  #include "../src/include/CompatibilityDefs.h"
+/* This #define is a hack needed since X11 declares "Time" and
+ * also Dymola declares "Time" which then results in a compile
+ * error. So we temporarly rename Time to MDDTime and hope
+ * for the best.
+*/
+#define Time MDDTime
+#include <X11/Xlib.h>
+#include <X11/Xutil.h>
+#include <X11/keysymdef.h>
+#undef Time
+#include "../src/include/CompatibilityDefs.h"
 
-  /** mapping from windows key code to linux key code */
-  int w2lKey[124];
+/** mapping from windows key code to linux key code */
+int w2lKey[124];
 
-  void MDD_keyboardInitialize() {
+void MDD_keyboardInitialize() {
     Display* display;
     int i;
 
     display = XOpenDisplay(0);
     for (i=0; i<124; i++) {
-      w2lKey[i] = 0;
+        w2lKey[i] = 0;
     }
     /* Windows seems not to distinguish between upper/lower case. We decide to map to lower */
     w2lKey[65] = XKeysymToKeycode(display, XK_a);
-	w2lKey[66] = XKeysymToKeycode(display, XK_b);
-	w2lKey[67] = XKeysymToKeycode(display, XK_c);
+    w2lKey[66] = XKeysymToKeycode(display, XK_b);
+    w2lKey[67] = XKeysymToKeycode(display, XK_c);
     w2lKey[68] = XKeysymToKeycode(display, XK_d);
-	w2lKey[69] = XKeysymToKeycode(display, XK_e);
-	w2lKey[70] = XKeysymToKeycode(display, XK_f);
+    w2lKey[69] = XKeysymToKeycode(display, XK_e);
+    w2lKey[70] = XKeysymToKeycode(display, XK_f);
     w2lKey[71] = XKeysymToKeycode(display, XK_g);
-	w2lKey[72] = XKeysymToKeycode(display, XK_h);
-	w2lKey[73] = XKeysymToKeycode(display, XK_i);
+    w2lKey[72] = XKeysymToKeycode(display, XK_h);
+    w2lKey[73] = XKeysymToKeycode(display, XK_i);
     w2lKey[74] = XKeysymToKeycode(display, XK_j);
-	w2lKey[75] = XKeysymToKeycode(display, XK_k);
-	w2lKey[76] = XKeysymToKeycode(display, XK_l);
+    w2lKey[75] = XKeysymToKeycode(display, XK_k);
+    w2lKey[76] = XKeysymToKeycode(display, XK_l);
     w2lKey[77] = XKeysymToKeycode(display, XK_m);
-	w2lKey[78] = XKeysymToKeycode(display, XK_n);
-	w2lKey[79] = XKeysymToKeycode(display, XK_o);
-	w2lKey[80] = XKeysymToKeycode(display, XK_p);
+    w2lKey[78] = XKeysymToKeycode(display, XK_n);
+    w2lKey[79] = XKeysymToKeycode(display, XK_o);
+    w2lKey[80] = XKeysymToKeycode(display, XK_p);
     w2lKey[81] = XKeysymToKeycode(display, XK_q);
-	w2lKey[82] = XKeysymToKeycode(display, XK_r);
-	w2lKey[83] = XKeysymToKeycode(display, XK_s);
+    w2lKey[82] = XKeysymToKeycode(display, XK_r);
+    w2lKey[83] = XKeysymToKeycode(display, XK_s);
     w2lKey[84] = XKeysymToKeycode(display, XK_t);
-	w2lKey[85] = XKeysymToKeycode(display, XK_u);
-	w2lKey[86] = XKeysymToKeycode(display, XK_v);
+    w2lKey[85] = XKeysymToKeycode(display, XK_u);
+    w2lKey[86] = XKeysymToKeycode(display, XK_v);
     w2lKey[87] = XKeysymToKeycode(display, XK_w);
-	w2lKey[88] = XKeysymToKeycode(display, XK_x);
-	w2lKey[89] = XKeysymToKeycode(display, XK_y);
-	w2lKey[90] = XKeysymToKeycode(display, XK_z);
+    w2lKey[88] = XKeysymToKeycode(display, XK_x);
+    w2lKey[89] = XKeysymToKeycode(display, XK_y);
+    w2lKey[90] = XKeysymToKeycode(display, XK_z);
 
-	w2lKey[48] = XKeysymToKeycode(display, XK_0);
-	w2lKey[49] = XKeysymToKeycode(display, XK_1);
-	w2lKey[50] = XKeysymToKeycode(display, XK_2);
+    w2lKey[48] = XKeysymToKeycode(display, XK_0);
+    w2lKey[49] = XKeysymToKeycode(display, XK_1);
+    w2lKey[50] = XKeysymToKeycode(display, XK_2);
     w2lKey[51] = XKeysymToKeycode(display, XK_3);
-	w2lKey[52] = XKeysymToKeycode(display, XK_4);
-	w2lKey[53] = XKeysymToKeycode(display, XK_5);
+    w2lKey[52] = XKeysymToKeycode(display, XK_4);
+    w2lKey[53] = XKeysymToKeycode(display, XK_5);
     w2lKey[54] = XKeysymToKeycode(display, XK_6);
-	w2lKey[55] = XKeysymToKeycode(display, XK_7);
-	w2lKey[56] = XKeysymToKeycode(display, XK_8);
-	w2lKey[57] = XKeysymToKeycode(display, XK_9);
+    w2lKey[55] = XKeysymToKeycode(display, XK_7);
+    w2lKey[56] = XKeysymToKeycode(display, XK_8);
+    w2lKey[57] = XKeysymToKeycode(display, XK_9);
 
     w2lKey[13] = XKeysymToKeycode(display, XK_Return);
     /* left control key is set, right would be XK_Control_R */
     w2lKey[17] = XKeysymToKeycode(display, XK_Control_L);
     w2lKey[32] = XKeysymToKeycode(display, XK_space);
-     /* left alt key is set, right would be XK_Alt_R */
+    /* left alt key is set, right would be XK_Alt_R */
     w2lKey[18] = XKeysymToKeycode(display, XK_Alt_L);
     w2lKey[36] = XKeysymToKeycode(display, XK_Home);
     w2lKey[35] = XKeysymToKeycode(display, XK_End);
@@ -184,22 +227,22 @@ DllExport void MDD_keyboardGetData(int * piKeyState)
     w2lKey[122] = XKeysymToKeycode(display, XK_F12);
 
     XCloseDisplay(display);
-  }
+}
 
 
-  /** Get state of the specified key.
-   * @param[in] ikeyCode Windows key code of the symbol
-   * @param[out] piKeyState state of the key
-   *             @arg 0: released
-   *             @arg 1: pressed
-  */
-  void MDD_keyboardGetKey(int iKeyCode, int * piKeyState) {
+/** Get state of the specified key.
+ * @param[in] ikeyCode Windows key code of the symbol
+ * @param[out] piKeyState state of the key
+ *             @arg 0: released
+ *             @arg 1: pressed
+*/
+void MDD_keyboardGetKey(int iKeyCode, int * piKeyState) {
     static Display* display = NULL;
     char pressed_keys[32];
     int isPressed = 0;
     if (display == NULL) {
-      display = XOpenDisplay(0);
-      MDD_keyboardInitialize();
+        display = XOpenDisplay(0);
+        MDD_keyboardInitialize();
     }
 
     XQueryKeymap(display, pressed_keys);
@@ -218,61 +261,102 @@ DllExport void MDD_keyboardGetData(int * piKeyState)
      */
     isPressed = (pressed_keys[w2lKey[iKeyCode] >> 3] >> (w2lKey[iKeyCode] & 0x07)) & 0x01;
     if (isPressed) {
-      *piKeyState = 1;
-    } else {
-      *piKeyState = 0;
+        *piKeyState = 1;
     }
-  }
+    else {
+        *piKeyState = 0;
+    }
+}
 
-  void MDD_keyboardGetData(int * piKeyState) {
+void MDD_keyboardGetData(int * piKeyState) {
     static Display* display = NULL;
     char pressed_keys[32];
     int keyCode;
 
     if (display == NULL) {
-      display = XOpenDisplay(0);
+        display = XOpenDisplay(0);
     }
 
     /* See function MDD_keyboardGetKey(..) for more details about what is going on */
     XQueryKeymap(display, pressed_keys);
     /* getting state of interesting keys */
     keyCode = XKeysymToKeycode(display, XK_Up);
-    if ( (pressed_keys[keyCode >> 3] >> (keyCode & 0x07)) & 0x01 )  piKeyState[0] = 1;
-      else  piKeyState[0] = 0;
+    if ( (pressed_keys[keyCode >> 3] >> (keyCode & 0x07)) & 0x01 ) {
+        piKeyState[0] = 1;
+    }
+    else {
+        piKeyState[0] = 0;
+    }
     keyCode = XKeysymToKeycode(display, XK_Down);
-    if ( (pressed_keys[keyCode >> 3] >> (keyCode & 0x07)) & 0x01 )  piKeyState[1] = 1;
-      else  piKeyState[1] = 0;
+    if ( (pressed_keys[keyCode >> 3] >> (keyCode & 0x07)) & 0x01 ) {
+        piKeyState[1] = 1;
+    }
+    else {
+        piKeyState[1] = 0;
+    }
     keyCode = XKeysymToKeycode(display, XK_Right);
-    if ( (pressed_keys[keyCode >> 3] >> (keyCode & 0x07)) & 0x01 )  piKeyState[2] = 1;
-      else  piKeyState[2] = 0;
+    if ( (pressed_keys[keyCode >> 3] >> (keyCode & 0x07)) & 0x01 ) {
+        piKeyState[2] = 1;
+    }
+    else {
+        piKeyState[2] = 0;
+    }
     keyCode = XKeysymToKeycode(display, XK_Left);
-    if ( (pressed_keys[keyCode >> 3] >> (keyCode & 0x07)) & 0x01 )  piKeyState[3] = 1;
-      else  piKeyState[3] = 0;
+    if ( (pressed_keys[keyCode >> 3] >> (keyCode & 0x07)) & 0x01 ) {
+        piKeyState[3] = 1;
+    }
+    else {
+        piKeyState[3] = 0;
+    }
     keyCode = XKeysymToKeycode(display, XK_Return);
-    if ( (pressed_keys[keyCode >> 3] >> (keyCode & 0x07)) & 0x01 )  piKeyState[4] = 1;
-      else  piKeyState[4] = 0;
+    if ( (pressed_keys[keyCode >> 3] >> (keyCode & 0x07)) & 0x01 ) {
+        piKeyState[4] = 1;
+    }
+    else {
+        piKeyState[4] = 0;
+    }
     keyCode = XKeysymToKeycode(display, XK_space);
-    if ( (pressed_keys[keyCode >> 3] >> (keyCode & 0x07)) & 0x01 )  piKeyState[5] = 1;
-      else  piKeyState[5] = 0;
+    if ( (pressed_keys[keyCode >> 3] >> (keyCode & 0x07)) & 0x01 ) {
+        piKeyState[5] = 1;
+    }
+    else {
+        piKeyState[5] = 0;
+    }
     keyCode = XKeysymToKeycode(display, XK_F9);
-    if ( (pressed_keys[keyCode >> 3] >> (keyCode & 0x07)) & 0x01 )  piKeyState[6] = 1;
-      else  piKeyState[6] = 0;
+    if ( (pressed_keys[keyCode >> 3] >> (keyCode & 0x07)) & 0x01 ) {
+        piKeyState[6] = 1;
+    }
+    else {
+        piKeyState[6] = 0;
+    }
     keyCode = XKeysymToKeycode(display, XK_F10);
-    if ( (pressed_keys[keyCode >> 3] >> (keyCode & 0x07)) & 0x01 )  piKeyState[7] = 1;
-      else  piKeyState[7] = 0;
+    if ( (pressed_keys[keyCode >> 3] >> (keyCode & 0x07)) & 0x01 ) {
+        piKeyState[7] = 1;
+    }
+    else {
+        piKeyState[7] = 0;
+    }
     keyCode = XKeysymToKeycode(display, XK_F11);
-    if ( (pressed_keys[keyCode >> 3] >> (keyCode & 0x07)) & 0x01 )  piKeyState[8] = 1;
-      else  piKeyState[8] = 0;
+    if ( (pressed_keys[keyCode >> 3] >> (keyCode & 0x07)) & 0x01 ) {
+        piKeyState[8] = 1;
+    }
+    else {
+        piKeyState[8] = 0;
+    }
     keyCode = XKeysymToKeycode(display, XK_F12);
-    if ( (pressed_keys[keyCode >> 3] >> (keyCode & 0x07)) & 0x01 )  piKeyState[9] = 1;
-      else  piKeyState[9] = 0;
+    if ( (pressed_keys[keyCode >> 3] >> (keyCode & 0x07)) & 0x01 ) {
+        piKeyState[9] = 1;
+    }
+    else {
+        piKeyState[9] = 0;
+    }
 
-  }
+}
 
 
 #else
 
-  #error "Modelica_DeviceDrivers: No Keyboard support for your platform"
+#error "Modelica_DeviceDrivers: No Keyboard support for your platform"
 
 #endif /* defined(_MSC_VER) */
 

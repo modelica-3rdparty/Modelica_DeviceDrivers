@@ -17,34 +17,31 @@
 #include "ModelicaUtilities.h"
 
 DllExport double MDD_OS_getRandomNumberDouble(double minValue, double maxValue) {
-  static int _randomGeneratorInitialized = 0;
-  int randomInteger;
-  double randomDouble;
-  if(!_randomGeneratorInitialized)
-  {
-    srand ( clock() * time(NULL) );
-    _randomGeneratorInitialized = 1;
-  }
-  randomInteger = rand();
-  randomDouble = ((double)randomInteger/(double)RAND_MAX) * (maxValue - minValue) + minValue;
-  return randomDouble;
+    static int _randomGeneratorInitialized = 0;
+    int randomInteger;
+    double randomDouble;
+    if(!_randomGeneratorInitialized) {
+        srand ( clock() * time(NULL) );
+        _randomGeneratorInitialized = 1;
+    }
+    randomInteger = rand();
+    randomDouble = ((double)randomInteger/(double)RAND_MAX) * (maxValue - minValue) + minValue;
+    return randomDouble;
 }
 
 #if defined(_MSC_VER)
 
-DllExport void MDD_OS_Sleep(double sleepingTime)
-  {
+DllExport void MDD_OS_Sleep(double sleepingTime) {
 
     int time_ms = (int)(sleepingTime*1000);
     Sleep(time_ms);
 
-  }
+}
 #else
-  #include <unistd.h>
-  void MDD_OS_Sleep(double sleepingTime)
-  {
+#include <unistd.h>
+void MDD_OS_Sleep(double sleepingTime) {
     sleep((int)sleepingTime);
-  }
+}
 #endif /* _MSC_VER */
 
 #endif /* MDDOPERATINGSYSTEM_H_ */

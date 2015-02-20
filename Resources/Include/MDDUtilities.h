@@ -18,47 +18,42 @@
 #include "../src/include/CompatibilityDefs.h"
 #include "ModelicaUtilities.h"
 
-DllExport double MDD_utilitiesLoadRealParameter(const char * file, const char * name)
-{
-  FILE * pFile;
-  char line[512];
-  double u;
-  pFile = fopen (file,"r");
+DllExport double MDD_utilitiesLoadRealParameter(const char * file, const char * name) {
+    FILE * pFile;
+    char line[512];
+    double u;
+    pFile = fopen (file,"r");
 
-  //file existent?
-  if (pFile==NULL)
-  {
-    ModelicaFormatError("Could not open file %s.\n",file);
-  }
-
-  //read every line of file one after another:
-  while(fgets (line , 512 , pFile) != NULL )
-  {
-
-    //find the name of the variable in string
-    char * namePos = strstr (line,name);
-
-    //if variable name found and the next character after the name is a space, tabulator or = then it is a valid name.
-    if(namePos && (namePos[strlen(name)] == ' ' || namePos[strlen(name)] == '=' || namePos[strlen(name)] == '\t'))
-    {
-
-      //find the =
-      namePos=strchr(namePos+1,'=');
-
-      if(namePos)
-      {
-        u = atof(namePos+1);
-        fclose (pFile);
-        return u;
-
-      }
+    //file existent?
+    if (pFile==NULL) {
+        ModelicaFormatError("Could not open file %s.\n",file);
     }
 
-  }
+    //read every line of file one after another:
+    while(fgets (line , 512 , pFile) != NULL ) {
 
-  fclose (pFile);
-  ModelicaFormatError("Parameter name not found: %s",name);
-  return 0;
+        //find the name of the variable in string
+        char * namePos = strstr (line,name);
+
+        //if variable name found and the next character after the name is a space, tabulator or = then it is a valid name.
+        if(namePos && (namePos[strlen(name)] == ' ' || namePos[strlen(name)] == '=' || namePos[strlen(name)] == '\t')) {
+
+            //find the =
+            namePos=strchr(namePos+1,'=');
+
+            if(namePos) {
+                u = atof(namePos+1);
+                fclose (pFile);
+                return u;
+
+            }
+        }
+
+    }
+
+    fclose (pFile);
+    ModelicaFormatError("Parameter name not found: %s",name);
+    return 0;
 }
 
 
