@@ -5,31 +5,29 @@ package OperatingSystem
   block SynchronizeRealtime "A pseudo realtime synchronization"
     extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
     parameter Integer resolution(min = 1) = 1 "resolution of the timer";
+    parameter Boolean setPriority = true "true, if process priority is to be set, otherwise false";
     parameter
       Modelica_DeviceDrivers.Blocks.OperatingSystem.Types.ProcessPriority
-      priority = "Normal" "Priority of the simulation process";
+      priority = "Normal" "Priority of the simulation process" annotation(Dialog(enable=setPriority));
     output Real calculationTime "Time needed for calculation";
     output Real availableTime
       "Time available for calculation (integrator step size)";
+    Modelica_DeviceDrivers.OperatingSystem.ProcessPriority procPrio = Modelica_DeviceDrivers.OperatingSystem.ProcessPriority(
+      if
+        (priority == "Idle") then -2 else
+      if
+        (priority == "Below normal") then -1 else
+      if
+        (priority == "Normal") then 0 else
+      if
+        (priority == "High priority") then 1 else
+      if
+        (priority == "Realtime") then 2 else
+      0) if setPriority;
   protected
-    Real dummyState
+    Real dummyState(start = 0)
       "dummy state to be integrated, to force synchronization in every integration step";
   equation
-    when (initial()) then
-      Modelica_DeviceDrivers.OperatingSystem.setProcessPriority(
-        if
-          (priority == "Idle") then -2 else
-        if
-          (priority == "Below normal") then -1 else
-        if
-          (priority == "Normal") then 0 else
-        if
-          (priority == "High priority") then 1 else
-        if
-          (priority == "Realtime") then 2 else
-        0);
-    end when;
-
      (calculationTime,availableTime) = Modelica_DeviceDrivers.OperatingSystem.realtimeSynchronize(time,resolution);
      der(dummyState) =calculationTime;
     annotation (preferredView="info",
@@ -39,7 +37,7 @@ package OperatingSystem
                 "../Resources/Images/Icons/clock.png"),
           Text(
             extent={{-100,-100},{100,-140}},
-            textString="%priority"),       Text(extent={{-150,142},{150,102}},
+            textString=DynamicSelect("", if setPriority then "%priority" else "")),       Text(extent={{-150,142},{150,102}},
               textString="%name")}),
       Documentation(info="<html>
 <p>Synchronizes the simulation time of the simulation process with the operating system real-time clock. Different priority levels are supported:</p>
