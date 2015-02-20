@@ -134,6 +134,7 @@ DllExport int MDD_udpGetReceivedBytes(void * p_udp) {
 #include <stdlib.h>
 #include <string.h> /* memset(..) */
 #include <errno.h>
+#include <unistd.h> /* close */
 
 #include <sys/poll.h>
 #include <netdb.h>
