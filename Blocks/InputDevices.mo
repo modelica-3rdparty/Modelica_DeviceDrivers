@@ -25,7 +25,7 @@ package InputDevices
     axes = (AxesRaw .- 32768)/32768 ./gain;
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}), graphics={Bitmap(extent={{-86,88},{88,-88}},
-              fileName="../Resources/Images/Icons/joystick.png"), Text(extent={
+              fileName="modelica://Modelica_DeviceDrivers/Resources/Images/Icons/joystick.png"), Text(extent={
                 {-150,140},{150,100}}, textString="%name")}),
                 preferredView="info",Documentation(info="<html> This block reads data from the joystick ID (0 = first joystick appearing in windows control panel).
                                 Multible blocks can be used in order to retrieve data from more than one joysticks.

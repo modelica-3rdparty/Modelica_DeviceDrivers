@@ -36,7 +36,7 @@ package OperatingSystem
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
               -100},{100,100}}), graphics={
           Bitmap(extent={{-60,60},{60,-60}}, fileName=
-                "../Resources/Images/Icons/clock.png"),
+                "modelica://Modelica_DeviceDrivers/Resources/Images/Icons/clock.png"),
           Text(
             extent={{-100,-100},{100,-140}},
             textString="%priority"),       Text(extent={{-150,142},{150,102}},
