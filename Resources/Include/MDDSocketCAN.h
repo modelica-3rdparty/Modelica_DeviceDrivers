@@ -111,7 +111,6 @@ void* MDD_socketCANConstructor(const char* ifname) {
     mDDSocketCAN->skt = socket(PF_CAN, SOCK_RAW, CAN_RAW);
     if(mDDSocketCAN->skt == -1) {
         ModelicaFormatError("MDDSocketCAN.h: socket failure (%s)\n", strerror(errno));
-        exit(-1);
     }
     else {
         ModelicaFormatMessage("\tOK (socket descriptor %d)\n", mDDSocketCAN->skt);
@@ -123,7 +122,6 @@ void* MDD_socketCANConstructor(const char* ifname) {
     /* ifr.ifr_ifindex gets filled with that device's index: */
     if (ioctl(mDDSocketCAN->skt, SIOCGIFINDEX, &(mDDSocketCAN->ifr)) == -1) {
         ModelicaFormatError("MDDSocketCAN.h: ioctl failure (%s)\n", strerror(errno));
-        exit(-1);
     }
     ModelicaFormatMessage("\tOK\n", ifname);
 
@@ -148,7 +146,6 @@ void* MDD_socketCANConstructor(const char* ifname) {
     if (ret != 0) {
         ModelicaFormatError("MDDSocketCAN.h: pthread_mutex_init() failed (%s)\n",
                             strerror(errno));
-        exit(1);
     }
 
     /* Start dedicated receiver thread */
@@ -156,7 +153,6 @@ void* MDD_socketCANConstructor(const char* ifname) {
     ret = pthread_create(&mDDSocketCAN->thread, 0, (void *) MDD_socketCANRxThread, mDDSocketCAN);
     if (ret) {
         ModelicaFormatError("MDDSocketCAN.h: pthread(..) failed\n");
-        exit (1);
     }
 
     return mDDSocketCAN;
@@ -324,8 +320,7 @@ int MDD_socketCANRxThread(MDDSocketCAN * mDDSocketCAN) {
                     break;
                 }
             default:
-                ModelicaFormatError("MDDSocketCAN.h: Poll returned %d. That should not happen. Exiting\n", ret);
-                exit(1);
+	 ModelicaFormatError("MDDSocketCAN.h: Poll returned %d. That should not happen.\n", ret);
         }
     }
     return 0;

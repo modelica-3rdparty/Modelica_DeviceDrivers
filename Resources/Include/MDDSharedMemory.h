@@ -138,7 +138,6 @@ void * MDD_SharedMemoryConstructor(const char * name, int bufSize) {
     smb->semdes = sem_open(smb->semname, O_CREAT, 0644, 1);
     if(smb->semdes == SEM_FAILED) {
         ModelicaFormatError("MDDSharedMemory.h: sem_open failure (%s)\n", strerror(errno));
-        exit(-1);
     }
 
     sem_getvalue(smb->semdes, &sval);
@@ -153,14 +152,12 @@ void * MDD_SharedMemoryConstructor(const char * name, int bufSize) {
 
         if (sem_getvalue(smb->semdes, &sval)) {
             ModelicaFormatError("MDDSharedMemory.h: sem_getvalue failed (%s)\n", strerror(errno));
-            exit(-1);
         }
 
         ModelicaFormatMessage("Open shared memory object '%s' for r/w\n", smb->shmname);
         smb->shmdes = shm_open(smb->shmname, O_CREAT|O_RDWR|O_TRUNC, 0644);
         if ( smb->shmdes == -1 ) {
             ModelicaFormatError("MDDSharedMemory.h: shm_open failure (%s)", strerror(errno));
-            exit(-1);
         }
 
         /* 'truncate' shared memory object to needed size
@@ -168,7 +165,6 @@ void * MDD_SharedMemoryConstructor(const char * name, int bufSize) {
         ret = ftruncate(smb->shmdes, smb->shm_size);
         if (ret == -1) {
             ModelicaFormatError("MDDSharedMemory.h: ftruncate failure (%s)\n", strerror(errno));
-            exit(-1);
         }
 
         /* Attach shared memory object to pointer (read/write) */
@@ -177,7 +173,6 @@ void * MDD_SharedMemoryConstructor(const char * name, int bufSize) {
 
         if (smb->shmptr == MAP_FAILED) {
             ModelicaFormatError("MDDSharedMemory.h: mmap failure (%s)\n", strerror(errno));
-            exit(-1);
         }
 
         /* Release the semaphore lock */

@@ -23,6 +23,7 @@ void ModelicaFormatMessage(const char *string,...) {
 
 void ModelicaError(const char *string) {
    fprintf (stderr, "%s", string);
+   exit(1);
 }
 
 
@@ -31,6 +32,7 @@ void ModelicaFormatError(const char *string,...) {
    va_start(p_arg,string);
    vfprintf(stderr, string,p_arg);
    va_end(p_arg);
+   exit(1);
 }
 
 
