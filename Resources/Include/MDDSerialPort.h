@@ -177,7 +177,6 @@ void * MDD_serialPortConstructor(const char * deviceName, int bufferSize, int pa
     if (ret != 0) {
         ModelicaFormatError("MDDSerialPort.h: pthread_mutex_init() failed (%s)\n",
                             strerror(errno));
-        exit(1);
     }
 
     /* Create a serial port. */
@@ -188,7 +187,6 @@ void * MDD_serialPortConstructor(const char * deviceName, int bufferSize, int pa
     if (serial->fd < 0) {
         ModelicaFormatError("MDDSerialPort.h: open(..) of serial port %s failed (%s)\n", deviceName,
                             strerror(errno));
-        exit(1);
     }
 
     switch (baud) {
@@ -231,7 +229,6 @@ void * MDD_serialPortConstructor(const char * deviceName, int bufferSize, int pa
         ret = pthread_create(&serial->thread, 0, (void *) MDD_serialPortReceivingThread, serial);
         if (ret) {
             ModelicaFormatError("MDDSerialPort.h: pthread (MDD_serialPortReceivingThread) failed\n");
-            exit (1);
         }
     }
 
@@ -266,8 +263,7 @@ int MDD_serialPortReceivingThread(void * p_serial) {
                 break;
             case 1: /* new data available */
                 if(serial_poll.revents & POLLHUP) {
-                    ModelicaMessage("The serial port was disconnected. Exiting.\n");
-                    exit(1);
+                        ModelicaMessage("The serial port was disconnected.\n");
                 }
                 else {
                     /* Lock acces to serial->msgInternal  */
@@ -286,8 +282,7 @@ int MDD_serialPortReceivingThread(void * p_serial) {
                 }
                 break;
             default:
-                ModelicaFormatError("MDDSerialPort.h: Poll returned %d. That should not happen. Exiting\n", ret);
-                exit(1);
+                ModelicaFormatError("MDDSerialPort.h: Poll returned %d. That should not happen.\n", ret);
         }
     }
     return 0;
@@ -323,10 +318,9 @@ void MDD_serialPortSend(void * p_serial, const char * data, int * dataSize) {
     int ret;
     ret = write(serial->fd, data, dataSize); // write to serial port
     if (ret < dataSize) {
+        MDD_serialPortDestructor((void *) serial);
         ModelicaFormatError("MDDSerialPort.h: Expected to send: %d bytes, but was: %d\n"
                             "sendto(..) failed (%s)\n", dataSize, ret, strerror(errno));
-        MDD_serialPortDestructor((void *) serial);
-        exit(1);
     }
 
 }

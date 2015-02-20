@@ -316,7 +316,6 @@ void MDD_setPriority(int priority) {
             ret = nice(20);
             if (ret == -1 && errno != 0) {
                 ModelicaError("MDDRealtimeSynchronize.h: nice(20) failed\n");
-                exit(-1);
             }
             else {
                 ModelicaFormatMessage("ProcessPriority set to %d=nice(20) \"idle\".\n", ret);
@@ -327,7 +326,6 @@ void MDD_setPriority(int priority) {
             ret = nice(10);
             if (ret == -1 && errno != 0) {
                 ModelicaError("MDDRealtimeSynchronize.h: nice(10) failed\n");
-                exit(-1);
             }
             else {
                 ModelicaFormatMessage("ProcessPriority set to %d=nice(10) \"below normal\".\n", ret);
@@ -338,7 +336,6 @@ void MDD_setPriority(int priority) {
             ret = nice(0);
             if (ret == -1 && errno != 0) {
                 ModelicaError("MDDRealtimeSynchronize.h: nice(0) failed\n");
-                exit(-1);
             }
             else {
                 ModelicaFormatMessage("ProcessPriority set to %d=nice(0) \"normal\".\n", ret);
@@ -350,7 +347,6 @@ void MDD_setPriority(int priority) {
             ret = nice(-20);
             if (ret == -1 && errno != 0) {
                 ModelicaError("MDDRealtimeSynchronize.h: nice(-20) failed\n");
-                exit(-1);
             }
             else {
                 ModelicaFormatMessage("ProcessPriority set to %d=nice(-20) \"high\".\n", ret);
@@ -363,14 +359,12 @@ void MDD_setPriority(int priority) {
             /* Lock entire address space into physical memory */
             if(mlockall(MCL_CURRENT | MCL_FUTURE) == -1) {
                 ModelicaError("MDDRealtimeSynchronize.h: mlockall failed\n");
-                exit(-1);
             }
 
             /* Declare ourself as a real time task */
             param.sched_priority = MY_RT_PRIORITY;
             if(sched_setscheduler(0, SCHED_FIFO, &param) == -1) {
                 ModelicaError("MDDRealtimeSynchronize.h: sched_setscheduler failed\n");
-                exit(-1);
             }
             else {
                 ModelicaFormatMessage("ProcessPriority set to \"Realtime\"!\n");
@@ -420,7 +414,6 @@ double MDD_realtimeSynchronize(double simTime, int resolution, double * availabl
         ret = clock_gettime(CLOCK_MONOTONIC, &t_start);
         if (ret) {
             ModelicaError("MDDRealtimeSynchronize.h: clock_gettime(..) failed\n");
-            exit(-1);
 
         }
         t_clockRealtime = t_start;
@@ -453,7 +446,6 @@ double MDD_realtimeSynchronize(double simTime, int resolution, double * availabl
     ret = clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &t_abs, NULL);
     if (ret) {
         ModelicaError("MDDRealtimeSynchronize.h: clock_nanosleep(..) failed\n");
-        exit(1);
     }
 
     /* get value the current time of the real-time clock (should be equal to t_abs if everything is OK) */
@@ -471,7 +463,6 @@ double MDD_getTimeMS(int resolution) {
     ret = clock_gettime(CLOCK_MONOTONIC, &ts);
     if (ret) {
         ModelicaFormatError("MDDRealtimeSynchronize.h: clock_gettime failed (%s)\n", strerror(errno));
-        exit(-1);
     }
 
     ms = ts.tv_sec*1000 + floor( (double)ts.tv_nsec/1000.0 + 0.5);

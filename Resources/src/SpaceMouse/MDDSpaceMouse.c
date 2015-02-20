@@ -319,7 +319,6 @@
       ret = pthread_create(&mDDSpaceMouse->thread, 0, (void *) MDD_spaceMouseXEventsProcessing, mDDSpaceMouse);
       if (ret) {
           ModelicaFormatError("MDDSpaceMouse.c: pthread(..) failed (%s)\n", strerror(errno));
-          exit (-1);
       }
     }
 
@@ -356,13 +355,11 @@
     classhints = XAllocClassHint();
     if ( (wmhints==NULL) || (classhints==NULL) ) {
       ModelicaFormatError("MDDSpaceMouse.c: XAllocWMHints or XAllocClassHint failed\n" );
-      exit( -1 );
     };
 
     display = XOpenDisplay( NULL );
     if ( display == NULL ) {
       ModelicaFormatError("MDDSpaceMouse.c: XOpenDisplay failed \n");
-      exit( -1 );
     };
 
     window = XCreateSimpleWindow( display, DefaultRootWindow(display),
@@ -387,7 +384,6 @@
     /* Magellan Event Types */
     if ( !MagellanInit( display, window ) ) {
       ModelicaFormatError("Space Mouse (Magellan) driver not running. Exit ... \n" );
-      exit(-1);
     };
 
     #if MDD_DEBUG
@@ -445,7 +441,6 @@
                 mDDSpaceMouse->buttons[i] = 1;
               } else {
                 ModelicaFormatError("MDDSpaceMouse.c: Button %i is out of range (max=%d)\n", i, MDD_N_BUTTONS - 1);
-                exit(-1);
               }
 
               break;
@@ -464,7 +459,6 @@
                 mDDSpaceMouse->buttons[i] = 0;
               } else {
                 ModelicaFormatError("MDDSpaceMouse.c: Button %i is out of range (max=%d)\n", i, MDD_N_BUTTONS - 1);
-                exit(-1);
               }
               break;
 

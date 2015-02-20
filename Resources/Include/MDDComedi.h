@@ -35,7 +35,6 @@ void* MDD_comedi_open(const char* devicename) {
     if(device == NULL) {
         ModelicaFormatError("\nMDDComedi.h: comedi_open failure (%s)\n",
                             comedi_strerror(comedi_errno()) );
-        exit(-1);
     }
     ModelicaFormatMessage("\tOK (fd=%d).\n", comedi_fileno(device));
     ModelicaFormatMessage("           Opened comedi device fd=%d: board name=%s, driver name=%s.\n",
@@ -93,7 +92,6 @@ void MDD_comedi_dio_config(void* p_device, int subdevice, int channel, int direc
     if ( ret == -1) {
         ModelicaFormatError("MDDComedi.h: comedi_dio_config failure (%s).\n",
                             comedi_strerror(comedi_errno()) );
-        exit(-1);
     }
 }
 
@@ -128,9 +126,8 @@ int MDD_comedi_set_global_oor_behavior(int behavior) {
     enum comedi_oor_behavior oldBehavior;
 
     if (behavior >= 2) {
-        ModelicaFormatError("MDDComedi: Error, not valid argument to MDD_comedi_set_global_oor_behavior (was %d). Exiting\n",
+    ModelicaFormatError("MDDComedi: Error, not valid argument to MDD_comedi_set_global_oor_behavior (was %d).\n",
                             behavior);
-        exit(-1);
     }
 
     ModelicaFormatMessage("MDDComedi: Setting the global out-of-range behavior to %s\n",
@@ -151,8 +148,7 @@ void MDD_comedi_get_range(void* p_device, int subdevice, int channel, int range,
     comedi_range* p_range;
     p_range = comedi_get_range(device, (unsigned int)subdevice, (unsigned int)channel, (unsigned int)range);
     if (p_range == NULL) {
-        ModelicaFormatError("MDDComedi: MDD_comedi_get_range failed. exiting.\n");
-        exit(-1);
+    ModelicaFormatError("MDDComedi: MDD_comedi_get_range failed.\n");
     }
     *min = p_range->min;
     *max = p_range->max;

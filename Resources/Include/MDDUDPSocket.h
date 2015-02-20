@@ -193,8 +193,7 @@ int MDD_udpReceivingThread(void * p_udp) {
                 break;
             case 1: /* new data available */
                 if(sock_poll.revents & POLLHUP) {
-                    ModelicaMessage("The UDP socket was disconnected. Exiting.\n");
-                    exit(1);
+                                ModelicaMessage("The UDP socket was disconnected.\n");
                 }
                 else {
                     /* Lock acces to udp->msgInternal  */
@@ -217,8 +216,7 @@ int MDD_udpReceivingThread(void * p_udp) {
                     break;
                 }
             default:
-                ModelicaFormatError("MDDUDPSocket.h: Poll returned %d. That should not happen. Exiting\n", ret);
-                exit(1);
+                        ModelicaFormatError("MDDUDPSocket.h: Poll returned %d. That should not happen.\n", ret);
         }
 
     }
@@ -275,8 +273,7 @@ const char * MDD_udpNonBlockingRead(void * p_udp) {
 
         case 1: /* new data available */
             if(sock_poll.revents & POLLHUP) {
-                ModelicaMessage("The UDP socket was disconnected. Exiting.\n");
-                exit(1);
+                ModelicaFormatError("The UDP socket was disconnected. Exiting.\n");
             }
             else {
 
@@ -298,8 +295,7 @@ const char * MDD_udpNonBlockingRead(void * p_udp) {
                 break;
             }
         default:
-            ModelicaFormatError("MDDUDPSocket.h: Poll returned %d. That should not happen. Exiting\n", ret);
-            exit(1);
+		ModelicaFormatError("MDDUDPSocket.h: Poll returned %d. That should not happen.\n", ret);
     }
 
     return (const char*) udp->msgExport;
@@ -331,7 +327,6 @@ void MDD_udpSend(void * p_udp, const char * ipAddress, int port,
     hostlist = gethostbyname(ipAddress);
     if (hostlist == NULL) {
         ModelicaFormatError("MDDUDPSocket.h: gethostbyname(..) failed. Unable to resolve %s.\n", ipAddress);
-        exit(1);
     }
 
     /* Good, we have an address. However, some sites
@@ -342,7 +337,6 @@ void MDD_udpSend(void * p_udp, const char * ipAddress, int port,
     if (hostlist->h_addrtype != AF_INET) {
         ModelicaFormatError("MDDUDPSocket.h: Error, %s doesn’t seem to be an IPv4 address.\n",
                             ipAddress);
-        exit(1);
     }
 
     /* inet_ntop converts a 32-bit IP address to
@@ -377,7 +371,6 @@ void MDD_udpSend(void * p_udp, const char * ipAddress, int port,
         ModelicaFormatError("MDDUDPSocket.h: Expected to send: %d bytes, but was: %d\n"
                             "sendto(..) failed (%s)\n", dataSize, ret, strerror(errno));
         MDD_udpDestructor((void *) udp);
-        exit(1);
     }
 
 }
@@ -408,7 +401,6 @@ void * MDD_udpConstructor(int port, int bufferSize) {
     if (ret != 0) {
         ModelicaFormatError("MDDUDPSocket.h: pthread_mutex_init() failed (%s)\n",
                             strerror(errno));
-        exit(1);
     }
 
     /* Create a SOCK_DGRAM socket. */
@@ -416,7 +408,6 @@ void * MDD_udpConstructor(int port, int bufferSize) {
     if (udp->sock < 0) {
         ModelicaFormatError("MDDUDPSocket.h: socket(..) failed (%s)\n",
                             strerror(errno));
-        exit(1);
     }
     ModelicaFormatMessage("Created socket handle: %d (%s socket)\n",
                           udp->sock, port == 0 ? "sending" : "receiving");
@@ -444,7 +435,6 @@ void * MDD_udpConstructor(int port, int bufferSize) {
             ModelicaFormatError("MDDUDPSocket.h: bind(..) failed (%s)\n",
                                 port,
                                 strerror(errno));
-            exit(1);
         }
 
         /* Start dedicated receiver thread */
@@ -452,7 +442,6 @@ void * MDD_udpConstructor(int port, int bufferSize) {
         ret = pthread_create(&udp->thread, 0, (void *) MDD_udpReceivingThread, udp);
         if (ret) {
             ModelicaFormatError("MDDUDPSocket: pthread(..) failed\n");
-            exit (1);
         }
     }
 

@@ -142,7 +142,6 @@ DllExport void* MDD_softingCANConstructor(const char* deviceName, int baudRate) 
     ret = INIL2_initialize_channel(&channel.ulChannelHandle, (char*) channel.sChannelName);
     if(ret) {
         ModelicaFormatError("%s",descriptiveError(ret, "INIL2_initialize_channel"));
-        exit(ret);
     }
     mDDSoftingCAN->can = channel.ulChannelHandle;
     ModelicaFormatMessage("\tOK.\n");
@@ -151,7 +150,6 @@ DllExport void* MDD_softingCANConstructor(const char* deviceName, int baudRate) 
     ret = CANL2_reset_chip(mDDSoftingCAN->can);
     if(ret) {
         ModelicaFormatError("%s",descriptiveError(ret, "CANL2_reset_chip"));
-        exit(ret);
     }
     ModelicaFormatMessage("\tOK.\n");
 
@@ -205,12 +203,10 @@ DllExport void* MDD_softingCANConstructor(const char* deviceName, int baudRate) 
         default:
             ModelicaFormatError("SoftingCAN (%s): Initializing chip with not (yet) supported Baud Rate (enum value %d)\n",
                                 mDDSoftingCAN->deviceName, baudRate);
-            exit(-1);
     }
 
     if(ret) {
         ModelicaFormatError("%s",descriptiveError(ret, "CANL2_initialize_chip"));
-        exit(ret);
     }
     ModelicaFormatMessage("\tOK.\n");
 
@@ -219,7 +215,6 @@ DllExport void* MDD_softingCANConstructor(const char* deviceName, int baudRate) 
                                ACCEPT_CODE_XTD_1);
     if (ret) {
         ModelicaFormatError("%s",descriptiveError(ret, "CANL2_set_acceptance"));
-        exit(ret);
     }
     ModelicaFormatMessage("\tOK.\n");
 
@@ -227,7 +222,6 @@ DllExport void* MDD_softingCANConstructor(const char* deviceName, int baudRate) 
     ret = CANL2_set_output_control(mDDSoftingCAN->can, OUTPUT_CONTROL_1);
     if(ret) {
         ModelicaFormatError("%s",descriptiveError(ret, "CANL2_set_output_control"));
-        exit(ret);
     }
     ModelicaFormatMessage("\tOK.\n");
 
@@ -235,7 +229,6 @@ DllExport void* MDD_softingCANConstructor(const char* deviceName, int baudRate) 
     ret = CANL2_enable_dyn_obj_buf(mDDSoftingCAN->can);
     if(ret) {
         ModelicaFormatError("%s",descriptiveError(ret, "CANL2_enable_dyn_obj_buf"));
-        exit(ret);
     }
     ModelicaFormatMessage("\tOK.\n");
 
@@ -243,7 +236,6 @@ DllExport void* MDD_softingCANConstructor(const char* deviceName, int baudRate) 
     ret = CANL2_initialize_interface(mDDSoftingCAN->can, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0);
     if(ret) {
         ModelicaFormatError("%s",descriptiveError(ret, "CANL2_initialize_interface"));
-        exit(ret);
     }
     ModelicaFormatMessage("\tOK.\n");
 
@@ -280,7 +272,6 @@ DllExport int MDD_softingCANDefineObject(void* p_mDDSoftingCAN, int ident, int t
                               type - 1, 0, 0, 1);
     if (ret) {
         ModelicaFormatError("%s",descriptiveError(ret, "CANL2_define_object"));
-        exit(ret);
     }
     switch (type) {
         case 1:
@@ -296,8 +287,7 @@ DllExport int MDD_softingCANDefineObject(void* p_mDDSoftingCAN, int ident, int t
             strcpy(msgtype, "ext tx");
             break;
         default:
-            ModelicaFormatError("SoftingCAN: Unsupported message type. Exiting.\n");
-            exit(-1);
+		ModelicaFormatError("SoftingCAN: Unsupported message type.\n");
     }
 
     ModelicaFormatMessage("SoftingCAN (%s): Defined %s message, id %d (0x%x). Got object number %d.\n",
@@ -314,7 +304,6 @@ DllExport void MDD_softingCANWriteObject(void* p_mDDSoftingCAN, int objectNumber
                              (unsigned char*) data);
     if(ret) {
         ModelicaFormatMessage("%s", descriptiveError(ret, "CANL2_write_object"));
-        exit(ret);
     }
 }
 
@@ -361,7 +350,6 @@ DllExport const char* MDD_softingCANReadRcvData(void* p_mDDSoftingCAN, int objec
             ModelicaFormatError("RCV Remote: CAN%lu Ident0x%lX  Obj0x%x  Time%lu\n",
                                 mDDSoftingCAN->can, -100, objectNumber, Time);
             ModelicaFormatError("Error: Received remote frame instead of data frame, CANL2_read_rcv()\n");
-            exit(-1);
         default:
             break;
     }
@@ -378,7 +366,6 @@ DllExport void MDD_softingCANStartChip(void* p_mDDSoftingCAN) {
     ret = CANL2_start_chip(mDDSoftingCAN->can);
     if(ret) {
         ModelicaFormatError("%s",descriptiveError(ret, "CANL2_start_chip"));
-        exit(ret);
     }
     ModelicaFormatMessage("\tOK.\n");
 }

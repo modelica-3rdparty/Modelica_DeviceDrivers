@@ -47,7 +47,6 @@ extern "C" {
 
 		if (pos == mapIntInt->end()) {
 			ModelicaFormatError("MDD_mapIntIntLookup: Key '%d' not found\n", key);
-			exit(-1);
 		}
 		return pos->second;
 	}
