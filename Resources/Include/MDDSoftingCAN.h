@@ -287,7 +287,7 @@ DllExport int MDD_softingCANDefineObject(void* p_mDDSoftingCAN, int ident, int t
             strcpy(msgtype, "ext tx");
             break;
         default:
-		ModelicaFormatError("SoftingCAN: Unsupported message type.\n");
+            ModelicaFormatError("SoftingCAN: Unsupported message type.\n");
     }
 
     ModelicaFormatMessage("SoftingCAN (%s): Defined %s message, id %d (0x%x). Got object number %d.\n",

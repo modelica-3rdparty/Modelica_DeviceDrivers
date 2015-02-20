@@ -193,7 +193,7 @@ int MDD_udpReceivingThread(void * p_udp) {
                 break;
             case 1: /* new data available */
                 if(sock_poll.revents & POLLHUP) {
-                                ModelicaMessage("The UDP socket was disconnected.\n");
+                    ModelicaMessage("The UDP socket was disconnected.\n");
                 }
                 else {
                     /* Lock acces to udp->msgInternal  */
@@ -216,7 +216,7 @@ int MDD_udpReceivingThread(void * p_udp) {
                     break;
                 }
             default:
-                        ModelicaFormatError("MDDUDPSocket.h: Poll returned %d. That should not happen.\n", ret);
+                ModelicaFormatError("MDDUDPSocket.h: Poll returned %d. That should not happen.\n", ret);
         }
 
     }
@@ -295,7 +295,7 @@ const char * MDD_udpNonBlockingRead(void * p_udp) {
                 break;
             }
         default:
-		ModelicaFormatError("MDDUDPSocket.h: Poll returned %d. That should not happen.\n", ret);
+            ModelicaFormatError("MDDUDPSocket.h: Poll returned %d. That should not happen.\n", ret);
     }
 
     return (const char*) udp->msgExport;

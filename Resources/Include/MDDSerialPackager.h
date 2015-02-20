@@ -104,7 +104,7 @@ DllExport void MDD_SerialPackagerSetData( void* p_package, const char * data, in
     SerialPackager* pkg = (SerialPackager*) p_package;
     memcpy(pkg->data, data,  size);
     if ( (unsigned int) size > pkg->size) {
-                ModelicaFormatError("SerialPackager: MDD_SerialPackagerSetData failed. Buffer overflow.\n");
+        ModelicaFormatError("SerialPackager: MDD_SerialPackagerSetData failed. Buffer overflow.\n");
     }
     pkg->size = size;
     pkg->pos = 0;
@@ -165,7 +165,7 @@ DllExport void MDD_SerialPackagerAddInteger(void* p_package, int * u, size_t n) 
         MDD_SerialPackagerAlignToByteBoundary(pkg);
     }
     if (pkg->pos + n*sizeof(int) > pkg->size) {
-                ModelicaFormatError("SerialPackager: MDD_SerialPackagerAddInteger failed. Buffer overflow.\n");
+        ModelicaFormatError("SerialPackager: MDD_SerialPackagerAddInteger failed. Buffer overflow.\n");
     }
     memcpy(pkg->data + pkg->pos, u, n*sizeof(int));
     pkg->pos += n*sizeof(int);
@@ -188,7 +188,7 @@ DllExport void MDD_SerialPackagerGetInteger(void* p_package, int * y, int n) {
         MDD_SerialPackagerAlignToByteBoundary(pkg);
     }
     if (pkg->pos + n*sizeof(int) > pkg->size) {
-                ModelicaFormatError("SerialPackager: MDD_SerialPackagerGetInteger failed. Buffer overflow.\n");
+        ModelicaFormatError("SerialPackager: MDD_SerialPackagerGetInteger failed. Buffer overflow.\n");
     }
     memcpy(y, pkg->data + pkg->pos, n*sizeof(int));
     pkg->pos += n*sizeof(int);
@@ -209,7 +209,7 @@ DllExport void MDD_SerialPackagerAddDouble(void* p_package, double * u, size_t n
         MDD_SerialPackagerAlignToByteBoundary(pkg);
     }
     if (pkg->pos + n*sizeof(double) > pkg->size) {
-                ModelicaFormatError("SerialPackager: MDD_SerialPackagerAddDouble failed. Buffer overflow.\n");
+        ModelicaFormatError("SerialPackager: MDD_SerialPackagerAddDouble failed. Buffer overflow.\n");
     }
     memcpy(pkg->data + pkg->pos, u, n*sizeof(double));
     pkg->pos += n*sizeof(double);
@@ -230,7 +230,7 @@ DllExport void MDD_SerialPackagerGetDouble(void* p_package, double * y, int n) {
         MDD_SerialPackagerAlignToByteBoundary(pkg);
     }
     if (pkg->pos + n*sizeof(double) > pkg->size) {
-                ModelicaFormatError("SerialPackager: MDD_SerialPackagerGetDouble failed. Buffer overflow.\n");
+        ModelicaFormatError("SerialPackager: MDD_SerialPackagerGetDouble failed. Buffer overflow.\n");
     }
     memcpy(y, pkg->data + pkg->pos, n*sizeof(double));
     pkg->pos += n*sizeof(double);
@@ -252,7 +252,7 @@ DllExport void MDD_SerialPackagerAddDoubleAsFloat(void* p_package, double * u, s
         MDD_SerialPackagerAlignToByteBoundary(pkg);
     }
     if (pkg->pos + n*sizeof(float) > pkg->size) {
-                ModelicaFormatError("SerialPackager: MDD_SerialPackagerAddDoubleAsFloat failed. Buffer overflow.\n");
+        ModelicaFormatError("SerialPackager: MDD_SerialPackagerAddDoubleAsFloat failed. Buffer overflow.\n");
     }
     for (i = 0; i < n; i++) {
         castedDouble = (float) u[i];
@@ -278,7 +278,7 @@ DllExport void MDD_SerialPackagerGetFloatAsDouble(void* p_package, double * y, i
         MDD_SerialPackagerAlignToByteBoundary(pkg);
     }
     if (pkg->pos + n*sizeof(float) > pkg->size) {
-                ModelicaFormatError("SerialPackager: MDD_SerialPackagerGetFloatAsDouble failed. Buffer overflow.\n");
+        ModelicaFormatError("SerialPackager: MDD_SerialPackagerGetFloatAsDouble failed. Buffer overflow.\n");
     }
     for (i = 0; i < n; i++) {
         memcpy(&value, pkg->data + pkg->pos + i*sizeof(float), sizeof(float));
@@ -307,7 +307,7 @@ DllExport void MDD_SerialPackagerAddString(void* p_package, const char* u, int b
     if (pkg->pos + bufferSize > pkg->size) {
         ModelicaFormatMessage("pkg->size: %d, pkg->pos+bufferSize: %d, bufferSize: %d, strlen(u): %d\n",
                               pkg->size, pkg->pos+bufferSize, bufferSize, strlen(u));
-                ModelicaFormatError("SerialPackager: MDD_SerialPackagerAddString failed. Buffer overflow.\n");
+        ModelicaFormatError("SerialPackager: MDD_SerialPackagerAddString failed. Buffer overflow.\n");
     }
     memcpy(pkg->data + pkg->pos, u, bufferSize);
     pkg->pos += bufferSize;
@@ -331,7 +331,7 @@ DllExport char* MDD_SerialPackagerGetString(void* p_package, int bufferSize) {
     }
 
     if (pkg->pos + bufferSize > pkg->size) {
-                ModelicaFormatError("SerialPackager: MDD_SerialPackagerGetString failed. Buffer overflow.\n");
+        ModelicaFormatError("SerialPackager: MDD_SerialPackagerGetString failed. Buffer overflow.\n");
     }
 
     for (i=pkg->pos; i < pkg->pos + bufferSize; i++) {
@@ -374,12 +374,12 @@ DllExport int MDD_SerialPackagerIntegerBitunpack(void* p_package, int bitOffset,
     	bitOffset, width, pkg->pos, pkg->bitOffset);*/
     if (width > 32) {
         ModelicaFormatError("SerialPackager: MDD_SerialPackagerIntegerBitunpacking failed."
-                "width > 32.\n");
+                            "width > 32.\n");
     }
 
     if ((unsigned int) bitOffset < pkg->bitOffset) {
         ModelicaFormatError("SerialPackager: Cowardly refusing to start reading at bitOffset %d "
-                "which is lower than the current Packager bitOffset %d.\n", bitOffset, pkg->bitOffset);
+                            "which is lower than the current Packager bitOffset %d.\n", bitOffset, pkg->bitOffset);
     }
 
     posStart = pkg->pos + bitOffset / 8;
@@ -440,18 +440,18 @@ DllExport void MDD_SerialPackagerIntegerBitpack(void* p_package, int bitOffset, 
 
     if (width > 32) {
         ModelicaFormatError("SerialPackager: MDD_SerialPackagerIntegerBitpack failed."
-			"width > 32.\n");
+                            "width > 32.\n");
     }
     if ((unsigned int)bitOffset < pkg->bitOffset) {
         ModelicaFormatError("SerialPackager: Cowardly refusing to start writing at bitOffset %d "
-			"which is lower than the current Packager bitOffset %d.\n", bitOffset, pkg->bitOffset);
+                            "which is lower than the current Packager bitOffset %d.\n", bitOffset, pkg->bitOffset);
     }
     if ( width < 32 && (unsigned int)data >= 0x1u << (unsigned int)width ) {
         ModelicaFormatError("SerialPackager: Warning: Value %d can't be encoded into %d bits or is negative (no signed int support)!\n", data, width);
     }
     posEnd = (bitOffset + width) % 8 == 0 ? pkg->pos + (bitOffset + width) / 8 : pkg->pos + (bitOffset + width) / 8 + 1;
     if (posEnd > pkg->size) {
-			ModelicaFormatError("SerialPackager: MDD_SerialPackagerIntegerBitpack failed. Buffer overflow.\n");
+        ModelicaFormatError("SerialPackager: MDD_SerialPackagerIntegerBitpack failed. Buffer overflow.\n");
     }
 
     memset(bits, 0, 40);
@@ -591,7 +591,7 @@ void * MDD_SerialPackagerMemcpyBitRead(void* destination, const void* source, un
     int i=0,nBits=bitLength;
 
     if (bitSourceOffset > 7) {
-                ModelicaFormatError("MDDSerialPackager: bit offsets in MDD_SerialPackagerBitmemcpy greater than max value 7.\n");
+        ModelicaFormatError("MDDSerialPackager: bit offsets in MDD_SerialPackagerBitmemcpy greater than max value 7.\n");
     }
 
     if (bitSourceOffset == 0 && bitLength % 8 == 0) {

@@ -71,7 +71,7 @@ DllExport void MDD_setPriority(int priority) {
             ModelicaFormatMessage("LastError: %d\n", dw);
         }
     }
-  }
+}
 
 typedef struct {
     DWORD prio;
@@ -290,7 +290,7 @@ DllExport double MDD_realtimeSynchronize(double simTime, int resolution, double 
 #include <stdlib.h>
 #include <unistd.h>
 #include <errno.h>
-  #include <string.h>
+#include <string.h>
 #include <sys/mman.h>
 #include "../src/include/CompatibilityDefs.h"
 #define MY_RT_PRIORITY (49) /**< we use 49 since PRREMPT_RT use 50
