@@ -65,7 +65,83 @@ DllExport void MDD_setPriority(int priority) {
             break;
     }
 
-    ModelicaFormatMessage("LastError: %d\n",GetLastError());
+    {
+        DWORD dw = GetLastError();
+        if (dw) {
+            ModelicaFormatMessage("LastError: %d\n", dw);
+        }
+    }
+  }
+
+typedef struct {
+    DWORD prio;
+} ProcPrio;
+
+DllExport void* MDD_ProcessPriorityConstructor(int priority) {
+    ProcPrio* prio = (ProcPrio*) malloc(sizeof(ProcPrio));
+    if (prio) {
+        prio->prio = GetPriorityClass(GetCurrentProcess());
+    }
+    MDD_setPriority(priority);
+    return (void*) prio;
+}
+
+DllExport void MDD_ProcessPriorityDestructor(void* prioObj) {
+    ProcPrio* prio = (ProcPrio*) prioObj;
+    if (prio) {
+        switch (prio->prio) {
+            case IDLE_PRIORITY_CLASS:
+                ModelicaFormatMessage("setting...\n");
+                if (SetPriorityClass(GetCurrentProcess(), IDLE_PRIORITY_CLASS)) {
+                    ModelicaFormatMessage("ProcessPriority set to idle.\n");
+                }
+                break;
+
+            case BELOW_NORMAL_PRIORITY_CLASS:
+                ModelicaFormatMessage("setting...\n");
+                if (SetPriorityClass(GetCurrentProcess(), BELOW_NORMAL_PRIORITY_CLASS)) {
+                    ModelicaFormatMessage("ProcessPriority set to below normal.\n");
+                }
+                break;
+
+            case NORMAL_PRIORITY_CLASS:
+                ModelicaFormatMessage("setting...\n");
+                if (SetPriorityClass(GetCurrentProcess(), NORMAL_PRIORITY_CLASS)) {
+                    ModelicaFormatMessage("ProcessPriority set to normal.\n");
+                }
+                break;
+
+            case HIGH_PRIORITY_CLASS:
+                ModelicaFormatMessage("setting...\n");
+                if (SetPriorityClass(GetCurrentProcess(), HIGH_PRIORITY_CLASS)) {
+                    ModelicaFormatMessage("ProcessPriority set to high.\n");
+                }
+                break;
+
+            case REALTIME_PRIORITY_CLASS:
+                ModelicaFormatMessage("setting...\n");
+                if (SetPriorityClass(GetCurrentProcess(), REALTIME_PRIORITY_CLASS)) {
+                    ModelicaFormatMessage("ProcessPriority set to realtime.\n");
+                }
+                break;
+
+            default:
+                ModelicaFormatMessage("setting...\n");
+                if (SetPriorityClass(GetCurrentProcess(), NORMAL_PRIORITY_CLASS)) {
+                    ModelicaFormatMessage("ProcessPriority set to normal.\n");
+                }
+                break;
+        }
+
+        {
+            DWORD dw = GetLastError();
+            if (dw) {
+                ModelicaFormatMessage("LastError: %d\n", dw);
+            }
+        }
+
+        free(prio);
+    }
 }
 
 /** Request time from a monotonic increasing real-time clock.
@@ -214,6 +290,7 @@ DllExport double MDD_realtimeSynchronize(double simTime, int resolution, double 
 #include <stdlib.h>
 #include <unistd.h>
 #include <errno.h>
+  #include <string.h>
 #include <sys/mman.h>
 #include "../src/include/CompatibilityDefs.h"
 #define MY_RT_PRIORITY (49) /**< we use 49 since PRREMPT_RT use 50
@@ -305,6 +382,23 @@ void MDD_setPriority(int priority) {
             break;
     }
 
+}
+
+typedef struct {
+    int prio; /* dummy */
+} ProcPrio;
+
+DllExport void* MDD_ProcessPriorityConstructor(int priority) {
+    ProcPrio* prio = (ProcPrio*) malloc(sizeof(ProcPrio));
+    MDD_setPriority(priority);
+    return (void*) prio;
+}
+
+DllExport void MDD_ProcessPriorityDestructor(void* prioObj) {
+    ProcPrio* prio = (ProcPrio*) prioObj;
+    if (prio) {
+        free(prio);
+    }
 }
 
 /** Slow down task so that simulation time == real-time.
