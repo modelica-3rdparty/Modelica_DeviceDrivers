@@ -126,7 +126,7 @@ int MDD_comedi_set_global_oor_behavior(int behavior) {
     enum comedi_oor_behavior oldBehavior;
 
     if (behavior >= 2) {
-    ModelicaFormatError("MDDComedi: Error, not valid argument to MDD_comedi_set_global_oor_behavior (was %d).\n",
+        ModelicaFormatError("MDDComedi: Error, not valid argument to MDD_comedi_set_global_oor_behavior (was %d).\n",
                             behavior);
     }
 
@@ -148,7 +148,7 @@ void MDD_comedi_get_range(void* p_device, int subdevice, int channel, int range,
     comedi_range* p_range;
     p_range = comedi_get_range(device, (unsigned int)subdevice, (unsigned int)channel, (unsigned int)range);
     if (p_range == NULL) {
-    ModelicaFormatError("MDDComedi: MDD_comedi_get_range failed.\n");
+        ModelicaFormatError("MDDComedi: MDD_comedi_get_range failed.\n");
     }
     *min = p_range->min;
     *max = p_range->max;

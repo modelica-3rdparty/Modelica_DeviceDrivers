@@ -263,7 +263,7 @@ int MDD_serialPortReceivingThread(void * p_serial) {
                 break;
             case 1: /* new data available */
                 if(serial_poll.revents & POLLHUP) {
-                        ModelicaMessage("The serial port was disconnected.\n");
+                    ModelicaMessage("The serial port was disconnected.\n");
                 }
                 else {
                     /* Lock acces to serial->msgInternal  */

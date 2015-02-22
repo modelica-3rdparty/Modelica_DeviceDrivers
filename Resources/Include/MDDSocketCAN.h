@@ -292,7 +292,7 @@ int MDD_socketCANRxThread(MDDSocketCAN * mDDSocketCAN) {
             case 1: /* new data available */
                 if(sock_poll.revents & POLLHUP) {
                     ModelicaFormatError("SocketCAN (%s): The CAN socket was disconnected.\n",
-                                          mDDSocketCAN->ifr.ifr_name);
+                                        mDDSocketCAN->ifr.ifr_name);
                 }
                 else {
                     /* Receive the next CAN frame  */
@@ -319,7 +319,7 @@ int MDD_socketCANRxThread(MDDSocketCAN * mDDSocketCAN) {
                     break;
                 }
             default:
-	 ModelicaFormatError("MDDSocketCAN.h: Poll returned %d. That should not happen.\n", ret);
+                ModelicaFormatError("MDDSocketCAN.h: Poll returned %d. That should not happen.\n", ret);
         }
     }
     return 0;
