@@ -43,6 +43,7 @@ struct MDDUDPSocket_s {
     SOCKET SocketID;
     int receiving;
     int receivedBytes;
+    HANDLE hThread;
 };
 
 DWORD WINAPI MDD_udpReceivingThread(LPVOID pUdp) {
@@ -55,7 +56,8 @@ DWORD WINAPI MDD_udpReceivingThread(LPVOID pUdp) {
         remoteAddrLen=sizeof(SOCKADDR);
         udp->receivedBytes=recvfrom(udp->SocketID,udp->receiveBuffer,udp->bufferSize,0,&remoteAddr,&remoteAddrLen);
         if(udp->receivedBytes==SOCKET_ERROR) {
-            ModelicaFormatMessage("UDPSocket: receiving not possible, Socket not valid.\n");
+            ModelicaFormatMessage("MDDUDPSocket.h: Receiving not possible, socket not valid.\n");
+            ExitThread(SOCKET_ERROR);
         }
     }
     return 0;
@@ -63,50 +65,79 @@ DWORD WINAPI MDD_udpReceivingThread(LPVOID pUdp) {
 
 DllExport void * MDD_udpConstructor(int port, int bufferSize) {
 
-    int rc;                /* Fehlervariable */
+    int rc;                /*  Error variable */
     WSADATA wsa;
     SOCKADDR_IN addr;
     DWORD id1;
-    MDDUDPSocket * udp = (MDDUDPSocket *)malloc(sizeof(MDDUDPSocket));
+    MDDUDPSocket * udp;
 
+    rc = WSAStartup(MAKEWORD(2,0),&wsa);
+    if (rc != NO_ERROR) {
+        ModelicaFormatError("MDDUDPSocket.h: WSAStartup failed: %d\n", rc);
+    }
+
+    udp = (MDDUDPSocket *)malloc(sizeof(MDDUDPSocket));
+    udp->hThread = NULL;
+    udp->SocketID = socket(AF_INET,SOCK_DGRAM,0);
+    if (udp->SocketID == INVALID_SOCKET) {
+        free(udp);
+        rc = WSAGetLastError();
+        WSACleanup();
+        ModelicaFormatError("MDDUDPSocket.h: Error at socket(): %ld\n", rc);
+    }
     udp->receiveBuffer = (char*)malloc(bufferSize);
     udp->receiving = 1;
     udp->bufferSize = bufferSize;
     udp->receivedBytes = 0;
-
-    rc = WSAStartup(MAKEWORD(2,0),&wsa);
-    udp->SocketID=socket(AF_INET,SOCK_DGRAM,0);
-    addr.sin_family=AF_INET;
-    addr.sin_port=htons(port);
-    addr.sin_addr.s_addr=INADDR_ANY;
+    addr.sin_family = AF_INET;
+    addr.sin_port = htons(port);
+    addr.sin_addr.s_addr = INADDR_ANY;
     memset(udp->receiveBuffer,0,bufferSize);
 
-    if(port) {
+    if (port) {
         rc = bind(udp->SocketID,(SOCKADDR*)&addr,sizeof(SOCKADDR_IN));
-    }
-    if(rc==INVALID_SOCKET && port !=0) {
-        ModelicaFormatMessage("MDDUDPSocket.h: Error at bind(..) to port %d\n", port);
+        if (rc == INVALID_SOCKET) {
+            free(udp->receiveBuffer);
+            free(udp);
+            WSACleanup();
+            ModelicaFormatError("MDDUDPSocket.h: Error at bind(..) to port %d\n", port);
+        }
+        udp->hThread = CreateThread(0,1024,MDD_udpReceivingThread,udp,0,&id1);
+        if (!udp->hThread) {
+            free(udp->receiveBuffer);
+            free(udp);
+            WSACleanup();
+            ModelicaError("MDDUDPSocket.h: Error creating UDP Receiver thread.\n");
+        }
+        ModelicaFormatMessage("MDDUDPSocket.h: Waiting for data on port %d.\n", port);
     }
     else {
-
-        if(port) {
-            ModelicaFormatMessage("MDDUDPSocket.h:: Waiting for data on port %d.\n",port);
-            CreateThread(0,1024,MDD_udpReceivingThread,udp,0,&id1);
-        }
-        else {
-            ModelicaFormatMessage("MDDUDPSocket.h: Opened socket for sending.\n");
-        }
-
+        ModelicaMessage("MDDUDPSocket.h: Opened socket for sending.\n");
     }
     return (void *) udp;
 }
+
 DllExport void MDD_udpDestructor(void * p_udp) {
+    int rc;
     MDDUDPSocket * udp = (MDDUDPSocket *) p_udp;
     udp->receiving = 0;
-    closesocket(udp->SocketID);
+    rc = shutdown(udp->SocketID, 2);
+    if (rc == SOCKET_ERROR) {
+        ModelicaFormatMessage("MDDUDPSocket.h: shutdown failed: %d\n", WSAGetLastError());
+    }
+    rc = closesocket(udp->SocketID);
+    if (udp->hThread) {
+        DWORD dwEc = -1;
+        while (GetExitCodeThread(udp->hThread, &dwEc) && dwEc == STILL_ACTIVE) {
+            ;
+        }
+        CloseHandle(udp->hThread);
+    }
+    WSACleanup();
     free(udp->receiveBuffer);
     free(udp);
 }
+
 DllExport void MDD_udpSend(void * p_udp, const char * ipAddress, int port,
                            const char * data, int dataSize) {
     MDDUDPSocket * udp = (MDDUDPSocket *) p_udp;
@@ -117,6 +148,7 @@ DllExport void MDD_udpSend(void * p_udp, const char * ipAddress, int port,
     sendto(udp->SocketID,data,dataSize,0,(SOCKADDR*)&addr,sizeof(SOCKADDR_IN));
 
 }
+
 DllExport const char * MDD_udpRead(void * p_udp) {
     MDDUDPSocket * udp = (MDDUDPSocket *) p_udp;
     udp->receivedBytes = 0;

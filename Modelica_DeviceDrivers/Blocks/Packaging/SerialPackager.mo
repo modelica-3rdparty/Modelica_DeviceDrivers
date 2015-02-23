@@ -198,7 +198,7 @@ package SerialPackager "Blocks for constructing packages"
       "Buffer size for package if backward propagation of buffer size is deactivated"
                                                                                       annotation (Dialog(enable = not useBackwardPropagatedBufferSize, tab="Advanced"));
 
-    Interfaces.PackageOut pkgOut
+    Interfaces.PackageOut pkgOut(pkg = SerialPackager(bufferSize))
       annotation (Placement(transformation(extent={{-20,-128},{20,-88}})));
   protected
     Integer backwardPropagatedBufferSize;
@@ -207,14 +207,11 @@ package SerialPackager "Blocks for constructing packages"
 
     when initial() then
       /* If userPkgBitSize is set, use it. Otherwise use auto package size. */
-      backwardPropagatedBufferSize =  if pkgOut.userPkgBitSize > 0 then
+      backwardPropagatedBufferSize = if pkgOut.userPkgBitSize > 0 then
           alignAtByteBoundary(pkgOut.userPkgBitSize)  else
           alignAtByteBoundary(pkgOut.autoPkgBitSize);
       bufferSize = if useBackwardPropagatedBufferSize then backwardPropagatedBufferSize
          else userBufferSize;
-      pkgOut.pkg = SerialPackager(bufferSize);
-      Modelica.Utilities.Streams.print("SerialPackager: Created package with "
-        +String(bufferSize)+" bytes size.");
     end when;
 
     pkgOut.trigger = if useBackwardSampleTimePropagation then pkgOut.backwardTrigger else sample(0,sampleTime);
@@ -264,7 +261,7 @@ and one Integer value is added, serialized and finally sent using UDP.
     when initial() then
       pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundary(pkgOut[1].autoPkgBitSize)*8 + n*32 else n*32;
     end when;
-    when (pkgIn.trigger) then
+    when pkgIn.trigger then
       pkgOut.dummy =
         Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.DummyFunctions.addInteger(
           pkgOut.pkg,
@@ -301,7 +298,7 @@ and one Integer value is added, serialized and finally sent using UDP.
     when initial() then
       pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundary(pkgOut[1].autoPkgBitSize)*8 + n*32 else n*32;
     end when;
-    when (pkgIn.trigger) then
+    when pkgIn.trigger then
       pkgOut.dummy =
         Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.DummyFunctions.addInteger(
           pkgOut.pkg,
@@ -342,7 +339,7 @@ and one Integer value is added, serialized and finally sent using UDP.
       pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundary(pkgOut[1].autoPkgBitSize)*8 + n*64 else n*64;
     end when;
 
-    when (pkgIn.trigger) then
+    when pkgIn.trigger then
       pkgOut.dummy =
         Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.DummyFunctions.addReal(
           pkgOut.pkg,
@@ -382,7 +379,7 @@ and one Integer value is added, serialized and finally sent using UDP.
       pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundary(pkgOut[1].autoPkgBitSize)*8 + n*32 else n*32;
     end when;
 
-    when (pkgIn.trigger) then
+    when pkgIn.trigger then
       pkgOut.dummy =
         Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.DummyFunctions.addRealAsFloat(
           pkgOut.pkg,
@@ -418,7 +415,7 @@ and one Integer value is added, serialized and finally sent using UDP.
       pkgIn.autoPkgBitSize = if nu == 1 then
         alignAtByteBoundary(pkgOut[1].autoPkgBitSize)*8 + bufferSize*8 else bufferSize*8;
     end when;
-    when (pkgIn.trigger) then
+    when pkgIn.trigger then
       assert((Modelica.Utilities.Strings.length(data) + 1 <= bufferSize),
       "AddString: Length of string (+ string termination character) exceeds reserved bufferSize");
       pkgOut.dummy =
@@ -462,7 +459,7 @@ and one Integer value is added, serialized and finally sent using UDP.
       pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundary( pkgOut[1].autoPkgBitSize)*8 + n*32 else n*32;
     end when;
 
-    when (pkgIn.trigger) then
+    when pkgIn.trigger then
       (y_int, dummy) =
         Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.DummyFunctions.getInteger(
           pkgIn.pkg,
@@ -506,7 +503,7 @@ and one Integer value is added, serialized and finally sent using UDP.
       pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundary( pkgOut[1].autoPkgBitSize)*8 + n*32 else n*32;
     end when;
 
-    when (pkgIn.trigger) then
+    when pkgIn.trigger then
       (y,dummy) =
         Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.DummyFunctions.getInteger(
           pkgIn.pkg,
@@ -547,7 +544,7 @@ and one Integer value is added, serialized and finally sent using UDP.
       pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundary(pkgOut[1].autoPkgBitSize)*8 + n*64 else n*64;
     end when;
 
-    when (pkgIn.trigger) then
+    when pkgIn.trigger then
       (y,dummy) =
          Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.DummyFunctions.getReal(
           pkgIn.pkg,
@@ -591,7 +588,7 @@ and one Integer value is added, serialized and finally sent using UDP.
       pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundary(pkgOut[1].autoPkgBitSize)*8 + n*32 else n*32;
     end when;
 
-    when (pkgIn.trigger) then
+    when pkgIn.trigger then
       (y,dummy) =
          Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.DummyFunctions.getRealFromFloat(
           pkgIn.pkg,
@@ -633,7 +630,7 @@ and one Integer value is added, serialized and finally sent using UDP.
       pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundary(pkgOut[1].autoPkgBitSize)*8 + bufferSize*8 else bufferSize*8;
     end when;
 
-    when (pkgIn.trigger) then
+    when pkgIn.trigger then
       (data,dummy) =
         Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.DummyFunctions.getString(
           pkgIn.pkg,
@@ -671,7 +668,7 @@ and one Integer value is added, serialized and finally sent using UDP.
       pkgIn.autoPkgBitSize = if nu == 1 then pkgOut[1].autoPkgBitSize + bitOffset + width else bitOffset + width;
     end when;
 
-    when (pkgIn.trigger) then
+    when pkgIn.trigger then
       pkgOut.dummy =
         Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.DummyFunctions.integerBitPack(
           pkgOut.pkg,
@@ -682,7 +679,7 @@ and one Integer value is added, serialized and finally sent using UDP.
     end when;
 
     annotation (defaultComponentName="packInt",
-      Icon(graphics={
+ Icon(graphics={
           Text(
             extent={{-120,40},{-40,-40}},
             lineColor={255,127,0},
@@ -734,7 +731,7 @@ Value of bit                   : (0  0  0  0  0  0  1  1)  (.  .   .  .  .  .  0
       pkgIn.autoPkgBitSize = if nu == 1 then pkgOut[1].autoPkgBitSize + bitOffset + width else bitOffset + width;
     end when;
 
-    when (pkgIn.trigger) then
+    when pkgIn.trigger then
       (y,dummy) =
         Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.DummyFunctions.integerBitUnpack(
           pkgIn.pkg,
@@ -745,7 +742,7 @@ Value of bit                   : (0  0  0  0  0  0  1  1)  (.  .   .  .  .  .  0
     end when;
 
     annotation (defaultComponentName="unpackInt",
-      Icon(graphics={
+ Icon(graphics={
           Bitmap(extent={{-7,19},{57,-20}}, fileName=
                 "Modelica://Modelica_DeviceDrivers/Resources/Images/Icons/Bit2IntArrow.png"),
           Text(
@@ -787,10 +784,10 @@ Value of bit                   :                               0  1  .  .  .  . 
   protected
       Real dummy;
   equation
-    when (initial()) then
+    when initial() then
       pkgIn.autoPkgBitSize = 0;
     end when;
-    when (pkgIn.trigger) then
+    when pkgIn.trigger then
       dummy =
         Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.DummyFunctions.resetPointer(pkgIn.pkg, pkgIn.dummy);
       pkgOut.dummy = fill(dummy,nu);
