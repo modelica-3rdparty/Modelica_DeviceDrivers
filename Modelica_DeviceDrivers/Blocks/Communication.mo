@@ -17,21 +17,18 @@ package Communication
       "Buffer size of shared memory partition in bytes (if not deduced automatically)"
                                                                                        annotation(Dialog(enable=not autoBufferSize, group="Shared memory partition"));
     parameter String memoryID="sharedMemory" "ID of the shared memory buffer" annotation(Dialog(group="Shared memory partition"));
-    Modelica_DeviceDrivers.Blocks.Interfaces.PackageOut pkgOut
+    Modelica_DeviceDrivers.Blocks.Interfaces.PackageOut pkgOut(pkg = SerialPackager(bufferSize))
                                                            annotation (Placement(
           transformation(
           extent={{-20,-20},{20,20}},
           rotation=90,
           origin={108,0})));
   protected
-    SharedMemory sm;
+    SharedMemory sm = SharedMemory(memoryID, bufferSize);
     Integer bufferSize;
   equation
-    when (initial()) then
-      bufferSize = if autoBufferSize then alignAtByteBoundary(pkgOut.autoPkgBitSize)
-        else userBufferSize;
-      pkgOut.pkg = SerialPackager( bufferSize);
-      sm = SharedMemory(memoryID,bufferSize);
+    when initial() then
+      bufferSize = if autoBufferSize then alignAtByteBoundary(pkgOut.autoPkgBitSize) else userBufferSize;
     end when;
     pkgOut.trigger = sample(0,sampleTime);
     when pkgOut.trigger then
@@ -70,16 +67,14 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
           rotation=90,
           origin={-108,0})));
   protected
-    SharedMemory sm;
+    SharedMemory sm = SharedMemory(memoryID, bufferSize);
     Integer bufferSize;
     Real dummy;
   equation
-    when (initial()) then
+    when initial() then
       pkgIn.userPkgBitSize = if autoBufferSize then -1 else userBufferSize*8;
       pkgIn.autoPkgBitSize = 0;
-      bufferSize = if autoBufferSize then Modelica_DeviceDrivers.Packaging.SerialPackager_.getBufferSize(
-                                                                       pkgIn.pkg) else userBufferSize;
-      sm = SharedMemory(memoryID, bufferSize);
+      bufferSize = if autoBufferSize then Modelica_DeviceDrivers.Packaging.SerialPackager_.getBufferSize(pkgIn.pkg) else userBufferSize;
     end when;
     pkgIn.backwardTrigger = sample(0, sampleTime);
     when pkgIn.trigger then
@@ -115,7 +110,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
     parameter Integer port_recv=10001
       "Listening port number of the server. Must be unique on the system"
       annotation (Dialog(group="Incoming data"));
-    Modelica_DeviceDrivers.Blocks.Interfaces.PackageOut pkgOut
+    Modelica_DeviceDrivers.Blocks.Interfaces.PackageOut pkgOut(pkg = SerialPackager(bufferSize))
                                        annotation (Placement(transformation(
           extent={{-20,-20},{20,20}},
           rotation=90,
@@ -123,14 +118,10 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
 
   protected
     Integer bufferSize;
-    UDPSocket socket;
+    UDPSocket socket = UDPSocket(port_recv, bufferSize);
   equation
-    when (initial()) then
-      bufferSize = if autoBufferSize then alignAtByteBoundary(pkgOut.autoPkgBitSize)
-        else userBufferSize;
-      pkgOut.pkg = SerialPackager( bufferSize);
-  //    Modelica.Utilities.Streams.print("Open Socket "+String(port_recv)+" with bufferSize "+String(bufferSize));
-      socket = UDPSocket(port_recv,bufferSize);
+    when initial() then
+      bufferSize = if autoBufferSize then alignAtByteBoundary(pkgOut.autoPkgBitSize) else userBufferSize;
     end when;
     pkgOut.trigger = sample(0,sampleTime);
 
@@ -172,16 +163,14 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
           rotation=270,
           origin={-108,0})));
   protected
-    UDPSocket socket;
+    UDPSocket socket = UDPSocket(0);
     Integer bufferSize;
     Real dummy;
   equation
-    when (initial()) then
+    when initial() then
       pkgIn.userPkgBitSize = if autoBufferSize then -1 else userBufferSize*8;
       pkgIn.autoPkgBitSize = 0;
-      bufferSize = if autoBufferSize then Modelica_DeviceDrivers.Packaging.SerialPackager_.getBufferSize(
-                                                                       pkgIn.pkg) else userBufferSize;
-      socket = UDPSocket(0);
+      bufferSize = if autoBufferSize then Modelica_DeviceDrivers.Packaging.SerialPackager_.getBufferSize(pkgIn.pkg) else userBufferSize;
     end when;
     pkgIn.backwardTrigger = sample(0, sampleTime);
     when pkgIn.trigger then
@@ -190,8 +179,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
         socket,
         IPAddress,
         port_send,
-        Modelica_DeviceDrivers.Packaging.SerialPackager_.getPackage(
-                                  pkgIn.pkg),
+        Modelica_DeviceDrivers.Packaging.SerialPackager_.getPackage(pkgIn.pkg),
         bufferSize,
         pkgIn.dummy);
     end when;
@@ -223,7 +211,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
     parameter Integer parity = 0
       "set parity (0 - no parity, 1 - even, 2 - odd)"
         annotation (Dialog(group="Outgoing data"));
-    Modelica_DeviceDrivers.Blocks.Interfaces.PackageOut pkgOut
+    Modelica_DeviceDrivers.Blocks.Interfaces.PackageOut pkgOut(pkg = SerialPackager(bufferSize))
                                        annotation (Placement(transformation(
           extent={{-20,-20},{20,20}},
           rotation=90,
@@ -231,16 +219,12 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
 
   protected
     Integer bufferSize;
-    SerialPort sPort;
+    SerialPort sPort = SerialPort(Serial_Port, bufferSize, parity, receiver, baud);
     parameter Integer receiver = 1 "Set to be a receiver port";
 
   equation
-    when (initial()) then
-      bufferSize = if autoBufferSize then alignAtByteBoundary(pkgOut.autoPkgBitSize)
-        else userBufferSize;
-      pkgOut.pkg = SerialPackager(bufferSize);
-  //    Modelica.Utilities.Streams.print("Open Socket "+String(port_recv)+" with bufferSize "+String(bufferSize));
-      sPort = SerialPort(Serial_Port,bufferSize,parity,receiver,baud);
+    when initial() then
+      bufferSize = if autoBufferSize then alignAtByteBoundary(pkgOut.autoPkgBitSize) else userBufferSize;
     end when;
     pkgOut.trigger = sample(0,sampleTime);
 
@@ -297,17 +281,15 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
           rotation=270,
           origin={-108,0})));
   protected
-    SerialPort sPort;
+    SerialPort sPort = SerialPort(Serial_Port, bufferSize, parity, receiver, baud); // Creating port object from device
     Integer bufferSize;
     parameter Integer receiver = 0 "Set to be a sender port";
     Real dummy;
   equation
-    when (initial()) then
+    when initial() then
       pkgIn.userPkgBitSize = if autoBufferSize then -1 else userBufferSize*8;
       pkgIn.autoPkgBitSize = 0;
-      bufferSize = if autoBufferSize then Modelica_DeviceDrivers.Packaging.SerialPackager_.getBufferSize(
-                                                                       pkgIn.pkg) else userBufferSize;
-      sPort = SerialPort(Serial_Port,bufferSize,parity,receiver,baud); // Creating port object from device
+      bufferSize = if autoBufferSize then Modelica_DeviceDrivers.Packaging.SerialPackager_.getBufferSize(pkgIn.pkg) else userBufferSize;
     end when;
 
     pkgIn.backwardTrigger = sample(0, sampleTime);
@@ -394,8 +376,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
         annotation (Placement(transformation(extent={{-20,-128},{20,-88}})));
     protected
       Integer objectNumber;
-      Modelica_DeviceDrivers.Packaging.SerialPackager
-                     pkg = SerialPackager(8);
+      Modelica_DeviceDrivers.Packaging.SerialPackager pkg = SerialPackager(8);
     initial equation
       objectNumber = Modelica_DeviceDrivers.Communication.SoftingCAN_.defineObject(
         softingCANBus.softingCAN,
@@ -617,8 +598,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
             rotation=90,
             origin={108,0})));
     protected
-      Modelica_DeviceDrivers.Packaging.SerialPackager
-                     pkg = SerialPackager(can_dlc);
+      Modelica_DeviceDrivers.Packaging.SerialPackager pkg = SerialPackager(can_dlc);
     initial equation
       Modelica_DeviceDrivers.Communication.SocketCAN_.defineObject(
         config.dh,
