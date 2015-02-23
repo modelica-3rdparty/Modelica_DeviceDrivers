@@ -249,7 +249,7 @@ and one Integer value is added, serialized and finally sent using UDP.
     extends
       Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager;
     import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
-    parameter Integer n = 1;
+    parameter Integer n = 1 "Vector size";
     Modelica.Blocks.Interfaces.BooleanInput u[n]
       annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   protected
@@ -293,7 +293,7 @@ and one Integer value is added, serialized and finally sent using UDP.
     extends
       Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager;
     import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
-    parameter Integer n = 1;
+    parameter Integer n = 1 "Vector size";
     Modelica.Blocks.Interfaces.IntegerInput u[n]
       annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   equation
@@ -333,7 +333,7 @@ and one Integer value is added, serialized and finally sent using UDP.
     extends
       Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager;
     import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
-    parameter Integer n = 1;
+    parameter Integer n = 1 "Vector size";
     Modelica.Blocks.Interfaces.RealInput u[n]
       annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   equation
@@ -373,7 +373,7 @@ and one Integer value is added, serialized and finally sent using UDP.
     extends
       Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager;
     import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
-    parameter Integer n = 1;
+    parameter Integer n = 1 "Vector size";
     Modelica.Blocks.Interfaces.RealInput u[n]
       annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   equation
@@ -450,7 +450,7 @@ and one Integer value is added, serialized and finally sent using UDP.
     extends
       Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager;
     import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
-    parameter Integer n = 1;
+    parameter Integer n = 1 "Vector size";
     Modelica.Blocks.Interfaces.BooleanOutput y[
                                             n]
       annotation (Placement(transformation(extent={{100,-10},{120,10}})));
@@ -496,7 +496,7 @@ and one Integer value is added, serialized and finally sent using UDP.
     extends
       Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager;
     import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
-    parameter Integer n = 1;
+    parameter Integer n = 1 "Vector size";
     Modelica.Blocks.Interfaces.IntegerOutput y[n]
       annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   protected
@@ -536,7 +536,7 @@ and one Integer value is added, serialized and finally sent using UDP.
     extends
       Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager;
     import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
-    parameter Integer n = 1;
+    parameter Integer n = 1 "Vector size";
     Modelica.Blocks.Interfaces.RealOutput y[n]
       annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   protected
@@ -580,7 +580,7 @@ and one Integer value is added, serialized and finally sent using UDP.
     extends
       Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager;
     import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
-    parameter Integer n = 1;
+    parameter Integer n = 1 "Vector size";
     Modelica.Blocks.Interfaces.RealOutput y[n]
       annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   protected
@@ -682,7 +682,7 @@ and one Integer value is added, serialized and finally sent using UDP.
     end when;
 
     annotation (defaultComponentName="packInt",
- Icon(graphics={
+      Icon(graphics={
           Text(
             extent={{-120,40},{-40,-40}},
             lineColor={255,127,0},
@@ -745,7 +745,7 @@ Value of bit                   : (0  0  0  0  0  0  1  1)  (.  .   .  .  .  .  0
     end when;
 
     annotation (defaultComponentName="unpackInt",
- Icon(graphics={
+      Icon(graphics={
           Bitmap(extent={{-7,19},{57,-20}}, fileName=
                 "Modelica://Modelica_DeviceDrivers/Resources/Images/Icons/Bit2IntArrow.png"),
           Text(
