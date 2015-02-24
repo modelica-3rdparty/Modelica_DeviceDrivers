@@ -66,9 +66,6 @@ model TestSerialPackager_UDP "Example for combining UDP and SerialPackager block
         points={{40,-27.2},{40,-18.8}},
         pattern=LinePattern.None));
   annotation(
-    viewinfo[2](
-      viewSettings(clrRaster=12632256),
-      typename="ModelInfo"),
     Documentation(info="<html>
 <p>
 The <code>uDPSend</code> block sends to the local port 10002. The <code>uDPReceive</code> block starts a background process that listens at port 10002. Consequently, the <code>uDPReceive</code> block receives what the <code>uDPSend</code> block sends.
