@@ -58,7 +58,9 @@ it can be redistributed and/or modified under the terms of the [Modelica License
 ## Development and contribution
 Main developers:
 * [Bernhard Thiele](https://github.com/bernhard-thiele), release management and the Linux specific code.
-* [Tobias Bellmann](mailto:tobias.bellmann@dlr.de), most of the MS Windows specific code.
+* [Tobias Bellmann](mailto:tobias.bellmann@dlr.de), most of the initial MS Windows specific code.
+* [tbeu](https://github.com/tbeu/), various fixes and improvements, particularly SimulationX support
+
 
 You may report any issues with using the [Issues](../../issues) button.
 
@@ -66,4 +68,4 @@ Contributions in shape of [Pull Requests](../../pulls) are always welcome.
 
 The following people have directly contributed to the implementation of the library (many more have contributed by providing feedback and suggestions):
 * [Dominik Sommer](mailto:dominik.sommer@dlr.de), code for Linux serial port support.
-* [tbeu](https://github.com/tbeu/), many fixes and good proposals, especially regarding the SimulationX support.
+
