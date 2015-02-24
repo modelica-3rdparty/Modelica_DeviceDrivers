@@ -30,7 +30,7 @@ The second interface uses the synchronous language elements introduced in Modeli
 
 Download [Modelica_DeviceDrivers v1.3 (2014-05-19)](../../archive/v1.3+build.2.zip)
 
-Please note that currently (2014-05-19) the library is known to work with Dymola (preferable Dymola 2013FD01 and later) and with SimulationX (except of the `SerialPackager` blocks). The `SerialPackager` blocks are known to work currently *only* in Dymola. If you tested the library successfully with another Modelica tool, please contact me (Bernhard), so that I can include that information.
+Please note that currently (2015-02-24) the library is known to work with Dymola (preferable Dymola 2013FD01 and later) and partially with SimulationX. If you tested the library successfully with another Modelica tool, please contact me (Bernhard), so that I can include that information.
 
 #### Release notes
 *  [Version v1.3 (2014-05-19)](../../archive/v1.3+build.2.zip)
