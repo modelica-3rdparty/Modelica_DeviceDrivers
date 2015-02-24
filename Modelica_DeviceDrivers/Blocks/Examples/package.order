@@ -1,6 +1,7 @@
 TestSerialPackager
 TestSerialPackager_String
 TestSerialPackager_UDP
+TestSerialPackager_UDPAutoBufferSize
 TestSerialPackagerBitPack_UDP
 TestSerialPackager_SharedMemory
 TestSerialPackager_SoftingCAN

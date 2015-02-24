@@ -1,5 +1,5 @@
 within Modelica_DeviceDrivers.Blocks.Examples;
-model TestSerialPackager_UDP "Example for combining UDP and SerialPackager blocks"
+model TestSerialPackager_UDP "Example for combining UDP and SerialPackager blocks with deactivated autoBufferSize / useBackwardPropagatedBufferSize"
   extends Modelica.Icons.Example;
   Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Packager packager(useBackwardPropagatedBufferSize=false) annotation(Placement(transformation(extent={{-40,62},{-20,82}})));
   Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.AddReal addReal(
