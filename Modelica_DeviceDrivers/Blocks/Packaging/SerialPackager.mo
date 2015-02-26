@@ -409,7 +409,7 @@ and one Integer value is added, serialized and finally sent using UDP.
     import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
     parameter Integer bufferSize = 40
       "Buffer size (in bytes) reserved for String (ensure that same buffer size is used in corresponding GetString block!)";
-    input String data = "A mostly harmless String" annotation(Dialog=true);
+    input String data = "A mostly harmless String" annotation(Dialog(enable=true));
   equation
     when initial() then
       pkgIn.autoPkgBitSize = if nu == 1 then
@@ -679,7 +679,7 @@ and one Integer value is added, serialized and finally sent using UDP.
     end when;
 
     annotation (defaultComponentName="packInt",
- Icon(graphics={
+      Icon(graphics={
           Text(
             extent={{-120,40},{-40,-40}},
             lineColor={255,127,0},
@@ -742,7 +742,7 @@ Value of bit                   : (0  0  0  0  0  0  1  1)  (.  .   .  .  .  .  0
     end when;
 
     annotation (defaultComponentName="unpackInt",
- Icon(graphics={
+      Icon(graphics={
           Bitmap(extent={{-7,19},{57,-20}}, fileName=
                 "Modelica://Modelica_DeviceDrivers/Resources/Images/Icons/Bit2IntArrow.png"),
           Text(
