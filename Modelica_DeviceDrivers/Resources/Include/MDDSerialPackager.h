@@ -45,8 +45,10 @@ DllExport void* MDD_SerialPackagerConstructor(int size) {
 
 DllExport void MDD_SerialPackagerDestructor(void* p_package) {
     SerialPackager* pkg = (SerialPackager*) p_package;
-    free(pkg->data);
-    free(pkg);
+    if (pkg) {
+        free(pkg->data);
+        free(pkg);
+    }
 }
 
 /** Set byte position in package (if bit offset != 0 it will be set to 0).
@@ -371,7 +373,7 @@ DllExport int MDD_SerialPackagerIntegerBitunpack(void* p_package, int bitOffset,
     unsigned char bits[32];
     unsigned int i,j, posEnd, posStart, factor = 1, data = 0;
     /*ModelicaFormatMessage("SerialPackager: bitOffset: %d, width: %d, pkg->pos: %d, pkg->bitOffset: %d\n",
-    	bitOffset, width, pkg->pos, pkg->bitOffset);*/
+        bitOffset, width, pkg->pos, pkg->bitOffset);*/
     if (width > 32) {
         ModelicaFormatError("SerialPackager: MDD_SerialPackagerIntegerBitunpacking failed."
                             "width > 32.\n");
