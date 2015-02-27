@@ -322,7 +322,7 @@ DllExport void MDD_SerialPackagerAddString(void* p_package, const char* u, int b
  * @param[out] y pointer to '\0' terminated string or NULL if no terminated '\0' found in package data.
  * @param[in] bufferSize that was reserved for that string
  */
-DllExport char* MDD_SerialPackagerGetString(void* p_package, int bufferSize) {
+DllExport const char* MDD_SerialPackagerGetString(void* p_package, int bufferSize) {
     SerialPackager* pkg = (SerialPackager*) p_package;
     char* y;
     unsigned int i, found = 0;
@@ -352,7 +352,7 @@ DllExport char* MDD_SerialPackagerGetString(void* p_package, int bufferSize) {
            memcpy(y, &(pkg->data[ pkg->pos ]), i - pkg->pos); */
         pkg->pos += bufferSize;
     }
-    return (char*)y;
+    return y;
 }
 
 
