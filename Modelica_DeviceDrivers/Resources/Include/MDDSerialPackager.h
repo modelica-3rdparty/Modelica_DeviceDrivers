@@ -569,7 +569,7 @@ double MDD_CANMessageFloatBitunpacking(void* p_cANMessage, int bitStartPosition)
  *
  * @deprecated Never tested. Almost Certainly buggy. Probably this functionality is never needed?
  *
- * Bit offset is counted in the direction of array layout. Assume an char a[2] vector with the following layout:
+ * Bit offset is counted in the direction of array layout. Assume a char a[2] vector with the following layout:
  @verbatim
      0        1
  IIIIIIII IIIIIIII

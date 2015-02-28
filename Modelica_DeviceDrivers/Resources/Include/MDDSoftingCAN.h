@@ -24,7 +24,7 @@
 #	include "../src/include/CompatibilityDefs.h"
 /* CAN LAYER 2 LIBRARY INCLUDE FILES */
 #	include "../thirdParty/softing/Can_def.h"  /* dll import and export definitions */
-#	include "../thirdParty/softing/CANL2.H"    /* definition of the API functions an the structures */
+#	include "../thirdParty/softing/CANL2.H"    /* definition of the API functions and the structures */
 #	include "ModelicaUtilities.h"
 #	include "MDDCANMessage.h"
 #   include "MDDSerialPackager.h"

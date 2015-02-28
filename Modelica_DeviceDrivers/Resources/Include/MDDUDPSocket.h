@@ -413,7 +413,7 @@ int MDD_udpGetReceivedBytes(void * p_udp) {
 }
 
 
-/** Create an UDP socket.
+/** Create a UDP socket.
  * @todo Redesign in order to properly specify what kind of socket (receiving or sending)
  *       should be created and everything that can be checked once (e.g., validity of
  *       IP addresses) should be done here.

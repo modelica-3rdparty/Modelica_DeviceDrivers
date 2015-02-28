@@ -2,7 +2,7 @@ within Modelica_DeviceDrivers.Communication;
 class SerialPort "A driver for serial port communication."
 extends ExternalObject;
 encapsulated function constructor
-    "Creates an SerialPort instance with a given listening port."
+    "Creates a SerialPort instance with a given listening port."
     import Modelica_DeviceDrivers.Communication.SerialPort;
   input String deviceName "Serial port (/dev/ttyX)";
   input Integer bufferSize=16*1024 "Size of receive buffer";

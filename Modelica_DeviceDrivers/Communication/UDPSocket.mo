@@ -2,7 +2,7 @@ within Modelica_DeviceDrivers.Communication;
 class UDPSocket "A driver for UDP packet network communication."
 extends ExternalObject;
 encapsulated function constructor
-    "creates an UDPSocket instance with a given listening port."
+    "Creates a UDPSocket instance with a given listening port."
     import Modelica_DeviceDrivers.Communication.UDPSocket;
   input Integer port "listening port";
   input Integer bufferSize=16*1024 "Size of receive buffer";
