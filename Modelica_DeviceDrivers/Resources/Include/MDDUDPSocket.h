@@ -1,10 +1,9 @@
-/** UDP socket support (header-only library).
+﻿/** UDP socket support (header-only library).
  *
  * @file
- * @author		Tobias Bellmann <tobias.bellmann@dlr.de> (Windows)
- * @author		Bernhard Thiele <bernhard.thiele@dlr.de> (Linux)
- * @version	$Id: MDDUDPSocket.h 16392 2012-07-24 11:23:25Z thie_be $
- * @since		2012-05-29
+ * @author Tobias Bellmann <tobias.bellmann@dlr.de> (Windows)
+ * @author Bernhard Thiele <bernhard.thiele@dlr.de> (Linux)
+ * @since 2012-05-29
  * @copyright Modelica License 2
  *
  * @note Linux version: Using recvfrom(..) seems to be tricky, especially
@@ -15,9 +14,6 @@
  * case "sa_len" is ignored and the sender's address will not be provided by
  * recvfrom(..). Since it is not really needed, one could live with that.
  *
- * @todo The windows version doesn't use a mechanism to protect against
- * concurrently accessing the UDP message (received in a dedicated thread).
- * That should be done.
  */
 
 #ifndef MDDUDPSocket_H_
@@ -39,23 +35,26 @@ typedef struct MDDUDPSocket_s MDDUDPSocket;
 
 struct MDDUDPSocket_s {
     char * receiveBuffer;
+    char * receiveBufferExport;
     int bufferSize;
     SOCKET SocketID;
     int receiving;
     int receivedBytes;
     HANDLE hThread;
+    CRITICAL_SECTION receiveLock;
 };
 
 DWORD WINAPI MDD_udpReceivingThread(LPVOID pUdp) {
-
     SOCKADDR remoteAddr;
-    int remoteAddrLen;
     MDDUDPSocket * udp = (MDDUDPSocket *)pUdp;
-    while(udp->receiving) {
-
-        remoteAddrLen=sizeof(SOCKADDR);
-        udp->receivedBytes=recvfrom(udp->SocketID,udp->receiveBuffer,udp->bufferSize,0,&remoteAddr,&remoteAddrLen);
-        if(udp->receivedBytes==SOCKET_ERROR) {
+    while (udp->receiving == 1) {
+        int remoteAddrLen = sizeof(SOCKADDR);
+        BOOL socketError;
+        EnterCriticalSection(&udp->receiveLock);
+        udp->receivedBytes = recvfrom(udp->SocketID, udp->receiveBuffer, udp->bufferSize, 0, &remoteAddr, &remoteAddrLen);
+        socketError = udp->receivedBytes == SOCKET_ERROR;
+        LeaveCriticalSection(&udp->receiveLock);
+        if (socketError) {
             ModelicaFormatMessage("MDDUDPSocket.h: Receiving not possible, socket not valid.\n");
             ExitThread(SOCKET_ERROR);
         }
@@ -76,8 +75,7 @@ DllExport void * MDD_udpConstructor(int port, int bufferSize) {
         ModelicaFormatError("MDDUDPSocket.h: WSAStartup failed: %d\n", rc);
     }
 
-    udp = (MDDUDPSocket *)malloc(sizeof(MDDUDPSocket));
-    udp->hThread = NULL;
+    udp = (MDDUDPSocket *)calloc(sizeof(MDDUDPSocket), 1);
     udp->SocketID = socket(AF_INET,SOCK_DGRAM,0);
     if (udp->SocketID == INVALID_SOCKET) {
         free(udp);
@@ -85,26 +83,28 @@ DllExport void * MDD_udpConstructor(int port, int bufferSize) {
         WSACleanup();
         ModelicaFormatError("MDDUDPSocket.h: Error at socket(): %ld\n", rc);
     }
-    udp->receiveBuffer = (char*)malloc(bufferSize);
     udp->receiving = 1;
     udp->bufferSize = bufferSize;
     udp->receivedBytes = 0;
     addr.sin_family = AF_INET;
     addr.sin_port = htons(port);
     addr.sin_addr.s_addr = INADDR_ANY;
-    memset(udp->receiveBuffer,0,bufferSize);
 
     if (port) {
         rc = bind(udp->SocketID,(SOCKADDR*)&addr,sizeof(SOCKADDR_IN));
         if (rc == INVALID_SOCKET) {
-            free(udp->receiveBuffer);
             free(udp);
             WSACleanup();
             ModelicaFormatError("MDDUDPSocket.h: Error at bind(..) to port %d\n", port);
         }
-        udp->hThread = CreateThread(0,1024,MDD_udpReceivingThread,udp,0,&id1);
+        udp->receiveBuffer = (char*)calloc(bufferSize, 1);
+        udp->receiveBufferExport = (char*)calloc(bufferSize, 1);
+        InitializeCriticalSection(&udp->receiveLock);
+        udp->hThread = CreateThread(0, 1024, MDD_udpReceivingThread, udp, 0, &id1);
         if (!udp->hThread) {
+            DeleteCriticalSection(&udp->receiveLock);
             free(udp->receiveBuffer);
+            free(udp->receiveBufferExport);
             free(udp);
             WSACleanup();
             ModelicaError("MDDUDPSocket.h: Error creating UDP Receiver thread.\n");
@@ -132,33 +132,47 @@ DllExport void MDD_udpDestructor(void * p_udp) {
             ;
         }
         CloseHandle(udp->hThread);
+        DeleteCriticalSection(&udp->receiveLock);
+        free(udp->receiveBuffer);
+        free(udp->receiveBufferExport);
     }
     WSACleanup();
-    free(udp->receiveBuffer);
     free(udp);
 }
 
 DllExport void MDD_udpSend(void * p_udp, const char * ipAddress, int port,
                            const char * data, int dataSize) {
     MDDUDPSocket * udp = (MDDUDPSocket *) p_udp;
-    SOCKADDR_IN addr;
-    addr.sin_family=AF_INET;
-    addr.sin_port=htons(port);
-    addr.sin_addr.s_addr=inet_addr(ipAddress);
-    sendto(udp->SocketID,data,dataSize,0,(SOCKADDR*)&addr,sizeof(SOCKADDR_IN));
-
+    if (udp) {
+        SOCKADDR_IN addr;
+        addr.sin_family=AF_INET;
+        addr.sin_port=htons(port);
+        addr.sin_addr.s_addr=inet_addr(ipAddress);
+        sendto(udp->SocketID,data,dataSize,0,(SOCKADDR*)&addr,sizeof(SOCKADDR_IN));
+    }
 }
 
 DllExport const char * MDD_udpRead(void * p_udp) {
     MDDUDPSocket * udp = (MDDUDPSocket *) p_udp;
-    udp->receivedBytes = 0;
-    return (const char*) udp->receiveBuffer;
-
+    if (udp && udp->hThread) {
+        EnterCriticalSection(&udp->receiveLock);
+        memcpy(udp->receiveBufferExport, udp->receiveBuffer, udp->receivedBytes);
+        udp->receivedBytes = 0;
+        LeaveCriticalSection(&udp->receiveLock);
+        return (const char*) udp->receiveBufferExport;
+    }
+    return "";
 }
 
 DllExport int MDD_udpGetReceivedBytes(void * p_udp) {
+    int receivedBytes = 0;
     MDDUDPSocket * udp = (MDDUDPSocket *) p_udp;
-    return udp->receivedBytes;
+    if (udp) {
+        EnterCriticalSection(&udp->receiveLock);
+        receivedBytes = udp->receivedBytes;
+        LeaveCriticalSection(&udp->receiveLock);
+    }
+    return receivedBytes;
 }
 
 #elif defined(__linux__)
