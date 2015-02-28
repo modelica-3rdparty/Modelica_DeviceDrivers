@@ -1,12 +1,11 @@
 /** Serial port driver support (header-only library).
  *
  * @file
- * @author		Bernhard Thiele <bernhard.thiele@dlr.de> (Linux)
- * @author		Dominik Sommer <dominik.sommer@dlr.de> (Linux)
- * @since		2012-05-29
+ * @author Bernhard Thiele <bernhard.thiele@dlr.de> (Linux)
+ * @author Dominik Sommer <dominik.sommer@dlr.de> (Linux)
+ * @author Rangarajan Varadan <svsranga@gmail.com> (Windows)
+ * @since 2012-05-29
  * @copyright Modelica License 2
- *
- * @note Currently only available for Linux.
  *
  */
 
@@ -25,9 +24,288 @@
 
 #pragma comment( lib, "Ws2_32.lib" )
 
-#error "Modelica_DeviceDrivers: Serial port not yet supported for MS Windows"
+/** Serial port object */
+typedef struct {
+    HANDLE hComm;
+    HANDLE hThread;
+    int receiving;
+    char* receiveBuffer;
+    char* receiveBufferExport;
+    int bufferSize;
+    int receivedBytes;
+    DWORD receiveError;
+    CRITICAL_SECTION receiveLock;
+} MDDSerialPort;
 
-/* TODO: Implement Windows Driver */
+DWORD WINAPI MDD_serialPortReceivingThread(LPVOID p_serial) {
+    MDDSerialPort * serial = (MDDSerialPort *) p_serial;
+    if (serial) {
+        int x;
+        DWORD rxCount, fdwEventMask;
+        HANDLE commEvnt;
+        OVERLAPPED commSync;
+        DWORD commErr;
+        COMSTAT commStat;
+
+        memset(&commSync, 0, sizeof(OVERLAPPED));
+        commEvnt = CreateEvent(NULL, TRUE, FALSE, NULL);
+        if (commEvnt == INVALID_HANDLE_VALUE) {
+            ExitThread(-1);
+        }
+        commSync.hEvent = commEvnt;
+        ClearCommError(serial->hComm, &commErr, &commStat);
+
+        while (serial->hComm != INVALID_HANDLE_VALUE) {
+            BOOL waitState = WaitCommEvent(serial->hComm, &fdwEventMask, &commSync);
+            if (!waitState) {
+                if (GetLastError() == ERROR_IO_PENDING) {
+                    WaitForSingleObject(commEvnt, 1000);
+                    GetOverlappedResult(serial->hComm, &commSync, &rxCount, TRUE);
+                }
+                else {
+                    ExitThread(0);
+                }
+            }
+
+            if (serial->receiving != 1) {
+                ExitThread(0);
+            }
+
+            if (fdwEventMask & (EV_RXCHAR | EV_BREAK | EV_ERR | EV_TXEMPTY)) {
+                COMSTAT curStatus;
+                EnterCriticalSection(&serial->receiveLock);
+                ClearCommError(serial->hComm, &serial->receiveError, &curStatus);
+                serial->receiveError &= CE_BREAK + CE_RXOVER + CE_OVERRUN + CE_RXPARITY + CE_FRAME + CE_IOE;
+                if (serial->receiveError) {
+                    if (serial->receiveError & (CE_BREAK | CE_IOE)) {
+                        PurgeComm(serial->hComm, PURGE_TXABORT | PURGE_TXCLEAR);
+                        PurgeComm(serial->hComm, PURGE_RXABORT | PURGE_RXCLEAR);
+                    }
+                    else {
+                        DWORD commErr;
+                        COMSTAT commStat;
+                        ClearCommError(serial->hComm, &commErr, &commStat);
+                        PurgeComm(serial->hComm, PURGE_RXCLEAR);
+                        serial->receiveError = 0;
+                        serial->receivedBytes = 0;
+                        memset(serial->receiveBuffer, 0, serial->bufferSize);
+                    }
+                }
+                else {
+                    HANDLE rdEvnt;
+                    OVERLAPPED rdSync;
+                    memset(&rdSync, 0, sizeof(OVERLAPPED));
+                    rdEvnt = CreateEvent(NULL, TRUE, FALSE, NULL);
+                    rdSync.hEvent = rdEvnt;
+
+                    if (x = curStatus.cbInQue) {
+                        BOOL ret;
+                        if (x > serial->bufferSize) {
+                            x = serial->bufferSize;
+                        }
+                        ret = ReadFile(serial->hComm, serial->receiveBuffer, x, &serial->receivedBytes, &rdSync);
+                        if (!ret) {
+                            if (GetLastError() == ERROR_IO_PENDING) {
+                                GetOverlappedResult(serial->hComm, &rdSync, &rxCount, TRUE);
+                            }
+                        }
+                    }
+                }
+                LeaveCriticalSection(&serial->receiveLock);
+            }
+        }
+        CloseHandle(commEvnt);
+    }
+    return 0;
+}
+
+DllExport void * MDD_serialPortConstructor(const char * deviceName, int bufferSize, int parity, int receiver, int baud) {
+    /* Allocation of data structure memory */
+    MDDSerialPort* serial = (MDDSerialPort*) calloc(sizeof(MDDSerialPort), 1);
+    if (serial) {
+        DCB dcb;
+        DWORD fdwEventMask;
+        serial->hComm = CreateFileA(deviceName, GENERIC_READ | GENERIC_WRITE, 0, 0, OPEN_EXISTING, FILE_FLAG_OVERLAPPED, 0);
+        if (serial->hComm == INVALID_HANDLE_VALUE) {
+            free(serial);
+            serial = NULL;
+            ModelicaFormatError("MDDSerialPort.h: CreateFileA(..) of serial port %s failed with error %d\n", deviceName, GetLastError());
+        }
+        ModelicaFormatMessage("Created serial port for device %s\n", deviceName);
+
+        memset(&dcb, 0, sizeof(dcb));
+        dcb.DCBlength = sizeof(dcb);
+        if (!GetCommState(serial->hComm, &dcb)) {
+            CloseHandle(serial->hComm);
+            free(serial);
+            serial = NULL;
+            ModelicaFormatError("MDDSerialPort.h: GetCommState(..) of serial port %s failed with error %d\n", deviceName, GetLastError());
+        }
+
+        switch (baud) {
+            case 1:
+                dcb.BaudRate = CBR_115200;
+                break;
+            case 2:
+                dcb.BaudRate = CBR_57600;
+                break;
+            case 3:
+                dcb.BaudRate = CBR_38400;
+                break;
+            case 4:
+                dcb.BaudRate = CBR_19200;
+                break;
+            case 5:
+                dcb.BaudRate = CBR_9600;
+                break;
+            case 6:
+                dcb.BaudRate = CBR_4800;
+                break;
+            case 7:
+                dcb.BaudRate = CBR_2400;
+                break;
+            default:
+                dcb.BaudRate = CBR_57600;
+                break;
+        }
+
+        ModelicaFormatMessage("Set serial port %s to speed: %d\n", deviceName, baud);
+        switch (parity) {
+            case 1:
+                /* even parity */
+                dcb.Parity = EVENPARITY;
+                ModelicaFormatMessage("Set even Parity of serial port %s\n", deviceName);
+                break;
+            case 2:
+                /* odd parity */
+                dcb.Parity = ODDPARITY;
+                ModelicaFormatMessage("Set odd Parity of serial port %s\n", deviceName);
+                break;
+            default:
+                /* no parity */
+                dcb.Parity = NOPARITY;
+                ModelicaFormatMessage("Set no Parity of serial port %s\n", deviceName);
+                break;
+        }
+
+        dcb.fBinary = 1;
+        dcb.ByteSize = 8;
+        dcb.StopBits = ONESTOPBIT;
+        dcb.fDsrSensitivity = FALSE;
+        dcb.fOutX = FALSE;
+        dcb.fInX = FALSE;
+        dcb.fErrorChar = FALSE;
+        dcb.fRtsControl = RTS_CONTROL_ENABLE;
+        dcb.fAbortOnError = TRUE;
+        dcb.fOutxCtsFlow = FALSE;
+        dcb.fOutxDsrFlow = FALSE;
+
+        if (!SetCommState(serial->hComm, &dcb)) {
+            CloseHandle(serial->hComm);
+            free(serial);
+            serial = NULL;
+            ModelicaFormatError("MDDSerialPort.h: SetCommState(..) of serial port %s failed with error %d\n", deviceName, GetLastError());
+        }
+
+        if (!GetCommMask(serial->hComm, &fdwEventMask)) {
+            fdwEventMask = 0;
+        }
+        fdwEventMask |= EV_RXCHAR | EV_TXEMPTY | EV_BREAK | EV_ERR | EV_RING | EV_RLSD | EV_CTS | EV_DSR;
+        SetCommMask(serial->hComm, fdwEventMask);
+        EscapeCommFunction(serial->hComm, SETDTR);
+        PurgeComm(serial->hComm, PURGE_TXABORT | PURGE_TXCLEAR);
+        PurgeComm(serial->hComm, PURGE_RXABORT | PURGE_RXCLEAR);
+
+        serial->bufferSize = bufferSize;
+        serial->receiving = 1;
+        serial->receivedBytes = 0;
+        if (receiver) {
+            DWORD id1;
+            serial->receiveBuffer = (char*)calloc(bufferSize, 1);
+            serial->receiveBufferExport = (char*)calloc(bufferSize, 1);
+            InitializeCriticalSection(&serial->receiveLock);
+            serial->hThread = CreateThread(0, 0, MDD_serialPortReceivingThread, serial, 0, &id1);
+            if (!serial->hThread) {
+                DeleteCriticalSection(&serial->receiveLock);
+                CloseHandle(serial->hComm);
+                free(serial->receiveBuffer);
+                free(serial->receiveBufferExport);
+                free(serial);
+                serial = NULL;
+                ModelicaError("MDDSerialPort.h: Error creating receiver thread for serial communication.\n");
+            }
+        }
+    }
+    return (void*)serial;
+}
+
+DllExport const char * MDD_serialPortRead(void * p_serial) {
+    MDDSerialPort * serial = (MDDSerialPort *) p_serial;
+    if (serial && serial->hThread && serial->hComm != INVALID_HANDLE_VALUE) {
+        EnterCriticalSection(&serial->receiveLock);
+        memcpy(serial->receiveBufferExport, serial->receiveBuffer, serial->receivedBytes);
+        serial->receivedBytes = 0;
+        LeaveCriticalSection(&serial->receiveLock);
+        return (const char*) serial->receiveBufferExport;
+    }
+    return "";
+}
+
+DllExport void MDD_serialPortSend(void * p_serial, const char * data, int dataSize) {
+    MDDSerialPort * serial = (MDDSerialPort *) p_serial;
+    if (serial && serial->hComm != INVALID_HANDLE_VALUE) {
+        HANDLE writeEvnt = CreateEvent(NULL, TRUE, FALSE, NULL);
+        if (writeEvnt != INVALID_HANDLE_VALUE) {
+            DWORD bWritten;
+            OVERLAPPED writeSync;
+            BOOL ret;
+            memset(&writeSync, 0, sizeof(OVERLAPPED));
+            writeSync.hEvent = writeEvnt;
+            ret = WriteFile(serial->hComm, data, dataSize, &bWritten, &writeSync);
+            if (!ret) {
+                if (GetLastError() == ERROR_IO_PENDING) {
+                    GetOverlappedResult(serial->hComm, &writeSync, &bWritten, TRUE);
+                }
+            }
+            CloseHandle(writeEvnt);
+        }
+    }
+}
+
+DllExport void MDD_serialPortDestructor(void * p_serial) {
+    MDDSerialPort * serial = (MDDSerialPort *) p_serial;
+    if (serial) {
+        char c = 0;
+        serial->receiving = 0;
+        EscapeCommFunction(serial->hComm, CLRDTR);
+        PurgeComm(serial->hComm, PURGE_TXABORT | PURGE_TXCLEAR);
+        PurgeComm(serial->hComm, PURGE_RXABORT | PURGE_RXCLEAR);
+        MDD_serialPortSend(p_serial, &c, 1);
+        if (serial->hThread) {
+            DWORD dwEc = -1;
+            while (GetExitCodeThread(serial->hThread, &dwEc) && dwEc == STILL_ACTIVE) {
+                ;
+            }
+            CloseHandle(serial->hThread);
+            DeleteCriticalSection(&serial->receiveLock);
+            free(serial->receiveBuffer);
+            free(serial->receiveBufferExport);
+        }
+        CloseHandle(serial->hComm);
+        free(serial);
+    }
+}
+
+DllExport int MDD_serialPortGetReceivedBytes(void * p_serial) {
+    int receivedBytes = 0;
+    MDDSerialPort * serial = (MDDSerialPort *) p_serial;
+    if (serial) {
+        EnterCriticalSection(&serial->receiveLock);
+        receivedBytes = serial->receivedBytes;
+        LeaveCriticalSection(&serial->receiveLock);
+    }
+    return receivedBytes;
+}
 
 #elif defined(__linux__)
 
@@ -35,26 +313,26 @@
 #include <string.h> /* memset(..) */
 #include <errno.h>
 
-#include <sys/poll.h>	/* pThread specific */
-#include <netdb.h>	    /* pThread specific */
-#include <pthread.h>	/* pThread specific */
+#include <sys/poll.h> /* pThread specific */
+#include <netdb.h> /* pThread specific */
+#include <pthread.h> /* pThread specific */
 
-#include <unistd.h>  	/* Serial specific */
-#include <fcntl.h>	    /* Serial specific */
-#include <termios.h>	/* Serial specific */
+#include <unistd.h> /* Serial specific */
+#include <fcntl.h> /* Serial specific */
+#include <termios.h> /* Serial specific */
 #include "../src/include/CompatibilityDefs.h"
 
 /** Serial port object */
 typedef struct {
-    int fd;		/** Device identifier */
-    int speed; 	/** Device Baudrate */
-    int parity;	/** Device Parity Configuration */
+    int fd; /** Device identifier */
+    int speed; /** Device Baudrate */
+    int parity; /** Device Parity Configuration */
     struct termios serial;
     size_t messageLength; /**< message length (only relevant for read socket) */
-    void* msgInternal;  /**< Internal serial message buffer (only relevant for read socket) */
-    void* msgExport;  /**< Serial message buffer exported to Modelica (only relevant for read socket) */
+    void* msgInternal; /**< Internal serial message buffer (only relevant for read socket) */
+    void* msgExport; /**< Serial message buffer exported to Modelica (only relevant for read socket) */
     ssize_t nReceivedBytes; /**< Number of received bytes (only relevant for read serial) */
-    int runReceive; /**< Run receiving thread as long as runReceive != 0  */
+    int runReceive; /**< Run receiving thread as long as runReceive != 0 */
     pthread_t thread;
     pthread_mutex_t messageMutex; /**< Exclusive access to message buffer */
 } MDDSerialPort;
@@ -62,18 +340,16 @@ typedef struct {
 void MDD_serialPortDestructor(void * p_udp);
 void* MDD_serialPortReceivingThread(void * p_serial);
 
-
 int MDD_serialPortGetReceivedBytes(void * p_serial) {
     MDDSerialPort * serial = (MDDSerialPort *) p_serial;
     return serial->nReceivedBytes;
 }
 
-
 /** Function to set serial device to blocking or non-blocking.
  *
  * @param fd file descriptor of opened serial port
- * @param should_block  @arg 0 if the serial device shall be non-blocking
- * 		                @arg 1 if the serial device shall be blocked
+ * @param should_block @arg 0 if the serial device shall be non-blocking
+ * @arg 1 if the serial device shall be blocked
  */
 void MDD_serialPortSetBlocking (int fd, int should_block) {
 
@@ -101,8 +377,8 @@ void MDD_serialPortSetBlocking (int fd, int should_block) {
  *
  * @param @param fd file descriptor of opened serial port
  * @param speed set speed of the serial port interface in baud starting with "B" e.g.B115200
- * @param parity  @arg 0 set no parity
- * 		          @arg 1 set parity
+ * @param parity @arg 0 set no parity
+ * @arg 1 set parity
  */
 void MDD_serialPortSetInterfaceAttributes (int fd, int speed, int parity) {
 
@@ -115,36 +391,36 @@ void MDD_serialPortSetInterfaceAttributes (int fd, int speed, int parity) {
         return;
     }
 
-    cfsetospeed (&ser, speed);			/* set output speed */
-    cfsetispeed (&ser, speed);			/* set input speed */
+    cfsetospeed (&ser, speed); /* set output speed */
+    cfsetispeed (&ser, speed); /* set input speed */
 
-    ser.c_cflag = ( ser.c_cflag & ~CSIZE) | CS8;	/* 8 bit characters shall be used */
-    ser.c_iflag &= ~IGNBRK;			/* ignore break signal */
-    /*ser.c_iflag |= IGNBRK;			// ignore break signal*/
-    ser.c_lflag = 0;				/* no signaling characters, no echo */
-    ser.c_oflag = 0;				/* no remapping, no delays */
-    ser.c_cc[VMIN] = 0;				/* read does not block */
-    ser.c_cc[VTIME] = 5;				/* 0.5 second read timeout */
-    ser.c_iflag &= ~(IXON | IXOFF | IXANY);	/* shut off xon/xoff control */
-    ser.c_cflag |= (CLOCAL | CREAD);		/*ignore modem controls, enable reading*/
+    ser.c_cflag = ( ser.c_cflag & ~CSIZE) | CS8; /* 8 bit characters shall be used */
+    ser.c_iflag &= ~IGNBRK; /* ignore break signal */
+    /*ser.c_iflag |= IGNBRK; // ignore break signal*/
+    ser.c_lflag = 0; /* no signaling characters, no echo */
+    ser.c_oflag = 0; /* no remapping, no delays */
+    ser.c_cc[VMIN] = 0; /* read does not block */
+    ser.c_cc[VTIME] = 5; /* 0.5 second read timeout */
+    ser.c_iflag &= ~(IXON | IXOFF | IXANY); /* shut off xon/xoff control */
+    ser.c_cflag |= (CLOCAL | CREAD); /*ignore modem controls, enable reading*/
 
     switch (parity) {
         case 1:
             /* even parity */
-            ser.c_cflag |= PARENB;			/* enable parity */
-            ser.c_cflag &= ~PARODD;			/* set even parity */
+            ser.c_cflag |= PARENB; /* enable parity */
+            ser.c_cflag &= ~PARODD; /* set even parity */
             ModelicaFormatMessage("Set even Parity of serial port handle: %d\n",fd);
             break;
         case 2:
             /* odd parity */
-            ser.c_cflag |= PARENB;			/* enable parity */
-            ser.c_cflag |= PARODD;			/* set even parity */
+            ser.c_cflag |= PARENB; /* enable parity */
+            ser.c_cflag |= PARODD; /* set even parity */
             ModelicaFormatMessage("Set odd Parity of serial port handle: %d\n",fd);
             break;
         default:
             /* no parity */
-            ser.c_cflag &= ~(PARENB | PARODD);		/* switch off any parity */
-            ser.c_cflag |= parity;			/* set parity */
+            ser.c_cflag &= ~(PARENB | PARODD); /* switch off any parity */
+            ser.c_cflag |= parity; /* set parity */
             ModelicaFormatMessage("Set no Parity of serial port handle: %d\n",fd);
             break;
     }
@@ -159,8 +435,6 @@ void MDD_serialPortSetInterfaceAttributes (int fd, int speed, int parity) {
     }
 
 }
-
-
 
 /** Create a serial port from a serial device
  *
@@ -182,7 +456,7 @@ void * MDD_serialPortConstructor(const char * deviceName, int bufferSize, int pa
     }
 
     /* Create a serial port. */
-    serial->fd = open (deviceName, O_RDWR |   /* sets device to read/write operation */
+    serial->fd = open (deviceName, O_RDWR | /* sets device to read/write operation */
                        O_NOCTTY | /* sets device not to be the controlling terminal for that port */
                        O_NDELAY); /* sets device to do not care about state of DCD signal line */
     /*O_SYNC); */
@@ -268,13 +542,13 @@ void* MDD_serialPortReceivingThread(void * p_serial) {
                     ModelicaMessage("The serial port was disconnected.\n");
                 }
                 else {
-                    /* Lock acces to serial->msgInternal  */
+                    /* Lock acces to serial->msgInternal */
                     pthread_mutex_lock(&(serial->messageMutex));
-                    /* Receive the next datagram  */
+                    /* Receive the next datagram */
                     serial->nReceivedBytes =
-                        read(serial->fd,           /* serial port file handle*/
-                             serial->msgInternal,   /* receive buffer */
-                             serial->messageLength  /* max bytes to receive */
+                        read(serial->fd, /* serial port file handle*/
+                             serial->msgInternal, /* receive buffer */
+                             serial->messageLength /* max bytes to receive */
                             );
                     pthread_mutex_unlock(&(serial->messageMutex));
 
@@ -290,7 +564,6 @@ void* MDD_serialPortReceivingThread(void * p_serial) {
     return NULL;
 }
 
-
 /** Read data from serial port.
  *
  * @param p_serial pointer address to the serial port data structure
@@ -300,7 +573,7 @@ const char * MDD_serialPortRead(void * p_serial) {
 
     MDDSerialPort * serial = (MDDSerialPort *) p_serial;
 
-    /* Lock acces to serial->msgInternal  */
+    /* Lock acces to serial->msgInternal */
     pthread_mutex_lock(&(serial->messageMutex));
     memcpy(serial->msgExport, serial->msgInternal, serial->messageLength);
     pthread_mutex_unlock(&(serial->messageMutex));
@@ -309,9 +582,9 @@ const char * MDD_serialPortRead(void * p_serial) {
 
 /** Send data via serial port
  *
- *  @param p_serial pointer address to the serial port data structure
- *  @param data data to be sent
- *  @param dataSize size of data
+ * @param p_serial pointer address to the serial port data structure
+ * @param data data to be sent
+ * @param dataSize size of data
  */
 void MDD_serialPortSend(void * p_serial, const char * data, int dataSize) {
 
@@ -326,9 +599,8 @@ void MDD_serialPortSend(void * p_serial, const char * data, int dataSize) {
 
 }
 
-
 /** Close serial port and free memory.
- *  @param p_serial pointer address to the serial port data structure
+ * @param p_serial pointer address to the serial port data structure
  */
 void MDD_serialPortDestructor(void * p_serial) {
     MDDSerialPort * serial = (MDDSerialPort *) p_serial;
@@ -349,7 +621,6 @@ void MDD_serialPortDestructor(void * p_serial) {
     free(serial->msgExport);
     free(serial);
 }
-
 
 #else
 

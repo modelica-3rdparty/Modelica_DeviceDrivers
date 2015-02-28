@@ -24,6 +24,7 @@
 #include "../../Include/MDDOperatingSystem.h"
 #include "../../Include/MDDRealtimeSynchronize.h"
 #include "../../Include/MDDSerialPackager.h"
+#include "../../Include/MDDSerialPort.h"
 #include "../../Include/MDDSharedMemory.h"
 #include "../../Include/MDDUDPSocket.h"
 #include "../../Include/MDDUtilities.h"
