@@ -18,11 +18,6 @@
 
 #include <windows.h>
 #include "../src/include/CompatibilityDefs.h"
-#include <stdio.h>
-#include <conio.h>
-#include <tchar.h>
-
-#pragma comment( lib, "Ws2_32.lib" )
 
 /** Serial port object */
 typedef struct {
@@ -31,8 +26,8 @@ typedef struct {
     int receiving;
     char* receiveBuffer;
     char* receiveBufferExport;
-    int bufferSize;
-    int receivedBytes;
+    size_t bufferSize;
+    DWORD receivedBytes;
     DWORD receiveError;
     CRITICAL_SECTION receiveLock;
 } MDDSerialPort;
@@ -40,7 +35,6 @@ typedef struct {
 DWORD WINAPI MDD_serialPortReceivingThread(LPVOID p_serial) {
     MDDSerialPort * serial = (MDDSerialPort *) p_serial;
     if (serial) {
-        int x;
         DWORD rxCount, fdwEventMask;
         HANDLE commEvnt;
         OVERLAPPED commSync;
@@ -50,7 +44,7 @@ DWORD WINAPI MDD_serialPortReceivingThread(LPVOID p_serial) {
         memset(&commSync, 0, sizeof(OVERLAPPED));
         commEvnt = CreateEvent(NULL, TRUE, FALSE, NULL);
         if (commEvnt == INVALID_HANDLE_VALUE) {
-            ExitThread(-1);
+            ExitThread(1);
         }
         commSync.hEvent = commEvnt;
         ClearCommError(serial->hComm, &commErr, &commStat);
@@ -94,11 +88,13 @@ DWORD WINAPI MDD_serialPortReceivingThread(LPVOID p_serial) {
                 else {
                     HANDLE rdEvnt;
                     OVERLAPPED rdSync;
+                    DWORD x;
                     memset(&rdSync, 0, sizeof(OVERLAPPED));
                     rdEvnt = CreateEvent(NULL, TRUE, FALSE, NULL);
                     rdSync.hEvent = rdEvnt;
 
-                    if (x = curStatus.cbInQue) {
+                    x = curStatus.cbInQue;
+                    if (x > 0) {
                         BOOL ret;
                         if (x > serial->bufferSize) {
                             x = serial->bufferSize;
@@ -130,6 +126,7 @@ DllExport void * MDD_serialPortConstructor(const char * deviceName, int bufferSi
             free(serial);
             serial = NULL;
             ModelicaFormatError("MDDSerialPort.h: CreateFileA(..) of serial port %s failed with error %d\n", deviceName, GetLastError());
+            return serial;
         }
         ModelicaFormatMessage("Created serial port for device %s\n", deviceName);
 
@@ -140,6 +137,7 @@ DllExport void * MDD_serialPortConstructor(const char * deviceName, int bufferSi
             free(serial);
             serial = NULL;
             ModelicaFormatError("MDDSerialPort.h: GetCommState(..) of serial port %s failed with error %d\n", deviceName, GetLastError());
+            return serial;
         }
 
         switch (baud) {
@@ -205,6 +203,7 @@ DllExport void * MDD_serialPortConstructor(const char * deviceName, int bufferSi
             free(serial);
             serial = NULL;
             ModelicaFormatError("MDDSerialPort.h: SetCommState(..) of serial port %s failed with error %d\n", deviceName, GetLastError());
+            return serial;
         }
 
         if (!GetCommMask(serial->hComm, &fdwEventMask)) {
@@ -216,7 +215,7 @@ DllExport void * MDD_serialPortConstructor(const char * deviceName, int bufferSi
         PurgeComm(serial->hComm, PURGE_TXABORT | PURGE_TXCLEAR);
         PurgeComm(serial->hComm, PURGE_RXABORT | PURGE_RXCLEAR);
 
-        serial->bufferSize = bufferSize;
+        serial->bufferSize = (size_t)bufferSize;
         serial->receiving = 1;
         serial->receivedBytes = 0;
         if (receiver) {
@@ -282,7 +281,7 @@ DllExport void MDD_serialPortDestructor(void * p_serial) {
         PurgeComm(serial->hComm, PURGE_RXABORT | PURGE_RXCLEAR);
         MDD_serialPortSend(p_serial, &c, 1);
         if (serial->hThread) {
-            DWORD dwEc = -1;
+            DWORD dwEc = 1;
             while (GetExitCodeThread(serial->hThread, &dwEc) && dwEc == STILL_ACTIVE) {
                 ;
             }
@@ -301,7 +300,7 @@ DllExport int MDD_serialPortGetReceivedBytes(void * p_serial) {
     MDDSerialPort * serial = (MDDSerialPort *) p_serial;
     if (serial) {
         EnterCriticalSection(&serial->receiveLock);
-        receivedBytes = serial->receivedBytes;
+        receivedBytes = (int)serial->receivedBytes;
         LeaveCriticalSection(&serial->receiveLock);
     }
     return receivedBytes;
@@ -513,13 +512,12 @@ void * MDD_serialPortConstructor(const char * deviceName, int bufferSize, int pa
 
 /** Dedicated thread to receive data from serial ports.
  *
- * @param p_udp pointer address to the udp socket data structure
+ * @param p_serial pointer address to the serial socket data structure
  */
 void* MDD_serialPortReceivingThread(void * p_serial) {
     MDDSerialPort * serial = (MDDSerialPort *) p_serial;
 
     struct pollfd serial_poll;
-    int ret;
 
     ModelicaFormatMessage("Started dedicated serial port receiving thread listening at port %d\n",
                           serial->fd);
@@ -528,7 +526,7 @@ void* MDD_serialPortReceivingThread(void * p_serial) {
     serial_poll.events = POLLIN | POLLHUP;
 
     while (serial->runReceive) {
-        ret = poll(&serial_poll, 1, 100);
+        int ret = poll(&serial_poll, 1, 100);
 
         switch (ret) {
             case -1:
