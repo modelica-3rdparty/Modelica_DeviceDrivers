@@ -25,9 +25,6 @@
 
 #include <windows.h>
 #include "../src/include/CompatibilityDefs.h"
-#include <stdio.h>
-#include <conio.h>
-#include <tchar.h>
 
 #pragma comment( lib, "Ws2_32.lib" )
 
@@ -56,7 +53,7 @@ DWORD WINAPI MDD_udpReceivingThread(LPVOID pUdp) {
         LeaveCriticalSection(&udp->receiveLock);
         if (socketError) {
             ModelicaFormatMessage("MDDUDPSocket.h: Receiving not possible, socket not valid.\n");
-            ExitThread(SOCKET_ERROR);
+            ExitThread(1);
         }
     }
     return 0;
@@ -64,7 +61,7 @@ DWORD WINAPI MDD_udpReceivingThread(LPVOID pUdp) {
 
 DllExport void * MDD_udpConstructor(int port, int bufferSize) {
 
-    int rc;                /*  Error variable */
+    int rc; /* Error variable */
     WSADATA wsa;
     SOCKADDR_IN addr;
     DWORD id1;
@@ -79,23 +76,27 @@ DllExport void * MDD_udpConstructor(int port, int bufferSize) {
     udp->SocketID = socket(AF_INET,SOCK_DGRAM,0);
     if (udp->SocketID == INVALID_SOCKET) {
         free(udp);
+        udp = NULL;
         rc = WSAGetLastError();
         WSACleanup();
         ModelicaFormatError("MDDUDPSocket.h: Error at socket(): %ld\n", rc);
+        return udp;
     }
     udp->receiving = 1;
     udp->bufferSize = bufferSize;
     udp->receivedBytes = 0;
     addr.sin_family = AF_INET;
-    addr.sin_port = htons(port);
+    addr.sin_port = htons((u_short)port);
     addr.sin_addr.s_addr = INADDR_ANY;
 
     if (port) {
         rc = bind(udp->SocketID,(SOCKADDR*)&addr,sizeof(SOCKADDR_IN));
         if (rc == INVALID_SOCKET) {
             free(udp);
+            udp = NULL;
             WSACleanup();
             ModelicaFormatError("MDDUDPSocket.h: Error at bind(..) to port %d\n", port);
+            return udp;
         }
         udp->receiveBuffer = (char*)calloc(bufferSize, 1);
         udp->receiveBufferExport = (char*)calloc(bufferSize, 1);
@@ -106,8 +107,10 @@ DllExport void * MDD_udpConstructor(int port, int bufferSize) {
             free(udp->receiveBuffer);
             free(udp->receiveBufferExport);
             free(udp);
+            udp = NULL;
             WSACleanup();
             ModelicaError("MDDUDPSocket.h: Error creating UDP Receiver thread.\n");
+            return udp;
         }
         ModelicaFormatMessage("MDDUDPSocket.h: Waiting for data on port %d.\n", port);
     }
@@ -125,9 +128,9 @@ DllExport void MDD_udpDestructor(void * p_udp) {
     if (rc == SOCKET_ERROR) {
         ModelicaFormatMessage("MDDUDPSocket.h: shutdown failed: %d\n", WSAGetLastError());
     }
-    rc = closesocket(udp->SocketID);
+    closesocket(udp->SocketID);
     if (udp->hThread) {
-        DWORD dwEc = -1;
+        DWORD dwEc = 1;
         while (GetExitCodeThread(udp->hThread, &dwEc) && dwEc == STILL_ACTIVE) {
             ;
         }
@@ -146,7 +149,7 @@ DllExport void MDD_udpSend(void * p_udp, const char * ipAddress, int port,
     if (udp) {
         SOCKADDR_IN addr;
         addr.sin_family=AF_INET;
-        addr.sin_port=htons(port);
+        addr.sin_port=htons((u_short)port);
         addr.sin_addr.s_addr=inet_addr(ipAddress);
         sendto(udp->SocketID,data,dataSize,0,(SOCKADDR*)&addr,sizeof(SOCKADDR_IN));
     }
