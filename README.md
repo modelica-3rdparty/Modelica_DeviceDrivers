@@ -1,6 +1,6 @@
 # Modelica_DeviceDrivers
 Free library for interfacing hardware drivers to Modelica models.
-There is support for joysticks, keyboards, UDP, shared memory, AD/DA converters and other devices.
+There is support for joysticks, keyboards, UDP, shared memory, AD/DA converters, serial port and other devices.
 
 ## Library description
 The `Modelica_DeviceDrivers` library is an open source Modelica package under [Modelica License 2](https://modelica.org/licenses/ModelicaLicense2) that interfaces hardware drivers to Modelica models.
@@ -61,11 +61,10 @@ Main developers:
 * [Tobias Bellmann](mailto:tobias.bellmann@dlr.de), most of the initial MS Windows specific code.
 * [tbeu](https://github.com/tbeu/), various fixes and improvements, particularly SimulationX support
 
-
 You may report any issues with using the [Issues](../../issues) button.
 
 Contributions in shape of [Pull Requests](../../pulls) are always welcome.
 
 The following people have directly contributed to the implementation of the library (many more have contributed by providing feedback and suggestions):
 * [Dominik Sommer](mailto:dominik.sommer@dlr.de), code for Linux serial port support.
-
+* [Rangarajan Varadan](mailto:svsranga@gmail.com), code for Windows serial port support.
