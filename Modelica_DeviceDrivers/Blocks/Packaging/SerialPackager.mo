@@ -31,9 +31,10 @@ package SerialPackager "Blocks for constructing packages"
         input Modelica_DeviceDrivers.Packaging.SerialPackager     pkg;
         input Real u[:];
         input Real dummy;
+        input Modelica_DeviceDrivers.Utilities.Types.ByteOrder byteOrder;
         output Real dummy2;
       algorithm
-       Modelica_DeviceDrivers.Packaging.SerialPackager_.addReal(pkg,u);
+       Modelica_DeviceDrivers.Packaging.SerialPackager_.addReal(pkg,u,byteOrder);
        dummy2 :=dummy;
       end addReal;
 
@@ -41,9 +42,10 @@ package SerialPackager "Blocks for constructing packages"
         input Modelica_DeviceDrivers.Packaging.SerialPackager  pkg;
         input Real u[:];
         input Real dummy;
+        input Modelica_DeviceDrivers.Utilities.Types.ByteOrder byteOrder;
         output Real dummy2;
       algorithm
-       Modelica_DeviceDrivers.Packaging.SerialPackager_.addRealAsFloat(pkg,u);
+       Modelica_DeviceDrivers.Packaging.SerialPackager_.addRealAsFloat(pkg,u,byteOrder);
        dummy2 :=dummy;
       end addRealAsFloat;
 
@@ -62,9 +64,10 @@ package SerialPackager "Blocks for constructing packages"
         input Modelica_DeviceDrivers.Packaging.SerialPackager     pkg;
         input Integer u[:];
         input Real dummy;
+        input Modelica_DeviceDrivers.Utilities.Types.ByteOrder byteOrder;
         output Real dummy2;
       algorithm
-       Modelica_DeviceDrivers.Packaging.SerialPackager_.addInteger(pkg,u);
+       Modelica_DeviceDrivers.Packaging.SerialPackager_.addInteger(pkg,u,byteOrder);
        dummy2 := dummy;
       end addInteger;
 
@@ -72,10 +75,11 @@ package SerialPackager "Blocks for constructing packages"
         input Modelica_DeviceDrivers.Packaging.SerialPackager     pkg;
         input Integer n;
         input Real dummy;
+        input Modelica_DeviceDrivers.Utilities.Types.ByteOrder byteOrder;
         output Real y[n];
         output Real dummy2;
       algorithm
-        y := Modelica_DeviceDrivers.Packaging.SerialPackager_.getReal(pkg, n);
+        y := Modelica_DeviceDrivers.Packaging.SerialPackager_.getReal(pkg, n, byteOrder);
         dummy2 :=dummy;
       end getReal;
 
@@ -83,10 +87,11 @@ package SerialPackager "Blocks for constructing packages"
         input Modelica_DeviceDrivers.Packaging.SerialPackager     pkg;
         input Integer n;
         input Real dummy;
+        input Modelica_DeviceDrivers.Utilities.Types.ByteOrder byteOrder;
         output Real y[n];
         output Real dummy2;
       algorithm
-        y := Modelica_DeviceDrivers.Packaging.SerialPackager_.getRealFromFloat(pkg, n);
+        y := Modelica_DeviceDrivers.Packaging.SerialPackager_.getRealFromFloat(pkg, n, byteOrder);
         dummy2 :=dummy;
       end getRealFromFloat;
 
@@ -103,10 +108,11 @@ package SerialPackager "Blocks for constructing packages"
         input Modelica_DeviceDrivers.Packaging.SerialPackager     pkg;
         input Integer n;
         input Real dummy;
+        input Modelica_DeviceDrivers.Utilities.Types.ByteOrder byteOrder;
         output Integer y[n];
         output Real dummy2;
       algorithm
-        y := Modelica_DeviceDrivers.Packaging.SerialPackager_.getInteger(pkg, n);
+        y := Modelica_DeviceDrivers.Packaging.SerialPackager_.getInteger(pkg, n, byteOrder);
         dummy2 :=dummy;
       end getInteger;
 
@@ -290,7 +296,9 @@ and one Integer value is added, serialized and finally sent using UDP.
     extends
       Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager;
     import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
+    import Modelica_DeviceDrivers.Utilities.Types.ByteOrder;
     parameter Integer n = 1 "Vector size";
+    ByteOrder byteOrder = ByteOrder.LE; 
     Modelica.Blocks.Interfaces.IntegerInput u[n]
       annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   equation
@@ -303,7 +311,8 @@ and one Integer value is added, serialized and finally sent using UDP.
         Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.DummyFunctions.addInteger(
           pkgOut.pkg,
           u,
-          pkgIn.dummy);
+          pkgIn.dummy,
+          byteOrder);
     end when;
 
     annotation (Icon(graphics={
@@ -330,7 +339,9 @@ and one Integer value is added, serialized and finally sent using UDP.
     extends
       Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager;
     import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
+    import Modelica_DeviceDrivers.Utilities.Types.ByteOrder;
     parameter Integer n = 1 "Vector size";
+    ByteOrder byteOrder = ByteOrder.LE; 
     Modelica.Blocks.Interfaces.RealInput u[n]
       annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   equation
@@ -344,7 +355,8 @@ and one Integer value is added, serialized and finally sent using UDP.
         Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.DummyFunctions.addReal(
           pkgOut.pkg,
           u,
-          pkgIn.dummy);
+          pkgIn.dummy,
+          byteOrder);
     end when;
     annotation (Icon(graphics={
           Text(
@@ -370,7 +382,9 @@ and one Integer value is added, serialized and finally sent using UDP.
     extends
       Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager;
     import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
+    import Modelica_DeviceDrivers.Utilities.Types.ByteOrder;
     parameter Integer n = 1 "Vector size";
+    ByteOrder byteOrder = ByteOrder.LE; 
     Modelica.Blocks.Interfaces.RealInput u[n]
       annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   equation
@@ -384,7 +398,8 @@ and one Integer value is added, serialized and finally sent using UDP.
         Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.DummyFunctions.addRealAsFloat(
           pkgOut.pkg,
           u,
-          pkgIn.dummy);
+          pkgIn.dummy,
+          byteOrder);
     end when;
     annotation (Icon(coordinateSystem(
             preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
@@ -493,7 +508,9 @@ and one Integer value is added, serialized and finally sent using UDP.
     extends
       Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager;
     import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
+    import Modelica_DeviceDrivers.Utilities.Types.ByteOrder;
     parameter Integer n = 1 "Vector size";
+    ByteOrder byteOrder = ByteOrder.LE; 
     Modelica.Blocks.Interfaces.IntegerOutput y[n]
       annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   protected
@@ -508,7 +525,8 @@ and one Integer value is added, serialized and finally sent using UDP.
         Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.DummyFunctions.getInteger(
           pkgIn.pkg,
           n,
-          pkgIn.dummy);
+          pkgIn.dummy,
+          byteOrder);
       pkgOut.dummy = fill(dummy,nu);
     end when;
 
@@ -533,7 +551,9 @@ and one Integer value is added, serialized and finally sent using UDP.
     extends
       Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager;
     import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
+    import Modelica_DeviceDrivers.Utilities.Types.ByteOrder;
     parameter Integer n = 1 "Vector size";
+    ByteOrder byteOrder = ByteOrder.LE; 
     Modelica.Blocks.Interfaces.RealOutput y[n]
       annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   protected
@@ -549,7 +569,8 @@ and one Integer value is added, serialized and finally sent using UDP.
          Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.DummyFunctions.getReal(
           pkgIn.pkg,
           n,
-          pkgIn.dummy);
+          pkgIn.dummy,
+          byteOrder);
       pkgOut.dummy = fill(dummy,nu);
     end when;
 
@@ -577,7 +598,9 @@ and one Integer value is added, serialized and finally sent using UDP.
     extends
       Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager;
     import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
+    import Modelica_DeviceDrivers.Utilities.Types.ByteOrder;
     parameter Integer n = 1 "Vector size";
+    ByteOrder byteOrder = ByteOrder.LE; 
     Modelica.Blocks.Interfaces.RealOutput y[n]
       annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   protected
@@ -593,7 +616,8 @@ and one Integer value is added, serialized and finally sent using UDP.
          Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.DummyFunctions.getRealFromFloat(
           pkgIn.pkg,
           n,
-          pkgIn.dummy);
+          pkgIn.dummy,
+          byteOrder);
       pkgOut.dummy = fill(dummy,nu);
     end when;
 

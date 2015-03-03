@@ -18,16 +18,71 @@
 #include <stddef.h>
 #include <assert.h>
 #include "../src/include/CompatibilityDefs.h"
+#include "../src/include/detail_endian.h"
 #include "ModelicaUtilities.h"
 
+enum MDDEndian {
+    MDD_ENDIAN_UNDEFINED = 0,
+    MDD_ENDIAN_LITTLE = 1,
+    MDD_ENDIAN_BIG = 2
+};
 
 typedef struct {
     unsigned int pos;
     unsigned int bitOffset;
     unsigned int size;
     unsigned char* data;
+    int endian;
 } SerialPackager;
 
+#define MDDSWAP(a,b) a^=b; b^=a; a^=b
+
+void* MDD_int32Swap(int *a) {
+    union {
+        char i1[4];
+        int  i4;
+    } tmp;
+
+    tmp.i4 = *a;
+
+    MDDSWAP(tmp.i1[0], tmp.i1[3]);
+    MDDSWAP(tmp.i1[1], tmp.i1[2]);
+
+    *a = tmp.i4;
+    return (void*)a;
+}
+
+void* MDD_floatSwap(float *a) {
+    union {
+        char  i1[4];
+        float r4;
+    } tmp;
+
+    tmp.r4 = *a;
+
+    MDDSWAP(tmp.i1[0], tmp.i1[3]);
+    MDDSWAP(tmp.i1[1], tmp.i1[2]);
+
+    *a = tmp.r4;
+    return (void*)a;
+}
+
+void* MDD_doubleSwap(double *a) {
+    union {
+        char   a[8];
+        double b;
+    } tmp;
+
+    tmp.b = *a;
+
+    MDDSWAP(tmp.a[0], tmp.a[7]);
+    MDDSWAP(tmp.a[1], tmp.a[6]);
+    MDDSWAP(tmp.a[2], tmp.a[5]);
+    MDDSWAP(tmp.a[3], tmp.a[4]);
+
+    *a = tmp.b;
+    return (void*)a;
+}
 
 /** External object constructor for SerialPackager.
  *
@@ -40,6 +95,13 @@ DllExport void* MDD_SerialPackagerConstructor(int size) {
     pkg->pos = 0;
     pkg->bitOffset = 0;
     pkg->size = size;
+#if defined(BOOST_LITTLE_ENDIAN)
+    pkg->endian = MDD_ENDIAN_LITTLE;
+#elif defined(BOOST_BIG_ENDIAN)
+    pkg->endian = MDD_ENDIAN_BIG;
+#else
+    pkg->endian = MDD_ENDIAN_UNDEFINED;
+#endif
     return (void*) pkg;
 }
 
@@ -113,7 +175,6 @@ DllExport void MDD_SerialPackagerSetData( void* p_package, const char * data, in
     pkg->bitOffset = 0;
 }
 
-
 /** Print content of package.
  * @param[in] p_packager pointer to the SerialPackager
  */
@@ -159,17 +220,26 @@ DllExport void MDD_SerialPackagerAlignToByteBoundary(SerialPackager* p_package) 
  * @param[in,out] p_package pointer to the SerialPackager
  * @param[in] u array of integer values
  * @param[in] n number of values in u
+ * @param[in] endian byte order
  */
-DllExport void MDD_SerialPackagerAddInteger(void* p_package, int * u, size_t n) {
+DllExport void MDD_SerialPackagerAddInteger(void* p_package, int * u, size_t n, int endian) {
     SerialPackager* pkg = (SerialPackager*) p_package;
-
     if (pkg->bitOffset != 0) {
         MDD_SerialPackagerAlignToByteBoundary(pkg);
     }
     if (pkg->pos + n*sizeof(int) > pkg->size) {
         ModelicaFormatError("SerialPackager: MDD_SerialPackagerAddInteger failed. Buffer overflow.\n");
     }
-    memcpy(pkg->data + pkg->pos, u, n*sizeof(int));
+    if ((endian == MDD_ENDIAN_LITTLE && pkg->endian == MDD_ENDIAN_BIG) ||
+        (endian == MDD_ENDIAN_BIG && pkg->endian == MDD_ENDIAN_LITTLE)) {
+        size_t i;
+        for (i = 0; i < n; ++i) {
+            memcpy(pkg->data + pkg->pos + i*sizeof(int), MDD_int32Swap(&u[i]), sizeof(int));
+        }
+    }
+    else {
+        memcpy(pkg->data + pkg->pos, u, n*sizeof(int));
+    }
     pkg->pos += n*sizeof(int);
 }
 
@@ -181,18 +251,26 @@ DllExport void MDD_SerialPackagerAddInteger(void* p_package, int * u, size_t n) 
  * @param[in,out] p_package pointer to the SerialPackager
  * @param[out] y array of integer values
  * @param[in] n requested number of integer values
- *
+ * @param[in] endian requested byte order
  */
-DllExport void MDD_SerialPackagerGetInteger(void* p_package, int * y, int n) {
+DllExport void MDD_SerialPackagerGetInteger(void* p_package, int * y, int n, int endian) {
     SerialPackager* pkg = (SerialPackager*) p_package;
-
     if (pkg->bitOffset != 0) {
         MDD_SerialPackagerAlignToByteBoundary(pkg);
     }
     if (pkg->pos + n*sizeof(int) > pkg->size) {
         ModelicaFormatError("SerialPackager: MDD_SerialPackagerGetInteger failed. Buffer overflow.\n");
     }
-    memcpy(y, pkg->data + pkg->pos, n*sizeof(int));
+    if ((endian == MDD_ENDIAN_LITTLE && pkg->endian == MDD_ENDIAN_BIG) ||
+        (endian == MDD_ENDIAN_BIG && pkg->endian == MDD_ENDIAN_LITTLE)) {
+        size_t i;
+        for (i = 0; i < n; ++i) {
+            memcpy(&y[i], MDD_int32Swap((int*)(pkg->data + pkg->pos + i*sizeof(int))), sizeof(int));
+        }
+    }
+    else {
+        memcpy(y, pkg->data + pkg->pos, n*sizeof(int));
+    }
     pkg->pos += n*sizeof(int);
 
 }
@@ -204,8 +282,9 @@ DllExport void MDD_SerialPackagerGetInteger(void* p_package, int * y, int n) {
  * @param[in,out] p_package pointer to the SerialPackager
  * @param[in] u array of double values
  * @param[in] n number of values in u
+ * @param[in] endian byte order
  */
-DllExport void MDD_SerialPackagerAddDouble(void* p_package, double * u, size_t n) {
+DllExport void MDD_SerialPackagerAddDouble(void* p_package, double * u, size_t n, int endian) {
     SerialPackager* pkg = (SerialPackager*) p_package;
     if (pkg->bitOffset != 0) {
         MDD_SerialPackagerAlignToByteBoundary(pkg);
@@ -213,7 +292,16 @@ DllExport void MDD_SerialPackagerAddDouble(void* p_package, double * u, size_t n
     if (pkg->pos + n*sizeof(double) > pkg->size) {
         ModelicaFormatError("SerialPackager: MDD_SerialPackagerAddDouble failed. Buffer overflow.\n");
     }
-    memcpy(pkg->data + pkg->pos, u, n*sizeof(double));
+    if ((endian == MDD_ENDIAN_LITTLE && pkg->endian == MDD_ENDIAN_BIG) ||
+        (endian == MDD_ENDIAN_BIG && pkg->endian == MDD_ENDIAN_LITTLE)) {
+        size_t i;
+        for (i = 0; i < n; ++i) {
+            memcpy(pkg->data + pkg->pos + i*sizeof(double), MDD_doubleSwap(&u[i]), sizeof(double));
+        }
+    }
+    else {
+        memcpy(pkg->data + pkg->pos, u, n*sizeof(double));
+    }
     pkg->pos += n*sizeof(double);
 }
 
@@ -224,9 +312,9 @@ DllExport void MDD_SerialPackagerAddDouble(void* p_package, double * u, size_t n
  * @param[in,out] p_package pointer to the SerialPackager
  * @param[out] y array of double values
  * @param[in] n requested number of values
- *
+ * @param[in] endian requested byte order
  */
-DllExport void MDD_SerialPackagerGetDouble(void* p_package, double * y, int n) {
+DllExport void MDD_SerialPackagerGetDouble(void* p_package, double * y, int n, int endian) {
     SerialPackager* pkg = (SerialPackager*) p_package;
     if (pkg->bitOffset != 0) {
         MDD_SerialPackagerAlignToByteBoundary(pkg);
@@ -234,7 +322,16 @@ DllExport void MDD_SerialPackagerGetDouble(void* p_package, double * y, int n) {
     if (pkg->pos + n*sizeof(double) > pkg->size) {
         ModelicaFormatError("SerialPackager: MDD_SerialPackagerGetDouble failed. Buffer overflow.\n");
     }
-    memcpy(y, pkg->data + pkg->pos, n*sizeof(double));
+    if ((endian == MDD_ENDIAN_LITTLE && pkg->endian == MDD_ENDIAN_BIG) ||
+        (endian == MDD_ENDIAN_BIG && pkg->endian == MDD_ENDIAN_LITTLE)) {
+        size_t i;
+        for (i = 0; i < n; ++i) {
+            memcpy(&y[i], MDD_doubleSwap((double*)(pkg->data + pkg->pos + i*sizeof(double))), sizeof(double));
+        }
+    }
+    else {
+        memcpy(y, pkg->data + pkg->pos, n*sizeof(double));
+    }
     pkg->pos += n*sizeof(double);
 }
 
@@ -245,20 +342,30 @@ DllExport void MDD_SerialPackagerGetDouble(void* p_package, double * y, int n) {
  * @param[in,out] p_package pointer to the SerialPackager
  * @param[in] u array of double values that will be casted to float values before adding them
  * @param[in] n number of values in u
+ * @param[in] endian byte order
  */
-DllExport void MDD_SerialPackagerAddDoubleAsFloat(void* p_package, double * u, size_t n) {
+DllExport void MDD_SerialPackagerAddDoubleAsFloat(void* p_package, double * u, size_t n, int endian) {
     SerialPackager* pkg = (SerialPackager*) p_package;
-    size_t i;
-    float castedDouble;
     if (pkg->bitOffset != 0) {
         MDD_SerialPackagerAlignToByteBoundary(pkg);
     }
     if (pkg->pos + n*sizeof(float) > pkg->size) {
         ModelicaFormatError("SerialPackager: MDD_SerialPackagerAddDoubleAsFloat failed. Buffer overflow.\n");
     }
-    for (i = 0; i < n; i++) {
-        castedDouble = (float) u[i];
-        memcpy(pkg->data + pkg->pos + i*sizeof(float), &castedDouble, sizeof(float));
+    if ((endian == MDD_ENDIAN_LITTLE && pkg->endian == MDD_ENDIAN_BIG) ||
+        (endian == MDD_ENDIAN_BIG && pkg->endian == MDD_ENDIAN_LITTLE)) {
+        size_t i;
+        for (i = 0; i < n; ++i) {
+            void* castedDouble = MDD_floatSwap((float*)(&((float)u[i])));
+            memcpy(pkg->data + pkg->pos + i*sizeof(float), castedDouble, sizeof(float));
+        }
+    }
+    else {
+        size_t i;
+        for (i = 0; i < n; ++i) {
+            float castedDouble = (float) u[i];
+            memcpy(pkg->data + pkg->pos + i*sizeof(float), &castedDouble, sizeof(float));
+        }
     }
     pkg->pos += n*sizeof(float);
 }
@@ -270,26 +377,35 @@ DllExport void MDD_SerialPackagerAddDoubleAsFloat(void* p_package, double * u, s
  * @param[in,out] p_package pointer to the SerialPackager
  * @param[out] y array of double values
  * @param[in] n requested number of values
- *
+ * @param[in] endian requested byte order
  */
-DllExport void MDD_SerialPackagerGetFloatAsDouble(void* p_package, double * y, int n) {
+DllExport void MDD_SerialPackagerGetFloatAsDouble(void* p_package, double * y, int n, int endian) {
     SerialPackager* pkg = (SerialPackager*) p_package;
-    int i;
-    float value;
     if (pkg->bitOffset != 0) {
         MDD_SerialPackagerAlignToByteBoundary(pkg);
     }
     if (pkg->pos + n*sizeof(float) > pkg->size) {
         ModelicaFormatError("SerialPackager: MDD_SerialPackagerGetFloatAsDouble failed. Buffer overflow.\n");
     }
-    for (i = 0; i < n; i++) {
-        memcpy(&value, pkg->data + pkg->pos + i*sizeof(float), sizeof(float));
-        y[i] = (double) value;
+    if ((endian == MDD_ENDIAN_LITTLE && pkg->endian == MDD_ENDIAN_BIG) ||
+        (endian == MDD_ENDIAN_BIG && pkg->endian == MDD_ENDIAN_LITTLE)) {
+        size_t i;
+        for (i = 0; i < n; i++) {
+            float value;
+            memcpy(&value, MDD_floatSwap((float*)(pkg->data + pkg->pos + i*sizeof(float))), sizeof(float));
+            y[i] = (double) value;
+        }
+    }
+    else {
+        size_t i;
+        for (i = 0; i < n; i++) {
+            float value;
+            memcpy(&value, pkg->data + pkg->pos + i*sizeof(float), sizeof(float));
+            y[i] = (double) value;
+        }
     }
     pkg->pos += n*sizeof(float);
 }
-
-
 
 /** Add string at current byte position.
  *
@@ -314,7 +430,6 @@ DllExport void MDD_SerialPackagerAddString(void* p_package, const char* u, int b
     memcpy(pkg->data + pkg->pos, u, bufferSize);
     pkg->pos += bufferSize;
 }
-
 
 /** Get string from current byte position.
  *
@@ -356,7 +471,6 @@ DllExport const char* MDD_SerialPackagerGetString(void* p_package, int bufferSiz
     }
     return y;
 }
-
 
 /** Unpack integer value from package relative to current BYTE position (using Intel endianness).
  *
@@ -486,7 +600,6 @@ DllExport void MDD_SerialPackagerIntegerBitpack2(void* p_package, int bitOffset,
     MDD_SerialPackagerIntegerBitpack(p_package, pkg->bitOffset + bitOffset, width, data);
 }
 
-
 #if 0 /* Incubator: Add and (test) functionality below or delete it? */
 
 /** Pack IEEE float value into CAN data.
@@ -563,7 +676,6 @@ double MDD_CANMessageFloatBitunpacking(void* p_cANMessage, int bitStartPosition)
     }
     return (double)data;
 }
-
 
 /** A memcpy which handles bit offsets and copies specified on bit length level.
  *
@@ -658,7 +770,3 @@ void * MDD_SerialPackagerMemcpyBitRead(void* destination, const void* source, un
 #endif /* 0 */
 
 #endif /* MDDSERIALPACKAGER_H_ */
-
-
-
-
