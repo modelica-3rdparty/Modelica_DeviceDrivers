@@ -53,7 +53,7 @@ DWORD WINAPI MDD_udpReceivingThread(LPVOID pUdp) {
             BOOL socketError;
             EnterCriticalSection(&udp->receiveLock);
             udp->receivedBytes = receivedBytes;
-            memcpy(udp->receiveBuffer, udp->receiveBufferTmp, udp->bufferSize);
+            memcpy(udp->receiveBuffer, udp->receiveBufferTmp, udp->receivedBytes);
             socketError = udp->receivedBytes == SOCKET_ERROR;
             LeaveCriticalSection(&udp->receiveLock);
             if (socketError) {
