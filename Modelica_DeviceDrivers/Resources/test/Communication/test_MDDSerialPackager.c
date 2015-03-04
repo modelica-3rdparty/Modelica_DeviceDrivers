@@ -42,12 +42,12 @@ int test_add2Pkg() {
         double c[3] = {0.5, 1.5, 2.5}, d[3];
         printf("test_add2Pkg: Adding and getting from SerialPackager of size %d .. ", size);
         pkg = MDD_SerialPackagerConstructor(size);
-        MDD_SerialPackagerAddInteger(pkg, a, 3);
-        MDD_SerialPackagerAddDouble(pkg, c, 3);
+        MDD_SerialPackagerAddInteger(pkg, a, 3, 0);
+        MDD_SerialPackagerAddDouble(pkg, c, 3, 0);
 
         MDD_SerialPackagerSetPos(pkg, 0);
-        MDD_SerialPackagerGetInteger(pkg, b, 3);
-        MDD_SerialPackagerGetDouble(pkg, d, 3);
+        MDD_SerialPackagerGetInteger(pkg, b, 3, 0);
+        MDD_SerialPackagerGetDouble(pkg, d, 3, 0);
 
         failure = (d[0] == 0.5 && d[1] == 1.5 && d[2] == 2.5) ? 0 : 1;
         failure = failure | (b[0] == 1 && b[1] == 2 && b[2] == 3) ? 0 : 1;
@@ -66,10 +66,10 @@ int test_add2PkgBoundary() {
         int a = 100, b;
         printf("test_add2PkgBoundary: Adding and getting from SerialPackager of size %d .. ", size);
         pkg = MDD_SerialPackagerConstructor(size);
-        MDD_SerialPackagerAddInteger(pkg, &a, 1);
+        MDD_SerialPackagerAddInteger(pkg, &a, 1, 0);
 
         MDD_SerialPackagerSetPos(pkg, 0);
-        MDD_SerialPackagerGetInteger(pkg, &b, 1);
+        MDD_SerialPackagerGetInteger(pkg, &b, 1, 0);
 
         failure = failure | b == 100 ? 0 : 1;
         MDD_SerialPackagerDestructor(pkg);
@@ -116,13 +116,13 @@ int test_addString() {
         printf("test_addString: Adding and retrieving strings ..");
         pkg = MDD_SerialPackagerConstructor(size);
         MDD_SerialPackagerAddString(pkg, a, 5);
-        MDD_SerialPackagerAddInteger(pkg, &b, 1);
+        MDD_SerialPackagerAddInteger(pkg, &b, 1, 0);
         MDD_SerialPackagerAddString(pkg, c, 5);
         MDD_SerialPackagerAddString(pkg, d, 5);
 
         MDD_SerialPackagerSetPos(pkg, 0);
         a_ = MDD_SerialPackagerGetString(pkg, 5);
-        MDD_SerialPackagerGetInteger(pkg, &b_, 1);
+        MDD_SerialPackagerGetInteger(pkg, &b_, 1, 0);
         c_ = MDD_SerialPackagerGetString(pkg, 5);
 	d_ = MDD_SerialPackagerGetString(pkg, 5);
 
@@ -147,9 +147,9 @@ int test_addDoubleAsFloat() {
         int failure = 0;
         printf("test_addDoubleAsFloat: Adding and retrieving doubles that are casted to float to save memory/bandwidth ..");
         pkg = MDD_SerialPackagerConstructor(4*sizeof(float));
-        MDD_SerialPackagerAddDoubleAsFloat(pkg, doublesIn, 4);
+        MDD_SerialPackagerAddDoubleAsFloat(pkg, doublesIn, 4, 0);
         MDD_SerialPackagerSetPos(pkg, 0);
-        MDD_SerialPackagerGetFloatAsDouble(pkg, doublesOut, 4);
+        MDD_SerialPackagerGetFloatAsDouble(pkg, doublesOut, 4, 0);
         for (i=0; i < 4; i++) {
                 /* Thats not a good way to compare floating points, but should be enough for us */
                 failure = failure || fabs(doublesOut - doublesIn) < FLT_EPSILON ? 0 : 1;

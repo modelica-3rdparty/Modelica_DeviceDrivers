@@ -14,6 +14,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 set(CMAKE_EDIT_COMMAND cmake-gui)
 
 include_directories(src/include)
+include_directories(Include)
 
 if (MSVC)
   # Dummy Windows rt library for uniform treatment of GCC and MS Visual C within Modelica
