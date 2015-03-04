@@ -6,6 +6,7 @@
  * @since       2012-12-22
  * @copyright Modelica License 2
  *
+ * @note 2015-03-04: Use uthash (https://github.com/troydhanson/uthash) instead?
 */
 
 #include <map>

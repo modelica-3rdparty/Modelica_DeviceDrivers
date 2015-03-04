@@ -7,6 +7,7 @@
  * @copyright Modelica License 2
  *
  * @note 2012-12-22: Provided function *not* (yet) used anywhere (except unit testing).
+ * @note 2015-03-04: Use uthash (https://github.com/troydhanson/uthash) instead?
 */
 
 #include <map>
