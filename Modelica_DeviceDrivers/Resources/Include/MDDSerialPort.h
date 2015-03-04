@@ -49,7 +49,7 @@ DWORD WINAPI MDD_serialPortReceivingThread(LPVOID p_serial) {
         commSync.hEvent = commEvnt;
         ClearCommError(serial->hComm, &commErr, &commStat);
 
-        while (serial->hComm != INVALID_HANDLE_VALUE) {
+        while (serial->hComm != INVALID_HANDLE_VALUE && serial->receiving == 1) {
             BOOL waitState = WaitCommEvent(serial->hComm, &fdwEventMask, &commSync);
             if (!waitState) {
                 if (GetLastError() == ERROR_IO_PENDING) {
@@ -59,10 +59,6 @@ DWORD WINAPI MDD_serialPortReceivingThread(LPVOID p_serial) {
                 else {
                     ExitThread(0);
                 }
-            }
-
-            if (serial->receiving != 1) {
-                ExitThread(0);
             }
 
             if (fdwEventMask & (EV_RXCHAR | EV_BREAK | EV_ERR | EV_TXEMPTY)) {
@@ -126,7 +122,6 @@ DllExport void * MDD_serialPortConstructor(const char * deviceName, int bufferSi
             free(serial);
             serial = NULL;
             ModelicaFormatError("MDDSerialPort.h: CreateFileA(..) of serial port %s failed with error %d\n", deviceName, GetLastError());
-            return serial;
         }
         ModelicaFormatMessage("Created serial port for device %s\n", deviceName);
 
@@ -137,7 +132,6 @@ DllExport void * MDD_serialPortConstructor(const char * deviceName, int bufferSi
             free(serial);
             serial = NULL;
             ModelicaFormatError("MDDSerialPort.h: GetCommState(..) of serial port %s failed with error %d\n", deviceName, GetLastError());
-            return serial;
         }
 
         switch (baud) {
@@ -203,7 +197,6 @@ DllExport void * MDD_serialPortConstructor(const char * deviceName, int bufferSi
             free(serial);
             serial = NULL;
             ModelicaFormatError("MDDSerialPort.h: SetCommState(..) of serial port %s failed with error %d\n", deviceName, GetLastError());
-            return serial;
         }
 
         if (!GetCommMask(serial->hComm, &fdwEventMask)) {
@@ -282,8 +275,9 @@ DllExport void MDD_serialPortDestructor(void * p_serial) {
         MDD_serialPortSend(p_serial, &c, 1);
         if (serial->hThread) {
             DWORD dwEc = 1;
-            while (GetExitCodeThread(serial->hThread, &dwEc) && dwEc == STILL_ACTIVE) {
-                ;
+            WaitForSingleObject(serial->hThread, 1000);
+            if (GetExitCodeThread(serial->hThread, &dwEc) && dwEc == STILL_ACTIVE) {
+                TerminateThread(serial->hThread, 1);
             }
             CloseHandle(serial->hThread);
             DeleteCriticalSection(&serial->receiveLock);
