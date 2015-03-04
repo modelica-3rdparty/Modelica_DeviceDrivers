@@ -3,9 +3,11 @@ package SerialPackager_ "Accompanying functions for the SerialPackager object"
   extends Modelica_DeviceDrivers.Utilities.Icons.DriverIcon;
 encapsulated function addReal "Add Modelica Real encoded as double"
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
+    import Modelica_DeviceDrivers.Utilities.Types.ByteOrder;
   input SerialPackager pkg;
   input Real u[:];
-  external "C" MDD_SerialPackagerAddDouble(pkg, u, size(u,1))
+  input ByteOrder byteOrder;
+  external "C" MDD_SerialPackagerAddDouble(pkg, u, size(u,1), byteOrder)
   annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
              Include = "#include \"MDDSerialPackager.h\" ",
              __iti_dll = "ITI_MDD.dll");
@@ -14,9 +16,11 @@ end addReal;
 encapsulated function addRealAsFloat
     "Add Modelica Real encoded as float (double is casted to float!)"
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
+    import Modelica_DeviceDrivers.Utilities.Types.ByteOrder;
   input SerialPackager pkg;
   input Real u[:];
-  external "C" MDD_SerialPackagerAddDoubleAsFloat(pkg, u, size(u,1))
+  input ByteOrder byteOrder;
+  external "C" MDD_SerialPackagerAddDoubleAsFloat(pkg, u, size(u,1), byteOrder)
   annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
              Include = "#include \"MDDSerialPackager.h\" ",
              __iti_dll = "ITI_MDD.dll");
@@ -24,9 +28,11 @@ end addRealAsFloat;
 
 encapsulated function addInteger
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
+    import Modelica_DeviceDrivers.Utilities.Types.ByteOrder;
   input SerialPackager pkg;
   input Integer u[:];
-  external "C" MDD_SerialPackagerAddInteger(pkg, u, size(u,1))
+  input ByteOrder byteOrder;
+  external "C" MDD_SerialPackagerAddInteger(pkg, u, size(u,1), byteOrder)
   annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
              Include = "#include \"MDDSerialPackager.h\" ",
              __iti_dll = "ITI_MDD.dll");
@@ -96,10 +102,12 @@ end getPos;
 
 encapsulated function getReal
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
+    import Modelica_DeviceDrivers.Utilities.Types.ByteOrder;
   input SerialPackager pkg;
   input Integer n;
+  input ByteOrder byteOrder;
   output Real y[n];
-  external "C" MDD_SerialPackagerGetDouble(pkg,y,n)
+  external "C" MDD_SerialPackagerGetDouble(pkg,y,n,byteOrder)
   annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
              Include = "#include \"MDDSerialPackager.h\" ",
              __iti_dll = "ITI_MDD.dll");
@@ -108,10 +116,12 @@ end getReal;
 encapsulated function getRealFromFloat
     "Get float from package (float is casted to double)"
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
+    import Modelica_DeviceDrivers.Utilities.Types.ByteOrder;
   input SerialPackager pkg;
   input Integer n;
+  input ByteOrder byteOrder;
   output Real y[n];
-  external "C" MDD_SerialPackagerGetFloatAsDouble(pkg,y,n)
+  external "C" MDD_SerialPackagerGetFloatAsDouble(pkg,y,n,byteOrder)
   annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
              Include = "#include \"MDDSerialPackager.h\" ",
              __iti_dll = "ITI_MDD.dll");
@@ -119,10 +129,12 @@ end getRealFromFloat;
 
 encapsulated function getInteger
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
+    import Modelica_DeviceDrivers.Utilities.Types.ByteOrder;
   input SerialPackager pkg;
   input Integer n;
+  input ByteOrder byteOrder;
   output Integer y[n];
-  external "C" MDD_SerialPackagerGetInteger(pkg,y,n)
+  external "C" MDD_SerialPackagerGetInteger(pkg,y,n,byteOrder)
   annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
              Include = "#include \"MDDSerialPackager.h\" ",
              __iti_dll = "ITI_MDD.dll");
