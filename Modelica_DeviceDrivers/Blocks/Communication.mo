@@ -244,7 +244,6 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
             textString="%Serial_Port"),            Text(extent={{-152,-48},{148,-88}},
             textString="%baud")}), Documentation(info="<html>
 <h4><font color=\"#008000\">Support for receiving datagrams over a serial port</font></h4>
-<p><b>Currently only supported for Linux!</b></p>
 <h4><font color=\"#008000\">Example</font></h4>
 <p>
 See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackager_SerialPort\"><code>TestSerialPackager_SerialPort</code></a>.
@@ -309,7 +308,6 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
             textString="%Serial_Port"),            Text(extent={{-154,-44},{146,-84}},
             textString="%baud")}), Documentation(info="<html>
 <h4><font color=\"#008000\">Support for sending datagrams over a serial port</font></h4>
-<p><b>Currently only supported for Linux!</b></p>
 <h4><font color=\"#008000\">Example</font></h4>
 <p>
 See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackager_SerialPort\"><code>TestSerialPackager_SerialPort</code></a>.

@@ -8,7 +8,8 @@ package SerialPort_ "Accompanying functions for the SerialPort object"
     output String data;
   external "C" data=  MDD_serialPortRead(sPort)
   annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
-             Include = "#include \"MDDSerialPort.h\" ");
+             Include = "#include \"MDDSerialPort.h\" ",
+           __iti_dll = "ITI_MDD.dll");
   end read;
 
   encapsulated function sendTo
@@ -18,7 +19,8 @@ package SerialPort_ "Accompanying functions for the SerialPort object"
     input Integer dataSize "Size of data";
   external "C" MDD_serialPortSend(sPort, data, dataSize)
   annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
-             Include = "#include \"MDDSerialPort.h\" ");
+             Include = "#include \"MDDSerialPort.h\" ",
+           __iti_dll = "ITI_MDD.dll");
   end sendTo;
 
   encapsulated function getReceivedBytes
@@ -28,6 +30,7 @@ package SerialPort_ "Accompanying functions for the SerialPort object"
     external "C" receivedBytes =
                                 MDD_serialPortGetReceivedBytes(sPort)
     annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
-             Include = "#include \"MDDSerialPort.h\" ");
+             Include = "#include \"MDDSerialPort.h\" ",
+           __iti_dll = "ITI_MDD.dll");
   end getReceivedBytes;
 end SerialPort_;
