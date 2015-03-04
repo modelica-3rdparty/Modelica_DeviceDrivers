@@ -32,6 +32,7 @@ typedef struct MDDUDPSocket_s MDDUDPSocket;
 
 struct MDDUDPSocket_s {
     char * receiveBuffer;
+    char * receiveBufferTmp;
     char * receiveBufferExport;
     int bufferSize;
     SOCKET SocketID;
@@ -46,14 +47,19 @@ DWORD WINAPI MDD_udpReceivingThread(LPVOID pUdp) {
     MDDUDPSocket * udp = (MDDUDPSocket *)pUdp;
     while (udp->receiving == 1) {
         int remoteAddrLen = sizeof(SOCKADDR);
-        BOOL socketError;
-        EnterCriticalSection(&udp->receiveLock);
-        udp->receivedBytes = recvfrom(udp->SocketID, udp->receiveBuffer, udp->bufferSize, 0, &remoteAddr, &remoteAddrLen);
-        socketError = udp->receivedBytes == SOCKET_ERROR;
-        LeaveCriticalSection(&udp->receiveLock);
-        if (socketError) {
-            ModelicaFormatMessage("MDDUDPSocket.h: Receiving not possible, socket not valid.\n");
-            ExitThread(1);
+        int receivedBytes;
+        receivedBytes = recvfrom(udp->SocketID, udp->receiveBufferTmp, udp->bufferSize, 0, &remoteAddr, &remoteAddrLen);
+        if (receivedBytes > 0) {
+            BOOL socketError;
+            EnterCriticalSection(&udp->receiveLock);
+            udp->receivedBytes = receivedBytes;
+            memcpy(udp->receiveBuffer, udp->receiveBufferTmp, udp->bufferSize);
+            socketError = udp->receivedBytes == SOCKET_ERROR;
+            LeaveCriticalSection(&udp->receiveLock);
+            if (socketError) {
+                ModelicaFormatMessage("MDDUDPSocket.h: Receiving not possible, socket not valid.\n");
+                ExitThread(1);
+            }
         }
     }
     return 0;
@@ -80,7 +86,6 @@ DllExport void * MDD_udpConstructor(int port, int bufferSize) {
         rc = WSAGetLastError();
         WSACleanup();
         ModelicaFormatError("MDDUDPSocket.h: Error at socket(): %ld\n", rc);
-        return udp;
     }
     udp->receiving = 1;
     udp->bufferSize = bufferSize;
@@ -96,21 +101,21 @@ DllExport void * MDD_udpConstructor(int port, int bufferSize) {
             udp = NULL;
             WSACleanup();
             ModelicaFormatError("MDDUDPSocket.h: Error at bind(..) to port %d\n", port);
-            return udp;
         }
         udp->receiveBuffer = (char*)calloc(bufferSize, 1);
+        udp->receiveBufferTmp = (char*)calloc(bufferSize, 1);
         udp->receiveBufferExport = (char*)calloc(bufferSize, 1);
         InitializeCriticalSection(&udp->receiveLock);
         udp->hThread = CreateThread(0, 1024, MDD_udpReceivingThread, udp, 0, &id1);
         if (!udp->hThread) {
             DeleteCriticalSection(&udp->receiveLock);
             free(udp->receiveBuffer);
+            free(udp->receiveBufferTmp);
             free(udp->receiveBufferExport);
             free(udp);
             udp = NULL;
             WSACleanup();
             ModelicaError("MDDUDPSocket.h: Error creating UDP Receiver thread.\n");
-            return udp;
         }
         ModelicaFormatMessage("MDDUDPSocket.h: Waiting for data on port %d.\n", port);
     }
@@ -121,26 +126,30 @@ DllExport void * MDD_udpConstructor(int port, int bufferSize) {
 }
 
 DllExport void MDD_udpDestructor(void * p_udp) {
-    int rc;
     MDDUDPSocket * udp = (MDDUDPSocket *) p_udp;
-    udp->receiving = 0;
-    rc = shutdown(udp->SocketID, 2);
-    if (rc == SOCKET_ERROR) {
-        ModelicaFormatMessage("MDDUDPSocket.h: shutdown failed: %d\n", WSAGetLastError());
-    }
-    closesocket(udp->SocketID);
-    if (udp->hThread) {
-        DWORD dwEc = 1;
-        while (GetExitCodeThread(udp->hThread, &dwEc) && dwEc == STILL_ACTIVE) {
-            ;
+    if (udp) {
+        int rc;
+        udp->receiving = 0;
+        rc = shutdown(udp->SocketID, 2);
+        if (rc == SOCKET_ERROR) {
+            ModelicaFormatMessage("MDDUDPSocket.h: shutdown failed: %d\n", WSAGetLastError());
         }
-        CloseHandle(udp->hThread);
-        DeleteCriticalSection(&udp->receiveLock);
-        free(udp->receiveBuffer);
-        free(udp->receiveBufferExport);
+        closesocket(udp->SocketID);
+        if (udp->hThread) {
+            DWORD dwEc = 1;
+            WaitForSingleObject(udp->hThread, 1000);
+            if (GetExitCodeThread(udp->hThread, &dwEc) && dwEc == STILL_ACTIVE) {
+                TerminateThread(udp->hThread, 1);
+            }
+            CloseHandle(udp->hThread);
+            DeleteCriticalSection(&udp->receiveLock);
+            free(udp->receiveBuffer);
+            free(udp->receiveBufferTmp);
+            free(udp->receiveBufferExport);
+        }
+        free(udp);
     }
     WSACleanup();
-    free(udp);
 }
 
 DllExport void MDD_udpSend(void * p_udp, const char * ipAddress, int port,
@@ -192,7 +201,7 @@ DllExport int MDD_udpGetReceivedBytes(void * p_udp) {
 
 
 struct hostent *hostlist;   /* List of hosts returned
-			       by gethostbyname. */
+                   by gethostbyname. */
 
 typedef struct MDDUDPSocket_s MDDUDPSocket;
 
@@ -475,7 +484,7 @@ void * MDD_udpConstructor(int port, int bufferSize) {
            to network byte order */
         udp->sa.sin_port = htons(port);
         udp->sa.sin_addr.s_addr = htonl(INADDR_ANY);  /* listen on
-								 all interfaces */
+                                 all interfaces */
 
         /* Bind to a port so the networking software will know
            which port we’re interested in receiving packets from. */
