@@ -43,11 +43,12 @@ void* MDD_int32Swap(void* a) {
         int  i4;
     } tmp;
 
-    tmp.i4 = *(int*)a;
+    memcpy(&tmp, a, sizeof(int));
 
     MDDSWAP(tmp.i1[0], tmp.i1[3]);
     MDDSWAP(tmp.i1[1], tmp.i1[2]);
 
+    memcpy(a, &tmp, sizeof(int));
     return a;
 }
 
@@ -57,11 +58,12 @@ void* MDD_floatSwap(void* a) {
         float r4;
     } tmp;
 
-    tmp.r4 = *(float*)a;
+    memcpy(&tmp, a, sizeof(float));
 
     MDDSWAP(tmp.i1[0], tmp.i1[3]);
     MDDSWAP(tmp.i1[1], tmp.i1[2]);
 
+    memcpy(a, &tmp, sizeof(float));
     return a;
 }
 
@@ -71,13 +73,14 @@ void* MDD_doubleSwap(void* a) {
         double b;
     } tmp;
 
-    tmp.b = *(double*)a;
+    memcpy(&tmp, a, sizeof(double));
 
     MDDSWAP(tmp.a[0], tmp.a[7]);
     MDDSWAP(tmp.a[1], tmp.a[6]);
     MDDSWAP(tmp.a[2], tmp.a[5]);
     MDDSWAP(tmp.a[3], tmp.a[4]);
 
+    memcpy(a, &tmp, sizeof(double));
     return a;
 }
 
