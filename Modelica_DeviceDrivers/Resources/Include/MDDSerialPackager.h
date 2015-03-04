@@ -37,51 +37,48 @@ typedef struct {
 
 #define MDDSWAP(a,b) a^=b; b^=a; a^=b
 
-void* MDD_int32Swap(int *a) {
+void* MDD_int32Swap(void* a) {
     union {
         char i1[4];
         int  i4;
     } tmp;
 
-    tmp.i4 = *a;
+    tmp.i4 = *(int*)a;
 
     MDDSWAP(tmp.i1[0], tmp.i1[3]);
     MDDSWAP(tmp.i1[1], tmp.i1[2]);
 
-    *a = tmp.i4;
-    return (void*)a;
+    return a;
 }
 
-void* MDD_floatSwap(float *a) {
+void* MDD_floatSwap(void* a) {
     union {
         char  i1[4];
         float r4;
     } tmp;
 
-    tmp.r4 = *a;
+    tmp.r4 = *(float*)a;
 
     MDDSWAP(tmp.i1[0], tmp.i1[3]);
     MDDSWAP(tmp.i1[1], tmp.i1[2]);
 
-    *a = tmp.r4;
-    return (void*)a;
+    return a;
 }
 
-void* MDD_doubleSwap(double *a) {
+void* MDD_doubleSwap(void* a) {
     union {
         char   a[8];
         double b;
     } tmp;
 
-    tmp.b = *a;
+    tmp.b = *(double*)a;
 
     MDDSWAP(tmp.a[0], tmp.a[7]);
     MDDSWAP(tmp.a[1], tmp.a[6]);
     MDDSWAP(tmp.a[2], tmp.a[5]);
     MDDSWAP(tmp.a[3], tmp.a[4]);
 
-    *a = tmp.b;
-    return (void*)a;
+    return a;
 }
 
 /** External object constructor for SerialPackager.
@@ -356,8 +353,8 @@ DllExport void MDD_SerialPackagerAddDoubleAsFloat(void* p_package, double * u, s
         (endian == MDD_ENDIAN_BIG && pkg->endian == MDD_ENDIAN_LITTLE)) {
         size_t i;
         for (i = 0; i < n; ++i) {
-            void* castedDouble = MDD_floatSwap((float*)(&((float)u[i])));
-            memcpy(pkg->data + pkg->pos + i*sizeof(float), castedDouble, sizeof(float));
+            float castedDouble = (float) u[i];
+            memcpy(pkg->data + pkg->pos + i*sizeof(float), MDD_floatSwap(&castedDouble), sizeof(float));
         }
     }
     else {
@@ -391,7 +388,7 @@ DllExport void MDD_SerialPackagerGetFloatAsDouble(void* p_package, double * y, i
         (endian == MDD_ENDIAN_BIG && pkg->endian == MDD_ENDIAN_LITTLE)) {
         size_t i;
         for (i = 0; i < n; i++) {
-            float value;
+            float value = 0.f;
             memcpy(&value, MDD_floatSwap((float*)(pkg->data + pkg->pos + i*sizeof(float))), sizeof(float));
             y[i] = (double) value;
         }
@@ -399,7 +396,7 @@ DllExport void MDD_SerialPackagerGetFloatAsDouble(void* p_package, double * y, i
     else {
         size_t i;
         for (i = 0; i < n; i++) {
-            float value;
+            float value = 0.f;
             memcpy(&value, pkg->data + pkg->pos + i*sizeof(float), sizeof(float));
             y[i] = (double) value;
         }
