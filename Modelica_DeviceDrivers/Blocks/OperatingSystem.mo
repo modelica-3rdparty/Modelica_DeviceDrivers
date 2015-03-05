@@ -12,6 +12,7 @@ package OperatingSystem
     output Real calculationTime "Time needed for calculation";
     output Real availableTime
       "Time available for calculation (integrator step size)";
+  protected
     Modelica_DeviceDrivers.OperatingSystem.ProcessPriority procPrio = Modelica_DeviceDrivers.OperatingSystem.ProcessPriority(
       if
         (priority == "Idle") then -2 else
@@ -24,7 +25,6 @@ package OperatingSystem
       if
         (priority == "Realtime") then 2 else
       0) if setPriority;
-  protected
     Real dummyState(start = 0)
       "dummy state to be integrated, to force synchronization in every integration step";
   equation
