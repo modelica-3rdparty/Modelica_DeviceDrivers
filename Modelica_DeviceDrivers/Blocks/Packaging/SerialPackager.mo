@@ -463,8 +463,7 @@ and one Integer value is added, serialized and finally sent using UDP.
       Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager;
     import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
     parameter Integer n = 1 "Vector size";
-    Modelica.Blocks.Interfaces.BooleanOutput y[
-                                            n]
+    discrete Modelica.Blocks.Interfaces.BooleanOutput y[n](each start=0, each fixed=true)
       annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   protected
     Integer y_int[n];
@@ -484,7 +483,7 @@ and one Integer value is added, serialized and finally sent using UDP.
     end when;
 
     for i in 1:n loop
-      y[i] = if    (y_int[i] == 1) then true else false;
+      y[i] = if (y_int[i] == 1) then true else false;
     end for;
 
     annotation (Icon(graphics={
@@ -511,7 +510,7 @@ and one Integer value is added, serialized and finally sent using UDP.
     import Modelica_DeviceDrivers.Utilities.Types.ByteOrder;
     parameter Integer n = 1 "Vector size";
     parameter ByteOrder byteOrder = ByteOrder.LE; 
-    Modelica.Blocks.Interfaces.IntegerOutput y[n]
+    discrete Modelica.Blocks.Interfaces.IntegerOutput y[n](each start=0, each fixed=true)
       annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   protected
     Real dummy;
@@ -554,7 +553,7 @@ and one Integer value is added, serialized and finally sent using UDP.
     import Modelica_DeviceDrivers.Utilities.Types.ByteOrder;
     parameter Integer n = 1 "Vector size";
     parameter ByteOrder byteOrder = ByteOrder.LE; 
-    Modelica.Blocks.Interfaces.RealOutput y[n]
+    discrete Modelica.Blocks.Interfaces.RealOutput y[n](each start=0, each fixed=true)
       annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   protected
     Real dummy;
@@ -601,7 +600,7 @@ and one Integer value is added, serialized and finally sent using UDP.
     import Modelica_DeviceDrivers.Utilities.Types.ByteOrder;
     parameter Integer n = 1 "Vector size";
     parameter ByteOrder byteOrder = ByteOrder.LE; 
-    Modelica.Blocks.Interfaces.RealOutput y[n]
+    discrete Modelica.Blocks.Interfaces.RealOutput y[n](each start=0, each fixed=true)
       annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   protected
     Real dummy;
@@ -645,7 +644,7 @@ and one Integer value is added, serialized and finally sent using UDP.
     import Modelica.Utilities.Strings.length;
     parameter Integer bufferSize = 40
       "Buffer size (in bytes) reserved for String (ensure that same buffer size is used in corresponding AddString block!)";
-    output String data;
+    discrete output String data(start="", fixed=true);
   protected
     Real dummy;
   equation
