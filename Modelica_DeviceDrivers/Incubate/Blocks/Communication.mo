@@ -21,7 +21,7 @@ package Communication
     parameter Boolean blockDuringFirstSample = false
       "If true, block on datagram receive during first sampling of block equations, otherwise skip blocking for first sampling";
 
-    Modelica_DeviceDrivers.Blocks.Interfaces.PackageOut pkgOut
+    Modelica_DeviceDrivers.Blocks.Interfaces.PackageOut pkgOut(pkg = SerialPackager(bufferSize))
                                        annotation (Placement(transformation(
           extent={{-20,-20},{20,20}},
           rotation=90,
@@ -29,7 +29,7 @@ package Communication
 
   protected
     Integer bufferSize;
-    UDPSocket socket;
+    UDPSocket socket = UDPSocket(port_recv, bufferSize);
     Boolean newData;
     Boolean firstSample(start=true, fixed=true);
 
@@ -47,12 +47,8 @@ package Communication
     end if;
 
   equation
-    when (initial()) then
-      bufferSize =  if autoBufferSize then alignAtByteBoundary(pkgOut.autoPkgBitSize)
-         else userBufferSize;
-      pkgOut.pkg =  SerialPackager(bufferSize);
-  //    Modelica.Utilities.Streams.print("Open Socket "+String(port_recv)+" with bufferSize "+String(bufferSize));
-      socket =  UDPSocket(port_recv, bufferSize);
+    when initial() then
+      bufferSize = if autoBufferSize then alignAtByteBoundary(pkgOut.autoPkgBitSize) else userBufferSize;
     end when;
 
     pkgOut.trigger = sample(0, sampleTime);
