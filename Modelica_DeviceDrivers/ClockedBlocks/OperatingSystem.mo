@@ -3,7 +3,7 @@ package OperatingSystem
   extends Modelica.Icons.Package;
   block SynchronizeRealtime "A pseudo realtime synchronization"
     extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
-    parameter Integer resolution(min = 1) = 1 "resolution of the timer";
+    final parameter Integer resolution(min = 1) = 1 "resolution of the timer";
     parameter
       Modelica_DeviceDrivers.ClockedBlocks.OperatingSystem.Types.ProcessPriority
       priority="Normal" "Priority of the simulation process";

@@ -4,7 +4,7 @@ package OperatingSystem
 
   block SynchronizeRealtime "A pseudo realtime synchronization"
     extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
-    parameter Integer resolution(min = 1) = 1 "resolution of the timer";
+    final parameter Integer resolution(min = 1) = 1 "resolution of the timer";
     parameter Boolean setPriority = true "true, if process priority is to be set, otherwise false";
     parameter
       Modelica_DeviceDrivers.Blocks.OperatingSystem.Types.ProcessPriority
