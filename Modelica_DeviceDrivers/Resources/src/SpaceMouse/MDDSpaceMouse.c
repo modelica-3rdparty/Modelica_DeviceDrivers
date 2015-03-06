@@ -3,7 +3,6 @@
  * @file
  * @author Tobias Bellmann <tobias.bellmann@dlr.de> (Windows)
  * @author Bernhard Thiele <bernhard.thiele@dlr.de> (Linux)
- * @version $Id$
  * @since 2012-06-05
  * @copyright Modelica License 2
  *
