@@ -18,6 +18,16 @@
 #include "../src/include/CompatibilityDefs.h"
 #pragma comment( lib, "Winmm.lib" )
 
+#if !defined(BELOW_NORMAL_PRIORITY_CLASS)
+#define BELOW_NORMAL_PRIORITY_CLASS 0x00004000
+#endif
+
+#if _MSC_VER < 1300
+#define mdd_int64_t __int64
+#else
+#define mdd_int64_t long long
+#endif
+
 DllExport void MDD_setPriority(int priority) {
     ModelicaFormatMessage("ProcessPriority: %d!!\n",priority);
     switch(priority) {
@@ -159,7 +169,7 @@ DllExport double MDD_getTimeMS(int resolution) {
     return (double)ticks.QuadPart / 1000.0;
 }
 
-long long MDD_QPCMicroseconds() {
+mdd_int64_t MDD_QPCMicroseconds() {
     LARGE_INTEGER ticks, frequency;
 
     QueryPerformanceFrequency(&frequency);
@@ -171,13 +181,13 @@ long long MDD_QPCMicroseconds() {
 
 // TODO remove resolution since it is ignored in (new) implementation
 DllExport double MDD_realtimeSynchronize(double simTime, int resolution, double * integratorTimeStep) {
-    static long long MDD_lastTime = 0;
-    static long long MDD_startTime = 0;
+    static mdd_int64_t MDD_lastTime = 0;
+    static mdd_int64_t MDD_startTime = 0;
     static double MDD_lastSimTime = 0;
     static double MDD_lastintegratorTimeStep = 0;
     double calculationTime = 0;
-    long long simTimeMicroseconds;
-    long long timeLeft;
+    mdd_int64_t simTimeMicroseconds;
+    mdd_int64_t timeLeft;
     int sleepCycleMs;
     //int debugCounter=0;
     //int debugCounter2=0;
