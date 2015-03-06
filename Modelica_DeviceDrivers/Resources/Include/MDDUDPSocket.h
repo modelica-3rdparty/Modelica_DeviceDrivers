@@ -1,4 +1,4 @@
-﻿/** UDP socket support (header-only library).
+/** UDP socket support (header-only library).
  *
  * @file
  * @author Tobias Bellmann <tobias.bellmann@dlr.de> (Windows)
