@@ -3,7 +3,6 @@
  * @file
  * @author	Tobias Bellmann <tobias.bellmann@dlr.de> (Windows)
  * @author	Bernhard Thiele <bernhard.thiele@dlr.de> (Linux)
- * @version	$Id: MDDSharedMemory.h 16377 2012-07-23 13:12:25Z thie_be $
  * @since	2012-06-04
  * @copyright Modelica License 2
  *
@@ -26,7 +25,6 @@ struct sharedMemoryBuffer {
     char * sharedMemoryBuf;
     HANDLE hMapFile;
 };
-
 
 DllExport void* MDD_SharedMemoryConstructor(const char * name, int bufSize) {
     struct sharedMemoryBuffer * smb = (struct sharedMemoryBuffer *)malloc(sizeof(struct sharedMemoryBuffer));
@@ -78,7 +76,6 @@ DllExport void MDD_SharedMemoryDestructor(void* p_smb) {
         free(smb);
     }
 }
-
 
 DllExport unsigned int MDD_SharedMemoryGetDataSize(void * p_smb) {
     struct sharedMemoryBuffer * smb = (struct sharedMemoryBuffer *) p_smb;
@@ -233,7 +230,6 @@ void MDD_SharedMemoryDestructor(void * p_smb) {
 
     free(smb);
 }
-
 
 const char * MDD_SharedMemoryRead(void* p_smb) {
     MDDMmap* smb = (MDDMmap*) p_smb;

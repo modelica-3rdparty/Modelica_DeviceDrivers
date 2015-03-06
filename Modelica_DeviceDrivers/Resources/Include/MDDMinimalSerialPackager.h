@@ -3,7 +3,6 @@
  * @file
  * @author		Tobias Bellmann <tobias.bellmann@dlr.de>
  * @author		Bernhard Thiele <bernhard.thiele@dlr.de> (little adaptions)
- * @version	$Id: MDDMinimalSerialPackager.h 16375 2012-07-23 12:01:12Z thie_be $
  * @since		2012-05-30
  * @copyright Modelica License 2
  *
@@ -32,7 +31,6 @@ void * MSP_createPackager(int bufferSize) {
     MSP_PackagerData->pos = 0;
     return (void*) MSP_PackagerData;
 }
-
 
 void MSP_destroyPackager(  int p_MSP_PackagerData) {
     struct MSP_PackagerData * MSP_PackagerData =
@@ -116,7 +114,6 @@ void MSP_getReal( int  p_MSP_PackagerData, double * y, int n) {
     memcpy(y,MSP_PackagerData->buffer+ MSP_PackagerData->pos,typeSize * n);
     MSP_PackagerData->pos+=typeSize * n;
 
-
 }
 
 void MSP_getInteger( int p_MSP_PackagerData, int * y, int n) {
@@ -141,7 +138,6 @@ const char * MSP_getString( int p_MSP_PackagerData) {
 
     int typeSize = sizeof(char);
 
-
     /* find zero terminated end of string */
     for( i = MSP_PackagerData->pos; i < MSP_PackagerData->bufferSize; i++)
         if (MSP_PackagerData->buffer[i] == 0) {
@@ -150,7 +146,6 @@ const char * MSP_getString( int p_MSP_PackagerData) {
 
     /* ModelicaFormatMessage(\"Stringlen: %d \\n\",(i - MSP_PackagerData->pos + 1)); */
     /* Allocate Memory for String */
-
 
     y = MSP_PackagerData->buffer+ MSP_PackagerData->pos;
     /* get data */

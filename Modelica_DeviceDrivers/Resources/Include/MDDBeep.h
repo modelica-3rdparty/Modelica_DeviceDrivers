@@ -3,14 +3,12 @@
  * @file
  * @author		Tobias Bellmann <tobias.bellmann@dlr.de> (Windows)
  * @author		Bernhard Thiele <bernhard.thiele@dlr.de> (Linux)
- * @version	$Id: MDDBeep.h 15720 2012-06-05 21:32:39Z thie_be $
  * @since		2012-05-25
  * @copyright Modelica License 2
  */
 
 #ifndef MDDBEEP_H_
 #define MDDBEEP_H_
-
 
 #include "ModelicaUtilities.h"
 

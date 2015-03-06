@@ -3,7 +3,6 @@
  * @file
  * @author      Tobias Bellmann <tobias.bellmann@dlr.de> (Windows)
  * @author      Bernhard Thiele <bernhard.thiele@dlr.de> (Linux)
- * @version     $Id: MDDKeyboard.h 15720 2012-06-05 21:32:39Z thie_be $
  * @since       2012-06-01
  * @copyright Modelica License 2
  *
@@ -229,7 +228,6 @@ void MDD_keyboardInitialize() {
     XCloseDisplay(display);
 }
 
-
 /** Get state of the specified key.
  * @param[in] ikeyCode Windows key code of the symbol
  * @param[out] piKeyState state of the key
@@ -352,7 +350,6 @@ void MDD_keyboardGetData(int * piKeyState) {
     }
 
 }
-
 
 #else
 

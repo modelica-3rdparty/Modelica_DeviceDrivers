@@ -2,7 +2,6 @@
  *
  * @file
  * @author      Bernhard Thiele <bernhard.thiele@dlr.de>
- * @version     $Id: MDDComedi.h 16050 2012-06-29 14:47:23Z thie_be $
  * @since       2012-06-26
  * @copyright Modelica License 2
  *
@@ -21,7 +20,6 @@
 #include <comedilib.h>
 
 #include "ModelicaUtilities.h"
-
 
 #if defined(__linux__)
 
@@ -82,7 +80,6 @@ int MDD_comedi_data_read(void* p_device, int subDevice, int channel,
     }
     return (int) data;
 }
-
 
 void MDD_comedi_dio_config(void* p_device, int subdevice, int channel, int direction) {
     comedi_t* device = (comedi_t*) p_device;
@@ -186,7 +183,6 @@ int MDD_comedi_from_phys(double data, double min, double max, int unit, int maxd
     comedi_range range = {min, max, (unsigned int)unit};
     return (int)comedi_from_phys(data, &range, (lsampl_t)maxdata);
 }
-
 
 #else
 

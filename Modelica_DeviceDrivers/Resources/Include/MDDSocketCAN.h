@@ -2,7 +2,6 @@
  *
  * @file
  * @author      Bernhard Thiele <bernhard.thiele@dlr.de>
- * @version     $Id$
  * @since       2012-12-22
  * @copyright Modelica License 2
  *
@@ -210,7 +209,6 @@ void MDD_socketCANDefineObject(void* p_mDDSocketCAN, int can_id, int can_dlc) {
                           mDDSocketCAN->ifr.ifr_name, can_dlc, can_id);
 }
 
-
 /** Write CAN frame/message to CAN interface
  * @param[in] p_mDDSocketCAN pointer to external object (MDDSocketCAN struct)
  * @param[in] can_id CAN frame identifier
@@ -275,7 +273,6 @@ int MDD_socketCANRxThread(MDDSocketCAN * mDDSocketCAN) {
 
     ModelicaFormatMessage("SocketCAN (%s): Started dedicted CAN frames receiving thread (socket descriptor %d).\n",
                           mDDSocketCAN->ifr.ifr_name, mDDSocketCAN->skt);
-
 
     sock_poll.fd = mDDSocketCAN->skt;
     sock_poll.events = POLLIN | POLLHUP;

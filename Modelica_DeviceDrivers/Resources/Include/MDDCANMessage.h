@@ -2,7 +2,6 @@
  *
  * @file
  * @author      Bernhard Thiele <bernhard.thiele@dlr.de>
- * @version     $Id: MDDCANMessage.h 15940 2012-06-26 08:27:11Z thie_be $
  * @since       2012-06-19
  * @copyright Modelica License 2
  *
@@ -15,12 +14,9 @@
 #include <stdlib.h>
 #include "ModelicaUtilities.h"
 
-
 typedef struct {
     unsigned char data[8];
 } CANMessage;
-
-
 
 void* MDD_CANMessageConstructor() {
     CANMessage* msg = (CANMessage*) calloc(1, sizeof(CANMessage)); /* all bits initialized to zero */
@@ -107,7 +103,6 @@ int MDD_CANMessageIntegerBitunpacking(void* p_cANMessage, int bitStartPosition, 
 
     return data;
 }
-
 
 /** Pack integer value into CAN data (using Intel endianness).
  *
@@ -213,7 +208,6 @@ double MDD_CANMessageFloatBitunpacking(void* p_cANMessage, int bitStartPosition)
     return (double)data;
 }
 
-
 /** Pack IEEE double value into CAN data.
  *
  * @param[in] p_cANMessage pointer to the CANMessage
@@ -239,7 +233,3 @@ double MDD_CANMessageDoubleBitunpacking(void* p_cANMessage) {
 }
 
 #endif /* MDDCANMESSAGE_H_ */
-
-
-
-

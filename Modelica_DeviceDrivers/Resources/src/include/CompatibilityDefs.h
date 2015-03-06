@@ -2,7 +2,6 @@
  *
  * @file        CompatibilityDefs.h
  * @author	Bernhard Thiele <bernhard.thiele@dlr.de>
- * @version	$Id$
  * @since	2012-05-25
  * @copyright Modelica License 2
  *
@@ -63,7 +62,5 @@ __declspec( dllexport )
   typedef unsigned long   u_long;
   typedef unsigned __int64 u_int64;
 #endif /*_MSC_VER */
-
-
 
 #endif /* COMPATIBILITYDEFS_H_ */

@@ -2,7 +2,6 @@
  *
  * @file
  * @author		Tobias Bellmann <tobias.bellmann@dlr.de>
- * @version	        $Id:$
  * @since		2013-05-24
  * @copyright Modelica License 2
  *
@@ -55,6 +54,5 @@ DllExport double MDD_utilitiesLoadRealParameter(const char * file, const char * 
     ModelicaFormatError("Parameter name not found: %s",name);
     return 0;
 }
-
 
 #endif /* MDDUTILITIES_H_ */

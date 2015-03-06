@@ -3,7 +3,6 @@
  * @file
  * @author		Tobias Bellmann <tobias.bellmann@dlr.de> (Windows)
  * @author		Bernhard Thiele <bernhard.thiele@dlr.de> (Linux)
- * @version	$Id: MDDJoystick.h 15734 2012-06-06 17:58:52Z thie_be $
  * @since		2012-05-25
  * @copyright Modelica License 2
  * @remark The Linux implementation mimics the interface of the windows version, that's
@@ -35,7 +34,6 @@ DllExport void MDD_joystickGetData(int iJSID,double * pdAxes, int * piButtons, i
 
     /* load data from joystick into data structure */
     joyGetPosEx(iJSID,&JoyInfo);
-
 
     /* output axes: */
     pdAxes[0] = (double)JoyInfo.dwXpos;
@@ -115,7 +113,6 @@ DllExport void MDD_joystickGetData(int iJSID,double * pdAxes, int * piButtons, i
 #include <linux/joystick.h>
 #include <errno.h>
 
-
 void MDD_joystickGetData(int iJSID,double * pdAxes, int * piButtons, int * piPOV) {
     /* Need some global variables to save away the state: */
     static int initialized=0, fd=0, *axis=NULL, nAxis=0, nButtons=0;
@@ -179,7 +176,6 @@ void MDD_joystickGetData(int iJSID,double * pdAxes, int * piButtons, int * piPOV
     /* output POV */
     *piPOV=7;
 }
-
 
 #else
 

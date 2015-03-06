@@ -3,7 +3,6 @@
  * @file
  * @author      Bernhard Thiele <bernhard.thiele@dlr.de>
  * @author      Miguel Neves <miguel.neves@dlr.de> (human readable error codes)
- * @version     $Id: MDDSoftingCAN.h 16335 2012-07-18 12:59:39Z thie_be $
  * @since       2012-06-18
  * @copyright Modelica License 2
  *
@@ -41,8 +40,6 @@
 #else
 #	error "Modelica_DeviceDrivers: SoftingCAN driver only supported on WINDOWS!"
 #endif /* _MSC_VER */
-
-
 
 /* Bit timing (1 MBaud) */
 #define PRESCALER_1             1
@@ -128,7 +125,6 @@ typedef struct mdd_canl2_ch_s {
 char mDDErrorMsg[1024];
 
 static char * descriptiveError(int ret, const char * caller_function);
-
 
 DllExport void* MDD_softingCANConstructor(const char* deviceName, int baudRate) {
     MDD_CANL2_CH_STRUCT channel;
@@ -241,7 +237,6 @@ DllExport void* MDD_softingCANConstructor(const char* deviceName, int baudRate) 
 
     return ((void*) mDDSoftingCAN);
 }
-
 
 DllExport void MDD_softingCANDestructor(void* p_mDDSoftingCAN) {
     MDDSoftingCAN * mDDSoftingCAN = (MDDSoftingCAN *) p_mDDSoftingCAN;
@@ -369,8 +364,6 @@ DllExport void MDD_softingCANStartChip(void* p_mDDSoftingCAN) {
     }
     ModelicaFormatMessage("\tOK.\n");
 }
-
-
 
 /** Turn Softing(USB)-CAN error code into human readable descriptive string.
 */

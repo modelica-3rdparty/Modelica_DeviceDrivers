@@ -3,7 +3,6 @@
  * @file
  * @author		Tobias Bellmann <tobias.bellmann@dlr.de> (Windows)
  * @author		Bernhard Thiele <bernhard.thiele@dlr.de> (Linux)
- * @version	$Id: MDDRealtimeSynchronize.h 15720 2012-06-05 21:32:39Z thie_be $
  * @since		2012-05-29
  * @copyright Modelica License 2
  */
@@ -437,7 +436,6 @@ double MDD_realtimeSynchronize(double simTime, int resolution, double * availabl
         t_abs.tv_sec++;
     }
 
-
     *availableTime = ( t_abs.tv_sec - t_clockRealtime.tv_sec )
                      + ((double)t_abs.tv_nsec - (double)t_clockRealtime.tv_nsec)/NSEC_PER_SEC;
     /* printf("t_abs.tv_sec: %d, t_cr.tv_sec: %d, t_abs.tv_nsec: %d, t_cr.tv_nsec: %d\n", t_abs.tv_sec, t_clockRealtime.tv_sec, t_abs.tv_nsec, t_clockRealtime.tv_nsec); */
@@ -453,7 +451,6 @@ double MDD_realtimeSynchronize(double simTime, int resolution, double * availabl
 
     return deltaTime;
 }
-
 
 double MDD_getTimeMS(int resolution) {
     /* argument resolution is ignored */
