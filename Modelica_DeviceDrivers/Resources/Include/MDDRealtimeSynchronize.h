@@ -255,7 +255,7 @@ DllExport double MDD_getTimeMS(int resolution) {
     timeEndPeriod(resolution);
     return (double)ms;
 
-};
+}
 
 DllExport double MDD_realtimeSynchronize(double simTime, int resolution, double * availableTime) {
     static LARGE_INTEGER MDD_lastTime = {0};
@@ -476,7 +476,7 @@ double MDD_getTimeMS(int resolution) {
 
     return (double)ms;
 
-};
+}
 
 #else
 

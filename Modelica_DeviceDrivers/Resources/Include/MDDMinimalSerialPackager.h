@@ -20,7 +20,6 @@ struct MSP_PackagerData {
     char * buffer;
     int pos;
     int bufferSize;
-
 };
 
 void * MSP_createPackager(int bufferSize) {

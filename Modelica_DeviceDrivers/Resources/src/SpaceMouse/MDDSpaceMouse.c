@@ -416,12 +416,12 @@ int MDD_spaceMouseXEventsProcessing(void *p_mDDSpaceMouse) {
     classhints = XAllocClassHint();
     if ( (wmhints==NULL) || (classhints==NULL) ) {
         ModelicaFormatError("MDDSpaceMouse.c: XAllocWMHints or XAllocClassHint failed\n" );
-    };
+    }
 
     display = XOpenDisplay( NULL );
     if ( display == NULL ) {
         ModelicaFormatError("MDDSpaceMouse.c: XOpenDisplay failed \n");
-    };
+    }
 
     window = XCreateSimpleWindow( display, DefaultRootWindow(display),
                                   0, 0, 100, 100, 20,
@@ -444,7 +444,7 @@ int MDD_spaceMouseXEventsProcessing(void *p_mDDSpaceMouse) {
     /* Magellan Event Types */
     if ( !MagellanInit( display, window ) ) {
         ModelicaFormatError("Space Mouse (Magellan) driver not running. Exit ... \n" );
-    };
+    }
 
 #if MDD_DEBUG
     XMapWindow( display, window );
