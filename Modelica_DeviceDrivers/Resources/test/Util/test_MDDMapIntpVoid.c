@@ -29,8 +29,14 @@ int test_mapIntpVoid() {
 
     for (i=0; i<10; i++) {
         data = MDD_mapIntpVoidLookup(p_mDDMap, i*2);
-        sprintf(cmp, "%d", i*3);
-        failed = strcmp(data, cmp) ? 1 : failed;
+        if (data) {
+            sprintf(cmp, "%d", i*3);
+            failed = strcmp(data, cmp) ? 1 : failed;
+            free(data);
+        }
+        else {
+            failed = 1;
+        }
     }
 
     failed = MDD_mapIntpVoidSize(p_mDDMap) == 10 ? failed : 1;

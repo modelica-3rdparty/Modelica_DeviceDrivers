@@ -3,7 +3,7 @@ message(STATUS "WRITING BUILD FILES FOR MDDUtil library")
 
 
 
-set(libSrcsMDDUtilLibrary MDDMapIntInt.cpp MDDMapIntpVoid)
+set(libSrcsMDDUtilLibrary MDDMapIntInt.c MDDMapIntpVoid)
 add_library(MDDUtil STATIC ${libSrcsMDDUtilLibrary})
 
 if (UNIX)
