@@ -199,12 +199,10 @@ DllExport int MDD_udpGetReceivedBytes(void * p_udp) {
 #include <pthread.h>
 #include "../src/include/CompatibilityDefs.h"
 
-
 struct hostent *hostlist;   /* List of hosts returned
                    by gethostbyname. */
 
 typedef struct MDDUDPSocket_s MDDUDPSocket;
-
 
 /** UDP socket object */
 struct MDDUDPSocket_s {
@@ -222,7 +220,6 @@ struct MDDUDPSocket_s {
 };
 
 void MDD_udpDestructor(void * p_udp);
-
 
 /** Dedicated thread for receiving UDP messages.
  *
@@ -294,11 +291,8 @@ const char * MDD_udpRead(void * p_udp) {
     memcpy(udp->msgExport, udp->msgInternal, udp->messageLength);
     pthread_mutex_unlock(&(udp->messageMutex));
 
-
-
     return (const char*) udp->msgExport;
 }
-
 
 /** Nonblocking read data from UDP socket.
  *
@@ -415,9 +409,7 @@ void MDD_udpSend(void * p_udp, const char * ipAddress, int port,
     memcpy(&(udp->sa.sin_addr), hostlist->h_addr_list[0],
            hostlist->h_length);
 
-
     /* ModelicaFormatMessage("udp->sock: %d data: %s\n dataSize: %d\n",udp, data, dataSize); */
-
 
     ret = sendto(udp->sock,          /* initialized UDP socket */
                  data,               /* data to send */
@@ -437,7 +429,6 @@ int MDD_udpGetReceivedBytes(void * p_udp) {
     MDDUDPSocket * udp = (MDDUDPSocket *) p_udp;
     return udp->nReceivedBytes;
 }
-
 
 /** Create a UDP socket.
  * @todo Redesign in order to properly specify what kind of socket (receiving or sending)
@@ -528,7 +519,6 @@ void MDD_udpDestructor(void * p_udp) {
     free(udp->msgExport);
     free(udp);
 }
-
 
 #else
 
