@@ -8,7 +8,7 @@ package SharedMemory_ "Accompanying functions for the SharedMemory object"
     external "C" data=  MDD_SharedMemoryRead(sm)
     annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
            Include = "#include \"MDDSharedMemory.h\" ",
-           Library = "rt",
+           Library = {"rt", "pthread"},
            __iti_dll = "ITI_MDD.dll");
   end read;
 
@@ -20,7 +20,7 @@ package SharedMemory_ "Accompanying functions for the SharedMemory object"
     external "C" MDD_SharedMemoryWrite(sm,data,len)
     annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
            Include = "#include \"MDDSharedMemory.h\" ",
-           Library = "rt",
+           Library = {"rt", "pthread"},
            __iti_dll = "ITI_MDD.dll");
   end write;
 

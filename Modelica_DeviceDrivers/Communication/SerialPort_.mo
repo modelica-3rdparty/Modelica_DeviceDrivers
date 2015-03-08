@@ -9,6 +9,7 @@ package SerialPort_ "Accompanying functions for the SerialPort object"
   external "C" data=  MDD_serialPortRead(sPort)
   annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
              Include = "#include \"MDDSerialPort.h\" ",
+             Library = "pthread",
            __iti_dll = "ITI_MDD.dll");
   end read;
 
@@ -20,6 +21,7 @@ package SerialPort_ "Accompanying functions for the SerialPort object"
   external "C" MDD_serialPortSend(sPort, data, dataSize)
   annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
              Include = "#include \"MDDSerialPort.h\" ",
+             Library = "pthread",
            __iti_dll = "ITI_MDD.dll");
   end sendTo;
 
@@ -31,6 +33,7 @@ package SerialPort_ "Accompanying functions for the SerialPort object"
                                 MDD_serialPortGetReceivedBytes(sPort)
     annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
              Include = "#include \"MDDSerialPort.h\" ",
+             Library = "pthread",
            __iti_dll = "ITI_MDD.dll");
   end getReceivedBytes;
 end SerialPort_;

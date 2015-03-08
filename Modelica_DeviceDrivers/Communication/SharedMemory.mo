@@ -10,7 +10,7 @@ extends ExternalObject;
     external "C" sm=   MDD_SharedMemoryConstructor(memoryName,bufferSize)
     annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
            Include = "#include \"MDDSharedMemory.h\" ",
-           Library = "rt",
+           Library = {"rt", "pthread"},
            __iti_dll = "ITI_MDD.dll");
   end constructor;
 
@@ -20,7 +20,7 @@ extends ExternalObject;
     external "C" MDD_SharedMemoryDestructor(sm)
     annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
            Include = "#include \"MDDSharedMemory.h\" ",
-           Library = "rt",
+           Library = {"rt", "pthread"},
            __iti_dll = "ITI_MDD.dll");
   end destructor;
 end SharedMemory;

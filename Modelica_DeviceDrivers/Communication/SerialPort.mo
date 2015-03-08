@@ -13,6 +13,7 @@ encapsulated function constructor
 external "C" sPort = MDD_serialPortConstructor(deviceName, bufferSize, parity,receiver,baud)
 annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
            Include = "#include \"MDDSerialPort.h\" ",
+           Library = "pthread",
            __iti_dll = "ITI_MDD.dll");
 end constructor;
 
@@ -22,6 +23,7 @@ encapsulated function destructor
 external "C" MDD_serialPortDestructor(sPort)
 annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
            Include = "#include \"MDDSerialPort.h\" ",
+           Library = "pthread",
            __iti_dll = "ITI_MDD.dll");
 end destructor;
 
