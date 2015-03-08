@@ -12,7 +12,7 @@ encapsulated function write "Write CAN frame/message to socket"
   external "C" MDD_socketCANWrite(socketCAN, can_id, can_dlc, data)
   annotation (IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
               Include="#include \"MDDSocketCAN.h\"",
-              Library={"MDDUtil", "pthread"});
+              Library={"pthread"});
 end write;
 
 encapsulated function defineObject
@@ -25,7 +25,7 @@ encapsulated function defineObject
   external "C" MDD_socketCANDefineObject(socketCAN, can_id, can_dlc)
   annotation (IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
               Include="#include \"MDDSocketCAN.h\"",
-              Library={"MDDUtil", "pthread"});
+              Library={"pthread"});
 end defineObject;
 
 encapsulated function readObject
@@ -42,6 +42,6 @@ encapsulated function readObject
 external "C" data = MDD_socketCANRead(socketCAN, can_id, can_dlc, buffer)
 annotation (IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
             Include="#include \"MDDSocketCAN.h\"",
-            Library={"MDDUtil", "pthread"});
+            Library={"pthread"});
 end readObject;
 end SocketCAN_;

@@ -1,19 +1,21 @@
 /** Map/Dictionary support for int key and int value.
  *
  * @file
- * @author      Bernhard Thiele <bernhard.thiele@dlr.de>
+ * @author      bernhard-thiele, tbeu
  * @since       2012-12-22
  * @copyright Modelica License 2
  *
  * @note 2012-12-22: Provided function *not* (yet) used anywhere (except unit testing).
 */
+#ifndef MDDMAPINTINT_H_
+#define MDDMAPINTINT_H_
 
 #include <stdlib.h>
 
 #include "ModelicaUtilities.h"
 
 #define uthash_fatal(msg) ModelicaFormatMessage("Error: %s\n", msg); break
-#include "uthash.h"
+#include "../../thirdParty/uthash/uthash.h"
 
 typedef struct MapIntInt {
     int first;
@@ -105,3 +107,5 @@ void MDD_mapIntIntGetKeys(void* p_mapIntInt, int keys[]) {
         }
     }
 }
+
+#endif /* MDDMAPINTINT_H_ */

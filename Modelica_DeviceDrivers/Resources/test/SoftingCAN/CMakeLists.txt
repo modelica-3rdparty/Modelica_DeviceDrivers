@@ -21,7 +21,7 @@ elseif (MSVC)
 
   if ( CANL2_LIBRARY )
 	add_executable(test_MDDSoftingCAN test_MDDSoftingCAN.c ../Util/ModelicaUtilities.c)
-	target_link_libraries(test_MDDSoftingCAN MDDUtil ${CANL2_LIBRARY})
+	target_link_libraries(test_MDDSoftingCAN ${CANL2_LIBRARY})
 	add_test(test_MDDSoftingCAN ${EXECUTABLE_OUTPUT_PATH}/test_MDDSoftingCAN)
   else ( CANL2_LIBRARY )
   	message("Softing canL2 libraries not found. No support for Softing CAN. Skipping ..")

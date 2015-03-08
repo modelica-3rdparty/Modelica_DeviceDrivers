@@ -7,6 +7,7 @@ FOR LEGAL REASONS THEY MIGHT NOT BE PROVIDED WITH THE SOURCES.
 - hdisdi: Microsoft Device Driver files used for space mouse (http://www.microsoft.com/)
 - ITI: ITI's ModelicaExternalC.lib version for SimulationX (http://www.itisim.com/)
 - softing: Softing's CANL2 interface (http://www.softing.com/)
+- uthash: Hash table implementation (http://troydhanson.github.io/uthash/)
 
 
 

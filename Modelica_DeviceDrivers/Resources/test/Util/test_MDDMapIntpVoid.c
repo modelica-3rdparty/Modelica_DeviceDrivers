@@ -1,17 +1,17 @@
 /** Test for MDDMapIntpVoid.
  *
  * @file
- * @author      Bernhard Thiele <bernhard.thiele@dlr.de>
+ * @author      bernhard-thiele
  * @since       2012-12-22
  * @copyright Modelica License 2
- * @test Test for MDDMapIntpVoid.c.
+ * @test Test for MDDMapIntpVoid.h.
  *
 */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../../src/include/util.h"
+#include "../../src/include/MDDMapIntpVoid.h"
 
 int test_mapIntpVoid() {
     void * p_mDDMap;

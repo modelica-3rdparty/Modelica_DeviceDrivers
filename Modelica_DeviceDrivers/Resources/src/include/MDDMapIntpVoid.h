@@ -1,18 +1,20 @@
 /** Map/Dictionary support for int key and void* value.
  *
  * @file
- * @author      Bernhard Thiele <bernhard.thiele@dlr.de>
+ * @author      bernhard-thiele, tbeu
  * @since       2012-12-22
  * @copyright Modelica License 2
  *
 */
+#ifndef MDDMAPINTPVOID_H_
+#define MDDMAPINTPVOID_H_
 
 #include <stdlib.h>
 
 #include "ModelicaUtilities.h"
 
 #define uthash_fatal(msg) ModelicaFormatMessage("Error: %s\n", msg); break
-#include "uthash.h"
+#include "../thirdParty/uthash/uthash.h"
 
 typedef struct MapIntpVoid {
     int first;
@@ -104,3 +106,5 @@ void MDD_mapIntpVoidGetKeys(void* p_mapIntpVoid, int keys[]) {
         }
     }
 }
+
+#endif /* MDDMAPINTPVOID_H_ */

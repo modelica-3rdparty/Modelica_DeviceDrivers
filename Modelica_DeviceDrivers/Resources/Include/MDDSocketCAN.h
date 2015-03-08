@@ -1,7 +1,7 @@
 /** Support for Linux Socket CAN API (header-only library).
  *
  * @file
- * @author      Bernhard Thiele <bernhard.thiele@dlr.de>
+ * @author      bernhard-thiele
  * @since       2012-12-22
  * @copyright Modelica License 2
  *
@@ -68,7 +68,7 @@
 #include <unistd.h>
 
 #include "ModelicaUtilities.h"
-#include "../src/include/util.h"
+#include "../src/include/MDDMapIntpVoid.h"
 
 /* At time of writing, these constants are not defined in the headers */
 #ifndef PF_CAN

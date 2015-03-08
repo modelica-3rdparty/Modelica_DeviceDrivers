@@ -1,16 +1,16 @@
 /** Test for MDDMapIntInt.
  *
  * @file
- * @author      Bernhard Thiele <bernhard.thiele@dlr.de>
+ * @author      bernhard-thiele
  * @since       2012-12-22
  * @copyright Modelica License 2
- * @test Test for MDDMapIntInt.c.
+ * @test Test for MDDMapIntInt.h.
  *
 */
 
 #include <stdio.h>
 #include <string.h>
-#include "../../src/include/util.h"
+#include "../../src/include/MDDMapIntInt.h"
 
 int test_mapIntInt() {
     void * p_mDDMap;

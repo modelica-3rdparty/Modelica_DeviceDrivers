@@ -10,7 +10,7 @@ output SocketCAN softingCAN;
   external "C" softingCAN = MDD_socketCANConstructor(ifr_name)
   annotation (IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
     Include="#include \"MDDSocketCAN.h\"",
-              Library={"MDDUtil", "pthread"});
+              Library={"pthread"});
 end constructor;
 
 encapsulated function destructor "Destroy object, free resources"
@@ -20,7 +20,7 @@ input SocketCAN socketCAN;
   external "C" MDD_socketCANDestructor(socketCAN)
   annotation (IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
               Include="#include \"MDDSocketCAN.h\"",
-              Library={"MDDUtil", "pthread"});
+              Library={"pthread"});
 end destructor;
 
 end SocketCAN;
