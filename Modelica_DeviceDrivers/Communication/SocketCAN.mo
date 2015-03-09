@@ -4,10 +4,10 @@ class SocketCAN
 extends ExternalObject;
 encapsulated function constructor "Open Socket / Create external object"
     import Modelica_DeviceDrivers.Communication.SocketCAN;
-input String ifr_name;
+input String ifrName;
 output SocketCAN softingCAN;
 
-  external "C" softingCAN = MDD_socketCANConstructor(ifr_name)
+  external "C" softingCAN = MDD_socketCANConstructor(ifrName)
   annotation (IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
     Include="#include \"MDDSocketCAN.h\"",
               Library={"pthread"});

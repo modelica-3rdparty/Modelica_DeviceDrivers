@@ -3,7 +3,7 @@ model TestSerialPackager_SocketCAN
     extends Modelica.Icons.Example;
 
   import Modelica_DeviceDrivers;
-  Modelica_DeviceDrivers.Blocks.Communication.SocketCAN.SocketCANConfig socketCANConfig1(ifr_name=
+  Modelica_DeviceDrivers.Blocks.Communication.SocketCAN.SocketCANConfig socketCANConfig1(ifrName=
         "vcan0")
     annotation (Placement(transformation(extent={{-70,40},{-50,60}})));
   Modelica_DeviceDrivers.Blocks.Communication.SocketCAN.WriteMessage txMessage(
@@ -36,7 +36,7 @@ model TestSerialPackager_SocketCAN
     annotation (Placement(transformation(extent={{20,4},{40,24}})));
   Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.GetInteger getInteger(
       nu=1) annotation (Placement(transformation(extent={{20,-22},{40,-2}})));
-  Modelica_DeviceDrivers.Blocks.Communication.SocketCAN.SocketCANConfig socketCANConfig2(ifr_name=
+  Modelica_DeviceDrivers.Blocks.Communication.SocketCAN.SocketCANConfig socketCANConfig2(ifrName=
         "vcan0")
     annotation (Placement(transformation(extent={{-6,40},{14,60}})));
   Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.UnpackUnsignedInteger
