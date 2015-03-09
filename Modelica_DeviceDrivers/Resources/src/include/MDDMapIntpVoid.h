@@ -6,6 +6,7 @@
  * @copyright Modelica License 2
  *
 */
+
 #ifndef MDDMAPINTPVOID_H_
 #define MDDMAPINTPVOID_H_
 

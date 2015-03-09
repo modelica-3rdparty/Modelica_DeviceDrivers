@@ -7,6 +7,7 @@
  *
  * @note 2012-12-22: Provided function *not* (yet) used anywhere (except unit testing).
 */
+
 #ifndef MDDMAPINTINT_H_
 #define MDDMAPINTINT_H_
 
