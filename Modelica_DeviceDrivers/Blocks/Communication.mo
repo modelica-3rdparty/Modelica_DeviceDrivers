@@ -559,14 +559,14 @@ not necessary mean that your Modelica tool compiles 64bit binaries, i.e., if in 
     record SocketCANConfig "Open socket to specified CAN interface"
     extends Modelica_DeviceDrivers.Utilities.Icons.SocketCANRecordIcon;
       import Modelica_DeviceDrivers.Communication.SocketCAN;
-      parameter String ifr_name = "vcan0"
+      parameter String ifrName = "vcan0"
         "CAN interface name (as displayed by ifconfig)";
-      final parameter SocketCAN dh = SocketCAN(ifr_name) "SocketCAN handle";
+      final parameter SocketCAN dh = SocketCAN(ifrName) "SocketCAN handle";
       annotation (preferredView="info",
               Icon(graphics={
                      Text(
               extent={{-98,70},{98,42}},
-              textString="%ifr_name")}),
+              textString="%ifrName")}),
         Documentation(info="<html>
 <h4><font color=\"#008000\">Support for Linux Socket CAN bus</font></h4>
 <p><b>Please, read the package information for <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SocketCAN\"><code>SocketCAN</code></a> first!</b></p>
