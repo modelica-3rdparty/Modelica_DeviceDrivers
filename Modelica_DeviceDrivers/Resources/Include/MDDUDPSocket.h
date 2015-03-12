@@ -11,7 +11,7 @@
  * "Invalid Argument" error was generated. Fixed it, but not sure whether it is now
  * used really correct.
  * If problems persist consider passing "NULL" as the second last argument. In this
- * case "sa_len" is ignored and the sender's address will not be provided by
+ * case "sa_len" is ignored and the address of sender will not be provided by
  * recvfrom(..). Since it is not really needed, one could live with that.
  *
  */
