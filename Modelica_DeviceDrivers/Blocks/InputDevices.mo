@@ -8,19 +8,17 @@ package InputDevices
     parameter Real gain[6] = ones(6) "gain of axis output";
     parameter Integer ID= 0
       "ID number of the joystick (0 = first joystick attached to the system)";
-    Modelica.Blocks.Interfaces.RealOutput axes[6](start=zeros(6))
+    Modelica.Blocks.Interfaces.RealOutput axes[6](start=zeros(6), each fixed=true)
       annotation (Placement(transformation(extent={{100,50},{120,70}})));
-    Modelica.Blocks.Interfaces.RealOutput pOV annotation (Placement(
+    discrete Modelica.Blocks.Interfaces.RealOutput pOV annotation (Placement(
           transformation(extent={{100,-10},{120,10}})));
-    Modelica.Blocks.Interfaces.IntegerOutput buttons[8]
+    discrete Modelica.Blocks.Interfaces.IntegerOutput buttons[32](start=zeros(32), each fixed=true)
       annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
   protected
-    Real AxesRaw[6] "unscaled joystick input";
+    discrete Real AxesRaw[6](start=zeros(6), each fixed=true) "unscaled joystick input";
   equation
-    when
-        (sample(0,sampleTime)) then
-      (AxesRaw,buttons,pOV) =
-        Modelica_DeviceDrivers.InputDevices.GameController.getData(ID);
+    when sample(0,sampleTime) then
+      (AxesRaw,buttons,pOV) = Modelica_DeviceDrivers.InputDevices.GameController.getData(ID);
     end when;
     axes = (AxesRaw .- 32768)/32768 ./gain;
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -29,7 +27,7 @@ package InputDevices
                 {-150,140},{150,100}}, textString="%name")}),
                 preferredView="info",Documentation(info="<html> This block reads data from the joystick ID (0 = first joystick appearing in windows control panel).
                                 Multible blocks can be used in order to retrieve data from more than one joysticks.
-                                Up to six axes and eight buttons are supported. The input values ranges between -1 and 1 and can be scaled by the
+                                Up to six axes and 32 buttons are supported. The input values ranges between -1 and 1 and can be scaled by the
                                 vector <b>gain</b>. Via the parameter <b>sampleTime</b> the input sampling rate is chosen.</html>"));
   end JoystickInput;
 
