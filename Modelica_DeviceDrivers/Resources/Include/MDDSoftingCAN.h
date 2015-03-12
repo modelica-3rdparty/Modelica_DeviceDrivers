@@ -27,7 +27,7 @@
 #	include "ModelicaUtilities.h"
 #	include "MDDCANMessage.h"
 #   include "MDDSerialPackager.h"
-#	if  defined(MDDSOFTINGCANUSECMAKE)
+#	if defined(MDDSOFTINGCANUSECMAKE)
 /* use cmake to resolve linking dependencies */
 #	else
 /* Used as header-only library => add linking dependencies here: */
@@ -35,8 +35,8 @@
 #			pragma comment( lib, "canL2_64.lib" )
 #		else
 #			pragma comment( lib, "canL2.lib" )
-#		endif /* defined(_WIN64) */
-#	endif /*MDDSOFTINGCANWRAPPER_C_*/
+#		endif /* _WIN64 */
+#	endif /* MDDSOFTINGCANUSECMAKE */
 #else
 #	error "Modelica_DeviceDrivers: SoftingCAN driver only supported on WINDOWS!"
 #endif /* _MSC_VER */
