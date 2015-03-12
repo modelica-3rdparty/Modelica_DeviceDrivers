@@ -259,7 +259,7 @@ int MDD_udpReceivingThread(void * p_udp) {
                                  udp->msgInternal,             /* receive buffer */
                                  udp->messageLength,           /* max bytes to receive */
                                  0,                            /* no special flags */
-                                 (struct sockaddr*) &(udp->sa),/* sender’s address */
+                                 (struct sockaddr*) &(udp->sa),/* address of sender */
                                  &sa_len
                                 );
                     pthread_mutex_unlock(&(udp->messageMutex));
@@ -335,7 +335,7 @@ const char * MDD_udpNonBlockingRead(void * p_udp) {
                              udp->msgExport,               /* receive buffer */
                              udp->messageLength,               /* max bytes to receive */
                              0,                            /* no special flags */
-                             (struct sockaddr*) &(udp->sa),/* sender’s address */
+                             (struct sockaddr*) &(udp->sa),/* address of sender */
                              &sa_len
                             );
 
@@ -383,11 +383,11 @@ void MDD_udpSend(void * p_udp, const char * ipAddress, int port,
 
     /* Good, we have an address. However, some sites
        are moving over to IPv6 (the newer version of
-       IP), and we’re not ready for it (since it uses
-       a new address format). It’s a good idea to check
+       IP), and we are not ready for it (since it uses
+       a new address format). It is a good idea to check
        for this. */
     if (hostlist->h_addrtype != AF_INET) {
-        ModelicaFormatError("MDDUDPSocket.h: Error, %s doesn’t seem to be an IPv4 address.\n",
+        ModelicaFormatError("MDDUDPSocket.h: Error, %s does not seem to be an IPv4 address.\n",
                             ipAddress);
     }
 
@@ -478,7 +478,7 @@ void * MDD_udpConstructor(int port, int bufferSize) {
                                  all interfaces */
 
         /* Bind to a port so the networking software will know
-           which port we’re interested in receiving packets from. */
+           which port we are interested in receiving packets from. */
         if (bind(udp->sock, (struct sockaddr *)&(udp->sa),
                  sizeof(udp->sa)) < 0) {
             ModelicaFormatError("MDDUDPSocket.h: bind(..) failed (%s)\n",
@@ -502,10 +502,10 @@ void * MDD_udpConstructor(int port, int bufferSize) {
  */
 void MDD_udpDestructor(void * p_udp) {
     MDDUDPSocket * udp = (MDDUDPSocket *) p_udp;
-    void * pRet;
 
     /* stop receiving thread if any */
     if (udp->runReceive) {
+        void * pRet;
         udp->runReceive = 0;
         pthread_join(udp->thread, &pRet);
         pthread_detach(udp->thread);
