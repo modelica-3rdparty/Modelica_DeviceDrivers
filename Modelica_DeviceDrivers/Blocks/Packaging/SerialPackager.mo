@@ -227,7 +227,7 @@ package SerialPackager "Blocks for constructing packages"
 
     annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
               -100},{100,100}}), graphics={Bitmap(extent={{-70,70},{70,-70}},
-              fileName="Modelica://Modelica_DeviceDrivers/Resources/Images/Icons/package.PNG")}), Documentation(info="<html>
+              fileName="Modelica://Modelica_DeviceDrivers/Resources/Images/Icons/package.png")}), Documentation(info="<html>
 <p>
 The <code>Packager</code> block creates a packager object to which payload can be added by subsequent blocks.
 </p>

@@ -94,6 +94,6 @@ package Interfaces
             extent={{-142,100},{148,58}},
             textString="%name"),           Bitmap(extent={{-40,-16},{40,-96}},
               fileName=
-                "modelica://Modelica_DeviceDrivers/Resources/Images/Icons/package.PNG")}));
+                "modelica://Modelica_DeviceDrivers/Resources/Images/Icons/package.png")}));
   end PartialSoftingCANMessage;
 end Interfaces;

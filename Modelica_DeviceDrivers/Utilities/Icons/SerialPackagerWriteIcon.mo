@@ -5,5 +5,5 @@ partial block SerialPackagerWriteIcon
             -100},{100,100}}), graphics={                                                     Text(
           extent={{-100,96},{100,56}},
           textString="%name"),           Bitmap(extent={{20,40},{100,-40}},
-            fileName="modelica://Modelica_DeviceDrivers/Resources/Images/Icons/package.PNG")}));
+            fileName="modelica://Modelica_DeviceDrivers/Resources/Images/Icons/package.png")}));
 end SerialPackagerWriteIcon;

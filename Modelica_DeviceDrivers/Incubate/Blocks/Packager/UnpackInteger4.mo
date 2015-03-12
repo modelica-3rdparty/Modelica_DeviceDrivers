@@ -27,7 +27,7 @@ equation
           lineColor={255,127,0},
           fillColor={255,127,0},
           fillPattern=FillPattern.Solid),Bitmap(extent={{-86,36},{-6,-44}},
-            fileName="modelica://Modelica_DeviceDrivers/Resources/Images/Icons/package.PNG"),
+            fileName="modelica://Modelica_DeviceDrivers/Resources/Images/Icons/package.png"),
         Text(
           extent={{-100,74},{100,48}},
           fillColor={0,0,127},

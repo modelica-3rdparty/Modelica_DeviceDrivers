@@ -13,5 +13,5 @@ equation
    packOut.msg = msg;
   annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {100,100}}),       graphics={Bitmap(extent={{-70,70},{70,-70}},
-            fileName="modelica://Modelica_DeviceDrivers/Resources/Images/Icons/package.PNG")}));
+            fileName="modelica://Modelica_DeviceDrivers/Resources/Images/Icons/package.png")}));
 end Packager2;

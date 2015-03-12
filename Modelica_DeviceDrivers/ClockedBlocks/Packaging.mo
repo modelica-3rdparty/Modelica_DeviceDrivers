@@ -231,7 +231,7 @@ package Packaging
 
       annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
                 -100},{100,100}}), graphics={Bitmap(extent={{-70,70},{70,-70}},
-                fileName="Modelica://Modelica_DeviceDrivers/Resources/Images/Icons/package.PNG")}));
+                fileName="Modelica://Modelica_DeviceDrivers/Resources/Images/Icons/package.png")}));
     end Packager;
 
     block AddBoolean "Add a Boolean vector to package"
