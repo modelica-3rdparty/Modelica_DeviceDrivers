@@ -37,8 +37,7 @@ equation
       points={{-59,10},{-42,10}},
       color={255,127,0}));
   connect(packager.pkgOut, packInt.pkgIn) annotation (Line(
-      points={{-30,39.2},{-30,20.8}},
-      pattern=LinePattern.None));
+      points={{-30,39.2},{-30,20.8}}));
   connect(integerExpression2.y, addInteger.u[1]) annotation (Line(
       points={{-55,-68},{-48,-68},{-48,-66},{-42,-66}},
       color={255,127,0}));
@@ -46,23 +45,17 @@ equation
       points={{-59,-28},{-42,-28}},
       color={255,127,0}));
   connect(packInt.pkgOut[1], packInt1.pkgIn) annotation (Line(
-      points={{-30,-0.8},{-30,-17.2}},
-      pattern=LinePattern.None));
+      points={{-30,-0.8},{-30,-17.2}}));
   connect(packInt1.pkgOut[1], addInteger.pkgIn) annotation (Line(
-      points={{-30,-38.8},{-30,-55.2}},
-      pattern=LinePattern.None));
+      points={{-30,-38.8},{-30,-55.2}}));
   connect(addInteger.pkgOut[1], resetPointer.pkgIn) annotation (Line(
-      points={{-30,-76.8},{-30,-86},{10,-86},{10,64},{46,64},{46,56.8}},
-      pattern=LinePattern.None));
+      points={{-30,-76.8},{-30,-86},{10,-86},{10,64},{46,64},{46,56.8}}));
   connect(resetPointer.pkgOut[1], unpackInt.pkgIn) annotation (Line(
-      points={{46,35.2},{46,22.8}},
-      pattern=LinePattern.None));
+      points={{46,35.2},{46,22.8}}));
   connect(unpackInt.pkgOut[1], unpackInt1.pkgIn) annotation (Line(
-      points={{46,1.2},{46,-13.2}},
-      pattern=LinePattern.None));
+      points={{46,1.2},{46,-13.2}}));
   connect(unpackInt1.pkgOut[1], getInteger.pkgIn) annotation (Line(
-      points={{46,-34.8},{46,-51.2}},
-      pattern=LinePattern.None));
+      points={{46,-34.8},{46,-51.2}}));
   annotation (experiment(StopTime=5.0),
     Documentation(info="<html>
 <p>

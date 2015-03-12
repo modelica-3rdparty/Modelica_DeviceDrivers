@@ -10,10 +10,10 @@ model TestSerialPackager_UDPMinimalForOMCTest
   // Modelica_DeviceDrivers.Blocks.Communication.UDPReceive uDPReceive(port_recv = 10002) annotation(Placement(transformation(extent = {{-10, -10}, {10, 10}}, rotation = 270, origin = {40, 50})));
   // Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.GetReal getReal(n = 3) annotation(Placement(transformation(extent = {{30, 10}, {50, 30}})));
 equation
-  connect(realExpression.y, addReal.u) annotation(Line(points = {{-59, 44}, {-42, 44}}, color = {0, 0, 127}, pattern = LinePattern.None));
-  connect(packager.pkgOut, addReal.pkgIn) annotation(Line(points = {{-30, 61.2}, {-30, 54.8}}, pattern = LinePattern.None));
-  //connect(uDPReceive.pkgOut, getReal.pkgIn) annotation(Line(points = {{40, 39.2}, {40, 30.8}}, pattern = LinePattern.None));
-  connect(addReal.pkgOut[1], uDPSend.pkgIn) annotation(Line(points = {{-30, 33.2}, {-30, 22.8}}, color = {0, 0, 0}, pattern = LinePattern.None, smooth = Smooth.None));
+  connect(realExpression.y, addReal.u) annotation(Line(points = {{-59, 44}, {-42, 44}}, color = {0, 0, 127}));
+  connect(packager.pkgOut, addReal.pkgIn) annotation(Line(points = {{-30, 61.2}, {-30, 54.8}}));
+  //connect(uDPReceive.pkgOut, getReal.pkgIn) annotation(Line(points = {{40, 39.2}, {40, 30.8}}));
+  connect(addReal.pkgOut[1], uDPSend.pkgIn) annotation(Line(points = {{-30, 33.2}, {-30, 22.8}}, color = {0, 0, 0}));
   annotation(experiment(StopTime = 5.0), Documentation(info = "<html>
  <p>
  The <code>uDPSend</code> block sends to the local port 10002. The <code>uDPReceive</code> block starts a background process that listens at port 10002. Consequently, the <code>uDPReceive</code> block receives what the <code>uDPSend</code> block sends.

@@ -64,39 +64,30 @@ equation
   connect(integerExpression1.y, packInt1.u) annotation (Line(
       points={{-48.2,-14},{-42,-14}},
       color={255,127,0}));
-  connect(integerConstant1.y,addInteger1. u[1]) annotation (Line(
+  connect(integerConstant1.y,addInteger1.u[1]) annotation (Line(
       points={{-53.2,-40},{-42,-40}},
       color={255,127,0}));
   connect(realExpression.y, addReal.u) annotation (Line(
       points={{-48.8,40},{-42,40}},
       color={0,0,127}));
   connect(packager.pkgOut, addReal.pkgIn) annotation (Line(
-      points={{-30,55.2},{-30,50.8}},
-      pattern=LinePattern.None));
+      points={{-30,55.2},{-30,50.8}}));
   connect(addReal.pkgOut[1], packInt.pkgIn) annotation (Line(
-      points={{-30,29.2},{-30,24.8}},
-      pattern=LinePattern.None));
+      points={{-30,29.2},{-30,24.8}}));
   connect(packInt.pkgOut[1], packInt1.pkgIn) annotation (Line(
-      points={{-30,3.2},{-30,-3.2}},
-      pattern=LinePattern.None));
+      points={{-30,3.2},{-30,-3.2}}));
   connect(packInt1.pkgOut[1], addInteger1.pkgIn) annotation (Line(
-      points={{-30,-24.8},{-30,-29.2}},
-      pattern=LinePattern.None));
+      points={{-30,-24.8},{-30,-29.2}}));
   connect(addInteger1.pkgOut[1], uDPSend.pkgIn) annotation (Line(
-      points={{-30,-50.8},{-30,-57.2}},
-      pattern=LinePattern.None));
+      points={{-30,-50.8},{-30,-57.2}}));
   connect(uDPReceive.pkgOut, getReal.pkgIn)    annotation (Line(
-      points={{30,57.2},{30,48.8}},
-      pattern=LinePattern.None));
+      points={{30,57.2},{30,48.8}}));
   connect(getReal.pkgOut[1], unpackInt.pkgIn) annotation (Line(
-      points={{30,27.2},{30,16.8}},
-      pattern=LinePattern.None));
+      points={{30,27.2},{30,16.8}}));
   connect(unpackInt.pkgOut[1], unpackInt1.pkgIn) annotation (Line(
-      points={{30,-4.8},{30,-13.2}},
-      pattern=LinePattern.None));
+      points={{30,-4.8},{30,-13.2}}));
   connect(unpackInt1.pkgOut[1], getInteger1.pkgIn) annotation (Line(
-      points={{30,-34.8},{30,-43.2}},
-      pattern=LinePattern.None));
+      points={{30,-34.8},{30,-43.2}}));
   annotation (experiment(StopTime=5.0),
     Documentation(info="<html>
 <p>

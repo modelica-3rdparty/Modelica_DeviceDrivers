@@ -35,36 +35,27 @@ model TestSerialPackager_UDP "Example for combining UDP and SerialPackager block
   equation
     connect(integerExpression.y, addInteger.u[1]) annotation (Line(
         points={{-59,-16},{-42,-16}},
-        color={255,127,0},
-        pattern=LinePattern.None));
+        color={255,127,0}));
     connect(realExpression.y, addReal.u) annotation (Line(
         points={{-59,44},{-42,44}},
-        color={0,0,127},
-        pattern=LinePattern.None));
+        color={0,0,127}));
     connect(packager.pkgOut, addReal.pkgIn) annotation (Line(
-        points={{-30,61.2},{-30,54.8}},
-        pattern=LinePattern.None));
+        points={{-30,61.2},{-30,54.8}}));
     connect(uDPReceive.pkgOut, getReal.pkgIn) annotation (Line(
-        points={{40,39.2},{40,30.8}},
-        pattern=LinePattern.None));
+        points={{40,39.2},{40,30.8}}));
     connect(realExpression1.y, addFloat.u) annotation (Line(
         points={{-57,12},{-42,12}},
         color={0,0,127}));
     connect(addReal.pkgOut[1], addFloat.pkgIn) annotation (Line(
-        points={{-30,33.2},{-30,22.8}},
-        pattern=LinePattern.None));
+        points={{-30,33.2},{-30,22.8}}));
     connect(addFloat.pkgOut[1], addInteger.pkgIn) annotation (Line(
-        points={{-30,1.2},{-30,-5.2}},
-        pattern=LinePattern.None));
+        points={{-30,1.2},{-30,-5.2}}));
     connect(uDPSend.pkgIn, addInteger.pkgOut[1]) annotation (Line(
-        points={{-30,-33.2},{-30,-26.8}},
-        pattern=LinePattern.None));
+        points={{-30,-33.2},{-30,-26.8}}));
     connect(getReal.pkgOut[1], getFloat.pkgIn) annotation (Line(
-        points={{40,9.2},{40,2.8}},
-        pattern=LinePattern.None));
+        points={{40,9.2},{40,2.8}}));
     connect(getInteger.pkgIn, getFloat.pkgOut[1]) annotation (Line(
-        points={{40,-27.2},{40,-18.8}},
-        pattern=LinePattern.None));
+        points={{40,-27.2},{40,-18.8}}));
   annotation(
     Documentation(info="<html>
 <p>

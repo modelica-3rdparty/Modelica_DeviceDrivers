@@ -26,7 +26,7 @@ package HardwareIO
         Documentation(info="<html>
 <p>Record for configuring a Comedi device. At initialization time the comedi device given by the parameter <code>deviceName </code>will be opened and a handle to that device will be assigned to the final parameter<code> dh.</code>This handle needs to be passed as parameter to the remaining Comedi read and write blocks<code>.</code></p>
 <h4><font color=\"#008000\">Note</font></h4>
-<p>Only supported for Linux, since Comedi is only available for linux (<a href=\"http://www.comedi.org/\">http://www.comedi.org/</a>). Requires that Comedilib is installed and that the simulation process has sufficiant privileges to access the intended device (usually that requires &quot;root&quot; privileges).  </p>
+<p>Only supported for Linux, since Comedi is only available for linux (<a href=\"http://www.comedi.org/\">http://www.comedi.org/</a>). Requires that Comedilib is installed and that the simulation process has sufficiant privileges to access the intended device (usually that requires &quot;root&quot; privileges).</p>
 </html>"));
     end ComediConfig;
 

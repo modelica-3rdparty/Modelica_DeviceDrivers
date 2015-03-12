@@ -44,33 +44,26 @@ extends Modelica.Icons.Example;
   Packaging.SerialPackager.GetInteger getInteger
     annotation (Placement(transformation(extent={{-18,-66},{2,-46}})));
 equation
-  connect(unpackInt.pkgOut[1],getString. pkgIn) annotation (Line(
-      points={{-8,-2.8},{-8,-13.2}},
-      pattern=LinePattern.None));
-  connect(integerExpression.y,packInt. u) annotation (Line(
+  connect(unpackInt.pkgOut[1],getString.pkgIn) annotation (Line(
+      points={{-8,-2.8},{-8,-13.2}}));
+  connect(integerExpression.y,packInt.u) annotation (Line(
       points={{-72.7,10},{-58,10}},
       color={255,127,0}));
-  connect(packInt.pkgOut[1],addString. pkgIn) annotation (Line(
-      points={{-46,-0.8},{-46,-9.2}},
-      pattern=LinePattern.None));
+  connect(packInt.pkgOut[1],addString.pkgIn) annotation (Line(
+      points={{-46,-0.8},{-46,-9.2}}));
   connect(serialReceive.pkgOut, unpackInt.pkgIn) annotation (Line(
-      points={{-9.2,50},{-8,50},{-8,18.8}},
-      pattern=LinePattern.None));
+      points={{-9.2,50},{-8,50},{-8,18.8}}));
   connect(packager.pkgOut, packInt.pkgIn) annotation (Line(
-      points={{-48,41.2},{-48,31.6},{-46,31.6},{-46,20.8}},
-      pattern=LinePattern.None));
+      points={{-48,41.2},{-48,31.6},{-46,31.6},{-46,20.8}}));
   connect(addString.pkgOut[1], addInteger.pkgIn) annotation (Line(
-      points={{-46,-30.8},{-46,-45.2}},
-      pattern=LinePattern.None));
+      points={{-46,-30.8},{-46,-45.2}}));
   connect(addInteger.pkgOut[1], serialSend.pkgIn) annotation (Line(
-      points={{-46,-66.8},{-46,-79.2}},
-      pattern=LinePattern.None));
+      points={{-46,-66.8},{-46,-79.2}}));
   connect(integerExpression1.y, addInteger.u[1]) annotation (Line(
       points={{-70.6,-56},{-58,-56}},
       color={255,127,0}));
   connect(getString.pkgOut[1], getInteger.pkgIn) annotation (Line(
-      points={{-8,-34.8},{-8,-45.2}},
-      pattern=LinePattern.None));
+      points={{-8,-34.8},{-8,-45.2}}));
   annotation (Documentation(info="<html>
 <h4><span style=\"color:#008000\">Example for serial port support</span></h4>
 <h4><span style=\"color:#008000\">Hardware setup</span></h4>

@@ -46,38 +46,31 @@ Modelica_DeviceDrivers.Blocks.OperatingSystem.SynchronizeRealtime
   synchronizeRealtime
   annotation (Placement(transformation(extent={{60,40},{80,60}})));
 equation
-  connect(integerExpression1.y,addInteger. u[1]) annotation (Line(
+  connect(integerExpression1.y,addInteger.u[1]) annotation (Line(
       points={{-67,-12},{-50,-12}},
       color={255,127,0}));
   connect(integerExpression2.y, packInt2.u)
                                            annotation (Line(
       points={{-67,-38},{-50,-38}},
       color={255,127,0}));
-  connect(integerConstant.y,packInt1. u) annotation (Line(
+  connect(integerConstant.y,packInt1.u) annotation (Line(
       points={{-67,14},{-50,14}},
       color={255,127,0}));
-  connect(packager.pkgOut,packInt1. pkgIn) annotation (Line(
-      points={{-38,29.2},{-38,24.8}},
-      pattern=LinePattern.None));
-  connect(packInt1.pkgOut[1],addInteger. pkgIn) annotation (Line(
-      points={{-38,3.2},{-38,-1.2}},
-      pattern=LinePattern.None));
+  connect(packager.pkgOut,packInt1.pkgIn) annotation (Line(
+      points={{-38,29.2},{-38,24.8}}));
+  connect(packInt1.pkgOut[1],addInteger.pkgIn) annotation (Line(
+      points={{-38,3.2},{-38,-1.2}}));
   connect(addInteger.pkgOut[1], packInt2.pkgIn)
                                                annotation (Line(
-      points={{-38,-22.8},{-38,-27.2}},
-      pattern=LinePattern.None));
+      points={{-38,-22.8},{-38,-27.2}}));
   connect(unpackInt1.pkgOut[1], getInteger.pkgIn) annotation (Line(
-      points={{30,3.2},{30,-1.2}},
-      pattern=LinePattern.None));
+      points={{30,3.2},{30,-1.2}}));
   connect(getInteger.pkgOut[1], unpackInt2.pkgIn) annotation (Line(
-      points={{30,-22.8},{30,-31.2}},
-      pattern=LinePattern.None));
+      points={{30,-22.8},{30,-31.2}}));
   connect(packInt2.pkgOut[1], txMessage.pkgIn) annotation (Line(
-      points={{-38,-48.8},{-38,-64},{-32.8,-64}},
-      pattern=LinePattern.None));
+      points={{-38,-48.8},{-38,-64},{-32.8,-64}}));
   connect(rxMessage.pkgOut, unpackInt1.pkgIn) annotation (Line(
-      points={{40.8,40},{44,40},{44,28},{30,28},{30,24.8}},
-      pattern=LinePattern.None));
+      points={{40.8,40},{44,40},{44,28},{30,28},{30,24.8}}));
 annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                     graphics={Text(

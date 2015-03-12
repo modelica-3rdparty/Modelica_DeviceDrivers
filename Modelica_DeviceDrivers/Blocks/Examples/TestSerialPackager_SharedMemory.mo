@@ -35,27 +35,20 @@ extends Modelica.Icons.Example;
 equation
   connect(integerExpression.y, addInteger.u[1]) annotation (Line(
       points={{-59,-30},{-42,-30}},
-      color={255,127,0},
-      pattern=LinePattern.None));
+      color={255,127,0}));
   connect(realExpression.y, addReal.u) annotation (Line(
       points={{-59,10},{-42,10}},
-      color={0,0,127},
-      pattern=LinePattern.None));
+      color={0,0,127}));
   connect(packager.pkgOut, addReal.pkgIn) annotation (Line(
-      points={{-30,39.2},{-30,20.8}},
-      pattern=LinePattern.None));
+      points={{-30,39.2},{-30,20.8}}));
   connect(addReal.pkgOut[1], addInteger.pkgIn) annotation (Line(
-      points={{-30,-0.8},{-30,-19.2}},
-      pattern=LinePattern.None));
+      points={{-30,-0.8},{-30,-19.2}}));
   connect(addInteger.pkgOut[1], sharedMemoryWrite.pkgIn) annotation (Line(
-      points={{-30,-40.8},{-30,-57.2}},
-      pattern=LinePattern.None));
+      points={{-30,-40.8},{-30,-57.2}}));
   connect(sharedMemoryRead.pkgOut, getReal.pkgIn) annotation (Line(
-      points={{50,39.2},{50,0.8}},
-      pattern=LinePattern.None));
+      points={{50,39.2},{50,0.8}}));
   connect(getReal.pkgOut[1], getInteger.pkgIn) annotation (Line(
-      points={{50,-20.8},{50,-39.2}},
-      pattern=LinePattern.None));
+      points={{50,-20.8},{50,-39.2}}));
   annotation (experiment(StopTime=5.0),
     Documentation(info="<html>
 <p>
