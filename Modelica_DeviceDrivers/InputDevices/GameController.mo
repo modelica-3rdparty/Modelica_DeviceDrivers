@@ -6,7 +6,7 @@ function getData "reads data from joystick ID"
 input Integer joystickID = 0
       "ID number of the game controller (0 = first controller attached to the system)";
 output Real Axes[6] "Axes values from -1 to 1";
-output Integer Buttons[8] "Buttons values";
+output Integer Buttons[32] "Buttons values";
 output Integer POV "angle of POV";
 external "C" MDD_joystickGetData(joystickID,Axes, Buttons, POV)
 annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",

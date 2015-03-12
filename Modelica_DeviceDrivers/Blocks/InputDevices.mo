@@ -10,17 +10,15 @@ package InputDevices
       "ID number of the joystick (0 = first joystick attached to the system)";
     Modelica.Blocks.Interfaces.RealOutput axes[6](start=zeros(6))
       annotation (Placement(transformation(extent={{100,50},{120,70}})));
-    Modelica.Blocks.Interfaces.RealOutput pOV annotation (Placement(
+    discrete Modelica.Blocks.Interfaces.RealOutput pOV annotation (Placement(
           transformation(extent={{100,-10},{120,10}})));
-    Modelica.Blocks.Interfaces.IntegerOutput buttons[8]
+    discrete Modelica.Blocks.Interfaces.IntegerOutput buttons[32]
       annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
   protected
-    Real AxesRaw[6] "unscaled joystick input";
+    discrete Real AxesRaw[6] "unscaled joystick input";
   equation
-    when
-        (sample(0,sampleTime)) then
-      (AxesRaw,buttons,pOV) =
-        Modelica_DeviceDrivers.InputDevices.GameController.getData(ID);
+    when sample(0,sampleTime) then
+      (AxesRaw,buttons,pOV) = Modelica_DeviceDrivers.InputDevices.GameController.getData(ID);
     end when;
     axes = (AxesRaw .- 32768)/32768 ./gain;
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,

@@ -27,13 +27,13 @@
  *         we do not, we just guess.
  * @warning Don't know how to get POV in linux, defaulting to 7 in linux.
  */
-DllExport void MDD_joystickGetData(int iJSID,double * pdAxes, int * piButtons, int * piPOV) {
+DllExport void MDD_joystickGetData(int iJSID, double * pdAxes, int * piButtons, int * piPOV) {
     JOYINFOEX JoyInfo; /* joystick data structure */
     JoyInfo.dwFlags = JOY_RETURNALL;
     JoyInfo.dwSize = sizeof(JOYINFOEX);
 
     /* load data from joystick into data structure */
-    joyGetPosEx(iJSID,&JoyInfo);
+    joyGetPosEx(iJSID, &JoyInfo);
 
     /* output axes: */
     pdAxes[0] = (double)JoyInfo.dwXpos;
@@ -44,54 +44,39 @@ DllExport void MDD_joystickGetData(int iJSID,double * pdAxes, int * piButtons, i
     pdAxes[5] = (double)JoyInfo.dwVpos;
 
     /* output buttons: */
-    if(JoyInfo.dwButtons&1) {
-        piButtons[0] = 1;
-    }
-    else {
-        piButtons[0] = 0;
-    }
-    if(JoyInfo.dwButtons&2) {
-        piButtons[1] = 1;
-    }
-    else {
-        piButtons[1] = 0;
-    }
-    if(JoyInfo.dwButtons&4) {
-        piButtons[2] = 1;
-    }
-    else {
-        piButtons[2] = 0;
-    }
-    if(JoyInfo.dwButtons&8) {
-        piButtons[3] = 1;
-    }
-    else {
-        piButtons[3] = 0;
-    }
-    if(JoyInfo.dwButtons&16) {
-        piButtons[4] = 1;
-    }
-    else {
-        piButtons[4] = 0;
-    }
-    if(JoyInfo.dwButtons&32) {
-        piButtons[5] = 1;
-    }
-    else {
-        piButtons[5] = 0;
-    }
-    if(JoyInfo.dwButtons&64) {
-        piButtons[6] = 1;
-    }
-    else {
-        piButtons[6] = 0;
-    }
-    if(JoyInfo.dwButtons&128) {
-        piButtons[7] = 1;
-    }
-    else {
-        piButtons[7] = 0;
-    }
+    piButtons[0] = (JoyInfo.dwButtons & JOY_BUTTON1) ? 1 : 0;
+    piButtons[1] = (JoyInfo.dwButtons & JOY_BUTTON2) ? 1 : 0;
+    piButtons[2] = (JoyInfo.dwButtons & JOY_BUTTON3) ? 1 : 0;
+    piButtons[3] = (JoyInfo.dwButtons & JOY_BUTTON4) ? 1 : 0;
+    piButtons[4] = (JoyInfo.dwButtons & JOY_BUTTON5) ? 1 : 0;
+    piButtons[5] = (JoyInfo.dwButtons & JOY_BUTTON6) ? 1 : 0;
+    piButtons[6] = (JoyInfo.dwButtons & JOY_BUTTON7) ? 1 : 0;
+    piButtons[7] = (JoyInfo.dwButtons & JOY_BUTTON8) ? 1 : 0;
+    piButtons[8] = (JoyInfo.dwButtons & JOY_BUTTON9) ? 1 : 0;
+    piButtons[9] = (JoyInfo.dwButtons & JOY_BUTTON10) ? 1 : 0;
+    piButtons[10] = (JoyInfo.dwButtons & JOY_BUTTON11) ? 1 : 0;
+    piButtons[11] = (JoyInfo.dwButtons & JOY_BUTTON12) ? 1 : 0;
+    piButtons[12] = (JoyInfo.dwButtons & JOY_BUTTON13) ? 1 : 0;
+    piButtons[13] = (JoyInfo.dwButtons & JOY_BUTTON14) ? 1 : 0;
+    piButtons[14] = (JoyInfo.dwButtons & JOY_BUTTON15) ? 1 : 0;
+    piButtons[15] = (JoyInfo.dwButtons & JOY_BUTTON16) ? 1 : 0;
+    piButtons[16] = (JoyInfo.dwButtons & JOY_BUTTON17) ? 1 : 0;
+    piButtons[17] = (JoyInfo.dwButtons & JOY_BUTTON18) ? 1 : 0;
+    piButtons[18] = (JoyInfo.dwButtons & JOY_BUTTON19) ? 1 : 0;
+    piButtons[19] = (JoyInfo.dwButtons & JOY_BUTTON20) ? 1 : 0;
+    piButtons[20] = (JoyInfo.dwButtons & JOY_BUTTON21) ? 1 : 0;
+    piButtons[21] = (JoyInfo.dwButtons & JOY_BUTTON22) ? 1 : 0;
+    piButtons[22] = (JoyInfo.dwButtons & JOY_BUTTON23) ? 1 : 0;
+    piButtons[23] = (JoyInfo.dwButtons & JOY_BUTTON24) ? 1 : 0;
+    piButtons[24] = (JoyInfo.dwButtons & JOY_BUTTON25) ? 1 : 0;
+    piButtons[25] = (JoyInfo.dwButtons & JOY_BUTTON26) ? 1 : 0;
+    piButtons[26] = (JoyInfo.dwButtons & JOY_BUTTON27) ? 1 : 0;
+    piButtons[27] = (JoyInfo.dwButtons & JOY_BUTTON28) ? 1 : 0;
+    piButtons[28] = (JoyInfo.dwButtons & JOY_BUTTON29) ? 1 : 0;
+    piButtons[29] = (JoyInfo.dwButtons & JOY_BUTTON30) ? 1 : 0;
+    piButtons[30] = (JoyInfo.dwButtons & JOY_BUTTON31) ? 1 : 0;
+    piButtons[31] = (JoyInfo.dwButtons & JOY_BUTTON32) ? 1 : 0;
+
     /* output POV */
     if(JoyInfo.dwPOV != JOY_POVCENTERED) {
         *piPOV=JoyInfo.dwPOV/100;
@@ -113,7 +98,9 @@ DllExport void MDD_joystickGetData(int iJSID,double * pdAxes, int * piButtons, i
 #include <linux/joystick.h>
 #include <errno.h>
 
-void MDD_joystickGetData(int iJSID,double * pdAxes, int * piButtons, int * piPOV) {
+#define MDD_MAX_BUTTONS (32)
+
+void MDD_joystickGetData(int iJSID, double * pdAxes, int * piButtons, int * piPOV) {
     /* Need some global variables to save away the state: */
     static int initialized=0, fd=0, *axis=NULL, nAxis=0, nButtons=0;
     static char *button = NULL;
@@ -121,6 +108,7 @@ void MDD_joystickGetData(int iJSID,double * pdAxes, int * piButtons, int * piPOV
 
     struct js_event js;
     int i;
+    int nMaxButtons;
 
     if (!initialized) {
         fd = open("/dev/input/js0", O_RDONLY);
@@ -169,8 +157,12 @@ void MDD_joystickGetData(int iJSID,double * pdAxes, int * piButtons, int * piPOV
     }
 
     /* output buttons (default to 0): */
-    for (i = 0; i < 8; i++) {
-        piButtons[i] = nButtons >= i ? button[i] : 0;
+    nMaxButtons = (nButtons > MDD_MAX_BUTTONS) ? MDD_MAX_BUTTONS : nButtons;
+    for (i = 0; i < nMaxButtons; i++) {
+        piButtons[i] = button[i];
+    }
+    for (i = nButtons; i < MDD_MAX_BUTTONS; i++) {
+        piButtons[i] = 0;
     }
 
     /* output POV */
