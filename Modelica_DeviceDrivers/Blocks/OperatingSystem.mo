@@ -25,7 +25,7 @@ package OperatingSystem
       if
         (priority == "Realtime") then 2 else
       0) if setPriority;
-    Real dummyState(start = 0)
+    Real dummyState(start = 0, fixed=true)
       "dummy state to be integrated, to force synchronization in every integration step";
   equation
      (calculationTime,availableTime) = Modelica_DeviceDrivers.OperatingSystem.realtimeSynchronize(time,resolution);
