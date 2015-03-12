@@ -15,7 +15,7 @@ package InputDevices
       annotation (Placement(transformation(extent={{100,50},{120,70}})));
     Modelica.Blocks.Interfaces.RealOutput pOV annotation (Placement(
           transformation(extent={{100,-10},{120,10}})));
-    Modelica.Blocks.Interfaces.IntegerOutput buttons[8]
+    Modelica.Blocks.Interfaces.IntegerOutput buttons[32]
       annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
   protected
     Real AxesRaw[6] "unscaled joystick input";
