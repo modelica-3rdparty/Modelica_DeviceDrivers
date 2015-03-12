@@ -1,17 +1,21 @@
 within Modelica_DeviceDrivers.InputDevices;
-package GameController
-  "A device driver accessing game controllers like joysticks, gamepads, etc."
-extends Modelica_DeviceDrivers.Utilities.Icons.DriverIcon;
-function getData "reads data from joystick ID"
-input Integer joystickID = 0
+class GameController "An object for game controller."
+  extends ExternalObject;
+  function constructor "Creates a GameController instance for a given ID number."
+    input Integer joystickID = 0
       "ID number of the game controller (0 = first controller attached to the system)";
-output Real Axes[6] "Axes values from -1 to 1";
-output Integer Buttons[32] "Buttons values";
-output Integer POV "angle of POV";
-external "C" MDD_joystickGetData(joystickID,Axes, Buttons, POV)
-annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
-           Include = "#include \"MDDJoystick.h\" ",
-           __iti_dll = "ITI_MDD.dll");
-annotation(__OpenModelica_Impure=true, __iti_Impure=true);
-end getData;
+    output GameController gameCtrl;
+    external "C" gameCtrl = MDD_joystickConstructor(joystickID)
+      annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
+        Include = "#include \"MDDJoystick.h\" ",
+        __iti_dll = "ITI_MDD.dll");
+  end constructor;
+
+  function destructor
+    input GameController gameCtrl;
+    external "C" MDD_joystickDestructor(gameCtrl)
+      annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
+        Include = "#include \"MDDJoystick.h\" ",
+        __iti_dll = "ITI_MDD.dll");
+  end destructor;
 end GameController;

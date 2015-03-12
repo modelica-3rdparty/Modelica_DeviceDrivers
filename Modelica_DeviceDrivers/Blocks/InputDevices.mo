@@ -4,6 +4,7 @@ package InputDevices
   block JoystickInput
     "Joystick input implementation for interactive simulations"
     extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
+    import Modelica_DeviceDrivers.InputDevices.GameController;
     parameter Real sampleTime = 0.01 "sample time for input update";
     parameter Real gain[6] = ones(6) "gain of axis output";
     parameter Integer ID= 0
@@ -15,10 +16,11 @@ package InputDevices
     discrete Modelica.Blocks.Interfaces.IntegerOutput buttons[32](start=zeros(32), each fixed=true)
       annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
   protected
+    GameController joystick = GameController(ID);
     discrete Real AxesRaw[6](start=zeros(6), each fixed=true) "unscaled joystick input";
   equation
     when sample(0,sampleTime) then
-      (AxesRaw,buttons,pOV) = Modelica_DeviceDrivers.InputDevices.GameController.getData(ID);
+      (AxesRaw,buttons,pOV) = Modelica_DeviceDrivers.InputDevices.GameController_.getData(joystick);
     end when;
     axes = (AxesRaw .- 32768)/32768 ./gain;
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,

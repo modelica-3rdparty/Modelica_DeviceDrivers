@@ -20,6 +20,26 @@
 #include "../src/include/CompatibilityDefs.h"
 #pragma comment( lib, "Winmm.lib" )
 
+/** Joystick object */
+typedef struct {
+    int iJSID;
+} MDDJoystick;
+
+DllExport void* MDD_joystickConstructor(int iJSID) {
+    MDDJoystick* js = (MDDJoystick*) malloc(sizeof(MDDJoystick));
+    if (js) {
+        js->iJSID = iJSID;
+    }
+    return (void*) js;
+}
+
+DllExport void MDD_joystickDestructor(void* jsObj) {
+    MDDJoystick* js = (MDDJoystick*) jsObj;
+    if (js) {
+        free(js);
+    }
+}
+
 /** Get data from joystick device.
  * @remark The linux implementation must have the interface of the windows version, that's
  *         why its implementation might seem somewhat odd. The @iJSID argument has no effect
@@ -27,62 +47,65 @@
  *         we do not, we just guess.
  * @warning Don't know how to get POV in linux, defaulting to 7 in linux.
  */
-DllExport void MDD_joystickGetData(int iJSID, double * pdAxes, int * piButtons, int * piPOV) {
-    JOYINFOEX JoyInfo; /* joystick data structure */
-    JoyInfo.dwFlags = JOY_RETURNALL;
-    JoyInfo.dwSize = sizeof(JOYINFOEX);
+DllExport void MDD_joystickGetData(void* jsObj, double * pdAxes, int * piButtons, int * piPOV) {
+    MDDJoystick* js = (MDDJoystick*) jsObj;
+    if (js) {
+        JOYINFOEX JoyInfo; /* joystick data structure */
+        JoyInfo.dwFlags = JOY_RETURNALL;
+        JoyInfo.dwSize = sizeof(JOYINFOEX);
 
-    /* load data from joystick into data structure */
-    joyGetPosEx(iJSID, &JoyInfo);
+        /* load data from joystick into data structure */
+        joyGetPosEx(js->iJSID, &JoyInfo);
 
-    /* output axes: */
-    pdAxes[0] = (double)JoyInfo.dwXpos;
-    pdAxes[1] = (double)JoyInfo.dwYpos;
-    pdAxes[2] = (double)JoyInfo.dwZpos;
-    pdAxes[3] = (double)JoyInfo.dwRpos;
-    pdAxes[4] = (double)JoyInfo.dwUpos;
-    pdAxes[5] = (double)JoyInfo.dwVpos;
+        /* output axes: */
+        pdAxes[0] = (double)JoyInfo.dwXpos;
+        pdAxes[1] = (double)JoyInfo.dwYpos;
+        pdAxes[2] = (double)JoyInfo.dwZpos;
+        pdAxes[3] = (double)JoyInfo.dwRpos;
+        pdAxes[4] = (double)JoyInfo.dwUpos;
+        pdAxes[5] = (double)JoyInfo.dwVpos;
 
-    /* output buttons: */
-    piButtons[0] = (JoyInfo.dwButtons & JOY_BUTTON1) ? 1 : 0;
-    piButtons[1] = (JoyInfo.dwButtons & JOY_BUTTON2) ? 1 : 0;
-    piButtons[2] = (JoyInfo.dwButtons & JOY_BUTTON3) ? 1 : 0;
-    piButtons[3] = (JoyInfo.dwButtons & JOY_BUTTON4) ? 1 : 0;
-    piButtons[4] = (JoyInfo.dwButtons & JOY_BUTTON5) ? 1 : 0;
-    piButtons[5] = (JoyInfo.dwButtons & JOY_BUTTON6) ? 1 : 0;
-    piButtons[6] = (JoyInfo.dwButtons & JOY_BUTTON7) ? 1 : 0;
-    piButtons[7] = (JoyInfo.dwButtons & JOY_BUTTON8) ? 1 : 0;
-    piButtons[8] = (JoyInfo.dwButtons & JOY_BUTTON9) ? 1 : 0;
-    piButtons[9] = (JoyInfo.dwButtons & JOY_BUTTON10) ? 1 : 0;
-    piButtons[10] = (JoyInfo.dwButtons & JOY_BUTTON11) ? 1 : 0;
-    piButtons[11] = (JoyInfo.dwButtons & JOY_BUTTON12) ? 1 : 0;
-    piButtons[12] = (JoyInfo.dwButtons & JOY_BUTTON13) ? 1 : 0;
-    piButtons[13] = (JoyInfo.dwButtons & JOY_BUTTON14) ? 1 : 0;
-    piButtons[14] = (JoyInfo.dwButtons & JOY_BUTTON15) ? 1 : 0;
-    piButtons[15] = (JoyInfo.dwButtons & JOY_BUTTON16) ? 1 : 0;
-    piButtons[16] = (JoyInfo.dwButtons & JOY_BUTTON17) ? 1 : 0;
-    piButtons[17] = (JoyInfo.dwButtons & JOY_BUTTON18) ? 1 : 0;
-    piButtons[18] = (JoyInfo.dwButtons & JOY_BUTTON19) ? 1 : 0;
-    piButtons[19] = (JoyInfo.dwButtons & JOY_BUTTON20) ? 1 : 0;
-    piButtons[20] = (JoyInfo.dwButtons & JOY_BUTTON21) ? 1 : 0;
-    piButtons[21] = (JoyInfo.dwButtons & JOY_BUTTON22) ? 1 : 0;
-    piButtons[22] = (JoyInfo.dwButtons & JOY_BUTTON23) ? 1 : 0;
-    piButtons[23] = (JoyInfo.dwButtons & JOY_BUTTON24) ? 1 : 0;
-    piButtons[24] = (JoyInfo.dwButtons & JOY_BUTTON25) ? 1 : 0;
-    piButtons[25] = (JoyInfo.dwButtons & JOY_BUTTON26) ? 1 : 0;
-    piButtons[26] = (JoyInfo.dwButtons & JOY_BUTTON27) ? 1 : 0;
-    piButtons[27] = (JoyInfo.dwButtons & JOY_BUTTON28) ? 1 : 0;
-    piButtons[28] = (JoyInfo.dwButtons & JOY_BUTTON29) ? 1 : 0;
-    piButtons[29] = (JoyInfo.dwButtons & JOY_BUTTON30) ? 1 : 0;
-    piButtons[30] = (JoyInfo.dwButtons & JOY_BUTTON31) ? 1 : 0;
-    piButtons[31] = (JoyInfo.dwButtons & JOY_BUTTON32) ? 1 : 0;
+        /* output buttons: */
+        piButtons[0] = (JoyInfo.dwButtons & JOY_BUTTON1) ? 1 : 0;
+        piButtons[1] = (JoyInfo.dwButtons & JOY_BUTTON2) ? 1 : 0;
+        piButtons[2] = (JoyInfo.dwButtons & JOY_BUTTON3) ? 1 : 0;
+        piButtons[3] = (JoyInfo.dwButtons & JOY_BUTTON4) ? 1 : 0;
+        piButtons[4] = (JoyInfo.dwButtons & JOY_BUTTON5) ? 1 : 0;
+        piButtons[5] = (JoyInfo.dwButtons & JOY_BUTTON6) ? 1 : 0;
+        piButtons[6] = (JoyInfo.dwButtons & JOY_BUTTON7) ? 1 : 0;
+        piButtons[7] = (JoyInfo.dwButtons & JOY_BUTTON8) ? 1 : 0;
+        piButtons[8] = (JoyInfo.dwButtons & JOY_BUTTON9) ? 1 : 0;
+        piButtons[9] = (JoyInfo.dwButtons & JOY_BUTTON10) ? 1 : 0;
+        piButtons[10] = (JoyInfo.dwButtons & JOY_BUTTON11) ? 1 : 0;
+        piButtons[11] = (JoyInfo.dwButtons & JOY_BUTTON12) ? 1 : 0;
+        piButtons[12] = (JoyInfo.dwButtons & JOY_BUTTON13) ? 1 : 0;
+        piButtons[13] = (JoyInfo.dwButtons & JOY_BUTTON14) ? 1 : 0;
+        piButtons[14] = (JoyInfo.dwButtons & JOY_BUTTON15) ? 1 : 0;
+        piButtons[15] = (JoyInfo.dwButtons & JOY_BUTTON16) ? 1 : 0;
+        piButtons[16] = (JoyInfo.dwButtons & JOY_BUTTON17) ? 1 : 0;
+        piButtons[17] = (JoyInfo.dwButtons & JOY_BUTTON18) ? 1 : 0;
+        piButtons[18] = (JoyInfo.dwButtons & JOY_BUTTON19) ? 1 : 0;
+        piButtons[19] = (JoyInfo.dwButtons & JOY_BUTTON20) ? 1 : 0;
+        piButtons[20] = (JoyInfo.dwButtons & JOY_BUTTON21) ? 1 : 0;
+        piButtons[21] = (JoyInfo.dwButtons & JOY_BUTTON22) ? 1 : 0;
+        piButtons[22] = (JoyInfo.dwButtons & JOY_BUTTON23) ? 1 : 0;
+        piButtons[23] = (JoyInfo.dwButtons & JOY_BUTTON24) ? 1 : 0;
+        piButtons[24] = (JoyInfo.dwButtons & JOY_BUTTON25) ? 1 : 0;
+        piButtons[25] = (JoyInfo.dwButtons & JOY_BUTTON26) ? 1 : 0;
+        piButtons[26] = (JoyInfo.dwButtons & JOY_BUTTON27) ? 1 : 0;
+        piButtons[27] = (JoyInfo.dwButtons & JOY_BUTTON28) ? 1 : 0;
+        piButtons[28] = (JoyInfo.dwButtons & JOY_BUTTON29) ? 1 : 0;
+        piButtons[29] = (JoyInfo.dwButtons & JOY_BUTTON30) ? 1 : 0;
+        piButtons[30] = (JoyInfo.dwButtons & JOY_BUTTON31) ? 1 : 0;
+        piButtons[31] = (JoyInfo.dwButtons & JOY_BUTTON32) ? 1 : 0;
 
-    /* output POV */
-    if(JoyInfo.dwPOV != JOY_POVCENTERED) {
-        *piPOV=JoyInfo.dwPOV/100;
-    }
-    else {
-        *piPOV=7;
+        /* output POV */
+        if (JoyInfo.dwPOV != JOY_POVCENTERED) {
+            *piPOV=JoyInfo.dwPOV/100;
+        }
+        else {
+            *piPOV=7;
+        }
     }
 }
 
@@ -100,69 +123,101 @@ DllExport void MDD_joystickGetData(int iJSID, double * pdAxes, int * piButtons, 
 
 #define MDD_MAX_BUTTONS (32)
 
-void MDD_joystickGetData(int iJSID, double * pdAxes, int * piButtons, int * piPOV) {
-    /* Need some global variables to save away the state: */
-    static int initialized=0, fd=0, *axis=NULL, nAxis=0, nButtons=0;
-    static char *button = NULL;
-    static char deviceName[80]="";
-
-    struct js_event js;
-    int i;
+/** Joystick object */
+typedef struct {
+    int fd;
+    int nAxis;
+    int nButtons;
     int nMaxButtons;
+    int* axis;
+    char* button;
+    char deviceName[80];
+} MDDJoystick;
 
-    if (!initialized) {
-        fd = open("/dev/input/js0", O_RDONLY);
-        if (fd == -1) { /* Failed. OK, try another device */
-            fd = open("/dev/js0", O_RDONLY);
+DllExport void* MDD_joystickConstructor(int iJSID) {
+    MDDJoystick* js = (MDDJoystick*) calloc(sizeof(MDDJoystick), 1);
+    if (js) {
+        js->fd = open("/dev/input/js0", O_RDONLY);
+        if (js->fd == -1) { /* Failed. OK, try another device */
+            js->fd = open("/dev/js0", O_RDONLY);
         }
-        if (fd == -1) { /* Failed again, giving up */
-            ModelicaError("MDDJoystic: Neither could open /dev/input/js0, nor /dev/js0. Have the required privileges?\n");
+        if (js->fd == -1) { /* Failed again, giving up */
+            ModelicaError("MDDJoystick.h: Neither could open /dev/input/js0, nor /dev/js0. Have the required privileges?\n");
         }
 
-        ioctl(fd, JSIOCGAXES, &nAxis);
-        ioctl(fd, JSIOCGBUTTONS, &nButtons);
-        ioctl(fd, JSIOCGNAME(80), deviceName);
+        ioctl(js->fd, JSIOCGAXES, &js->nAxis);
+        ioctl(js->fd, JSIOCGBUTTONS, &js->nButtons);
+        ioctl(js->fd, JSIOCGNAME(80), js->deviceName);
 
-        axis = (int *) calloc( nAxis, sizeof( int ) );
-        button = (char *) calloc( nButtons, sizeof( char ) );
+        js->axis = (int *) calloc( js->nAxis, sizeof( int ) );
+        js->button = (char *) calloc( js->nButtons, sizeof( char ) );
 
         ModelicaFormatMessage("Found joystick: %s\n\taxis: %d, buttons: %d\n",
-                              deviceName, nAxis, nButtons);
+                              js->deviceName, js->nAxis, js->nButtons);
 
         /* use non-blocking mode */
-        fcntl( fd, F_SETFL, O_NONBLOCK );
-        initialized = 1;
-    }
+        fcntl( js->fd, F_SETFL, O_NONBLOCK );
 
-    while (read(fd, &js, sizeof(struct js_event)) == sizeof(struct js_event)) {
-        /*printf("Event: type %d, time %d, number %d, value %d\n",
-        js.type, js.time, js.number, js.value);*/
-        switch (js.type & ~JS_EVENT_INIT) {
-            case JS_EVENT_AXIS:
-                axis[js.number] = js.value;
-                break;
-            case JS_EVENT_BUTTON:
-                button[js.number] = js.value;
-                break;
+        js->nMaxButtons = (js->nButtons > MDD_MAX_BUTTONS) ? MDD_MAX_BUTTONS : js->nButtons;
+    }
+    return (void*) js;
+}
+
+DllExport void MDD_joystickDestructor(void* jsObj) {
+    MDDJoystick* js = (MDDJoystick*) jsObj;
+    if (js) {
+        free(js->axis);
+        free(js->button);
+        free(js);
+    }
+}
+
+void MDD_joystickGetData(void* jsObj, double * pdAxes, int * piButtons, int * piPOV) {
+    MDDJoystick* js = (MDDJoystick*) jsObj;
+    if (js) {
+        struct js_event jse;
+        int i;
+
+        while (read(js->fd, &jse, sizeof(struct js_event)) == sizeof(struct js_event)) {
+            /*printf("Event: type %d, time %d, number %d, value %d\n",
+            jse.type, jse.time, jse.number, jse.value);*/
+            switch (jse.type & ~JS_EVENT_INIT) {
+                case JS_EVENT_AXIS:
+                    js->axis[jse.number] = jse.value;
+                    break;
+                case JS_EVENT_BUTTON:
+                    js->button[jse.number] = jse.value;
+                    break;
+            }
+        }
+
+        if (errno != EAGAIN) {
+            ModelicaError("\nMDDJoystick.h: error reading\n");
+        }
+
+        /* output axes (default to 0): */
+        for (i = 0; i < 6; i++) {
+            pdAxes[i] = js->nAxis >= i ? (double) js->axis[i] : 0;
+        }
+
+        /* output buttons (default to 0): */
+        for (i = 0; i < js->nMaxButtons; i++) {
+            piButtons[i] = js->button[i];
+        }
+        for (i = js->nButtons; i < MDD_MAX_BUTTONS; i++) {
+            piButtons[i] = 0;
         }
     }
+    else {
+        /* output axes (default to 0): */
+        for (i = 0; i < 6; i++) {
+            pdAxes[i] = 0;
+        }
 
-    if (errno != EAGAIN) {
-        ModelicaError("\nMDDJoystic: error reading\n");
-    }
-
-    /* output axes (default to 0): */
-    for (i = 0; i < 6; i++) {
-        pdAxes[i] = nAxis >= i ? (double) axis[i] : 0;
-    }
-
-    /* output buttons (default to 0): */
-    nMaxButtons = (nButtons > MDD_MAX_BUTTONS) ? MDD_MAX_BUTTONS : nButtons;
-    for (i = 0; i < nMaxButtons; i++) {
-        piButtons[i] = button[i];
-    }
-    for (i = nButtons; i < MDD_MAX_BUTTONS; i++) {
-        piButtons[i] = 0;
+        /* output buttons (default to 0): */
+        for (i = 0; i < MDD_MAX_BUTTONS; i++) {
+            piButtons[i] = 0;
+        }
     }
 
     /* output POV */
@@ -171,7 +226,7 @@ void MDD_joystickGetData(int iJSID, double * pdAxes, int * piButtons, int * piPO
 
 #else
 
-#error "Modelica_DeviceDrivers: No support of MDD_joystickGetData(..) for your platform"
+#error "Modelica_DeviceDrivers: No support of MDDJoystick for your platform"
 
 #endif /* defined(_MSC_VER) */
 

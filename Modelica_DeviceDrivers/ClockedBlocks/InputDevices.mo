@@ -6,6 +6,7 @@ package InputDevices
     extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
     extends
       Modelica_DeviceDrivers.Utilities.Icons.PartialClockedDeviceDriverIcon;
+    import Modelica_DeviceDrivers.InputDevices.GameController;
 
     parameter Real gain[6] = ones(6) "gain of axis output";
     parameter Integer ID= 0
@@ -18,10 +19,11 @@ package InputDevices
     Modelica.Blocks.Interfaces.IntegerOutput buttons[32]
       annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
   protected
+    GameController joystick = GameController(ID);
     Real AxesRaw[6] "unscaled joystick input";
   equation
     when Clock() then
-      (AxesRaw,buttons,pOV) = Modelica_DeviceDrivers.InputDevices.GameController.getData(ID);
+      (AxesRaw,buttons,pOV) = Modelica_DeviceDrivers.InputDevices.GameController_.getData(joystick);
       axes = (AxesRaw .- 32768)/32768 ./gain;
     end when;
 
