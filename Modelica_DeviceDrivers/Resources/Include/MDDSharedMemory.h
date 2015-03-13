@@ -70,6 +70,9 @@ DllExport void* MDD_SharedMemoryConstructor(const char * name, int bufSize) {
 DllExport void MDD_SharedMemoryDestructor(void* p_smb) {
     struct sharedMemoryBuffer * smb = (struct sharedMemoryBuffer *) p_smb;
     if (smb) {
+    	if (smb->sharedMemoryBufExport) {
+    		free(smb->sharedMemoryBufExport);
+    	}
         UnmapViewOfFile(smb->sharedMemoryBuf);
         CloseHandle(smb->hMapFile);
         free(smb);
