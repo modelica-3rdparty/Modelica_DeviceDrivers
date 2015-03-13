@@ -5,7 +5,7 @@ package InputDevices
     "Joystick input implementation for interactive simulations"
     extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
     import Modelica_DeviceDrivers.InputDevices.GameController;
-    parameter Real sampleTime = 0.01 "sample time for input update";
+    parameter Modelica.SIunits.Period sampleTime = 0.01 "sample time for input update";
     parameter Real gain[6] = ones(6) "gain of axis output";
     parameter Integer ID= 0
       "ID number of the joystick (0 = first joystick attached to the system)";
@@ -36,7 +36,7 @@ package InputDevices
   block KeyboardKeyInput
     "Keyboard input implementation for interactive simulations"
     extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
-    parameter Real sampleTime=0.01 "sample time for input update";
+    parameter Modelica.SIunits.Period sampleTime=0.01 "sample time for input update";
     parameter Modelica_DeviceDrivers.Blocks.InputDevices.Types.keyCodes keyCode="Return"
       "Monitored Key";
     parameter Boolean useKeyKombination=false
@@ -96,7 +96,7 @@ package InputDevices
     Integer keyStateInt(start=0, fixed=true);
     Integer additionalKeyStateInt(start=0, fixed=true);
   equation
-    when (sample(0, sampleTime)) then
+    when sample(0, sampleTime) then
       keyStateInt = Modelica_DeviceDrivers.InputDevices.Keyboard.getKey(keyCodeInt); //getting the KeyCode
       additionalKeyStateInt = Modelica_DeviceDrivers.InputDevices.Keyboard.getKey(additionalKeyCodeInt);
     end when;
@@ -158,7 +158,7 @@ package InputDevices
   block SpaceMouseInput
     "SpaceMouse input implementation for interactive simulations"
     extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
-    parameter Real sampleTime = 0.01 "sample time for input update";
+    parameter Modelica.SIunits.Period sampleTime = 0.01 "sample time for input update";
     parameter Real gain[6] = ones(6) "gain of axis output";
     Modelica.Blocks.Interfaces.RealOutput axes[6]
       annotation (Placement(transformation(extent={{100,50},{120,70}})));
@@ -171,8 +171,7 @@ package InputDevices
       annotation (Placement(transformation(extent={{-10,-10},{10,10}},
           origin={50,60})));
   equation
-    when
-        (sample(0,sampleTime)) then
+    when sample(0,sampleTime) then
       (AxesRaw,buttons) = Modelica_DeviceDrivers.InputDevices.SpaceMouse.getData();
     end when;
     firstOrder.u = AxesRaw/400 .*gain;
@@ -193,7 +192,7 @@ package InputDevices
   block KeyboardInput
     "Keyboard input implementation for interactive simulations"
     extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
-    parameter Real sampleTime = 0.01 "sample time for input update";
+    parameter Modelica.SIunits.Period sampleTime = 0.01 "sample time for input update";
     Modelica.Blocks.Interfaces.BooleanOutput keyUp
       annotation (Placement(transformation(extent={{100,50},{120,70}})));
     Modelica.Blocks.Interfaces.BooleanOutput keyDown
@@ -218,7 +217,7 @@ package InputDevices
   protected
     Integer KeyCode[10](each start=0, each fixed=true);
   equation
-    when (sample(0,sampleTime)) then
+    when sample(0,sampleTime) then
       KeyCode = Modelica_DeviceDrivers.InputDevices.Keyboard.getData();
       //getting the KeyCode
     end when;

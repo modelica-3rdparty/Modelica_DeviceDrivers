@@ -38,7 +38,7 @@ package HardwareIO
       import Modelica_DeviceDrivers.Blocks.HardwareIO.Comedi.Types;
       import Modelica_DeviceDrivers.HardwareIO.Comedi;
 
-      parameter Real sampleTime = 0.01 "Sample time of block";
+      parameter Modelica.SIunits.Period sampleTime = 0.01 "Sample time of block";
       parameter Comedi comedi "Handle to comedi device";
       parameter Integer subDevice=1 "Subdevice";
       parameter Integer channel=0 "Channel";
@@ -78,7 +78,7 @@ package HardwareIO
       import Modelica_DeviceDrivers.Blocks.HardwareIO.Comedi.Types;
       import Modelica_DeviceDrivers.HardwareIO.Comedi;
 
-      parameter Real sampleTime = 0.01 "Sample time of block";
+      parameter Modelica.SIunits.Period sampleTime = 0.01 "Sample time of block";
       parameter Comedi comedi "Handle to comedi device";
       parameter Integer subDevice=0 "Subdevice";
       parameter Integer channel=0 "Channel";
@@ -122,7 +122,7 @@ package HardwareIO
       import Modelica_DeviceDrivers.Blocks.HardwareIO.Comedi.Types;
       import Modelica_DeviceDrivers.HardwareIO.Comedi;
 
-      parameter Real sampleTime = 0.01 "Sample time of block";
+      parameter Modelica.SIunits.Period sampleTime = 0.01 "Sample time of block";
       parameter Comedi comedi "Handle to comedi device";
       parameter Integer subDevice=1 "Subdevice";
       parameter Integer channel=0 "Channel";
@@ -181,7 +181,7 @@ package HardwareIO
       import Modelica_DeviceDrivers.Blocks.HardwareIO.Comedi.Types;
       import Modelica_DeviceDrivers.HardwareIO.Comedi;
 
-      parameter Real sampleTime = 0.01 "Sample time of block";
+      parameter Modelica.SIunits.Period sampleTime = 0.01 "Sample time of block";
       parameter Comedi comedi "Handle to comedi device";
       parameter Integer subDevice=0 "Subdevice";
       parameter Integer channel=0 "Channel";
@@ -243,7 +243,7 @@ package HardwareIO
       import Modelica_DeviceDrivers.Blocks.HardwareIO.Comedi.Types;
       import Modelica_DeviceDrivers.HardwareIO.Comedi;
 
-      parameter Real sampleTime = 0.01 "Sample time of block";
+      parameter Modelica.SIunits.Period sampleTime = 0.01 "Sample time of block";
       parameter Comedi comedi "Handle to comedi device";
       parameter Integer subDevice=2 "Subdevice";
       parameter Integer channel=0 "Channel";
@@ -284,7 +284,7 @@ package HardwareIO
       import Modelica_DeviceDrivers.Blocks.HardwareIO.Comedi.Types;
       import Modelica_DeviceDrivers.HardwareIO.Comedi;
 
-      parameter Real sampleTime = 0.01 "Sample time of block";
+      parameter Modelica.SIunits.Period sampleTime = 0.01 "Sample time of block";
       parameter Comedi comedi "Handle to comedi device";
       parameter Integer subDevice=2 "Subdevice";
       parameter Integer channel=0 "Channel";

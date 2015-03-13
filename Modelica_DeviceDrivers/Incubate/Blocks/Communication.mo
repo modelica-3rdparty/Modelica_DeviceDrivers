@@ -9,7 +9,7 @@ package Communication
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
     import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
     import Modelica_DeviceDrivers.Communication.UDPSocket;
-    parameter Real sampleTime=0.01 "Sample time for input update";
+    parameter Modelica.SIunits.Period sampleTime=0.01 "Sample time for input update";
     parameter Boolean autoBufferSize = true
       "true, buffer size is deduced automatically, otherwise set it manually"
       annotation(Dialog(group="Incoming data"), choices(__Dymola_checkBox=true));

@@ -197,7 +197,6 @@ package InputDevices
     "Keyboard input implementation for interactive simulations"
 
     extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
-    parameter Real sampleTime = 0.01 "sample time for input update";
     Modelica.Blocks.Interfaces.BooleanOutput keyUp
       annotation (Placement(transformation(extent={{100,50},{120,70}})));
     Modelica.Blocks.Interfaces.BooleanOutput keyDown

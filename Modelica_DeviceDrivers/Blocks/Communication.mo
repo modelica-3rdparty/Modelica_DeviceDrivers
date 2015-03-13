@@ -9,7 +9,7 @@ package Communication
     import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
     import Modelica_DeviceDrivers.Communication.SharedMemory;
     import Modelica_DeviceDrivers.Communication.SharedMemory_;
-    parameter Real sampleTime=0.01 "Sample time for input update";
+    parameter Modelica.SIunits.Period sampleTime=0.01 "Sample time for input update";
     parameter Boolean autoBufferSize = false
       "true, buffer size is deduced automatically, otherwise set it manually"
       annotation(Dialog(group="Shared memory partition"), choices(__Dymola_checkBox=true));
@@ -53,7 +53,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
     extends Modelica_DeviceDrivers.Utilities.Icons.SharedMemoryIcon;
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
     import Modelica_DeviceDrivers.Communication.SharedMemory;
-    parameter Real sampleTime=0.01 "Sample time for update";
+    parameter Modelica.SIunits.Period sampleTime=0.01 "Sample time for update";
     parameter Boolean autoBufferSize = false
       "true, buffer size is deduced automatically, otherwise set it manually"
       annotation(Dialog(group="Shared memory partition"), choices(__Dymola_checkBox=true));
@@ -101,7 +101,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
     import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
     import Modelica_DeviceDrivers.Communication.UDPSocket;
-    parameter Real sampleTime=0.01 "Sample time for input update";
+    parameter Modelica.SIunits.Period sampleTime=0.01 "Sample time for input update";
     parameter Boolean autoBufferSize = true
       "true, buffer size is deduced automatically, otherwise set it manually"
       annotation(Dialog(group="Incoming data"), choices(__Dymola_checkBox=true));
@@ -148,7 +148,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
     import Modelica_DeviceDrivers.Communication.UDPSocket;
 
-    parameter Real sampleTime=0.01 "Sample time for update";
+    parameter Modelica.SIunits.Period sampleTime=0.01 "Sample time for update";
     parameter Boolean autoBufferSize = true
       "true, buffer size is deduced automatically, otherwise set it manually."
       annotation(Dialog(group="Outgoing data"), choices(__Dymola_checkBox=true));
@@ -198,7 +198,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
     import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
     import Modelica_DeviceDrivers.Communication.SerialPort;
     import Modelica_DeviceDrivers.Utilities.Types.SerialBaudRate;
-    parameter Real sampleTime=0.01 "Sample time for input update";
+    parameter Modelica.SIunits.Period sampleTime=0.01 "Sample time for input update";
     parameter Boolean autoBufferSize = true
       "true, buffer size is deduced automatically, otherwise set it manually"
       annotation(Dialog(group="Incoming data"), choices(__Dymola_checkBox=true));
@@ -258,7 +258,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
     import Modelica_DeviceDrivers.Communication.SerialPort;
     import Modelica_DeviceDrivers.Utilities.Types.SerialBaudRate;
 
-    parameter Real sampleTime=0.01 "Sample time for update";
+    parameter Modelica.SIunits.Period sampleTime=0.01 "Sample time for update";
     parameter Boolean autoBufferSize = true
       "true, buffer size is deduced automatically, otherwise set it manually."
       annotation(Dialog(group="Outgoing data"), choices(__Dymola_checkBox=true));

@@ -76,7 +76,7 @@ package OperatingSystem
   block RandomRealSource
     extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
     parameter Integer n=1 "Dimension of output vector";
-    parameter Real sampleTime = 0.01 "Sample time of random number generation";
+    parameter Modelica.SIunits.Period sampleTime = 0.01 "Sample time of random number generation";
     input Real minValue[n]={0} "maximum Value of random output" annotation (Dialog = true);
     input Real maxValue[n]={1} "maximum Value of random output" annotation (Dialog = true);
 

@@ -4,16 +4,14 @@ package Logging "a collection of logging blocks"
   model LogVector "Logs a vector to disk in csv format"
   extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
   parameter String filename = "result.log" "Filename for the logging file";
-  parameter Real sampleTime = 0.01 "Sample time of logging";
+  parameter Modelica.SIunits.Period sampleTime = 0.01 "Sample time of logging";
   parameter Integer n=1 "Vector size";
 
     Modelica.Blocks.Interfaces.RealInput u[n]
       annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   equation
-    when
-        (sample(0,sampleTime)) then
-    Modelica.Utilities.Streams.print(Modelica_DeviceDrivers.Incubate.Utilities.Functions.vectorToString(
-                                                                                              u),filename);
+    when sample(0,sampleTime) then
+      Modelica.Utilities.Streams.print(Modelica_DeviceDrivers.Incubate.Utilities.Functions.vectorToString(u),filename);
     end when;
     annotation (Icon(graphics={Ellipse(extent={{-80,0},{80,-60}},   lineColor={0,0,
                 255},

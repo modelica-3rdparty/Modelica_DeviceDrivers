@@ -194,7 +194,7 @@ package SerialPackager "Blocks for constructing packages"
     parameter Boolean useBackwardSampleTimePropagation = true
       "true, use backward propagation for sample time (default!), otherwise switch to forward propagation"
       annotation(Dialog(tab="Advanced"), choices(__Dymola_checkBox=true));
-    parameter Real sampleTime=0.01
+    parameter Modelica.SIunits.Period sampleTime=0.01
       "Sample time if forward propagation of sample time is used"                              annotation (Dialog(enable = not useBackwardSampleTimePropagation, tab="Advanced"));
 
     parameter Boolean useBackwardPropagatedBufferSize = true
