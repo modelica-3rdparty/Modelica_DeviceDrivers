@@ -21,22 +21,29 @@
 #include <conio.h>
 #include <tchar.h>
 
-struct sharedMemoryBuffer {
-    char * sharedMemoryBuf;
-    char * sharedMemoryBufExport;
+/** Shared memory object */
+typedef struct {
+    char * smBuf;
+    char * smBufExport;
     HANDLE hMapFile;
-};
+} MDDSharedMemory;
+
+#define MDDSM_PLOCK ((long*)smb->smBuf)
+#define MDDSM_PLEN (MDDSM_PLOCK + sizeof(long))
+#define MDDSM_DATA (MDDSM_PLEN + sizeof(int))
+#define MDDSM_LOCK() while (InterlockedExchange(MDDSM_PLOCK, 1L) != 0) Sleep(0)
+#define MDDSM_UNLOCK() InterlockedExchange(MDDSM_PLOCK, 0)
 
 DllExport void* MDD_SharedMemoryConstructor(const char * name, int bufSize) {
-    struct sharedMemoryBuffer * smb = (struct sharedMemoryBuffer *)malloc(sizeof(struct sharedMemoryBuffer));
+    MDDSharedMemory * smb = (MDDSharedMemory *)malloc(sizeof(MDDSharedMemory));
     smb->hMapFile = CreateFileMappingA(
                         INVALID_HANDLE_VALUE,    /* use paging file */
                         NULL,                    /* default security */
                         PAGE_READWRITE,          /* read/write access */
                         0,                       /* maximum object size (high-order DWORD) */
-                        sizeof(long*) + sizeof(int) + bufSize, /* maximum object size (low-order DWORD) */
+                        sizeof(long) + sizeof(int) + bufSize, /* maximum object size (low-order DWORD) */
                         name);                 /* name of mapping object */
-    if(GetLastError() == ERROR_ALREADY_EXISTS) {
+    if (GetLastError() == ERROR_ALREADY_EXISTS) {
         smb->hMapFile = OpenFileMappingA(
                             FILE_MAP_ALL_ACCESS,   /* read/write access */
                             FALSE,                 /* do not inherit the name */
@@ -49,31 +56,31 @@ DllExport void* MDD_SharedMemoryConstructor(const char * name, int bufSize) {
         ModelicaFormatError("MDDSharedMemory.h: Could not create file mapping object (%d).\n", GetLastError());
         return NULL;
     }
-    smb->sharedMemoryBuf = (char*) MapViewOfFile(
+    smb->smBuf = (char*) MapViewOfFile(
                            smb->hMapFile, /* handle to map object */
                            FILE_MAP_ALL_ACCESS, /* read/write permission */
                            0,
                            0,
-                           sizeof(long*) + sizeof(int) + bufSize);
+                           sizeof(long) + sizeof(int) + bufSize);
 
-    if (smb->sharedMemoryBuf == NULL) {
+    if (smb->smBuf == NULL) {
         CloseHandle(smb->hMapFile);
         free(smb);
         ModelicaFormatError("MDDSharedMemory.h: Could not map view of file (%d).\n", GetLastError());
         return NULL;
     }
-    smb->sharedMemoryBufExport = (char*) calloc(bufSize, 1);
+    smb->smBufExport = (char*) calloc(bufSize, 1);
 
     return smb;
 }
 
 DllExport void MDD_SharedMemoryDestructor(void* p_smb) {
-    struct sharedMemoryBuffer * smb = (struct sharedMemoryBuffer *) p_smb;
+    MDDSharedMemory * smb = (MDDSharedMemory *) p_smb;
     if (smb) {
-    	if (smb->sharedMemoryBufExport) {
-    		free(smb->sharedMemoryBufExport);
-    	}
-        UnmapViewOfFile(smb->sharedMemoryBuf);
+        if (smb->smBufExport) {
+            free(smb->smBufExport);
+        }
+        UnmapViewOfFile(smb->smBuf);
         CloseHandle(smb->hMapFile);
         free(smb);
     }
@@ -81,39 +88,33 @@ DllExport void MDD_SharedMemoryDestructor(void* p_smb) {
 
 DllExport int MDD_SharedMemoryGetDataSize(void * p_smb) {
     int len = 0;
-    struct sharedMemoryBuffer * smb = (struct sharedMemoryBuffer *) p_smb;
+    MDDSharedMemory * smb = (MDDSharedMemory *) p_smb;
     if (smb) {
-        while (InterlockedExchange((volatile long*)smb->sharedMemoryBuf, 1L) != 0) {
-            Sleep(0);
-        }
-        memcpy(&len, smb->sharedMemoryBuf + sizeof(long*), sizeof(int));
-        InterlockedExchange((volatile long*)smb->sharedMemoryBuf, 0);
+        MDDSM_LOCK();
+        memcpy(&len, MDDSM_PLEN, sizeof(int));
+        MDDSM_UNLOCK();
     }
     return len;
 }
 
 DllExport const char * MDD_SharedMemoryRead(void * p_smb) {
-    struct sharedMemoryBuffer * smb = (struct sharedMemoryBuffer *) p_smb;
+    MDDSharedMemory * smb = (MDDSharedMemory *) p_smb;
     if (smb) {
         int len;
-        while (InterlockedExchange((volatile long*)smb->sharedMemoryBuf, 1L) != 0) {
-            Sleep(0);
-        }
-        memcpy(&len, smb->sharedMemoryBuf + sizeof(long*), sizeof(int));
-        memcpy(smb->sharedMemoryBufExport, smb->sharedMemoryBuf + sizeof(long*) + sizeof(int), len);
-        InterlockedExchange((volatile long*)smb->sharedMemoryBuf, 0);
+        MDDSM_LOCK();
+        memcpy(&len, MDDSM_PLEN, sizeof(int));
+        memcpy(smb->smBufExport, MDDSM_DATA, len);
+        MDDSM_UNLOCK();
     }
-    return (const char*) smb->sharedMemoryBufExport;
+    return (const char*) smb->smBufExport;
 }
 
 DllExport void MDD_SharedMemoryWrite(void * p_smb, const char * buffer, int len) {
-    struct sharedMemoryBuffer * smb = (struct sharedMemoryBuffer *) p_smb;
-    while (InterlockedExchange((volatile long*)smb->sharedMemoryBuf, 1L) != 0) {
-        Sleep(0);
-    }
-    memcpy(smb->sharedMemoryBuf + sizeof(long*) + sizeof(int), buffer, len);
-    memcpy(smb->sharedMemoryBuf + sizeof(long*), &len, sizeof(int));
-    InterlockedExchange((volatile long*)smb->sharedMemoryBuf, 0);
+    MDDSharedMemory * smb = (MDDSharedMemory *) p_smb;
+    MDDSM_LOCK();
+    memcpy(MDDSM_DATA, buffer, len);
+    memcpy(MDDSM_PLEN, &len, sizeof(int));
+    MDDSM_UNLOCK();
 }
 
 #elif defined(__linux__)
