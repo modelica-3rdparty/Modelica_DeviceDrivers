@@ -50,7 +50,7 @@ DllExport void MDD_joystickDestructor(void* jsObj) {
 DllExport void MDD_joystickGetData(void* jsObj, double * pdAxes, int * piButtons, int * piPOV) {
     MDDJoystick* js = (MDDJoystick*) jsObj;
     if (js) {
-        JOYINFOEX JoyInfo; /* joystick data structure */
+        JOYINFOEX JoyInfo = {0}; /* joystick data structure */
         JoyInfo.dwFlags = JOY_RETURNALL;
         JoyInfo.dwSize = sizeof(JOYINFOEX);
 
