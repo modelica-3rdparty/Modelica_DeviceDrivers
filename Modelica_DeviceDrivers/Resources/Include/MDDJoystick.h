@@ -173,10 +173,10 @@ DllExport void MDD_joystickDestructor(void* jsObj) {
 }
 
 void MDD_joystickGetData(void* jsObj, double * pdAxes, int * piButtons, int * piPOV) {
+    int i;
     MDDJoystick* js = (MDDJoystick*) jsObj;
     if (js) {
         struct js_event jse;
-        int i;
 
         while (read(js->fd, &jse, sizeof(struct js_event)) == sizeof(struct js_event)) {
             /*printf("Event: type %d, time %d, number %d, value %d\n",
