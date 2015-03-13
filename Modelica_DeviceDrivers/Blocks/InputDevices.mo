@@ -9,7 +9,7 @@ package InputDevices
     parameter Real gain[6] = ones(6) "gain of axis output";
     parameter Integer ID= 0
       "ID number of the joystick (0 = first joystick attached to the system)";
-    Modelica.Blocks.Interfaces.RealOutput axes[6](start=zeros(6), each fixed=true)
+    Modelica.Blocks.Interfaces.RealOutput axes[6](start=-ones(6), each fixed=false)
       annotation (Placement(transformation(extent={{100,50},{120,70}})));
     discrete Modelica.Blocks.Interfaces.RealOutput pOV annotation (Placement(
           transformation(extent={{100,-10},{120,10}})));
