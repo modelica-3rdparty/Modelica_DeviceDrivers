@@ -298,7 +298,7 @@ and one Integer value is added, serialized and finally sent using UDP.
     import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
     import Modelica_DeviceDrivers.Utilities.Types.ByteOrder;
     parameter Integer n = 1 "Vector size";
-    parameter ByteOrder byteOrder = ByteOrder.LE; 
+    parameter ByteOrder byteOrder = ByteOrder.LE;
     Modelica.Blocks.Interfaces.IntegerInput u[n]
       annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   equation
@@ -341,7 +341,7 @@ and one Integer value is added, serialized and finally sent using UDP.
     import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
     import Modelica_DeviceDrivers.Utilities.Types.ByteOrder;
     parameter Integer n = 1 "Vector size";
-    parameter ByteOrder byteOrder = ByteOrder.LE; 
+    parameter ByteOrder byteOrder = ByteOrder.LE;
     Modelica.Blocks.Interfaces.RealInput u[n]
       annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   equation
@@ -384,7 +384,7 @@ and one Integer value is added, serialized and finally sent using UDP.
     import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
     import Modelica_DeviceDrivers.Utilities.Types.ByteOrder;
     parameter Integer n = 1 "Vector size";
-    parameter ByteOrder byteOrder = ByteOrder.LE; 
+    parameter ByteOrder byteOrder = ByteOrder.LE;
     Modelica.Blocks.Interfaces.RealInput u[n]
       annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   equation
@@ -509,7 +509,7 @@ and one Integer value is added, serialized and finally sent using UDP.
     import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
     import Modelica_DeviceDrivers.Utilities.Types.ByteOrder;
     parameter Integer n = 1 "Vector size";
-    parameter ByteOrder byteOrder = ByteOrder.LE; 
+    parameter ByteOrder byteOrder = ByteOrder.LE;
     discrete Modelica.Blocks.Interfaces.IntegerOutput y[n](each start=0, each fixed=true)
       annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   protected
@@ -552,7 +552,7 @@ and one Integer value is added, serialized and finally sent using UDP.
     import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
     import Modelica_DeviceDrivers.Utilities.Types.ByteOrder;
     parameter Integer n = 1 "Vector size";
-    parameter ByteOrder byteOrder = ByteOrder.LE; 
+    parameter ByteOrder byteOrder = ByteOrder.LE;
     discrete Modelica.Blocks.Interfaces.RealOutput y[n](each start=0, each fixed=true)
       annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   protected
@@ -599,7 +599,7 @@ and one Integer value is added, serialized and finally sent using UDP.
     import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
     import Modelica_DeviceDrivers.Utilities.Types.ByteOrder;
     parameter Integer n = 1 "Vector size";
-    parameter ByteOrder byteOrder = ByteOrder.LE; 
+    parameter ByteOrder byteOrder = ByteOrder.LE;
     discrete Modelica.Blocks.Interfaces.RealOutput y[n](each start=0, each fixed=true)
       annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   protected
