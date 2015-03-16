@@ -4,7 +4,6 @@ package OperatingSystem
 
   block SynchronizeRealtime "A pseudo realtime synchronization"
     extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
-    final parameter Integer resolution(min = 1) = 1 "resolution of the timer";
     parameter Boolean setPriority = true "true, if process priority is to be set, otherwise false";
     parameter
       Modelica_DeviceDrivers.Blocks.OperatingSystem.Types.ProcessPriority
@@ -16,6 +15,7 @@ package OperatingSystem
     Modelica_DeviceDrivers.OperatingSystem.ProcessPriority procPrio = Modelica_DeviceDrivers.OperatingSystem.ProcessPriority() if setPriority;
     Real dummyState(start = 0, fixed=true)
       "dummy state to be integrated, to force synchronization in every integration step";
+    Modelica_DeviceDrivers.OperatingSystem.RealTimeSynchronization rtSync = Modelica_DeviceDrivers.OperatingSystem.RealTimeSynchronization();
   equation
     when initial() then
       if setPriority then
@@ -33,7 +33,7 @@ package OperatingSystem
           0);
       end if;
     end when;
-    (calculationTime,availableTime) = Modelica_DeviceDrivers.OperatingSystem.realtimeSynchronize(time,resolution);
+    (calculationTime, availableTime) = Modelica_DeviceDrivers.OperatingSystem.realtimeSynchronize(rtSync, time);
     der(dummyState) = calculationTime;
     annotation (preferredView="info",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
