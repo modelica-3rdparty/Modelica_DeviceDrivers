@@ -28,72 +28,15 @@
 #define mdd_int64_t long long
 #endif
 
-DllExport void MDD_setPriority(int priority) {
-    BOOL ret = 0;
-    ModelicaFormatMessage("ProcessPriority: %d!!\n",priority);
-    ModelicaFormatMessage("setting...\n");
-    switch(priority) {
-        case -2:
-            ret = SetPriorityClass(GetCurrentProcess(),IDLE_PRIORITY_CLASS);
-            if (ret) {
-                ModelicaFormatMessage("ProcessPriority set to idle.\n");
-            }
-            break;
-
-        case -1:
-            ret = SetPriorityClass(GetCurrentProcess(),BELOW_NORMAL_PRIORITY_CLASS);
-            if (ret) {
-                ModelicaFormatMessage("ProcessPriority set to below normal.\n");
-            }
-            break;
-
-        case 0:
-            ret = SetPriorityClass(GetCurrentProcess(),NORMAL_PRIORITY_CLASS);
-            if (ret) {
-                ModelicaFormatMessage("ProcessPriority set to normal.\n");
-            }
-            break;
-
-        case 1:
-            ret = SetPriorityClass(GetCurrentProcess(),HIGH_PRIORITY_CLASS);
-            if (ret) {
-                ModelicaFormatMessage("ProcessPriority set to high.\n");
-            }
-            break;
-
-        case 2:
-            ret = SetPriorityClass(GetCurrentProcess(),REALTIME_PRIORITY_CLASS);
-            if (ret) {
-                ModelicaFormatMessage("ProcessPriority set to realtime.\n");
-            }
-            break;
-
-        default:
-            ret = SetPriorityClass(GetCurrentProcess(),NORMAL_PRIORITY_CLASS);
-            if (ret) {
-                ModelicaFormatMessage("ProcessPriority set to normal.\n");
-            }
-            break;
-    }
-
-    if (ret == 0) {
-        DWORD dw = GetLastError();
-        if (dw) {
-            ModelicaFormatMessage("LastError: %d\n", dw);
-        }
-    }
-}
-
 typedef struct {
-    DWORD prio;
+    DWORD lastPrio;
 } ProcPrio;
 
-DllExport void* MDD_ProcessPriorityConstructor(int priority) {
+DllExport void* MDD_ProcessPriorityConstructor(void) {
     ProcPrio* prio = (ProcPrio*) malloc(sizeof(ProcPrio));
     if (prio) {
-        prio->prio = GetPriorityClass(GetCurrentProcess());
+        prio->lastPrio = GetPriorityClass(GetCurrentProcess());
     }
-    MDD_setPriority(priority);
     return (void*) prio;
 }
 
@@ -102,7 +45,7 @@ DllExport void MDD_ProcessPriorityDestructor(void* prioObj) {
     if (prio) {
         BOOL ret = 0;
         ModelicaFormatMessage("setting...\n");
-        switch (prio->prio) {
+        switch (prio->lastPrio) {
             case IDLE_PRIORITY_CLASS:
                 ret = SetPriorityClass(GetCurrentProcess(), IDLE_PRIORITY_CLASS);
                 if (ret) {
@@ -157,6 +100,61 @@ DllExport void MDD_ProcessPriorityDestructor(void* prioObj) {
     }
 }
 
+DllExport void MDD_setPriority(void* dummyPrioObj, int priority) {
+    BOOL ret = 0;
+    ModelicaFormatMessage("setting...\n");
+    switch (priority) {
+        case -2:
+            ret = SetPriorityClass(GetCurrentProcess(), IDLE_PRIORITY_CLASS);
+            if (ret) {
+                ModelicaFormatMessage("ProcessPriority set to idle.\n");
+            }
+            break;
+
+        case -1:
+            ret = SetPriorityClass(GetCurrentProcess(), BELOW_NORMAL_PRIORITY_CLASS);
+            if (ret) {
+                ModelicaFormatMessage("ProcessPriority set to below normal.\n");
+            }
+            break;
+
+        case 0:
+            ret = SetPriorityClass(GetCurrentProcess(), NORMAL_PRIORITY_CLASS);
+            if (ret) {
+                ModelicaFormatMessage("ProcessPriority set to normal.\n");
+            }
+            break;
+
+        case 1:
+            ret = SetPriorityClass(GetCurrentProcess(), HIGH_PRIORITY_CLASS);
+            if (ret) {
+                ModelicaFormatMessage("ProcessPriority set to high.\n");
+            }
+            break;
+
+        case 2:
+            ret = SetPriorityClass(GetCurrentProcess(), REALTIME_PRIORITY_CLASS);
+            if (ret) {
+                ModelicaFormatMessage("ProcessPriority set to realtime.\n");
+            }
+            break;
+
+        default:
+            ret = SetPriorityClass(GetCurrentProcess(), NORMAL_PRIORITY_CLASS);
+            if (ret) {
+                ModelicaFormatMessage("ProcessPriority set to normal.\n");
+            }
+            break;
+    }
+
+    if (ret == 0) {
+        DWORD dw = GetLastError();
+        if (dw) {
+            ModelicaFormatMessage("LastError: %d\n", dw);
+        }
+    }
+}
+
 /** Request time from a monotonic increasing real-time clock.
  *
  * @param[in] resolution windows specific clock resolution. TODO remove resolution since ignored in (new) implementation
@@ -196,7 +194,6 @@ DllExport double MDD_realtimeSynchronize(double simTime, int resolution, double 
     //int debugCounter=0;
     //int debugCounter2=0;
     if (MDD_startTime == 0) {
-		MDD_setPriority(1);
         MDD_startTime = MDD_QPCMicroseconds();
     }
     if (MDD_lastTime == 0) {
@@ -312,13 +309,30 @@ DllExport double MDD_realtimeSynchronize(double simTime, int resolution, double 
                                  and interrupt handlers by default */
 #define NSEC_PER_SEC    (1000000000) /* The number of nsecs per sec. */
 
+typedef struct {
+    int prio; /* dummy */
+} ProcPrio;
+
+DllExport void* MDD_ProcessPriorityConstructor(int priority) {
+    ProcPrio* prio = (ProcPrio*) malloc(sizeof(ProcPrio));
+    MDD_setPriority(priority);
+    return (void*) prio;
+}
+
+DllExport void MDD_ProcessPriorityDestructor(void* prioObj) {
+    ProcPrio* prio = (ProcPrio*) prioObj;
+    if (prio) {
+        free(prio);
+    }
+}
+
 /** Set process priority.
  *
  * Function maps directly on windows API. For linux a mapping was chosen that seemed
  * to be reasonable.
  * @param[in] priority range: (-2: idle, -1: below normal, 0: normal, 1: high, 2: realtime)
  */
-void MDD_setPriority(int priority) {
+void MDD_setPriority(void* dummyPrioObj, int priority) {
     int ret;
     struct sched_param param;
     errno = 0; /* zero out errno since -1 may be a valid return value for nice(..) and not necessarily indicate error */
@@ -390,23 +404,6 @@ void MDD_setPriority(int priority) {
             break;
     }
 
-}
-
-typedef struct {
-    int prio; /* dummy */
-} ProcPrio;
-
-DllExport void* MDD_ProcessPriorityConstructor(int priority) {
-    ProcPrio* prio = (ProcPrio*) malloc(sizeof(ProcPrio));
-    MDD_setPriority(priority);
-    return (void*) prio;
-}
-
-DllExport void MDD_ProcessPriorityDestructor(void* prioObj) {
-    ProcPrio* prio = (ProcPrio*) prioObj;
-    if (prio) {
-        free(prio);
-    }
 }
 
 /** Slow down task so that simulation time == real-time.
