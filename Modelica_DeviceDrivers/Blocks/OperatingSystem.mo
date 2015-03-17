@@ -16,22 +16,23 @@ package OperatingSystem
     Modelica_DeviceDrivers.OperatingSystem.ProcessPriority procPrio = Modelica_DeviceDrivers.OperatingSystem.ProcessPriority() if setPriority;
     Real dummyState(start = 0, fixed=true)
       "dummy state to be integrated, to force synchronization in every integration step";
-  initial algorithm
-    if setPriority then
-      Modelica_DeviceDrivers.OperatingSystem.setProcessPriority(procPrio,
-        if
-          (priority == "Idle") then -2 else
-        if
-          (priority == "Below normal") then -1 else
-        if
-          (priority == "Normal") then 0 else
-        if
-          (priority == "High priority") then 1 else
-        if
-          (priority == "Realtime") then 2 else
-        0);
-    end if;
   equation
+    when initial() then
+      if setPriority then
+        Modelica_DeviceDrivers.OperatingSystem.setProcessPriority(procPrio,
+          if
+            (priority == "Idle") then -2 else
+          if
+            (priority == "Below normal") then -1 else
+          if
+            (priority == "Normal") then 0 else
+          if
+            (priority == "High priority") then 1 else
+          if
+            (priority == "Realtime") then 2 else
+          0);
+      end if;
+    end when;
     (calculationTime,availableTime) = Modelica_DeviceDrivers.OperatingSystem.realtimeSynchronize(time,resolution);
     der(dummyState) = calculationTime;
     annotation (preferredView="info",
