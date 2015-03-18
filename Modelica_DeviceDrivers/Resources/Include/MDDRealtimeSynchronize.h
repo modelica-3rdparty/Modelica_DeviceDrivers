@@ -268,13 +268,12 @@ typedef struct {
     int prio; /* dummy */
 } ProcPrio;
 
-DllExport void* MDD_ProcessPriorityConstructor(int priority) {
+void* MDD_ProcessPriorityConstructor(void) {
     ProcPrio* prio = (ProcPrio*) malloc(sizeof(ProcPrio));
-    MDD_setPriority(priority);
     return (void*) prio;
 }
 
-DllExport void MDD_ProcessPriorityDestructor(void* prioObj) {
+void MDD_ProcessPriorityDestructor(void* prioObj) {
     ProcPrio* prio = (ProcPrio*) prioObj;
     if (prio) {
         free(prio);
@@ -398,10 +397,12 @@ void MDD_realtimeSynchronizeDestructor(void* rtSyncObj) {
  * @return (s) Time between invocation of this function, i.e. "computing time" in seconds
  */
 double MDD_realtimeSynchronize(void* rtSyncObj, double simTime, double * availableTime) {
-    RTSync* rtSync = (RTSync*) rtSyncObj;
+    double deltaTime = 0.;
+	RTSync* rtSync = (RTSync*) rtSyncObj;
     if (rtSync && availableTime) {
         struct timespec t_abs; /* Absolute time until which execution will be delayed (to catch up with real-time) */
-        double fractpart, intpart, deltaTime;
+        double fractpart, intpart;
+		int ret;
 
         /* save away value of last time that the real-time clock was inquired */
         deltaTime = rtSync->t_clockRealtime.tv_sec + (double)rtSync->t_clockRealtime.tv_nsec/NSEC_PER_SEC;
@@ -424,7 +425,6 @@ double MDD_realtimeSynchronize(void* rtSyncObj, double simTime, double * availab
                          + ((double)t_abs.tv_nsec - (double)rtSync->t_clockRealtime.tv_nsec)/NSEC_PER_SEC;
         /* printf("t_abs.tv_sec: %d, t_cr.tv_sec: %d, t_abs.tv_nsec: %d, t_cr.tv_nsec: %d\n",
             t_abs.tv_sec, rtSync->t_clockRealtime.tv_sec, t_abs.tv_nsec, rtSync->t_clockRealtime.tv_nsec); */
-        }
 
         /* wait until simulation time == real-time */
         ret = clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &t_abs, NULL);
