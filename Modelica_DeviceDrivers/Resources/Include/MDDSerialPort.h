@@ -93,7 +93,7 @@ DWORD WINAPI MDD_serialPortReceivingThread(LPVOID p_serial) {
                     if (x > 0) {
                         BOOL ret;
                         if (x > serial->bufferSize) {
-                            x = serial->bufferSize;
+                            x = (DWORD)serial->bufferSize;
                         }
                         ret = ReadFile(serial->hComm, serial->receiveBuffer, x, &serial->receivedBytes, &rdSync);
                         if (!ret) {
