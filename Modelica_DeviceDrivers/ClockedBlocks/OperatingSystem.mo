@@ -1,20 +1,24 @@
 within Modelica_DeviceDrivers.ClockedBlocks;
 package OperatingSystem
   extends Modelica.Icons.Package;
+
   block SynchronizeRealtime "A pseudo realtime synchronization"
     extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
-    final parameter Integer resolution(min = 1) = 1 "resolution of the timer";
+    parameter Boolean setPriority = true "true, if process priority is to be set, otherwise false";
     parameter
       Modelica_DeviceDrivers.ClockedBlocks.OperatingSystem.Types.ProcessPriority
-      priority="Normal" "Priority of the simulation process";
+      priority = "Normal" "Priority of the simulation process" annotation(Dialog(enable=setPriority));
     output Real calculationTime "Time needed for calculation";
     output Real availableTime
       "Time available for calculation (integrator step size)";
   protected
     Boolean initialized(start=false);
+    Modelica_DeviceDrivers.OperatingSystem.ProcessPriority procPrio = Modelica_DeviceDrivers.OperatingSystem.ProcessPriority() if setPriority;
+    Modelica_DeviceDrivers.OperatingSystem.RealTimeSynchronization rtSync = Modelica_DeviceDrivers.OperatingSystem.RealTimeSynchronization();
   algorithm
-      if not initialized then
-        Modelica_DeviceDrivers.OperatingSystem.setProcessPriority(
+    if not initialized then
+      if setPriority then
+        Modelica_DeviceDrivers.OperatingSystem.setProcessPriority(procPrio,
           if
             (priority == "Idle") then -2 else
           if
@@ -26,21 +30,20 @@ package OperatingSystem
           if
             (priority == "Realtime") then 2 else
           0);
-        initialized := true;
-      else
-        (calculationTime,availableTime) := Modelica_DeviceDrivers.OperatingSystem.realtimeSynchronize(time, resolution);
       end if;
+      initialized := true;
+    else
+      (calculationTime, availableTime) := Modelica_DeviceDrivers.OperatingSystem.realtimeSynchronize(rtSync, time);
+    end if;
     annotation (preferredView="info",
-          Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
               -100},{100,100}}), graphics={
-          Bitmap(extent={{-60,60},{60,-60}}, fileName="modelica://Modelica_DeviceDrivers/Resources/Images/Icons/clock.png"),
+          Bitmap(extent={{-60,60},{60,-60}}, fileName=
+                "modelica://Modelica_DeviceDrivers/Resources/Images/Icons/clock.png"),
           Text(
             extent={{-100,-100},{100,-140}},
-            textString="%priority"),       Text(extent={{-150,142},{150,102}},
-              textString="%name")}),   Diagram(graphics={Text(
-            textString="Edit Here",
-            extent={{-88,80},{100,70}},
-            lineColor={0,0,255})}),
+            textString=DynamicSelect("", if setPriority then "%priority" else "")), Text(extent={{-150,142},{150,102}},
+              textString="%name")}),
       Documentation(info="<html>
 <p>Synchronizes the simulation time of the simulation process with the operating system real-time clock. Different priority levels are supported:</p>
 <ul>
@@ -50,9 +53,9 @@ package OperatingSystem
 <li>High Priority</li>
 <li>Real-Time</li>
 </ul>
-<p>Note that the provided level of real-time synchronization is &quot;soft&quot;, meaning that there are no guarantees that dead lines are met or that latencies are restricted to a predictable (low) maximum. This is often enough to satisfy requirements for interactive simulations and can be compared to the real-time experience provided by computer games. However, applications requiring &quot;hard&quot; real-time synchronization (e.g. HIL simulations) are <b>not</b> satisfied!</p>
+<p>Note that the provided level of real-time synchronization is &quot;soft&quot;, meaning that there are no guarantees that deadlines are met or that latencies are restricted to a predictable (low) maximum. This is often enough to satisfy requirements for interactive simulations and can be compared to the real-time experience provided by computer games. However, applications requiring &quot;hard&quot; real-time synchronization (e.g. HIL simulations) are <b>not</b> satisfied!</p>
 <p>Using the &quot;High Priority&quot; and &quot;Real-Time&quot; priorities in Linux will usually require &quot;root&quot; privileges for the simulation process. Using the &quot;Real-Time&quot; priority in Linux with a low-latency kernel as provided by the PREEMPT_RT patch will even provide limited (however, implementation specific limitations given below still apply) &quot;hard&quot; real-time capabilities (see e.g., <a href=\"https://www.osadl.org/Realtime-Linux.projects-realtime-linux.0.html\">https://www.osadl.org/Realtime-Linux.projects-realtime-linux.0.html</a>).</p>
-<p><b>IMPORTANT</b>: This real-time synchronization is a hack. <i><b>Don&apos;t rely on it in any (safety) relevant applications there precise timing is mandatory</b></i>!</p>
+<p><b>IMPORTANT</b>: This real-time synchronization is a hack. <i><b>Don&apos;t rely on it in any (safety) relevant applications where precise timing is mandatory</b></i>!</p>
 <h4><font color=\"#008000\">Implementation Notes</font></h4>
 <p>The block introduces an equation with a call to an external C-function that takes the current simulation time as an argument. Within the C-function the simulation time is compared to the operating system real-time clock and execution of the thread is halted until simulation time == real-time. This equation will be added to the other model equations and sorted according to the (tool dependent) sorting algorithm. Therefore, no prediction can be made when, within the simulation cycle, the real-time synchronization function is called (e.g., it might be before, or after (external) inputs are read from a device or (external) outputs are written to a device).</p>
 <h4><font color=\"#008000\">Final Remark</font></h4>
