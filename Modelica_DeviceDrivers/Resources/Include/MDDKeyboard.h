@@ -1,9 +1,9 @@
 /** Keyboard support (header-only library).
  *
  * @file
- * @author      Tobias Bellmann <tobias.bellmann@dlr.de> (Windows)
- * @author      Bernhard Thiele <bernhard.thiele@dlr.de> (Linux)
- * @since       2012-06-01
+ * @author		Tobias Bellmann <tobias.bellmann@dlr.de> (Windows)
+ * @author		Bernhard Thiele <bernhard.thiele@dlr.de> (Linux)
+ * @since		2012-06-01
  * @copyright Modelica License 2
  *
  * @par About the linux implementation:
@@ -273,6 +273,11 @@ void MDD_keyboardGetData(int * piKeyState) {
 
     if (display == NULL) {
         display = XOpenDisplay(0);
+    }
+
+    if (display == NULL) {
+        memset(piKeyState, 0, sizeof(int)*10);
+        return;
     }
 
     /* See function MDD_keyboardGetKey(..) for more details about what is going on */
