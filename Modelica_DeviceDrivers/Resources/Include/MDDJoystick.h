@@ -134,7 +134,7 @@ typedef struct {
     char deviceName[80];
 } MDDJoystick;
 
-DllExport void* MDD_joystickConstructor(int iJSID) {
+void* MDD_joystickConstructor(int iJSID) {
     MDDJoystick* js = (MDDJoystick*) calloc(sizeof(MDDJoystick), 1);
     if (js) {
         js->fd = open("/dev/input/js0", O_RDONLY);
@@ -163,7 +163,7 @@ DllExport void* MDD_joystickConstructor(int iJSID) {
     return (void*) js;
 }
 
-DllExport void MDD_joystickDestructor(void* jsObj) {
+void MDD_joystickDestructor(void* jsObj) {
     MDDJoystick* js = (MDDJoystick*) jsObj;
     if (js) {
         free(js->axis);
