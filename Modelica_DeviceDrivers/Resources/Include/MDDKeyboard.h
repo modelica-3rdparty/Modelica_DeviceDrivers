@@ -120,7 +120,7 @@ DllExport void MDD_keyboardGetData(int * piKeyState) {
 
 /* This #define is a hack needed since X11 declares "Time" and
  * also Dymola declares "Time" which then results in a compile
- * error. So we temporarly rename Time to MDDTime and hope
+ * error. So we temporarily rename Time to MDDTime and hope
  * for the best.
 */
 #define Time MDDTime
@@ -129,6 +129,7 @@ DllExport void MDD_keyboardGetData(int * piKeyState) {
 #include <X11/keysymdef.h>
 #undef Time
 #include "../src/include/CompatibilityDefs.h"
+#include <string.h>
 
 /** mapping from windows key code to linux key code */
 int w2lKey[124];
