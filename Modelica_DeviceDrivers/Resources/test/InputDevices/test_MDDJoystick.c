@@ -21,7 +21,7 @@ int main(void) {
         printf("X: %.1lf, Y: %.1lf, Z: %.1lf, ", pdAxis[0], pdAxis[1], pdAxis[2]);
         printf("R: %.1lf, U: %.1lf, V: %.1lf", pdAxis[3], pdAxis[4], pdAxis[5]);
         for (i=0; i < 8; i++) {
-            printf("B%d: %d ", i, piButtons[i]);
+            printf(", B%d: %d", i, piButtons[i]);
         }
         printf(" \r");
         fflush(stdout);
