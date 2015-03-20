@@ -1,5 +1,5 @@
 within Modelica_DeviceDrivers.OperatingSystem;
-class RealTimeSynchronization "An object for process priority."
+class RealTimeSynchronization "An object for real-time synchronization."
   extends ExternalObject;
   function constructor "Creates a RealTimeSynchronization instance."
     output RealTimeSynchronization rtSync;
