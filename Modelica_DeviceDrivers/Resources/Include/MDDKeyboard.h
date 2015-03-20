@@ -142,6 +142,10 @@ void MDD_keyboardInitialize() {
     for (i=0; i<124; i++) {
         w2lKey[i] = 0;
     }
+
+    if (display == NULL) {
+        return;
+    }
     /* Windows seems not to distinguish between upper/lower case. We decide to map to lower */
     w2lKey[65] = XKeysymToKeycode(display, XK_a);
     w2lKey[66] = XKeysymToKeycode(display, XK_b);
@@ -242,6 +246,10 @@ void MDD_keyboardGetKey(int iKeyCode, int * piKeyState) {
     if (display == NULL) {
         display = XOpenDisplay(0);
         MDD_keyboardInitialize();
+    }
+
+    if (display == NULL) {
+        return;
     }
 
     XQueryKeymap(display, pressed_keys);
