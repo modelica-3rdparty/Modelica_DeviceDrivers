@@ -179,7 +179,7 @@ DllExport const char * MDD_udpRead(void * p_udp) {
 DllExport int MDD_udpGetReceivedBytes(void * p_udp) {
     int receivedBytes = 0;
     MDDUDPSocket * udp = (MDDUDPSocket *) p_udp;
-    if (udp) {
+    if (udp && udp->hThread) {
         EnterCriticalSection(&udp->receiveLock);
         receivedBytes = udp->receivedBytes;
         LeaveCriticalSection(&udp->receiveLock);

@@ -292,7 +292,7 @@ DllExport void MDD_serialPortDestructor(void * p_serial) {
 DllExport int MDD_serialPortGetReceivedBytes(void * p_serial) {
     int receivedBytes = 0;
     MDDSerialPort * serial = (MDDSerialPort *) p_serial;
-    if (serial) {
+    if (serial && serial->hThread) {
         EnterCriticalSection(&serial->receiveLock);
         receivedBytes = (int)serial->receivedBytes;
         LeaveCriticalSection(&serial->receiveLock);
