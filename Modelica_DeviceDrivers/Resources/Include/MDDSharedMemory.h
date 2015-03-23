@@ -13,13 +13,11 @@
 
 #include "ModelicaUtilities.h"
 
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) || defined(__CYGWIN__)
 
 #include <windows.h>
 #include "../src/include/CompatibilityDefs.h"
 #include <stdio.h>
-#include <conio.h>
-#include <tchar.h>
 
 /** Shared memory object */
 typedef struct {
