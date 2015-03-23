@@ -187,7 +187,7 @@ DllExport int MDD_udpGetReceivedBytes(void * p_udp) {
     return receivedBytes;
 }
 
-#elif defined(__linux__)
+#elif defined(__linux__) || defined(__CYGWIN__)
 
 #include <stdlib.h>
 #include <string.h> /* memset(..) */
