@@ -32,7 +32,7 @@
 
 #include "ModelicaUtilities.h"
 
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) || defined(__MINGW32__)
 
 #include <windows.h>
 #include "../src/include/CompatibilityDefs.h"
@@ -42,14 +42,12 @@
 
 DllExport void MDD_keyboardGetKey(int iKeyCode,int * piKeyState) {
     /* getting state of interesting keys */
-    int getc_unlocked(FILE *stream);
     if(GetAsyncKeyState(iKeyCode)) {
         piKeyState[0] = 1;
     }
     else {
         piKeyState[0] = 0;
     }
-
 }
 
 DllExport void MDD_keyboardGetData(int * piKeyState) {

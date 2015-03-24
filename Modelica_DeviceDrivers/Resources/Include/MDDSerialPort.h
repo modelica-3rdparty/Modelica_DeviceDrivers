@@ -14,7 +14,7 @@
 
 #include "ModelicaUtilities.h"
 
-#if defined(_MSC_VER) || defined(__CYGWIN__)
+#if defined(_MSC_VER) || defined(__CYGWIN__) || defined(__MINGW32__)
 
 #include <windows.h>
 #include "../src/include/CompatibilityDefs.h"

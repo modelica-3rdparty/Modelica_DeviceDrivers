@@ -18,6 +18,25 @@
 #define BSWAP32(a) (_byteswap_ulong(a))
 #define BSWAP64(a) (_byteswap_uint64(a))
 
+#elif defined(__MINGW32__)
+#define BSWAP16(a) \
+    ((((a) >> 8) & 0xffu) \
+   | (((a) & 0xffu) << 8))
+#define BSWAP32(a) \
+    ((((a) & 0xff000000u) >> 24) \
+   | (((a) & 0x00ff0000u) >> 8) \
+   | (((a) & 0x0000ff00u) << 8) \
+   | (((a) & 0x000000ffu) << 24))
+#define BSWAP64(a) \
+    ((((a) & 0xff00000000000000ull) >> 56) \
+   | (((a) & 0x00ff000000000000ull) >> 40) \
+   | (((a) & 0x0000ff0000000000ull) >> 24) \
+   | (((a) & 0x000000ff00000000ull) >> 8) \
+   | (((a) & 0x00000000ff000000ull) << 8) \
+   | (((a) & 0x0000000000ff0000ull) << 24) \
+   | (((a) & 0x000000000000ff00ull) << 40) \
+   | (((a) & 0x00000000000000ffull) << 56))
+
 #else
 #include <byteswap.h>
 
