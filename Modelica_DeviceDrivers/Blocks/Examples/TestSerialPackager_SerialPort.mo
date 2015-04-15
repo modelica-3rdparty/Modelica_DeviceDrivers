@@ -81,6 +81,6 @@ equation
 <p>Use them in the Send and Receive block. E.g., for the output above you would use <code>&quot;/dev/pts/1&quot;</code> in <code>SerialPortReceive</code> and <code>&quot;/dev/pts/3&quot;</code> in <code>SerialPortSend</code>.</p>
 <p>You may have also have a look at the discussion about virtual serial port devices on stackoverflow<a href=\"http://stackoverflow.com/questions/52187/virtual-serial-port-for-linux\">http://stackoverflow.com/questions/52187/virtual-serial-port-for-linux</a>.</p>
 <p>On Windows, make sure that the null modem emulator <i>com0com</i> is installed.</p>
-<p>Start the Setup for <i>com0com</i> and check the device names of the created virtual port pair. E.g. you could type <code>&quot;\\.\COM6&quot;</code> in <code>SerialPortReceive</code> and <code>&quot;\\.\COM7&quot;</code> in <code>SerialPortSend</code>.</p>
+<p>Start the Setup for <i>com0com</i> and check the device names of the created virtual port pair. E.g. you could type <code>&quot;COM6&quot;</code> in <code>SerialPortReceive</code> and <code>&quot;COM7&quot;</code> in <code>SerialPortSend</code>.</p>
 </html>"));
 end TestSerialPackager_SerialPort;
