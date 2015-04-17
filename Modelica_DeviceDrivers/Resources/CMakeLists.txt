@@ -33,6 +33,8 @@ endif (MSVC)
 if (UNIX)
   # Dummy Linux Winmm library for uniform treatment of GCC and MS Visual C within Modelica
   add_subdirectory(src/DummyWinmmLibrary)
+  # Dummy Linux User32 library for uniform treatment of GCC and MS Visual C within Modelica
+  add_subdirectory(src/DummyUser32Library)
   # Are we trying to force compilation for linux32 on a native linux64 platform?
   if ( ($ENV{CFLAGS} MATCHES "-m32") AND ($ENV{CXXFLAGS} MATCHES "-m32") )
     set(M32_FLAG TRUE)

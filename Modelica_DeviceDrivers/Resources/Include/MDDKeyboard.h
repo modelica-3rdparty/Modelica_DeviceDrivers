@@ -38,8 +38,6 @@
 #include "../src/include/CompatibilityDefs.h"
 #include <stdio.h>
 
-#pragma comment(lib, "User32.lib")
-
 DllExport void MDD_keyboardGetKey(int iKeyCode,int * piKeyState) {
     /* getting state of interesting keys */
     if(GetAsyncKeyState(iKeyCode)) {

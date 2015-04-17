@@ -7,7 +7,7 @@ output Integer keyState "Key state";
 external "C" MDD_keyboardGetKey(keyCode, keyState)
 annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
            Include = "#include \"MDDKeyboard.h\" ",
-           Library = "X11",
+           Library = {"X11", "User32"},
            __iti_dll = "ITI_MDD.dll");
 annotation(__OpenModelica_Impure=true, __iti_Impure=true);
 end getKey;
@@ -17,7 +17,7 @@ output Integer KeyCode[10] "Key values";
 external "C" MDD_keyboardGetData(KeyCode)
 annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
            Include = "#include \"MDDKeyboard.h\" ",
-           Library = "X11",
+           Library = {"X11", "User32"},
            __iti_dll = "ITI_MDD.dll");
 annotation(__OpenModelica_Impure=true, __iti_Impure=true);
 end getData;
