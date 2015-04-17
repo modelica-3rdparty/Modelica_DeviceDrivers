@@ -4,10 +4,8 @@
 
 include_directories(../../Include)
 
-if (UNIX)
-  message("No Softing CAN support for recent linux kernels available. Skipping ..")
+if (MSVC)
 
-elseif (MSVC)
   add_definitions(-D_CRT_SECURE_NO_WARNINGS)
   if ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
     find_library( CANL2_LIBRARY canL2_64
@@ -27,10 +25,9 @@ elseif (MSVC)
   	message("Softing canL2 libraries not found. No support for Softing CAN. Skipping ..")
   endif ( CANL2_LIBRARY )
 
-else (UNIX)
-  message(SEND_ERROR "Uups. Not UNIX, not MSVC => No Support")
-endif (UNIX)
-
+else (MSVC)
+  message("No Softing CAN support for this platform. Skipping ..")
+endif (MSVC)
 
 add_executable(test_MDDCANMessage test_MDDCANMessage.c ../Util/ModelicaUtilities.c)
 add_test(test_MDDCANMessage ${EXECUTABLE_OUTPUT_PATH}/test_MDDCANMessage)

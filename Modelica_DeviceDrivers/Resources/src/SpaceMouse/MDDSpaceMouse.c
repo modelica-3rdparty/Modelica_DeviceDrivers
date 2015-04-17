@@ -544,6 +544,6 @@ int MDD_spaceMouseXEventsProcessing(void *p_mDDSpaceMouse) {
 
 #else
 
-#error "Modelica_DeviceDrivers: No Keyboard support for your platform"
+#error "Modelica_DeviceDrivers: No space mouse support for your platform"
 
 #endif /* defined(_MSC_VER) */

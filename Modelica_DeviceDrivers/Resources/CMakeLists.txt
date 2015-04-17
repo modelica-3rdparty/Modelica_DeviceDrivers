@@ -16,18 +16,23 @@ set(CMAKE_EDIT_COMMAND cmake-gui)
 include_directories(src/include)
 include_directories(Include)
 
-if (MSVC)
+if (MSVC OR MINGW)
   # Dummy Windows rt library for uniform treatment of GCC and MS Visual C within Modelica
   add_subdirectory(src/DummyRTLibrary)
   # Dummy Windows X11 library for uniform treatment of GCC and MS Visual C within Modelica
   add_subdirectory(src/DummyX11Library)
   # Dummy Windows pthread library for uniform treatment of GCC and MS Visual C within Modelica
   add_subdirectory(src/DummyPthreadLibrary)
+endif (MSVC OR MINGW)
+
+if (MSVC)
   # Create a SimulationX specific DLL wrapper library
   add_subdirectory(src/ITI_ModelicaDeviceDrivers)
 endif (MSVC)
 
 if (UNIX)
+  # Dummy Linux Winmm library for uniform treatment of GCC and MS Visual C within Modelica
+  add_subdirectory(src/DummyWinmmLibrary)
   # Are we trying to force compilation for linux32 on a native linux64 platform?
   if ( ($ENV{CFLAGS} MATCHES "-m32") AND ($ENV{CXXFLAGS} MATCHES "-m32") )
     set(M32_FLAG TRUE)
@@ -42,7 +47,7 @@ if (UNIX)
 endif (UNIX)
 
 # Windows and linux library for 3Dconnexion space mouse support
-add_subdirectory(src/SpaceMouse)
+# add_subdirectory(src/SpaceMouse)
 
 # Library providing some utility functions
 add_subdirectory(src/Util)

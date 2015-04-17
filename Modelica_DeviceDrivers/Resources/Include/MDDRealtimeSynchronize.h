@@ -16,7 +16,6 @@
 
 #include <windows.h>
 #include "../src/include/CompatibilityDefs.h"
-#pragma comment( lib, "Winmm.lib" )
 
 #if !defined(BELOW_NORMAL_PRIORITY_CLASS)
 #define BELOW_NORMAL_PRIORITY_CLASS 0x00004000
