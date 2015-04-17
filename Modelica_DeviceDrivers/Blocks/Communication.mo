@@ -1,16 +1,17 @@
 within Modelica_DeviceDrivers.Blocks;
 package Communication
     extends Modelica.Icons.Package;
-  model SharedMemoryRead
+  block SharedMemoryRead
     "A block for reading data out of shared memory buffers"
     extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
     extends Modelica_DeviceDrivers.Utilities.Icons.SharedMemoryIcon;
+    extends
+      Modelica_DeviceDrivers.Blocks.Communication.Internal.PartialSampleTrigger;
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
     import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
     import Modelica_DeviceDrivers.Communication.SharedMemory;
     import Modelica_DeviceDrivers.Communication.SharedMemory_;
-    parameter Modelica.SIunits.Period sampleTime=0.01
-      "Sample time for input update";
+
     parameter Boolean autoBufferSize = false
       "true, buffer size is deduced automatically, otherwise set it manually"
       annotation(Dialog(group="Shared memory partition"), choices(__Dymola_checkBox=true));
@@ -31,12 +32,13 @@ package Communication
     when initial() then
       bufferSize = if autoBufferSize then alignAtByteBoundary(pkgOut.autoPkgBitSize) else userBufferSize;
     end when;
-    pkgOut.trigger = sample(0,sampleTime);
+    pkgOut.trigger = trigger "using inherited trigger";
     when pkgOut.trigger then
       pkgOut.dummy = Modelica_DeviceDrivers.Blocks.Communication.Internal.DummyFunctions.readSharedMemory(
         sm,
         pkgOut.pkg,
         time);
+      Modelica.Utilities.Streams.print("Read: "+String(time)+"\n");
     end when;
       annotation (preferredView="info",
                 Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -47,13 +49,14 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
 </html>"));
   end SharedMemoryRead;
 
-  model SharedMemoryWrite "A block for writing data in a shared memory"
+  block SharedMemoryWrite "A block for writing data in a shared memory"
     import Modelica_DeviceDrivers;
     extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
     extends Modelica_DeviceDrivers.Utilities.Icons.SharedMemoryIcon;
+    extends
+      Modelica_DeviceDrivers.Blocks.Communication.Internal.PartialSampleTrigger;
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
     import Modelica_DeviceDrivers.Communication.SharedMemory;
-    parameter Modelica.SIunits.Period sampleTime=0.01 "Sample time for update";
     parameter Boolean autoBufferSize = false
       "true, buffer size is deduced automatically, otherwise set it manually"
       annotation(Dialog(group="Shared memory partition"), choices(__Dymola_checkBox=true));
@@ -76,13 +79,14 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
       pkgIn.autoPkgBitSize = 0;
       bufferSize = if autoBufferSize then Modelica_DeviceDrivers.Packaging.SerialPackager_.getBufferSize(pkgIn.pkg) else userBufferSize;
     end when;
-    pkgIn.backwardTrigger = sample(0, sampleTime);
+    pkgIn.backwardTrigger = trigger "using inherited trigger";
     when pkgIn.trigger then
       dummy = Modelica_DeviceDrivers.Blocks.Communication.Internal.DummyFunctions.writeSharedMemory(
         sm,
         pkgIn.pkg,
         bufferSize,
         pkgIn.dummy);
+      Modelica.Utilities.Streams.print("Write: "+String(time)+"\n");
     end when;
     annotation (preferredView="info",
             Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
@@ -93,14 +97,14 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
 </html>"));
   end SharedMemoryWrite;
 
-  model UDPReceive "A block for receiving UDP datagrams"
+  block UDPReceive "A block for receiving UDP datagrams"
     extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
     extends Modelica_DeviceDrivers.Utilities.Icons.UDPconnection;
+    extends
+      Modelica_DeviceDrivers.Blocks.Communication.Internal.PartialSampleTrigger;
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
     import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
     import Modelica_DeviceDrivers.Communication.UDPSocket;
-    parameter Modelica.SIunits.Period sampleTime=0.01
-      "Sample time for input update";
     parameter Boolean autoBufferSize = true
       "true, buffer size is deduced automatically, otherwise set it manually"
       annotation(Dialog(group="Incoming data"), choices(__Dymola_checkBox=true));
@@ -114,6 +118,10 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
           extent={{-20,-20},{20,20}},
           rotation=90,
           origin={108,0})));
+    Modelica.Blocks.Interfaces.BooleanInput conditionalExternalTrigger if enableExternalTrigger
+      annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+          rotation=90,
+          origin={0,-120})));
 
   protected
     Integer bufferSize;
@@ -122,7 +130,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
     when initial() then
       bufferSize = if autoBufferSize then alignAtByteBoundary(pkgOut.autoPkgBitSize) else userBufferSize;
     end when;
-    pkgOut.trigger = sample(0,sampleTime);
+    pkgOut.trigger = trigger "using inherited trigger";
     when pkgOut.trigger then
       pkgOut.dummy = Modelica_DeviceDrivers.Blocks.Communication.Internal.DummyFunctions.readUDP(
         socket,
@@ -138,14 +146,15 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
 </html>"));
   end UDPReceive;
 
-  model UDPSend "A block for sending UDP datagrams"
+  block UDPSend "A block for sending UDP datagrams"
     import Modelica_DeviceDrivers;
     extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
     extends Modelica_DeviceDrivers.Utilities.Icons.UDPconnection;
+    extends
+      Modelica_DeviceDrivers.Blocks.Communication.Internal.PartialSampleTrigger;
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
     import Modelica_DeviceDrivers.Communication.UDPSocket;
 
-    parameter Modelica.SIunits.Period sampleTime=0.01 "Sample time for update";
     parameter Boolean autoBufferSize = true
       "true, buffer size is deduced automatically, otherwise set it manually."
       annotation(Dialog(group="Outgoing data"), choices(__Dymola_checkBox=true));
@@ -159,6 +168,11 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
           extent={{-20,-20},{20,20}},
           rotation=270,
           origin={-108,0})));
+    Modelica.Blocks.Interfaces.BooleanInput conditionalExternalTrigger if enableExternalTrigger
+      annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+          rotation=90,
+          origin={0,-120})));
+
   protected
     UDPSocket socket = UDPSocket(0);
     Integer bufferSize;
@@ -169,7 +183,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
       pkgIn.autoPkgBitSize = 0;
       bufferSize = if autoBufferSize then Modelica_DeviceDrivers.Packaging.SerialPackager_.getBufferSize(pkgIn.pkg) else userBufferSize;
     end when;
-    pkgIn.backwardTrigger = sample(0, sampleTime);
+    pkgIn.backwardTrigger = trigger "using inherited trigger";
     when pkgIn.trigger then
       dummy = Modelica_DeviceDrivers.Blocks.Communication.Internal.DummyFunctions.sendToUDP(
         socket,
@@ -184,18 +198,20 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
               -100},{100,100}}), graphics={Text(extent={{-150,136},{150,96}},
               textString="%name")}), Documentation(info="<html>
 <p>Supports sending of User Datagram Protocol (UDP) datagrams.</p>
-</html>"));
+</html>"),
+      Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+              100}}), graphics));
   end UDPSend;
 
-  model SerialPortReceive
+  block SerialPortReceive
     "A block for receiving serial datagrams using the serial interface"
     extends Modelica_DeviceDrivers.Utilities.Icons.SerialPortIcon;
+    extends
+      Modelica_DeviceDrivers.Blocks.Communication.Internal.PartialSampleTrigger;
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
     import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
     import Modelica_DeviceDrivers.Communication.SerialPort;
     import Modelica_DeviceDrivers.Utilities.Types.SerialBaudRate;
-    parameter Modelica.SIunits.Period sampleTime=0.01
-      "Sample time for input update";
     parameter Boolean autoBufferSize = true
       "true, buffer size is deduced automatically, otherwise set it manually"
       annotation(Dialog(group="Incoming data"), choices(__Dymola_checkBox=true));
@@ -223,7 +239,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
     when initial() then
       bufferSize = if autoBufferSize then alignAtByteBoundary(pkgOut.autoPkgBitSize) else userBufferSize;
     end when;
-    pkgOut.trigger = sample(0,sampleTime);
+    pkgOut.trigger = trigger "using inherited trigger";
     when pkgOut.trigger then
       pkgOut.dummy = Modelica_DeviceDrivers.Blocks.Communication.Internal.DummyFunctions.readSerial(
         sPort,
@@ -245,14 +261,15 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
 </html>"));
   end SerialPortReceive;
 
-  model SerialPortSend
+  block SerialPortSend
     "A block for sending serial datagrams using the serial interface"
     extends Modelica_DeviceDrivers.Utilities.Icons.SerialPortIcon;
+    extends
+      Modelica_DeviceDrivers.Blocks.Communication.Internal.PartialSampleTrigger;
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
     import Modelica_DeviceDrivers.Communication.SerialPort;
     import Modelica_DeviceDrivers.Utilities.Types.SerialBaudRate;
 
-    parameter Modelica.SIunits.Period sampleTime=0.01 "Sample time for update";
     parameter Boolean autoBufferSize = true
       "true, buffer size is deduced automatically, otherwise set it manually."
       annotation(Dialog(group="Outgoing data"), choices(__Dymola_checkBox=true));
@@ -283,7 +300,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
       pkgIn.autoPkgBitSize = 0;
       bufferSize = if autoBufferSize then Modelica_DeviceDrivers.Packaging.SerialPackager_.getBufferSize(pkgIn.pkg) else userBufferSize;
     end when;
-    pkgIn.backwardTrigger = sample(0, sampleTime);
+    pkgIn.backwardTrigger = trigger "using inherited trigger";
     when pkgIn.trigger then
       dummy = Modelica_DeviceDrivers.Blocks.Communication.Internal.DummyFunctions.sendToSerial(
         sPort,
@@ -305,14 +322,15 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
 </html>"));
   end SerialPortSend;
 
-  model TCPIP_Client_IO "A client block for TCP/IP socket communcication"
+  block TCPIP_Client_IO "A client block for TCP/IP socket communcication"
     import Modelica_DeviceDrivers;
     extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
     extends Modelica_DeviceDrivers.Utilities.Icons.TCPIPconnection;
+    extends
+      Modelica_DeviceDrivers.Blocks.Communication.Internal.PartialSampleTrigger;
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
     import Modelica_DeviceDrivers.Communication.TCPIPSocketClient;
 
-    parameter Modelica.SIunits.Period sampleTime=0.01 "Sample time for update";
     parameter String IPAddress="127.0.0.1" "IP address of remote TCP/IP server";
     parameter Integer port=10002 "Port of the TCP/IP server";
     parameter Integer outputBufferSize=16*1024
@@ -337,7 +355,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
       pkgIn.autoPkgBitSize = 0;
       isConnected = Modelica_DeviceDrivers.Communication.TCPIPSocketClient_.connect_(socket, IPAddress, port);
     end when;
-    pkgIn.backwardTrigger = sample(0, sampleTime);
+    pkgIn.backwardTrigger = trigger "using inherited trigger";
     pkgOut.trigger = pkgIn.backwardTrigger;
     when pkgIn.backwardTrigger then
       if isConnected then
@@ -408,15 +426,14 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
 
     block SoftingReadMessage "Set up a message for receiving data"
       import Modelica_DeviceDrivers;
-
-    extends Modelica_DeviceDrivers.Blocks.Interfaces.PartialSoftingCANMessage;
+      extends Modelica_DeviceDrivers.Blocks.Interfaces.PartialSoftingCANMessage;
+      extends
+        Modelica_DeviceDrivers.Blocks.Communication.Internal.PartialSampleTrigger;
       import Modelica_DeviceDrivers.Communication.SoftingCAN;
       import Modelica_DeviceDrivers.Utilities.Types;
       import Modelica_DeviceDrivers.Packaging.SerialPackager;
       import SI = Modelica.SIunits;
     parameter Integer ident(min=0) "Identifier of CAN message (CAN Id)";
-    parameter SI.Period sampleTime = 0.1 "Period at which messages are written";
-    parameter SI.Time startTime = 0 "First sample time instant";
       Modelica_DeviceDrivers.Blocks.Interfaces.PackageOut pkgOut(pkg = SerialPackager(8))
         annotation (Placement(transformation(extent={{-20,-128},{20,-88}})));
     protected
@@ -428,7 +445,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
         Types.TransmissionType.standardReceive);
       softingCANBus.dummy = 1;
     equation
-      pkgOut.trigger = sample(startTime, sampleTime);
+      pkgOut.trigger = trigger "using inherited trigger";
       when pkgOut.trigger then
         objectNumber = pre(objectNumber);
         pkgOut.dummy = Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN.Internal.readRcvDataDummy(
@@ -460,6 +477,8 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
     block SoftingWriteMessage "Set up a message for transmitting data"
       import Modelica_DeviceDrivers;
       extends Modelica_DeviceDrivers.Blocks.Interfaces.PartialSoftingCANMessage;
+      extends
+        Modelica_DeviceDrivers.Blocks.Communication.Internal.PartialSampleTrigger;
       import Modelica_DeviceDrivers.Communication.SoftingCAN;
       import Modelica_DeviceDrivers.Packaging.SerialPackager;
       import Modelica_DeviceDrivers.Utilities.Types;
@@ -467,8 +486,6 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
       parameter Integer ident(min=0) "Identifier of CAN message (CAN Id)";
       parameter Integer dlc(min=0,max=8) = 8
         "Data length code (payload of data in bytes, max=8)";
-      parameter SI.Period sampleTime = 0.1 "Sample period of component";
-      parameter SI.Time startTime = 0 "First sample time instant";
       Modelica_DeviceDrivers.Blocks.Interfaces.PackageIn pkgIn
         annotation (Placement(transformation(extent={{-20,-128},{20,-88}})));
     protected
@@ -486,7 +503,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
         pkgIn.autoPkgBitSize = 0;
       end when;
 
-      pkgIn.backwardTrigger = sample(startTime, sampleTime);
+      pkgIn.backwardTrigger = trigger "using inherited trigger";
       when pkgIn.trigger then
         objectNumber = pre(objectNumber);
         dummy = Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN.Internal.writeObjectDummy(
@@ -638,18 +655,16 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
     block ReadMessage "Set up a message for receiving data"
       extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
       extends Modelica_DeviceDrivers.Utilities.Icons.SocketCANBlockIcon;
+      extends
+        Modelica_DeviceDrivers.Blocks.Communication.Internal.PartialSampleTrigger;
       import Modelica_DeviceDrivers;
       import Modelica_DeviceDrivers.Communication.SocketCAN;
       import Modelica_DeviceDrivers.Packaging.SerialPackager;
-      import SI = Modelica.SIunits;
       parameter SocketCANConfig config
         "Socket CAN configuration (socket) to use for this block" annotation (__Dymola_componentsMatching=true);
       parameter Integer can_id(min=0) "Identifier of CAN message (CAN Id)";
       parameter Integer can_dlc(min=0,max=8) = 8
         "Data length code (payload of data in bytes, max=8)";
-      parameter SI.Period sampleTime = 0.1
-        "Period at which messages are written";
-      parameter SI.Time startTime = 0 "First sample time instant";
       Modelica_DeviceDrivers.Blocks.Interfaces.PackageOut pkgOut(pkg = SerialPackager(can_dlc))
         annotation (Placement(transformation(extent={{-20,-20},{20,20}},
             rotation=90,
@@ -660,7 +675,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
         can_id,
         can_dlc);
     equation
-      pkgOut.trigger = sample(startTime, sampleTime);
+      pkgOut.trigger = trigger "using inherited trigger";
       when pkgOut.trigger then
         pkgOut.dummy = Modelica_DeviceDrivers.Blocks.Communication.SocketCAN.Internal.readObjectDummy(
           config.dh,
@@ -693,16 +708,15 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
       import Modelica_DeviceDrivers;
       extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
       extends Modelica_DeviceDrivers.Utilities.Icons.SocketCANBlockIcon;
+      extends
+        Modelica_DeviceDrivers.Blocks.Communication.Internal.PartialSampleTrigger;
       import Modelica_DeviceDrivers.Communication.SocketCAN;
       import Modelica_DeviceDrivers.Packaging.SerialPackager;
-      import SI = Modelica.SIunits;
       parameter SocketCANConfig config
         "Socket CAN configuration (socket) to use for this block" annotation (__Dymola_componentsMatching=true);
       parameter Integer can_id(min=0) "Identifier of CAN message (CAN Id)";
       parameter Integer can_dlc(min=0,max=8) = 8
         "Data length code (payload of data in bytes, max=8)";
-      parameter SI.Period sampleTime = 0.1 "Sample period of component";
-      parameter SI.Time startTime = 0 "First sample time instant";
       Modelica_DeviceDrivers.Blocks.Interfaces.PackageIn pkgIn
         annotation (Placement(transformation(extent={{-20,-20},{20,20}},
             rotation=-90,
@@ -717,7 +731,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
                                config.dh, can_id, can_dlc);
       end when;
 
-      pkgIn.backwardTrigger = sample(startTime, sampleTime);
+      pkgIn.backwardTrigger = trigger "using inherited trigger";
       when pkgIn.trigger then
         dummy = Modelica_DeviceDrivers.Blocks.Communication.SocketCAN.Internal.writeDummy(
           config.dh,
@@ -895,5 +909,32 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
         dummy2 := dummy;
       end sendToTCPIPServer;
     end DummyFunctions;
+
+    block PartialSampleTrigger
+      "Common code for triggering calls to external I/O devices"
+      import SI = Modelica.SIunits;
+      parameter Boolean enableExternalTrigger = false
+        "true, enable external trigger input signal, otherwise use sample time settings below"
+        annotation (Dialog(group="Activation"), choices(__Dymola_checkBox=true));
+      parameter SI.Period sampleTime = 0.1 "Sample period of component"
+        annotation(Dialog(enable = not enableExternalTrigger, group="Activation"));
+      parameter SI.Time startTime = 0 "First sample time instant"
+        annotation(Dialog(enable = not enableExternalTrigger, group="Activation"));
+      Modelica.Blocks.Interfaces.BooleanInput conditionalExternalTrigger if enableExternalTrigger
+        annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+            rotation=90,
+            origin={0,-120})));
+    protected
+      Modelica.Blocks.Interfaces.BooleanInput internalTrigger;
+      Modelica.Blocks.Interfaces.BooleanInput conditionalInternalTrigger if not enableExternalTrigger;
+      Modelica.Blocks.Interfaces.BooleanInput trigger annotation (HideResult=true);
+    equation
+      /* Condional connect equations to either use external trigger or internal trigger */
+      internalTrigger = sample(startTime,sampleTime);
+      connect(internalTrigger, conditionalInternalTrigger);
+      connect(conditionalInternalTrigger, trigger);
+      connect(conditionalExternalTrigger, trigger);
+      /* "trigger" can now be used by extending classes to trigger calls to I/O devices */
+    end PartialSampleTrigger;
   end Internal;
 end Communication;

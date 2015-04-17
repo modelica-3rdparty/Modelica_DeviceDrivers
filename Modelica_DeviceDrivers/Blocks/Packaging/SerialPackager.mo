@@ -177,25 +177,39 @@ package SerialPackager "Blocks for constructing packages"
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
     import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
 
+    parameter Boolean enableExternalTrigger = false
+      "true, enable external trigger input signal, otherwise use sample time settings below (default!)"
+      annotation (Dialog(tab="Advanced", group="Activation"), choices(__Dymola_checkBox=true));
     parameter Boolean useBackwardSampleTimePropagation = true
       "true, use backward propagation for sample time (default!), otherwise switch to forward propagation"
-      annotation(Dialog(tab="Advanced"), choices(__Dymola_checkBox=true));
+      annotation(Dialog(enable = not enableExternalTrigger, tab="Advanced", group="Activation"), choices(__Dymola_checkBox=true));
     parameter Modelica.SIunits.Period sampleTime=0.01
-      "Sample time if forward propagation of sample time is used" annotation (Dialog(enable = not useBackwardSampleTimePropagation, tab="Advanced"));
+      "Sample time if forward propagation of sample time is used"
+       annotation (Dialog(enable = (not useBackwardSampleTimePropagation) and (not enableExternalTrigger), tab="Advanced", group="Activation"));
 
     parameter Boolean useBackwardPropagatedBufferSize = true
       "true, use backward propagated (automatic) buffer size for package (default!), otherwise use manually specified buffer size below"
-      annotation(Dialog(tab="Advanced"), choices(__Dymola_checkBox=true));
+      annotation(Dialog(tab="Advanced", group="Buffer size settings"), choices(__Dymola_checkBox=true));
     parameter Integer userBufferSize = 16*1024
       "Buffer size for package if backward propagation of buffer size is deactivated"
-      annotation (Dialog(enable = not useBackwardPropagatedBufferSize, tab="Advanced"));
-
+       annotation (Dialog(enable = not useBackwardPropagatedBufferSize, tab="Advanced", group="Buffer size settings"));
     Interfaces.PackageOut pkgOut(pkg = SerialPackager(if useBackwardPropagatedBufferSize then bufferSize else userBufferSize))
       annotation (Placement(transformation(extent={{-20,-128},{20,-88}})));
+    Modelica.Blocks.Interfaces.BooleanInput conditionalExternalTrigger if enableExternalTrigger
+      annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   protected
+    Modelica.Blocks.Interfaces.BooleanInput internalTrigger;
+    Modelica.Blocks.Interfaces.BooleanInput conditionalInternalTrigger if not enableExternalTrigger;
+    Modelica.Blocks.Interfaces.BooleanInput trigger
+         annotation (HideResult=true);
     Integer backwardPropagatedBufferSize;
     Integer bufferSize;
   equation
+    /* Condional connect equations to either use external trigger or internal trigger */
+    internalTrigger = if useBackwardSampleTimePropagation then pkgOut.backwardTrigger else sample(0,sampleTime);
+    connect(internalTrigger, conditionalInternalTrigger);
+    connect(conditionalInternalTrigger, trigger);
+    connect(conditionalExternalTrigger, trigger);
 
     when initial() then
       /* If userPkgBitSize is set, use it. Otherwise use auto package size. */
@@ -206,7 +220,7 @@ package SerialPackager "Blocks for constructing packages"
          else userBufferSize;
     end when;
 
-    pkgOut.trigger = if useBackwardSampleTimePropagation then pkgOut.backwardTrigger else sample(0,sampleTime);
+    pkgOut.trigger = trigger;
     when pkgOut.trigger then
       pkgOut.dummy = DummyFunctions.clear(pkgOut.pkg, time);
     end when;
