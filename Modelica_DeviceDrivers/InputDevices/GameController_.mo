@@ -9,6 +9,7 @@ package GameController_ "Accompanying function for the GameController object"
     external "C" MDD_joystickGetData(joystick, Axes, Buttons, POV)
       annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
         Include = "#include \"MDDJoystick.h\" ",
+        Library = "Winmm",
         __iti_dll = "ITI_MDD.dll");
     annotation(__OpenModelica_Impure=true, __iti_Impure=true);
   end getData;
