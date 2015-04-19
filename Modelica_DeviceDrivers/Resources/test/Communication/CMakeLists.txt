@@ -4,11 +4,21 @@
 
 include_directories(../../Include)
 
-if (CMAKE_COMPILER_IS_GNUCC)
-SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -pthread")
-endif (CMAKE_COMPILER_IS_GNUCC)
+if (UNIX)
+  # Make sure to link with the correct threading library (defines ${CMAKE_THREAD_LIBS_INIT}):
+  find_package (Threads)
+endif (UNIX)
+# alternative way to compile with threading for gcc. However, using recommended find_package (Threads) way for the moment
+#if (CMAKE_COMPILER_IS_GNUCC)
+#SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -pthread")
+#endif (CMAKE_COMPILER_IS_GNUCC)
+
 add_executable(test_MDDUDPSocket test_MDDUDPSocket.c ../Util/ModelicaUtilities.c)
-add_test(test_MDDUDPSocket ${EXECUTABLE_OUTPUT_PATH}/test_MDDUDPSocket)
+if (UNIX)
+  target_link_libraries(test_MDDUDPSocket ${CMAKE_THREAD_LIBS_INIT})
+endif (UNIX)
+add_test(test_MDDUDPSocket 
+	${EXECUTABLE_OUTPUT_PATH}/test_MDDUDPSocket)
 
 add_executable(test_MDDSerialPackager
   test_MDDSerialPackager.c ../Util/ModelicaUtilities.c)
@@ -23,6 +33,9 @@ add_executable(test_MDDSharedMemory
 if (NOT MSVC)
   target_link_libraries(test_MDDSharedMemory rt)
 endif (NOT MSVC)
+if (UNIX)
+  target_link_libraries(test_MDDSharedMemory ${CMAKE_THREAD_LIBS_INIT})
+endif (UNIX)
 add_test(test_MDDSharedMemory
   ${EXECUTABLE_OUTPUT_PATH}/test_MDDSharedMemory)
 
@@ -30,17 +43,3 @@ add_executable(test_EndiannessConversion
   test_EndiannessConversion.c ../Util/ModelicaUtilities.c)
 add_test(test_EndiannessConversion
   ${EXECUTABLE_OUTPUT_PATH}/test_EndiannessConversion)
-
-
-# Following is suggested in forums for getting the right threading library
-# but unfortunately it doesn't work for me:
-# find_package (Threads)
-# target_link_libraries (test_MDDUDPSocket ${CMAKE_THREAD_LIBS_INIT})
-
-
-
-
-
-
-
-
