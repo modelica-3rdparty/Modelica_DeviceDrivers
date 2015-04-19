@@ -3,13 +3,13 @@ message(STATUS "WRITING BUILD FILES FOR DummyWinmmLibrary")
 
 set(libSrcsMDDDummyWinmmLibrary MDDDummyWinmmLibrary.c)
 
-add_library(Winmm SHARED ${libSrcsMDDDummyWinmmLibrary})
+add_library(Winmm STATIC ${libSrcsMDDDummyWinmmLibrary})
 
 # install to directory (CMAKE_INSTALL_PREFIX) into subdirectory "lib"
 if ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
-  install(TARGETS rt DESTINATION Library/linux64)
+  install(TARGETS Winmm DESTINATION Library/linux64)
 elseif ( CMAKE_SIZEOF_VOID_P EQUAL 4 )
-  install(TARGETS rt DESTINATION Library/linux32)
+  install(TARGETS Winmm DESTINATION Library/linux32)
 else ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
   message(SEND_ERROR "Uups. Shouldn't be possible to get here")
 endif ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
