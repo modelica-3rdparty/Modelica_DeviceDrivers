@@ -35,6 +35,8 @@ if (UNIX)
   add_subdirectory(src/DummyWinmmLibrary)
   # Dummy Linux User32 library for uniform treatment of GCC and MS Visual C within Modelica
   add_subdirectory(src/DummyUser32Library)
+  # Dummy Linux Ws2_32 library for uniform treatment of GCC and MS Visual C within Modelica
+  add_subdirectory(src/DummyWs2_32Library)
   # Are we trying to force compilation for linux32 on a native linux64 platform?
   if ( ($ENV{CFLAGS} MATCHES "-m32") AND ($ENV{CXXFLAGS} MATCHES "-m32") )
     set(M32_FLAG TRUE)

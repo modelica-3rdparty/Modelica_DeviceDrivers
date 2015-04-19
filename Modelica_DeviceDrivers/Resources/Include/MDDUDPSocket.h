@@ -21,12 +21,10 @@
 
 #include "ModelicaUtilities.h"
 
-#if defined(_MSC_VER) || defined(__MINGW32__)
+#if defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__)
 
 #include <windows.h>
 #include "../src/include/CompatibilityDefs.h"
-
-#pragma comment( lib, "Ws2_32.lib" )
 
 typedef struct MDDUDPSocket_s MDDUDPSocket;
 
@@ -187,7 +185,7 @@ DllExport int MDD_udpGetReceivedBytes(void * p_udp) {
     return receivedBytes;
 }
 
-#elif defined(__linux__) || defined(__CYGWIN__)
+#elif defined(__linux__)
 
 #include <stdlib.h>
 #include <string.h> /* memset(..) */

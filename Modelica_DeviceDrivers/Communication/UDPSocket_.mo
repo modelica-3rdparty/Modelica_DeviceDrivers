@@ -8,7 +8,7 @@ output String data;
 external "C" data = MDD_udpRead(socket)
 annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
            Include = "#include \"MDDUDPSocket.h\" ",
-           Library = "pthread",
+           Library = {"pthread", "Ws2_32"},
            __iti_dll = "ITI_MDD.dll");
 end read;
 
@@ -22,7 +22,7 @@ encapsulated function sendTo
 external "C" MDD_udpSend(socket, ipAddress, port, data, dataSize)
 annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
            Include = "#include \"MDDUDPSocket.h\" ",
-           Library = "pthread",
+           Library = {"pthread", "Ws2_32"},
            __iti_dll = "ITI_MDD.dll");
 end sendTo;
 
@@ -33,7 +33,7 @@ encapsulated function getReceivedBytes
   external "C" receivedBytes =  MDD_udpGetReceivedBytes(socket)
   annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
            Include = "#include \"MDDUDPSocket.h\" ",
-           Library = "pthread",
+           Library = {"pthread", "Ws2_32"},
            __iti_dll = "ITI_MDD.dll");
 end getReceivedBytes;
 end UDPSocket_;

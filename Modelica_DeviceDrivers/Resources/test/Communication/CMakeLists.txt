@@ -16,6 +16,9 @@ endif (UNIX)
 add_executable(test_MDDUDPSocket test_MDDUDPSocket.c ../Util/ModelicaUtilities.c)
 if (UNIX)
   target_link_libraries(test_MDDUDPSocket ${CMAKE_THREAD_LIBS_INIT})
+else (UNIX)
+  # assume we are in windows
+  target_link_libraries(test_MDDUDPSocket Ws2_32)
 endif (UNIX)
 add_test(test_MDDUDPSocket 
 	${EXECUTABLE_OUTPUT_PATH}/test_MDDUDPSocket)
@@ -30,10 +33,8 @@ add_test(test_MDDSerialPackager
 
 add_executable(test_MDDSharedMemory
   test_MDDSharedMemory.c ../Util/ModelicaUtilities.c)
-if (NOT MSVC)
-  target_link_libraries(test_MDDSharedMemory rt)
-endif (NOT MSVC)
 if (UNIX)
+  target_link_libraries(test_MDDSharedMemory rt)
   target_link_libraries(test_MDDSharedMemory ${CMAKE_THREAD_LIBS_INIT})
 endif (UNIX)
 add_test(test_MDDSharedMemory

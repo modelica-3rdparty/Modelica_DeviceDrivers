@@ -10,7 +10,7 @@ encapsulated function constructor
 external "C" socket = MDD_udpConstructor(port,bufferSize)
 annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
            Include = "#include \"MDDUDPSocket.h\" ",
-           Library = "pthread",
+           Library = {"pthread", "Ws2_32"},
            __iti_dll = "ITI_MDD.dll");
 end constructor;
 
@@ -20,7 +20,7 @@ encapsulated function destructor
 external "C" MDD_udpDestructor(socket)
 annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
            Include = "#include \"MDDUDPSocket.h\" ",
-           Library = "pthread",
+           Library = {"pthread", "Ws2_32"},
            __iti_dll = "ITI_MDD.dll");
 end destructor;
 
