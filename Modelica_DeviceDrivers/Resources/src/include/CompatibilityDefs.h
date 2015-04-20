@@ -38,7 +38,7 @@
 #define COMPATIBILITYDEFS_H_
 
 /* Compile dll and so from same source */
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && !defined(ITI_CE_EXEC_MODEL)
 # define DllImport \
 __declspec( dllimport )
 # define DllExport \
