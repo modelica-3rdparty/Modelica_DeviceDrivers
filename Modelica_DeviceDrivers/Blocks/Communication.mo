@@ -315,6 +315,66 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
 </html>"));
   end SerialPortSend;
 
+  model TCPIP_Client_IO "A client block for TCP/IP socket communcication"
+    import Modelica_DeviceDrivers;
+    extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
+    import Modelica_DeviceDrivers.Packaging.SerialPackager;
+    import Modelica_DeviceDrivers.Communication.TCPIPSocketClient;
+
+    parameter Modelica.SIunits.Period sampleTime=0.01 "Sample time for update";
+    parameter Integer outputBufferSize=16*1024
+      "Buffer size of message data in bytes." annotation(Dialog(group="Outgoing data"));
+    parameter String IPAddress="127.0.0.1" "IP address of remote TCP/IP server"
+        annotation (Dialog(group="Outgoing data"));
+    parameter Integer port_send=10002 "Port of the TCP/IP server"
+        annotation (Dialog(group="Outgoing data"));
+    parameter Integer inputBufferSize=16*1024
+      "Buffer size of message data in bytes." annotation(Dialog(group="Incoming data"));
+    Interfaces.PackageIn pkgIn annotation (Placement(transformation(
+          extent={{-20,-20},{20,20}},
+          rotation=270,
+          origin={-108,0})));
+    Interfaces.PackageOut pkgOut(pkg = SerialPackager(inputBufferSize))
+                                       annotation (Placement(transformation(
+          extent={{-20,-20},{20,20}},
+          rotation=90,
+          origin={108,0})));
+  protected
+    TCPIPSocketClient socket = TCPIPSocketClient(IPAddress, port_send);
+    Real dummy;
+  equation
+    when initial() then
+      pkgIn.userPkgBitSize = outputBufferSize*8;
+      pkgIn.autoPkgBitSize = 0;
+    end when;
+
+  algorithm
+    pkgIn.backwardTrigger := sample(0, sampleTime);
+    when pkgIn.trigger then
+      dummy :=
+         Modelica_DeviceDrivers.Blocks.Communication.Internal.DummyFunctions.sendToTCPIPServer(
+        socket,
+        Modelica_DeviceDrivers.Packaging.SerialPackager_.getPackage(pkgIn.pkg),
+        outputBufferSize,
+        pkgIn.dummy);
+    end when;
+
+    pkgOut.trigger := sample(0,sampleTime);
+    when pkgOut.trigger then
+      pkgOut.dummy := Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.DummyFunctions.setPackage(
+        pkgOut.pkg,
+        Modelica_DeviceDrivers.Communication.TCPIPSocketClient_.read(socket, inputBufferSize),
+        inputBufferSize,
+        time);
+    end when;
+    annotation (preferredView="info",
+            Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+              -100},{100,100}}), graphics={Text(extent={{-150,136},{150,96}},
+              textString="%name")}), Documentation(info="<html>
+<p>Supports sending/receiving of packets to/from a server over TCP/IP.</p>
+</html>"));
+  end TCPIP_Client_IO;
+
   package SoftingCAN
     "Support for Softing's CAN interfaces utilizing their CANL2 API library"
     extends Modelica.Icons.Package;
@@ -776,6 +836,19 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
           dataSize);
         dummy2 :=dummy;
       end sendToSerial;
+
+      function sendToTCPIPServer
+        import Modelica_DeviceDrivers.Communication.TCPIPSocketClient;
+        input TCPIPSocketClient socket;
+        input String data "Data to be sent";
+        input Integer dataSize "Size of data";
+        input Real dummy;
+        output Real dummy2;
+      algorithm
+        Modelica_DeviceDrivers.Communication.TCPIPSocketClient_.sendTo(
+                            socket, data, dataSize);
+        dummy2 := dummy;
+      end sendToTCPIPServer;
     end DummyFunctions;
   end Internal;
 end Communication;
