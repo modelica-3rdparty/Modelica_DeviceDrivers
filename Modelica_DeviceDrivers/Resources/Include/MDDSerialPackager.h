@@ -13,6 +13,8 @@
 #ifndef MDDSERIALPACKAGER_H_
 #define MDDSERIALPACKAGER_H_
 
+#if !defined(ITI_COMP_SIM)
+
 #include <string.h>
 #include <stdlib.h>
 #include <stddef.h>
@@ -768,5 +770,7 @@ void * MDD_SerialPackagerMemcpyBitRead(void* destination, const void* source, un
 }
 
 #endif /* 0 */
+
+#endif /* !defined(ITI_COMP_SIM) */
 
 #endif /* MDDSERIALPACKAGER_H_ */

@@ -11,6 +11,8 @@
 #ifndef MDDOPERATINGSYSTEM_H_
 #define MDDOPERATINGSYSTEM_H_
 
+#if !defined(ITI_COMP_SIM)
+
 #include <stdlib.h>
 #include <time.h>
 #include "../src/include/CompatibilityDefs.h"
@@ -43,5 +45,7 @@ void MDD_OS_Sleep(double sleepingTime) {
     sleep((int)sleepingTime);
 }
 #endif /* _MSC_VER */
+
+#endif /* !defined(ITI_COMP_SIM) */
 
 #endif /* MDDOPERATINGSYSTEM_H_ */

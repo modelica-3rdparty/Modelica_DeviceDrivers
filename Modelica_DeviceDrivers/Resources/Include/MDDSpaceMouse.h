@@ -12,6 +12,8 @@
 #ifndef MDDSPACEMOUSE_H_
 #define MDDSPACEMOUSE_H_
 
+#if !defined(ITI_COMP_SIM)
+
 #include "../src/include/CompatibilityDefs.h"
 #include "ModelicaUtilities.h"
 
@@ -20,5 +22,7 @@
 * @param[out] piButtons array with 16 elements
 */
 DllExport void MDD_spaceMouseGetData(double * pdAxes, int * piButtons);
+
+#endif /* !defined(ITI_COMP_SIM) */
 
 #endif /* MDDSPACEMOUSE_H_ */

@@ -16,7 +16,14 @@
 
 #if defined(_MSC_VER) || defined(__CYGWIN__) || defined(__MINGW32__)
 
+#if !defined(ITI_COMP_SIM)
+
+#if !defined(WIN32_LEAN_AND_MEAN)
+#define WIN32_LEAN_AND_MEAN
+#endif
 #include <windows.h>
+#include <mmsystem.h>
+#include <stdlib.h>
 #include "../src/include/CompatibilityDefs.h"
 
 /** Joystick object */
@@ -107,6 +114,8 @@ DllExport void MDD_joystickGetData(void* jsObj, double * pdAxes, int * piButtons
         }
     }
 }
+
+#endif /* !defined(ITI_COMP_SIM) */
 
 #elif defined(__linux__)
 

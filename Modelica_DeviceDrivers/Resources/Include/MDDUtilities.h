@@ -11,6 +11,8 @@
 #ifndef MDDUTILITIES_H_
 #define MDDUTILITIES_H_
 
+#if !defined(ITI_COMP_SIM)
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -54,5 +56,7 @@ DllExport double MDD_utilitiesLoadRealParameter(const char * file, const char * 
     ModelicaFormatError("Parameter name not found: %s",name);
     return 0;
 }
+
+#endif /* !defined(ITI_COMP_SIM) */
 
 #endif /* MDDUTILITIES_H_ */

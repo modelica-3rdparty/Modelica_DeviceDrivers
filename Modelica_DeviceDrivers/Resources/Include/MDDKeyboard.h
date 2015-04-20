@@ -34,9 +34,14 @@
 
 #if defined(_MSC_VER) || defined(__CYGWIN__) || defined(__MINGW32__)
 
+#if !defined(ITI_COMP_SIM)
+
+#if !defined(WIN32_LEAN_AND_MEAN)
+#define WIN32_LEAN_AND_MEAN
+#endif
 #include <windows.h>
-#include "../src/include/CompatibilityDefs.h"
 #include <stdio.h>
+#include "../src/include/CompatibilityDefs.h"
 
 DllExport void MDD_keyboardGetKey(int iKeyCode,int * piKeyState) {
     /* getting state of interesting keys */
@@ -111,6 +116,8 @@ DllExport void MDD_keyboardGetData(int * piKeyState) {
         piKeyState[9] = 0;
     }
 }
+
+#endif /* !defined(ITI_COMP_SIM) */
 
 #elif defined(__linux__)
 

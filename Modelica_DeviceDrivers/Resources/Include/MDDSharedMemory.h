@@ -15,9 +15,14 @@
 
 #if defined(_MSC_VER) || defined(__CYGWIN__) || defined(__MINGW32__)
 
+#if !defined(ITI_COMP_SIM)
+
+#if !defined(WIN32_LEAN_AND_MEAN)
+#define WIN32_LEAN_AND_MEAN
+#endif
 #include <windows.h>
-#include "../src/include/CompatibilityDefs.h"
 #include <stdio.h>
+#include "../src/include/CompatibilityDefs.h"
 
 /** Shared memory object */
 typedef struct {
@@ -114,6 +119,8 @@ DllExport void MDD_SharedMemoryWrite(void * p_smb, const char * buffer, int len)
     memcpy(MDDSM_PLEN, &len, sizeof(int));
     MDDSM_UNLOCK();
 }
+
+#endif /* !defined(ITI_COMP_SIM) */
 
 #elif defined(__linux__)
 

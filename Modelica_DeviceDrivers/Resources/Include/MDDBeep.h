@@ -14,6 +14,11 @@
 
 #if defined(_MSC_VER) || defined(__CYGWIN__) || defined(__MINGW32__)
 
+#if !defined(ITI_COMP_SIM)
+
+#if !defined(WIN32_LEAN_AND_MEAN)
+#define WIN32_LEAN_AND_MEAN
+#endif
 #include <windows.h>
 #include "../src/include/CompatibilityDefs.h"
 
@@ -29,6 +34,8 @@ DllExport double MDD_beep(double frequency, double duration) {
     Beep(freq,duration_ms);
     return 0;
 }
+
+#endif /* !defined(ITI_COMP_SIM) */
 
 #elif defined(__linux__)
 
