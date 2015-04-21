@@ -2,12 +2,10 @@ within Modelica_DeviceDrivers.Communication;
 class TCPIPSocketClient "A client for TCP/IP packet network communication."
 extends ExternalObject;
   encapsulated function constructor
-    "Creates a TCP/IP socket client."
+    "Creates a TCP/IP socket client instance."
     import Modelica_DeviceDrivers.Communication.TCPIPSocketClient;
-    input String ip "IP address";
-    input Integer port "listening port";
     output TCPIPSocketClient socketClient;
-  external "C" socketClient = MDD_TCPIPClient_Constructor(ip, port)
+  external "C" socketClient = MDD_TCPIPClient_Constructor()
   annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
            Include = "#include \"MDDTCPIPSocket.h\" ",
            Library = {"pthread", "Ws2_32"},

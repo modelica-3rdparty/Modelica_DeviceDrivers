@@ -322,50 +322,47 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
     import Modelica_DeviceDrivers.Communication.TCPIPSocketClient;
 
     parameter Modelica.SIunits.Period sampleTime=0.01 "Sample time for update";
+    parameter String IPAddress="127.0.0.1" "IP address of remote TCP/IP server";
+    parameter Integer port=10002 "Port of the TCP/IP server";
     parameter Integer outputBufferSize=16*1024
       "Buffer size of message data in bytes." annotation(Dialog(group="Outgoing data"));
-    parameter String IPAddress="127.0.0.1" "IP address of remote TCP/IP server"
-        annotation (Dialog(group="Outgoing data"));
-    parameter Integer port_send=10002 "Port of the TCP/IP server"
-        annotation (Dialog(group="Outgoing data"));
     parameter Integer inputBufferSize=16*1024
       "Buffer size of message data in bytes." annotation(Dialog(group="Incoming data"));
     Interfaces.PackageIn pkgIn annotation (Placement(transformation(
           extent={{-20,-20},{20,20}},
           rotation=270,
           origin={-108,0})));
-    Interfaces.PackageOut pkgOut(pkg = SerialPackager(inputBufferSize))
+    Interfaces.PackageOut pkgOut(pkg = SerialPackager(inputBufferSize), dummy(start=0, fixed=true))
                                        annotation (Placement(transformation(
           extent={{-20,-20},{20,20}},
           rotation=90,
           origin={108,0})));
   protected
-    TCPIPSocketClient socket = TCPIPSocketClient(IPAddress, port_send);
-    Real dummy;
+    TCPIPSocketClient socket = TCPIPSocketClient();
+    Boolean isConnected(start=false, fixed=true);
   equation
     when initial() then
       pkgIn.userPkgBitSize = outputBufferSize*8;
       pkgIn.autoPkgBitSize = 0;
+      isConnected = Modelica_DeviceDrivers.Communication.TCPIPSocketClient_.connect_(socket, IPAddress, port);
     end when;
 
-  algorithm
-    pkgIn.backwardTrigger := sample(0, sampleTime);
-    when pkgIn.trigger then
-      dummy :=
-         Modelica_DeviceDrivers.Blocks.Communication.Internal.DummyFunctions.sendToTCPIPServer(
-        socket,
-        Modelica_DeviceDrivers.Packaging.SerialPackager_.getPackage(pkgIn.pkg),
-        outputBufferSize,
-        pkgIn.dummy);
-    end when;
-
-    pkgOut.trigger := sample(0,sampleTime);
-    when pkgOut.trigger then
-      pkgOut.dummy := Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.DummyFunctions.setPackage(
-        pkgOut.pkg,
-        Modelica_DeviceDrivers.Communication.TCPIPSocketClient_.read(socket, inputBufferSize),
-        inputBufferSize,
-        time);
+    pkgIn.backwardTrigger = sample(0, sampleTime);
+    pkgOut.trigger = pkgIn.backwardTrigger;
+    when pkgIn.backwardTrigger then
+      if isConnected then
+        pkgOut.dummy = Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.DummyFunctions.setPackage(
+          pkgOut.pkg,
+          Modelica_DeviceDrivers.Communication.TCPIPSocketClient_.read(socket, inputBufferSize),
+          inputBufferSize,
+          Modelica_DeviceDrivers.Blocks.Communication.Internal.DummyFunctions.sendToTCPIPServer(
+            socket,
+            Modelica_DeviceDrivers.Packaging.SerialPackager_.getPackage(pkgIn.pkg),
+            outputBufferSize,
+            pkgIn.dummy));
+      else
+        pkgOut.dummy = pre(pkgOut.dummy);
+      end if;
     end when;
     annotation (preferredView="info",
             Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
