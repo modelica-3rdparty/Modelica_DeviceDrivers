@@ -9,6 +9,8 @@
 
 #define WIN32_LEAN_AND_MEAN
 
+#define WINVER 0x0501
+
 #include <windows.h>
 #include <winsock2.h>
 #include <ws2tcpip.h>
