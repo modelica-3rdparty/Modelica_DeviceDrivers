@@ -1,6 +1,6 @@
 # Modelica_DeviceDrivers
 Free library for interfacing hardware drivers to Modelica models.
-There is support for joysticks, keyboards, UDP, shared memory, AD/DA converters, serial port and other devices.
+There is support for joysticks, keyboards, UDP, TCP/IP, shared memory, AD/DA converters, serial port and other devices.
 
 ## Library description
 The `Modelica_DeviceDrivers` library is an open source Modelica package under [Modelica License 2](https://modelica.org/licenses/ModelicaLicense2) that interfaces hardware drivers to Modelica models.

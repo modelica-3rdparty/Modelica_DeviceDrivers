@@ -8,3 +8,5 @@ SocketCAN
 SocketCAN_
 SerialPort
 SerialPort_
+TCPIPSocketClient
+TCPIPSocketClient_

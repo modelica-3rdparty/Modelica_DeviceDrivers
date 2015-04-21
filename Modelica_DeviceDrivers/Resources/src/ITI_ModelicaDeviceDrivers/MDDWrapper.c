@@ -28,3 +28,4 @@
 #include "../../Include/MDDSharedMemory.h"
 #include "../../Include/MDDUDPSocket.h"
 #include "../../Include/MDDUtilities.h"
+#include "../../Include/MDDTCPIPSocket.h"
