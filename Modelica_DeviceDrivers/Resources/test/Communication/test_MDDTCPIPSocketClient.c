@@ -16,7 +16,6 @@ int main(void) {
     char sendMessage[80];
     const char *recMessage;
     int i;
-    int recBytes;
 
     client = MDD_TCPIPClient_Constructor("localhost", 27015);
     if (client == 0) {
