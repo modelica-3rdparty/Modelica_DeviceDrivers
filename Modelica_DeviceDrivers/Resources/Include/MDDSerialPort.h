@@ -13,6 +13,7 @@
 #define MDDSERIALPORT_H_
 
 #include "ModelicaUtilities.h"
+#include "MDDSerialPackager.h"
 
 #if defined(_MSC_VER) || defined(__CYGWIN__) || defined(__MINGW32__)
 
@@ -30,7 +31,6 @@ typedef struct {
     HANDLE hThread;
     int receiving;
     char* receiveBuffer;
-    char* receiveBufferExport;
     size_t bufferSize;
     DWORD receivedBytes;
     DWORD receiveError;
@@ -219,14 +219,12 @@ DllExport void * MDD_serialPortConstructor(const char * deviceName, int bufferSi
         if (receiver) {
             DWORD id1;
             serial->receiveBuffer = (char*)calloc(bufferSize, 1);
-            serial->receiveBufferExport = (char*)calloc(bufferSize, 1);
             InitializeCriticalSection(&serial->receiveLock);
             serial->hThread = CreateThread(0, 0, MDD_serialPortReceivingThread, serial, 0, &id1);
             if (!serial->hThread) {
                 DeleteCriticalSection(&serial->receiveLock);
                 CloseHandle(serial->hComm);
                 free(serial->receiveBuffer);
-                free(serial->receiveBufferExport);
                 free(serial);
                 serial = NULL;
                 ModelicaError("MDDSerialPort.h: Error creating receiver thread for serial communication.\n");
@@ -239,13 +237,35 @@ DllExport void * MDD_serialPortConstructor(const char * deviceName, int bufferSi
 DllExport const char * MDD_serialPortRead(void * p_serial) {
     MDDSerialPort * serial = (MDDSerialPort *) p_serial;
     if (serial && serial->hThread && serial->hComm != INVALID_HANDLE_VALUE) {
+        char* spBuf;
         EnterCriticalSection(&serial->receiveLock);
-        memcpy(serial->receiveBufferExport, serial->receiveBuffer, serial->receivedBytes);
-        serial->receivedBytes = 0;
-        LeaveCriticalSection(&serial->receiveLock);
-        return (const char*) serial->receiveBufferExport;
+        spBuf = ModelicaAllocateStringWithErrorReturn(serial->receivedBytes);
+        if (spBuf) {
+            memcpy(spBuf, serial->receiveBuffer, serial->receivedBytes);
+            serial->receivedBytes = 0;
+            LeaveCriticalSection(&serial->receiveLock);
+            return (const char*) spBuf;
+        }
+        else {
+            LeaveCriticalSection(&serial->receiveLock);
+            ModelicaError("MDDSerialPort.h: ModelicaAllocateString failed\n");
+        }
     }
     return "";
+}
+
+DllExport void MDD_serialPortReadP(void * p_serial, void* p_package) {
+    MDDSerialPort * serial = (MDDSerialPort *) p_serial;
+    if (serial && serial->hThread && serial->hComm != INVALID_HANDLE_VALUE) {
+        int rc;
+        EnterCriticalSection(&serial->receiveLock);
+        rc = MDD_SerialPackagerSetDataWithErrorReturn(p_package, serial->receiveBuffer, serial->receivedBytes);
+        serial->receivedBytes = 0;
+        LeaveCriticalSection(&serial->receiveLock);
+        if (rc) {
+           ModelicaError("MDDSerialPort.h: MDD_SerialPackagerSetData failed. Buffer overflow.\n");
+        }
+    }
 }
 
 DllExport void MDD_serialPortSend(void * p_serial, const char * data, int dataSize) {
@@ -269,6 +289,10 @@ DllExport void MDD_serialPortSend(void * p_serial, const char * data, int dataSi
     }
 }
 
+DllExport void MDD_serialPortSendP(void * p_serial, void* p_package, int dataSize) {
+   MDD_serialPortSend(p_serial, MDD_SerialPackagerGetData(p_package), dataSize);
+}
+
 DllExport void MDD_serialPortDestructor(void * p_serial) {
     MDDSerialPort * serial = (MDDSerialPort *) p_serial;
     if (serial) {
@@ -287,7 +311,6 @@ DllExport void MDD_serialPortDestructor(void * p_serial) {
             CloseHandle(serial->hThread);
             DeleteCriticalSection(&serial->receiveLock);
             free(serial->receiveBuffer);
-            free(serial->receiveBufferExport);
         }
         CloseHandle(serial->hComm);
         free(serial);
@@ -330,7 +353,6 @@ typedef struct {
     struct termios serial;
     size_t messageLength; /**< message length (only relevant for read socket) */
     void* msgInternal; /**< Internal serial message buffer (only relevant for read socket) */
-    void* msgExport; /**< Serial message buffer exported to Modelica (only relevant for read socket) */
     ssize_t nReceivedBytes; /**< Number of received bytes (only relevant for read serial) */
     int runReceive; /**< Run receiving thread as long as runReceive != 0 */
     pthread_t thread;
@@ -448,7 +470,6 @@ void * MDD_serialPortConstructor(const char * deviceName, int bufferSize, int pa
     serial->messageLength = bufferSize;
     serial->runReceive = 0;
     serial->msgInternal = calloc(serial->messageLength,1);
-    serial->msgExport = calloc(serial->messageLength,1);
     ret = pthread_mutex_init(&(serial->messageMutex), NULL); /* Init mutex with defaults */
     if (ret != 0) {
         ModelicaFormatError("MDDSerialPort.h: pthread_mutex_init() failed (%s)\n",
@@ -571,12 +592,39 @@ void* MDD_serialPortReceivingThread(void * p_serial) {
 const char * MDD_serialPortRead(void * p_serial) {
 
     MDDSerialPort * serial = (MDDSerialPort *) p_serial;
+    char* spBuf;
 
     /* Lock acces to serial->msgInternal */
     pthread_mutex_lock(&(serial->messageMutex));
-    memcpy(serial->msgExport, serial->msgInternal, serial->messageLength);
+    spBuf = ModelicaAllocateStringWithErrorReturn(serial->messageLength);
+    if (spBuf) {
+        memcpy(spBuf, serial->msgInternal, serial->messageLength);
+        pthread_mutex_unlock(&(serial->messageMutex));
+        return (const char*) spBuf;
+    }
+    else {
+        pthread_mutex_unlock(&(serial->messageMutex));
+        ModelicaError("MDDSerialPort.h: ModelicaAllocateString failed\n");
+    }
+    return "";
+}
+
+/** Read data from serial port.
+ *
+ * @param p_serial pointer address to the serial port data structure
+ * @param p_package pointer to the SerialPackager
+ */
+void MDD_serialPortReadP(void * p_serial, void* p_package) {
+    MDDSerialPort * serial = (MDDSerialPort *) p_serial;
+    int rc;
+
+    /* Lock acces to serial->msgInternal */
+    pthread_mutex_lock(&(serial->messageMutex));
+    rc = MDD_SerialPackagerSetDataWithErrorReturn(p_package, serial->msgInternal, serial->messageLength);
     pthread_mutex_unlock(&(serial->messageMutex));
-    return (const char*) serial->msgExport;
+    if (rc) {
+        ModelicaError("MDDSerialPort.h: MDD_SerialPackagerSetData failed. Buffer overflow.\n");
+    }
 }
 
 /** Send data via serial port
@@ -598,6 +646,16 @@ void MDD_serialPortSend(void * p_serial, const char * data, int dataSize) {
 
 }
 
+/** Send data via serial port
+ *
+ * @param p_serial pointer address to the serial port data structure
+ * @param p_package pointer to the SerialPackager
+ * @param dataSize size of data
+ */
+void MDD_serialPortSendP(void * p_serial, void* p_package, int dataSize) {
+   MDD_serialPortSend(p_serial, MDD_SerialPackagerGetData(p_package), dataSize);
+}
+
 /** Close serial port and free memory.
  * @param p_serial pointer address to the serial port data structure
  */
@@ -617,7 +675,6 @@ void MDD_serialPortDestructor(void * p_serial) {
     }
     ModelicaFormatMessage("Closed serial port handle %d\n", serial->fd);
     free(serial->msgInternal);
-    free(serial->msgExport);
     free(serial);
 }
 

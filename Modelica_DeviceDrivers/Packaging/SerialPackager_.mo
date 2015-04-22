@@ -59,17 +59,6 @@ encapsulated function addBoolean
              __iti_dll = "ITI_MDD.dll");
 end addBoolean;
 
-encapsulated function setPackage
-    import Modelica_DeviceDrivers.Packaging.SerialPackager;
-  input SerialPackager pkg;
-  input String data "Packager payload data encoded as Modelica String";
-  input Integer dataSize "Number of payload data bytes";
-  external "C" MDD_SerialPackagerSetData(pkg, data, dataSize)
-  annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
-             Include = "#include \"MDDSerialPackager.h\" ",
-             __iti_dll = "ITI_MDD.dll");
-end setPackage;
-
 encapsulated function setPos
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
   input SerialPackager pkg;
@@ -79,16 +68,6 @@ encapsulated function setPos
              Include = "#include \"MDDSerialPackager.h\" ",
              __iti_dll = "ITI_MDD.dll");
 end setPos;
-
-encapsulated function getPackage
-    import Modelica_DeviceDrivers.Packaging.SerialPackager;
-  input SerialPackager pkg;
-  output String data;
-  external "C" data = MDD_SerialPackagerGetData(pkg)
-  annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
-             Include = "#include \"MDDSerialPackager.h\" ",
-             __iti_dll = "ITI_MDD.dll");
-end getPackage;
 
 encapsulated function getPos
     import Modelica_DeviceDrivers.Packaging.SerialPackager;

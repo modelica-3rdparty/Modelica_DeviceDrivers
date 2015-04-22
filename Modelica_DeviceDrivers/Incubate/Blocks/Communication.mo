@@ -54,11 +54,9 @@ package Communication
     pkgOut.trigger = sample(0, sampleTime);
 
     when pkgOut.trigger then
-      pkgOut.dummy =
-        Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.DummyFunctions.setPackage(
+      pkgOut.dummy = Modelica_DeviceDrivers.Blocks.Communication.Internal.DummyFunctions.readUDP(
+        socket,
         pkgOut.pkg,
-        Modelica_DeviceDrivers.Communication.UDPSocket_.read(socket),
-        bufferSize,
         time);
     end when;
     firstSample = false; // after the first sampling of this when statement set firstSample to false

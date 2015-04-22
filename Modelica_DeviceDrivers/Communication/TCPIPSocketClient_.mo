@@ -19,9 +19,9 @@ package TCPIPSocketClient_ "Accompanying functions for the TCP/IP socket client 
   encapsulated function read
     import Modelica_DeviceDrivers.Communication.TCPIPSocketClient;
     input TCPIPSocketClient socketClient;
+    input Modelica_DeviceDrivers.Packaging.SerialPackager pkg "Data package to be read";
     input Integer dataSize "Size of data";
-    output String data "Data to be received";
-    external "C" data = MDD_TCPIPClient_Read(socketClient, dataSize)
+    external "C" MDD_TCPIPClient_ReadP(socketClient, pkg, dataSize)
     annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
            Include = "#include \"MDDTCPIPSocket.h\" ",
            Library = {"pthread", "Ws2_32"},
@@ -31,10 +31,10 @@ package TCPIPSocketClient_ "Accompanying functions for the TCP/IP socket client 
   encapsulated function sendTo
     import Modelica_DeviceDrivers.Communication.TCPIPSocketClient;
     input TCPIPSocketClient socketClient;
-    input String data "Data to be sent";
+    input Modelica_DeviceDrivers.Packaging.SerialPackager pkg "Data package to be sent";
     input Integer dataSize "Size of data";
     output Integer sendError "Send error flag";
-    external "C" sendError = MDD_TCPIPClient_Send(socketClient, data, dataSize)
+    external "C" sendError = MDD_TCPIPClient_SendP(socketClient, pkg, dataSize)
     annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
            Include = "#include \"MDDTCPIPSocket.h\" ",
            Library = {"pthread", "Ws2_32"},

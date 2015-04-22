@@ -5,9 +5,9 @@ package SerialPort_ "Accompanying functions for the SerialPort object"
   encapsulated function read
     import Modelica_DeviceDrivers.Communication.SerialPort;
     input SerialPort sPort;
-    output String data;
-  external "C" data=  MDD_serialPortRead(sPort)
-  annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
+    input Modelica_DeviceDrivers.Packaging.SerialPackager pkg "Data package to be read";
+    external "C" MDD_serialPortReadP(sPort, pkg)
+    annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
              Include = "#include \"MDDSerialPort.h\" ",
              Library = "pthread",
            __iti_dll = "ITI_MDD.dll");
@@ -16,10 +16,10 @@ package SerialPort_ "Accompanying functions for the SerialPort object"
   encapsulated function sendTo
     import Modelica_DeviceDrivers.Communication.SerialPort;
     input SerialPort sPort "Serial Port object";
-    input String data "Data to be sent";
+    input Modelica_DeviceDrivers.Packaging.SerialPackager pkg "Data package to be sent";
     input Integer dataSize "Size of data";
-  external "C" MDD_serialPortSend(sPort, data, dataSize)
-  annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
+    external "C" MDD_serialPortSendP(sPort, pkg, dataSize)
+    annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
              Include = "#include \"MDDSerialPort.h\" ",
              Library = "pthread",
            __iti_dll = "ITI_MDD.dll");
@@ -29,8 +29,7 @@ package SerialPort_ "Accompanying functions for the SerialPort object"
     import Modelica_DeviceDrivers.Communication.SerialPort;
     input SerialPort sPort;
     output Integer receivedBytes "number of Bytes received";
-    external "C" receivedBytes =
-                                MDD_serialPortGetReceivedBytes(sPort)
+    external "C" receivedBytes = MDD_serialPortGetReceivedBytes(sPort)
     annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
              Include = "#include \"MDDSerialPort.h\" ",
              Library = "pthread",

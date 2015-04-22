@@ -68,6 +68,7 @@
 #include <unistd.h>
 
 #include "ModelicaUtilities.h"
+#include "MDDSerialPackager.h"
 #include "../src/include/MDDMapIntpVoid.h"
 
 /* At time of writing, these constants are not defined in the headers */
@@ -235,6 +236,18 @@ void MDD_socketCANWrite(void* p_mDDSocketCAN, int can_id, int can_dlc,
     }
 }
 
+
+/** Write CAN frame/message to CAN interface
+ * @param[in] p_mDDSocketCAN pointer to external object (MDDSocketCAN struct)
+ * @param[in] can_id CAN frame identifier
+ * @param[in] can_dlc length of data in bytes (min=0, max=8)
+ * @param[in] p_package pointer to the SerialPackager
+ */
+void MDD_socketCANWriteP(void* p_mDDSocketCAN, int can_id, int can_dlc,
+                         void* p_package) {
+    MDD_socketCANWrite(p_mDDSocketCAN, can_id, can_dlc, MDD_SerialPackagerGetData(p_package));
+}
+
 /** Read CAN frame/message from CAN interface.
  *
  * @TODO Not sure whether memcpy to data is possible in external Modelica functions. Check.
@@ -248,16 +261,50 @@ void MDD_socketCANWrite(void* p_mDDSocketCAN, int can_id, int can_dlc,
  * @param[out] data up-to-date payload data for corresponding can_id
  * @return pointer to the up-to-date payload data (== data)
  */
-const char * MDD_socketCANRead(void* p_mDDSocketCAN, int can_id,  int can_dlc, char* data) {
+const char * MDD_socketCANRead(void* p_mDDSocketCAN, int can_id, int can_dlc) {
     MDDSocketCAN * mDDSocketCAN = (MDDSocketCAN *) p_mDDSocketCAN;
     void * value;
+    char* data = ModelicaAllocateString(can_dlc);
+    if (data) {
+        /* Ensure exclusive access to map */
+        pthread_mutex_lock(&(mDDSocketCAN->mapMutex));
+        value = MDD_mapIntpVoidLookup(mDDSocketCAN->p_mDDMapIntpVoid, can_id);
+        memcpy(data, value, can_dlc);
+        pthread_mutex_unlock(&(mDDSocketCAN->mapMutex));
+        return (const char*) data;
+    }
+    return "";
+}
 
-    /* Ensure exclusive access to map */
-    pthread_mutex_lock(&(mDDSocketCAN->mapMutex));
-    value = MDD_mapIntpVoidLookup(mDDSocketCAN->p_mDDMapIntpVoid, can_id);
-    memcpy(data, value, can_dlc);
-    pthread_mutex_unlock(&(mDDSocketCAN->mapMutex));
-    return data;
+/** Read CAN frame/message from CAN interface.
+ *
+ * @TODO Not sure whether memcpy to data is possible in external Modelica functions. Check.
+ *
+ * In the moment this function will always return data (given an existing key/value entry)
+ * @TODO Should have a warning if the function is called and no *new* data is available
+ *
+ * @param[in] p_mDDSocketCAN pointer to external object (MDDSocketCAN struct)
+ * @param[in] can_id CAN frame identifier
+ * @param[in] can_dlc length of data in bytes (min=0, max=8)
+ * @param[in,out] p_package pointer to the SerialPackager
+ */
+void MDD_socketCANReadP(void* p_mDDSocketCAN, int can_id,  int can_dlc,
+                        void* p_package) {
+    MDDSocketCAN * mDDSocketCAN = (MDDSocketCAN *) p_mDDSocketCAN;
+    void * value;
+    char* data = (char*) malloc(can_dlc);
+    if (data) {
+        int rc;
+        /* Ensure exclusive access to map */
+        pthread_mutex_lock(&(mDDSocketCAN->mapMutex));
+        value = MDD_mapIntpVoidLookup(mDDSocketCAN->p_mDDMapIntpVoid, can_id);
+        rc = MDD_SerialPackagerSetDataWithErrorReturn(p_package, value, can_dlc);
+        pthread_mutex_unlock(&(mDDSocketCAN->mapMutex));
+        free(data);
+        if (rc) {
+            ModelicaError("MDDSocketCAN.h: MDD_SerialPackagerSetData failed. Buffer overflow.\n");
+        }
+    }
 }
 
 /** Dedicated thread for receiving CAN frames.

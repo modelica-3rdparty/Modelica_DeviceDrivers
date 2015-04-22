@@ -140,14 +140,14 @@ DllExport void* MDD_softingCANConstructor(const char* deviceName, int baudRate) 
         ModelicaFormatError("%s",descriptiveError(ret, "INIL2_initialize_channel"));
     }
     mDDSoftingCAN->can = channel.ulChannelHandle;
-    ModelicaFormatMessage("\tOK.\n");
+    ModelicaMessage("\tOK.\n");
 
     ModelicaFormatMessage("SoftingCAN (%s): Resetting chip ...", mDDSoftingCAN->deviceName);
     ret = CANL2_reset_chip(mDDSoftingCAN->can);
     if(ret) {
         ModelicaFormatError("%s",descriptiveError(ret, "CANL2_reset_chip"));
     }
-    ModelicaFormatMessage("\tOK.\n");
+    ModelicaMessage("\tOK.\n");
 
     /* Note: Here is the knob to tune the baud rate: */
     /*
@@ -204,7 +204,7 @@ DllExport void* MDD_softingCANConstructor(const char* deviceName, int baudRate) 
     if(ret) {
         ModelicaFormatError("%s",descriptiveError(ret, "CANL2_initialize_chip"));
     }
-    ModelicaFormatMessage("\tOK.\n");
+    ModelicaMessage("\tOK.\n");
 
     ModelicaFormatMessage("SoftingCAN (%s): CANL2_set_acceptance ...", mDDSoftingCAN->deviceName);
     ret = CANL2_set_acceptance(mDDSoftingCAN->can, ACCEPT_MASK_1, ACCEPT_CODE_1, ACCEPT_MASK_XTD_1,
@@ -212,28 +212,28 @@ DllExport void* MDD_softingCANConstructor(const char* deviceName, int baudRate) 
     if (ret) {
         ModelicaFormatError("%s",descriptiveError(ret, "CANL2_set_acceptance"));
     }
-    ModelicaFormatMessage("\tOK.\n");
+    ModelicaMessage("\tOK.\n");
 
     ModelicaFormatMessage("SoftingCAN (%s): Set output control ...", mDDSoftingCAN->deviceName);
     ret = CANL2_set_output_control(mDDSoftingCAN->can, OUTPUT_CONTROL_1);
     if(ret) {
         ModelicaFormatError("%s",descriptiveError(ret, "CANL2_set_output_control"));
     }
-    ModelicaFormatMessage("\tOK.\n");
+    ModelicaMessage("\tOK.\n");
 
     ModelicaFormatMessage("SoftingCAN (%s): Enable dynamic object buffer ...", mDDSoftingCAN->deviceName);
     ret = CANL2_enable_dyn_obj_buf(mDDSoftingCAN->can);
     if(ret) {
         ModelicaFormatError("%s",descriptiveError(ret, "CANL2_enable_dyn_obj_buf"));
     }
-    ModelicaFormatMessage("\tOK.\n");
+    ModelicaMessage("\tOK.\n");
 
     ModelicaFormatMessage("SoftingCAN (%s): Initialize interface ...", mDDSoftingCAN->deviceName);
     ret = CANL2_initialize_interface(mDDSoftingCAN->can, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0);
     if(ret) {
         ModelicaFormatError("%s",descriptiveError(ret, "CANL2_initialize_interface"));
     }
-    ModelicaFormatMessage("\tOK.\n");
+    ModelicaMessage("\tOK.\n");
 
     return ((void*) mDDSoftingCAN);
 }
@@ -243,7 +243,7 @@ DllExport void MDD_softingCANDestructor(void* p_mDDSoftingCAN) {
     ModelicaFormatMessage("SoftingCAN (%s): Closing CAN_HANDLE %lu and cleaning up ...", mDDSoftingCAN->deviceName, mDDSoftingCAN->can);
     INIL2_close_channel(mDDSoftingCAN->can);
     free(mDDSoftingCAN);
-    ModelicaFormatMessage("\tOK.\n");
+    ModelicaMessage("\tOK.\n");
 }
 
 /** Define objects, interface to CANL2_define_object(..).
@@ -282,7 +282,7 @@ DllExport int MDD_softingCANDefineObject(void* p_mDDSoftingCAN, int ident, int t
             strcpy(msgtype, "ext tx");
             break;
         default:
-            ModelicaFormatError("SoftingCAN: Unsupported message type.\n");
+            ModelicaError("SoftingCAN: Unsupported message type.\n");
     }
 
     ModelicaFormatMessage("SoftingCAN (%s): Defined %s message, id %d (0x%x). Got object number %d.\n",
@@ -291,7 +291,7 @@ DllExport int MDD_softingCANDefineObject(void* p_mDDSoftingCAN, int ident, int t
 }
 
 DllExport void MDD_softingCANWriteObject(void* p_mDDSoftingCAN, int objectNumber, int dataLength,
-        const char* data) {
+                                         const char* data) {
     MDDSoftingCAN * mDDSoftingCAN = (MDDSoftingCAN *) p_mDDSoftingCAN;
     int ret;
 
@@ -302,6 +302,11 @@ DllExport void MDD_softingCANWriteObject(void* p_mDDSoftingCAN, int objectNumber
     }
 }
 
+DllExport void MDD_softingCANWriteObjectP(void* p_mDDSoftingCAN, int objectNumber, int dataLength,
+                                          void* p_package) {
+    MDD_softingCANWriteObject(p_mDDSoftingCAN, objectNumber, dataLength, MDD_SerialPackagerGetData(p_package));
+}
+
 /** Read received data for a particular CAN object
  * If no new data is available for the requested object a logging message is
  * written using ModelicaFormatMessage and
@@ -309,9 +314,58 @@ DllExport void MDD_softingCANWriteObject(void* p_mDDSoftingCAN, int objectNumber
  * old values (i.e., data received at the last successful retrieval), if there is no
  * new data available
  */
-DllExport const char* MDD_softingCANReadRcvData(void* p_mDDSoftingCAN, int objectNumber, void* p_serialPackager) {
+DllExport const char* MDD_softingCANReadRcvData(void* p_mDDSoftingCAN, int objectNumber, void* p_package) {
     MDDSoftingCAN * mDDSoftingCAN = (MDDSoftingCAN *) p_mDDSoftingCAN;
-    SerialPackager * serialPackager = (SerialPackager *) p_serialPackager;
+    SerialPackager * serialPackager = (SerialPackager *) p_package;
+    int frc = CANL2_RA_NO_DATA;
+    byte* rcvBuffer = (byte*) ModelicaAllocateString(8);
+    unsigned long Time;
+
+    frc = CANL2_read_rcv_data(mDDSoftingCAN->can, objectNumber,
+                              rcvBuffer, &Time);
+    if (frc < 0) {
+        ModelicaFormatMessage("%s", descriptiveError(frc, "CANL2_read_rcv_data"));
+    }
+    switch (frc) {
+        case 0: /* No new data received */
+            ModelicaFormatMessage("MDDSoftingCAN (ReadRcvData): No new data for objectNumber %d. Skipping.\n", objectNumber);
+            memcpy(rcvBuffer, serialPackager->data, 8);
+            break;
+        case 1: /* Data frame received */
+#if 0
+            ModelicaFormatMessage("RCV Data: CAN%lu Ident0x%lX  Obj0x%x  Time%lu  "
+                                  "Data %2x %2x %2x %2x %2x %2x %2x %2x\n",
+                                  mDDSoftingCAN->can, -100, objectNumber, Time,
+                                  rcvBuffer[0],
+                                  rcvBuffer[1],
+                                  rcvBuffer[2],
+                                  rcvBuffer[3],
+                                  rcvBuffer[4],
+                                  rcvBuffer[5],
+                                  rcvBuffer[6],
+                                  rcvBuffer[7]);
+#endif
+            memcpy(serialPackager->data, rcvBuffer, 8);
+            break;
+        case 2: /* Remote frame received */
+            ModelicaFormatError("RCV Remote: CAN%lu Ident0x%lX  Obj0x%x  Time%lu\n",
+                                mDDSoftingCAN->can, -100, objectNumber, Time);
+            ModelicaError("Error: Received remote frame instead of data frame, CANL2_read_rcv()\n");
+        default:
+            break;
+    }
+    return (const char*) rcvBuffer;
+}
+
+/** Read received data for a particular CAN object
+ * If no new data is available for the requested object a logging message is
+ * written using ModelicaFormatMessage and
+ * the data from "serialPackager->data" is returned. That particularly allows to return
+ * old values (i.e., data received at the last successful retrieval), if there is no
+ * new data available
+ */
+DllExport void MDD_softingCANReadRcvDataP(void* p_mDDSoftingCAN, int objectNumber, void* p_package) {
+    MDDSoftingCAN * mDDSoftingCAN = (MDDSoftingCAN *) p_mDDSoftingCAN;
     int frc = CANL2_RA_NO_DATA;
     byte rcvBuffer[8];
     unsigned long Time;
@@ -330,25 +384,24 @@ DllExport const char* MDD_softingCANReadRcvData(void* p_mDDSoftingCAN, int objec
             ModelicaFormatMessage("RCV Data: CAN%lu Ident0x%lX  Obj0x%x  Time%lu  "
                                   "Data %2x %2x %2x %2x %2x %2x %2x %2x\n",
                                   mDDSoftingCAN->can, -100, objectNumber, Time,
-                                  msg->data[0],
-                                  msg->data[1],
-                                  msg->data[2],
-                                  msg->data[3],
-                                  msg->data[4],
-                                  msg->data[5],
-                                  msg->data[6],
-                                  msg->data[7]);
+                                  rcvBuffer[0],
+                                  rcvBuffer[1],
+                                  rcvBuffer[2],
+                                  rcvBuffer[3],
+                                  rcvBuffer[4],
+                                  rcvBuffer[5],
+                                  rcvBuffer[6],
+                                  rcvBuffer[7]);
 #endif
-            memcpy(serialPackager->data, rcvBuffer, sizeof(rcvBuffer));
+            MDD_SerialPackagerSetDataWithErrorReturn(p_package, (const char*) rcvBuffer, 8);
             break;
         case 2: /* Remote frame received */
             ModelicaFormatError("RCV Remote: CAN%lu Ident0x%lX  Obj0x%x  Time%lu\n",
                                 mDDSoftingCAN->can, -100, objectNumber, Time);
-            ModelicaFormatError("Error: Received remote frame instead of data frame, CANL2_read_rcv()\n");
+            ModelicaError("Error: Received remote frame instead of data frame, CANL2_read_rcv()\n");
         default:
             break;
     }
-    return (const char*) serialPackager->data;
 }
 
 /** Start chips, needs to be called *after* all objects are defined.
@@ -362,7 +415,7 @@ DllExport void MDD_softingCANStartChip(void* p_mDDSoftingCAN) {
     if(ret) {
         ModelicaFormatError("%s",descriptiveError(ret, "CANL2_start_chip"));
     }
-    ModelicaFormatMessage("\tOK.\n");
+    ModelicaMessage("\tOK.\n");
 }
 
 /** Turn Softing(USB)-CAN error code into human readable descriptive string.
