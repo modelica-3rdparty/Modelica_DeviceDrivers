@@ -13,6 +13,8 @@
 #ifndef MDDSOFTINGCAN_H_
 #define MDDSOFTINGCAN_H_
 
+#if !defined(ITI_COMP_SIM)
+
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -602,5 +604,7 @@ static char * descriptiveError(int ret, const char * caller_function) {
     }
     return mDDErrorMsg;
 }
+
+#endif /* !defined(ITI_COMP_SIM) */
 
 #endif /* MDDSOFTINGCAN_H_ */
