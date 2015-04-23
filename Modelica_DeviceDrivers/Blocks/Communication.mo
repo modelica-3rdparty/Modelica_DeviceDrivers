@@ -17,7 +17,7 @@ package Communication
       "Buffer size of shared memory partition in bytes (if not deduced automatically)"
       annotation(Dialog(enable=not autoBufferSize, group="Shared memory partition"));
     parameter String memoryID="sharedMemory" "ID of the shared memory buffer" annotation(Dialog(group="Shared memory partition"));
-    Modelica_DeviceDrivers.Blocks.Interfaces.PackageOut pkgOut(pkg = SerialPackager(bufferSize))
+    Modelica_DeviceDrivers.Blocks.Interfaces.PackageOut pkgOut(pkg = SerialPackager(if autoBufferSize then bufferSize else userBufferSize))
       annotation (Placement(
           transformation(
           extent={{-20,-20},{20,20}},
@@ -66,7 +66,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
           rotation=90,
           origin={-108,0})));
   protected
-    SharedMemory sm = SharedMemory(memoryID, bufferSize);
+    SharedMemory sm = SharedMemory(memoryID, if autoBufferSize then bufferSize else userBufferSize);
     Integer bufferSize;
     Real dummy;
   equation
@@ -107,7 +107,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
     parameter Integer port_recv=10001
       "Listening port number of the server. Must be unique on the system"
       annotation (Dialog(group="Incoming data"));
-    Modelica_DeviceDrivers.Blocks.Interfaces.PackageOut pkgOut(pkg = SerialPackager(bufferSize))
+    Modelica_DeviceDrivers.Blocks.Interfaces.PackageOut pkgOut(pkg = SerialPackager(if autoBufferSize then bufferSize else userBufferSize))
       annotation (Placement(transformation(
           extent={{-20,-20},{20,20}},
           rotation=90,
@@ -115,7 +115,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
 
   protected
     Integer bufferSize;
-    UDPSocket socket = UDPSocket(port_recv, bufferSize);
+    UDPSocket socket = UDPSocket(port_recv, if autoBufferSize then bufferSize else userBufferSize);
   equation
     when initial() then
       bufferSize = if autoBufferSize then alignAtByteBoundary(pkgOut.autoPkgBitSize) else userBufferSize;
@@ -205,7 +205,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
     parameter Integer parity = 0
       "set parity (0 - no parity, 1 - even, 2 - odd)"
       annotation (Dialog(group="Outgoing data"));
-    Modelica_DeviceDrivers.Blocks.Interfaces.PackageOut pkgOut(pkg = SerialPackager(bufferSize))
+    Modelica_DeviceDrivers.Blocks.Interfaces.PackageOut pkgOut(pkg = SerialPackager(if autoBufferSize then bufferSize else userBufferSize))
       annotation (Placement(transformation(
           extent={{-20,-20},{20,20}},
           rotation=90,
@@ -213,7 +213,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
 
   protected
     Integer bufferSize;
-    SerialPort sPort = SerialPort(Serial_Port, bufferSize, parity, receiver, baud);
+    SerialPort sPort = SerialPort(Serial_Port, if autoBufferSize then bufferSize else userBufferSize, parity, receiver, baud);
     parameter Integer receiver = 1 "Set to be a receiver port";
 
   equation

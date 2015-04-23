@@ -181,16 +181,16 @@ package SerialPackager "Blocks for constructing packages"
       "true, use backward propagation for sample time (default!), otherwise switch to forward propagation"
       annotation(Dialog(tab="Advanced"), choices(__Dymola_checkBox=true));
     parameter Modelica.SIunits.Period sampleTime=0.01
-      "Sample time if forward propagation of sample time is used"                              annotation (Dialog(enable = not useBackwardSampleTimePropagation, tab="Advanced"));
+      "Sample time if forward propagation of sample time is used" annotation (Dialog(enable = not useBackwardSampleTimePropagation, tab="Advanced"));
 
     parameter Boolean useBackwardPropagatedBufferSize = true
       "true, use backward propagated (automatic) buffer size for package (default!), otherwise use manually specified buffer size below"
       annotation(Dialog(tab="Advanced"), choices(__Dymola_checkBox=true));
     parameter Integer userBufferSize = 16*1024
       "Buffer size for package if backward propagation of buffer size is deactivated"
-                                                                                      annotation (Dialog(enable = not useBackwardPropagatedBufferSize, tab="Advanced"));
+      annotation (Dialog(enable = not useBackwardPropagatedBufferSize, tab="Advanced"));
 
-    Interfaces.PackageOut pkgOut(pkg = SerialPackager(bufferSize))
+    Interfaces.PackageOut pkgOut(pkg = SerialPackager(if useBackwardPropagatedBufferSize then bufferSize else userBufferSize))
       annotation (Placement(transformation(extent={{-20,-128},{20,-88}})));
   protected
     Integer backwardPropagatedBufferSize;
