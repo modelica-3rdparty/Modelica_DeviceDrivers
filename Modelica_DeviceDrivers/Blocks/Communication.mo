@@ -347,7 +347,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
             outputBufferSize,
             pkgIn.dummy));
       else
-        pkgOut.dummy = pre(pkgOut.dummy);
+        pkgOut.dummy = pkgIn.dummy;
       end if;
     end when;
     annotation (preferredView="info",
