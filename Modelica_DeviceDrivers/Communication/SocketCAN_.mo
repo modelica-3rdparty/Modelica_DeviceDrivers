@@ -7,7 +7,7 @@ package SocketCAN_ "Accompanying functions for the SocketCAN object"
     input SocketCAN socketCAN;
     input Integer can_id "CAN frame identifier";
     input Integer can_dlc(min=0,max=8)
-      " length of data in bytes (min=0, max=8)";
+      "length of data in bytes (min=0, max=8)";
     input SerialPackager pkg;
 
     external "C" MDD_socketCANWriteP(socketCAN, can_id, can_dlc, pkg)
@@ -22,7 +22,7 @@ package SocketCAN_ "Accompanying functions for the SocketCAN object"
     input SocketCAN socketCAN;
     input Integer can_id "CAN frame identifier";
     input Integer can_dlc(min=0,max=8)
-      " length of data in bytes (min=0, max=8)";
+      "length of data in bytes (min=0, max=8)";
 
     external "C" MDD_socketCANDefineObject(socketCAN, can_id, can_dlc)
     annotation (IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
@@ -37,7 +37,7 @@ package SocketCAN_ "Accompanying functions for the SocketCAN object"
     input SocketCAN socketCAN;
     input Integer can_id "CAN frame identifier";
     input Integer can_dlc(min=0,max=8)
-      " length of data in bytes (min=0, max=8)";
+      "length of data in bytes (min=0, max=8)";
     input SerialPackager pkg;
 
     external "C" MDD_socketCANReadP(socketCAN, can_id, can_dlc, pkg)

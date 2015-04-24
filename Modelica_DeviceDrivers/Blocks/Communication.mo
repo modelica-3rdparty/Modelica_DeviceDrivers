@@ -44,9 +44,7 @@ package Communication
               textString="%name")}), Documentation(info="<html>
 <p>Supports reading from a named shared memory partition. The name of the shared memory partition is
 provided by the parameter <b>memoryID</b>. If the shared memory partition does not yet exist during initialization, it is created.</p>
-</html>"),
-      Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-              100,100}}), graphics));
+</html>"));
   end SharedMemoryRead;
 
   model SharedMemoryWrite "A block for writing data in a shared memory"
@@ -778,7 +776,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
         input SocketCAN socketCAN;
         input Integer can_id "CAN frame identifier";
         input Integer can_dlc(min=0,max=8)
-          " length of data in bytes (min=0, max=8)";
+          "length of data in bytes (min=0, max=8)";
         input SerialPackager pkg;
         input Real dummy;
         output Real dummy2;
