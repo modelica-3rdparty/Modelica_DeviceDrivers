@@ -3,8 +3,9 @@ package UDPSocket_ "Accompanying functions for the UDPSocket object"
   extends Modelica_DeviceDrivers.Utilities.Icons.DriverIcon;
   encapsulated function read
     import Modelica_DeviceDrivers.Communication.UDPSocket;
+    import Modelica_DeviceDrivers.Packaging.SerialPackager;
     input UDPSocket socket;
-    input Modelica_DeviceDrivers.Packaging.SerialPackager pkg;
+    input SerialPackager pkg;
     external "C" MDD_udpReadP(socket, pkg)
     annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
            Include = "#include \"MDDUDPSocket.h\" ",
@@ -14,10 +15,11 @@ package UDPSocket_ "Accompanying functions for the UDPSocket object"
 
   encapsulated function sendTo
     import Modelica_DeviceDrivers.Communication.UDPSocket;
+    import Modelica_DeviceDrivers.Packaging.SerialPackager;
     input UDPSocket socket;
     input String ipAddress "IP address where data has to be sent";
     input Integer port "Port number where data has to be sent";
-    input Modelica_DeviceDrivers.Packaging.SerialPackager pkg;
+    input SerialPackager pkg;
     input Integer dataSize "Size of data";
     external "C" MDD_udpSendP(socket, ipAddress, port, pkg, dataSize)
     annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
