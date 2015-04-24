@@ -9,7 +9,8 @@ package Communication
     import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
     import Modelica_DeviceDrivers.Communication.SharedMemory;
     import Modelica_DeviceDrivers.Communication.SharedMemory_;
-    parameter Modelica.SIunits.Period sampleTime=0.01 "Sample time for input update";
+    parameter Modelica.SIunits.Period sampleTime=0.01
+      "Sample time for input update";
     parameter Boolean autoBufferSize = false
       "true, buffer size is deduced automatically, otherwise set it manually"
       annotation(Dialog(group="Shared memory partition"), choices(__Dymola_checkBox=true));
@@ -43,7 +44,9 @@ package Communication
               textString="%name")}), Documentation(info="<html>
 <p>Supports reading from a named shared memory partition. The name of the shared memory partition is
 provided by the parameter <b>memoryID</b>. If the shared memory partition does not yet exist during initialization, it is created.</p>
-</html>"));
+</html>"),
+      Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+              100,100}}), graphics));
   end SharedMemoryRead;
 
   model SharedMemoryWrite "A block for writing data in a shared memory"
@@ -98,7 +101,8 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
     import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
     import Modelica_DeviceDrivers.Communication.UDPSocket;
-    parameter Modelica.SIunits.Period sampleTime=0.01 "Sample time for input update";
+    parameter Modelica.SIunits.Period sampleTime=0.01
+      "Sample time for input update";
     parameter Boolean autoBufferSize = true
       "true, buffer size is deduced automatically, otherwise set it manually"
       annotation(Dialog(group="Incoming data"), choices(__Dymola_checkBox=true));
@@ -192,7 +196,8 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
     import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
     import Modelica_DeviceDrivers.Communication.SerialPort;
     import Modelica_DeviceDrivers.Utilities.Types.SerialBaudRate;
-    parameter Modelica.SIunits.Period sampleTime=0.01 "Sample time for input update";
+    parameter Modelica.SIunits.Period sampleTime=0.01
+      "Sample time for input update";
     parameter Boolean autoBufferSize = true
       "true, buffer size is deduced automatically, otherwise set it manually"
       annotation(Dialog(group="Incoming data"), choices(__Dymola_checkBox=true));
@@ -531,7 +536,8 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
         import Modelica_DeviceDrivers.Packaging.SerialPackager;
 
         input SoftingCAN softingCAN "Handle for device";
-        input Integer objectNumber "Object number of message (from defineObject(..))";
+        input Integer objectNumber
+          "Object number of message (from defineObject(..))";
         input SerialPackager pkg;
         input Real dummy;
         output Real dummy2;
@@ -547,7 +553,8 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
         import Modelica_DeviceDrivers.Packaging.SerialPackager;
 
         input SoftingCAN softingCAN "Handle for device";
-        input Integer objectNumber "Object number of message (from defineObject(..))";
+        input Integer objectNumber
+          "Object number of message (from defineObject(..))";
         input Integer dataLength "Length of message in bytes";
         input SerialPackager pkg;
         input Real dummy;
@@ -641,7 +648,8 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
       parameter Integer can_id(min=0) "Identifier of CAN message (CAN Id)";
       parameter Integer can_dlc(min=0,max=8) = 8
         "Data length code (payload of data in bytes, max=8)";
-      parameter SI.Period sampleTime = 0.1 "Period at which messages are written";
+      parameter SI.Period sampleTime = 0.1
+        "Period at which messages are written";
       parameter SI.Time startTime = 0 "First sample time instant";
       Modelica_DeviceDrivers.Blocks.Interfaces.PackageOut pkgOut(pkg = SerialPackager(can_dlc))
         annotation (Placement(transformation(extent={{-20,-20},{20,20}},
@@ -658,6 +666,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
         pkgOut.dummy = Modelica_DeviceDrivers.Blocks.Communication.SocketCAN.Internal.readObjectDummy(
           config.dh,
           can_id,
+          can_dlc,
           pkgOut.pkg,
           time);
     end when;
@@ -743,18 +752,21 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
     package Internal
       extends Modelica_DeviceDrivers.Utilities.Icons.InternalPackage;
 
-      encapsulated function readObjectDummy "Read CAN frame/message from socket"
+      encapsulated function readObjectDummy
+        "Read CAN frame/message from socket"
         import Modelica_DeviceDrivers.Communication.SocketCAN;
         import Modelica_DeviceDrivers;
         import Modelica_DeviceDrivers.Packaging.SerialPackager;
 
         input SocketCAN socketCAN;
         input Integer can_id "CAN frame identifier";
+        input Integer can_dlc(min=0,max=8)
+          " length of data in bytes (min=0, max=8)";
         input SerialPackager pkg;
         input Real dummy;
         output Real dummy2;
       algorithm
-        Modelica_DeviceDrivers.Communication.SocketCAN_.readObject(socketCAN, can_id, pkg);
+        Modelica_DeviceDrivers.Communication.SocketCAN_.readObject(socketCAN, can_id, can_dlc, pkg);
         dummy2 := dummy;
       end readObjectDummy;
 
@@ -766,7 +778,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
         input SocketCAN socketCAN;
         input Integer can_id "CAN frame identifier";
         input Integer can_dlc(min=0,max=8)
-            " length of data in bytes (min=0, max=8)";
+          " length of data in bytes (min=0, max=8)";
         input SerialPackager pkg;
         input Real dummy;
         output Real dummy2;
@@ -840,7 +852,8 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
       end writeSharedMemory;
 
       function readSerial
-        input Modelica_DeviceDrivers.Communication.SerialPort sPort "Serial Port object";
+        input Modelica_DeviceDrivers.Communication.SerialPort sPort
+          "Serial Port object";
         input Modelica_DeviceDrivers.Packaging.SerialPackager pkg;
         input Real dummy;
         output Real dummy2;
@@ -850,7 +863,8 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
       end readSerial;
 
       function sendToSerial
-        input Modelica_DeviceDrivers.Communication.SerialPort sPort "Serial Port object";
+        input Modelica_DeviceDrivers.Communication.SerialPort sPort
+          "Serial Port object";
         input Modelica_DeviceDrivers.Packaging.SerialPackager pkg;
         input Integer dataSize "Size of data";
         input Real dummy;

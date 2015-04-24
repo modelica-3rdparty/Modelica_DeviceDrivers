@@ -19,9 +19,15 @@
  * (At least this works for Ubuntu)
  */
 void setup_VirtualCANDevices() {
-    system("sudo modprobe vcan");
-    system("sudo ip link add type vcan"); /* gives vcan0 */
-    system("sudo ifconfig vcan0 up");
+    int failed;
+    failed = system("sudo modprobe vcan");
+    if (failed)  fprintf(stderr, "Error: 'sudo modprobe vcan'");
+
+    failed = system("sudo ip link add type vcan"); /* gives vcan0 */
+    if (failed)  fprintf(stderr, "Error: 'sudo ip link add type vcan'");
+
+    failed = system("sudo ifconfig vcan0 up");
+    if (failed)  fprintf(stderr, "Error: 'sudo ifconfig vcan0 up'");
 }
 
 int test_Constructor() {
@@ -56,7 +62,7 @@ int test_CANWriteRead() {
     void * mDDSocketCan0;
     void * mDDSocketCan1;
     char data_w[8];
-    char * data_r;
+    const char * data_r;
     int failed, i;
 
     mDDSocketCan0 = MDD_socketCANConstructor("vcan0");
