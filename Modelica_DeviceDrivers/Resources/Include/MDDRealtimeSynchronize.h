@@ -20,6 +20,7 @@
 #define WIN32_LEAN_AND_MEAN
 #endif
 #include <windows.h>
+#include <mmsystem.h>
 #include "../src/include/CompatibilityDefs.h"
 
 #if !defined(BELOW_NORMAL_PRIORITY_CLASS)
