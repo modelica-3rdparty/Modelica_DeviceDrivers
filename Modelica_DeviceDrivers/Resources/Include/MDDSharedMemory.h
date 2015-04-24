@@ -12,6 +12,7 @@
 #define MDDSHAREDMEMORY_H_
 
 #include "ModelicaUtilities.h"
+#include "MDDSerialPackager.h"
 
 #if defined(_MSC_VER) || defined(__CYGWIN__) || defined(__MINGW32__)
 
@@ -21,19 +22,19 @@
 #define WIN32_LEAN_AND_MEAN
 #endif
 #include <windows.h>
+#include <stdlib.h>
 #include <stdio.h>
 #include "../src/include/CompatibilityDefs.h"
 
 /** Shared memory object */
 typedef struct {
     char * smBuf;
-    char * smBufExport;
     HANDLE hMapFile;
 } MDDSharedMemory;
 
 #define MDDSM_PLOCK ((long*)smb->smBuf)
 #define MDDSM_PLEN (MDDSM_PLOCK + sizeof(long))
-#define MDDSM_DATA (MDDSM_PLEN + sizeof(int))
+#define MDDSM_DATA (char*)(MDDSM_PLEN + sizeof(int))
 #define MDDSM_LOCK() while (InterlockedExchange(MDDSM_PLOCK, 1L) != 0) Sleep(0)
 #define MDDSM_UNLOCK() InterlockedExchange(MDDSM_PLOCK, 0)
 
@@ -72,7 +73,6 @@ DllExport void* MDD_SharedMemoryConstructor(const char * name, int bufSize) {
         ModelicaFormatError("MDDSharedMemory.h: Could not map view of file (%d).\n", GetLastError());
         return NULL;
     }
-    smb->smBufExport = (char*) calloc(bufSize, 1);
 
     return smb;
 }
@@ -80,9 +80,6 @@ DllExport void* MDD_SharedMemoryConstructor(const char * name, int bufSize) {
 DllExport void MDD_SharedMemoryDestructor(void* p_smb) {
     MDDSharedMemory * smb = (MDDSharedMemory *) p_smb;
     if (smb) {
-        if (smb->smBufExport) {
-            free(smb->smBufExport);
-        }
         UnmapViewOfFile(smb->smBuf);
         CloseHandle(smb->hMapFile);
         free(smb);
@@ -104,12 +101,35 @@ DllExport const char * MDD_SharedMemoryRead(void * p_smb) {
     MDDSharedMemory * smb = (MDDSharedMemory *) p_smb;
     if (smb) {
         int len;
+        char* smBuf;
         MDDSM_LOCK();
         memcpy(&len, MDDSM_PLEN, sizeof(int));
-        memcpy(smb->smBufExport, MDDSM_DATA, len);
-        MDDSM_UNLOCK();
+        smBuf = ModelicaAllocateStringWithErrorReturn(len);
+        if (smBuf) {
+            memcpy(smBuf, MDDSM_DATA, len);
+            MDDSM_UNLOCK();
+            return (const char*) smBuf;
+        }
+        else {
+            MDDSM_UNLOCK();
+            ModelicaError("MDDSharedMemory.h: ModelicaAllocateString failed\n");
+        }
     }
-    return (const char*) smb->smBufExport;
+    return "";
+}
+
+DllExport void MDD_SharedMemoryReadP(void * p_smb, void* p_package) {
+    MDDSharedMemory * smb = (MDDSharedMemory *) p_smb;
+    if (smb) {
+        int len, rc;
+        MDDSM_LOCK();
+        memcpy(&len, MDDSM_PLEN, sizeof(int));
+        rc = MDD_SerialPackagerSetDataWithErrorReturn(p_package, MDDSM_DATA, len);
+        MDDSM_UNLOCK();
+        if (rc) {
+            ModelicaError("MDDSharedMemory.h: MDD_SerialPackagerSetData failed. Buffer overflow.\n");
+        }
+    }
 }
 
 DllExport void MDD_SharedMemoryWrite(void * p_smb, const char * buffer, int len) {
@@ -118,6 +138,10 @@ DllExport void MDD_SharedMemoryWrite(void * p_smb, const char * buffer, int len)
     memcpy(MDDSM_DATA, buffer, len);
     memcpy(MDDSM_PLEN, &len, sizeof(int));
     MDDSM_UNLOCK();
+}
+
+DllExport void MDD_SharedMemoryWriteP(void * p_smb, void* p_package, int len) {
+    MDD_SharedMemoryWrite(p_smb, MDD_SerialPackagerGetData(p_package), len);
 }
 
 #endif /* !defined(ITI_COMP_SIM) */
@@ -143,7 +167,6 @@ struct MDDMmap_struct {
     int shm_size; /**< size of shared memory partition in bytes */
     int shmdes;  /**< shared memory file descriptor */
     caddr_t shmptr;  /**< pointer to shared memory partition */
-    char * shmReadBuffer; /**< pointer to dedicated read buffer */
     sem_t *semdes; /**< address of semaphore */
 };
 
@@ -151,7 +174,6 @@ void * MDD_SharedMemoryConstructor(const char * name, int bufSize) {
     int sval;
     MDDMmap* smb = (MDDMmap*) malloc(sizeof(MDDMmap));
     smb->shm_size = bufSize;
-    smb->shmReadBuffer = (char *) malloc(smb->shm_size);
     strncpy(smb->shmname, name, (30 - 1));
     strcpy(smb->semname, smb->shmname);
     strcat(smb->semname, "sem");
@@ -263,12 +285,36 @@ const char * MDD_SharedMemoryRead(void* p_smb) {
 
     /* Lock the semaphore */
     if(!sem_wait(smb->semdes)) {
+        char* smBuf = ModelicaAllocateStringWithErrorReturn(smb->shm_size);
+        if (smBuf) {
+            /* Access to the shared memory area */
+            memcpy(smBuf, smb->shmptr, smb->shm_size);
+            /* Release the semaphore lock */
+            sem_post(smb->semdes);
+            return (const char*) smBuf;
+        }
+        else {
+            /* Release the semaphore lock */
+            sem_post(smb->semdes);
+            ModelicaError("MDDSharedMemory.h: ModelicaAllocateString failed\n");
+        }
+    }
+    return "";
+}
+
+void MDD_SharedMemoryReadP(void* p_smb, void* p_package) {
+    MDDMmap* smb = (MDDMmap*) p_smb;
+
+    /* Lock the semaphore */
+    if(!sem_wait(smb->semdes)) {
         /* Access to the shared memory area */
-        memcpy(smb->shmReadBuffer, smb->shmptr, smb->shm_size);
+        int rc = MDD_SerialPackagerSetDataWithErrorReturn(p_package, smb->shmptr, smb->shm_size);
         /* Release the semaphore lock */
         sem_post(smb->semdes);
+        if (rc) {
+            ModelicaError("MDDSharedMemory.h: MDD_SerialPackagerSetData failed. Buffer overflow.\n");
+        }
     }
-    return smb->shmReadBuffer;
 }
 
 void MDD_SharedMemoryWrite(void* p_smb, const char * buffer, unsigned int len) {
@@ -281,6 +327,10 @@ void MDD_SharedMemoryWrite(void* p_smb, const char * buffer, unsigned int len) {
         /* Release the semaphore lock */
         sem_post(smb->semdes);
     }
+}
+
+void MDD_SharedMemoryWriteP(void* p_smb, void* p_package, unsigned int len) {
+    MDD_SharedMemoryWrite(p_smb, MDD_SerialPackagerGetData(p_package), len);
 }
 
 int MDD_SharedMemoryGetDataSize(void * p_smb) {

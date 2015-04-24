@@ -56,7 +56,7 @@ int test_CANWriteRead() {
     void * mDDSocketCan0;
     void * mDDSocketCan1;
     char data_w[8];
-    char data_r[8];
+    char * data_r;
     int failed, i;
 
     mDDSocketCan0 = MDD_socketCANConstructor("vcan0");
@@ -76,7 +76,7 @@ int test_CANWriteRead() {
         sprintf(data_w, "Hi %d", i*2);
         MDD_socketCANWrite(mDDSocketCan0, 1, 8, data_w);
         MDD_msleep(10);
-        MDD_socketCANRead(mDDSocketCan1, 1,  8, data_r);
+        data_r = MDD_socketCANRead(mDDSocketCan1, 1,  8);
         failed = strcmp(data_w, data_r) == 0 ? failed : 1;
     }
 

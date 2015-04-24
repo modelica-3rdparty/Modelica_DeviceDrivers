@@ -12,12 +12,15 @@
 #define MDDTCPIPSocket_H_
 
 #include "ModelicaUtilities.h"
+#include "MDDSerialPackager.h"
 
 #if defined(_MSC_VER) || defined(__MINGW32__)
 
 #if !defined(ITI_COMP_SIM)
 
 #include <ws2tcpip.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include "../src/include/CompatibilityDefs.h"
 
 #pragma comment( lib, "Ws2_32.lib" )
@@ -133,25 +136,52 @@ DllExport void MDD_TCPIPClient_Destructor(void * p_tcpip) {
 
 DllExport int MDD_TCPIPClient_Send(void * p_tcpip, const char * data, int dataSize) {
     MDDTCPIPSocket ** tcpip = (MDDTCPIPSocket **) p_tcpip;
-    int rc = EXIT_SUCCESS;
+    int rc = 0;
     if (tcpip && *tcpip) {
         rc = send((*tcpip)->SocketID, data, dataSize, 0);
         if (rc == SOCKET_ERROR) {
             ModelicaFormatMessage("MDDTCPIPSocket.h: send failed with error: %d\n", WSAGetLastError());
-            rc = EXIT_FAILURE;
+            rc = 1;
         }
     }
     return rc;
 }
 
+DllExport int MDD_TCPIPClient_SendP(void * p_tcpip, void* p_package, int dataSize) {
+    return MDD_TCPIPClient_Send(p_tcpip, MDD_SerialPackagerGetData(p_package), dataSize);
+}
+
 DllExport const char * MDD_TCPIPClient_Read(void * p_tcpip, int recvbuflen) {
     MDDTCPIPSocket ** tcpip = (MDDTCPIPSocket **) p_tcpip;
     if (tcpip && *tcpip) {
-        char* recvbuf = ModelicaAllocateString(recvbuflen);
-        int rc = recv((*tcpip)->SocketID, recvbuf, recvbuflen, 0);
-        return recvbuf;
+        char* tcpBuf = ModelicaAllocateString(recvbuflen);
+        if (tcpBuf) {
+            int rc = recv((*tcpip)->SocketID, tcpBuf, recvbuflen, 0);
+            if (rc == SOCKET_ERROR) {
+                ModelicaFormatMessage("MDDTCPIPSocket.h: recv failed with error: %d\n", WSAGetLastError());
+            }
+            return (const char*) tcpBuf;
+        }
     }
     return "";
+}
+
+DllExport void MDD_TCPIPClient_ReadP(void * p_tcpip, void* p_package, int recvbuflen) {
+    MDDTCPIPSocket ** tcpip = (MDDTCPIPSocket **) p_tcpip;
+    if (tcpip && *tcpip) {
+        char* tcpBuf = (char*) malloc(recvbuflen);
+        if (tcpBuf) {
+            int rc = recv((*tcpip)->SocketID, tcpBuf, recvbuflen, 0);
+            if (rc == SOCKET_ERROR) {
+                ModelicaFormatMessage("MDDTCPIPSocket.h: recv failed with error: %d\n", WSAGetLastError());
+            }
+            rc = MDD_SerialPackagerSetDataWithErrorReturn(p_package, tcpBuf, rc);
+            free(tcpBuf);
+            if (rc) {
+                ModelicaError("MDDTCPIPSocket.h: MDD_SerialPackagerSetData failed. Buffer overflow.\n");
+            }
+        }
+    }
 }
 
 #endif /* !defined(ITI_COMP_SIM) */

@@ -1,13 +1,14 @@
 within Modelica_DeviceDrivers.Blocks.Examples;
 model TestSerialPackager_UDP "Example for combining UDP and SerialPackager blocks with deactivated autoBufferSize / useBackwardPropagatedBufferSize"
   extends Modelica.Icons.Example;
-  Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Packager packager(useBackwardPropagatedBufferSize=false) annotation(Placement(transformation(extent={{-40,62},{-20,82}})));
+  Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Packager packager(useBackwardPropagatedBufferSize=false, userBufferSize=36) annotation(Placement(transformation(extent={{-40,62},{-20,82}})));
   Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.AddReal addReal(
     nu=1,
     n=3) annotation(Placement(transformation(extent={{-40,34},{-20,54}})));
   Modelica.Blocks.Sources.RealExpression realExpression[3](y=sin(time)*{1,2,3}) annotation(Placement(transformation(extent={{-80,34},{-60,54}})));
   Modelica_DeviceDrivers.Blocks.Communication.UDPSend uDPSend(
     autoBufferSize=false,
+    userBufferSize=36,
     port_send=10002) annotation(Placement(transformation(
     origin={-30,-44},
     extent={{-10,-10},{10,10}},
@@ -17,6 +18,7 @@ model TestSerialPackager_UDP "Example for combining UDP and SerialPackager block
           time))) annotation(Placement(transformation(extent={{-80,-26},{-60,-6}})));
   Modelica_DeviceDrivers.Blocks.Communication.UDPReceive uDPReceive(
     autoBufferSize=false,
+    userBufferSize=36,
     port_recv=10002) annotation(Placement(transformation(
     origin={40,50},
     extent={{-10,-10},{10,10}},

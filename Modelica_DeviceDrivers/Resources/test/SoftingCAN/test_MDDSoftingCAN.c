@@ -69,7 +69,7 @@ int test_SendMessage() {
         printf("Transmitting message 0x01 ..");
         MDD_SerialPackagerClear(msg1);
         MDD_SerialPackagerIntegerBitpack(msg1, 0, 8, i*2);
-        MDD_softingCANWriteObject(mDDCan, obj1, 8, MDD_SerialPackagerGetData(msg1));
+        MDD_softingCANWriteObjectP(mDDCan, obj1, 8, msg1);
         printf(" OK.\n");
         MDD_SerialPackagerPrint(msg1);
         MDD_msleep(1000);
@@ -98,9 +98,8 @@ int test_ReadMessage() {
 
     for (i=0; i < 10; i++) {
         printf("Receiving message 0x01 ..\n");
-        //void MDD_SerialPackagerSetData( void* p_package, char * data, int size)
         MDD_SerialPackagerSetPos(msg1, 0);
-        MDD_softingCANReadRcvData(mDDCan, obj1, MDD_SerialPackagerGetData(msg1));
+        MDD_softingCANReadRcvDataP(mDDCan, obj1, msg1);
 
         MDD_SerialPackagerPrint(msg1);
         msgdata = MDD_SerialPackagerIntegerBitunpack(msg1, 0, 32);

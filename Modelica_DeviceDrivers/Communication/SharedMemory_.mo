@@ -3,9 +3,10 @@ package SharedMemory_ "Accompanying functions for the SharedMemory object"
   extends Modelica_DeviceDrivers.Utilities.Icons.DriverIcon;
   encapsulated function read
     import Modelica_DeviceDrivers.Communication.SharedMemory;
+    import Modelica_DeviceDrivers.Packaging.SerialPackager;
     input SharedMemory sm;
-    output String data;
-    external "C" data=  MDD_SharedMemoryRead(sm)
+    input SerialPackager pkg "Data package to be read";
+    external "C" MDD_SharedMemoryReadP(sm, pkg)
     annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
            Include = "#include \"MDDSharedMemory.h\" ",
            Library = {"rt", "pthread"},
@@ -14,10 +15,11 @@ package SharedMemory_ "Accompanying functions for the SharedMemory object"
 
   encapsulated function write
     import Modelica_DeviceDrivers.Communication.SharedMemory;
+    import Modelica_DeviceDrivers.Packaging.SerialPackager;
     input SharedMemory sm;
-    input String data;
+    input SerialPackager pkg "Data package to be written";
     input Integer len;
-    external "C" MDD_SharedMemoryWrite(sm,data,len)
+    external "C" MDD_SharedMemoryWriteP(sm, pkg, len)
     annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
            Include = "#include \"MDDSharedMemory.h\" ",
            Library = {"rt", "pthread"},
@@ -28,7 +30,7 @@ package SharedMemory_ "Accompanying functions for the SharedMemory object"
     import Modelica_DeviceDrivers.Communication.SharedMemory;
     input SharedMemory sm;
     output Integer length;
-    external "C" length=  MDD_SharedMemoryGetDataSize(sm)
+    external "C" length =  MDD_SharedMemoryGetDataSize(sm)
     annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
            Include = "#include \"MDDSharedMemory.h\" ",
            __iti_dll = "ITI_MDD.dll");

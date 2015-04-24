@@ -132,20 +132,6 @@ package Packaging
          dummy2 := dummy;
         end clear;
 
-      function setPackage
-          import Modelica_DeviceDrivers.Packaging.SerialPackager;
-          import Modelica_DeviceDrivers;
-        input Modelica_DeviceDrivers.Packaging.SerialPackager
-                             pkg;
-        input String data "Packager payload data encoded as Modelica String";
-        input Integer dataSize "Number of payload data bytes";
-        input Real dummy;
-        output Real dummy2;
-      algorithm
-        Modelica_DeviceDrivers.Packaging.SerialPackager_.setPackage(pkg, data, dataSize);
-        dummy2 := dummy;
-      end setPackage;
-
       function integerBitPack "Encode integer value at bit level"
           import Modelica_DeviceDrivers.Packaging.SerialPackager;
           import Modelica_DeviceDrivers;
