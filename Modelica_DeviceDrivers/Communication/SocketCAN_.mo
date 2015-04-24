@@ -3,11 +3,11 @@ package SocketCAN_ "Accompanying functions for the SocketCAN object"
   extends Modelica_DeviceDrivers.Utilities.Icons.DriverIcon;
   encapsulated function write "Write CAN frame/message to socket"
     import Modelica_DeviceDrivers.Communication.SocketCAN;
-
+    import Modelica_DeviceDrivers.Packaging.SerialPackager;
     input SocketCAN socketCAN;
     input Integer can_id "CAN frame identifier";
     input Integer can_dlc(min=0,max=8) " length of data in bytes (min=0, max=8)";
-    input Modelica_DeviceDrivers.Packaging.SerialPackager pkg;
+    input SerialPackager pkg;
 
     external "C" MDD_socketCANWriteP(socketCAN, can_id, can_dlc, pkg)
     annotation (IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
@@ -31,10 +31,10 @@ package SocketCAN_ "Accompanying functions for the SocketCAN object"
   encapsulated function readObject
     "Read previously defined CAN object from CAN interface."
     import Modelica_DeviceDrivers.Communication.SocketCAN;
-
+    import Modelica_DeviceDrivers.Packaging.SerialPackager;
     input SocketCAN socketCAN;
     input Integer can_id "CAN frame identifier";
-    input Modelica_DeviceDrivers.Packaging.SerialPackager pkg;
+    input SerialPackager pkg;
 
     external "C" MDD_socketCANReadP(socketCAN, can_id, pkg)
     annotation (IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",

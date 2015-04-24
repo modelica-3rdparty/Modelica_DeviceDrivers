@@ -3,8 +3,9 @@ package SharedMemory_ "Accompanying functions for the SharedMemory object"
   extends Modelica_DeviceDrivers.Utilities.Icons.DriverIcon;
   encapsulated function read
     import Modelica_DeviceDrivers.Communication.SharedMemory;
+    import Modelica_DeviceDrivers.Packaging.SerialPackager;
     input SharedMemory sm;
-    input Modelica_DeviceDrivers.Packaging.SerialPackager pkg "Data package to be read";
+    input SerialPackager pkg "Data package to be read";
     external "C" MDD_SharedMemoryReadP(sm, pkg)
     annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
            Include = "#include \"MDDSharedMemory.h\" ",
@@ -14,8 +15,9 @@ package SharedMemory_ "Accompanying functions for the SharedMemory object"
 
   encapsulated function write
     import Modelica_DeviceDrivers.Communication.SharedMemory;
+    import Modelica_DeviceDrivers.Packaging.SerialPackager;
     input SharedMemory sm;
-    input Modelica_DeviceDrivers.Packaging.SerialPackager pkg "Data package to be written";
+    input SerialPackager pkg "Data package to be written";
     input Integer len;
     external "C" MDD_SharedMemoryWriteP(sm, pkg, len)
     annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",

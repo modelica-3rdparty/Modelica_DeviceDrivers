@@ -32,11 +32,11 @@ package SoftingCAN_ "Accompanying functions for the SoftingCAN object"
   encapsulated function writeObject
     "Write object (CAN message) to transmit buffer"
     import Modelica_DeviceDrivers.Communication.SoftingCAN;
-
+    import Modelica_DeviceDrivers.Packaging.SerialPackager;
     input SoftingCAN softingCAN "Handle for device";
     input Integer objectNumber "Object number of message (from defineObject(..))";
     input Integer dataLength "Length of message in bytes";
-    input Modelica_DeviceDrivers.Packaging.SerialPackager pkg;
+    input SerialPackager pkg;
 
     external "C" MDD_softingCANWriteObjectP(softingCAN, objectNumber, dataLength, pkg)
     annotation (IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",

@@ -530,9 +530,9 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
         import Modelica_DeviceDrivers;
         import Modelica_DeviceDrivers.Packaging.SerialPackager;
 
-        input Modelica_DeviceDrivers.Communication.SoftingCAN softingCAN "Handle for device";
+        input SoftingCAN softingCAN "Handle for device";
         input Integer objectNumber "Object number of message (from defineObject(..))";
-        input Modelica_DeviceDrivers.Packaging.SerialPackager pkg;
+        input SerialPackager pkg;
         input Real dummy;
         output Real dummy2;
       algorithm
@@ -546,10 +546,10 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
         import Modelica_DeviceDrivers;
         import Modelica_DeviceDrivers.Packaging.SerialPackager;
 
-        input Modelica_DeviceDrivers.Communication.SoftingCAN softingCAN "Handle for device";
+        input SoftingCAN softingCAN "Handle for device";
         input Integer objectNumber "Object number of message (from defineObject(..))";
         input Integer dataLength "Length of message in bytes";
-        input Modelica_DeviceDrivers.Packaging.SerialPackager pkg;
+        input SerialPackager pkg;
         input Real dummy;
         output Real dummy2;
       algorithm
@@ -750,7 +750,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
 
         input SocketCAN socketCAN;
         input Integer can_id "CAN frame identifier";
-        input Modelica_DeviceDrivers.Packaging.SerialPackager pkg;
+        input SerialPackager pkg;
         input Real dummy;
         output Real dummy2;
       algorithm
@@ -767,7 +767,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
         input Integer can_id "CAN frame identifier";
         input Integer can_dlc(min=0,max=8)
             " length of data in bytes (min=0, max=8)";
-        input Modelica_DeviceDrivers.Packaging.SerialPackager pkg;
+        input SerialPackager pkg;
         input Real dummy;
         output Real dummy2;
       algorithm

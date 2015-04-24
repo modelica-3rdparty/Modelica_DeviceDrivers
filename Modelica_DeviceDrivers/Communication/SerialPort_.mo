@@ -4,8 +4,9 @@ package SerialPort_ "Accompanying functions for the SerialPort object"
 
   encapsulated function read
     import Modelica_DeviceDrivers.Communication.SerialPort;
+    import Modelica_DeviceDrivers.Packaging.SerialPackager;
     input SerialPort sPort;
-    input Modelica_DeviceDrivers.Packaging.SerialPackager pkg "Data package to be read";
+    input SerialPackager pkg;
     external "C" MDD_serialPortReadP(sPort, pkg)
     annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
              Include = "#include \"MDDSerialPort.h\" ",
@@ -15,8 +16,9 @@ package SerialPort_ "Accompanying functions for the SerialPort object"
 
   encapsulated function sendTo
     import Modelica_DeviceDrivers.Communication.SerialPort;
+    import Modelica_DeviceDrivers.Packaging.SerialPackager;
     input SerialPort sPort "Serial Port object";
-    input Modelica_DeviceDrivers.Packaging.SerialPackager pkg "Data package to be sent";
+    input SerialPackager pkg;
     input Integer dataSize "Size of data";
     external "C" MDD_serialPortSendP(sPort, pkg, dataSize)
     annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
