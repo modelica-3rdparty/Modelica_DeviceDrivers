@@ -73,7 +73,7 @@ DllExport void * MDD_udpConstructor(int port, int bufferSize) {
     DWORD id1;
     MDDUDPSocket * udp;
 
-    rc = WSAStartup(MAKEWORD(2,0),&wsa);
+    rc = WSAStartup(MAKEWORD(2,2),&wsa);
     if (rc != NO_ERROR) {
         ModelicaFormatError("MDDUDPSocket.h: WSAStartup failed: %d\n", rc);
     }
