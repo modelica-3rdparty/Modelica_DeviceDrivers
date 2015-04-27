@@ -99,8 +99,9 @@ DllExport void * MDD_udpConstructor(int port, int bufferSize) {
         if (rc == INVALID_SOCKET) {
             free(udp);
             udp = NULL;
+            rc = WSAGetLastError();
             WSACleanup();
-            ModelicaFormatError("MDDUDPSocket.h: Error at bind(..) to port %d\n", port);
+            ModelicaFormatError("MDDUDPSocket.h: Error at bind(..) to port %d: %ld\n", port, rc);
         }
         udp->receiveBuffer = (char*)calloc(bufferSize, 1);
         udp->receiveBufferTmp = (char*)calloc(bufferSize, 1);
