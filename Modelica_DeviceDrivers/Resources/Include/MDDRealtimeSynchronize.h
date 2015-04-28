@@ -21,6 +21,7 @@
 #endif
 #include <windows.h>
 #include <mmsystem.h>
+#include <stdlib.h>
 #include "../src/include/CompatibilityDefs.h"
 
 #if !defined(BELOW_NORMAL_PRIORITY_CLASS)
@@ -87,7 +88,7 @@ DllExport void MDD_ProcessPriorityDestructor(void* prioObj) {
             if (ret == 0) {
                 DWORD dw = GetLastError();
                 if (dw) {
-                    ModelicaFormatMessage("LastError: %d\n", dw);
+                    ModelicaFormatMessage("LastError: %lu\n", dw);
                 }
             }
         }

@@ -57,7 +57,7 @@ DllExport void* MDD_SharedMemoryConstructor(const char * name, int bufSize) {
 
     if (smb->hMapFile == NULL) {
         free(smb);
-        ModelicaFormatError("MDDSharedMemory.h: Could not create file mapping object (%d).\n", GetLastError());
+        ModelicaFormatError("MDDSharedMemory.h: Could not create file mapping object: %lu.\n", GetLastError());
         return NULL;
     }
     smb->smBuf = (char*) MapViewOfFile(
@@ -70,7 +70,7 @@ DllExport void* MDD_SharedMemoryConstructor(const char * name, int bufSize) {
     if (smb->smBuf == NULL) {
         CloseHandle(smb->hMapFile);
         free(smb);
-        ModelicaFormatError("MDDSharedMemory.h: Could not map view of file (%d).\n", GetLastError());
+        ModelicaFormatError("MDDSharedMemory.h: Could not map view of file: %lu.\n", GetLastError());
         return NULL;
     }
 

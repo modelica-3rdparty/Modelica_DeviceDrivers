@@ -126,7 +126,7 @@ DllExport void * MDD_serialPortConstructor(const char * deviceName, int bufferSi
         if (serial->hComm == INVALID_HANDLE_VALUE) {
             free(serial);
             serial = NULL;
-            ModelicaFormatError("MDDSerialPort.h: CreateFileA(..) of serial port %s failed with error %d\n", deviceName, GetLastError());
+            ModelicaFormatError("MDDSerialPort.h: CreateFileA of serial port %s failed with error: %lu\n", deviceName, GetLastError());
         }
         ModelicaFormatMessage("Created serial port for device %s\n", deviceName);
 
@@ -136,7 +136,7 @@ DllExport void * MDD_serialPortConstructor(const char * deviceName, int bufferSi
             CloseHandle(serial->hComm);
             free(serial);
             serial = NULL;
-            ModelicaFormatError("MDDSerialPort.h: GetCommState(..) of serial port %s failed with error %d\n", deviceName, GetLastError());
+            ModelicaFormatError("MDDSerialPort.h: GetCommState of serial port %s failed with error: %lu\n", deviceName, GetLastError());
         }
 
         switch (baud) {
@@ -201,7 +201,7 @@ DllExport void * MDD_serialPortConstructor(const char * deviceName, int bufferSi
             CloseHandle(serial->hComm);
             free(serial);
             serial = NULL;
-            ModelicaFormatError("MDDSerialPort.h: SetCommState(..) of serial port %s failed with error %d\n", deviceName, GetLastError());
+            ModelicaFormatError("MDDSerialPort.h: SetCommState of serial port %s failed with error: %lu\n", deviceName, GetLastError());
         }
 
         if (!GetCommMask(serial->hComm, &fdwEventMask)) {

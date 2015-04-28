@@ -61,7 +61,7 @@ DllExport int MDD_TCPIPClient_Connect(void * p_tcpip, const char* ipaddress, int
             struct addrinfo *result = NULL;
             struct addrinfo *ptr = NULL;
             struct addrinfo hints;
-            char port_str[20];
+            char port_str[21];
 
             memset(&hints, 0, sizeof(hints));
             hints.ai_family = AF_UNSPEC;
@@ -88,7 +88,7 @@ DllExport int MDD_TCPIPClient_Connect(void * p_tcpip, const char* ipaddress, int
                     *tcpip = NULL;
                     rc = WSAGetLastError();
                     WSACleanup();
-                    ModelicaFormatError("MDDTCPIPSocket.h: socket failed with error: %ld\n", WSAGetLastError());
+                    ModelicaFormatError("MDDTCPIPSocket.h: socket failed with error: %d\n", rc);
                 }
 
                 /* Connect to server */

@@ -85,7 +85,7 @@ DllExport void * MDD_udpConstructor(int port, int bufferSize) {
         udp = NULL;
         rc = WSAGetLastError();
         WSACleanup();
-        ModelicaFormatError("MDDUDPSocket.h: Error at socket(): %ld\n", rc);
+        ModelicaFormatError("MDDUDPSocket.h: socket failed with error: %d\n", rc);
     }
     udp->receiving = 1;
     udp->bufferSize = bufferSize;
@@ -97,24 +97,32 @@ DllExport void * MDD_udpConstructor(int port, int bufferSize) {
     if (port) {
         rc = bind(udp->SocketID,(SOCKADDR*)&addr,sizeof(SOCKADDR_IN));
         if (rc == INVALID_SOCKET) {
+            closesocket(udp->SocketID);
             free(udp);
             udp = NULL;
             rc = WSAGetLastError();
             WSACleanup();
-            ModelicaFormatError("MDDUDPSocket.h: Error at bind(..) to port %d: %ld\n", port, rc);
+            ModelicaFormatError("MDDUDPSocket.h: bind to port %d failed with error: %d\n", port, rc);
         }
         udp->receiveBuffer = (char*)calloc(bufferSize, 1);
         udp->receiveBufferTmp = (char*)calloc(bufferSize, 1);
         InitializeCriticalSection(&udp->receiveLock);
         udp->hThread = CreateThread(0, 1024, MDD_udpReceivingThread, udp, 0, &id1);
         if (!udp->hThread) {
+            DWORD dw = GetLastError();
+            udp->receiving = 0;
+            rc = shutdown(udp->SocketID, 2);
+            if (rc == SOCKET_ERROR) {
+                ModelicaFormatMessage("MDDUDPSocket.h: shutdown failed: %d\n", WSAGetLastError());
+            }
+            closesocket(udp->SocketID);
             DeleteCriticalSection(&udp->receiveLock);
             free(udp->receiveBuffer);
             free(udp->receiveBufferTmp);
             free(udp);
             udp = NULL;
             WSACleanup();
-            ModelicaError("MDDUDPSocket.h: Error creating UDP Receiver thread.\n");
+            ModelicaFormatError("MDDUDPSocket.h: Error creating UDP receiver thread: %lu\n", dw);
         }
         ModelicaFormatMessage("MDDUDPSocket.h: Waiting for data on port %d.\n", port);
     }
