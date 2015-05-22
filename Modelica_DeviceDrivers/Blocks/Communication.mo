@@ -308,6 +308,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
   model TCPIP_Client_IO "A client block for TCP/IP socket communcication"
     import Modelica_DeviceDrivers;
     extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
+    extends Modelica_DeviceDrivers.Utilities.Icons.TCPIPconnection;
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
     import Modelica_DeviceDrivers.Communication.TCPIPSocketClient;
 
