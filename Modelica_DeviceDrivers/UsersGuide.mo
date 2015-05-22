@@ -799,7 +799,7 @@ of the library:
                     Communication.SerialPort_</td>
 </tr>
 <tr><td valign=\"top\"><b><a href=\"https://github.com/tbeu/\">tbeu</a></b> </td>
-   <td valign=\"top\"></td>
+   <td valign=\"top\">&nbsp;</td>
    <td valign=\"top\"> Many fixes and good proposals, especially regarding the SimulationX support.</td>
 </tr>
 
