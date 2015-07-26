@@ -38,7 +38,6 @@ package Communication
         sm,
         pkgOut.pkg,
         time);
-      Modelica.Utilities.Streams.print("Read: "+String(time)+"\n");
     end when;
       annotation (preferredView="info",
                 Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -86,7 +85,6 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
         pkgIn.pkg,
         bufferSize,
         pkgIn.dummy);
-      Modelica.Utilities.Streams.print("Write: "+String(time)+"\n");
     end when;
     annotation (preferredView="info",
             Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
@@ -118,11 +116,6 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
           extent={{-20,-20},{20,20}},
           rotation=90,
           origin={108,0})));
-    Modelica.Blocks.Interfaces.BooleanInput conditionalExternalTrigger if enableExternalTrigger
-      annotation (Placement(transformation(extent={{-20,-20},{20,20}},
-          rotation=90,
-          origin={0,-120})));
-
   protected
     Integer bufferSize;
     UDPSocket socket = UDPSocket(port_recv, if autoBufferSize then bufferSize else userBufferSize);
@@ -168,11 +161,6 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
           extent={{-20,-20},{20,20}},
           rotation=270,
           origin={-108,0})));
-    Modelica.Blocks.Interfaces.BooleanInput conditionalExternalTrigger if enableExternalTrigger
-      annotation (Placement(transformation(extent={{-20,-20},{20,20}},
-          rotation=90,
-          origin={0,-120})));
-
   protected
     UDPSocket socket = UDPSocket(0);
     Integer bufferSize;
