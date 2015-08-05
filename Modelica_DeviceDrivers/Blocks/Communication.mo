@@ -32,7 +32,7 @@ package Communication
     when initial() then
       bufferSize = if autoBufferSize then alignAtByteBoundary(pkgOut.autoPkgBitSize) else userBufferSize;
     end when;
-    pkgOut.trigger = trigger "using inherited trigger";
+    pkgOut.trigger = actTrigger "using inherited trigger";
     when pkgOut.trigger then
       pkgOut.dummy = Modelica_DeviceDrivers.Blocks.Communication.Internal.DummyFunctions.readSharedMemory(
         sm,
@@ -78,7 +78,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
       pkgIn.autoPkgBitSize = 0;
       bufferSize = if autoBufferSize then Modelica_DeviceDrivers.Packaging.SerialPackager_.getBufferSize(pkgIn.pkg) else userBufferSize;
     end when;
-    pkgIn.backwardTrigger = trigger "using inherited trigger";
+    pkgIn.backwardTrigger = actTrigger "using inherited trigger";
     when pkgIn.trigger then
       dummy = Modelica_DeviceDrivers.Blocks.Communication.Internal.DummyFunctions.writeSharedMemory(
         sm,
@@ -123,7 +123,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
     when initial() then
       bufferSize = if autoBufferSize then alignAtByteBoundary(pkgOut.autoPkgBitSize) else userBufferSize;
     end when;
-    pkgOut.trigger = trigger "using inherited trigger";
+    pkgOut.trigger = actTrigger "using inherited trigger";
     when pkgOut.trigger then
       pkgOut.dummy = Modelica_DeviceDrivers.Blocks.Communication.Internal.DummyFunctions.readUDP(
         socket,
@@ -171,7 +171,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
       pkgIn.autoPkgBitSize = 0;
       bufferSize = if autoBufferSize then Modelica_DeviceDrivers.Packaging.SerialPackager_.getBufferSize(pkgIn.pkg) else userBufferSize;
     end when;
-    pkgIn.backwardTrigger = trigger "using inherited trigger";
+    pkgIn.backwardTrigger = actTrigger "using inherited trigger";
     when pkgIn.trigger then
       dummy = Modelica_DeviceDrivers.Blocks.Communication.Internal.DummyFunctions.sendToUDP(
         socket,
@@ -227,7 +227,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
     when initial() then
       bufferSize = if autoBufferSize then alignAtByteBoundary(pkgOut.autoPkgBitSize) else userBufferSize;
     end when;
-    pkgOut.trigger = trigger "using inherited trigger";
+    pkgOut.trigger = actTrigger "using inherited trigger";
     when pkgOut.trigger then
       pkgOut.dummy = Modelica_DeviceDrivers.Blocks.Communication.Internal.DummyFunctions.readSerial(
         sPort,
@@ -288,7 +288,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
       pkgIn.autoPkgBitSize = 0;
       bufferSize = if autoBufferSize then Modelica_DeviceDrivers.Packaging.SerialPackager_.getBufferSize(pkgIn.pkg) else userBufferSize;
     end when;
-    pkgIn.backwardTrigger = trigger "using inherited trigger";
+    pkgIn.backwardTrigger = actTrigger "using inherited trigger";
     when pkgIn.trigger then
       dummy = Modelica_DeviceDrivers.Blocks.Communication.Internal.DummyFunctions.sendToSerial(
         sPort,
@@ -343,7 +343,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
       pkgIn.autoPkgBitSize = 0;
       isConnected = Modelica_DeviceDrivers.Communication.TCPIPSocketClient_.connect_(socket, IPAddress, port);
     end when;
-    pkgIn.backwardTrigger = trigger "using inherited trigger";
+    pkgIn.backwardTrigger = actTrigger "using inherited trigger";
     pkgOut.trigger = pkgIn.backwardTrigger;
     when pkgIn.backwardTrigger then
       if isConnected then
@@ -433,7 +433,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
         Types.TransmissionType.standardReceive);
       softingCANBus.dummy = 1;
     equation
-      pkgOut.trigger = trigger "using inherited trigger";
+      pkgOut.trigger = actTrigger "using inherited trigger";
       when pkgOut.trigger then
         objectNumber = pre(objectNumber);
         pkgOut.dummy = Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN.Internal.readRcvDataDummy(
@@ -491,7 +491,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
         pkgIn.autoPkgBitSize = 0;
       end when;
 
-      pkgIn.backwardTrigger = trigger "using inherited trigger";
+      pkgIn.backwardTrigger = actTrigger "using inherited trigger";
       when pkgIn.trigger then
         objectNumber = pre(objectNumber);
         dummy = Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN.Internal.writeObjectDummy(
@@ -663,7 +663,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
         can_id,
         can_dlc);
     equation
-      pkgOut.trigger = trigger "using inherited trigger";
+      pkgOut.trigger = actTrigger "using inherited trigger";
       when pkgOut.trigger then
         pkgOut.dummy = Modelica_DeviceDrivers.Blocks.Communication.SocketCAN.Internal.readObjectDummy(
           config.dh,
@@ -719,7 +719,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
                                config.dh, can_id, can_dlc);
       end when;
 
-      pkgIn.backwardTrigger = trigger "using inherited trigger";
+      pkgIn.backwardTrigger = actTrigger "using inherited trigger";
       when pkgIn.trigger then
         dummy = Modelica_DeviceDrivers.Blocks.Communication.SocketCAN.Internal.writeDummy(
           config.dh,
