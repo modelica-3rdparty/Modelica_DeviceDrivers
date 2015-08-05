@@ -908,21 +908,24 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
         annotation(Dialog(enable = not enableExternalTrigger, group="Activation"));
       parameter SI.Time startTime = 0 "First sample time instant"
         annotation(Dialog(enable = not enableExternalTrigger, group="Activation"));
-      Modelica.Blocks.Interfaces.BooleanInput conditionalExternalTrigger if enableExternalTrigger
-        annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+      Modelica.Blocks.Interfaces.BooleanInput trigger if enableExternalTrigger
+        annotation (Placement(transformation(
+            extent={{-20,-20},{20,20}},
             rotation=90,
             origin={0,-120})));
     protected
       Modelica.Blocks.Interfaces.BooleanInput internalTrigger;
       Modelica.Blocks.Interfaces.BooleanInput conditionalInternalTrigger if not enableExternalTrigger;
-      Modelica.Blocks.Interfaces.BooleanInput trigger annotation (HideResult=true);
+      Modelica.Blocks.Interfaces.BooleanInput actTrigger annotation (HideResult=true);
     equation
       /* Condional connect equations to either use external trigger or internal trigger */
       internalTrigger = sample(startTime,sampleTime);
       connect(internalTrigger, conditionalInternalTrigger);
-      connect(conditionalInternalTrigger, trigger);
-      connect(conditionalExternalTrigger, trigger);
-      /* "trigger" can now be used by extending classes to trigger calls to I/O devices */
+      connect(conditionalInternalTrigger, actTrigger);
+      connect(trigger, actTrigger);
+      /* "actTrigger" can now be used by extending classes to trigger calls to I/O devices */
+      annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+                -100},{100,100}}), graphics));
     end PartialSampleTrigger;
   end Internal;
 end Communication;

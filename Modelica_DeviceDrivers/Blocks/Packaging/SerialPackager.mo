@@ -178,29 +178,29 @@ package SerialPackager "Blocks for constructing packages"
     import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
 
     parameter Boolean enableExternalTrigger = false
-      "true, enable external trigger input signal, otherwise use sample time settings below (default!)"
+      "true, enable external trigger input signal, otherwise use sample time settings below"
       annotation (Dialog(tab="Advanced", group="Activation"), choices(__Dymola_checkBox=true));
     parameter Boolean useBackwardSampleTimePropagation = true
-      "true, use backward propagation for sample time (default!), otherwise switch to forward propagation"
+      "true, use backward propagation for sample time, otherwise switch to forward propagation"
       annotation(Dialog(enable = not enableExternalTrigger, tab="Advanced", group="Activation"), choices(__Dymola_checkBox=true));
     parameter Modelica.SIunits.Period sampleTime=0.01
       "Sample time if forward propagation of sample time is used"
        annotation (Dialog(enable = (not useBackwardSampleTimePropagation) and (not enableExternalTrigger), tab="Advanced", group="Activation"));
 
     parameter Boolean useBackwardPropagatedBufferSize = true
-      "true, use backward propagated (automatic) buffer size for package (default!), otherwise use manually specified buffer size below"
+      "true, use backward propagated (automatic) buffer size for package, otherwise use manually specified buffer size below"
       annotation(Dialog(tab="Advanced", group="Buffer size settings"), choices(__Dymola_checkBox=true));
     parameter Integer userBufferSize = 16*1024
       "Buffer size for package if backward propagation of buffer size is deactivated"
        annotation (Dialog(enable = not useBackwardPropagatedBufferSize, tab="Advanced", group="Buffer size settings"));
     Interfaces.PackageOut pkgOut(pkg = SerialPackager(if useBackwardPropagatedBufferSize then bufferSize else userBufferSize))
       annotation (Placement(transformation(extent={{-20,-128},{20,-88}})));
-    Modelica.Blocks.Interfaces.BooleanInput conditionalExternalTrigger if enableExternalTrigger
+    Modelica.Blocks.Interfaces.BooleanInput trigger if                    enableExternalTrigger
       annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   protected
     Modelica.Blocks.Interfaces.BooleanInput internalTrigger;
     Modelica.Blocks.Interfaces.BooleanInput conditionalInternalTrigger if not enableExternalTrigger;
-    Modelica.Blocks.Interfaces.BooleanInput trigger
+    Modelica.Blocks.Interfaces.BooleanInput actTrigger
          annotation (HideResult=true);
     Integer backwardPropagatedBufferSize;
     Integer bufferSize;
@@ -208,8 +208,8 @@ package SerialPackager "Blocks for constructing packages"
     /* Condional connect equations to either use external trigger or internal trigger */
     internalTrigger = if useBackwardSampleTimePropagation then pkgOut.backwardTrigger else sample(0,sampleTime);
     connect(internalTrigger, conditionalInternalTrigger);
-    connect(conditionalInternalTrigger, trigger);
-    connect(conditionalExternalTrigger, trigger);
+    connect(conditionalInternalTrigger, actTrigger);
+    connect(trigger, actTrigger);
 
     when initial() then
       /* If userPkgBitSize is set, use it. Otherwise use auto package size. */
@@ -220,7 +220,7 @@ package SerialPackager "Blocks for constructing packages"
          else userBufferSize;
     end when;
 
-    pkgOut.trigger = trigger;
+    pkgOut.trigger = actTrigger;
     when pkgOut.trigger then
       pkgOut.dummy = DummyFunctions.clear(pkgOut.pkg, time);
     end when;
@@ -244,7 +244,10 @@ The figure below shows an arrangement in which a <code>Packager</code> object is
 and one Integer value is added, serialized and finally sent using UDP.
 </p>
 <p><img src=\"modelica://Modelica_DeviceDrivers/Resources/Images/TestSerialPackager_UDP_model.png\"/></p>
-</html>"));
+</html>"),
+      Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+              100,100}}),
+                      graphics));
   end Packager;
 
   block AddBoolean "Add a Boolean vector to package"

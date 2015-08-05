@@ -2,8 +2,7 @@ within Modelica_DeviceDrivers.Blocks.Examples;
 model TestSerialPackager_ExternalTrigger
   "Example for using the external trigger feature"
 extends Modelica.Icons.Example;
-  Modelica.Blocks.Sources.IntegerExpression integerExpression(y=integer(3*sin(
-        time) + 3))
+  Modelica.Blocks.Sources.IntegerExpression iExp(y=integer(3*sin(time) + 3))
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Packaging.SerialPackager.Packager
                           packager(useBackwardSampleTimePropagation=false,
@@ -14,11 +13,9 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Packaging.SerialPackager.AddInteger addInteger(nu=1)
     annotation (Placement(transformation(extent={{-40,-76},{-20,-56}})));
-  Modelica.Blocks.Sources.IntegerExpression integerExpression2(y=integer(5*sin(
-        time)))
-    annotation (Placement(transformation(extent={{-76,-78},{-56,-58}})));
-  Modelica.Blocks.Sources.IntegerExpression integerExpression1(y=integer(5*sin(
-        time) + 5))
+  Modelica.Blocks.Sources.IntegerExpression iExp3(y=integer(5*sin(time)))
+    annotation (Placement(transformation(extent={{-76,-76},{-56,-56}})));
+  Modelica.Blocks.Sources.IntegerExpression iExp2(y=integer(5*sin(time) + 5))
     annotation (Placement(transformation(extent={{-80,-38},{-60,-18}})));
   Packaging.SerialPackager.PackUnsignedInteger packInt1(nu=1,
     bitOffset=5,
@@ -34,20 +31,17 @@ extends Modelica.Icons.Example;
     nu=1,
     bitOffset=5,
     width=10) annotation (Placement(transformation(extent={{36,-34},{56,-14}})));
-  Modelica.Blocks.Sources.SampleTrigger sampleTrigger(period=0.1, startTime=0)
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+  Modelica.Blocks.Sources.BooleanExpression trig(y=iExp.y <> pre(iExp.y))
+    annotation (Placement(transformation(extent={{-90,38},{-60,60}})));
 equation
-  connect(integerExpression.y, packInt.u) annotation (Line(
-      points={{-59,10},{-42,10}},
-      color={255,127,0}));
+  connect(iExp.y, packInt.u)
+    annotation (Line(points={{-59,10},{-42,10}}, color={255,127,0}));
   connect(packager.pkgOut, packInt.pkgIn) annotation (Line(
       points={{-30,39.2},{-30,20.8}}));
-  connect(integerExpression2.y, addInteger.u[1]) annotation (Line(
-      points={{-55,-68},{-48,-68},{-48,-66},{-42,-66}},
-      color={255,127,0}));
-  connect(integerExpression1.y, packInt1.u) annotation (Line(
-      points={{-59,-28},{-42,-28}},
-      color={255,127,0}));
+  connect(iExp3.y, addInteger.u[1]) annotation (Line(points={{-55,-66},{-48,-66},
+          {-42,-66}}, color={255,127,0}));
+  connect(iExp2.y, packInt1.u)
+    annotation (Line(points={{-59,-28},{-42,-28}}, color={255,127,0}));
   connect(packInt.pkgOut[1], packInt1.pkgIn) annotation (Line(
       points={{-30,-0.8},{-30,-17.2}}));
   connect(packInt1.pkgOut[1], addInteger.pkgIn) annotation (Line(
@@ -60,9 +54,8 @@ equation
       points={{46,1.2},{46,-13.2}}));
   connect(unpackInt1.pkgOut[1], getInteger.pkgIn) annotation (Line(
       points={{46,-34.8},{46,-51.2}}));
-  connect(sampleTrigger.y, packager.conditionalExternalTrigger) annotation (
-      Line(
-      points={{-59,50},{-42,50}},
+  connect(trig.y, packager.trigger) annotation (Line(
+      points={{-58.5,49},{-50.25,49},{-50.25,50},{-42,50}},
       color={255,0,255},
       smooth=Smooth.None));
   annotation (experiment(StopTime=5.0),

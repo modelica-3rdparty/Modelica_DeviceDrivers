@@ -68,12 +68,11 @@ equation
         points={{40,9.2},{40,2.8}}));
     connect(getInteger.pkgIn, getFloat.pkgOut[1]) annotation (Line(
         points={{40,-27.2},{40,-18.8}}));
-  connect(sampleTrigger.y, uDPSend.conditionalExternalTrigger) annotation (Line(
-      points={{0,59},{0,-44},{-18,-44}},
+  connect(sampleTrigger.y, uDPSend.trigger) annotation (Line(
+      points={{-1.9984e-15,59},{-1.9984e-15,-44},{-18,-44}},
       color={255,0,255},
       smooth=Smooth.None));
-  connect(sampleTrigger.y, uDPReceive.conditionalExternalTrigger) annotation (
-      Line(
+  connect(sampleTrigger.y, uDPReceive.trigger) annotation (Line(
       points={{0,59},{0,50},{28,50}},
       color={255,0,255},
       smooth=Smooth.None));
