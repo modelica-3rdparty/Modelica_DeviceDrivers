@@ -31,7 +31,7 @@ extends Modelica.Icons.Example;
     nu=1,
     bitOffset=5,
     width=10) annotation (Placement(transformation(extent={{36,-34},{56,-14}})));
-  Modelica.Blocks.Sources.BooleanExpression trig(y=iExp.y <> pre(iExp.y))
+  Modelica.Blocks.Sources.BooleanExpression trig(y=change(iExp.y))
     annotation (Placement(transformation(extent={{-90,38},{-60,60}})));
 equation
   connect(iExp.y, packInt.u)
