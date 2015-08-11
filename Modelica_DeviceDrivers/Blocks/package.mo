@@ -1,22 +1,33 @@
 within Modelica_DeviceDrivers;
 package Blocks "This package contains Modelica 3.2 compatible drag'n'drop device driver blocks."
-  annotation (Icon(graphics={Rectangle(
-          extent={{-80,100},{100,-80}},
-          fillColor={215,230,240},
-          fillPattern=FillPattern.Solid), Rectangle(
-          extent={{-100,80},{80,-100}},
-          fillColor={240,240,240},
-          fillPattern=FillPattern.Solid),
-      Rectangle(extent={{-32,-6},{16,-35}}),
-      Rectangle(extent={{-32,-56},{16,-85}}),
-      Line(points={{16,-20},{49,-20},{49,-71},{16,-71}}),
-      Line(points={{-32,-72},{-64,-72},{-64,-21},{-32,-21}}),
+  extends Modelica.Icons.Package;
+
+  annotation (Icon(graphics={
+      Rectangle(
+        origin={0,35.1488},
+        fillColor={255,255,255},
+        extent={{-30.0,-20.1488},{30.0,20.1488}}),
+      Rectangle(
+        origin={0,-34.8512},
+        fillColor={255,255,255},
+        extent={{-30.0,-20.1488},{30.0,20.1488}}),
+      Line(
+        origin={-51.25,0},
+        points={{21.25,-35.0},{-13.75,-35.0},{-13.75,35.0},{6.25,35.0}}),
       Polygon(
-        points={{16,-71},{29,-67},{29,-74},{16,-71}},
-        fillPattern=FillPattern.Solid),
+        origin={-40,35},
+        pattern=LinePattern.None,
+        fillPattern=FillPattern.Solid,
+        points={{10.0,0.0},{-5.0,5.0},{-5.0,-5.0}}),
+      Line(
+        origin={51.25,0},
+        points={{-21.25,35.0},{13.75,35.0},{13.75,-35.0},{-6.25,-35.0}}),
       Polygon(
-        points={{-32,-21},{-46,-17},{-46,-25},{-32,-21}},
-        fillPattern=FillPattern.Solid)}), Documentation(info="<html>
+        origin={40,-35},
+        pattern=LinePattern.None,
+        fillPattern=FillPattern.Solid,
+        points={{-10.0,0.0},{5.0,5.0},{5.0,-5.0}})}),
+                                          Documentation(info="<html>
 <h4><font color=\"#008000\">Modelica 3.2 compatible block interface</font></h4>
 <p>
 The blocks provided in this package use Modelica 3.2 compatible <b>when</b>-clauses and the <b>sample</b>-operator to periodically call external Modelica functions that interface to the hardware drivers.
