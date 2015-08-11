@@ -1,4 +1,4 @@
-within Modelica_DeviceDrivers.Blocks.Examples;
+within Modelica_DeviceDrivers.Incubate.Examples;
 model TestSerialPackager_UDPMinimalForOMCTest
   "Example for combining UDP and SerialPackager blocks"
   extends Modelica.Icons.Example;
