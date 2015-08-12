@@ -522,7 +522,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
     end SoftingWriteMessage;
 
     package Internal
-      extends Modelica_DeviceDrivers.Utilities.Icons.InternalPackage;
+      extends Modelica.Icons.InternalPackage;
       encapsulated function startChipDummy
         import Modelica_DeviceDrivers.Communication.SoftingCAN;
         import Modelica_DeviceDrivers;
@@ -751,7 +751,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
     end WriteMessage;
 
     package Internal
-      extends Modelica_DeviceDrivers.Utilities.Icons.InternalPackage;
+      extends Modelica.Icons.InternalPackage;
 
       encapsulated function readObjectDummy
         "Read CAN frame/message from socket"
@@ -805,7 +805,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
   end SocketCAN;
 
   package Internal
-    extends Modelica_DeviceDrivers.Utilities.Icons.InternalPackage;
+    extends Modelica.Icons.InternalPackage;
     package DummyFunctions
       extends Modelica_DeviceDrivers.Utilities.Icons.InternalPackage;
       function readUDP

@@ -343,7 +343,7 @@ package HardwareIO
     end DIORead;
 
     package Types "Types used within the HardwareIO package"
-      extends Modelica.Icons.Package;
+      extends Modelica.Icons.TypesPackage;
       type Aref = enumeration(
           AREF_GROUND "analog ref = analog ground",
           AREF_COMMON "analog ref = analog ground",

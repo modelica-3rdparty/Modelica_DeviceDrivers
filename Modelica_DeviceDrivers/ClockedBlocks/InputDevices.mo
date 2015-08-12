@@ -381,7 +381,7 @@ package InputDevices
   end KeyboardInput;
 
   package Types
-    extends Modelica.Icons.Package;
+    extends Modelica.Icons.TypesPackage;
     type keyCodes =  Modelica.Icons.TypeString
     annotation (
       preferedView="text",
