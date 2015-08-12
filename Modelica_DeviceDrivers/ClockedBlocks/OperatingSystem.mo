@@ -64,7 +64,7 @@ package OperatingSystem
   end SynchronizeRealtime;
 
   package Types
-    extends Modelica.Icons.Package;
+    extends Modelica.Icons.TypesPackage;
   type ProcessPriority = Modelica.Icons.TypeString
   annotation (
     preferredView="text",

@@ -48,7 +48,7 @@ that have no support for the synchronous language elements.
 </p>
 <h4>Modelica tools known to work with that library</h4>
 <p>
-The library was tested with Dymola 2013 and a prototype of Dymola supporting the \"Synchrchronous Language Elements\" (see above).
+The library was tested with Dymola 2013 and a prototype of Dymola supporting the \"Synchronous Language Elements\" (see above).
 The library is known to work only partly with Dymola 2012FD0, due to a bug in handling external objects in that Dymola version.
 </p>
 </html>"));
