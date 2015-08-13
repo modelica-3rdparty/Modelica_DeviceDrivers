@@ -310,7 +310,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
 </html>"));
   end SerialPortSend;
 
-  block TCPIP_Client_IO "A client block for TCP/IP socket communcication"
+  block TCPIP_Client_IO "A client block for TCP/IP socket communication"
     import Modelica_DeviceDrivers;
     extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
     extends Modelica_DeviceDrivers.Utilities.Icons.TCPIPconnection;
