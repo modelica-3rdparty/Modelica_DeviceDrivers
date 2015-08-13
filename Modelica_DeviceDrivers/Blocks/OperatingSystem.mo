@@ -82,8 +82,8 @@ package OperatingSystem
     extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
     parameter Integer n=1 "Dimension of output vector";
     parameter Modelica.SIunits.Period sampleTime = 0.01 "Sample time of random number generation";
-    input Real minValue[n]={0} "maximum Value of random output" annotation(Dialog(enable=true));
-    input Real maxValue[n]={1} "maximum Value of random output" annotation(Dialog(enable=true));
+    input Real minValue[n]={0} "Minimum value of random output" annotation(Dialog(enable=true));
+    input Real maxValue[n]={1} "Maximum value of random output" annotation(Dialog(enable=true));
 
     Modelica.Blocks.Interfaces.RealOutput y[n]
       annotation (Placement(transformation(extent={{100,-10},{120,10}})));
