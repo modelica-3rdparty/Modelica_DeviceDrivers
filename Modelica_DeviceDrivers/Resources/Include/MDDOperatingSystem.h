@@ -23,7 +23,7 @@ DllExport double MDD_OS_getRandomNumberDouble(double minValue, double maxValue) 
     int randomInteger;
     double randomDouble;
     if(!_randomGeneratorInitialized) {
-        srand ( clock() * time(NULL) );
+        srand ( (unsigned int)(clock() * time(NULL)) );
         _randomGeneratorInitialized = 1;
     }
     randomInteger = rand();
