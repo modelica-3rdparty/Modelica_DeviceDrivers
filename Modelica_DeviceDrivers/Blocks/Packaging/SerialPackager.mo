@@ -179,17 +179,17 @@ package SerialPackager "Blocks for constructing packages"
 
     parameter Boolean enableExternalTrigger = false
       "true, enable external trigger input signal, otherwise use sample time settings below"
-      annotation (Dialog(tab="Advanced", group="Activation"), choices(__Dymola_checkBox=true));
+      annotation (Dialog(tab="Advanced", group="Activation"), choices(checkbox=true));
     parameter Boolean useBackwardSampleTimePropagation = true
       "true, use backward propagation for sample time, otherwise switch to forward propagation"
-      annotation(Dialog(enable = not enableExternalTrigger, tab="Advanced", group="Activation"), choices(__Dymola_checkBox=true));
+      annotation(Dialog(enable = not enableExternalTrigger, tab="Advanced", group="Activation"), choices(checkbox=true));
     parameter Modelica.SIunits.Period sampleTime=0.01
       "Sample time if forward propagation of sample time is used"
        annotation (Dialog(enable = (not useBackwardSampleTimePropagation) and (not enableExternalTrigger), tab="Advanced", group="Activation"));
 
     parameter Boolean useBackwardPropagatedBufferSize = true
       "true, use backward propagated (automatic) buffer size for package, otherwise use manually specified buffer size below"
-      annotation(Dialog(tab="Advanced", group="Buffer size settings"), choices(__Dymola_checkBox=true));
+      annotation(Dialog(tab="Advanced", group="Buffer size settings"), choices(checkbox=true));
     parameter Integer userBufferSize = 16*1024
       "Buffer size for package if backward propagation of buffer size is deactivated"
        annotation (Dialog(enable = not useBackwardPropagatedBufferSize, tab="Advanced", group="Buffer size settings"));

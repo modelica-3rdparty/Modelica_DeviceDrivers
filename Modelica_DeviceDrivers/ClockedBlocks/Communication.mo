@@ -12,7 +12,7 @@ package Communication
 
     parameter Boolean autoBufferSize = false
       "true, buffer size is deduced automatically, otherwise set it manually"
-      annotation(Dialog(group="Shared memory partition"), choices(__Dymola_checkBox=true));
+      annotation(Dialog(group="Shared memory partition"), choices(checkbox=true));
     parameter Integer userBufferSize=16*1024
       "Buffer size of shared memory partition in bytes (if not deduced automatically)"
       annotation(Dialog(enable=not autoBufferSize, group="Shared memory partition"));
@@ -71,7 +71,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
 
     parameter Boolean autoBufferSize = false
       "true, buffer size is deduced automatically, otherwise set it manually"
-      annotation(Dialog(group="Shared memory partition"), choices(__Dymola_checkBox=true));
+      annotation(Dialog(group="Shared memory partition"), choices(checkbox=true));
     parameter Integer userBufferSize=16*1024
       "Buffer size of shared memory partition in bytes (if not deduced automatically)"
       annotation(Dialog(enable=not autoBufferSize, group="Shared memory partition"));
@@ -127,7 +127,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
 
     parameter Boolean autoBufferSize = true
       "true, buffer size is deduced automatically, otherwise set it manually"
-      annotation(Dialog(group="Incoming data"), choices(__Dymola_checkBox=true));
+      annotation(Dialog(group="Incoming data"), choices(checkbox=true));
     parameter Integer userBufferSize=16*1024
       "Buffer size of message data in bytes (if not deduced automatically)" annotation(Dialog(enable=not autoBufferSize, group="Incoming data"));
     parameter Integer port_recv=10001
@@ -188,7 +188,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
 
     parameter Boolean autoBufferSize = true
       "true, buffer size is deduced automatically, otherwise set it manually."
-      annotation(Dialog(group="Outgoing data"), choices(__Dymola_checkBox=true));
+      annotation(Dialog(group="Outgoing data"), choices(checkbox=true));
     parameter Integer userBufferSize=16*1024
       "Buffer size of message data in bytes (if not deduced automatically)." annotation(Dialog(enable=not autoBufferSize, group="Outgoing data"));
     parameter String IPAddress="127.0.0.1" "IP address of remote UDP server"
