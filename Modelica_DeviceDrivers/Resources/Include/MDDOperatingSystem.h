@@ -32,7 +32,10 @@ DllExport double MDD_OS_getRandomNumberDouble(double minValue, double maxValue) 
 }
 
 #if defined(_MSC_VER)
-
+#if !defined(WIN32_LEAN_AND_MEAN)
+#define WIN32_LEAN_AND_MEAN
+#endif
+#include <windows.h>
 DllExport void MDD_OS_Sleep(double sleepingTime) {
 
     int time_ms = (int)(sleepingTime*1000);
