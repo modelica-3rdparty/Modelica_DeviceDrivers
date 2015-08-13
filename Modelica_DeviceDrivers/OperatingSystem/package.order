@@ -2,6 +2,7 @@ beep
 clock
 ProcessPriority
 randomReal
+randomReal_
 RealTimeSynchronization
 realtimeSynchronize
 setProcessPriority
