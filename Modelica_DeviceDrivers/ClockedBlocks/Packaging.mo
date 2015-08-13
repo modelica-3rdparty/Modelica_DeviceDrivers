@@ -365,7 +365,7 @@ package Packaging
       import Modelica.Utilities.Strings.length;
       parameter Integer bufferSize = 40
         "Buffer size (in bytes) reserved for String (ensure that same buffer size is used in corresponding GetString block!)";
-      input String data = "A mostly harmless String" annotation(Dialog=true);
+      input String data = "A mostly harmless String" annotation(Dialog(enable=true));
     equation
       pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundary(pkgOut[1].autoPkgBitSize)*8 + bufferSize*8 else bufferSize*8;
 

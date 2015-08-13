@@ -82,8 +82,8 @@ package OperatingSystem
     extends
       Modelica_DeviceDrivers.Utilities.Icons.PartialClockedDeviceDriverIcon;
     parameter Integer n=1 "Dimension of output vector";
-    input Real minValue[n]={0} "maximum Value of random output" annotation (Dialog = true);
-    input Real maxValue[n]={1} "maximum Value of random output" annotation (Dialog = true);
+    input Real minValue[n]={0} "maximum Value of random output" annotation(Dialog(enable=true));
+    input Real maxValue[n]={1} "maximum Value of random output" annotation(Dialog(enable=true));
 
     Modelica.Blocks.Interfaces.RealOutput y[n]
       annotation (Placement(transformation(extent={{100,-10},{120,10}})));
