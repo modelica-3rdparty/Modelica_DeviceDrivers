@@ -32,7 +32,7 @@ class DynamicArray
       array->m = m;
       array->n = n;
       array->maxIndex = 1;
-      ModelicaFormatMessage(\"Allocating  Memory. m-dim: %i, n-dim: %i \\n\",array->m, array->n);
+      ModelicaFormatMessage(\"Allocating Memory. m-dim: %i, n-dim: %i \\n\",array->m, array->n);
       return array;
     }
 
@@ -57,7 +57,7 @@ class DynamicArray
         else
           newIndex =  2*array->maxIndex;
 
-        ModelicaFormatMessage(\"reallocating  Memory. Old Index: %i, new Index: %i \\n\",array->maxIndex, newIndex);
+        ModelicaFormatMessage(\"Reallocating Memory. Old Index: %i, new Index: %i \\n\",array->maxIndex, newIndex);
         newArraySize = newIndex * sizeof(double) * (array->m * array->n);
         newData = (double*) realloc(array->data,newArraySize);
         ModelicaFormatMessage(\"Memory reallocated. New size (bytes):%d \\n\", newArraySize);
