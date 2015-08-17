@@ -62,20 +62,16 @@ equation
       points={{50,-2.8},{50,-21.2}}));
   connect(enable.y, zeroCrossing1.enable) annotation (Line(
       points={{23,-72},{12,-72}},
-      color={255,0,255},
-      smooth=Smooth.None));
+      color={255,0,255}));
   connect(zeroCrossing1.y, sharedMemoryWrite.trigger) annotation (Line(
       points={{6.66134e-16,-61},{6.66134e-16,-42},{-18,-42}},
-      color={255,0,255},
-      smooth=Smooth.None));
+      color={255,0,255}));
   connect(zeroCrossing1.y, sharedMemoryRead.trigger) annotation (Line(
       points={{6.66134e-16,-61},{6.66134e-16,68},{38,68}},
-      color={255,0,255},
-      smooth=Smooth.None));
+      color={255,0,255}));
   connect(realExpression1.y, zeroCrossing1.u) annotation (Line(
       points={{-19,-90},{0,-90},{0,-84}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,0,127}));
   annotation (experiment(StopTime=5.0),
     Documentation(info="<html>
 <p>
@@ -84,7 +80,5 @@ The <code>sharedMemoryWrite</code> block writes to the memory partition with <co
 <p>
 <b>Note:</b> There is no causality between the <code>sharedMemoryWrite</code> block and the <code>sharedMemoryRead</code> block. Therefore the execution order of the blocks is not determined. This indeterminism may also show up in the plots.
 </p>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics));
+</html>"));
 end TestSerialPackager_SharedMemoryExternalTrigger;

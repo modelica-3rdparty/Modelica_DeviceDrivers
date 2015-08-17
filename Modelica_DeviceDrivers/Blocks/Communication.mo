@@ -186,9 +186,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
               -100},{100,100}}), graphics={Text(extent={{-150,136},{150,96}},
               textString="%name")}), Documentation(info="<html>
 <p>Supports sending of User Datagram Protocol (UDP) datagrams.</p>
-</html>"),
-      Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-              100}}), graphics));
+</html>"));
   end UDPSend;
 
   block SerialPortReceive
@@ -924,8 +922,6 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
       connect(conditionalInternalTrigger, actTrigger);
       connect(trigger, actTrigger);
       /* "actTrigger" can now be used by extending classes to trigger calls to I/O devices */
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-                -100},{100,100}}), graphics));
     end PartialSampleTrigger;
   end Internal;
 end Communication;

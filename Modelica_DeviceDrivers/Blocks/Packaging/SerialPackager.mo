@@ -244,10 +244,7 @@ The figure below shows an arrangement in which a <code>Packager</code> object is
 and one Integer value is added, serialized and finally sent using UDP.
 </p>
 <p><img src=\"modelica://Modelica_DeviceDrivers/Resources/Images/TestSerialPackager_UDP_model.png\"/></p>
-</html>"),
-      Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-              100,100}}),
-                      graphics));
+</html>"));
   end Packager;
 
   block AddBoolean "Add a Boolean vector to package"

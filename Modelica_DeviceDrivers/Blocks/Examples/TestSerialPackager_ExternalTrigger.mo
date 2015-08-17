@@ -56,14 +56,11 @@ equation
       points={{46,-34.8},{46,-51.2}}));
   connect(trig.y, packager.trigger) annotation (Line(
       points={{-58.5,49},{-50.25,49},{-50.25,50},{-42,50}},
-      color={255,0,255},
-      smooth=Smooth.None));
+      color={255,0,255}));
   annotation (experiment(StopTime=5.0),
     Documentation(info="<html>
 <p>
 The example demonstrates that pack and unpack blocks of the <code>SerialPackager</code> package can be connected directly.
 </p>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics));
+</html>"));
 end TestSerialPackager_ExternalTrigger;

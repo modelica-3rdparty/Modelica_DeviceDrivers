@@ -70,12 +70,10 @@ equation
         points={{40,-27.2},{40,-18.8}}));
   connect(sampleTrigger.y, uDPSend.trigger) annotation (Line(
       points={{-1.9984e-15,59},{-1.9984e-15,-44},{-18,-44}},
-      color={255,0,255},
-      smooth=Smooth.None));
+      color={255,0,255}));
   connect(sampleTrigger.y, uDPReceive.trigger) annotation (Line(
       points={{0,59},{0,50},{28,50}},
-      color={255,0,255},
-      smooth=Smooth.None));
+      color={255,0,255}));
   annotation (
     Documentation(info="<html>
 <p>
@@ -87,7 +85,5 @@ The <code>uDPSend</code> block sends to the local port 10002. The <code>uDPRecei
 </html>"),
     experiment(
       StopTime=5,
-      StartTime=0),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics));
+      StartTime=0));
 end TestSerialPackager_UDPExternalTrigger;
