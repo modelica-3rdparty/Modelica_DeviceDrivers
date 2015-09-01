@@ -1,16 +1,6 @@
 within ;
 package Modelica_DeviceDrivers "Modelica_DeviceDrivers - A collection of drivers interfacing hardware like input devices, communication devices, shared memory, analog-digital converters and else"
   extends Modelica.Icons.Package;
-
-
-
-
-
-
-
-
-
-
   annotation (preferredView="info",
     uses(Modelica_Synchronous(version="0.92"),
        Modelica(version="3.2.1")),
