@@ -14,7 +14,7 @@ package Communication
 
     parameter Boolean autoBufferSize = false
       "true, buffer size is deduced automatically, otherwise set it manually"
-      annotation(Dialog(group="Shared memory partition"), choices(checkbox=true));
+      annotation(Dialog(group="Shared memory partition"), choices(checkBox=true));
     parameter Integer userBufferSize=16*1024
       "Buffer size of shared memory partition in bytes (if not deduced automatically)"
       annotation(Dialog(enable=not autoBufferSize, group="Shared memory partition"));
@@ -58,7 +58,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
     import Modelica_DeviceDrivers.Communication.SharedMemory;
     parameter Boolean autoBufferSize = false
       "true, buffer size is deduced automatically, otherwise set it manually"
-      annotation(Dialog(group="Shared memory partition"), choices(checkbox=true));
+      annotation(Dialog(group="Shared memory partition"), choices(checkBox=true));
     parameter Integer userBufferSize=16*1024
       "Buffer size of shared memory partition in bytes (if not deduced automatically)"
       annotation(Dialog(enable=not autoBufferSize, group="Shared memory partition"));
@@ -105,7 +105,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
     import Modelica_DeviceDrivers.Communication.UDPSocket;
     parameter Boolean autoBufferSize = true
       "true, buffer size is deduced automatically, otherwise set it manually"
-      annotation(Dialog(group="Incoming data"), choices(checkbox=true));
+      annotation(Dialog(group="Incoming data"), choices(checkBox=true));
     parameter Integer userBufferSize=16*1024
       "Buffer size of message data in bytes (if not deduced automatically)" annotation(Dialog(enable=not autoBufferSize, group="Incoming data"));
     parameter Integer port_recv=10001
@@ -150,7 +150,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
 
     parameter Boolean autoBufferSize = true
       "true, buffer size is deduced automatically, otherwise set it manually."
-      annotation(Dialog(group="Outgoing data"), choices(checkbox=true));
+      annotation(Dialog(group="Outgoing data"), choices(checkBox=true));
     parameter Integer userBufferSize=16*1024
       "Buffer size of message data in bytes (if not deduced automatically)." annotation(Dialog(enable=not autoBufferSize, group="Outgoing data"));
     parameter String IPAddress="127.0.0.1" "IP address of remote UDP server"
@@ -200,7 +200,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
     import Modelica_DeviceDrivers.Utilities.Types.SerialBaudRate;
     parameter Boolean autoBufferSize = true
       "true, buffer size is deduced automatically, otherwise set it manually"
-      annotation(Dialog(group="Incoming data"), choices(checkbox=true));
+      annotation(Dialog(group="Incoming data"), choices(checkBox=true));
     parameter Integer userBufferSize=16*64
       "Buffer size of message data in bytes (if not deduced automatically)" annotation(Dialog(enable=not autoBufferSize, group="Incoming data"));
     parameter String Serial_Port="/dev/ttyPS1" "Serial port to send data"
@@ -258,7 +258,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
 
     parameter Boolean autoBufferSize = true
       "true, buffer size is deduced automatically, otherwise set it manually."
-      annotation(Dialog(group="Outgoing data"), choices(checkbox=true));
+      annotation(Dialog(group="Outgoing data"), choices(checkBox=true));
     parameter Integer userBufferSize=16*64
       "Buffer size of message data in bytes (if not deduced automatically)." annotation(Dialog(enable=not autoBufferSize, group="Outgoing data"));
     parameter String Serial_Port="/dev/ttyPS0" "SerialPort to sendData"
@@ -901,7 +901,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
       import SI = Modelica.SIunits;
       parameter Boolean enableExternalTrigger = false
         "true, enable external trigger input signal, otherwise use sample time settings below"
-        annotation (Dialog(group="Activation"), choices(checkbox=true));
+        annotation (Dialog(group="Activation"), choices(checkBox=true));
       parameter SI.Period sampleTime = 0.1 "Sample period of component"
         annotation(Dialog(enable = not enableExternalTrigger, group="Activation"));
       parameter SI.Time startTime = 0 "First sample time instant"

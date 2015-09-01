@@ -179,7 +179,7 @@ package Packaging
 
       parameter Boolean useBackwardPropagatedBufferSize = true
         "true, use backward propagated (automatic) buffer size for package (default!), otherwise use manually specified buffer size below"
-        annotation(Dialog(tab="Advanced"), choices(checkbox=true));
+        annotation(Dialog(tab="Advanced"), choices(checkBox=true));
       parameter Integer userBufferSize = 16*1024
         "Buffer size for package if backward propagation of buffer size is deactivated"
                                                                                         annotation (Dialog(enable = not useBackwardPropagatedBufferSize, tab="Advanced"));

@@ -12,7 +12,7 @@ package Communication
     parameter Modelica.SIunits.Period sampleTime=0.01 "Sample time for input update";
     parameter Boolean autoBufferSize = true
       "true, buffer size is deduced automatically, otherwise set it manually"
-      annotation(Dialog(group="Incoming data"), choices(checkbox=true));
+      annotation(Dialog(group="Incoming data"), choices(checkBox=true));
     parameter Integer userBufferSize=16*1024
       "Buffer size of message data in bytes (if not deduced automatically)" annotation(Dialog(enable=not autoBufferSize, group="Incoming data"));
     parameter Integer port_recv=10001
