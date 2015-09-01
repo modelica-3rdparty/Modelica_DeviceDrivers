@@ -135,6 +135,26 @@ First public version of the library.
 </ul>
 </html>"));
     end Version_1_3;
+
+    class Version_1_4_0 "Version 1.4.0 (Sep 01, 2015)"
+      extends Modelica.Icons.ReleaseNotes;
+
+      annotation (Documentation(info="<html>
+<ul>
+<li>Switched to <a href=\"http://semver.org/\">semantic versioning</a>.</li>
+<li>Migrated to new release process motivated by <a href=\"https://github.com/xogeny/impact/blob/master/resources/docs/modelica2015/paper/impact.md#impact-on-library-developers\">impact-on-library-developers</a>.</li>
+<li>Added support for external trigger signals to trigger communication blocks.</li>
+<li>Added support to configure byte ordering in communication blocks.</li>
+<li>Added support for TCP/IP communication for Windows.</li>
+<li>Added serial port support for Windows (was already available for Linux).</li>
+<li>Added compiler support for MinGW and Cygwin.</li>
+<li>Added support for all 32 joystick buttons.</li>
+<li>Fixed Modelica compatibility of output buffers in communication blocks.</li>
+<li>Fixed multi-threaded access of UDP and shared memory communication for Windows.</li>
+<li>Fixed many small issues, particularly for improved compatibility with SimulationX.</li>
+</ul>
+</html>"));
+    end Version_1_4_0;
     annotation (Documentation(info="<html>
 <p>
 This section summarizes the changes that have been performed
