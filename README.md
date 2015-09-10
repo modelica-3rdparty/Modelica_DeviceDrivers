@@ -69,8 +69,8 @@ it can be redistributed and/or modified under the terms of the [Modelica License
 
 ## Development and contribution
 Main developers:
-* [Bernhard Thiele](https://github.com/bernhard-thiele), release management and the Linux specific code.
-* [Tobias Bellmann](https://github.com/tbellmann), most of the initial MS Windows specific code.
+* [Bernhard Thiele](https://github.com/bernhard-thiele), release management and the Linux specific code
+* [Tobias Bellmann](https://github.com/tbellmann), most of the initial MS Windows specific code
 * [tbeu](https://github.com/tbeu), various fixes and improvements, particularly SimulationX support
 
 You may report any issues with using the [Issues](https://github.com/modelica/Modelica_DeviceDrivers/issues) button.
