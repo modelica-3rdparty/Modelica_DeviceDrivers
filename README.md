@@ -30,11 +30,11 @@ The second interface uses the synchronous language elements introduced in Modeli
 
 Download [Modelica_DeviceDrivers v1.4.0 (2015-09-01)](../../releases/tag/v1.4.0)
 
-Please note that currently (2015-09-01) the library is known to work with Dymola (preferable Dymola 2013FD01 and later) and with SimulationX (with `userBufferSize` all non-clocked communication blocks are working in SimulationX, but `autoBufferSize` only works for external solvers CVode and Fixed Step solver and fails for BDF and MEBDF solvers, see [#54 (comment)](https://github.com/modelica/Modelica_DeviceDrivers/issues/54#issuecomment-76032325)). If you tested the library successfully with another Modelica tool, please contact me (Bernhard), so that I can include that information.
+Please note that currently (2015-09-01) the library is known to work with Dymola (preferable Dymola 2013FD01 and later) and with SimulationX (with `userBufferSize` all non-clocked communication blocks are working in SimulationX, but `autoBufferSize` only works for external solvers CVode and Fixed Step solver and fails for BDF and MEBDF solvers, see [#54 (comment)](https://github.com/modelica/Modelica_DeviceDrivers/issues/54#issuecomment-76032325)). If you tested the library successfully with another Modelica tool, please contact [Bernhard Thiele](https://github.com/bernhard-thiele) or send a [pull request](../../pulls) that updates this README.md.
 
 #### Release notes
 *  [Version v1.4.0 (2015-09-01)](../../releases/tag/v1.4.0)
-	* Switched to [semantic versioning](http://semver.org/).
+	* Switched to [semantic versioning](http://semver.org).
 	* Migrated to new release process motivated by [impact-on-library-developers](https://github.com/xogeny/impact/blob/master/resources/docs/modelica2015/paper/impact.md#impact-on-librarydevelopers).
 	* Added support for external trigger signals to trigger communication blocks.
 	* Added support to configure byte ordering in communication blocks.
@@ -46,7 +46,7 @@ Please note that currently (2015-09-01) the library is known to work with Dymola
 	* Fixed multi-threaded access of UDP and shared memory communication for Windows.
 	* Fixed many small issues, particularly for improved compatibility with SimulationX.
 *  [Version v1.3 (2014-05-19)](../../archive/v1.3+build.2.zip)
-  * Fixed many issues in order to support SimulationX (with the indispensable help of [tbeu](https://github.com/tbeu/)).
+  * Fixed many issues in order to support SimulationX (with the indispensable help of [tbeu](https://github.com/tbeu)).
   * Particularly, a SimulationX compatible wrapper DLL to give access to the external C functions was added.
   * Added serial port support for Linux.
 *  [Version v1.2 (2013-10-01)](../../archive/v1.2+build.1.zip)
