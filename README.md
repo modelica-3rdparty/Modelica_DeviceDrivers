@@ -70,8 +70,8 @@ it can be redistributed and/or modified under the terms of the [Modelica License
 ## Development and contribution
 Main developers:
 * [Bernhard Thiele](https://github.com/bernhard-thiele), release management and the Linux specific code.
-* [Tobias Bellmann](mailto:tobias.bellmann@dlr.de), most of the initial MS Windows specific code.
-* [tbeu](https://github.com/tbeu/), various fixes and improvements, particularly SimulationX support
+* [Tobias Bellmann](https://github.com/tbellmann), most of the initial MS Windows specific code.
+* [tbeu](https://github.com/tbeu), various fixes and improvements, particularly SimulationX support
 
 You may report any issues with using the [Issues](../../issues) button.
 
