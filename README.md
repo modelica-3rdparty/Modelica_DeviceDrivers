@@ -28,12 +28,12 @@ The second interface uses the synchronous language elements introduced in Modeli
 
 ## Current release
 
-Download [Modelica_DeviceDrivers v1.4.0 (2014-09-01)](../../releases/tag/v1.4.0)
+Download [Modelica_DeviceDrivers v1.4.0 (2015-09-01)](../../releases/tag/v1.4.0)
 
 Please note that currently (2015-09-01) the library is known to work with Dymola (preferable Dymola 2013FD01 and later) and with SimulationX (with `userBufferSize` all non-clocked communication blocks are working in SimulationX, but `autoBufferSize` only works for external solvers CVode and Fixed Step solver and fails for BDF and MEBDF solvers, see [#54 (comment)](https://github.com/modelica/Modelica_DeviceDrivers/issues/54#issuecomment-76032325)). If you tested the library successfully with another Modelica tool, please contact me (Bernhard), so that I can include that information.
 
 #### Release notes
-*  [Version v1.4.0 (2014-09-01)](../../releases/tag/v1.4.0)
+*  [Version v1.4.0 (2015-09-01)](../../releases/tag/v1.4.0)
 	* Switched to [semantic versioning](http://semver.org/).
 	* Migrated to new release process motivated by [impact-on-library-developers](https://github.com/xogeny/impact/blob/master/resources/docs/modelica2015/paper/impact.md#impact-on-library	developers).
 	* Added support for external trigger signals to trigger communication blocks.
