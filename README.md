@@ -35,7 +35,7 @@ Please note that currently (2015-09-01) the library is known to work with Dymola
 #### Release notes
 *  [Version v1.4.0 (2015-09-01)](../../releases/tag/v1.4.0)
 	* Switched to [semantic versioning](http://semver.org/).
-	* Migrated to new release process motivated by [impact-on-library-developers](https://github.com/xogeny/impact/blob/master/resources/docs/modelica2015/paper/impact.md#impact-on-library	developers).
+	* Migrated to new release process motivated by [impact-on-library-developers](https://github.com/xogeny/impact/blob/master/resources/docs/modelica2015/paper/impact.md#impact-on-librarydevelopers).
 	* Added support for external trigger signals to trigger communication blocks.
 	* Added support to configure byte ordering in communication blocks.
 	* Added support for TCP/IP communication for Windows.
