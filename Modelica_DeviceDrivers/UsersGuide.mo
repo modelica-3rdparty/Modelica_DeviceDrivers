@@ -48,10 +48,10 @@ that have no support for the synchronous language elements.
 </p>
 <h4>Modelica tools known to work with that library</h4>
 <p>
-Currently, (2015-09-01) the library is known to work with Dymola 
-(preferable Dymola 2013FD01 and later) and with SimulationX 
-(with userBufferSize all non-clocked communication blocks are working 
-in SimulationX, but autoBufferSize only works for external solvers 
+Currently, (2015-09-01) the library is known to work with Dymola
+(preferable Dymola 2013FD01 and later) and with SimulationX
+(with userBufferSize all non-clocked communication blocks are working
+in SimulationX, but autoBufferSize only works for external solvers
 CVode and Fixed Step solver and fails for BDF and MEBDF solvers.
 </p>
 </html>"));
