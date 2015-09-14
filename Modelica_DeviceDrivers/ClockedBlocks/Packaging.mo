@@ -231,7 +231,9 @@ package Packaging
       extends
         Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.PartialSerialPackager;
       import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
+      import Modelica_DeviceDrivers.Utilities.Types.ByteOrder;
       parameter Integer n = 1;
+      parameter ByteOrder byteOrder = ByteOrder.LE;
       Modelica.Blocks.Interfaces.BooleanInput u[n]
         annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
     protected
@@ -248,7 +250,8 @@ package Packaging
           Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.DummyFunctions.addInteger(
           pkgOut.pkg,
           u_int,
-          pkgIn.dummy);
+          pkgIn.dummy,
+          byteOrder);
 
       annotation (Icon(graphics={
             Text(
@@ -413,9 +416,10 @@ package Packaging
       extends
         Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.PartialSerialPackager;
       import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
+      import Modelica_DeviceDrivers.Utilities.Types.ByteOrder;
       parameter Integer n = 1;
-      Modelica.Blocks.Interfaces.BooleanOutput y[
-                                              n]
+      parameter ByteOrder byteOrder = ByteOrder.LE;
+      Modelica.Blocks.Interfaces.BooleanOutput y[n](each start=false)
         annotation (Placement(transformation(extent={{100,-10},{120,10}})));
     protected
       Integer y_int[n];
@@ -428,7 +432,8 @@ package Packaging
            Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.DummyFunctions.getInteger(
                  pkgIn.pkg,
                  n,
-                 pkgIn.dummy);
+                 pkgIn.dummy,
+                 byteOrder);
           pkgOut.dummy = fill(dummy,nu);
 
           for i in 1:n loop
