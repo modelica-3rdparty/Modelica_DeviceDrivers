@@ -33,9 +33,10 @@ package Packaging
           input Modelica_DeviceDrivers.Packaging.SerialPackager     pkg;
           input Real u[:];
           input Real dummy;
+          input Modelica_DeviceDrivers.Utilities.Types.ByteOrder byteOrder;
           output Real dummy2;
         algorithm
-         Modelica_DeviceDrivers.Packaging.SerialPackager_.addReal(pkg,u);
+         Modelica_DeviceDrivers.Packaging.SerialPackager_.addReal(pkg,u, byteOrder);
          dummy2 :=dummy;
         end addReal;
 
@@ -43,9 +44,10 @@ package Packaging
           input Modelica_DeviceDrivers.Packaging.SerialPackager  pkg;
           input Real u[:];
           input Real dummy;
+          input Modelica_DeviceDrivers.Utilities.Types.ByteOrder byteOrder;
           output Real dummy2;
         algorithm
-         Modelica_DeviceDrivers.Packaging.SerialPackager_.addRealAsFloat(pkg,u);
+         Modelica_DeviceDrivers.Packaging.SerialPackager_.addRealAsFloat(pkg,u,byteOrder);
          dummy2 :=dummy;
         end addRealAsFloat;
 
@@ -64,9 +66,10 @@ package Packaging
           input Modelica_DeviceDrivers.Packaging.SerialPackager     pkg;
           input Integer u[:];
           input Real dummy;
+          input Modelica_DeviceDrivers.Utilities.Types.ByteOrder byteOrder;
           output Real dummy2;
         algorithm
-         Modelica_DeviceDrivers.Packaging.SerialPackager_.addInteger(pkg,u);
+         Modelica_DeviceDrivers.Packaging.SerialPackager_.addInteger(pkg, u, byteOrder);
          dummy2 := dummy;
         end addInteger;
 
@@ -74,10 +77,11 @@ package Packaging
           input Modelica_DeviceDrivers.Packaging.SerialPackager     pkg;
           input Integer n;
           input Real dummy;
+          input Modelica_DeviceDrivers.Utilities.Types.ByteOrder byteOrder;
           output Real y[n];
           output Real dummy2;
         algorithm
-          y := Modelica_DeviceDrivers.Packaging.SerialPackager_.getReal(pkg, n);
+          y := Modelica_DeviceDrivers.Packaging.SerialPackager_.getReal(pkg, n, byteOrder);
           dummy2 :=dummy;
         end getReal;
 
@@ -85,10 +89,11 @@ package Packaging
           input Modelica_DeviceDrivers.Packaging.SerialPackager     pkg;
           input Integer n;
           input Real dummy;
+          input Modelica_DeviceDrivers.Utilities.Types.ByteOrder byteOrder;
           output Real y[n];
           output Real dummy2;
         algorithm
-          y := Modelica_DeviceDrivers.Packaging.SerialPackager_.getRealFromFloat(pkg, n);
+          y := Modelica_DeviceDrivers.Packaging.SerialPackager_.getRealFromFloat(pkg, n, byteOrder);
           dummy2 :=dummy;
         end getRealFromFloat;
 
@@ -105,10 +110,11 @@ package Packaging
           input Modelica_DeviceDrivers.Packaging.SerialPackager     pkg;
           input Integer n;
           input Real dummy;
+          input Modelica_DeviceDrivers.Utilities.Types.ByteOrder byteOrder;
           output Integer y[n];
           output Real dummy2;
         algorithm
-          y := Modelica_DeviceDrivers.Packaging.SerialPackager_.getInteger(pkg, n);
+          y := Modelica_DeviceDrivers.Packaging.SerialPackager_.getInteger(pkg, n, byteOrder);
           dummy2 :=dummy;
         end getInteger;
 
@@ -265,7 +271,9 @@ package Packaging
       extends
         Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.PartialSerialPackager;
       import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
+      import Modelica_DeviceDrivers.Utilities.Types.ByteOrder;
       parameter Integer n = 1;
+      parameter ByteOrder byteOrder = ByteOrder.LE;
       Modelica.Blocks.Interfaces.IntegerInput u[n]
         annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
     equation
@@ -275,7 +283,8 @@ package Packaging
         Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.DummyFunctions.addInteger(
         pkgOut.pkg,
         u,
-        pkgIn.dummy);
+        pkgIn.dummy,
+        byteOrder);
       annotation (Icon(graphics={
             Text(
               extent={{-100,-50},{100,-90}},
@@ -297,7 +306,9 @@ package Packaging
       extends
         Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.PartialSerialPackager;
       import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
+      import Modelica_DeviceDrivers.Utilities.Types.ByteOrder;
       parameter Integer n = 1;
+      parameter ByteOrder byteOrder = ByteOrder.LE;
       Modelica.Blocks.Interfaces.RealInput u[n]
         annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
     equation
@@ -307,7 +318,8 @@ package Packaging
         Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.DummyFunctions.addReal(
         pkgOut.pkg,
         u,
-        pkgIn.dummy);
+        pkgIn.dummy,
+        byteOrder);
       annotation (Icon(graphics={
             Text(
               extent={{-100,-50},{100,-90}},
@@ -332,7 +344,9 @@ package Packaging
       extends
         Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.PartialSerialPackager;
       import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
+      import Modelica_DeviceDrivers.Utilities.Types.ByteOrder;
       parameter Integer n = 1;
+      parameter ByteOrder byteOrder = ByteOrder.LE;
       Modelica.Blocks.Interfaces.RealInput u[n]
         annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
     equation
@@ -342,7 +356,8 @@ package Packaging
         Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.DummyFunctions.addRealAsFloat(
         pkgOut.pkg,
         u,
-        pkgIn.dummy);
+        pkgIn.dummy,
+        byteOrder);
       annotation (Icon(graphics={
             Text(
               extent={{-100,-50},{100,-90}},
@@ -442,7 +457,9 @@ package Packaging
       extends
         Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.PartialSerialPackager;
       import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
+      import Modelica_DeviceDrivers.Utilities.Types.ByteOrder;
       parameter Integer n = 1;
+      parameter ByteOrder byteOrder = ByteOrder.LE;
       Modelica.Blocks.Interfaces.IntegerOutput y[n]
         annotation (Placement(transformation(extent={{100,-10},{120,10}})));
     protected
@@ -455,7 +472,8 @@ package Packaging
            Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.DummyFunctions.getInteger(
             pkgIn.pkg,
             n,
-            pkgIn.dummy);
+            pkgIn.dummy,
+            byteOrder);
         pkgOut.dummy = fill(dummy,nu);
       end when;
 
@@ -480,7 +498,9 @@ package Packaging
       extends
         Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.PartialSerialPackager;
       import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
+      import Modelica_DeviceDrivers.Utilities.Types.ByteOrder;
       parameter Integer n = 1;
+      parameter ByteOrder byteOrder = ByteOrder.LE;
       Modelica.Blocks.Interfaces.RealOutput y[n]
         annotation (Placement(transformation(extent={{100,-10},{120,10}})));
     protected
@@ -493,7 +513,8 @@ package Packaging
             Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.DummyFunctions.getReal(
              pkgIn.pkg,
              n,
-             pkgIn.dummy);
+             pkgIn.dummy,
+             byteOrder);
          pkgOut.dummy = fill(dummy,nu);
       end when;
 
@@ -521,7 +542,9 @@ package Packaging
       extends
         Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.PartialSerialPackager;
       import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
+      import Modelica_DeviceDrivers.Utilities.Types.ByteOrder;
       parameter Integer n = 1;
+      parameter ByteOrder byteOrder = ByteOrder.LE;
       Modelica.Blocks.Interfaces.RealOutput y[n]
         annotation (Placement(transformation(extent={{100,-10},{120,10}})));
     protected
@@ -534,7 +557,8 @@ package Packaging
             Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Internal.DummyFunctions.getRealFromFloat(
              pkgIn.pkg,
              n,
-             pkgIn.dummy);
+             pkgIn.dummy,
+             byteOrder);
          pkgOut.dummy = fill(dummy,nu);
       end when;
 
@@ -611,7 +635,7 @@ package Packaging
               pkgIn.dummy);
       end when;
       annotation (defaultComponentName="packInt",
- Icon(graphics={
+        Icon(graphics={
             Text(
               extent={{-120,40},{-40,-40}},
               lineColor={255,127,0},
@@ -654,7 +678,7 @@ package Packaging
       end when;
 
       annotation (defaultComponentName="unpackInt",
- Icon(graphics={
+        Icon(graphics={
             Bitmap(extent={{-7,19},{57,-20}}, fileName=
                   "Modelica://Modelica_DeviceDrivers/Resources/Images/Icons/Bit2IntArrow.png"),
             Text(
