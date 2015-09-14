@@ -81,7 +81,5 @@ equation
 <p>
 The example demonstrates that pack and unpack blocks of the <code>SerialPackager</code> package can be connected directly.
 </p>
-</html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics));
+</html>"));
 end TestSerialPackager;

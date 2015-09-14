@@ -52,9 +52,7 @@ equation
   connect(getString.pkgOut[1], getInteger.pkgIn) annotation (Line(
       points={{6,-28.8},{6,-37.2}}));
   connect(addInteger.pkgOut[1], resetPointer.pkgIn) annotation (Line(
-      points={{-42,-58.8},{-42,-64},{-20,-64},{-20,66},{6,66},{6,58.8}},
-      color={0,0,0},
-      smooth=Smooth.None));
+      points={{-42,-58.8},{-42,-64},{-20,-64},{-20,66},{6,66},{6,58.8}}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
             -100},{100,100}}), graphics={Text(
           extent={{-82,84},{82,68}},
