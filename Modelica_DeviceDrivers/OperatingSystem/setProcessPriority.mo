@@ -3,8 +3,7 @@ function setProcessPriority
 input Modelica_DeviceDrivers.OperatingSystem.ProcessPriority procPrio;
 input Integer priority "Simulation process priority (-2(lowest)..2(realtime))";
 external "C" MDD_setPriority(procPrio, priority)
-annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
-           Include = "#include \"MDDRealtimeSynchronize.h\" ",
+annotation(Include = "#include \"MDDRealtimeSynchronize.h\" ",
            Library = {"rt", "Winmm"},
            __iti_dll = "ITI_MDD.dll");
 annotation(__OpenModelica_Impure=true, __iti_Impure=true);

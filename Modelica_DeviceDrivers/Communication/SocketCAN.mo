@@ -8,8 +8,7 @@ input String ifrName;
 output SocketCAN softingCAN;
 
   external "C" softingCAN = MDD_socketCANConstructor(ifrName)
-  annotation (IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
-    Include="#include \"MDDSocketCAN.h\"",
+  annotation (Include="#include \"MDDSocketCAN.h\"",
               Library={"pthread"});
 end constructor;
 
@@ -18,8 +17,7 @@ import Modelica_DeviceDrivers.Communication.SocketCAN;
 input SocketCAN socketCAN;
 
   external "C" MDD_socketCANDestructor(socketCAN)
-  annotation (IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
-              Include="#include \"MDDSocketCAN.h\"",
+  annotation (Include="#include \"MDDSocketCAN.h\"",
               Library={"pthread"});
 end destructor;
 

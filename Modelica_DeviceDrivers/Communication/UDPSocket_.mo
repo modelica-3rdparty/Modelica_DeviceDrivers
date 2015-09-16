@@ -7,8 +7,7 @@ package UDPSocket_ "Accompanying functions for the UDPSocket object"
     input UDPSocket socket;
     input SerialPackager pkg;
     external "C" MDD_udpReadP(socket, pkg)
-    annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
-           Include = "#include \"MDDUDPSocket.h\" ",
+    annotation(Include = "#include \"MDDUDPSocket.h\" ",
            Library = {"pthread", "Ws2_32"},
            __iti_dll = "ITI_MDD.dll");
   end read;
@@ -22,8 +21,7 @@ package UDPSocket_ "Accompanying functions for the UDPSocket object"
     input SerialPackager pkg;
     input Integer dataSize "Size of data";
     external "C" MDD_udpSendP(socket, ipAddress, port, pkg, dataSize)
-    annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
-           Include = "#include \"MDDUDPSocket.h\" ",
+    annotation(Include = "#include \"MDDUDPSocket.h\" ",
            Library = {"pthread", "Ws2_32"},
            __iti_dll = "ITI_MDD.dll");
   end sendTo;
@@ -33,8 +31,7 @@ package UDPSocket_ "Accompanying functions for the UDPSocket object"
     input UDPSocket socket;
     output Integer receivedBytes "number of Bytes received";
     external "C" receivedBytes =  MDD_udpGetReceivedBytes(socket)
-    annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
-           Include = "#include \"MDDUDPSocket.h\" ",
+    annotation(Include = "#include \"MDDUDPSocket.h\" ",
            Library = {"pthread", "Ws2_32"},
            __iti_dll = "ITI_MDD.dll");
   end getReceivedBytes;

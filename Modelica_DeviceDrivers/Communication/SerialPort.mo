@@ -12,8 +12,7 @@ encapsulated function constructor
   input SerialBaudRate baud = 0;
   output SerialPort sPort;
 external "C" sPort = MDD_serialPortConstructor(deviceName, bufferSize, parity,receiver,baud)
-annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
-           Include = "#include \"MDDSerialPort.h\" ",
+annotation(Include = "#include \"MDDSerialPort.h\" ",
            Library = "pthread",
            __iti_dll = "ITI_MDD.dll");
 end constructor;
@@ -22,8 +21,7 @@ encapsulated function destructor
     import Modelica_DeviceDrivers.Communication.SerialPort;
   input SerialPort sPort;
 external "C" MDD_serialPortDestructor(sPort)
-annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
-           Include = "#include \"MDDSerialPort.h\" ",
+annotation(Include = "#include \"MDDSerialPort.h\" ",
            Library = "pthread",
            __iti_dll = "ITI_MDD.dll");
 end destructor;

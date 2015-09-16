@@ -7,8 +7,7 @@ package Functions
     output Real u;
 
   external"C" u=  MDD_utilitiesLoadRealParameter(file, name)
-  annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
-             Include = "#include \"MDDUtilities.h\" ",
+  annotation(Include = "#include \"MDDUtilities.h\" ",
              __iti_dll = "ITI_MDD.dll");
   annotation(Documentation(info="<html>
 <h4><font color=\"#008000\">Load parameters from file during initialization</font></h4>

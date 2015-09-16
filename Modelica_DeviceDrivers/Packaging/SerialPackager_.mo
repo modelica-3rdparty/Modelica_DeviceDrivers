@@ -8,8 +8,7 @@ encapsulated function addReal "Add Modelica Real encoded as double"
   input Real u[:];
   input ByteOrder byteOrder;
   external "C" MDD_SerialPackagerAddDouble(pkg, u, size(u,1), byteOrder)
-  annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
-             Include = "#include \"MDDSerialPackager.h\" ",
+  annotation(Include = "#include \"MDDSerialPackager.h\" ",
              __iti_dll = "ITI_MDD.dll");
 end addReal;
 
@@ -21,8 +20,7 @@ encapsulated function addRealAsFloat
   input Real u[:];
   input ByteOrder byteOrder;
   external "C" MDD_SerialPackagerAddDoubleAsFloat(pkg, u, size(u,1), byteOrder)
-  annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
-             Include = "#include \"MDDSerialPackager.h\" ",
+  annotation(Include = "#include \"MDDSerialPackager.h\" ",
              __iti_dll = "ITI_MDD.dll");
 end addRealAsFloat;
 
@@ -33,8 +31,7 @@ encapsulated function addInteger
   input Integer u[:];
   input ByteOrder byteOrder;
   external "C" MDD_SerialPackagerAddInteger(pkg, u, size(u,1), byteOrder)
-  annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
-             Include = "#include \"MDDSerialPackager.h\" ",
+  annotation(Include = "#include \"MDDSerialPackager.h\" ",
              __iti_dll = "ITI_MDD.dll");
 end addInteger;
 
@@ -44,8 +41,7 @@ encapsulated function addString
   input String u;
   input Integer bufferSize;
   external "C" MDD_SerialPackagerAddString(pkg,u,bufferSize)
-  annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
-             Include = "#include \"MDDSerialPackager.h\" ",
+  annotation(Include = "#include \"MDDSerialPackager.h\" ",
              __iti_dll = "ITI_MDD.dll");
 end addString;
 
@@ -54,8 +50,7 @@ encapsulated function addBoolean
   input SerialPackager pkg;
   input Boolean u[:];
   external "C" MDD_SerialPackagerAddInteger(pkg, u, size(u,1))
-  annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
-             Include = "#include \"MDDSerialPackager.h\" ",
+  annotation(Include = "#include \"MDDSerialPackager.h\" ",
              __iti_dll = "ITI_MDD.dll");
 end addBoolean;
 
@@ -64,8 +59,7 @@ encapsulated function setPos
   input SerialPackager pkg;
   input Integer pos(min=0) "Set current byte position of package to pos";
   external "C" MDD_SerialPackagerSetPos(pkg, pos)
-  annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
-             Include = "#include \"MDDSerialPackager.h\" ",
+  annotation(Include = "#include \"MDDSerialPackager.h\" ",
              __iti_dll = "ITI_MDD.dll");
 end setPos;
 
@@ -74,8 +68,7 @@ encapsulated function getPos
   input SerialPackager pkg;
   output Integer pos(min=0) "Get current byte position of package";
   external "C" pos = MDD_SerialPackagerGetPos(pkg)
-  annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
-             Include = "#include \"MDDSerialPackager.h\" ",
+  annotation(Include = "#include \"MDDSerialPackager.h\" ",
              __iti_dll = "ITI_MDD.dll");
 end getPos;
 
@@ -87,8 +80,7 @@ encapsulated function getReal
   input ByteOrder byteOrder;
   output Real y[n];
   external "C" MDD_SerialPackagerGetDouble(pkg,y,n,byteOrder)
-  annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
-             Include = "#include \"MDDSerialPackager.h\" ",
+  annotation(Include = "#include \"MDDSerialPackager.h\" ",
              __iti_dll = "ITI_MDD.dll");
 end getReal;
 
@@ -101,8 +93,7 @@ encapsulated function getRealFromFloat
   input ByteOrder byteOrder;
   output Real y[n];
   external "C" MDD_SerialPackagerGetFloatAsDouble(pkg,y,n,byteOrder)
-  annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
-             Include = "#include \"MDDSerialPackager.h\" ",
+  annotation(Include = "#include \"MDDSerialPackager.h\" ",
              __iti_dll = "ITI_MDD.dll");
 end getRealFromFloat;
 
@@ -114,8 +105,7 @@ encapsulated function getInteger
   input ByteOrder byteOrder;
   output Integer y[n];
   external "C" MDD_SerialPackagerGetInteger(pkg,y,n,byteOrder)
-  annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
-             Include = "#include \"MDDSerialPackager.h\" ",
+  annotation(Include = "#include \"MDDSerialPackager.h\" ",
              __iti_dll = "ITI_MDD.dll");
 end getInteger;
 
@@ -125,8 +115,7 @@ encapsulated function getString
   input Integer bufferSize;
   output String y;
   external "C" y = MDD_SerialPackagerGetString(pkg, bufferSize)
-  annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
-             Include = "#include \"MDDSerialPackager.h\" ",
+  annotation(Include = "#include \"MDDSerialPackager.h\" ",
              __iti_dll = "ITI_MDD.dll");
 end getString;
 
@@ -136,8 +125,7 @@ encapsulated function getBoolean
   input Integer n;
   output Boolean y[n];
   external "C" MDD_SerialPackagerGetInteger(pkg,y,n)
-  annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
-             Include = "#include \"MDDSerialPackager.h\" ",
+  annotation(Include = "#include \"MDDSerialPackager.h\" ",
              __iti_dll = "ITI_MDD.dll");
 end getBoolean;
 
@@ -145,8 +133,7 @@ encapsulated function resetPointer
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
   input SerialPackager pkg;
   external "C" MDD_SerialPackagerSetPos(pkg, 0)
-  annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
-             Include = "#include \"MDDSerialPackager.h\" ",
+  annotation(Include = "#include \"MDDSerialPackager.h\" ",
              __iti_dll = "ITI_MDD.dll");
 end resetPointer;
 
@@ -154,8 +141,7 @@ encapsulated function clear
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
   input SerialPackager pkg;
   external "C" MDD_SerialPackagerClear(pkg)
-  annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
-             Include = "#include \"MDDSerialPackager.h\" ",
+  annotation(Include = "#include \"MDDSerialPackager.h\" ",
              __iti_dll = "ITI_MDD.dll");
 end clear;
 
@@ -164,8 +150,7 @@ encapsulated function getBufferSize
   input SerialPackager pkg;
   output Integer bufferSize;
   external "C" bufferSize = MDD_SerialPackagerGetSize(pkg)
-  annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
-             Include = "#include \"MDDSerialPackager.h\" ",
+  annotation(Include = "#include \"MDDSerialPackager.h\" ",
              __iti_dll = "ITI_MDD.dll");
 end getBufferSize;
 
@@ -173,8 +158,7 @@ encapsulated function print "Print packager state information"
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
   input SerialPackager pkg;
   external "C" MDD_SerialPackagerPrint(pkg)
-  annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
-             Include = "#include \"MDDSerialPackager.h\" ",
+  annotation(Include = "#include \"MDDSerialPackager.h\" ",
              __iti_dll = "ITI_MDD.dll");
 end print;
 
@@ -187,8 +171,7 @@ encapsulated function integerBitUnpack
   input Integer width "Number of bits that encode the integer value";
   output Integer value "Decoded integer value";
   external "C" value = MDD_SerialPackagerIntegerBitunpack2(pkg, bitOffset, width)
-  annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
-             Include = "#include \"MDDSerialPackager.h\" ",
+  annotation(Include = "#include \"MDDSerialPackager.h\" ",
              __iti_dll = "ITI_MDD.dll");
 end integerBitUnpack;
 
@@ -200,8 +183,7 @@ encapsulated function integerBitPack "Encode integer value at bit level"
   input Integer width "Number of bits that encode the integer value";
   input Integer value(min=0) "Value to encode in with bits";
   external "C" MDD_SerialPackagerIntegerBitpack2(pkg, bitOffset, width, value)
-  annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
-             Include = "#include \"MDDSerialPackager.h\" ",
+  annotation(Include = "#include \"MDDSerialPackager.h\" ",
              __iti_dll = "ITI_MDD.dll");
 end integerBitPack;
 end SerialPackager_;

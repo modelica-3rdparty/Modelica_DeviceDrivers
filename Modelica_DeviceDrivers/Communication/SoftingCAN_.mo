@@ -13,8 +13,7 @@ package SoftingCAN_ "Accompanying functions for the SoftingCAN object"
       "Object number of message. Needed for further queries regarding receiving/transmitting the message";
 
     external "C" objectNumber = MDD_softingCANDefineObject(softingCAN, ident, transType)
-    annotation (IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
-                Include="#include \"MDDSoftingCAN.h\"",
+    annotation (Include="#include \"MDDSoftingCAN.h\"",
                 __iti_dll = "ITI_MDDSoftingCAN.dll");
   end defineObject;
 
@@ -24,8 +23,7 @@ package SoftingCAN_ "Accompanying functions for the SoftingCAN object"
     input SoftingCAN softingCAN "Handle for device";
 
     external "C" MDD_softingCANStartChip(softingCAN)
-    annotation (IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
-                Include="#include \"MDDSoftingCAN.h\"",
+    annotation (Include="#include \"MDDSoftingCAN.h\"",
                 __iti_dll = "ITI_MDDSoftingCAN.dll");
   end startChip;
 
@@ -39,8 +37,7 @@ package SoftingCAN_ "Accompanying functions for the SoftingCAN object"
     input SerialPackager pkg;
 
     external "C" MDD_softingCANWriteObjectP(softingCAN, objectNumber, dataLength, pkg)
-    annotation (IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
-                Include="#include \"MDDSoftingCAN.h\"",
+    annotation (Include="#include \"MDDSoftingCAN.h\"",
                 __iti_dll = "ITI_MDDSoftingCAN.dll");
   end writeObject;
 

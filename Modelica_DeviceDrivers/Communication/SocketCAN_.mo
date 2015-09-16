@@ -11,8 +11,7 @@ package SocketCAN_ "Accompanying functions for the SocketCAN object"
     input SerialPackager pkg;
 
     external "C" MDD_socketCANWriteP(socketCAN, can_id, can_dlc, pkg)
-    annotation (IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
-              Include="#include \"MDDSocketCAN.h\"",
+    annotation (Include="#include \"MDDSocketCAN.h\"",
               Library={"pthread"});
   end write;
 
@@ -25,8 +24,7 @@ package SocketCAN_ "Accompanying functions for the SocketCAN object"
       "length of data in bytes (min=0, max=8)";
 
     external "C" MDD_socketCANDefineObject(socketCAN, can_id, can_dlc)
-    annotation (IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
-              Include="#include \"MDDSocketCAN.h\"",
+    annotation (Include="#include \"MDDSocketCAN.h\"",
               Library={"pthread"});
   end defineObject;
 
@@ -41,8 +39,7 @@ package SocketCAN_ "Accompanying functions for the SocketCAN object"
     input SerialPackager pkg;
 
     external "C" MDD_socketCANReadP(socketCAN, can_id, can_dlc, pkg)
-    annotation (IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
-            Include="#include \"MDDSocketCAN.h\"",
+    annotation (Include="#include \"MDDSocketCAN.h\"",
             Library={"pthread"});
   end readObject;
 end SocketCAN_;

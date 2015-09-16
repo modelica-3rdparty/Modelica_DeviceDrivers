@@ -6,8 +6,7 @@ function realtimeSynchronize
   output Real calculationTime;
   output Real availableTime;
   external "C" calculationTime = MDD_realtimeSynchronize(rtSync, simTime, availableTime)
-  annotation(IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
-           Include = "#include \"MDDRealtimeSynchronize.h\" ",
+  annotation(Include = "#include \"MDDRealtimeSynchronize.h\" ",
            Library = {"rt", "Winmm"},
            __iti_dll = "ITI_MDD.dll");
 annotation(__OpenModelica_Impure=true, __iti_Impure=true);
