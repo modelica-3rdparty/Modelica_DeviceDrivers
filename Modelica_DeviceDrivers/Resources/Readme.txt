@@ -15,7 +15,7 @@ For MS Windows download it from http://www.cmake.org/
 * BUILDING THE SOURCES
 
 Check whether you need to build for 32bit on a native 64bit Linux architecture. If so,
-use "CFLAGS=-m32 CXXFLAGS=-m32 cmake .." instead of "cmake ..". Dymola needs/needed that.
+use "CFLAGS=-m32 CXXFLAGS=-m32 cmake .." instead of "cmake ..".
 So, for Linux do:
 
 mkdir build
@@ -51,5 +51,6 @@ Public Domain Dedication: http://creativecommons.org/publicdomain/zero/1.0/
 
 * CONTACT
 
-Bernhard Thiele (bernhard.thiele@dlr.de)
-Tobias Bellmann (tobias.bellmann@dlr.de)
+Bernhard Thiele (https://github.com/bernhard-thiele)
+Tobias Bellmann (https://github.com/tbellmann)
+tbeu (https://github.com/tbeu)
