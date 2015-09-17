@@ -14,7 +14,8 @@ encapsulated function constructor
 external "C" sPort = MDD_serialPortConstructor(deviceName, bufferSize, parity,receiver,baud)
 annotation(Include = "#include \"MDDSerialPort.h\" ",
            Library = "pthread",
-           __iti_dll = "ITI_MDD.dll");
+           __iti_dll = "ITI_MDD.dll",
+           __iti_dllNoExport = true);
 end constructor;
 
 encapsulated function destructor
@@ -23,7 +24,8 @@ encapsulated function destructor
 external "C" MDD_serialPortDestructor(sPort)
 annotation(Include = "#include \"MDDSerialPort.h\" ",
            Library = "pthread",
-           __iti_dll = "ITI_MDD.dll");
+           __iti_dll = "ITI_MDD.dll",
+           __iti_dllNoExport = true);
 end destructor;
 
 end SerialPort;

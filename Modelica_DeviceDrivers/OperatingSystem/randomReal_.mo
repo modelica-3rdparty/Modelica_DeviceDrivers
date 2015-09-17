@@ -5,6 +5,7 @@ function randomReal_ "returns a random real within the given range."
   output Real y;
   external "C" y = MDD_OS_getRandomNumberDouble(minValue, maxValue)
     annotation (Include = "#include \"MDDOperatingSystem.h\"",
-                __iti_dll = "ITI_MDD.dll");
+                __iti_dll = "ITI_MDD.dll",
+                __iti_dllNoExport = true);
   annotation(__OpenModelica_Impure=true, __iti_Impure=true);
 end randomReal_;

@@ -14,7 +14,8 @@ package SoftingCAN_ "Accompanying functions for the SoftingCAN object"
 
     external "C" objectNumber = MDD_softingCANDefineObject(softingCAN, ident, transType)
     annotation (Include="#include \"MDDSoftingCAN.h\"",
-                __iti_dll = "ITI_MDDSoftingCAN.dll");
+                __iti_dll = "ITI_MDDSoftingCAN.dll",
+                __iti_dllNoExport = true);
   end defineObject;
 
   encapsulated function startChip
@@ -24,7 +25,8 @@ package SoftingCAN_ "Accompanying functions for the SoftingCAN object"
 
     external "C" MDD_softingCANStartChip(softingCAN)
     annotation (Include="#include \"MDDSoftingCAN.h\"",
-                __iti_dll = "ITI_MDDSoftingCAN.dll");
+                __iti_dll = "ITI_MDDSoftingCAN.dll",
+                __iti_dllNoExport = true);
   end startChip;
 
   encapsulated function writeObject
@@ -38,7 +40,8 @@ package SoftingCAN_ "Accompanying functions for the SoftingCAN object"
 
     external "C" MDD_softingCANWriteObjectP(softingCAN, objectNumber, dataLength, pkg)
     annotation (Include="#include \"MDDSoftingCAN.h\"",
-                __iti_dll = "ITI_MDDSoftingCAN.dll");
+                __iti_dll = "ITI_MDDSoftingCAN.dll",
+                __iti_dllNoExport = true);
   end writeObject;
 
   encapsulated function readRcvData "Read data from object (CAN message)"
@@ -51,8 +54,9 @@ package SoftingCAN_ "Accompanying functions for the SoftingCAN object"
 
     external "C" MDD_softingCANReadRcvDataP(softingCAN, objectNumber, pkg)
     annotation (IncludeDirectory="modelica://Modelica_DeviceDrivers/Resources/Include",
-              Include="#include \"MDDSoftingCAN.h\"",
-              __iti_dll = "ITI_MDDSoftingCAN.dll");
+                Include="#include \"MDDSoftingCAN.h\"",
+                __iti_dll = "ITI_MDDSoftingCAN.dll",
+                __iti_dllNoExport = true);
 
   end readRcvData;
 end SoftingCAN_;

@@ -13,7 +13,8 @@ output SoftingCAN softingCAN "Handle for device";
 
   external "C" softingCAN = MDD_softingCANConstructor(deviceName, baudRate)
   annotation (Include="#include \"MDDSoftingCAN.h\"",
-              __iti_dll = "ITI_MDDSoftingCAN.dll");
+              __iti_dll = "ITI_MDDSoftingCAN.dll",
+              __iti_dllNoExport = true);
 end constructor;
 
 encapsulated function destructor "Destroy object, free resources"
@@ -22,7 +23,8 @@ encapsulated function destructor "Destroy object, free resources"
 
   external "C" MDD_softingCANDestructor(softingCAN)
   annotation (Include="#include \"MDDSoftingCAN.h\"",
-              __iti_dll = "ITI_MDDSoftingCAN.dll");
+              __iti_dll = "ITI_MDDSoftingCAN.dll",
+              __iti_dllNoExport = true);
 end destructor;
 
 end SoftingCAN;

@@ -12,7 +12,8 @@ package TCPIPSocketClient_ "Accompanying functions for the TCP/IP socket client 
     external "C" isConnected = MDD_TCPIPClient_Connect(socketClient, ip, port)
     annotation(Include = "#include \"MDDTCPIPSocket.h\" ",
            Library = {"pthread", "Ws2_32"},
-           __iti_dll = "ITI_MDD.dll");
+           __iti_dll = "ITI_MDD.dll",
+           __iti_dllNoExport = true);
   end connect_;
 
   encapsulated function read
@@ -24,7 +25,8 @@ package TCPIPSocketClient_ "Accompanying functions for the TCP/IP socket client 
     external "C" MDD_TCPIPClient_ReadP(socketClient, pkg, dataSize)
     annotation(Include = "#include \"MDDTCPIPSocket.h\" ",
            Library = {"pthread", "Ws2_32"},
-           __iti_dll = "ITI_MDD.dll");
+           __iti_dll = "ITI_MDD.dll",
+           __iti_dllNoExport = true);
   end read;
 
   encapsulated function sendTo
@@ -37,7 +39,8 @@ package TCPIPSocketClient_ "Accompanying functions for the TCP/IP socket client 
     external "C" sendError = MDD_TCPIPClient_SendP(socketClient, pkg, dataSize)
     annotation(Include = "#include \"MDDTCPIPSocket.h\" ",
            Library = {"pthread", "Ws2_32"},
-           __iti_dll = "ITI_MDD.dll");
+           __iti_dll = "ITI_MDD.dll",
+           __iti_dllNoExport = true);
   end sendTo;
 
 end TCPIPSocketClient_;

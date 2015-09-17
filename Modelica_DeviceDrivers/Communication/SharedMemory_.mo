@@ -9,7 +9,8 @@ package SharedMemory_ "Accompanying functions for the SharedMemory object"
     external "C" MDD_SharedMemoryReadP(sm, pkg)
     annotation(Include = "#include \"MDDSharedMemory.h\" ",
            Library = {"rt", "pthread"},
-           __iti_dll = "ITI_MDD.dll");
+           __iti_dll = "ITI_MDD.dll",
+           __iti_dllNoExport = true);
   end read;
 
   encapsulated function write
@@ -21,7 +22,8 @@ package SharedMemory_ "Accompanying functions for the SharedMemory object"
     external "C" MDD_SharedMemoryWriteP(sm, pkg, len)
     annotation(Include = "#include \"MDDSharedMemory.h\" ",
            Library = {"rt", "pthread"},
-           __iti_dll = "ITI_MDD.dll");
+           __iti_dll = "ITI_MDD.dll",
+           __iti_dllNoExport = true);
   end write;
 
   encapsulated function getDataSize
@@ -30,6 +32,7 @@ package SharedMemory_ "Accompanying functions for the SharedMemory object"
     output Integer length;
     external "C" length =  MDD_SharedMemoryGetDataSize(sm)
     annotation(Include = "#include \"MDDSharedMemory.h\" ",
-           __iti_dll = "ITI_MDD.dll");
+           __iti_dll = "ITI_MDD.dll",
+           __iti_dllNoExport = true);
   end getDataSize;
 end SharedMemory_;

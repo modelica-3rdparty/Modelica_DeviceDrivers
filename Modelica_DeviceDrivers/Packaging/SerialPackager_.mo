@@ -9,7 +9,8 @@ encapsulated function addReal "Add Modelica Real encoded as double"
   input ByteOrder byteOrder;
   external "C" MDD_SerialPackagerAddDouble(pkg, u, size(u,1), byteOrder)
   annotation(Include = "#include \"MDDSerialPackager.h\" ",
-             __iti_dll = "ITI_MDD.dll");
+             __iti_dll = "ITI_MDD.dll",
+             __iti_dllNoExport = true);
 end addReal;
 
 encapsulated function addRealAsFloat
@@ -21,7 +22,8 @@ encapsulated function addRealAsFloat
   input ByteOrder byteOrder;
   external "C" MDD_SerialPackagerAddDoubleAsFloat(pkg, u, size(u,1), byteOrder)
   annotation(Include = "#include \"MDDSerialPackager.h\" ",
-             __iti_dll = "ITI_MDD.dll");
+             __iti_dll = "ITI_MDD.dll",
+             __iti_dllNoExport = true);
 end addRealAsFloat;
 
 encapsulated function addInteger
@@ -32,7 +34,8 @@ encapsulated function addInteger
   input ByteOrder byteOrder;
   external "C" MDD_SerialPackagerAddInteger(pkg, u, size(u,1), byteOrder)
   annotation(Include = "#include \"MDDSerialPackager.h\" ",
-             __iti_dll = "ITI_MDD.dll");
+             __iti_dll = "ITI_MDD.dll",
+             __iti_dllNoExport = true);
 end addInteger;
 
 encapsulated function addString
@@ -42,7 +45,8 @@ encapsulated function addString
   input Integer bufferSize;
   external "C" MDD_SerialPackagerAddString(pkg,u,bufferSize)
   annotation(Include = "#include \"MDDSerialPackager.h\" ",
-             __iti_dll = "ITI_MDD.dll");
+             __iti_dll = "ITI_MDD.dll",
+             __iti_dllNoExport = true);
 end addString;
 
 encapsulated function addBoolean
@@ -51,7 +55,8 @@ encapsulated function addBoolean
   input Boolean u[:];
   external "C" MDD_SerialPackagerAddInteger(pkg, u, size(u,1))
   annotation(Include = "#include \"MDDSerialPackager.h\" ",
-             __iti_dll = "ITI_MDD.dll");
+             __iti_dll = "ITI_MDD.dll",
+             __iti_dllNoExport = true);
 end addBoolean;
 
 encapsulated function setPos
@@ -60,7 +65,8 @@ encapsulated function setPos
   input Integer pos(min=0) "Set current byte position of package to pos";
   external "C" MDD_SerialPackagerSetPos(pkg, pos)
   annotation(Include = "#include \"MDDSerialPackager.h\" ",
-             __iti_dll = "ITI_MDD.dll");
+             __iti_dll = "ITI_MDD.dll",
+             __iti_dllNoExport = true);
 end setPos;
 
 encapsulated function getPos
@@ -69,7 +75,8 @@ encapsulated function getPos
   output Integer pos(min=0) "Get current byte position of package";
   external "C" pos = MDD_SerialPackagerGetPos(pkg)
   annotation(Include = "#include \"MDDSerialPackager.h\" ",
-             __iti_dll = "ITI_MDD.dll");
+             __iti_dll = "ITI_MDD.dll",
+             __iti_dllNoExport = true);
 end getPos;
 
 encapsulated function getReal
@@ -81,7 +88,8 @@ encapsulated function getReal
   output Real y[n];
   external "C" MDD_SerialPackagerGetDouble(pkg,y,n,byteOrder)
   annotation(Include = "#include \"MDDSerialPackager.h\" ",
-             __iti_dll = "ITI_MDD.dll");
+             __iti_dll = "ITI_MDD.dll",
+             __iti_dllNoExport = true);
 end getReal;
 
 encapsulated function getRealFromFloat
@@ -94,7 +102,8 @@ encapsulated function getRealFromFloat
   output Real y[n];
   external "C" MDD_SerialPackagerGetFloatAsDouble(pkg,y,n,byteOrder)
   annotation(Include = "#include \"MDDSerialPackager.h\" ",
-             __iti_dll = "ITI_MDD.dll");
+             __iti_dll = "ITI_MDD.dll",
+             __iti_dllNoExport = true);
 end getRealFromFloat;
 
 encapsulated function getInteger
@@ -106,7 +115,8 @@ encapsulated function getInteger
   output Integer y[n];
   external "C" MDD_SerialPackagerGetInteger(pkg,y,n,byteOrder)
   annotation(Include = "#include \"MDDSerialPackager.h\" ",
-             __iti_dll = "ITI_MDD.dll");
+             __iti_dll = "ITI_MDD.dll",
+             __iti_dllNoExport = true);
 end getInteger;
 
 encapsulated function getString
@@ -116,7 +126,8 @@ encapsulated function getString
   output String y;
   external "C" y = MDD_SerialPackagerGetString(pkg, bufferSize)
   annotation(Include = "#include \"MDDSerialPackager.h\" ",
-             __iti_dll = "ITI_MDD.dll");
+             __iti_dll = "ITI_MDD.dll",
+             __iti_dllNoExport = true);
 end getString;
 
 encapsulated function getBoolean
@@ -126,7 +137,8 @@ encapsulated function getBoolean
   output Boolean y[n];
   external "C" MDD_SerialPackagerGetInteger(pkg,y,n)
   annotation(Include = "#include \"MDDSerialPackager.h\" ",
-             __iti_dll = "ITI_MDD.dll");
+             __iti_dll = "ITI_MDD.dll",
+             __iti_dllNoExport = true);
 end getBoolean;
 
 encapsulated function resetPointer
@@ -134,7 +146,8 @@ encapsulated function resetPointer
   input SerialPackager pkg;
   external "C" MDD_SerialPackagerSetPos(pkg, 0)
   annotation(Include = "#include \"MDDSerialPackager.h\" ",
-             __iti_dll = "ITI_MDD.dll");
+             __iti_dll = "ITI_MDD.dll",
+             __iti_dllNoExport = true);
 end resetPointer;
 
 encapsulated function clear
@@ -142,7 +155,8 @@ encapsulated function clear
   input SerialPackager pkg;
   external "C" MDD_SerialPackagerClear(pkg)
   annotation(Include = "#include \"MDDSerialPackager.h\" ",
-             __iti_dll = "ITI_MDD.dll");
+             __iti_dll = "ITI_MDD.dll",
+             __iti_dllNoExport = true);
 end clear;
 
 encapsulated function getBufferSize
@@ -151,7 +165,8 @@ encapsulated function getBufferSize
   output Integer bufferSize;
   external "C" bufferSize = MDD_SerialPackagerGetSize(pkg)
   annotation(Include = "#include \"MDDSerialPackager.h\" ",
-             __iti_dll = "ITI_MDD.dll");
+             __iti_dll = "ITI_MDD.dll",
+             __iti_dllNoExport = true);
 end getBufferSize;
 
 encapsulated function print "Print packager state information"
@@ -159,7 +174,8 @@ encapsulated function print "Print packager state information"
   input SerialPackager pkg;
   external "C" MDD_SerialPackagerPrint(pkg)
   annotation(Include = "#include \"MDDSerialPackager.h\" ",
-             __iti_dll = "ITI_MDD.dll");
+             __iti_dll = "ITI_MDD.dll",
+             __iti_dllNoExport = true);
 end print;
 
 encapsulated function integerBitUnpack
@@ -172,7 +188,8 @@ encapsulated function integerBitUnpack
   output Integer value "Decoded integer value";
   external "C" value = MDD_SerialPackagerIntegerBitunpack2(pkg, bitOffset, width)
   annotation(Include = "#include \"MDDSerialPackager.h\" ",
-             __iti_dll = "ITI_MDD.dll");
+             __iti_dll = "ITI_MDD.dll",
+             __iti_dllNoExport = true);
 end integerBitUnpack;
 
 encapsulated function integerBitPack "Encode integer value at bit level"
@@ -184,6 +201,7 @@ encapsulated function integerBitPack "Encode integer value at bit level"
   input Integer value(min=0) "Value to encode in with bits";
   external "C" MDD_SerialPackagerIntegerBitpack2(pkg, bitOffset, width, value)
   annotation(Include = "#include \"MDDSerialPackager.h\" ",
-             __iti_dll = "ITI_MDD.dll");
+             __iti_dll = "ITI_MDD.dll",
+             __iti_dllNoExport = true);
 end integerBitPack;
 end SerialPackager_;

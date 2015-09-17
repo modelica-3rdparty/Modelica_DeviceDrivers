@@ -8,15 +8,17 @@ class GameController "An object for game controller."
     output GameController gameCtrl;
     external "C" gameCtrl=  MDD_joystickConstructor(joystickID)
       annotation(Include = "#include \"MDDJoystick.h\" ",
-        Library = "Winmm",
-        __iti_dll = "ITI_MDD.dll");
+                 Library = "Winmm",
+                 __iti_dll = "ITI_MDD.dll",
+                 __iti_dllNoExport = true);
   end constructor;
 
   function destructor
     input GameController gameCtrl;
     external "C" MDD_joystickDestructor(gameCtrl)
       annotation(Include = "#include \"MDDJoystick.h\" ",
-        Library = "Winmm",
-        __iti_dll = "ITI_MDD.dll");
+                 Library = "Winmm",
+                 __iti_dll = "ITI_MDD.dll",
+                 __iti_dllNoExport = true);
   end destructor;
 end GameController;

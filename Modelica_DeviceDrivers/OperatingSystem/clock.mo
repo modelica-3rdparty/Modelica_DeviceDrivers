@@ -5,6 +5,7 @@ function clock "the time since OS startup in ms"
 external "C" clock = MDD_getTimeMS(dummy)
 annotation(Include = "#include \"MDDRealtimeSynchronize.h\" ",
            Library = "rt",
-           __iti_dll = "ITI_MDD.dll");
+           __iti_dll = "ITI_MDD.dll",
+           __iti_dllNoExport = true);
 annotation(__OpenModelica_Impure=true, __iti_Impure=true);
 end clock;

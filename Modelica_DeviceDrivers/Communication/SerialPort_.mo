@@ -10,7 +10,8 @@ package SerialPort_ "Accompanying functions for the SerialPort object"
     external "C" MDD_serialPortReadP(sPort, pkg)
     annotation(Include = "#include \"MDDSerialPort.h\" ",
              Library = "pthread",
-           __iti_dll = "ITI_MDD.dll");
+           __iti_dll = "ITI_MDD.dll",
+           __iti_dllNoExport = true);
   end read;
 
   encapsulated function sendTo
@@ -22,7 +23,8 @@ package SerialPort_ "Accompanying functions for the SerialPort object"
     external "C" MDD_serialPortSendP(sPort, pkg, dataSize)
     annotation(Include = "#include \"MDDSerialPort.h\" ",
              Library = "pthread",
-           __iti_dll = "ITI_MDD.dll");
+           __iti_dll = "ITI_MDD.dll",
+           __iti_dllNoExport = true);
   end sendTo;
 
   encapsulated function getReceivedBytes
@@ -32,6 +34,7 @@ package SerialPort_ "Accompanying functions for the SerialPort object"
     external "C" receivedBytes = MDD_serialPortGetReceivedBytes(sPort)
     annotation(Include = "#include \"MDDSerialPort.h\" ",
              Library = "pthread",
-           __iti_dll = "ITI_MDD.dll");
+           __iti_dll = "ITI_MDD.dll",
+           __iti_dllNoExport = true);
   end getReceivedBytes;
 end SerialPort_;

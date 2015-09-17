@@ -9,7 +9,8 @@ package UDPSocket_ "Accompanying functions for the UDPSocket object"
     external "C" MDD_udpReadP(socket, pkg)
     annotation(Include = "#include \"MDDUDPSocket.h\" ",
            Library = {"pthread", "Ws2_32"},
-           __iti_dll = "ITI_MDD.dll");
+           __iti_dll = "ITI_MDD.dll",
+           __iti_dllNoExport = true);
   end read;
 
   encapsulated function sendTo
@@ -23,7 +24,8 @@ package UDPSocket_ "Accompanying functions for the UDPSocket object"
     external "C" MDD_udpSendP(socket, ipAddress, port, pkg, dataSize)
     annotation(Include = "#include \"MDDUDPSocket.h\" ",
            Library = {"pthread", "Ws2_32"},
-           __iti_dll = "ITI_MDD.dll");
+           __iti_dll = "ITI_MDD.dll",
+           __iti_dllNoExport = true);
   end sendTo;
 
   encapsulated function getReceivedBytes
@@ -33,6 +35,7 @@ package UDPSocket_ "Accompanying functions for the UDPSocket object"
     external "C" receivedBytes =  MDD_udpGetReceivedBytes(socket)
     annotation(Include = "#include \"MDDUDPSocket.h\" ",
            Library = {"pthread", "Ws2_32"},
-           __iti_dll = "ITI_MDD.dll");
+           __iti_dll = "ITI_MDD.dll",
+           __iti_dllNoExport = true);
   end getReceivedBytes;
 end UDPSocket_;

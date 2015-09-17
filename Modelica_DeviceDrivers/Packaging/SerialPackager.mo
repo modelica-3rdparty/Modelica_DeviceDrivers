@@ -8,7 +8,8 @@ encapsulated function constructor "Claim the memory"
   output SerialPackager pkg;
   external "C" pkg = MDD_SerialPackagerConstructor(bufferSize)
   annotation(Include = "#include \"MDDSerialPackager.h\" ",
-             __iti_dll = "ITI_MDD.dll");
+             __iti_dll = "ITI_MDD.dll",
+             __iti_dllNoExport = true);
 end constructor;
 
 encapsulated function destructor "Free memory"
@@ -16,7 +17,8 @@ encapsulated function destructor "Free memory"
   input SerialPackager pkg;
   external "C" MDD_SerialPackagerDestructor(pkg)
   annotation(Include = "#include \"MDDSerialPackager.h\" ",
-             __iti_dll = "ITI_MDD.dll");
+             __iti_dll = "ITI_MDD.dll",
+             __iti_dllNoExport = true);
 end destructor;
 
 end SerialPackager;

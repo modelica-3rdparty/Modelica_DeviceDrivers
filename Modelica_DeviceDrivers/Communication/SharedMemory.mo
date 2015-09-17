@@ -10,7 +10,8 @@ extends ExternalObject;
     external "C" sm=   MDD_SharedMemoryConstructor(memoryName,bufferSize)
     annotation(Include = "#include \"MDDSharedMemory.h\" ",
            Library = {"rt", "pthread"},
-           __iti_dll = "ITI_MDD.dll");
+           __iti_dll = "ITI_MDD.dll",
+           __iti_dllNoExport = true);
   end constructor;
 
   encapsulated function destructor
@@ -19,6 +20,7 @@ extends ExternalObject;
     external "C" MDD_SharedMemoryDestructor(sm)
     annotation(Include = "#include \"MDDSharedMemory.h\" ",
            Library = {"rt", "pthread"},
-           __iti_dll = "ITI_MDD.dll");
+           __iti_dll = "ITI_MDD.dll",
+           __iti_dllNoExport = true);
   end destructor;
 end SharedMemory;

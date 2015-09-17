@@ -8,7 +8,8 @@ extends ExternalObject;
   external "C" socketClient = MDD_TCPIPClient_Constructor()
   annotation(Include = "#include \"MDDTCPIPSocket.h\" ",
            Library = {"pthread", "Ws2_32"},
-           __iti_dll = "ITI_MDD.dll");
+           __iti_dll = "ITI_MDD.dll",
+           __iti_dllNoExport = true);
 end constructor;
 
 encapsulated function destructor
@@ -18,7 +19,8 @@ encapsulated function destructor
   external "C" MDD_TCPIPClient_Destructor(socketClient)
   annotation(Include = "#include \"MDDTCPIPSocket.h\" ",
            Library = {"pthread", "Ws2_32"},
-           __iti_dll = "ITI_MDD.dll");
+           __iti_dll = "ITI_MDD.dll",
+           __iti_dllNoExport = true);
 end destructor;
 
 end TCPIPSocketClient;

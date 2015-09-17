@@ -10,7 +10,8 @@ encapsulated function constructor
 external "C" socket = MDD_udpConstructor(port,bufferSize)
 annotation(Include = "#include \"MDDUDPSocket.h\" ",
            Library = {"pthread", "Ws2_32"},
-           __iti_dll = "ITI_MDD.dll");
+           __iti_dll = "ITI_MDD.dll",
+           __iti_dllNoExport = true);
 end constructor;
 
 encapsulated function destructor
@@ -19,7 +20,8 @@ encapsulated function destructor
 external "C" MDD_udpDestructor(socket)
 annotation(Include = "#include \"MDDUDPSocket.h\" ",
            Library = {"pthread", "Ws2_32"},
-           __iti_dll = "ITI_MDD.dll");
+           __iti_dll = "ITI_MDD.dll",
+           __iti_dllNoExport = true);
 end destructor;
 
 end UDPSocket;
