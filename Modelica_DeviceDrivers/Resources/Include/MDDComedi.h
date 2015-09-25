@@ -1,7 +1,7 @@
 /** Linux Comedi DAQ support (header-only library).
  *
  * @file
- * @author      Bernhard Thiele <bernhard.thiele@dlr.de>
+ * @author      bernhard-thiele
  * @since       2012-06-26
  * @copyright Modelica License 2
  *

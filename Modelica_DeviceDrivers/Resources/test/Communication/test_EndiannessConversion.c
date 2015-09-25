@@ -1,7 +1,7 @@
 /** Test for efficient Endianness conversion.
 *
 * @file
-* @author      Bernhard Thiele <bernhard.thiele@dlr.de>
+* @author      bernhard-thiele
 * @since       2013-11-24
 * @copyright Modelica License 2
 * @test Test based on suggestions given at http://stackoverflow.com/questions/2182002/convert-big-endian-to-little-endian-in-c-without-using-provided-func.

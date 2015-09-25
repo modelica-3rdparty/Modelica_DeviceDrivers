@@ -1,8 +1,8 @@
 /** Shared memory support (header-only library).
  *
  * @file
- * @author  Tobias Bellmann <tobias.bellmann@dlr.de> (Windows)
- * @author  Bernhard Thiele <bernhard.thiele@dlr.de> (Linux)
+ * @author  tbellmann (Windows)
+ * @author  bernhard-thiele (Linux)
  * @since   2012-06-04
  * @copyright Modelica License 2
  *

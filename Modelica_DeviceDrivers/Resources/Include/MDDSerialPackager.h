@@ -1,11 +1,11 @@
 /** Serial packager to be used in Modelica (header-only library).
  *
  * @file
- * @author      Bernhard Thiele <bernhard.thiele@dlr.de>
+ * @author      Bernhard Thiele 
  * @since       2012-07-10
  * @copyright Modelica License 2
  *
- * The first version of the packager ("MinimalSerialPackager") was written by Tobias Bellmann <tobias.bellmann@dlr.de>.
+ * The first version of the packager ("MinimalSerialPackager") was written by Tobias Bellmann.
  *
  *
 */

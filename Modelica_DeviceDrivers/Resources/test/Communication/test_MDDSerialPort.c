@@ -1,7 +1,7 @@
 /** Test for MDDSerialPort.
  *
  * @file
- * @author      Bernhard Thiele <bernhard.thiele@dlr.de>
+ * @author      bernhard-thiele
  * @since       2015-03-23
  * @copyright Modelica License 2
  * @test Test for MDDSerialPort.h.

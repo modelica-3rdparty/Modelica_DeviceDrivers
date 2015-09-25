@@ -1,7 +1,7 @@
 /** Test for MDDUDPSocket.
  *
  * @file
- * @author      Bernhard Thiele <bernhard.thiele@dlr.de>
+ * @author      bernhard-thiele
  * @since       2012-05-30
  * @copyright Modelica License 2
  * @test Test for MDDUDPSocket.h.

@@ -1,7 +1,7 @@
 /** Support for processing CAN messages in Modelica (header-only library).
  *
  * @file
- * @author      Bernhard Thiele <bernhard.thiele@dlr.de>
+ * @author      bernhard-thiele
  * @since       2012-06-19
  * @copyright Modelica License 2
  *

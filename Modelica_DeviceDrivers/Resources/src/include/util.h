@@ -1,7 +1,7 @@
 /** Little utility functions.
  *
  * @file
- * @author      Bernhard Thiele <bernhard.thiele@dlr.de>
+ * @author      bernhard-thiele
  * @since       2012-06-06
  * @copyright Modelica License 2
  *

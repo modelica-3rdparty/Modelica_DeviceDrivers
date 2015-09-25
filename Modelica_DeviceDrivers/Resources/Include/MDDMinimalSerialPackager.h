@@ -1,8 +1,8 @@
 /** Minimal serial packager (header-only library).
  *
  * @file
- * @author		Tobias Bellmann <tobias.bellmann@dlr.de>
- * @author		Bernhard Thiele <bernhard.thiele@dlr.de> (little adaptions)
+ * @author		tbellmann
+ * @author		bernhard-thiele (little adaptions)
  * @since		2012-05-30
  * @copyright Modelica License 2
  *

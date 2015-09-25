@@ -1,9 +1,9 @@
 /** Serial port driver support (header-only library).
  *
  * @file
- * @author Bernhard Thiele <bernhard.thiele@dlr.de> (Linux)
- * @author Dominik Sommer <dominik.sommer@dlr.de> (Linux)
- * @author Rangarajan Varadan <svsranga@gmail.com> (Windows)
+ * @author bernhard-thiele (Linux)
+ * @author Dominik Sommer (Linux)
+ * @author Rangarajan Varadan (Windows)
  * @since 2012-05-29
  * @copyright Modelica License 2
  *

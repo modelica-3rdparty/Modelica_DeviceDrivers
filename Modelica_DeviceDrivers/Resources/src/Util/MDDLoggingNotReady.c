@@ -1,7 +1,7 @@
 /** Basic logging stuff (not ready, not used, yet).
  *
  * @file
- * @author      Bernhard Thiele <bernhard.thiele@dlr.de>
+ * @author      bernhard-thiele
  * @since       2012-06-19
  * @copyright Modelica License 2
  *

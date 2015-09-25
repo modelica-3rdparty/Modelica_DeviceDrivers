@@ -1,7 +1,7 @@
 /** Test CAN message encoding/decoding.
  *
  * @file
- * @author      Bernhard Thiele <bernhard.thiele@dlr.de>
+ * @author      bernhard-thiele
  * @since       2012-06-18
  * @copyright Modelica License 2
  * @test Test for MDDCANMessage.h.

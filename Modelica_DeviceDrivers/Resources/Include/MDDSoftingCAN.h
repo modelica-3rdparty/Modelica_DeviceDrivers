@@ -1,8 +1,8 @@
 /** Support for Softing's CANL2 API (header-only library).
  *
  * @file
- * @author      Bernhard Thiele <bernhard.thiele@dlr.de>
- * @author      Miguel Neves <miguel.neves@dlr.de> (human readable error codes)
+ * @author      bernhard-thiele
+ * @author      Miguel Neves (human readable error codes)
  * @since       2012-06-18
  * @copyright Modelica License 2
  *

@@ -1,7 +1,7 @@
 /** Test for Socket CAN support.
  *
  * @file
- * @author      Bernhard Thiele <bernhard.thiele@dlr.de>
+ * @author      bernhard-thiele
  * @since       2012-12-22
  * @copyright Modelica License 2
  * @test Test for MDDSocketCAN.h

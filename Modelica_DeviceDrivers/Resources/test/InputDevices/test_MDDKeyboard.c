@@ -1,7 +1,7 @@
 /** Test for MDDKeyboard.
  *
  * @file
- * @author      Bernhard Thiele <bernhard.thiele@dlr.de>
+ * @author      bernhard-thiele
  * @since       2012-06-01
  * @copyright Modelica License 2
  * @test Interactive test for MDDKeyboard.h.

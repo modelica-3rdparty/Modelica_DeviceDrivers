@@ -1,7 +1,7 @@
 /** @brief Preprocessor definitions supporting compiling Windows and Linux sources from same source.
  *
  * @file        CompatibilityDefs.h
- * @author	Bernhard Thiele <bernhard.thiele@dlr.de>
+ * @author	bernhard-thiele
  * @since	2012-05-25
  * @copyright Modelica License 2
  *

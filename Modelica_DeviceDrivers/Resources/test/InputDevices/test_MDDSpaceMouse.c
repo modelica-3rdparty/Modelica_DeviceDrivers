@@ -1,7 +1,7 @@
 /** Test for MDDSpaceMouse.
  *
  * @file
- * @author	Bernhard Thiele <bernhard.thiele@dlr.de>
+ * @author	bernhard-thiele
  * @since	2012-06-05
  * @copyright Modelica License 2
  * @test Interactive test for MDDSpaceMouse.c.

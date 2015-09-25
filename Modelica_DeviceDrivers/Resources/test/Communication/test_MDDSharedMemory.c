@@ -1,7 +1,7 @@
 /** Test for MDDSharedMemory.
  *
  * @file
- * @author      Bernhard Thiele <bernhard.thiele@dlr.de>
+ * @author      bernhard-thiele
  * @since       2012-06-04
  * @copyright Modelica License 2
  * @test Test for MDDSharedMemory.h.

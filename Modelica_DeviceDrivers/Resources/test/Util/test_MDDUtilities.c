@@ -1,7 +1,7 @@
 /** Test for MDDUtilities.
  *
  * @file
- * @author      Bernhard Thiele <bernhard.thiele@dlr.de>
+ * @author      bernhard-thiele
  * @since       2013-05-24
  * @copyright Modelica License 2
  * @test Test for MDDUtilities.h .

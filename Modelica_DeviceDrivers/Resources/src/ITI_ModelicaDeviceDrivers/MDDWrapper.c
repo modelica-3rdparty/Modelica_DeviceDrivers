@@ -1,7 +1,7 @@
 /** DLLWrapper library - Library wrapping most of the device driver interface functions into one dynamic link library.
  *
  * @file
- * @author		Bernhard Thiele <bernhard.thiele@dlr.de>
+ * @author	bernhard-thiele
  * @since		2014-04-11
  * @copyright Modelica License 2
  *

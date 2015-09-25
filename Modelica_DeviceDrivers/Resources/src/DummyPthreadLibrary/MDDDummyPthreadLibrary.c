@@ -1,7 +1,7 @@
 /** Dummy library for uniform treatment of Modelica external function in windows and linux.
  *
  * @file
- * @author		Bernhard Thiele <bernhard.thiele@dlr.de>
+ * @author		bernhard-thiele
  * @since		2015-03-08
  * @copyright Modelica License 2
  * For linux, various functions need to link against the pthread library.
