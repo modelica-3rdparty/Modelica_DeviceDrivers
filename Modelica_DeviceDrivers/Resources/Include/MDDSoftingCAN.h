@@ -21,7 +21,12 @@
 
 #if defined(_MSC_VER)
 
+#	if !defined(WIN32_LEAN_AND_MEAN)
+#	define WIN32_LEAN_AND_MEAN
+#	endif
 #	include <windows.h>
+#	include <rpc.h>
+#	include <rpcndr.h>
 #	include "../src/include/CompatibilityDefs.h"
 /* CAN LAYER 2 LIBRARY INCLUDE FILES */
 #	include "../thirdParty/softing/Can_def.h"  /* dll import and export definitions */
