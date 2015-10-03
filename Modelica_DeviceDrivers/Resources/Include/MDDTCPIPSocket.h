@@ -1,8 +1,7 @@
 /** TCP/IP socket support (header-only library).
  *
  * @file
- * @author tbellmann (Windows)
- * @author bernhard-thiele (Linux)
+ * @author tbeu (Windows)
  * @since 2015-04-18
  * @copyright Modelica License 2
  *
