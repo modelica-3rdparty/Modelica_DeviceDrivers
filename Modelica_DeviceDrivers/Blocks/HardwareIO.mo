@@ -125,7 +125,7 @@ package HardwareIO
       Integer maxData "Maximal Integer raw value of DAC channel";
       Integer rawData "Raw value written to DAC channel";
       Integer cUnit;
-      final Types.ConverterUnit dummyArray[:]={i for i in Types.ConverterUnit};
+      final constant Types.ConverterUnit dummyArray[:]={i for i in Types.ConverterUnit};
     equation
       when initial() then
       (min, max, cUnit) = Modelica_DeviceDrivers.HardwareIO.Comedi_.get_range(
@@ -181,7 +181,7 @@ package HardwareIO
       Integer maxData "Maximal Integer raw value of DAC channel";
       Integer rawData "Raw value read from ADC channel";
       Integer cUnit;
-      final Types.ConverterUnit dummyArray[:]={i for i in Types.ConverterUnit};
+      final constant Types.ConverterUnit dummyArray[:]={i for i in Types.ConverterUnit};
     equation
       when initial() then
       (min, max, cUnit) = Modelica_DeviceDrivers.HardwareIO.Comedi_.get_range(
