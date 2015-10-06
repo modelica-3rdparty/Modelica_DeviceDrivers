@@ -19,7 +19,7 @@ package Communication
       "Buffer size of shared memory partition in bytes (if not deduced automatically)"
       annotation(Dialog(enable=not autoBufferSize, group="Shared memory partition"));
     parameter String memoryID="sharedMemory" "ID of the shared memory buffer" annotation(Dialog(group="Shared memory partition"));
-    Modelica_DeviceDrivers.Blocks.Interfaces.PackageOut pkgOut(pkg = SerialPackager(if autoBufferSize then bufferSize else userBufferSize))
+    Interfaces.PackageOut pkgOut(pkg = SerialPackager(if autoBufferSize then bufferSize else userBufferSize), dummy(start=0, fixed=true))
       annotation (Placement(
           transformation(
           extent={{-20,-20},{20,20}},
@@ -71,7 +71,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
   protected
     SharedMemory sm = SharedMemory(memoryID, if autoBufferSize then bufferSize else userBufferSize);
     Integer bufferSize;
-    Real dummy;
+    Real dummy(start=0, fixed=true);
   equation
     when initial() then
       pkgIn.userPkgBitSize = if autoBufferSize then -1 else userBufferSize*8;
@@ -111,7 +111,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
     parameter Integer port_recv=10001
       "Listening port number of the server. Must be unique on the system"
       annotation (Dialog(group="Incoming data"));
-    Modelica_DeviceDrivers.Blocks.Interfaces.PackageOut pkgOut(pkg = SerialPackager(if autoBufferSize then bufferSize else userBufferSize))
+    Interfaces.PackageOut pkgOut(pkg = SerialPackager(if autoBufferSize then bufferSize else userBufferSize), dummy(start=0, fixed=true))
       annotation (Placement(transformation(
           extent={{-20,-20},{20,20}},
           rotation=90,
@@ -164,7 +164,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
   protected
     UDPSocket socket = UDPSocket(0);
     Integer bufferSize;
-    Real dummy;
+    Real dummy(start=0, fixed=true);
   equation
     when initial() then
       pkgIn.userPkgBitSize = if autoBufferSize then -1 else userBufferSize*8;
@@ -210,7 +210,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
     parameter Integer parity = 0
       "set parity (0 - no parity, 1 - even, 2 - odd)"
       annotation (Dialog(group="Outgoing data"));
-    Modelica_DeviceDrivers.Blocks.Interfaces.PackageOut pkgOut(pkg = SerialPackager(if autoBufferSize then bufferSize else userBufferSize))
+    Interfaces.PackageOut pkgOut(pkg = SerialPackager(if autoBufferSize then bufferSize else userBufferSize), dummy(start=0, fixed=true))
       annotation (Placement(transformation(
           extent={{-20,-20},{20,20}},
           rotation=90,
@@ -270,7 +270,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
       "set parity (0 - no parity, 1 - even, 2 - odd)"
        annotation (Dialog(group="Outgoing data"));
 
-    Modelica_DeviceDrivers.Blocks.Interfaces.PackageIn pkgIn annotation (
+    Interfaces.PackageIn pkgIn annotation (
         Placement(transformation(
           extent={{-20,-20},{20,20}},
           rotation=270,
@@ -279,7 +279,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
     SerialPort sPort = SerialPort(Serial_Port, bufferSize, parity, receiver, baud); // Creating port object from device
     Integer bufferSize;
     parameter Integer receiver = 0 "Set to be a sender port";
-    Real dummy;
+    Real dummy(start=0, fixed=true);
   equation
     when initial() then
       pkgIn.userPkgBitSize = if autoBufferSize then -1 else userBufferSize*8;
@@ -419,8 +419,8 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
       import Modelica_DeviceDrivers.Utilities.Types;
       import Modelica_DeviceDrivers.Packaging.SerialPackager;
       import SI = Modelica.SIunits;
-    parameter Integer ident(min=0) "Identifier of CAN message (CAN Id)";
-      Modelica_DeviceDrivers.Blocks.Interfaces.PackageOut pkgOut(pkg = SerialPackager(8))
+      parameter Integer ident(min=0) "Identifier of CAN message (CAN Id)";
+      Interfaces.PackageOut pkgOut(pkg = SerialPackager(8), dummy(start=0, fixed=true))
         annotation (Placement(transformation(extent={{-20,-128},{20,-88}})));
     protected
       Integer objectNumber;
@@ -472,11 +472,11 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
       parameter Integer ident(min=0) "Identifier of CAN message (CAN Id)";
       parameter Integer dlc(min=0,max=8) = 8
         "Data length code (payload of data in bytes, max=8)";
-      Modelica_DeviceDrivers.Blocks.Interfaces.PackageIn pkgIn
+      Interfaces.PackageIn pkgIn
         annotation (Placement(transformation(extent={{-20,-128},{20,-88}})));
     protected
       Integer objectNumber;
-      Real dummy;
+      Real dummy(start=0, fixed=true);
     initial equation
       objectNumber =  Modelica_DeviceDrivers.Communication.SoftingCAN_.defineObject(
         softingCANBus.softingCAN,
@@ -651,7 +651,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
       parameter Integer can_id(min=0) "Identifier of CAN message (CAN Id)";
       parameter Integer can_dlc(min=0,max=8) = 8
         "Data length code (payload of data in bytes, max=8)";
-      Modelica_DeviceDrivers.Blocks.Interfaces.PackageOut pkgOut(pkg = SerialPackager(can_dlc))
+      Interfaces.PackageOut pkgOut(pkg = SerialPackager(can_dlc), dummy(start=0, fixed=true))
         annotation (Placement(transformation(extent={{-20,-20},{20,20}},
             rotation=90,
             origin={108,0})));
@@ -703,12 +703,12 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
       parameter Integer can_id(min=0) "Identifier of CAN message (CAN Id)";
       parameter Integer can_dlc(min=0,max=8) = 8
         "Data length code (payload of data in bytes, max=8)";
-      Modelica_DeviceDrivers.Blocks.Interfaces.PackageIn pkgIn
+      Interfaces.PackageIn pkgIn
         annotation (Placement(transformation(extent={{-20,-20},{20,20}},
             rotation=-90,
             origin={-108,0})));
     protected
-      Real dummy;
+      Real dummy(start=0, fixed=true);
     equation
       when initial() then
         pkgIn.userPkgBitSize = can_dlc*8;

@@ -6,11 +6,11 @@ package SerialPackager "Blocks for constructing packages"
     partial block PartialSerialPackager
       parameter Integer nu(min=0,max=1) = 0 "Output connector size"
           annotation(Dialog(connectorSizing=true), HideResult=true);
-      Interfaces.PackageIn pkgIn         annotation (Placement(transformation(
+      Interfaces.PackageIn pkgIn annotation (Placement(transformation(
             extent={{-20,-20},{20,20}},
             rotation=180,
             origin={0,108})));
-      Interfaces.PackageOut pkgOut[nu]
+      Interfaces.PackageOut pkgOut[nu](dummy(each start=0, each fixed=true))
         annotation (Placement(transformation(extent={{-20,-128},{20,-88}})));
     equation
       if nu == 1 then
@@ -193,7 +193,7 @@ package SerialPackager "Blocks for constructing packages"
     parameter Integer userBufferSize = 16*1024
       "Buffer size for package if backward propagation of buffer size is deactivated"
        annotation (Dialog(enable = not useBackwardPropagatedBufferSize, tab="Advanced", group="Buffer size settings"));
-    Interfaces.PackageOut pkgOut(pkg = SerialPackager(if useBackwardPropagatedBufferSize then bufferSize else userBufferSize))
+    Interfaces.PackageOut pkgOut(pkg = SerialPackager(if useBackwardPropagatedBufferSize then bufferSize else userBufferSize), dummy(start=0, fixed=true))
       annotation (Placement(transformation(extent={{-20,-128},{20,-88}})));
     Modelica.Blocks.Interfaces.BooleanInput trigger if                    enableExternalTrigger
       annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
@@ -262,7 +262,7 @@ and one Integer value is added, serialized and finally sent using UDP.
   equation
 
     for i in 1:n loop
-      u_int[i] = if
+      u_int[i] = if 
                    (u[i] == true) then 1 else 0;
     end for;
 
@@ -472,7 +472,7 @@ and one Integer value is added, serialized and finally sent using UDP.
       annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   protected
     Integer y_int[n];
-    Real dummy;
+    Real dummy(start=0, fixed=true);
   equation
     when initial() then
       pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundary( pkgOut[1].autoPkgBitSize)*8 + n*32 else n*32;
@@ -519,7 +519,7 @@ and one Integer value is added, serialized and finally sent using UDP.
     discrete Modelica.Blocks.Interfaces.IntegerOutput y[n](each start=0, each fixed=true)
       annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   protected
-    Real dummy;
+    Real dummy(start=0, fixed=true);
   equation
     when initial() then
       pkgIn.autoPkgBitSize = if nu == 1 then alignAtByteBoundary( pkgOut[1].autoPkgBitSize)*8 + n*32 else n*32;
@@ -562,7 +562,7 @@ and one Integer value is added, serialized and finally sent using UDP.
     discrete Modelica.Blocks.Interfaces.RealOutput y[n](each start=0, each fixed=true)
       annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   protected
-    Real dummy;
+    Real dummy(start=0, fixed=true);
   equation
 
     when initial() then
@@ -609,7 +609,7 @@ and one Integer value is added, serialized and finally sent using UDP.
     discrete Modelica.Blocks.Interfaces.RealOutput y[n](each start=0, each fixed=true)
       annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   protected
-    Real dummy;
+    Real dummy(start=0, fixed=true);
   equation
 
     when initial() then
@@ -652,7 +652,7 @@ and one Integer value is added, serialized and finally sent using UDP.
       "Buffer size (in bytes) reserved for String (ensure that same buffer size is used in corresponding AddString block!)";
     discrete output String data(start="");
   protected
-    Real dummy;
+    Real dummy(start=0, fixed=true);
   equation
 
     when initial() then
@@ -753,7 +753,7 @@ Value of bit                   : (0  0  0  0  0  0  1  1)  (.  .   .  .  .  .  0
     Modelica.Blocks.Interfaces.IntegerOutput y(min=0)
       annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   protected
-    Real dummy;
+    Real dummy(start=0, fixed=true);
   equation
 
     when initial() then
@@ -811,7 +811,7 @@ Value of bit                   :                               0  1  .  .  .  . 
     extends
       Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.PartialSerialPackager;
   protected
-      Real dummy;
+    Real dummy(start=0, fixed=true);
   equation
     when initial() then
       pkgIn.autoPkgBitSize = 0;
