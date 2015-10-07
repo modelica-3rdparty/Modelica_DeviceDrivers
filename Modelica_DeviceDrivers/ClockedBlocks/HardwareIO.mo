@@ -136,7 +136,7 @@ package HardwareIO
       if (not initialized) then
         (min, max, cUnit) :=Modelica_DeviceDrivers.HardwareIO.Comedi_.get_range(
           comedi, subDevice, channel, range);
-        converterUnit :=cUnit + 1; // convert magic int to readable Modelica enumeration value
+        converterUnit := if cUnit == 0 then Types.ConverterUnit.UNIT_volt elseif cUnit == 1 then Types.ConverterUnit.UNIT_mA else Types.ConverterUnit.UNIT_none; // convert magic int to readable Modelica enumeration value
         maxData :=Modelica_DeviceDrivers.HardwareIO.Comedi_.get_maxdata(
           comedi, subDevice, channel);
         initialized :=true;
@@ -146,7 +146,7 @@ package HardwareIO
         rawData = Modelica_DeviceDrivers.HardwareIO.Comedi_.from_phys(
           u, min, max, cUnit, maxData);
         Modelica_DeviceDrivers.HardwareIO.Comedi_.data_write(
-          comedi, subDevice, channel, range, if aref==Types.Aref.AREF_GROUND then 0 elseif aref==Types.Aref.AREF_COMMON then 1 elseif aref==Types.Aref.AREF_DIFF then 2 else 3, rawData);
+          comedi, subDevice, channel, range, if aref == Types.Aref.AREF_GROUND then 0 elseif aref == Types.Aref.AREF_COMMON then 1 elseif aref == Types.Aref.AREF_DIFF then 2 else 3, rawData);
       end when;
 
       annotation (defaultComponentName="dataWrite",
@@ -198,7 +198,7 @@ package HardwareIO
       if (not initialized) then
         (min, max, cUnit) :=Modelica_DeviceDrivers.HardwareIO.Comedi_.get_range(
           comedi, subDevice, channel, range);
-        converterUnit :=cUnit + 1; // convert magic int to readable Modelica enumeration value
+        converterUnit := if cUnit == 0 then Types.ConverterUnit.UNIT_volt elseif cUnit == 1 then Types.ConverterUnit.UNIT_mA else Types.ConverterUnit.UNIT_none; // convert magic int to readable Modelica enumeration value
         maxData :=Modelica_DeviceDrivers.HardwareIO.Comedi_.get_maxdata(
           comedi, subDevice, channel);
         initialized :=true;
@@ -206,7 +206,7 @@ package HardwareIO
     equation
       when Clock() then
         rawData =  Modelica_DeviceDrivers.HardwareIO.Comedi_.data_read(
-          comedi, subDevice, channel, range, if aref==Types.Aref.AREF_GROUND then 0 elseif aref==Types.Aref.AREF_COMMON then 1 elseif aref==Types.Aref.AREF_DIFF then 2 else 3);
+          comedi, subDevice, channel, range, if aref == Types.Aref.AREF_GROUND then 0 elseif aref == Types.Aref.AREF_COMMON then 1 elseif aref == Types.Aref.AREF_DIFF then 2 else 3);
          y =  Modelica_DeviceDrivers.HardwareIO.Comedi_.to_phys(
            rawData, min, max, cUnit, maxData);
       end when;
