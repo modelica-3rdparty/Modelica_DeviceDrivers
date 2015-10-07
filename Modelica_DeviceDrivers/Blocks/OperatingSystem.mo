@@ -1,24 +1,16 @@
 within Modelica_DeviceDrivers.Blocks;
 package OperatingSystem
-    extends Modelica.Icons.Package;
+  extends Modelica.Icons.Package;
 
   block SynchronizeRealtime "A pseudo realtime synchronization"
     extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
-    parameter Boolean setPriority = true "true, if process priority is to be set, otherwise false";
-    parameter
-      Modelica_DeviceDrivers.Blocks.OperatingSystem.Types.ProcessPriority
-      priority = "Normal" "Priority of the simulation process" annotation(Dialog(enable=setPriority));
-    output Real calculationTime "Time needed for calculation";
-    output Real availableTime
-      "Time available for calculation (integrator step size)";
-  protected
-    Modelica_DeviceDrivers.OperatingSystem.ProcessPriority procPrio = Modelica_DeviceDrivers.OperatingSystem.ProcessPriority() if setPriority;
-    Real dummyState(start = 0, fixed=true)
-      "dummy state to be integrated, to force synchronization in every integration step";
-    Modelica_DeviceDrivers.OperatingSystem.RealTimeSynchronization rtSync = Modelica_DeviceDrivers.OperatingSystem.RealTimeSynchronization();
-  equation
-    when initial() then
-      if setPriority then
+
+    block ProcessPriority "Set process priority"
+      extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
+      parameter Types.ProcessPriority priority = "Normal" "Priority of the simulation process";
+      Modelica_DeviceDrivers.OperatingSystem.ProcessPriority procPrio = Modelica_DeviceDrivers.OperatingSystem.ProcessPriority();
+    equation
+      when initial() then
         Modelica_DeviceDrivers.OperatingSystem.setProcessPriority(procPrio,
           if
             (priority == "Idle") then -2 else
@@ -31,11 +23,31 @@ package OperatingSystem
           if
             (priority == "Realtime") then 2 else
           0);
-      end if;
-    end when;
+        end when;
+    annotation (Documentation(info="<html>
+<p>Sets the process priority of the current process. Different priority levels are supported:</p>
+<ul>
+<li>Idle</li>
+<li>Below Normal</li>
+<li>Normal</li>
+<li>High Priority</li>
+<li>Real-Time</li>
+</ul>
+</html>"));
+    end ProcessPriority;
+
+    parameter Boolean setPriority = true "true, if process priority is to be set, otherwise false";
+    parameter Types.ProcessPriority priority = "Normal" "Priority of the simulation process" annotation(Dialog(enable=setPriority));
+    output Modelica.SIunits.Time calculationTime "Time needed for calculation";
+    output Modelica.SIunits.Time availableTime "Time available for calculation (integrator step size)";
+  protected
+    ProcessPriority procPrio(priority = priority) if setPriority;
+    Real dummyState(start = 0, fixed=true) "dummy state to be integrated, to force synchronization in every integration step";
+    Modelica_DeviceDrivers.OperatingSystem.RealTimeSynchronization rtSync = Modelica_DeviceDrivers.OperatingSystem.RealTimeSynchronization();
+  equation
     (calculationTime, availableTime) = Modelica_DeviceDrivers.OperatingSystem.realtimeSynchronize(rtSync, time);
     der(dummyState) = calculationTime;
-    annotation (preferredView="info",
+  annotation (preferredView="info",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
               -100},{100,100}}), graphics={
           Bitmap(extent={{-60,60},{60,-60}}, fileName=
@@ -55,9 +67,9 @@ package OperatingSystem
 </ul>
 <p>Note that the provided level of real-time synchronization is &quot;soft&quot;, meaning that there are no guarantees that deadlines are met or that latencies are restricted to a predictable (low) maximum. This is often enough to satisfy requirements for interactive simulations and can be compared to the real-time experience provided by computer games. However, applications requiring &quot;hard&quot; real-time synchronization (e.g. HIL simulations) are <b>not</b> satisfied!</p>
 <p>Using the &quot;High Priority&quot; and &quot;Real-Time&quot; priorities in Linux will usually require &quot;root&quot; privileges for the simulation process. Using the &quot;Real-Time&quot; priority in Linux with a low-latency kernel as provided by the PREEMPT_RT patch will even provide limited (however, implementation specific limitations given below still apply) &quot;hard&quot; real-time capabilities (see e.g., <a href=\"https://www.osadl.org/Realtime-Linux.projects-realtime-linux.0.html\">https://www.osadl.org/Realtime-Linux.projects-realtime-linux.0.html</a>).</p>
-<p><b>IMPORTANT</b>: This real-time synchronization is a hack. <i><b>Don&apos;t rely on it in any (safety) relevant applications where precise timing is mandatory</b></i>!</p>
+<p><b>IMPORTANT</b>: This real-time synchronization is a hack. <i><b>Do not rely on it in any (safety) relevant application where precise timing is mandatory</b></i>!</p>
 <h4><font color=\"#008000\">Implementation Notes</font></h4>
-<p>The block introduces an equation with a call to an external C-function that takes the current simulation time as an argument. Within the C-function the simulation time is compared to the operating system real-time clock and execution of the thread is halted until simulation time == real-time. This equation will be added to the other model equations and sorted according to the (tool dependent) sorting algorithm. Therefore, no prediction can be made when, within the simulation cycle, the real-time synchronization function is called (e.g., it might be before, or after (external) inputs are read from a device or (external) outputs are written to a device).</p>
+<p>The block introduces an equation with a call to an external C-function that takes the current simulation time as an argument. Within the C-function the simulation time is compared to the operating system real-time clock and execution of the thread is halted until the simulation time equals real-time. This equation will be added to the other model equations and sorted according to the (tool dependent) sorting algorithm. Therefore, no prediction can be made when, within the simulation cycle, the real-time synchronization function is called (e.g., it might be before, or after (external) inputs are read from a device or (external) outputs are written to a device).</p>
 <h4><font color=\"#008000\">Final Remark</font></h4>
 <p>If your Modelica tool provides a better mechanism to real-time synchronization, consider to use that mechanism instead of that block. E.g., Dymola provides a &quot;Synchronize with real-time&quot; option within the solver settings. If that option is ticked the &quot;SynchronizeRealtime&quot; block is not needed! However, Dymola only supports that option for Windows (at least Dymola 2013 and below). Also, experiences of the authors indicate that compile and run-time performance seems sometimes better using the &quot;hackish&quot; block, than using the &quot;official&quot; real-time synchronization of Dymola. Please test for yourself, which option works best for you.</p>
 </html>"));
@@ -66,16 +78,16 @@ package OperatingSystem
   package Types
     extends Modelica.Icons.TypesPackage;
 
-  type ProcessPriority = Modelica.Icons.TypeString
-  annotation (
-    preferredView="text",
-    Evaluate=true,
-    choices(
-      choice="Idle" "Idle",
-      choice="Below normal" "Below normal",
-      choice="Normal" "Normal",
-      choice="High priority" "High priority",
-      choice="Realtime" "Realtime"));
+    type ProcessPriority = Modelica.Icons.TypeString
+    annotation (
+      preferredView="text",
+      Evaluate=true,
+      choices(
+        choice="Idle" "Idle",
+        choice="Below normal" "Below normal",
+        choice="Normal" "Normal",
+        choice="High priority" "High priority",
+        choice="Realtime" "Realtime"));
   end Types;
 
   block RandomRealSource
@@ -90,8 +102,7 @@ package OperatingSystem
   equation
     when sample(0, sampleTime) then
       for i in 1:n loop
-        y[i] = Modelica_DeviceDrivers.OperatingSystem.randomReal(minValue[i],
-          maxValue[i]);
+        y[i] = Modelica_DeviceDrivers.OperatingSystem.randomReal(minValue[i], maxValue[i]);
       end for;
     end when;
     annotation (preferredView="info",
