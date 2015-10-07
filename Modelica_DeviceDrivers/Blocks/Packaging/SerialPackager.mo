@@ -750,7 +750,7 @@ Value of bit                   : (0  0  0  0  0  0  1  1)  (.  .   .  .  .  .  0
     parameter Integer bitOffset = 0
       "Bit offset from current packager position until first encoding bit";
     parameter Integer width = 32 "Number of bits that encode the integer value";
-    Modelica.Blocks.Interfaces.IntegerOutput y(min=0)
+    Modelica.Blocks.Interfaces.IntegerOutput y(min=0, start=0, fixed=true)
       annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   protected
     Real dummy(start=0, fixed=true);
