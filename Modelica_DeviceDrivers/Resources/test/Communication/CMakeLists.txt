@@ -40,6 +40,10 @@ endif (UNIX)
 add_test(test_MDDSharedMemory
   ${EXECUTABLE_OUTPUT_PATH}/test_MDDSharedMemory)
 
+add_executable(test_MDDSerialPort test_MDDSerialPort.c ../Util/ModelicaUtilities.c)
+add_test(test_MDDSerialPort 
+	${EXECUTABLE_OUTPUT_PATH}/test_MDDSerialPort)
+
 add_executable(test_EndiannessConversion
   test_EndiannessConversion.c ../Util/ModelicaUtilities.c)
 add_test(test_EndiannessConversion
