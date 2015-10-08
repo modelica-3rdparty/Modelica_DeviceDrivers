@@ -23,7 +23,7 @@ package OperatingSystem
           if
             (priority == "Realtime") then 2 else
           0);
-        end when;
+      end when;
     annotation (Documentation(info="<html>
 <p>Sets the process priority of the current process. Different priority levels are supported:</p>
 <ul>
