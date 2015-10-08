@@ -41,6 +41,9 @@ add_test(test_MDDSharedMemory
   ${EXECUTABLE_OUTPUT_PATH}/test_MDDSharedMemory)
 
 add_executable(test_MDDSerialPort test_MDDSerialPort.c ../Util/ModelicaUtilities.c)
+if (UNIX)
+  target_link_libraries(test_MDDSerialPort ${CMAKE_THREAD_LIBS_INIT})
+endif (UNIX)
 add_test(test_MDDSerialPort 
 	${EXECUTABLE_OUTPUT_PATH}/test_MDDSerialPort)
 
