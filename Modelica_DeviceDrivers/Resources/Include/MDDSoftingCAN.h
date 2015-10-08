@@ -33,7 +33,7 @@
 #	include "../thirdParty/softing/CANL2.H"    /* definition of the API functions and the structures */
 #	include "ModelicaUtilities.h"
 #	include "MDDCANMessage.h"
-#   include "MDDSerialPackager.h"
+#	include "MDDSerialPackager.h"
 #	if defined(MDDSOFTINGCANUSECMAKE)
 /* use cmake to resolve linking dependencies */
 #	else

@@ -19,12 +19,12 @@
 #ifndef MDDUDPSocket_H_
 #define MDDUDPSocket_H_
 
+#if !defined(ITI_COMP_SIM)
+
 #include "ModelicaUtilities.h"
 #include "MDDSerialPackager.h"
 
 #if defined(_MSC_VER) || defined(__MINGW32__)
-
-#if !defined(ITI_COMP_SIM)
 
 #include <winsock2.h>
 #include "../src/include/CompatibilityDefs.h"
@@ -219,8 +219,6 @@ DllExport int MDD_udpGetReceivedBytes(void * p_udp) {
     }
     return receivedBytes;
 }
-
-#endif /* !defined(ITI_COMP_SIM) */
 
 #elif defined(__linux__) || defined(__CYGWIN__)
 
@@ -660,5 +658,7 @@ void MDD_udpDestructor(void * p_udp) {
 #error "Modelica_DeviceDrivers: No support of UDPSocket for your platform"
 
 #endif /* defined(_MSC_VER) */
+
+#endif /* !defined(ITI_COMP_SIM) */
 
 #endif /* MDDUDPSocket_H_ */

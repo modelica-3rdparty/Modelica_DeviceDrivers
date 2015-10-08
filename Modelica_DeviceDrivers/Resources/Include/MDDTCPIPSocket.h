@@ -10,12 +10,12 @@
 #ifndef MDDTCPIPSocket_H_
 #define MDDTCPIPSocket_H_
 
+#if !defined(ITI_COMP_SIM)
+
 #include "ModelicaUtilities.h"
 #include "MDDSerialPackager.h"
 
 #if defined(_MSC_VER) || defined(__MINGW32__)
-
-#if !defined(ITI_COMP_SIM)
 
 #include <ws2tcpip.h>
 #include <stdio.h>
@@ -183,12 +183,12 @@ DllExport void MDD_TCPIPClient_ReadP(void * p_tcpip, void* p_package, int recvbu
     }
 }
 
-#endif /* !defined(ITI_COMP_SIM) */
-
 #else
 
 #error "Modelica_DeviceDrivers: No support of TCP/IP Socket for your platform"
 
 #endif /* defined(_MSC_VER) */
+
+#endif /* !defined(ITI_COMP_SIM) */
 
 #endif /* MDDTCPIPSocket_H_ */

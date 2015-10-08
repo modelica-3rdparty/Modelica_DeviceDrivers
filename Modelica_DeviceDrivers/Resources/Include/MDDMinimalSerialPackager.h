@@ -9,8 +9,8 @@
  * @deprecated This packager has been replaced by MDDSerialPackager.h
  */
 
-#ifndef MDDMinimalSerialPackager_H_
-#define MDDMinimalSerialPackager_H_
+#ifndef MDDMINIMALSERIALPACKAGER_H_
+#define MDDMINIMALSERIALPACKAGER_H_
 
 #include <stdlib.h>
 #include <string.h>
@@ -170,4 +170,4 @@ int MSP_getBufferSize( int  p_MSP_PackagerData) {
     return MSP_PackagerData->bufferSize;
 }
 
-#endif /* MDDMinimalSerialPackager_H_ */
+#endif /* MDDMINIMALSERIALPACKAGER_H_ */

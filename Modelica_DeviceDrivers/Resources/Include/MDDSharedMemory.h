@@ -11,12 +11,12 @@
 #ifndef MDDSHAREDMEMORY_H_
 #define MDDSHAREDMEMORY_H_
 
+#if !defined(ITI_COMP_SIM)
+
 #include "ModelicaUtilities.h"
 #include "MDDSerialPackager.h"
 
 #if defined(_MSC_VER) || defined(__CYGWIN__) || defined(__MINGW32__)
-
-#if !defined(ITI_COMP_SIM)
 
 #if !defined(WIN32_LEAN_AND_MEAN)
 #define WIN32_LEAN_AND_MEAN
@@ -143,8 +143,6 @@ DllExport void MDD_SharedMemoryWrite(void * p_smb, const char * buffer, int len)
 DllExport void MDD_SharedMemoryWriteP(void * p_smb, void* p_package, int len) {
     MDD_SharedMemoryWrite(p_smb, MDD_SerialPackagerGetData(p_package), len);
 }
-
-#endif /* !defined(ITI_COMP_SIM) */
 
 #elif defined(__linux__)
 
@@ -343,5 +341,7 @@ int MDD_SharedMemoryGetDataSize(void * p_smb) {
 #error "Modelica_DeviceDrivers: No support of shared memory for your platform"
 
 #endif /* defined(_MSC_VER) */
+
+#endif /* !defined(ITI_COMP_SIM) */
 
 #endif /* MDDSHAREDMEMORY_H_ */

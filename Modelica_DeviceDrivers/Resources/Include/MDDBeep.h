@@ -10,11 +10,11 @@
 #ifndef MDDBEEP_H_
 #define MDDBEEP_H_
 
+#if !defined(ITI_COMP_SIM)
+
 #include "ModelicaUtilities.h"
 
 #if defined(_MSC_VER) || defined(__CYGWIN__) || defined(__MINGW32__)
-
-#if !defined(ITI_COMP_SIM)
 
 #if !defined(WIN32_LEAN_AND_MEAN)
 #define WIN32_LEAN_AND_MEAN
@@ -34,8 +34,6 @@ DllExport double MDD_beep(double frequency, double duration) {
     Beep(freq,duration_ms);
     return 0;
 }
-
-#endif /* !defined(ITI_COMP_SIM) */
 
 #elif defined(__linux__)
 
@@ -67,5 +65,7 @@ double MDD_beep(double frequency, double duration) {
 #error "Modelica_DeviceDrivers: No support of MDD_beep(..) for your platform"
 
 #endif /* defined(_MSC_VER) */
+
+#endif /* !defined(ITI_COMP_SIM) */
 
 #endif /* MDDBEEP_H_ */

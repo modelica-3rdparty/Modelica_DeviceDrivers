@@ -12,12 +12,12 @@
 #ifndef MDDSERIALPORT_H_
 #define MDDSERIALPORT_H_
 
+#if !defined(ITI_COMP_SIM)
+
 #include "ModelicaUtilities.h"
 #include "MDDSerialPackager.h"
 
 #if defined(_MSC_VER) || defined(__CYGWIN__) || defined(__MINGW32__)
-
-#if !defined(ITI_COMP_SIM)
 
 #if !defined(WIN32_LEAN_AND_MEAN)
 #define WIN32_LEAN_AND_MEAN
@@ -327,8 +327,6 @@ DllExport int MDD_serialPortGetReceivedBytes(void * p_serial) {
     }
     return receivedBytes;
 }
-
-#endif /* !defined(ITI_COMP_SIM) */
 
 #elif defined(__linux__)
 
@@ -683,5 +681,7 @@ void MDD_serialPortDestructor(void * p_serial) {
 #error "Modelica_DeviceDrivers: No serial port support for your platform"
 
 #endif /* defined(__linux__) */
+
+#endif /* !defined(ITI_COMP_SIM) */
 
 #endif /* MDDSERIALPORT_H_ */

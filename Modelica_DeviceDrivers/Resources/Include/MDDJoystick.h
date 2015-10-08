@@ -12,11 +12,11 @@
 #ifndef MDDJOYSTICK_H_
 #define MDDJOYSTICK_H_
 
+#if !defined(ITI_COMP_SIM)
+
 #include "ModelicaUtilities.h"
 
 #if defined(_MSC_VER) || defined(__CYGWIN__) || defined(__MINGW32__)
-
-#if !defined(ITI_COMP_SIM)
 
 #if !defined(WIN32_LEAN_AND_MEAN)
 #define WIN32_LEAN_AND_MEAN
@@ -114,8 +114,6 @@ DllExport void MDD_joystickGetData(void* jsObj, double * pdAxes, int * piButtons
         }
     }
 }
-
-#endif /* !defined(ITI_COMP_SIM) */
 
 #elif defined(__linux__)
 
@@ -237,5 +235,7 @@ void MDD_joystickGetData(void* jsObj, double * pdAxes, int * piButtons, int * pi
 #error "Modelica_DeviceDrivers: No support of MDDJoystick for your platform"
 
 #endif /* defined(_MSC_VER) */
+
+#endif /* !defined(ITI_COMP_SIM) */
 
 #endif /* MDDJOYSTICK_H_ */

@@ -30,11 +30,11 @@
 #ifndef MDDKEYBOARD_H_
 #define MDDKEYBOARD_H_
 
+#if !defined(ITI_COMP_SIM)
+
 #include "ModelicaUtilities.h"
 
 #if defined(_MSC_VER) || defined(__CYGWIN__) || defined(__MINGW32__)
-
-#if !defined(ITI_COMP_SIM)
 
 #if !defined(WIN32_LEAN_AND_MEAN)
 #define WIN32_LEAN_AND_MEAN
@@ -116,8 +116,6 @@ DllExport void MDD_keyboardGetData(int * piKeyState) {
         piKeyState[9] = 0;
     }
 }
-
-#endif /* !defined(ITI_COMP_SIM) */
 
 #elif defined(__linux__)
 
@@ -373,5 +371,7 @@ void MDD_keyboardGetData(int * piKeyState) {
 #error "Modelica_DeviceDrivers: No Keyboard support for your platform"
 
 #endif /* defined(_MSC_VER) */
+
+#endif /* !defined(ITI_COMP_SIM) */
 
 #endif /* MDDKEYBOARD_H_ */
