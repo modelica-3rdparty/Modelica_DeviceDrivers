@@ -26,6 +26,9 @@ The second interface uses the synchronous language elements introduced in Modeli
  - [X] Internal documentation (documentation, interfaces, etc.)
  - [X] Existed and maintained for at least 6 months
 
+## Build status
+[![Build Status](https://drone.io/github.com/modelica/Modelica_DeviceDrivers/status.png)](https://drone.io/github.com/modelica/Modelica_DeviceDrivers/latest)
+
 ## Current release
 
 Download [Modelica_DeviceDrivers latest release](../../releases/latest)
