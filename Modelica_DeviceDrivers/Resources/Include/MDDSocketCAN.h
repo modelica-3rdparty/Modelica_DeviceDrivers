@@ -326,7 +326,7 @@ int MDD_socketCANRxThread(MDDSocketCAN * mDDSocketCAN) {
                 break;
             case 1: /* new data available */
                 if(sock_poll.revents & POLLHUP) {
-                    ModelicaFormatError("SocketCAN (%s): The CAN socket was disconnected.\n",
+                    ModelicaFormatError("MDDSocketCAN.h: (%s): The CAN socket was disconnected.\n",
                                         mDDSocketCAN->ifr.ifr_name);
                 }
                 else {

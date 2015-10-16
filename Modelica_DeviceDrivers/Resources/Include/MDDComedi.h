@@ -26,12 +26,12 @@
 void* MDD_comedi_open(const char* devicename) {
     comedi_t* device;
 
-    ModelicaFormatMessage("MDDComedi: Opening device %s (needs special (root) privileges!) ..", devicename);
+    ModelicaFormatMessage("MDDComedi.h: Opening device %s (needs special (root) privileges!) ..", devicename);
 
     device = comedi_open(devicename);
 
     if(device == NULL) {
-        ModelicaFormatError("\nMDDComedi.h: comedi_open failure (%s)\n",
+        ModelicaFormatError("MDDComedi.h: comedi_open failure (%s)\n",
                             comedi_strerror(comedi_errno()) );
     }
     ModelicaFormatMessage("\tOK (fd=%d).\n", comedi_fileno(device));
@@ -123,11 +123,11 @@ int MDD_comedi_set_global_oor_behavior(int behavior) {
     enum comedi_oor_behavior oldBehavior;
 
     if (behavior >= 2) {
-        ModelicaFormatError("MDDComedi: Error, not valid argument to MDD_comedi_set_global_oor_behavior (was %d).\n",
+        ModelicaFormatError("MDDComedi.h: Error, not valid argument to MDD_comedi_set_global_oor_behavior (was %d).\n",
                             behavior);
     }
 
-    ModelicaFormatMessage("MDDComedi: Setting the global out-of-range behavior to %s\n",
+    ModelicaFormatMessage("MDDComedi.h: Setting the global out-of-range behavior to %s\n",
                           behavior == COMEDI_OOR_NAN ? "COMEDI_OOR_NAN => endpoint values are converted to NAN"
                           : "COMEDI_OOR_NUMBER => the endpoint values are converted similarly to other values");
     oldBehavior = comedi_set_global_oor_behavior(behavior);

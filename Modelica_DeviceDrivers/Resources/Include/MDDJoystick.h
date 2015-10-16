@@ -200,7 +200,7 @@ void MDD_joystickGetData(void* jsObj, double * pdAxes, int * piButtons, int * pi
         }
 
         if (errno != EAGAIN) {
-            ModelicaError("\nMDDJoystick.h: error reading\n");
+            ModelicaError("MDDJoystick.h: error reading\n");
         }
 
         /* output axes (default to 0): */

@@ -27,7 +27,7 @@ DllExport double MDD_utilitiesLoadRealParameter(const char * file, const char * 
 
     //file existent?
     if (pFile==NULL) {
-        ModelicaFormatError("Could not open file %s.\n",file);
+        ModelicaFormatError("MDDUtilities.h: Could not open file %s.\n",file);
     }
 
     //read every line of file one after another:
@@ -53,7 +53,7 @@ DllExport double MDD_utilitiesLoadRealParameter(const char * file, const char * 
     }
 
     fclose (pFile);
-    ModelicaFormatError("Parameter name not found: %s",name);
+    ModelicaFormatError("MDDUtilities.h: Parameter name not found: %s",name);
     return 0;
 }
 

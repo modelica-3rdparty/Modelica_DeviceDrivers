@@ -385,7 +385,7 @@ const char * MDD_udpNonBlockingRead(void * p_udp) {
 
         case 1: /* new data available */
             if(sock_poll.revents & POLLHUP) {
-                ModelicaFormatError("The UDP socket was disconnected. Exiting.\n");
+                ModelicaFormatError("MDDUDPSocket.h: The UDP socket was disconnected. Exiting.\n");
             }
             else {
                 char* udpBuf = ModelicaAllocateString(udp->messageLength);
@@ -447,7 +447,7 @@ void MDD_udpNonBlockingReadP(void * p_udp, void* p_package) {
 
         case 1: /* new data available */
             if(sock_poll.revents & POLLHUP) {
-                ModelicaFormatError("The UDP socket was disconnected. Exiting.\n");
+                ModelicaFormatError("MDDUDPSocket.h: The UDP socket was disconnected. Exiting.\n");
             }
             else {
                 int rc;

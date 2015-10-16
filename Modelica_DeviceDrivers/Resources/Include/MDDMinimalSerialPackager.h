@@ -45,7 +45,7 @@ void MSP_addReal(int p_MSP_PackagerData, double * u,  int n) {
     /* ModelicaFormatMessage(\"addReal: pos: %d \\n\",MSP_PackagerData->pos); */
     /* check bufferSize */
     if(MSP_PackagerData->pos + typeSize*n > MSP_PackagerData->bufferSize) {
-        ModelicaFormatError("SimpleSerialPackager: Buffer overflow.");
+        ModelicaFormatError("MDDMinimalSerialPackager.h: Buffer overflow.");
     }
 
     /* copy data in buffer */
@@ -61,7 +61,7 @@ void MSP_addInteger(int p_MSP_PackagerData, int * u, int n) {
     /* ModelicaFormatMessage(\"addInteger: pos: %d \\n\",MSP_PackagerData->pos); */
     /* check bufferSize */
     if(MSP_PackagerData->pos + typeSize*n > MSP_PackagerData->bufferSize) {
-        ModelicaFormatError("SimpleSerialPackager: Buffer overflow.");
+        ModelicaFormatError("MDDMinimalSerialPackager.h: Buffer overflow.");
     }
 
     /* copy data in buffer */
