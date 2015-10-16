@@ -26,6 +26,8 @@
 #include <stdlib.h>
 #include "../src/include/CompatibilityDefs.h"
 
+#pragma comment( lib, "Winmm.lib" )
+
 /** Joystick object */
 typedef struct {
     int iJSID;
