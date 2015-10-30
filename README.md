@@ -28,7 +28,6 @@ The second interface uses the synchronous language elements introduced in Modeli
 
 ## Build status
 [![Build Status](https://drone.io/github.com/modelica/Modelica_DeviceDrivers/status.png)](https://drone.io/github.com/modelica/Modelica_DeviceDrivers/latest)
-
 [![Build Status](https://travis-ci.org/modelica/Modelica_DeviceDrivers.svg)](https://travis-ci.org/modelica/Modelica_DeviceDrivers)
 
 ## Current release
