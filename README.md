@@ -1,4 +1,7 @@
 # Modelica_DeviceDrivers
+
+[![Build Status](https://travis-ci.org/modelica/Modelica_DeviceDrivers.svg)](https://travis-ci.org/dietmarw/Modelica_DeviceDrivers)
+
 Free library for interfacing hardware drivers to Modelica models.
 There is support for joysticks, keyboards, UDP, TCP/IP, shared memory, AD/DA converters, serial port and other devices.
 
