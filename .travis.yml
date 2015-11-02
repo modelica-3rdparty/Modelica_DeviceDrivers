@@ -6,19 +6,22 @@ git:
 addons:
   apt:
     sources:
-    - ubuntu-toolchain-r-test
+      - ubuntu-toolchain-r-test
     packages:
-    - gcc-4.8-multilib
-    - linux-libc-dev:i386
+      - gcc-4.8-multilib
+      - linux-libc-dev:i386
 
 before_install:
    - sudo apt-get update -qq
    - sudo apt-get install -qq libX11-dev:i386
 
+compiler:
+  - gcc-4.8
+
 script:
   - cd Modelica_DeviceDrivers/Resources
   # 32bit:
-  - cmake -DCMAKE_C_COMPILER="gcc-4.8" -DCMAKE_C_FLAGS="-O3 -msse2 -DNDEBUG -m32 -fPIC" ./
+  - cmake -DCMAKE_C_FLAGS="-O3 -msse2 -DNDEBUG -m32 -fPIC" ./
   - make
   - cd test/Util
   - ./test_MDDMapIntInt
@@ -37,7 +40,7 @@ script:
   - ./test_MDDUDPSocket
   - cd ../..
   # 64bit:
-  - cmake -DCMAKE_C_COMPILER="gcc-4.8" -DCMAKE_C_FLAGS="-O3 -DNDEBUG -fPIC" ./
+  - cmake -DCMAKE_C_FLAGS="-O3 -DNDEBUG -fPIC" ./
   - make
   - cd test/Util
   - ./test_MDDMapIntInt
