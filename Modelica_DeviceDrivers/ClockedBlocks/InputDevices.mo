@@ -28,7 +28,7 @@ package InputDevices
     end when;
 
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}), graphics={Bitmap(extent={{-86,88},{88,-88}},
+              -100},{100,100}}), graphics={Bitmap(extent={{-86,-88},{88,88}},
               fileName="modelica://Modelica_DeviceDrivers/Resources/Images/Icons/joystick.png"),
                                                                   Text(extent={
                 {-150,140},{150,100}}, textString="%name")}),
@@ -184,7 +184,7 @@ package InputDevices
 
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}), graphics={Text(extent={{-150,140},{150,100}},
-              textString="%name"), Bitmap(extent={{-86,88},{88,-88}}, fileName=
+              textString="%name"), Bitmap(extent={{-86,-88},{88,88}}, fileName=
                 "modelica://Modelica_DeviceDrivers/Resources/Images/Icons/Spacemouse.png")}),
               preferredView="info",Documentation(info="<html>
 <p>This block reads data from the 3Dconnexion SpaceMouse. It provides the six axis and up to sixteen button inputs. Note, that only the first SpaceMouse attached on the system can be read.The input values ranges between approx. -1 and 1 and can be scaled by the vector <b>gain</b>.</p>

@@ -21,7 +21,7 @@ package HardwareIO
             Text(
               extent={{-98,72},{94,46}},
               textString="%deviceName"),
-              Bitmap(extent={{-96,20},{10,-92}}, fileName=
+              Bitmap(extent={{-96,-92},{10,20}}, fileName=
                   "modelica://Modelica_DeviceDrivers/Resources/Images/Icons/gears.png")}),
         Documentation(info="<html>
 <p>Record for configuring a Comedi device. At initialization time the comedi device given by the parameter <code>deviceName </code>will be opened and a handle to that device will be assigned to the final parameter<code> dh.</code>This handle needs to be passed as parameter to the remaining Comedi read and write blocks<code>.</code></p>

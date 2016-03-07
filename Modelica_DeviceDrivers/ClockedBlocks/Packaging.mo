@@ -187,8 +187,7 @@ package Packaging
         "true, use backward propagated (automatic) buffer size for package (default!), otherwise use manually specified buffer size below"
         annotation(Dialog(tab="Advanced"), choices(checkBox=true));
       parameter Integer userBufferSize = 16*1024
-        "Buffer size for package if backward propagation of buffer size is deactivated"
-                                                                                        annotation (Dialog(enable = not useBackwardPropagatedBufferSize, tab="Advanced"));
+        "Buffer size for package if backward propagation of buffer size is deactivated" annotation (Dialog(enable = not useBackwardPropagatedBufferSize, tab="Advanced"));
 
       Interfaces.PackageOut        pkgOut
         annotation (Placement(transformation(extent={{-20,-128},{20,-88}})));
@@ -222,7 +221,7 @@ package Packaging
       pkgOut.dummy = DummyFunctions.clear(pkgOut.pkg, dummy);
 
       annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-                -100},{100,100}}), graphics={Bitmap(extent={{-70,70},{70,-70}},
+                -100},{100,100}}), graphics={Bitmap(extent={{-70,-70},{70,70}},
                 fileName="Modelica://Modelica_DeviceDrivers/Resources/Images/Icons/package.png")}));
     end Packager;
 
@@ -371,7 +370,7 @@ package Packaging
               fillPattern=FillPattern.Solid,
               fillColor={0,0,255},
               textString="R"),
-            Bitmap(extent={{-42,22},{18,-22}}, fileName=
+            Bitmap(extent={{-42,-22},{18,22}}, fileName=
                   "modelica://Modelica_DeviceDrivers/Resources/Images/Icons/Real2FloatArrow.png")}));
     end AddFloat;
 
@@ -577,7 +576,7 @@ package Packaging
             Text(
               extent={{-100,-50},{100,-90}},
               textString="%n * float"),
-            Bitmap(extent={{-18,20},{48,-19}}, fileName=
+            Bitmap(extent={{-18,-19},{48,20}}, fileName=
                   "modelica://Modelica_DeviceDrivers/Resources/Images/Icons/Float2RealArrow.png")}));
     end GetFloat;
 
@@ -650,7 +649,7 @@ package Packaging
               fillColor={0,0,127},
               fillPattern=FillPattern.Solid,
               textString="%bitOffset + %width bits"),
-            Bitmap(extent={{-56,19},{8,-20}}, fileName=
+            Bitmap(extent={{-56,-20},{8,19}}, fileName=
                   "Modelica://Modelica_DeviceDrivers/Resources/Images/Icons/Int2BitArrow.png")}),
         Documentation(info="<html>
 <p>Currently, the pack block only supports Intel-Endiannes (<b>little-endian!</b>).</p>
@@ -684,7 +683,7 @@ package Packaging
 
       annotation (defaultComponentName="unpackInt",
         Icon(graphics={
-            Bitmap(extent={{-7,19},{57,-20}}, fileName=
+            Bitmap(extent={{-7,-20},{57,19}}, fileName=
                   "Modelica://Modelica_DeviceDrivers/Resources/Images/Icons/Bit2IntArrow.png"),
             Text(
               extent={{-100,-50},{100,-90}},

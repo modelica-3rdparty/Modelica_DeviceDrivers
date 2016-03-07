@@ -57,7 +57,7 @@ package OperatingSystem
     annotation (preferredView="info",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
               -100},{100,100}}), graphics={
-          Bitmap(extent={{-60,60},{60,-60}}, fileName=
+          Bitmap(extent={{-60,-60},{60,60}}, fileName=
                 "modelica://Modelica_DeviceDrivers/Resources/Images/Icons/clock.png"),
           Text(
             extent={{-100,-100},{100,-140}},

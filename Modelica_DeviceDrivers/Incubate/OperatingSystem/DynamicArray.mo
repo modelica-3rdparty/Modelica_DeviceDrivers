@@ -12,7 +12,7 @@ class DynamicArray
     output DynamicArray ArrayID
       "ID to access internal memory that holds animation data";
 
-  external"C" ArrayID=  MDD_initMemory(m, n);
+  external"C" ArrayID = MDD_initMemory(m, n);
     annotation (Include="
     #include <stdio.h>
     #include <stdlib.h>

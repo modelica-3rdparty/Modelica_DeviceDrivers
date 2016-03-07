@@ -1065,7 +1065,7 @@ void activateSplashScreen()
     "Incremental integer counter, implemented as file"
     input String filename="counter.txt";
     output Integer y "incremental counter";
-  external"C" y=  MD_getCounter(filename);
+  external"C" y = MD_getCounter(filename);
     annotation (Include="
 #include <stdio.h>
 

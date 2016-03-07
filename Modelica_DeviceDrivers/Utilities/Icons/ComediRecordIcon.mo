@@ -18,7 +18,7 @@ partial record ComediRecordIcon
           lineColor={0,0,255},
           fillColor={85,85,255},
           fillPattern=FillPattern.Solid),
-          Bitmap(extent={{10,-22},{112,-92}},fileName="modelica://Modelica_DeviceDrivers/Resources/Images/Icons/tux-enhanced.png"),
+          Bitmap(extent={{10,-92},{112,-22}},fileName="modelica://Modelica_DeviceDrivers/Resources/Images/Icons/tux-enhanced.png"),
                                          Text(extent={{-150,142},{150,102}},
             textString="%name")}));
 end ComediRecordIcon;

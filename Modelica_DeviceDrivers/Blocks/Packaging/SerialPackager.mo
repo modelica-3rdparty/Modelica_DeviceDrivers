@@ -226,7 +226,7 @@ package SerialPackager "Blocks for constructing packages"
     end when;
 
     annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-              -100},{100,100}}), graphics={Bitmap(extent={{-70,70},{70,-70}},
+              -100},{100,100}}), graphics={Bitmap(extent={{-70,-70},{70,70}},
               fileName="Modelica://Modelica_DeviceDrivers/Resources/Images/Icons/package.png")}), Documentation(info="<html>
 <p>
 The <code>Packager</code> block creates a packager object to which payload can be added by subsequent blocks.
@@ -262,7 +262,7 @@ and one Integer value is added, serialized and finally sent using UDP.
   equation
 
     for i in 1:n loop
-      u_int[i] = if 
+      u_int[i] = if
                    (u[i] == true) then 1 else 0;
     end for;
 
@@ -416,7 +416,7 @@ and one Integer value is added, serialized and finally sent using UDP.
             fillPattern=FillPattern.Solid,
             fillColor={0,0,255},
             textString="R"),
-          Bitmap(extent={{-40,22},{20,-22}}, fileName=
+          Bitmap(extent={{-40,-22},{20,22}}, fileName=
                 "modelica://Modelica_DeviceDrivers/Resources/Images/Icons/Real2FloatArrow.png")}));
   end AddFloat;
 
@@ -638,7 +638,7 @@ and one Integer value is added, serialized and finally sent using UDP.
           Text(
             extent={{-100,-50},{100,-90}},
             textString="%n * float"),
-          Bitmap(extent={{-20,19},{46,-20}}, fileName=
+          Bitmap(extent={{-20,-20},{46,19}}, fileName=
                 "modelica://Modelica_DeviceDrivers/Resources/Images/Icons/Float2RealArrow.png")}));
   end GetFloat;
 
@@ -718,7 +718,7 @@ and one Integer value is added, serialized and finally sent using UDP.
             fillColor={0,0,127},
             fillPattern=FillPattern.Solid,
             textString="%bitOffset + %width bits"),
-          Bitmap(extent={{-56,19},{8,-20}}, fileName=
+          Bitmap(extent={{-56,-20},{8,19}}, fileName=
                 "Modelica://Modelica_DeviceDrivers/Resources/Images/Icons/Int2BitArrow.png")}),
       Documentation(info="<html>
 <p>The block allows to pack unsigned integer values on bit level. The number of bits used for encoding is set by parameter <code>width</code>, therefore the maximum value of the integer signal that can be encoded is <code>2^width - 1</code>. The parameter <code>bitOffset</code> allows to specify the bit at which the encoding starts <b>relative</b> to the preceding block. </p>
@@ -772,7 +772,7 @@ Value of bit                   : (0  0  0  0  0  0  1  1)  (.  .   .  .  .  .  0
 
     annotation (defaultComponentName="unpackInt",
       Icon(graphics={
-          Bitmap(extent={{-7,19},{57,-20}}, fileName=
+          Bitmap(extent={{-7,-20},{57,19}}, fileName=
                 "Modelica://Modelica_DeviceDrivers/Resources/Images/Icons/Bit2IntArrow.png"),
           Text(
             extent={{-100,-50},{100,-90}},

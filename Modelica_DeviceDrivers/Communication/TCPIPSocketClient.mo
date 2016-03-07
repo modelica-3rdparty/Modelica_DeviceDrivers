@@ -10,7 +10,7 @@ extends ExternalObject;
            Library = {"pthread", "Ws2_32"},
            __iti_dll = "ITI_MDD.dll",
            __iti_dllNoExport = true);
-end constructor;
+  end constructor;
 
 encapsulated function destructor
   "Closes a TCP/IP socket client."

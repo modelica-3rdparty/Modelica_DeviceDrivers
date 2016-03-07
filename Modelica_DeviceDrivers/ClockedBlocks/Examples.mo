@@ -86,7 +86,7 @@ package Examples
     connect(addInteger.pkgOut[1], addBoolean.pkgIn) annotation (Line(
         points={{-40,-22.8},{-40,-33.2}},
         color={0,0,0},
-        pattern=LinePattern.None,
+        pattern=LinePattern.Solid,
         smooth=Smooth.None));
     connect(addBoolean.u[1], sample4.y) annotation (Line(
         points={{-52,-44},{-59.4,-44}},
@@ -123,12 +123,12 @@ package Examples
     connect(getInteger.pkgOut[1], getBoolean.pkgIn) annotation (Line(
         points={{36,-18.8},{36,-29.2}},
         color={0,0,0},
-        pattern=LinePattern.None,
+        pattern=LinePattern.Solid,
         smooth=Smooth.None));
     connect(addBoolean.pkgOut[1], resetPointer.pkgIn) annotation (Line(
         points={{-40,-54.8},{-40,-60},{0,-60},{0,98},{36,98},{36,92.8}},
         color={0,0,0},
-        pattern=LinePattern.None,
+        pattern=LinePattern.Solid,
         smooth=Smooth.None));
     annotation (experiment(StopTime=5.0),
       Documentation(info="<html>

@@ -20,7 +20,7 @@ partial record SocketCANRecordIcon
           fillColor={85,85,255},
           fillPattern=FillPattern.Solid),Text(extent={{-150,142},{150,102}},
             textString="%name"),
-          Bitmap(extent={{16,-24},{118,-94}},fileName="modelica://Modelica_DeviceDrivers/Resources/Images/Icons/tux-enhanced.png"),
+          Bitmap(extent={{16,-94},{118,-24}},fileName="modelica://Modelica_DeviceDrivers/Resources/Images/Icons/tux-enhanced.png"),
         Line(
           points={{-92,0},{92,0}},
           origin={-2,0},

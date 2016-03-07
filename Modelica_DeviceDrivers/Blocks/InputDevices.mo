@@ -24,7 +24,7 @@ package InputDevices
     end when;
     axes = (AxesRaw .- 32768)/32768 ./gain;
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-              -100},{100,100}}), graphics={Bitmap(extent={{-86,88},{88,-88}},
+              -100},{100,100}}), graphics={Bitmap(extent={{-86,-88},{88,88}},
               fileName="modelica://Modelica_DeviceDrivers/Resources/Images/Icons/joystick.png"), Text(extent={
                 {-150,140},{150,100}}, textString="%name")}),
                 preferredView="info",Documentation(info="<html> This block reads data from the joystick ID (0 = first joystick appearing in windows control panel).
@@ -180,7 +180,7 @@ package InputDevices
         color={0,0,127}));
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}), graphics={Text(extent={{-150,140},{150,100}},
-              textString="%name"), Bitmap(extent={{-86,88},{88,-88}}, fileName=
+              textString="%name"), Bitmap(extent={{-86,-88},{88,88}}, fileName=
                 "modelica://Modelica_DeviceDrivers/Resources/Images/Icons/Spacemouse.png")}),
               preferredView="info",Documentation(info="<html>
 <p>This block reads data from the 3Dconnexion SpaceMouse. It provides the six axis and up to sixteen button inputs. Note, that only the first SpaceMouse attached on the system can be read.The input values ranges between approx. -1 and 1 and can be scaled by the vector <b>gain</b>. Via the parameter <b>sampleTime</b> the input sampling rate is chosen.</p>
@@ -221,7 +221,6 @@ package InputDevices
       KeyCode = Modelica_DeviceDrivers.InputDevices.Keyboard.getData();
       //getting the KeyCode
     end when;
-  equation
     keyUp = if (KeyCode[1]==1) then true else false;
     keyDown = if (KeyCode[2]==1) then true else false;
     keyRight = if (KeyCode[3]==1) then true else false;

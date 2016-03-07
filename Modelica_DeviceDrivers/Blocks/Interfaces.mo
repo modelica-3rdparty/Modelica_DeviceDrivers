@@ -92,7 +92,7 @@ package Interfaces
     annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
               {100,100}}),       graphics={                      Text(
             extent={{-142,100},{148,58}},
-            textString="%name"),           Bitmap(extent={{-40,-16},{40,-96}},
+            textString="%name"),           Bitmap(extent={{-40,-96},{40,-16}},
               fileName=
                 "modelica://Modelica_DeviceDrivers/Resources/Images/Icons/package.png")}));
   end PartialSoftingCANMessage;

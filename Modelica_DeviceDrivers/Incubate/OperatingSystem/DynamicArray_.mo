@@ -33,6 +33,6 @@ package DynamicArray_ "Accompanying functions for the DynamicArray object"
   import Modelica_DeviceDrivers.Incubate.OperatingSystem.DynamicArray;
     input DynamicArray arrayID;
     output Integer maxIndex;
-  external"C" maxIndex=  MDD_getSize(arrayID);
+  external"C" maxIndex = MDD_getSize(arrayID);
   end getSize;
 end DynamicArray_;

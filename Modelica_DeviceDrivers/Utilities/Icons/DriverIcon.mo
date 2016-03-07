@@ -4,6 +4,6 @@ partial package DriverIcon
 
   annotation (Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
-          Bitmap(extent={{-100,100},{100,-100}}, fileName=
+          Bitmap(extent={{-100,-100},{100,100}}, fileName=
               "../../Resources/Images/Icons/gears.png")}));
 end DriverIcon;
