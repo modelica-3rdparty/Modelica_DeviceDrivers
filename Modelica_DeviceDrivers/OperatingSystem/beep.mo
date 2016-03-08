@@ -7,5 +7,5 @@ annotation(Include = "#include \"MDDBeep.h\" ",
            Library = "X11",
            __iti_dll = "ITI_MDD.dll",
            __iti_dllNoExport = true);
-annotation(__OpenModelica_Impure=true, __iti_Impure=true);
+annotation(__ModelicaAssociation_Impure=true);
 end beep;

@@ -9,7 +9,7 @@ annotation(Include = "#include \"MDDKeyboard.h\" ",
            Library = {"X11", "User32"},
            __iti_dll = "ITI_MDD.dll",
            __iti_dllNoExport = true);
-annotation(__OpenModelica_Impure=true, __iti_Impure=true);
+annotation(__ModelicaAssociation_Impure=true);
 end getKey;
 
 function getData "reads data from several keyboard keys"
@@ -19,6 +19,6 @@ annotation(Include = "#include \"MDDKeyboard.h\" ",
            Library = {"X11", "User32"},
            __iti_dll = "ITI_MDD.dll",
            __iti_dllNoExport = true);
-annotation(__OpenModelica_Impure=true, __iti_Impure=true);
+annotation(__ModelicaAssociation_Impure=true);
 end getData;
 end Keyboard;

@@ -7,6 +7,6 @@ output Integer Buttons[16] "Buttons values";
 external "C" MDD_spaceMouseGetData(Axes, Buttons)
 annotation(Include = "#include \"MDDSpaceMouse.h\" ",
            Library = {"MDDSpaceMouse", "X11"});
-annotation(__OpenModelica_Impure=true, __iti_Impure=true);
+annotation(__ModelicaAssociation_Impure=true);
 end getData;
 end SpaceMouse;

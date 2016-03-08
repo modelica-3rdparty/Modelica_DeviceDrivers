@@ -11,6 +11,6 @@ package GameController_ "Accompanying function for the GameController object"
                  Library = "Winmm",
                  __iti_dll = "ITI_MDD.dll",
                  __iti_dllNoExport = true);
-    annotation(__OpenModelica_Impure=true, __iti_Impure=true);
+    annotation(__ModelicaAssociation_Impure=true);
   end getData;
 end GameController_;

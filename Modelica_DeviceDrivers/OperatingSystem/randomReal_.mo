@@ -7,5 +7,5 @@ function randomReal_ "returns a random real within the given range."
     annotation (Include = "#include \"MDDOperatingSystem.h\"",
                 __iti_dll = "ITI_MDD.dll",
                 __iti_dllNoExport = true);
-  annotation(__OpenModelica_Impure=true, __iti_Impure=true);
+  annotation(__ModelicaAssociation_Impure=true);
 end randomReal_;
