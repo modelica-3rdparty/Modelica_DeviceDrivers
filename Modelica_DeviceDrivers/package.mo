@@ -1,12 +1,12 @@
 within ;
 package Modelica_DeviceDrivers "Modelica_DeviceDrivers - A collection of drivers interfacing hardware like input devices, communication devices, shared memory, analog-digital converters and else"
   extends Modelica.Icons.Package;
+
   annotation (preferredView="info",
     uses(Modelica_Synchronous(version="0.92"),
        Modelica(version="3.2.2")),
     version="1.4.3",
     versionDate="2015-10-04",
-    dateModified = "2015-10-04 20:30:00Z",
     Documentation(info="<html>
 <p>
 Library <b>Modelica_DeviceDrivers</b> is a Modelica package
@@ -28,13 +28,9 @@ For an introduction, have especially a look at:
 <p>The library is developed at <a href=\"https://github.com/modelica/Modelica_DeviceDrivers/\">https://github.com/modelica/Modelica_DeviceDrivers/</a> (switch to the <i>master</i> branch for the latest development version). You can use the issue tracker provided by GitHub to report bugs or other issues (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues\">https://github.com/modelica/Modelica_DeviceDrivers/issues</a>).</p>
 
 <table border=\"0\" cellpadding=\"2\" cellspacing=\"2\">
-<tr><td colspan=\"1\" rowspan=\"2\" style=\"vertical-align: middle;\">
-    <img src=\"modelica://Modelica_DeviceDrivers/Resources/Images/dlr_logo.png\">
-    </td>
-    <td style=\"vertical-align: top;\"><br><b>Licensed by DLR under the Modelica License 2</b></td>
+<tr><td style=\"vertical-align: top;\">Copyright &copy; 2014-2016, Link&ouml;ping University (PELAB), ITI GmbH, and DLR Institute of System Dynamics and Control</td>
 </tr>
-<tr><td style=\"vertical-align: top;\"><b>Copyright &copy; 2012-2013, DLR Institute of System Dynamics and Control</b></td>
-</tr>
+<tr><td style=\"vertical-align: top;\">Copyright &copy; 2012-2013, DLR Institute of System Dynamics and Control</td></tr>
 </table>
 
 <p>
