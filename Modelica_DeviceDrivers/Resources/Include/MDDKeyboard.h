@@ -4,7 +4,7 @@
  * @author		tbellmann (Windows)
  * @author		bernhard-thiele (Linux)
  * @since		2012-06-01
- * @copyright Modelica License 2
+ * @copyright see Modelica_DeviceDrivers project's License.txt file
  *
  * @par About the linux implementation:
  * While the windows implementation is straight forward, the implementation for linux

@@ -1,9 +1,10 @@
 /** Utility functions (header-only library).
  *
  * @file
- * @author		Tobias Bellmann <tobias.bellmann@dlr.de>
+ * @author		tbellmann
+ * @author    tbeu
  * @since		2013-05-24
- * @copyright Modelica License 2
+ * @copyright see Modelica_DeviceDrivers project's License.txt file
  *
  * Little handy functions offered in the Utilities package.
  */

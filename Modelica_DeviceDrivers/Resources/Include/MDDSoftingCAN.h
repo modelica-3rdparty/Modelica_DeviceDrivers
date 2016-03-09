@@ -3,8 +3,9 @@
  * @file
  * @author      bernhard-thiele
  * @author      Miguel Neves (human readable error codes)
+ * @author      tbeu
  * @since       2012-06-18
- * @copyright Modelica License 2
+ * @copyright see Modelica_DeviceDrivers project's License.txt file
  *
  * Modelica external function interface to use CAN interface cards from
  * Softing (http://www.softing.com/).

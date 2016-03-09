@@ -3,7 +3,7 @@
  * @file
  * @author      bernhard-thiele, tbeu
  * @since       2012-12-22
- * @copyright Modelica License 2
+ * @copyright see Modelica_DeviceDrivers project's License.txt file
  *
  * @note 2012-12-22: Provided function *not* (yet) used anywhere (except unit testing).
 */

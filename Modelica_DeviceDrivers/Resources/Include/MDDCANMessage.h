@@ -3,8 +3,7 @@
  * @file
  * @author      bernhard-thiele
  * @since       2012-06-19
- * @copyright Modelica License 2
- *
+ * @copyright see Modelica_DeviceDrivers project's License.txt file
 */
 
 #ifndef MDDCANMESSAGE_H_

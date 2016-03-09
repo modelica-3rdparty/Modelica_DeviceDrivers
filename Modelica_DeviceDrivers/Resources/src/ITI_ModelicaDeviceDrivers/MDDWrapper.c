@@ -3,7 +3,7 @@
  * @file
  * @author	bernhard-thiele
  * @since		2014-04-11
- * @copyright Modelica License 2
+ * @copyright see Modelica_DeviceDrivers project's License.txt file
  *
  * Most of the time external C code is directly "injected" into
  * the Modelica library by just including C headers that already

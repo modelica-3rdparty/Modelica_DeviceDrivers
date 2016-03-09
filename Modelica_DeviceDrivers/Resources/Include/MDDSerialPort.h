@@ -4,8 +4,9 @@
  * @author bernhard-thiele (Linux)
  * @author Dominik Sommer (Linux)
  * @author Rangarajan Varadan (Windows)
+ * @author tbeu
  * @since 2012-05-29
- * @copyright Modelica License 2
+ * @copyright see Modelica_DeviceDrivers project's License.txt file
  *
  */
 

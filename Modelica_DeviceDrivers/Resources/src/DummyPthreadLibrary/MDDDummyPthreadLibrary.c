@@ -3,7 +3,6 @@
  * @file
  * @author		bernhard-thiele
  * @since		2015-03-08
- * @copyright Modelica License 2
  * For linux, various functions need to link against the pthread library.
  * However, MS Windows neither provides nor requires this library for the implemented functions.
  *

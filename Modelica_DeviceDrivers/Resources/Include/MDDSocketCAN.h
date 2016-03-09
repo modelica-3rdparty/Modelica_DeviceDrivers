@@ -3,7 +3,7 @@
  * @file
  * @author      bernhard-thiele
  * @since       2012-12-22
- * @copyright Modelica License 2
+ * @copyright see Modelica_DeviceDrivers project's License.txt file
  *
  * Modelica external function interface to use the CAN socket interface
  * of the Linux kernel (http://svn.berlios.de/wsvn/socketcan/trunk/kernel/2.6/Documentation/networking/can.txt).

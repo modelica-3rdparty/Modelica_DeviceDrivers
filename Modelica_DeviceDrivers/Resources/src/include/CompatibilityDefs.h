@@ -3,8 +3,7 @@
  * @file        CompatibilityDefs.h
  * @author	bernhard-thiele
  * @since	2012-05-25
- * @copyright Modelica License 2
- *
+ * @copyright see Modelica_DeviceDrivers project's License.txt file
  *
  * This file is based on the article
  * "Dynamic libraries: maintaining a single source for Unix & Windows", on the FMI header definitions

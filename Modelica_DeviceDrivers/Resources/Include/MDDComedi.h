@@ -3,14 +3,7 @@
  * @file
  * @author      bernhard-thiele
  * @since       2012-06-26
- * @copyright Modelica License 2
- *
- * Read/Write signals using the comedi DAQ interface (http://www.comedi.org/).
- * @note Requires that the comedi device drivers are correctly setup on your linux system.
- *
- * The aim of this library is to provide a rather direct interface from the C libcomedi to
- * Modelica. Therefore you should look at the comedi documentation to understand what
- * is happening.
+ * @copyright see Modelica_DeviceDrivers project's License.txt file
  */
 
 #ifndef MDDCOMEDI_H_

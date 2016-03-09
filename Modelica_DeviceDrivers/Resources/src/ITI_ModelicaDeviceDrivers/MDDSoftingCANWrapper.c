@@ -3,7 +3,6 @@
  * @file
  * @author		bernhard-thiele
  * @since		2014-04-12
- * @copyright Modelica License 2
  *
  *
 */

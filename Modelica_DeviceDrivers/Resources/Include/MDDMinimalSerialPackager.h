@@ -4,7 +4,7 @@
  * @author		tbellmann
  * @author		bernhard-thiele (little adaptions)
  * @since		2012-05-30
- * @copyright Modelica License 2
+ * @copyright see Modelica_DeviceDrivers project's License.txt file
  *
  * @deprecated This packager has been replaced by MDDSerialPackager.h
  */

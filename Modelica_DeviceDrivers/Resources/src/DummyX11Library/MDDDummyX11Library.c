@@ -3,7 +3,6 @@
  * @file
  * @author      Bernhard Thiele
  * @since		2012-05-25
- * @copyright Modelica License 2
  * For linux, various functions need to link against the X11 library.
  * However, MS Windows neither provides nor requires this library for the implemented functions.
  *

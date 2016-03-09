@@ -3,7 +3,6 @@
  * @file
  * @author		bernhard-thiele
  * @since		2012-05-25
- * @copyright Modelica License 2
  * For linux, various functions need to link the librt library (POSIX.1b Realtime Extensions library).
  * However, MS Windows neither provides nor requires this library for the implemented functions.
  *

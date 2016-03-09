@@ -3,7 +3,6 @@
  * @file
  * @author		Bernhard Thiele
  * @since		2015-04-18
- * @copyright Modelica License 2
  * For windows, various functions need to link the Winmm.lib library.
  * However, Linux neither provides nor requires this library for the implemented functions.
  *

@@ -4,7 +4,7 @@
  * @author		tbellmann (Windows)
  * @author		bernhard-thiele (Linux)
  * @since		2012-05-25
- * @copyright Modelica License 2
+ * @copyright see Modelica_DeviceDrivers project's License.txt file
  */
 
 #ifndef MDDBEEP_H_

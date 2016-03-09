@@ -1,3 +1,4 @@
+
 #ifndef MODELICA_UTILITIES_H
 #define MODELICA_UTILITIES_H
 

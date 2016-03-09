@@ -3,8 +3,9 @@
  * @file
  * @author		tbellmann (Windows)
  * @author		bernhard-thiele (Linux)
+ * @author    tbeu
  * @since		2012-05-29
- * @copyright Modelica License 2
+ * @copyright see Modelica_DeviceDrivers project's License.txt file
  */
 
 #ifndef MDDREALTIMESYNCHRONIZE_H_
