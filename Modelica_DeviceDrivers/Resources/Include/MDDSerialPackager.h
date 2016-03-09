@@ -1,7 +1,7 @@
 /** Serial packager to be used in Modelica (header-only library).
  *
  * @file
- * @author      Bernhard Thiele 
+ * @author      Bernhard Thiele
  * @since       2012-07-10
  * @copyright Modelica License 2
  *
@@ -20,7 +20,7 @@
 #include <stddef.h>
 #include <assert.h>
 #include "../src/include/CompatibilityDefs.h"
-#include "../src/include/detail_endian.h"
+#include "../thirdParty/boost/detail_endian.h"
 #include "ModelicaUtilities.h"
 
 enum MDDEndian {
