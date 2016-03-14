@@ -44,7 +44,7 @@ else (MSVC)
 	  # The libraries below get instead linked directly into the
 	  # test_MDDSpaceMouse executable.
 	  # ==> NEED TO COMBINE THE LIBRARIES *MANUALLY* IN MSVC!
-	  message("MDDSpaceMouseStatic: Add libraries hid.lib and setupapi.lib manually to generated VS project, since not supported to do that  automatically by cmake")
+	  message("MDDSpaceMouseStatic: Add libraries hid.lib and setupapi.lib manually to generated VS project, since not supported to do that  automatically by CMake")
 	  target_link_libraries(MDDSpaceMouseStatic ${MSVC_HID_LIBRARY} ${MSVC_SETUPAPI_LIBRARY})
 	  # Force 'MDDSpaceMouse' to be built before 'MDDSpaceMouseStatic':
 	  add_dependencies(MDDSpaceMouseStatic MDDSpaceMouse)

@@ -4,7 +4,7 @@ This is the directory for the C (unit)-tests.
 
 ==================================================
 
-Using ctest from the cmake package is described at:
+Using CTest from the CMake package is described at:
 http://www.cmake.org/Wiki/CMake_Testing_With_CTest
 
 For using ctest you can do either

@@ -1,7 +1,7 @@
 *** C-SOURCES FOR THE Modelica_DeviceDrivers LIBRARY ***
 
 If you want to compile the sources yourself the easiest way is to use
-cmake (http://www.cmake.org/).
+CMake (http://www.cmake.org/).
 
 * GETTING CMAKE
 
@@ -24,13 +24,13 @@ cmake ..
 make
 make install
 
-For MS Windows you can use the cmake GUI to setup a (MS Visual) project and do the build.
+For MS Windows you can use the CMake GUI to setup a (MS Visual Studio) project and do the build.
 
 * THIRD-PARTY DEPENDENCIES
 
 Some drivers might have a dependency to libraries or source code provided by
 third parties (see folder "thirdParty").
-These libraries/code may not be distributable by their licence
+These libraries/code may not be distributable by their license
 conditions. The build system tries to detect what is available and skips the rest. If you want/need
 the functionality provided by the thirdParty libraries, get the respective libraries and include
 them as described in "thirdParty" folder.

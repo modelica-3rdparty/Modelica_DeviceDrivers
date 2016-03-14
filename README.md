@@ -60,7 +60,7 @@ Please note that currently (2015-09-01) the library is known to work with Dymola
   * Latest build (2013-09-20) uses latest Modelica Standard Library version 3.2.1 and Modelica_Synchronous version 0.92, but will also work with previous versions 3.2 and 0.91.
   * Improved Modelica 3.3 standard conformance (hopefully completely standard conform by now)
   * Included support for the Linux Controller Area Network Protocol Family (aka Socket CAN). This is considered an alpha feature. Therefore the API is not stable and testing has been very limited
-  * The cmake based build system for the external C sources of this library has been improved to be more robust and better documented.
+  * The CMake based build system for the external C sources of this library has been improved to be more robust and better documented.
   * Bugs in the SerialPackager's AddString and GetString blocks have been resolved and new blocks AddFloat and GetFloat are now available.
   * Some smaller additional bugfixes and improvements.
 *  [Version v1.0 (2012-10-17)](../../archive/v1.0.zip)

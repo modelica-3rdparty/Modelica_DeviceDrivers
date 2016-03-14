@@ -5,7 +5,7 @@
 include_directories(../../Include)
 
 if (UNIX)
-  # ${COMEDI_LIBRARY} seems to be already predefined in cmake so that following line is without effect in my installation
+  # ${COMEDI_LIBRARY} seems to be already predefined in CMake so that following line is without effect in my installation
   find_library( COMEDI_LIBRARY comedi )
   if (${COMEDI_LIBRARY} MATCHES "COMEDI_LIBRARY-NOTFOUND")
     message("Comedi.lib not found. Skipping test generation for comedi module")

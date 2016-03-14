@@ -36,7 +36,7 @@
 #	include "MDDCANMessage.h"
 #	include "MDDSerialPackager.h"
 #	if defined(MDDSOFTINGCANUSECMAKE)
-/* use cmake to resolve linking dependencies */
+/* use CMake to resolve linking dependencies */
 #	else
 /* Used as header-only library => add linking dependencies here: */
 #		if defined(_WIN64)
