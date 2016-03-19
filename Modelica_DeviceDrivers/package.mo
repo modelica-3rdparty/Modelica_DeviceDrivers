@@ -31,7 +31,7 @@ For an introduction, have especially a look at:
 (switch to the <i>master</i> branch for the latest development version). You can
 use the issue tracker provided by GitHub to report bugs or other issues
 (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues\">https://github.com/modelica/Modelica_DeviceDrivers/issues</a>).</p>
-
+<br>
 <table border=\"0\" cellpadding=\"2\" cellspacing=\"2\">
 <tr><td style=\"vertical-align: top;\">Copyright &copy; 2014-2016, Link&ouml;ping University (PELAB), ITI GmbH, and DLR Institute of System Dynamics and Control</td>
 </tr>

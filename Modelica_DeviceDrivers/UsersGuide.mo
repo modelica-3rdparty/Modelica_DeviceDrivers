@@ -648,16 +648,12 @@ end ModelicaLicense2;
     annotation (Documentation(info="<html>
 <dl>
 <dt><b>Main Authors:</b></dt>
-<dd>Bernhard Thiele<br>
+<dd>Bernhard Thiele (main contact, release management, etc.)<br>
     <a href=\"https://github.com/bernhard-thiele\">at Github</a><br></dd>
 <dd>Tobias Bellmann<br>
-    German Aerospace Center (DLR)<br>
-    Robotics and Mechatronics Center<br>
-    Institute of System Dynamics and Control<br>
-    Postfach 1116<br>
-    D-82230 Wessling<br>
-    Germany<br>
-    email: <a href=\"mailto:Tobias.Bellmann@dlr.de\">Tobias.Bellmann@dlr.de</a><br></dd>
+    <a href=\"https://github.com/tbellmann\">at Github</a><br></dd>
+<dd>tbeu<br>
+    <a href=\"https://github.com/tbeu\">at Github</a><br></dd>
 </dl>
 <p>
 The authors are open to include contributions.
@@ -671,17 +667,19 @@ of the library:
 
 <table border=1 cellspacing=0 cellpadding=2>
 <tr><td valign=\"top\"><b>Dominik Sommer</b> </td>
-   <td valign=\"top\"> Institute of System Dynamics and Control<br>
-     DLR, German Aerospace Center, <br>
-     Oberpfaffenhofen, Germany</td>
+   <td valign=\"top\"> </td>
    <td valign=\"top\"> Blocks.Communication.SerialPortReceive<br>
                     Blocks.Communication.SerialPortSend<br>
                     Communication.SerialPort<br>
                     Communication.SerialPort_</td>
 </tr>
-<tr><td valign=\"top\"><b><a href=\"https://github.com/tbeu/\">tbeu</a></b> </td>
+<tr><td valign=\"top\"><b>Dietmar Winkler</b> </td>
+   <td valign=\"top\"><a href=\"https://github.com/dietmarw\">at Github</a></td>
+   <td valign=\"top\">Github project setup and service integration etc.</td>
+</tr>
+<tr><td valign=\"top\"><b>Miguel Neves</b> </td>
    <td valign=\"top\">&nbsp;</td>
-   <td valign=\"top\"> Many fixes and good proposals, especially regarding the SimulationX support.</td>
+   <td valign=\"top\">Human readable error codes for the Softing CAN interface.</td>
 </tr>
 
 </table>
