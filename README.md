@@ -37,6 +37,12 @@ Download [Modelica_DeviceDrivers latest release](../../releases/latest)
 Please note that currently (2015-09-01) the library is known to work with Dymola (preferable Dymola 2013FD01 and later) and with SimulationX (with `userBufferSize` all non-clocked communication blocks are working in SimulationX, but `autoBufferSize` only works for external solvers CVode and Fixed Step solver and fails for BDF and MEBDF solvers, see [#54 (comment)](https://github.com/modelica/Modelica_DeviceDrivers/issues/54#issuecomment-76032325)). If you tested the library successfully with another Modelica tool, please contact [Bernhard Thiele](https://github.com/bernhard-thiele) or send a [pull request](https://github.com/modelica/Modelica_DeviceDrivers/pulls) that updates this README.md.
 
 #### Release notes
+Bugfix releases usually won't have release notes, so please use the download link from above to get the latest release including bugfixes.  
+*  [Version v1.4.4 (2016-03-19)](../../releases/tag/v1.4.4)
+  * Bugfix release, no new features.
+  * Uses latest version of Modelica Standard Library (version 3.2.2), but still works with previous version.
+  * Changed license of external C code and header files to liberal [Simplified BSD License terms](Modelica_DeviceDrivers/Resources/License.txt) (the Modelica package parts remain under [Modelica License 2](https://modelica.org/licenses/ModelicaLicense2)).
+  * Cleaned up diverse minor issues, e.g., outdated documentation
 *  [Version v1.4.0 (2015-09-01)](../../releases/tag/v1.4.0)
 	* Switched to [semantic versioning](http://semver.org).
 	* Migrated to new release process motivated by [impact-on-library-developers](https://github.com/xogeny/impact/blob/master/resources/docs/modelica2015/paper/impact.md#impact-on-librarydevelopers).
@@ -82,5 +88,7 @@ You may report any issues with using the [Issues](https://github.com/modelica/Mo
 Contributions in shape of [Pull Requests](https://github.com/modelica/Modelica_DeviceDrivers/pulls) are always welcome.
 
 The following people have directly contributed to the implementation of the library (many more have contributed by providing feedback and suggestions):
-* [Dominik Sommer](mailto:dominik.sommer@dlr.de), code for Linux serial port support.
-* [Rangarajan Varadan](mailto:svsranga@gmail.com), code for Windows serial port support.
+* Miguel Neves, human readable error codes for the Softing CAN interface.
+* Dominik Sommer, code for Linux serial port support.
+* Rangarajan Varadan, code for Windows serial port support.
+* [Dietmar Winkler](https://github.com/dietmarw), Github project setup, development services integration etc.

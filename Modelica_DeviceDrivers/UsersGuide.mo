@@ -158,6 +158,19 @@ First public version of the library.
 </ul>
 </html>"));
     end Version_1_4_0;
+
+    class Version_1_4_4 "Version 1.4.4 (March 19, 2016)"
+      extends Modelica.Icons.ReleaseNotes;
+
+      annotation (Documentation(info="<html>
+<ul>
+<li>Bugfix release, no new features.</li>
+<li>Uses latest version of Modelica Standard Library (version 3.2.2), but still works with previous version.</li>
+<li>Changed license of external C code and header files to Simplified BSD License terms.</li>
+<li>Cleaned up diverse minor issues, e.g., outdated documentation.</li>
+</ul>
+</html>"));
+    end Version_1_4_4;
     annotation (Documentation(info="<html>
 <p>
 This section summarizes the changes that have been performed
@@ -666,6 +679,11 @@ of the library:
 </p>
 
 <table border=1 cellspacing=0 cellpadding=2>
+
+<tr><td valign=\"top\"><b>Miguel Neves</b> </td>
+   <td valign=\"top\">&nbsp;</td>
+   <td valign=\"top\">Human readable error codes for the Softing CAN interface.</td>
+</tr>
 <tr><td valign=\"top\"><b>Dominik Sommer</b> </td>
    <td valign=\"top\"> </td>
    <td valign=\"top\"> Blocks.Communication.SerialPortReceive<br>
@@ -673,15 +691,14 @@ of the library:
                     Communication.SerialPort<br>
                     Communication.SerialPort_</td>
 </tr>
+<tr><td valign=\"top\"><b>Rangarajan Varadan</b> </td>
+   <td valign=\"top\">&nbsp;</td>
+   <td valign=\"top\">Code for Windows serial port support..</td>
+</tr>
 <tr><td valign=\"top\"><b>Dietmar Winkler</b> </td>
    <td valign=\"top\"><a href=\"https://github.com/dietmarw\">at Github</a></td>
-   <td valign=\"top\">Github project setup and service integration etc.</td>
+   <td valign=\"top\">Github project setup, development services integration etc.</td>
 </tr>
-<tr><td valign=\"top\"><b>Miguel Neves</b> </td>
-   <td valign=\"top\">&nbsp;</td>
-   <td valign=\"top\">Human readable error codes for the Softing CAN interface.</td>
-</tr>
-
 </table>
 </html>"));
   end Contact;
