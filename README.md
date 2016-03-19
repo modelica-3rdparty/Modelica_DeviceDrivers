@@ -38,8 +38,8 @@ Please note that currently (2015-09-01) the library is known to work with Dymola
 
 #### Release notes
 Bugfix releases usually won't have release notes, so please use the download link from above to get the latest release including bugfixes.  
-*  [Version v1.4.4 (2016-03-19)](../../releases/tag/v1.4.4)
-  * Bugfix release, no new features.
+*  DRAFT [Version v1.4.4 (2016-03-19)](../../releases/tag/v1.4.4)
+  * Many bugfixes and improvements (TODO list them)
   * Uses latest version of Modelica Standard Library (version 3.2.2), but still works with previous version.
   * Changed license of external C code and header files to liberal [Simplified BSD License terms](Modelica_DeviceDrivers/Resources/License.txt) (the Modelica package parts remain under [Modelica License 2](https://modelica.org/licenses/ModelicaLicense2)).
   * Cleaned up diverse minor issues, e.g., outdated documentation
