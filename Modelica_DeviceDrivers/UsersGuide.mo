@@ -186,21 +186,15 @@ class ModelicaLicense2 "Modelica License 2"
 </head>
 <body lang=\"en-US\">
     <p>All files in this directory (&quot;Modelica_DeviceDrivers&quot;) and
-    in all subdirectories are licensed by <strong>DLR</strong> under the
+    in all subdirectories are licensed by the Copyright holders under the
     &quot;Modelica License&nbsp;2&quot; (with exception of the contents of
-    the directories &quot;Modelica_DeviceDrivers/Resources/Library&quot; and
-    &quot;Modelica_DeviceDrivers/Resources/thirdParty&quot;).</p>
-    <p style=\"margin-left: 40px;\"><strong>Licensor:</strong><br>
-    German Aerospace Center (DLR)<br>
-    Robotics and Mechatronics Center<br>
-    Institute of System Dynamics and Control<br>
-    Postfach 1116<br>
-    D-82230 Wessling<br>
-    Germany<br>
-    email: Martin.Otter@dlr.de</p>
-    <p style=\"margin-left: 40px;\"><strong>Copyright notices of the
-    files:</strong><br>
-    Copyright &copy; 2012, DLR Institute of System Dynamics and Control.</p>
+    the directory &quot;Modelica_DeviceDrivers/Resources&quot; and its
+    subdirectories, see <a href=\"modelica://Modelica_DeviceDrivers/Resources/License.txt\">Resources/License.txt</a>).</p>
+    <table border=\"0\" cellpadding=\"2\" cellspacing=\"2\">
+    <tr><td style=\"vertical-align: top;\">Copyright &copy; 2014-2016, Link&ouml;ping University (PELAB), ITI GmbH, and DLR Institute of System Dynamics and Control</td>
+    </tr>
+    <tr><td style=\"vertical-align: top;\">Copyright &copy; 2012-2013, DLR Institute of System Dynamics and Control</td></tr>
+    </table>
     <p><a href=\"#The_Modelica_License_2-outline\">The Modelica
     License&nbsp;2</a><br>
     <a href=\"#Frequently_Asked_Questions-outline\">Frequently Asked
