@@ -159,15 +159,22 @@ First public version of the library.
 </html>"));
     end Version_1_4_0;
 
-    class Version_1_4_4 "Version 1.4.4 (March 19, 2016)"
+    class Version_1_4_4 "Version 1.4.4 (April 12, 2016)"
       extends Modelica.Icons.ReleaseNotes;
 
       annotation (Documentation(info="<html>
 <ul>
-<li>Bugfix release, no new features.</li>
+<li>Bugfix release, no new features, but many improvements since version v1.4.0 (more than 70 commits since v1.4.0), so let's list some of the improvements...</li>
 <li>Uses latest version of Modelica Standard Library (version 3.2.2), but still works with previous version.</li>
-<li>Changed license of external C code and header files to Simplified BSD License terms.</li>
-<li>Cleaned up diverse minor issues, e.g., outdated documentation.</li>
+<li>Changed license of external C code and header files to <a href=\"modelica://Modelica_DeviceDrivers/Resources/License.txt\">Simplified BSD License</a> terms.</li> (the Modelica package parts remain under
+<a href=\"modelica://Modelica_DeviceDrivers.UsersGuide.ModelicaLicense2\">Modelica License 2</a>).
+<li>Integrated continuous integration support into the library development (thanks to drone.io and Travis CL). The coverage is not complete, but it can help to detect some problems earlier.</li>
+<li>Improved and updated documentation.</li>
+<li>Improved compatibility with the DLR Visualization Library.</li>
+<li>Improved support of automatic Code-Export from SimulationX 3.7.</li>
+<li>Fixes for the clocked communication blocks (added missing byteOrder support).</li>
+<li>Fixes for the HardwareIO blocks (non standard compliant useage of enumerations).</li>
+<li>Other (minor) fixes.</li>
 </ul>
 </html>"));
     end Version_1_4_4;

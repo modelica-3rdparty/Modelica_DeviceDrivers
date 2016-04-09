@@ -34,15 +34,21 @@ The second interface uses the synchronous language elements introduced in Modeli
 
 Download [Modelica_DeviceDrivers latest release](../../releases/latest)
 
-Please note that currently (2015-09-01) the library is known to work with Dymola (preferable Dymola 2013FD01 and later) and with SimulationX (with `userBufferSize` all non-clocked communication blocks are working in SimulationX, but `autoBufferSize` only works for external solvers CVode and Fixed Step solver and fails for BDF and MEBDF solvers, see [#54 (comment)](https://github.com/modelica/Modelica_DeviceDrivers/issues/54#issuecomment-76032325)). If you tested the library successfully with another Modelica tool, please contact [Bernhard Thiele](https://github.com/bernhard-thiele) or send a [pull request](https://github.com/modelica/Modelica_DeviceDrivers/pulls) that updates this README.md.
+Please note that currently (2016-04-09) the library is known to work with Dymola (preferable Dymola 2013FD01 and later) and with SimulationX (with `userBufferSize` all non-clocked communication blocks are working in SimulationX, but `autoBufferSize` only works for external solvers CVode and Fixed Step solver and fails for BDF and MEBDF solvers, see [#54 (comment)](https://github.com/modelica/Modelica_DeviceDrivers/issues/54#issuecomment-76032325)). If you tested the library successfully with another Modelica tool, please contact [Bernhard Thiele](https://github.com/bernhard-thiele) or send a [pull request](https://github.com/modelica/Modelica_DeviceDrivers/pulls) that updates this README.md.
 
 #### Release notes
 Bugfix releases usually won't have release notes, so please use the download link from above to get the latest release including bugfixes.  
-*  DRAFT [Version v1.4.4 (2016-03-19)](../../releases/tag/v1.4.4)
-  * Many bugfixes and improvements (TODO list them)
+*  DRAFT [Version v1.4.4 (2016-04-09)](../../releases/tag/v1.4.4)
+  * Bugfix release, no new features, but many improvements since version v1.4.0 (more than 70 commits since v1.4.0), so let's list some of the improvements...
   * Uses latest version of Modelica Standard Library (version 3.2.2), but still works with previous version.
   * Changed license of external C code and header files to liberal [Simplified BSD License terms](Modelica_DeviceDrivers/Resources/License.txt) (the Modelica package parts remain under [Modelica License 2](https://modelica.org/licenses/ModelicaLicense2)).
-  * Cleaned up diverse minor issues, e.g., outdated documentation
+  * Integrated continuous integration support into the library development (thanks to drone.io and Travis CL). The coverage is not complete, but it can help to detect some problems earlier.
+  * Improved and updated documentation.
+  * Improved compatibility with the DLR Visualization Library.
+  * Improved support of automatic Code-Export from SimulationX 3.7.
+  * Fixes for the clocked communication blocks (added missing byteOrder support).
+  * Fixes for the HardwareIO blocks (non standard compliant useage of enumerations).
+  * Other (minor) fixes. More than 70 commits since version v1.4.0.
 *  [Version v1.4.0 (2015-09-01)](../../releases/tag/v1.4.0)
 	* Switched to [semantic versioning](http://semver.org).
 	* Migrated to new release process motivated by [impact-on-library-developers](https://github.com/xogeny/impact/blob/master/resources/docs/modelica2015/paper/impact.md#impact-on-librarydevelopers).
