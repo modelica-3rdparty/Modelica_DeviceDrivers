@@ -48,7 +48,7 @@ Bugfix releases usually won't have release notes, so please use the download lin
   * Improved support of automatic Code-Export from SimulationX 3.7.
   * Fixes for the clocked communication blocks (added missing byteOrder support).
   * Fixes for the HardwareIO blocks (non standard compliant useage of enumerations).
-  * Other (minor) fixes. More than 70 commits since version v1.4.0.
+  * Other (minor) fixes.
 *  [Version v1.4.0 (2015-09-01)](../../releases/tag/v1.4.0)
 	* Switched to [semantic versioning](http://semver.org).
 	* Migrated to new release process motivated by [impact-on-library-developers](https://github.com/xogeny/impact/blob/master/resources/docs/modelica2015/paper/impact.md#impact-on-librarydevelopers).
