@@ -84,60 +84,43 @@ package Examples
         points={{-59.4,-12},{-52,-12}},
         color={255,127,0}));
     connect(addInteger.pkgOut[1], addBoolean.pkgIn) annotation (Line(
-        points={{-40,-22.8},{-40,-33.2}},
-        color={0,0,0},
-        pattern=LinePattern.Solid,
-        smooth=Smooth.None));
+        points={{-40,-22.8},{-40,-33.2}}));
     connect(addBoolean.u[1], sample4.y) annotation (Line(
         points={{-52,-44},{-59.4,-44}},
-        color={255,0,255},
-        smooth=Smooth.None));
+        color={255,0,255}));
     connect(sample4.u, booleanPulse.y) annotation (Line(
         points={{-73.2,-44},{-83.3,-44}},
-        color={255,0,255},
-        smooth=Smooth.None));
+        color={255,0,255}));
     connect(periodicRealClock.y, sample4.clock) annotation (Line(
         points={{-81.3,-73},{-66,-73},{-66,-51.2}},
         color={175,175,175},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
     connect(periodicRealClock.y, sample3.clock) annotation (Line(
         points={{-81.3,-73},{-56,-73},{-56,-22},{-66,-22},{-66,-19.2}},
         color={175,175,175},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
     connect(periodicRealClock.y, sample2.clock) annotation (Line(
         points={{-81.3,-73},{-56,-73},{-56,8},{-66,8},{-66,10.8}},
         color={175,175,175},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
     connect(periodicRealClock.y, sample1.clock) annotation (Line(
         points={{-81.3,-73},{-56,-73},{-56,36},{-66,36},{-66,38.8}},
         color={175,175,175},
         pattern=LinePattern.Dot,
-        thickness=0.5,
-        smooth=Smooth.None));
+        thickness=0.5));
     connect(getInteger.pkgOut[1], getBoolean.pkgIn) annotation (Line(
-        points={{36,-18.8},{36,-29.2}},
-        color={0,0,0},
-        pattern=LinePattern.Solid,
-        smooth=Smooth.None));
+        points={{36,-18.8},{36,-29.2}}));
     connect(addBoolean.pkgOut[1], resetPointer.pkgIn) annotation (Line(
-        points={{-40,-54.8},{-40,-60},{0,-60},{0,98},{36,98},{36,92.8}},
-        color={0,0,0},
-        pattern=LinePattern.Solid,
-        smooth=Smooth.None));
+        points={{-40,-54.8},{-40,-60},{0,-60},{0,98},{36,98},{36,92.8}}));
     annotation (experiment(StopTime=5.0),
       Documentation(info="<html>
 <p>
 The example demonstrates that pack and unpack blocks of the <code>SerialPackager</code> package can be connected directly.
 </p>
-</html>"),
-      Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-              100,100}}), graphics));
+</html>"));
   end TestSerialPackager;
 
   model TestSerialPackager_String

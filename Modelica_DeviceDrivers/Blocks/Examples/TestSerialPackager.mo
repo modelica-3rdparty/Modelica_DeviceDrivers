@@ -62,20 +62,13 @@ equation
       points={{42,-4.8},{42,-21.2}}));
   connect(booleanPulse.y, addBoolean.u[1]) annotation (Line(
       points={{-59,-68},{-46,-68}},
-      color={255,0,255},
-      smooth=Smooth.None));
+      color={255,0,255}));
   connect(addInteger.pkgOut[1], addBoolean.pkgIn) annotation (Line(
-      points={{-34,-46.8},{-34,-57.2}},
-      color={0,0,0},
-      smooth=Smooth.None));
+      points={{-34,-46.8},{-34,-57.2}}));
   connect(getInteger.pkgOut[1], getBoolean.pkgIn) annotation (Line(
-      points={{42,-42.8},{42,-55.2}},
-      color={0,0,0},
-      smooth=Smooth.None));
+      points={{42,-42.8},{42,-55.2}}));
   connect(addBoolean.pkgOut[1], resetPointer.pkgIn) annotation (Line(
-      points={{-34,-78.8},{-34,-84},{0,-84},{0,94},{42,94},{42,86.8}},
-      color={0,0,0},
-      smooth=Smooth.None));
+      points={{-34,-78.8},{-34,-84},{0,-84},{0,94},{42,94},{42,86.8}}));
   annotation (experiment(StopTime=5.0),
     Documentation(info="<html>
 <p>
