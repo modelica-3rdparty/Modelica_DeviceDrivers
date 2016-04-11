@@ -47,20 +47,20 @@ Bugfix releases usually won't have release notes, so please use the download lin
   * Improved compatibility with the DLR Visualization Library.
   * Improved support of automatic Code-Export from SimulationX 3.7.
   * Fixes for the clocked communication blocks (added missing byteOrder support).
-  * Fixes for the HardwareIO blocks (non standard compliant useage of enumerations).
+  * Fixes for the HardwareIO blocks (non standard compliant usage of enumerations).
   * Other (minor) fixes.
 *  [Version v1.4.0 (2015-09-01)](../../releases/tag/v1.4.0)
-	* Switched to [semantic versioning](http://semver.org).
-	* Migrated to new release process motivated by [impact-on-library-developers](https://github.com/xogeny/impact/blob/master/resources/docs/modelica2015/paper/impact.md#impact-on-librarydevelopers).
-	* Added support for external trigger signals to trigger communication blocks.
-	* Added support to configure byte ordering in communication blocks.
-	* Added support for TCP/IP communication for Windows.
-	* Added serial port support for Windows (was already available for Linux).
-	* Added compiler support for MinGW and Cygwin.
-	* Added support for all 32 joystick buttons.
-	* Fixed Modelica compatibility of output buffers in communication blocks.
-	* Fixed multi-threaded access of UDP and shared memory communication for Windows.
-	* Fixed many small issues, particularly for improved compatibility with SimulationX.
+  * Switched to [semantic versioning](http://semver.org).
+  * Migrated to new release process motivated by [impact-on-library-developers](https://github.com/xogeny/impact/blob/master/resources/docs/modelica2015/paper/impact.md#impact-on-librarydevelopers).
+  * Added support for external trigger signals to trigger communication blocks.
+  * Added support to configure byte ordering in communication blocks.
+  * Added support for TCP/IP communication for Windows.
+  * Added serial port support for Windows (was already available for Linux).
+  * Added compiler support for MinGW and Cygwin.
+  * Added support for all 32 joystick buttons.
+  * Fixed Modelica compatibility of output buffers in communication blocks.
+  * Fixed multi-threaded access of UDP and shared memory communication for Windows.
+  * Fixed many small issues, particularly for improved compatibility with SimulationX.
 *  [Version v1.3 (2014-05-19)](../../archive/v1.3+build.2.zip)
   * Fixed many issues in order to support SimulationX (with the indispensable help of [tbeu](https://github.com/tbeu)).
   * Particularly, a SimulationX compatible wrapper DLL to give access to the external C functions was added.
