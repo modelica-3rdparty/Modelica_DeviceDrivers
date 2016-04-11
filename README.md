@@ -34,7 +34,7 @@ The second interface uses the synchronous language elements introduced in Modeli
 
 Download [Modelica_DeviceDrivers latest release](../../releases/latest)
 
-Please note that currently (2016-04-09) the library is known to work with Dymola (preferable Dymola 2013FD01 and later) and with SimulationX (with `userBufferSize` all non-clocked communication blocks are working in SimulationX, but `autoBufferSize` only works for external solvers CVode and Fixed Step solver and fails for BDF and MEBDF solvers, see [#54 (comment)](https://github.com/modelica/Modelica_DeviceDrivers/issues/54#issuecomment-76032325)). If you tested the library successfully with another Modelica tool, please contact [Bernhard Thiele](https://github.com/bernhard-thiele) or send a [pull request](https://github.com/modelica/Modelica_DeviceDrivers/pulls) that updates this README.md.
+Please note that the library is known to work with Dymola (preferable Dymola 2013FD01 and later) and with SimulationX (with `userBufferSize` all non-clocked communication blocks are working in SimulationX, but `autoBufferSize` only works for external solvers CVode and Fixed Step solver and fails for BDF and MEBDF solvers, see [#54 (comment)](https://github.com/modelica/Modelica_DeviceDrivers/issues/54#issuecomment-76032325)). If you tested the library successfully with another Modelica tool, please contact [Bernhard Thiele](https://github.com/bernhard-thiele) or send a [pull request](https://github.com/modelica/Modelica_DeviceDrivers/pulls) that updates this README.md.
 
 #### Release notes
 Bugfix releases usually won't have release notes, so please use the download link from above to get the latest release including bugfixes.  
