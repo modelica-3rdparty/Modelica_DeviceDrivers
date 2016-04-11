@@ -165,18 +165,17 @@ First public version of the library.
       annotation (Documentation(info="<html>
 <ul>
 <li>Bugfix release, no new features, but many improvements since version v1.4.0 (more than 70 commits since v1.4.0), so let's list some of the improvements...</li>
-<li>Uses latest version of Modelica Standard Library (version 3.2.2).</li>
-<li>Changed license of external C code and header files to <a href=\"modelica://Modelica_DeviceDrivers/Resources/License.txt\">Simplified BSD License</a> terms.</li> (the Modelica package parts remain under
+<li>Uses latest version of Modelica Standard Library (v3.2.2).</li>
+<li>Changed license of external C code and header files to <a href=\"modelica://Modelica_DeviceDrivers/Resources/License.txt\">Simplified BSD License</a>.</li> (the Modelica package parts remain under
 <a href=\"modelica://Modelica_DeviceDrivers.UsersGuide.ModelicaLicense2\">Modelica License 2</a>).
 <li>Impoved Modelica compatibility: Fixed the use of conditionally enabled variable <code>procPrio</code> outside of connect in <code>Blocks.OperatingSystem.SynchronizeRealtime</code> and <code>ClockedBlocks.OperatingSystem.SynchronizeRealtime</code>.</li>
 <li>Impoved Modelica compatibility: Fixed the invalid integer to enumeration type conversion in <code>HardwareIO</code>.</li>
 <li>Fully specified the initial conditions for example models.</li>
 <li>Simplified the linking with system libraries (MSVC only).</li>
-<li>Integrated continuous integration support into the library development (thanks to drone.io and Travis CL). The coverage is not complete, but it can help to detect some problems earlier.</li>
-<li>Improved and updated documentation.</li>
+<li>Added continuous integration for the external C code (thanks to <a href=\"https://drone.io/github.com/modelica/Modelica_DeviceDrivers/latest\">drone.io</a> and <a href=\"\">Travis CI</a>).</li>
 <li>Improved compatibility with the DLR Visualization Library.</li>
 <li>Improved support of automatic Code-Export from SimulationX 3.7.</li>
-<li>Fixes for the clocked communication blocks (added missing byteOrder support).</li>
+<li>Fixes for the clocked communication blocks (added missing <code>byteOrder</code> support).</li>
 <li>Other (minor) fixes.</li>
 </ul>
 </html>"));

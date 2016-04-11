@@ -38,19 +38,19 @@ Please note that currently (2016-04-09) the library is known to work with Dymola
 
 #### Release notes
 Bugfix releases usually won't have release notes, so please use the download link from above to get the latest release including bugfixes.  
-*  DRAFT [Version v1.4.4 (2016-04-09)](../../releases/tag/v1.4.4)
+*  DRAFT [Version v1.4.4 (2016-04-12)](../../releases/tag/v1.4.4)
   * Bugfix release, no new features, but many improvements since version v1.4.0 (more than 70 commits since v1.4.0), so let's list some of the improvements...
-  * Uses latest version of Modelica Standard Library (version 3.2.2).
-  * Changed license of external C code and header files to liberal [Simplified BSD License terms](Modelica_DeviceDrivers/Resources/License.txt) (the Modelica package parts remain under [Modelica License 2](https://modelica.org/licenses/ModelicaLicense2)).
+  * Uses latest version of Modelica Standard Library (v3.2.2).
+  * Changed the license of the external C code and header files to [Simplified BSD License](Modelica_DeviceDrivers/Resources/License.txt) (the Modelica package parts remain under [Modelica License 2](https://modelica.org/licenses/ModelicaLicense2)).
   * Impoved Modelica compatibility: Fixed the use of conditionally enabled variable `procPrio` outside of connect in `Blocks.OperatingSystem.SynchronizeRealtime` and `ClockedBlocks.OperatingSystem.SynchronizeRealtime`.
   * Impoved Modelica compatibility: Fixed the invalid integer to enumeration type conversion in `HardwareIO`.
   * Fully specified the initial conditions for example models.
   * Simplified the linking with system libraries (MSVC only).
-  * Integrated continuous integration support into the library development (thanks to drone.io and Travis CL). The coverage is not complete, but it can help to detect some problems earlier.
+  * Added continuous integration for the external C code (thanks to [drone.io](https://drone.io/github.com/modelica/Modelica_DeviceDrivers/latest) and [Travis CI](https://travis-ci.org/modelica/Modelica_DeviceDrivers)).
   * Improved and updated documentation.
   * Improved compatibility with the DLR Visualization Library.
   * Improved support of automatic Code-Export from SimulationX 3.7.
-  * Fixes for the clocked communication blocks (added missing byteOrder support).
+  * Fixes for the clocked communication blocks (added missing `byteOrder` support).
   * Other (minor) fixes.
 *  [Version v1.4.0 (2015-09-01)](../../releases/tag/v1.4.0)
   * Switched to [semantic versioning](http://semver.org).
