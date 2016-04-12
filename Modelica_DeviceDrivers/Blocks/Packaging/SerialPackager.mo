@@ -471,7 +471,7 @@ and one Integer value is added, serialized and finally sent using UDP.
     discrete Modelica.Blocks.Interfaces.BooleanOutput y[n](each start=false, each fixed=true)
       annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   protected
-    Integer y_int[n];
+    Integer y_int[n](each start=0, each fixed=true);
     Real dummy(start=0, fixed=true);
   equation
     when initial() then
