@@ -7,7 +7,7 @@ package Functions
     output Real u;
 
   external"C" u=  MDD_utilitiesLoadRealParameter(file, name)
-  annotation(Include = "#include \"MDDUtilities.h\" ",
+  annotation(Include = "#include \"MDDUtilities.h\"",
              __iti_dll = "ITI_MDD.dll",
              __iti_dllNoExport = true);
   annotation(Documentation(info="<html>

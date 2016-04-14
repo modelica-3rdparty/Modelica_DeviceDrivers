@@ -5,7 +5,7 @@ function getData "reads data from 3dConnexion SpaceMouse"
 output Real Axes[6] "Axes values";
 output Integer Buttons[16] "Buttons values";
 external "C" MDD_spaceMouseGetData(Axes, Buttons)
-annotation(Include = "#include \"MDDSpaceMouse.h\" ",
+annotation(Include = "#include \"MDDSpaceMouse.h\"",
            Library = {"MDDSpaceMouse", "X11"});
 annotation(__ModelicaAssociation_Impure=true);
 end getData;

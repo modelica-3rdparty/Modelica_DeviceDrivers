@@ -7,7 +7,7 @@ package GameController_ "Accompanying function for the GameController object"
     output Integer Buttons[32] "Buttons values";
     output Integer POV "angle of POV";
     external "C" MDD_joystickGetData(joystick, Axes, Buttons, POV)
-      annotation(Include = "#include \"MDDJoystick.h\" ",
+      annotation(Include = "#include \"MDDJoystick.h\"",
                  Library = "Winmm",
                  __iti_dll = "ITI_MDD.dll",
                  __iti_dllNoExport = true);

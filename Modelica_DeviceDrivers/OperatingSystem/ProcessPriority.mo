@@ -4,7 +4,7 @@ class ProcessPriority "An object for process priority."
   function constructor "Creates a ProcessPriority instance with a given process priority."
     output ProcessPriority procPrio;
     external "C" procPrio = MDD_ProcessPriorityConstructor()
-      annotation(Include = "#include \"MDDRealtimeSynchronize.h\" ",
+      annotation(Include = "#include \"MDDRealtimeSynchronize.h\"",
                  Library = "rt",
                  __iti_dll = "ITI_MDD.dll",
                  __iti_dllNoExport = true);
@@ -13,7 +13,7 @@ class ProcessPriority "An object for process priority."
   function destructor
     input ProcessPriority procPrio;
     external "C" MDD_ProcessPriorityDestructor(procPrio)
-      annotation(Include = "#include \"MDDRealtimeSynchronize.h\" ",
+      annotation(Include = "#include \"MDDRealtimeSynchronize.h\"",
                  Library = "rt",
                  __iti_dll = "ITI_MDD.dll",
                  __iti_dllNoExport = true);

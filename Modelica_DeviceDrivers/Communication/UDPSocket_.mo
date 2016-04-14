@@ -7,7 +7,7 @@ package UDPSocket_ "Accompanying functions for the UDPSocket object"
     input UDPSocket socket;
     input SerialPackager pkg;
     external "C" MDD_udpReadP(socket, pkg)
-    annotation(Include = "#include \"MDDUDPSocket.h\" ",
+    annotation(Include = "#include \"MDDUDPSocket.h\"",
            Library = {"pthread", "Ws2_32"},
            __iti_dll = "ITI_MDD.dll",
            __iti_dllNoExport = true);
@@ -22,7 +22,7 @@ package UDPSocket_ "Accompanying functions for the UDPSocket object"
     input SerialPackager pkg;
     input Integer dataSize "Size of data";
     external "C" MDD_udpSendP(socket, ipAddress, port, pkg, dataSize)
-    annotation(Include = "#include \"MDDUDPSocket.h\" ",
+    annotation(Include = "#include \"MDDUDPSocket.h\"",
            Library = {"pthread", "Ws2_32"},
            __iti_dll = "ITI_MDD.dll",
            __iti_dllNoExport = true);
@@ -33,7 +33,7 @@ package UDPSocket_ "Accompanying functions for the UDPSocket object"
     input UDPSocket socket;
     output Integer receivedBytes "number of Bytes received";
     external "C" receivedBytes =  MDD_udpGetReceivedBytes(socket)
-    annotation(Include = "#include \"MDDUDPSocket.h\" ",
+    annotation(Include = "#include \"MDDUDPSocket.h\"",
            Library = {"pthread", "Ws2_32"},
            __iti_dll = "ITI_MDD.dll",
            __iti_dllNoExport = true);

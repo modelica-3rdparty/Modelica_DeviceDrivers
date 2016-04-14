@@ -8,7 +8,7 @@ extends ExternalObject;
     input Integer bufferSize = 16* 1024;
     output SharedMemory sm;
     external "C" sm =  MDD_SharedMemoryConstructor(memoryName,bufferSize)
-    annotation(Include = "#include \"MDDSharedMemory.h\" ",
+    annotation(Include = "#include \"MDDSharedMemory.h\"",
            Library = {"rt", "pthread"},
            __iti_dll = "ITI_MDD.dll",
            __iti_dllNoExport = true);
@@ -18,7 +18,7 @@ extends ExternalObject;
     import Modelica_DeviceDrivers.Communication.SharedMemory;
     input SharedMemory sm;
     external "C" MDD_SharedMemoryDestructor(sm)
-    annotation(Include = "#include \"MDDSharedMemory.h\" ",
+    annotation(Include = "#include \"MDDSharedMemory.h\"",
            Library = {"rt", "pthread"},
            __iti_dll = "ITI_MDD.dll",
            __iti_dllNoExport = true);

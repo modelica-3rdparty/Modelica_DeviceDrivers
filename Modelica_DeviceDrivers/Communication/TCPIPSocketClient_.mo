@@ -10,7 +10,7 @@ package TCPIPSocketClient_ "Accompanying functions for the TCP/IP socket client 
     input Integer port "Port";
     output Boolean isConnected;
     external "C" isConnected = MDD_TCPIPClient_Connect(socketClient, ip, port)
-    annotation(Include = "#include \"MDDTCPIPSocket.h\" ",
+    annotation(Include = "#include \"MDDTCPIPSocket.h\"",
            Library = {"pthread", "Ws2_32"},
            __iti_dll = "ITI_MDD.dll",
            __iti_dllNoExport = true);
@@ -23,7 +23,7 @@ package TCPIPSocketClient_ "Accompanying functions for the TCP/IP socket client 
     input SerialPackager pkg "Data package to be read";
     input Integer dataSize "Size of data";
     external "C" MDD_TCPIPClient_ReadP(socketClient, pkg, dataSize)
-    annotation(Include = "#include \"MDDTCPIPSocket.h\" ",
+    annotation(Include = "#include \"MDDTCPIPSocket.h\"",
            Library = {"pthread", "Ws2_32"},
            __iti_dll = "ITI_MDD.dll",
            __iti_dllNoExport = true);
@@ -37,7 +37,7 @@ package TCPIPSocketClient_ "Accompanying functions for the TCP/IP socket client 
     input Integer dataSize "Size of data";
     output Integer sendError "Send error flag";
     external "C" sendError = MDD_TCPIPClient_SendP(socketClient, pkg, dataSize)
-    annotation(Include = "#include \"MDDTCPIPSocket.h\" ",
+    annotation(Include = "#include \"MDDTCPIPSocket.h\"",
            Library = {"pthread", "Ws2_32"},
            __iti_dll = "ITI_MDD.dll",
            __iti_dllNoExport = true);

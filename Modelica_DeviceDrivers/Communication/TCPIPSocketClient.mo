@@ -6,7 +6,7 @@ extends ExternalObject;
     import Modelica_DeviceDrivers.Communication.TCPIPSocketClient;
     output TCPIPSocketClient socketClient;
   external "C" socketClient = MDD_TCPIPClient_Constructor()
-  annotation(Include = "#include \"MDDTCPIPSocket.h\" ",
+  annotation(Include = "#include \"MDDTCPIPSocket.h\"",
            Library = {"pthread", "Ws2_32"},
            __iti_dll = "ITI_MDD.dll",
            __iti_dllNoExport = true);
@@ -17,7 +17,7 @@ encapsulated function destructor
   import Modelica_DeviceDrivers.Communication.TCPIPSocketClient;
   input TCPIPSocketClient socketClient;
   external "C" MDD_TCPIPClient_Destructor(socketClient)
-  annotation(Include = "#include \"MDDTCPIPSocket.h\" ",
+  annotation(Include = "#include \"MDDTCPIPSocket.h\"",
            Library = {"pthread", "Ws2_32"},
            __iti_dll = "ITI_MDD.dll",
            __iti_dllNoExport = true);
