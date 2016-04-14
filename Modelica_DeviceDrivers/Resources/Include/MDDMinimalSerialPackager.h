@@ -31,21 +31,21 @@ void * MSP_createPackager(int bufferSize) {
     return (void*) MSP_PackagerData;
 }
 
-void MSP_destroyPackager(  int p_MSP_PackagerData) {
+void MSP_destroyPackager(int p_MSP_PackagerData) {
     struct MSP_PackagerData * MSP_PackagerData =
         (struct MSP_PackagerData *) p_MSP_PackagerData;
     free(MSP_PackagerData->buffer);
     free(MSP_PackagerData);
 
 }
-void MSP_addReal(int p_MSP_PackagerData, double * u,  int n) {
+void MSP_addReal(int p_MSP_PackagerData, double * u, int n) {
     struct MSP_PackagerData * MSP_PackagerData =
         (struct MSP_PackagerData *) p_MSP_PackagerData;
     int typeSize = sizeof(double);
-    /* ModelicaFormatMessage(\"addReal: pos: %d \\n\",MSP_PackagerData->pos); */
+    /* ModelicaFormatMessage("addReal: pos: %d\n",MSP_PackagerData->pos); */
     /* check bufferSize */
     if(MSP_PackagerData->pos + typeSize*n > MSP_PackagerData->bufferSize) {
-        ModelicaFormatError("MDDMinimalSerialPackager.h: Buffer overflow.");
+        ModelicaFormatError("MDDMinimalSerialPackager.h: Buffer overflow.\n");
     }
 
     /* copy data in buffer */
@@ -58,10 +58,10 @@ void MSP_addInteger(int p_MSP_PackagerData, int * u, int n) {
     struct MSP_PackagerData * MSP_PackagerData =
         (struct MSP_PackagerData *) p_MSP_PackagerData;
     int typeSize = sizeof(int);
-    /* ModelicaFormatMessage(\"addInteger: pos: %d \\n\",MSP_PackagerData->pos); */
+    /* ModelicaFormatMessage("addInteger: pos: %d\n",MSP_PackagerData->pos); */
     /* check bufferSize */
     if(MSP_PackagerData->pos + typeSize*n > MSP_PackagerData->bufferSize) {
-        ModelicaFormatError("MDDMinimalSerialPackager.h: Buffer overflow.");
+        ModelicaFormatError("MDDMinimalSerialPackager.h: Buffer overflow.\n");
     }
 
     /* copy data in buffer */
@@ -81,21 +81,21 @@ void MSP_addString(int p_MSP_PackagerData, char * u) {
         if (u[len] == 0) {
             break;
         }
-    ModelicaFormatMessage("addString: %s \n",u);
+    ModelicaFormatMessage("addString: %s\n",u);
     /* copy data in buffer */
     memcpy(MSP_PackagerData->buffer + MSP_PackagerData->pos, u, typeSize * (len+1));
     MSP_PackagerData->pos += typeSize * (len+1);
 
 }
 
-const char * MSP_getPackage( int p_MSP_PackagerData) {
+const char * MSP_getPackage(int p_MSP_PackagerData) {
     struct MSP_PackagerData * MSP_PackagerData =
         (struct MSP_PackagerData *) p_MSP_PackagerData;
     /* this is potentially dangerous. */
-    /* ModelicaFormatMessage(\"getPackage: pointerPosition: %d\\n\",MSP_PackagerData->pos); */
+    /* ModelicaFormatMessage("getPackage: pointerPosition: %d\n",MSP_PackagerData->pos); */
     return (const char*)MSP_PackagerData->buffer;
 }
-void MSP_setPackage( int p_MSP_PackagerData, char * package, int bufferSize) {
+void MSP_setPackage(int p_MSP_PackagerData, char * package, int bufferSize) {
     struct MSP_PackagerData * MSP_PackagerData =
         (struct MSP_PackagerData *) p_MSP_PackagerData;
     memcpy(MSP_PackagerData->buffer,package,  bufferSize);
@@ -103,24 +103,24 @@ void MSP_setPackage( int p_MSP_PackagerData, char * package, int bufferSize) {
     MSP_PackagerData->pos = 0;
 }
 
-void MSP_getReal( int  p_MSP_PackagerData, double * y, int n) {
+void MSP_getReal(int p_MSP_PackagerData, double * y, int n) {
     struct MSP_PackagerData * MSP_PackagerData =
         (struct MSP_PackagerData *) p_MSP_PackagerData;
     int typeSize = sizeof(double);
 
-    /* ModelicaFormatMessage(\"readReal: pos: %d \\n\",MSP_PackagerData->pos); */
+    /* ModelicaFormatMessage("getReal: pos: %d\n",MSP_PackagerData->pos); */
     /* get data */
     memcpy(y,MSP_PackagerData->buffer+ MSP_PackagerData->pos,typeSize * n);
     MSP_PackagerData->pos+=typeSize * n;
 
 }
 
-void MSP_getInteger( int p_MSP_PackagerData, int * y, int n) {
+void MSP_getInteger(int p_MSP_PackagerData, int * y, int n) {
     struct MSP_PackagerData * MSP_PackagerData =
         (struct MSP_PackagerData *) p_MSP_PackagerData;
     int typeSize = sizeof(int);
 
-    /* ModelicaFormatMessage(\"readInteger: pos: %d \\n\",MSP_PackagerData->pos); */
+    /* ModelicaFormatMessage("getInteger: pos: %d\n",MSP_PackagerData->pos); */
     /* get data */
     memcpy(y,MSP_PackagerData->buffer+ MSP_PackagerData->pos,typeSize * n);
     /* printf(\"getInteger: %d \\n\",y[0]); */
@@ -128,7 +128,7 @@ void MSP_getInteger( int p_MSP_PackagerData, int * y, int n) {
 
 }
 
-const char * MSP_getString( int p_MSP_PackagerData) {
+const char * MSP_getString(int p_MSP_PackagerData) {
     struct MSP_PackagerData * MSP_PackagerData =
         (struct MSP_PackagerData *) p_MSP_PackagerData;
     char * y;
@@ -143,7 +143,7 @@ const char * MSP_getString( int p_MSP_PackagerData) {
             break;
         }
 
-    /* ModelicaFormatMessage(\"Stringlen: %d \\n\",(i - MSP_PackagerData->pos + 1)); */
+    /* ModelicaFormatMessage("Stringlen: %d\n",(i - MSP_PackagerData->pos + 1)); */
     /* Allocate Memory for String */
 
     y = MSP_PackagerData->buffer+ MSP_PackagerData->pos;
@@ -152,19 +152,19 @@ const char * MSP_getString( int p_MSP_PackagerData) {
     return (const char*)y;
 }
 
-void MSP_resetPointer ( int p_MSP_PackagerData) {
+void MSP_resetPointer(int p_MSP_PackagerData) {
     struct MSP_PackagerData * MSP_PackagerData =
         (struct MSP_PackagerData *) p_MSP_PackagerData;
     MSP_PackagerData->pos = 0;
 }
 
-void MSP_clear( int p_MSP_PackagerData) {
+void MSP_clear(int p_MSP_PackagerData) {
     struct MSP_PackagerData * MSP_PackagerData =
         (struct MSP_PackagerData *) p_MSP_PackagerData;
     memset(MSP_PackagerData->buffer,0, MSP_PackagerData->bufferSize);
     MSP_PackagerData->pos = 0;
 }
-int MSP_getBufferSize( int  p_MSP_PackagerData) {
+int MSP_getBufferSize(int p_MSP_PackagerData) {
     struct MSP_PackagerData * MSP_PackagerData =
         (struct MSP_PackagerData *) p_MSP_PackagerData;
     return MSP_PackagerData->bufferSize;
