@@ -265,7 +265,7 @@ int MDD_udpReceivingThread(void * p_udp) {
     socklen_t sa_len = sizeof(struct sockaddr_in);  /*  Size of sa. */
     struct pollfd sock_poll;
 
-    ModelicaFormatMessage("Started dedicted UDP receiving thread listening at port %d\n",
+    ModelicaFormatMessage("Started dedicated UDP receiving thread listening at port %d\n",
                           udp->sock);
 
     sock_poll.fd = udp->sock;

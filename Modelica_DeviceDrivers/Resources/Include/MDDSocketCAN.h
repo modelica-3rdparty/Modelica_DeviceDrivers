@@ -309,7 +309,7 @@ int MDD_socketCANRxThread(MDDSocketCAN * mDDSocketCAN) {
     void * data;
     struct pollfd sock_poll;
 
-    ModelicaFormatMessage("SocketCAN (%s): Started dedicted CAN frames receiving thread (socket descriptor %d).\n",
+    ModelicaFormatMessage("SocketCAN (%s): Started dedicated CAN frames receiving thread (socket descriptor %d).\n",
                           mDDSocketCAN->ifr.ifr_name, mDDSocketCAN->skt);
 
     sock_poll.fd = mDDSocketCAN->skt;
@@ -372,7 +372,7 @@ int MDD_socketCANRxThread_DEPRECATED(MDDSocketCAN * mDDSocketCAN) {
     struct can_frame rxframe;
     int bytes_read, ret;
     void * data;
-    ModelicaFormatMessage("SocketCAN (%s): Started dedicted CAN frames receiving thread, (socket descriptor %d).\n",
+    ModelicaFormatMessage("SocketCAN (%s): Started dedicated CAN frames receiving thread, (socket descriptor %d).\n",
                           mDDSocketCAN->ifr.ifr_name,  mDDSocketCAN->skt);
 
     while (mDDSocketCAN->runReceive) {
