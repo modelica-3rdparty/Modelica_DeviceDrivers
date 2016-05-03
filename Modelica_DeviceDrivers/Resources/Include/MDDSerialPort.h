@@ -350,20 +350,26 @@ typedef struct {
     int speed; /** Device Baudrate */
     int parity; /** Device Parity Configuration */
     struct termios serial;
-    size_t messageLength; /**< message length (only relevant for read socket) */
-    void* msgInternal; /**< Internal serial message buffer (only relevant for read socket) */
-    ssize_t nReceivedBytes; /**< Number of received bytes (only relevant for read serial) */
+    size_t bufferSize; /**< message length (only relevant for read serial) */
+    void* receiveBuffer; /**< Internal serial message buffer (only relevant for read serial) */
+    ssize_t receivedBytes; /**< Number of received bytes (only relevant for read serial) */
     int runReceive; /**< Run receiving thread as long as runReceive != 0 */
     pthread_t thread;
-    pthread_mutex_t messageMutex; /**< Exclusive access to message buffer */
+    pthread_mutex_t receiveMutex; /**< Exclusive access to message buffer */
 } MDDSerialPort;
 
-void MDD_serialPortDestructor(void * p_udp);
 void* MDD_serialPortReceivingThread(void * p_serial);
 
 int MDD_serialPortGetReceivedBytes(void * p_serial) {
+    int receivedBytes = 0;
     MDDSerialPort * serial = (MDDSerialPort *) p_serial;
-    return serial->nReceivedBytes;
+    if (serial && serial->runReceive) {
+        /* Lock acces to serial->receiveBuffer */
+        pthread_mutex_lock(&(serial->receiveMutex));
+        receivedBytes = (int)serial->receivedBytes;
+        pthread_mutex_unlock(&(serial->receiveMutex));
+    }
+    return receivedBytes;
 }
 
 /** Function to set serial device to blocking or non-blocking.
@@ -372,12 +378,11 @@ int MDD_serialPortGetReceivedBytes(void * p_serial) {
  * @param should_block @arg 0 if the serial device shall be non-blocking
  * @arg 1 if the serial device shall be blocked
  */
-void MDD_serialPortSetBlocking (int fd, int should_block) {
-
+static void MDD_serialPortSetBlocking(int fd, int should_block) {
     struct termios ser;
     int ret;
-    memset (&ser, 0, sizeof(ser));
-    ret = tcgetattr (fd, &ser);
+    memset(&ser, 0, sizeof(ser));
+    ret = tcgetattr(fd, &ser);
     if (ret != 0) {
         ModelicaFormatError("MDDSerialPort.h: Error %d from tcgetattr\n",ret);
         return;
@@ -386,12 +391,11 @@ void MDD_serialPortSetBlocking (int fd, int should_block) {
     ser.c_cc[VMIN] = should_block ? 1 : 0;
     ser.c_cc[VTIME] = 1;
 
-    ret = tcsetattr (fd, TCSANOW, &ser);
+    ret = tcsetattr(fd, TCSANOW, &ser);
     if (ret != 0) {
         ModelicaFormatError("MDDSerialPort.h: Error %d setting term attributes\n",ret);
         return;
     }
-
 }
 
 /** Function to set serial device attributes
@@ -401,21 +405,20 @@ void MDD_serialPortSetBlocking (int fd, int should_block) {
  * @param parity @arg 0 set no parity
  * @arg 1 set parity
  */
-void MDD_serialPortSetInterfaceAttributes (int fd, int speed, int parity) {
-
+static void MDD_serialPortSetInterfaceAttributes(int fd, int speed, int parity) {
     struct termios ser;
     int ret;
-    memset (&ser, 0, sizeof(ser));
-    ret = tcgetattr (fd, &ser);
+    memset(&ser, 0, sizeof(ser));
+    ret = tcgetattr(fd, &ser);
     if (ret != 0) {
-        ModelicaFormatError("MDDSerialPort.h: Error %d from tcgetattr\n",ret);
+        ModelicaFormatError("MDDSerialPort.h: Error %d from tcgetattr\n", ret);
         return;
     }
 
-    cfsetospeed (&ser, speed); /* set output speed */
-    cfsetispeed (&ser, speed); /* set input speed */
+    cfsetospeed(&ser, speed); /* set output speed */
+    cfsetispeed(&ser, speed); /* set input speed */
 
-    ser.c_cflag = ( ser.c_cflag & ~CSIZE) | CS8; /* 8 bit characters shall be used */
+    ser.c_cflag = (ser.c_cflag & ~CSIZE) | CS8; /* 8 bit characters shall be used */
     ser.c_iflag &= ~IGNBRK; /* ignore break signal */
     /*ser.c_iflag |= IGNBRK; // ignore break signal*/
     ser.c_lflag = 0; /* no signaling characters, no echo */
@@ -430,110 +433,120 @@ void MDD_serialPortSetInterfaceAttributes (int fd, int speed, int parity) {
             /* even parity */
             ser.c_cflag |= PARENB; /* enable parity */
             ser.c_cflag &= ~PARODD; /* set even parity */
-            ModelicaFormatMessage("Set even Parity of serial port handle: %d\n",fd);
+            ModelicaFormatMessage("Set even Parity of serial port handle: %d\n", fd);
             break;
         case 2:
             /* odd parity */
             ser.c_cflag |= PARENB; /* enable parity */
             ser.c_cflag |= PARODD; /* set even parity */
-            ModelicaFormatMessage("Set odd Parity of serial port handle: %d\n",fd);
+            ModelicaFormatMessage("Set odd Parity of serial port handle: %d\n", fd);
             break;
         default:
             /* no parity */
             ser.c_cflag &= ~(PARENB | PARODD); /* switch off any parity */
             ser.c_cflag |= parity; /* set parity */
-            ModelicaFormatMessage("Set no Parity of serial port handle: %d\n",fd);
+            ModelicaFormatMessage("Set no Parity of serial port handle: %d\n", fd);
             break;
     }
 
     ser.c_cflag &= ~CSTOPB;
     ser.c_cflag &= ~CRTSCTS;
 
-    ret = tcsetattr (fd, TCSANOW, &ser);
+    ret = tcsetattr(fd, TCSANOW, &ser);
     if (ret != 0) {
-        ModelicaFormatError("MDDSerialPort.h: Error %d setting term attributes\n",ret);
+        ModelicaFormatError("MDDSerialPort.h: Error %d setting term attributes\n", ret);
         return;
     }
-
 }
 
 /** Create a serial port from a serial device
  *
- * @param bufferSize size of the buffer used by a receiving socket (not needed for sending socket)
+ * @param bufferSize size of the buffer used by a receiving port (not needed for sending port)
  */
 void * MDD_serialPortConstructor(const char * deviceName, int bufferSize, int parity, int receiver, int baud) {
     /* Allocation of data structure memory */
-    MDDSerialPort* serial = (MDDSerialPort*) malloc(sizeof(MDDSerialPort));
-    int ret;
-    speed_t speed;
-    serial->messageLength = bufferSize;
-    serial->runReceive = 0;
-    serial->msgInternal = calloc(serial->messageLength,1);
-    ret = pthread_mutex_init(&(serial->messageMutex), NULL); /* Init mutex with defaults */
-    if (ret != 0) {
-        ModelicaFormatError("MDDSerialPort.h: pthread_mutex_init() failed (%s)\n",
-                            strerror(errno));
-    }
+    MDDSerialPort* serial = (MDDSerialPort*) calloc(sizeof(MDDSerialPort), 1);
+    if (serial) {
+        speed_t speed;
+        serial->bufferSize = bufferSize;
 
-    /* Create a serial port. */
-    serial->fd = open (deviceName, O_RDWR | /* sets device to read/write operation */
-                       O_NOCTTY | /* sets device not to be the controlling terminal for that port */
-                       O_NDELAY); /* sets device to do not care about state of DCD signal line */
-    /*O_SYNC); */
-    if (serial->fd < 0) {
-        ModelicaFormatError("MDDSerialPort.h: open(..) of serial port %s failed (%s)\n", deviceName,
-                            strerror(errno));
-    }
+        /* Create a serial port. */
+        serial->fd = open(deviceName, O_RDWR | /* sets device to read/write operation */
+                          O_NOCTTY | /* sets device not to be the controlling terminal for that port */
+                          O_NDELAY); /* sets device to do not care about state of DCD signal line */
+        /*O_SYNC); */
+        if (serial->fd < 0) {
+            free(serial);
+            serial = NULL;
+            ModelicaFormatError("MDDSerialPort.h: open(..) of serial port %s failed (%s)\n", deviceName,
+                                strerror(errno));
+        }
 
-    switch (baud) {
-        case 1:
-            speed = B115200;
-            break;
-        case 2:
-            speed = B57600;
-            break;
-        case 3:
-            speed = B38400;
-            break;
-        case 4:
-            speed = B19200;
-            break;
-        case 5:
-            speed = B9600;
-            break;
-        case 6:
-            speed = B4800;
-            break;
-        case 7:
-            speed = B2400;
-            break;
-        default:
-            speed = B57600;
-            break;
-    }
+        switch (baud) {
+            case 1:
+                speed = B115200;
+                break;
+            case 2:
+                speed = B57600;
+                break;
+            case 3:
+                speed = B38400;
+                break;
+            case 4:
+                speed = B19200;
+                break;
+            case 5:
+                speed = B9600;
+                break;
+            case 6:
+                speed = B4800;
+                break;
+            case 7:
+                speed = B2400;
+                break;
+            default:
+                speed = B57600;
+                break;
+        }
 
-    ModelicaFormatMessage("Created serial port handle: %d \n",serial->fd);
-    ModelicaFormatMessage("Created serial port for device %s\n",deviceName);
-    ModelicaFormatMessage("Set serial port %s to speed: %d\n",deviceName,(baud));
+        ModelicaFormatMessage("Created serial port handle: %d \n", serial->fd);
+        ModelicaFormatMessage("Created serial port for device %s\n", deviceName);
+        ModelicaFormatMessage("Set serial port %s to speed: %d\n", deviceName, (baud));
 
-    MDD_serialPortSetInterfaceAttributes (serial->fd, speed, parity);
-    MDD_serialPortSetBlocking (serial->fd,0);
+        MDD_serialPortSetInterfaceAttributes(serial->fd, speed, parity);
+        MDD_serialPortSetBlocking(serial->fd, 0);
 
-    if (receiver) {
-        /* Start dedicated receiver thread */
-        serial->runReceive = 1;
-        ret = pthread_create(&serial->thread, 0, MDD_serialPortReceivingThread, serial);
-        if (ret) {
-            ModelicaFormatError("MDDSerialPort.h: pthread (MDD_serialPortReceivingThread) failed\n");
+        if (receiver) {
+            int ret;
+            serial->receiveBuffer = calloc(serial->bufferSize, 1);
+            ret = pthread_mutex_init(&(serial->receiveMutex), NULL); /* Init mutex with defaults */
+            if (ret) {
+                close(serial->fd);
+                free(serial->receiveBuffer);
+                free(serial);
+                serial = NULL;
+                ModelicaFormatError("MDDSerialPort.h: pthread_mutex_init() failed (%s)\n",
+                                    strerror(errno));
+            }
+            /* Start dedicated receiver thread */
+            serial->runReceive = 1;
+            ret = pthread_create(&serial->thread, 0, MDD_serialPortReceivingThread, serial);
+            if (ret) {
+                pthread_mutex_destroy(&(serial->receiveMutex));
+                close(serial->fd);
+                free(serial->receiveBuffer);
+                free(serial);
+                serial = NULL;
+                ModelicaFormatError("MDDSerialPort.h: pthread (MDD_serialPortReceivingThread) failed\n");
+            }
         }
     }
-
     return (void *) serial;
 }
 
 /** Dedicated thread to receive data from serial ports.
  *
- * @param p_serial pointer address to the serial socket data structure
+ * @param p_serial pointer address to the serial port data structure
  */
 void* MDD_serialPortReceivingThread(void * p_serial) {
     MDDSerialPort * serial = (MDDSerialPort *) p_serial;
@@ -557,21 +570,21 @@ void* MDD_serialPortReceivingThread(void * p_serial) {
             case 0: /* no new data available. Just check if serial->runReceive still true and go on */
                 break;
             case 1: /* new data available */
-                if(serial_poll.revents & POLLHUP) {
+                if (serial_poll.revents & POLLHUP) {
                     ModelicaMessage("The serial port was disconnected.\n");
                 }
                 else {
-                    /* Lock acces to serial->msgInternal */
-                    pthread_mutex_lock(&(serial->messageMutex));
+                    /* Lock acces to serial->receiveBuffer */
+                    pthread_mutex_lock(&(serial->receiveMutex));
                     /* Receive the next datagram */
-                    serial->nReceivedBytes =
+                    serial->receivedBytes =
                         read(serial->fd, /* serial port file handle*/
-                             serial->msgInternal, /* receive buffer */
-                             serial->messageLength /* max bytes to receive */
+                             serial->receiveBuffer, /* receive buffer */
+                             serial->bufferSize /* max bytes to receive */
                             );
-                    pthread_mutex_unlock(&(serial->messageMutex));
+                    pthread_mutex_unlock(&(serial->receiveMutex));
 
-                    if (serial->nReceivedBytes < 0) {
+                    if (serial->receivedBytes < 0) {
                         ModelicaFormatError("MDDSerialPort.h: read(..) failed (%s)\n", strerror(errno));
                     }
                 }
@@ -589,21 +602,21 @@ void* MDD_serialPortReceivingThread(void * p_serial) {
  * @return pointer to the message buffer
  */
 const char * MDD_serialPortRead(void * p_serial) {
-
     MDDSerialPort * serial = (MDDSerialPort *) p_serial;
-    char* spBuf;
-
-    /* Lock acces to serial->msgInternal */
-    pthread_mutex_lock(&(serial->messageMutex));
-    spBuf = ModelicaAllocateStringWithErrorReturn(serial->messageLength);
-    if (spBuf) {
-        memcpy(spBuf, serial->msgInternal, serial->messageLength);
-        pthread_mutex_unlock(&(serial->messageMutex));
-        return (const char*) spBuf;
-    }
-    else {
-        pthread_mutex_unlock(&(serial->messageMutex));
-        ModelicaError("MDDSerialPort.h: ModelicaAllocateString failed\n");
+    if (serial && serial->runReceive = 1) {
+        char* spBuf;
+        /* Lock acces to serial->receiveBuffer */
+        pthread_mutex_lock(&(serial->receiveMutex));
+        spBuf = ModelicaAllocateStringWithErrorReturn(serial->bufferSize);
+        if (spBuf) {
+            memcpy(spBuf, serial->receiveBuffer, serial->bufferSize);
+            pthread_mutex_unlock(&(serial->receiveMutex));
+            return (const char*) spBuf;
+        }
+        else {
+            pthread_mutex_unlock(&(serial->receiveMutex));
+            ModelicaError("MDDSerialPort.h: ModelicaAllocateString failed\n");
+        }
     }
     return "";
 }
@@ -615,14 +628,15 @@ const char * MDD_serialPortRead(void * p_serial) {
  */
 void MDD_serialPortReadP(void * p_serial, void* p_package) {
     MDDSerialPort * serial = (MDDSerialPort *) p_serial;
-    int rc;
-
-    /* Lock acces to serial->msgInternal */
-    pthread_mutex_lock(&(serial->messageMutex));
-    rc = MDD_SerialPackagerSetDataWithErrorReturn(p_package, serial->msgInternal, serial->messageLength);
-    pthread_mutex_unlock(&(serial->messageMutex));
-    if (rc) {
-        ModelicaError("MDDSerialPort.h: MDD_SerialPackagerSetData failed. Buffer overflow.\n");
+    if (serial && serial->runReceive = 1) {
+        int rc;
+        /* Lock acces to serial->receiveBuffer */
+        pthread_mutex_lock(&(serial->receiveMutex));
+        rc = MDD_SerialPackagerSetDataWithErrorReturn(p_package, serial->receiveBuffer, serial->bufferSize);
+        pthread_mutex_unlock(&(serial->receiveMutex));
+        if (rc) {
+            ModelicaError("MDDSerialPort.h: MDD_SerialPackagerSetData failed. Buffer overflow.\n");
+        }
     }
 }
 
@@ -633,16 +647,13 @@ void MDD_serialPortReadP(void * p_serial, void* p_package) {
  * @param dataSize size of data
  */
 void MDD_serialPortSend(void * p_serial, const char * data, int dataSize) {
-
     MDDSerialPort * serial = (MDDSerialPort *) p_serial;
 
     int ret = write(serial->fd, data, dataSize); /* write to serial port */
     if (ret < dataSize) {
-        MDD_serialPortDestructor((void *) serial);
         ModelicaFormatError("MDDSerialPort.h: Expected to send: %d bytes, but was: %d\n"
                             "sendto(..) failed (%s)\n", dataSize, ret, strerror(errno));
     }
-
 }
 
 /** Send data via serial port
@@ -660,21 +671,26 @@ void MDD_serialPortSendP(void * p_serial, void* p_package, int dataSize) {
  */
 void MDD_serialPortDestructor(void * p_serial) {
     MDDSerialPort * serial = (MDDSerialPort *) p_serial;
-    void * pRet;
+    if (serial) {
+        /* stop receiving thread if any */
+        if (serial->runReceive) {
+            void * pRet;
+            serial->runReceive = 0;
+            pthread_join(serial->thread, &pRet);
+            pthread_detach(serial->thread);
+            pthread_mutex_destroy(&(serial->receiveMutex));
+            free(serial->receiveBuffer);
+        }
 
-    /* stop receiving thread if any */
-    if (serial->runReceive) {
-        serial->runReceive = 0;
-        pthread_join(serial->thread, &pRet);
-        pthread_detach(serial->thread);
+        if (close(serial->fd) == -1) {
+            free(serial);
+            ModelicaFormatError("MDDSerialPort.h: close() failed (%s)\n", strerror(errno));
+        }
+        else {
+            ModelicaFormatMessage("Closed serial port handle %d\n", serial->fd);
+            free(serial);
+        }
     }
-
-    if (close(serial->fd) == -1) {
-        ModelicaFormatError("MDDSerialPort.h: close() failed (%s)\n", strerror(errno));
-    }
-    ModelicaFormatMessage("Closed serial port handle %d\n", serial->fd);
-    free(serial->msgInternal);
-    free(serial);
 }
 
 #else
