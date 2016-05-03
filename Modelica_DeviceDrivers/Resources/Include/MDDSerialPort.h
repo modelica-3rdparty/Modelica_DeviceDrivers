@@ -603,7 +603,7 @@ void* MDD_serialPortReceivingThread(void * p_serial) {
  */
 const char * MDD_serialPortRead(void * p_serial) {
     MDDSerialPort * serial = (MDDSerialPort *) p_serial;
-    if (serial && serial->runReceive = 1) {
+    if (serial && serial->runReceive) {
         char* spBuf;
         /* Lock acces to serial->receiveBuffer */
         pthread_mutex_lock(&(serial->receiveMutex));
@@ -628,7 +628,7 @@ const char * MDD_serialPortRead(void * p_serial) {
  */
 void MDD_serialPortReadP(void * p_serial, void* p_package) {
     MDDSerialPort * serial = (MDDSerialPort *) p_serial;
-    if (serial && serial->runReceive = 1) {
+    if (serial && serial->runReceive) {
         int rc;
         /* Lock acces to serial->receiveBuffer */
         pthread_mutex_lock(&(serial->receiveMutex));
