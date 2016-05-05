@@ -35,7 +35,7 @@
 
 #include <stdio.h>
 #include "../../Include/MDDTCPIPSocket.h"
-#include "../../src/include/util.h" /* Sleep(..) */
+#include "../../src/include/util.h" /* MDD_msleep(..) */
 
 int main(void) {
     void * client;
@@ -53,7 +53,7 @@ int main(void) {
         for (i=0; i < 10; i++) {
             sprintf(sendMessage, "Current i is %i", i);
             MDD_TCPIPClient_Send(client, sendMessage, 80);
-            Sleep(250);
+            MDD_msleep(250);
             recMessage = MDD_TCPIPClient_Read(client, 80);
             printf("Received: %s\n", recMessage);
         }

@@ -20,8 +20,12 @@ else (UNIX)
   # assume we are in windows
   target_link_libraries(test_MDDUDPSocket Ws2_32)
 endif (UNIX)
-add_test(test_MDDUDPSocket 
+add_test(test_MDDUDPSocket
 	${EXECUTABLE_OUTPUT_PATH}/test_MDDUDPSocket)
+
+add_executable(test_MDDTCPIPSocketClient test_MDDTCPIPSocketClient.c ../Util/ModelicaUtilities.c)
+add_test(test_MDDTCPIPSocketClient
+${EXECUTABLE_OUTPUT_PATH}/test_MDDTCPIPSocketClient)
 
 add_executable(test_MDDSerialPackager
   test_MDDSerialPackager.c ../Util/ModelicaUtilities.c)
@@ -44,7 +48,7 @@ add_executable(test_MDDSerialPort test_MDDSerialPort.c ../Util/ModelicaUtilities
 if (UNIX)
   target_link_libraries(test_MDDSerialPort ${CMAKE_THREAD_LIBS_INIT})
 endif (UNIX)
-add_test(test_MDDSerialPort 
+add_test(test_MDDSerialPort
 	${EXECUTABLE_OUTPUT_PATH}/test_MDDSerialPort)
 
 add_executable(test_EndiannessConversion
