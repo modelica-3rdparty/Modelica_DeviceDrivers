@@ -366,6 +366,114 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
 </html>"));
   end TCPIP_Client_IO;
 
+  block LCMReceive "A block for receiving LCM datagrams"
+    extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
+    extends Modelica_DeviceDrivers.Utilities.Icons.LCMconnection;
+    extends Modelica_DeviceDrivers.Blocks.Communication.Internal.PartialSampleTrigger;
+    import Modelica_DeviceDrivers.Packaging.SerialPackager;
+    import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
+    import Modelica_DeviceDrivers.Communication.LCM;
+    import Modelica_DeviceDrivers.Utilities.Types.LCMProvider;
+    parameter Boolean autoBufferSize = true
+      "true, buffer size is deduced automatically, otherwise set it manually"
+      annotation(Dialog(group="Incoming data"), choices(checkBox=true));
+    parameter Integer userBufferSize=16*1024
+      "Buffer size of message data in bytes (if not deduced automatically)" annotation(Dialog(enable=not autoBufferSize, group="Incoming data"));
+    parameter LCMProvider provider=LCMProvider.UDPM "LCM network provider"
+      annotation (Dialog(group="Incoming data"));
+    parameter String address="127.0.0.1" "IP address of remote UDP server or logfile name"
+      annotation (Dialog(group="Incoming data", enable=(provider==LCMProvider.UDPM or provider==LCMProvider.FILE)));
+    parameter Integer port_recv=10001
+      "Listening port number of the server. Must be unique on the system"
+      annotation (Dialog(group="Incoming data", enable=LCMProvider.UDPM));
+    parameter String channel_recv="" "Channel name"
+      annotation (Dialog(group="Incoming data"));
+    Interfaces.PackageOut pkgOut(pkg = SerialPackager(if autoBufferSize then bufferSize else userBufferSize), dummy(start=0, fixed=true))
+      annotation (Placement(transformation(
+          extent={{-20,-20},{20,20}},
+          rotation=90,
+          origin={108,0})));
+  protected
+    Integer bufferSize;
+    parameter Integer receiver = 1 "Set to be a receiver port";
+    LCM lcm = LCM(
+      if provider == LCMProvider.UDPM then "udpm://" else if provider == LCMProvider.FILE then "file://" else "memq://",
+      address, port_recv, receiver, channel_recv, if autoBufferSize then bufferSize else userBufferSize);
+  equation
+    when initial() then
+      bufferSize = if autoBufferSize then alignAtByteBoundary(pkgOut.autoPkgBitSize) else userBufferSize;
+    end when;
+    pkgOut.trigger = actTrigger "using inherited trigger";
+    when pkgOut.trigger then
+      pkgOut.dummy = Modelica_DeviceDrivers.Blocks.Communication.Internal.DummyFunctions.readLCM(
+        lcm,
+        pkgOut.pkg,
+        time);
+    end when;
+    annotation (preferredView="info",
+            Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+              -100},{100,100}}), graphics={Text(extent={{-150,136},{150,96}},
+              textString="%name")}), Documentation(info="<html>
+<p>Supports receiving of Lightweight Communications and Marshalling (LCM) datagrams.</p>
+</html>"));
+  end LCMReceive;
+
+  block LCMSend "A block for sending LCM datagrams"
+    import Modelica_DeviceDrivers;
+    extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
+    extends Modelica_DeviceDrivers.Utilities.Icons.LCMconnection;
+    extends Modelica_DeviceDrivers.Blocks.Communication.Internal.PartialSampleTrigger;
+    import Modelica_DeviceDrivers.Packaging.SerialPackager;
+    import Modelica_DeviceDrivers.Communication.LCM;
+    import Modelica_DeviceDrivers.Utilities.Types.LCMProvider;
+
+    parameter Boolean autoBufferSize = true
+      "true, buffer size is deduced automatically, otherwise set it manually."
+      annotation(Dialog(group="Outgoing data"), choices(checkBox=true));
+    parameter Integer userBufferSize=16*1024
+      "Buffer size of message data in bytes (if not deduced automatically)." annotation(Dialog(enable=not autoBufferSize, group="Outgoing data"));
+    parameter LCMProvider provider=LCMProvider.UDPM "LCM network provider"
+      annotation (Dialog(group="Outgoing data"));
+    parameter String address="127.0.0.1" "IP address of remote UDP server or logfile name"
+      annotation (Dialog(group="Outgoing data", enable=(provider==LCMProvider.UDPM or provider==LCMProvider.FILE)));
+    parameter Integer port_send=10002 "Target port of the receiving UDP server"
+      annotation (Dialog(group="Outgoing data", enable=provider==LCMProvider.UDPM));
+    parameter String channel_send="" "Channel name"
+      annotation (Dialog(group="Outgoing data"));
+    Interfaces.PackageIn pkgIn annotation (Placement(transformation(
+          extent={{-20,-20},{20,20}},
+          rotation=270,
+          origin={-108,0})));
+  protected
+    parameter Integer receiver = 0 "Set to be a sender port";
+    LCM lcm = LCM(
+      if provider == LCMProvider.UDPM then "udpm://" else if provider == LCMProvider.FILE then "file://" else "memq://",
+      address, port_send, receiver, "", 0);
+    Integer bufferSize;
+    Real dummy(start=0, fixed=true);
+  equation
+    when initial() then
+      pkgIn.userPkgBitSize = if autoBufferSize then -1 else userBufferSize*8;
+      pkgIn.autoPkgBitSize = 0;
+      bufferSize = if autoBufferSize then Modelica_DeviceDrivers.Packaging.SerialPackager_.getBufferSize(pkgIn.pkg) else userBufferSize;
+    end when;
+    pkgIn.backwardTrigger = actTrigger "using inherited trigger";
+    when pkgIn.trigger then
+      dummy = Modelica_DeviceDrivers.Blocks.Communication.Internal.DummyFunctions.sendToLCM(
+        lcm,
+        channel_send,
+        pkgIn.pkg,
+        bufferSize,
+        pkgIn.dummy);
+    end when;
+    annotation (preferredView="info",
+            Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+              -100},{100,100}}), graphics={Text(extent={{-150,136},{150,96}},
+              textString="%name")}), Documentation(info="<html>
+<p>Supports sending of Lightweight Communications and Marshalling (LCM) datagrams.</p>
+</html>"));
+  end LCMSend;
+
   package SoftingCAN
     "Support for Softing's CAN interfaces utilizing their CANL2 API library"
     extends Modelica.Icons.Package;
@@ -894,6 +1002,28 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
         Modelica_DeviceDrivers.Communication.TCPIPSocketClient_.sendTo(socket, pkg, dataSize);
         dummy2 := dummy;
       end sendToTCPIPServer;
+
+      function readLCM
+        input Modelica_DeviceDrivers.Communication.LCM lcm;
+        input Modelica_DeviceDrivers.Packaging.SerialPackager pkg;
+        input Real dummy;
+        output Real dummy2;
+      algorithm
+        Modelica_DeviceDrivers.Communication.LCM_.read(lcm, pkg);
+        dummy2 := dummy;
+      end readLCM;
+
+      function sendToLCM
+        input Modelica_DeviceDrivers.Communication.LCM lcm;
+        input String channel "Channel name";
+        input Modelica_DeviceDrivers.Packaging.SerialPackager pkg;
+        input Integer dataSize "Size of data";
+        input Real dummy;
+        output Real dummy2;
+      algorithm
+        Modelica_DeviceDrivers.Communication.LCM_.sendTo(lcm, channel, pkg, dataSize);
+        dummy2 := dummy;
+      end sendToLCM;
     end DummyFunctions;
 
     block PartialSampleTrigger
