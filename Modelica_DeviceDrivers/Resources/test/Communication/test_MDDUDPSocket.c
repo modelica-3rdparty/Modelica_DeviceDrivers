@@ -34,7 +34,7 @@
 
 #include <stdio.h>
 #include "../../Include/MDDUDPSocket.h"
-#include "../../src/include/util.h" /* Sleep(..) */
+#include "../../src/include/util.h" /* MDD_msleep(..) */
 
 int main(void) {
     void * sendSocket;
@@ -61,7 +61,7 @@ int main(void) {
         sprintf(sendMessage, "Current i is %i", i);
         //MDD_udpSend(sendSocket, "127.0.0.1", 10002, sendMessage, strlen(sendMessage));
         MDD_udpSend(sendSocket, "127.0.0.1", 10002, sendMessage, 80);
-        //Sleep(1);
+        //MDD_msleep(1);
         recBytes = MDD_udpGetReceivedBytes(recSocket);
         recMessage = MDD_udpRead(recSocket);
         printf("Received %d bytes: %s\n", recBytes, recMessage);
