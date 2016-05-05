@@ -243,7 +243,7 @@ typedef struct MDDUDPSocket_s MDDUDPSocket;
 /** UDP socket object */
 struct MDDUDPSocket_s {
     int sock;  /**< connection socket. */
-    struct sockaddr_in sa;   /**< Target connection address.*/
+    struct sockaddr_in sa;   /**< server address.*/
     /* int socketMode; */  /**< Mode of socket, e.g. sender or receiver */
     size_t messageLength; /**< message length (only relevant for read socket) */
     void* msgInternal;  /**< Internal UDP message buffer (only relevant for read socket) */
@@ -548,7 +548,7 @@ void MDD_udpSend(void * p_udp, const char * ipAddress, int port,
 
 }
 
-/** Sent data via UDP socket.
+/** Send data via UDP socket.
  * @todo Information about ipAddress and port seems to be better suited to be given in the
  *       MDD_udpCreateSocket(..) functions for performance reasons, e.g., extensive tests about
  *       validity of passed in address and so on could be done once and for all time.
@@ -619,7 +619,6 @@ void * MDD_udpConstructor(int port, int bufferSize) {
         if (bind(udp->sock, (struct sockaddr *)&(udp->sa),
                  sizeof(udp->sa)) < 0) {
             ModelicaFormatError("MDDUDPSocket.h: bind(..) failed (%s)\n",
-                                port,
                                 strerror(errno));
         }
 
