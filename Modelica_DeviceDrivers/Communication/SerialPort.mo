@@ -9,7 +9,7 @@ encapsulated function constructor
   input Integer bufferSize=16*1024 "Size of receive buffer";
   input Integer parity = 0 "0 - no parity, 1 - even, 2 - odd";
   input Integer receiver = 1 "0 - sender, 1 - receiver";
-  input SerialBaudRate baud = 0;
+  input SerialBaudRate baud;
   output SerialPort sPort;
 external "C" sPort = MDD_serialPortConstructor(deviceName, bufferSize, parity,receiver,baud)
 annotation(Include = "#include \"MDDSerialPort.h\"",
