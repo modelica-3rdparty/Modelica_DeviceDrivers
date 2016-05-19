@@ -577,10 +577,10 @@ void* MDD_serialPortReceivingThread(void * p_serial) {
                     /* Lock acces to serial->receiveBuffer */
                     pthread_mutex_lock(&(serial->receiveMutex));
                     /* Receive the next datagram */
-                    serial->receivedBytes =
+                    serial->receivedBytes +=
                         read(serial->fd, /* serial port file handle*/
-                             serial->receiveBuffer, /* receive buffer */
-                             serial->bufferSize /* max bytes to receive */
+                             serial->receiveBuffer+serial->receivedBytes, /* receive buffer */
+                             serial->bufferSize-serial->receivedBytes /* max bytes to receive */
                             );
                     pthread_mutex_unlock(&(serial->receiveMutex));
 
