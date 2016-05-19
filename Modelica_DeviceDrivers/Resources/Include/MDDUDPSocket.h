@@ -246,7 +246,7 @@ typedef struct {
     char targetIPAddress[20];
     int runReceive; /**< Run receiving thread as long as runReceive != 0  */
     pthread_t thread;
-    pthread_mutex_t receiveMutex; /**< Exclusive access to message buffer (only relevant for read socket) */
+    pthread_mutex_t receiveMutex; /**< Exclusive access to message buffer */
 } MDDUDPSocket;
 
 /** Dedicated thread for receiving UDP messages.

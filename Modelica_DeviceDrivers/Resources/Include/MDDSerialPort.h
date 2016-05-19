@@ -355,7 +355,7 @@ typedef struct {
     ssize_t receivedBytes; /**< Number of received bytes (only relevant for read serial) */
     int runReceive; /**< Run receiving thread as long as runReceive != 0 */
     pthread_t thread;
-    pthread_mutex_t receiveMutex; /**< Exclusive access to message buffer (only relevant for read serial) */
+    pthread_mutex_t receiveMutex; /**< Exclusive access to message buffer */
 } MDDSerialPort;
 
 void* MDD_serialPortReceivingThread(void * p_serial);
