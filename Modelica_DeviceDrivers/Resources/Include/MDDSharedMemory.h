@@ -41,41 +41,40 @@ typedef struct {
 
 DllExport void* MDD_SharedMemoryConstructor(const char * name, int bufSize) {
     MDDSharedMemory * smb = (MDDSharedMemory *)malloc(sizeof(MDDSharedMemory));
-    if (NULL != smb) {
-        smb->hMapFile = CreateFileMappingA(
-                            INVALID_HANDLE_VALUE,    /* use paging file */
-                            NULL,                    /* default security */
-                            PAGE_READWRITE,          /* read/write access */
-                            0,                       /* maximum object size (high-order DWORD) */
-                            sizeof(long) + sizeof(int) + bufSize, /* maximum object size (low-order DWORD) */
+    smb->hMapFile = CreateFileMappingA(
+                        INVALID_HANDLE_VALUE,    /* use paging file */
+                        NULL,                    /* default security */
+                        PAGE_READWRITE,          /* read/write access */
+                        0,                       /* maximum object size (high-order DWORD) */
+                        sizeof(long) + sizeof(int) + bufSize, /* maximum object size (low-order DWORD) */
+                        name);                 /* name of mapping object */
+    if (GetLastError() == ERROR_ALREADY_EXISTS) {
+        smb->hMapFile = OpenFileMappingA(
+                            FILE_MAP_ALL_ACCESS,   /* read/write access */
+                            FALSE,                 /* do not inherit the name */
                             name);                 /* name of mapping object */
-        if (GetLastError() == ERROR_ALREADY_EXISTS) {
-            smb->hMapFile = OpenFileMappingA(
-                                FILE_MAP_ALL_ACCESS,   /* read/write access */
-                                FALSE,                 /* do not inherit the name */
-                                name);                 /* name of mapping object */
-            /* printf(\"Opening existing FileMapping\\n\"); */
-        }
-
-        if (smb->hMapFile == NULL) {
-            free(smb);
-            ModelicaFormatError("MDDSharedMemory.h: Could not create file mapping object: %lu.\n", GetLastError());
-            return NULL;
-        }
-        smb->smBuf = (char*) MapViewOfFile(
-                               smb->hMapFile, /* handle to map object */
-                               FILE_MAP_ALL_ACCESS, /* read/write permission */
-                               0,
-                               0,
-                               sizeof(long) + sizeof(int) + bufSize);
-
-        if (smb->smBuf == NULL) {
-            CloseHandle(smb->hMapFile);
-            free(smb);
-            ModelicaFormatError("MDDSharedMemory.h: Could not map view of file: %lu.\n", GetLastError());
-            return NULL;
-        }
+        /* printf(\"Opening existing FileMapping\\n\"); */
     }
+
+    if (smb->hMapFile == NULL) {
+        free(smb);
+        ModelicaFormatError("MDDSharedMemory.h: Could not create file mapping object: %lu.\n", GetLastError());
+        return NULL;
+    }
+    smb->smBuf = (char*) MapViewOfFile(
+                           smb->hMapFile, /* handle to map object */
+                           FILE_MAP_ALL_ACCESS, /* read/write permission */
+                           0,
+                           0,
+                           sizeof(long) + sizeof(int) + bufSize);
+
+    if (smb->smBuf == NULL) {
+        CloseHandle(smb->hMapFile);
+        free(smb);
+        ModelicaFormatError("MDDSharedMemory.h: Could not map view of file: %lu.\n", GetLastError());
+        return NULL;
+    }
+
     return smb;
 }
 
@@ -136,12 +135,10 @@ DllExport void MDD_SharedMemoryReadP(void * p_smb, void* p_package) {
 
 DllExport void MDD_SharedMemoryWrite(void * p_smb, const char * buffer, int len) {
     MDDSharedMemory * smb = (MDDSharedMemory *) p_smb;
-    if (smb) {
-        MDDSM_LOCK();
-        memcpy(MDDSM_DATA, buffer, len);
-        memcpy(MDDSM_PLEN, &len, sizeof(int));
-        MDDSM_UNLOCK();
-    }
+    MDDSM_LOCK();
+    memcpy(MDDSM_DATA, buffer, len);
+    memcpy(MDDSM_PLEN, &len, sizeof(int));
+    MDDSM_UNLOCK();
 }
 
 DllExport void MDD_SharedMemoryWriteP(void * p_smb, void* p_package, int len) {
