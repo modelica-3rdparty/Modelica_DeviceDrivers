@@ -32,7 +32,7 @@
 
 #pragma comment( lib, "Ws2_32.lib" )
 
-tyepdef struct {
+typedef struct {
     char * receiveBuffer;
     char * receiveBufferTmp;
     int bufferSize;
