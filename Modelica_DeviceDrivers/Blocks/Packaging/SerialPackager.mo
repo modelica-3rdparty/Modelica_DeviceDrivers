@@ -650,7 +650,7 @@ and one Integer value is added, serialized and finally sent using UDP.
     import Modelica.Utilities.Strings.length;
     parameter Integer bufferSize = 40
       "Buffer size (in bytes) reserved for String (ensure that same buffer size is used in corresponding AddString block!)";
-    discrete output String data(start="");
+    discrete output String data;
   protected
     Real dummy(start=0, fixed=true);
   equation
