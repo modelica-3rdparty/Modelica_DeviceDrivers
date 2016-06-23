@@ -36,6 +36,7 @@
 
 #define M_LENGTH (80)
 #define CHANNEL "test5"
+#define Q_SIZE (10)
 
 int main(void) {
     void *lcm1, *lcm2;
@@ -45,13 +46,13 @@ int main(void) {
 
     printf("Testing MDDLCM %s\n", MDD_lcmGetVersion(NULL));
 
-    lcm1 = MDD_lcmConstructor("udpm://", "127.0.0.1", 10002, 0, NULL, 0);
+    lcm1 = MDD_lcmConstructor("udpm://", "127.0.0.1", 10002, 0, NULL, 0, 0);
     if (NULL == lcm1) {
         perror("lcm1 == NULL\n");
         exit(1);
     }
 
-    lcm2 = MDD_lcmConstructor("udpm://", "127.0.0.1", 10002, 1, CHANNEL, M_LENGTH);
+    lcm2 = MDD_lcmConstructor("udpm://", "127.0.0.1", 10002, 1, CHANNEL, M_LENGTH, Q_SIZE);
     if (NULL == lcm2) {
         MDD_lcmDestructor(lcm1);
         perror("lcm2 == NULL\n");

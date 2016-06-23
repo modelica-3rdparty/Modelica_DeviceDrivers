@@ -388,6 +388,9 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
       annotation (Dialog(group="Incoming data", enable=LCMProvider.UDPM));
     parameter String channel_recv="" "Channel name"
       annotation (Dialog(group="Incoming data"));
+    parameter Integer queue_size=30
+      "Maximum number of received messages that can be queued up"
+      annotation (Dialog(group="Incoming data"));
     Interfaces.PackageOut pkgOut(pkg = SerialPackager(if autoBufferSize then bufferSize else userBufferSize), dummy(start=0, fixed=true))
       annotation (Placement(transformation(
           extent={{-20,-20},{20,20}},
@@ -398,7 +401,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
     parameter Integer receiver = 1 "Set to be a receiver port";
     LCM lcm = LCM(
       if provider == LCMProvider.UDPM then "udpm://" else if provider == LCMProvider.FILE then "file://" else "memq://",
-      address, port_recv, receiver, channel_recv, if autoBufferSize then bufferSize else userBufferSize);
+      address, port_recv, receiver, channel_recv, if autoBufferSize then bufferSize else userBufferSize, queue_size);
   equation
     when initial() then
       bufferSize = if autoBufferSize then alignAtByteBoundary(pkgOut.autoPkgBitSize) else userBufferSize;
@@ -448,7 +451,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
     parameter Integer receiver = 0 "Set to be a sender port";
     LCM lcm = LCM(
       if provider == LCMProvider.UDPM then "udpm://" else if provider == LCMProvider.FILE then "file://" else "memq://",
-      address, port_send, receiver, "", 0);
+      address, port_send, receiver, "", 0, 0);
     Integer bufferSize;
     Real dummy(start=0, fixed=true);
   equation

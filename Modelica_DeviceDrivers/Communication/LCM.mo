@@ -9,8 +9,9 @@ class LCM "A driver for Lightweight Communications and Marshalling."
     input Integer receiver = 1 "0 - sender, 1 - receiver";
     input String channel "Receive channel";
     input Integer bufferSize = 16*1024 "Size of receive buffer";
+    input Integer queueSize = 30 "Size of message queue";
     output LCM lcm;
-    external "C" lcm = MDD_lcmConstructor(provider, address, port, receiver, channel, bufferSize)
+    external "C" lcm = MDD_lcmConstructor(provider, address, port, receiver, channel, bufferSize, queueSize)
       annotation(
         Include = "#include \"MDDLCM.h\"",
         Library = "lcm",

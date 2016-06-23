@@ -13,6 +13,10 @@
 #if !defined(ITI_COMP_SIM)
 
 #include <stdlib.h>
+#include <stdio.h>
+#if defined(_MSC_VER) && _MSC_VER < 1900
+#define snprintf _snprintf
+#endif
 #include "../src/include/CompatibilityDefs.h"
 #include "../thirdParty/lcm/lcm.h"
 #include "ModelicaUtilities.h"
@@ -29,10 +33,10 @@ static void MDD_lcmHandler(const lcm_recv_buf_t* buf, const char* channel, void*
     if (NULL != lcm) {
         if (NULL != lcm->pkg) {
             int rc = MDD_SerialPackagerSetDataWithErrorReturn(lcm->pkg,
-				buf->data, buf->data_size);
+                buf->data, buf->data_size);
             if (rc) {
                ModelicaError("MDDLCM.h: MDD_SerialPackagerSetData failed. "
-				   "Buffer overflow.\n");
+                   "Buffer overflow.\n");
             }
         }
         else {
@@ -47,31 +51,31 @@ static void MDD_lcmHandler(const lcm_recv_buf_t* buf, const char* channel, void*
 
 DllExport void * MDD_lcmConstructor(const char* provider, const char* address,
                                     int port, int receiver, const char* receiveChannel,
-                                    int receiveBufferSize) {
+                                    int receiveBufferSize, int maxQueueSize) {
     LCM* lcm = (LCM*) calloc(1, sizeof(LCM));
     if (NULL != lcm) {
-        char url[200];
+        char url[201];
         if (0 == strcmp("udpm://", provider)) {
-        	/* UDP multicast */
+            /* UDP multicast */
             if (receiver && receiveBufferSize > 0) {
-                sprintf(url, "udpm://%s:%d?recv_buf_size=%d", address, port,
-					receiveBufferSize);
+                snprintf(url, 200, "udpm://%s:%d?recv_buf_size=%d", address,
+                    port, receiveBufferSize);
             }
             else {
-                sprintf(url, "udpm://%s:%d", address, port);
+                snprintf(url, 200, "udpm://%s:%d", address, port);
             }
         }
         else if (0 == strcmp("file://", provider)) {
-        	/* Logfile */
+            /* Logfile */
             if (receiver) {
-                sprintf(url, "file://%s?mode=r", address);
+                snprintf(url, 200, "file://%s?mode=r", address);
             }
             else {
-                sprintf(url, "file://%s?mode=w", address);
+                snprintf(url, 200, "file://%s?mode=w", address);
             }
         }
         else if (0 == strcmp("memq://", provider)) {
-        	/* Memory queue */
+            /* Memory queue */
             strcpy(url, "memq://");
         }
         else {
@@ -83,13 +87,23 @@ DllExport void * MDD_lcmConstructor(const char* provider, const char* address,
         if (NULL != lcm->lcm) {
             if (receiver) {
                 lcm->s = lcm_subscribe(lcm->lcm, receiveChannel, MDD_lcmHandler, lcm);
+                if (NULL != lcm->s) {
+                    lcm_subscription_set_queue_capacity(lcm->s, maxQueueSize);
+                }
+                else {
+                    lcm_destroy(lcm->lcm);
+                    free(lcm);
+                    lcm = NULL;
+                    ModelicaFormatError("MDDLCM.h: Could not subscribe callback "
+                        "function to receiver channel \"%s\"\n", receiveChannel);
+                }
             }
         }
         else {
             free(lcm);
             lcm = NULL;
             ModelicaFormatError("MDDLCM.h: Could not allocate LCM object for "
-				"network provider \"%s\"\n", provider);
+                "network provider \"%s\"\n", provider);
         }
     }
     return (void*) lcm;
@@ -109,7 +123,10 @@ DllExport void MDD_lcmDestructor(void* p_lcm) {
 DllExport void MDD_lcmSend(void* p_lcm, const char* channel, const char* data, int dataSize) {
     LCM* lcm = (LCM*) p_lcm;
     if (NULL != lcm) {
-        lcm_publish(lcm->lcm, channel, data, (unsigned int)dataSize);
+        int rc = lcm_publish(lcm->lcm, channel, data, (unsigned int)dataSize);
+        if (rc == -1) {
+            ModelicaError("MDDLCM.h: lcm_publish failed\n");
+        }
     }
 }
 
@@ -120,8 +137,12 @@ DllExport void MDD_lcmSendP(void * p_lcm, const char* channel, void* p_package, 
 DllExport const char * MDD_lcmRead(void * p_lcm) {
     LCM* lcm = (LCM*) p_lcm;
     if (NULL != lcm) {
+        int rc;
         lcm->pkg = NULL;
-        lcm_handle_timeout(lcm->lcm, 0);
+        rc = lcm_handle_timeout(lcm->lcm, 0);
+        if (rc < 0) {
+            ModelicaError("MDDLCM.h: lcm_handle_timeout failed\n");
+        }
         if (NULL != lcm->pkg) {
             return (const char*) lcm->pkg;
         }
@@ -132,15 +153,20 @@ DllExport const char * MDD_lcmRead(void * p_lcm) {
 DllExport void MDD_lcmReadP(void * p_lcm, void* p_package) {
     LCM* lcm = (LCM*) p_lcm;
     if (NULL != lcm) {
-		MDD_SerialPackagerSetPos(p_package, 0);
+        int rc;
+        MDD_SerialPackagerSetPos(p_package, 0);
         lcm->pkg = p_package;
-        lcm_handle_timeout(lcm->lcm, 0);
+        rc = lcm_handle_timeout(lcm->lcm, 0);
+        if (rc < 0) {
+            ModelicaError("MDDLCM.h: lcm_handle_timeout failed\n");
+        }
     }
 }
 
 DllExport const char* MDD_lcmGetVersion(void * p_lcm) {
     char* buf = ModelicaAllocateString(60);
-    sprintf(buf, "%d.%d.%d", LCM_MAJOR_VERSION, LCM_MINOR_VERSION, LCM_MICRO_VERSION);
+    snprintf(buf, 60, "%d.%d.%d", LCM_MAJOR_VERSION, LCM_MINOR_VERSION,
+        LCM_MICRO_VERSION);
     return (const char*) buf;
 }
 
