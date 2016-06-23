@@ -32,6 +32,5 @@ package Types "Custom type definitions"
       BE "Big endian") "Byte order";
   type LCMProvider = enumeration(
       UDPM "UDP multicast",
-      FILE "Logfile",
-      MEMQ "Memory queue") "LCM provider";
+      FILE "Logfile") "LCM provider";
 end Types;
