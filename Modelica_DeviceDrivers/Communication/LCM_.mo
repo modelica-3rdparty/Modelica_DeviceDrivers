@@ -9,7 +9,7 @@ package LCM_ "Accompanying functions for the LCM object"
     external "C" MDD_lcmReadP(lcm, pkg)
       annotation(
         Include = "#include \"MDDLCM.h\"",
-        Library = "lcm",
+        Library = {"lcm", "glib-2.0", "gthread-2.0"},
         __iti_dll = "ITI_MDDLCM.dll",
         __iti_dllNoExport = true);
   end read;
@@ -24,7 +24,7 @@ package LCM_ "Accompanying functions for the LCM object"
     external "C" MDD_lcmSendP(lcm, channel, pkg, dataSize)
       annotation(
         Include = "#include \"MDDLCM.h\"",
-        Library = "lcm",
+        Library = {"lcm", "glib-2.0", "gthread-2.0"},
         __iti_dll = "ITI_MDDLCM.dll",
         __iti_dllNoExport = true);
   end sendTo;
@@ -36,7 +36,7 @@ package LCM_ "Accompanying functions for the LCM object"
     external "C" ver = MDD_lcmGetVersion(lcm)
       annotation(
         Include = "#include \"MDDLCM.h\"",
-        Library = "lcm",
+        Library = {"lcm", "glib-2.0", "gthread-2.0"},
         __iti_dll = "ITI_MDDLCM.dll",
         __iti_dllNoExport = true);
   end getLCMVersion;

@@ -14,7 +14,7 @@ class LCM "A driver for Lightweight Communications and Marshalling."
     external "C" lcm = MDD_lcmConstructor(provider, address, port, receiver, channel, bufferSize, queueSize)
       annotation(
         Include = "#include \"MDDLCM.h\"",
-        Library = "lcm",
+        Library = {"lcm", "glib-2.0", "gthread-2.0"},
         __iti_dll = "ITI_MDDLCM.dll",
         __iti_dllNoExport = true);
   end constructor;
@@ -25,7 +25,7 @@ class LCM "A driver for Lightweight Communications and Marshalling."
     external "C" MDD_lcmDestructor(lcm)
       annotation(
         Include = "#include \"MDDLCM.h\"",
-        Library = "lcm",
+        Library = {"lcm", "glib-2.0", "gthread-2.0"},
         __iti_dll = "ITI_MDDLCM.dll",
         __iti_dllNoExport = true);
   end destructor;
