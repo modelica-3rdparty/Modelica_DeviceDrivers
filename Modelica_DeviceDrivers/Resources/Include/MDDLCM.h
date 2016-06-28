@@ -20,7 +20,7 @@
 #define snprintf _snprintf
 #endif
 #include "../src/include/CompatibilityDefs.h"
-#include "../thirdParty/lcm/lcm.h"
+#include "../thirdParty/lcm/include/lcm/lcm.h"
 #include "ModelicaUtilities.h"
 #include "MDDSerialPackager.h"
 
@@ -85,7 +85,8 @@ DllExport void * MDD_lcmConstructor(const char* provider, const char* address,
             lcm = NULL;
             ModelicaFormatError("MDDLCM.h: Invalid LCM network provider \"%s\"\n", provider);
         }
-        lcm->lcm = lcm_create(url);
+        //lcm->lcm = lcm_create(url);
+        lcm->lcm = lcm_create(NULL);
         if (NULL != lcm->lcm) {
             if (receiver) {
                 lcm->s = lcm_subscribe(lcm->lcm, receiveChannel, MDD_lcmHandler, lcm);
