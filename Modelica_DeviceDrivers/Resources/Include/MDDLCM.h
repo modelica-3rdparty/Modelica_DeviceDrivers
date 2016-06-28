@@ -14,7 +14,9 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#if defined(_MSC_VER) && _MSC_VER < 1900
+#if defined(_MSC_VER) && _MSC_VER < 1600
+#error "Modelica_DeviceDrivers: LCM requires at least Visual Studio 2010 (for stdint.h)"
+#elif defined(_MSC_VER) && _MSC_VER < 1900
 #define snprintf _snprintf
 #endif
 #include "../src/include/CompatibilityDefs.h"
