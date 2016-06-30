@@ -5,8 +5,9 @@ FOR LEGAL REASONS SOME MIGHT NOT BE INCLUDED WITHIN THIS MODELICA_DEVICEDRIVERS 
 
 - 3DconnexionSDK: 3Dconnexion Software Developer Kit for Linux (http://www.3dconnexion.com/)
 - boost: Boost library macros for machine type Endianness (http://www.boost.org/)
+- glib: low-level system libraries, LGPL (https://github.com/GNOME/glib/)
 - hdisdi: Microsoft Device Driver files used for space mouse (http://www.microsoft.com/)
 - ITI: ITI's ModelicaExternalC.lib version for SimulationX (http://www.itisim.com/)
-- lcm: Lightweight Communications and Marshalling (https://github.com/lcm-proj/)
+- lcm: Lightweight Communications and Marshalling, LGPL (https://github.com/lcm-proj/)
 - softing: Softing's CANL2 interface (http://www.softing.com/)
 - uthash: Hash table implementation (http://troydhanson.github.io/uthash/)
