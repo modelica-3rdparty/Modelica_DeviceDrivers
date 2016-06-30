@@ -7,9 +7,9 @@ package LCM_ "Accompanying functions for the LCM object"
     input LCM lcm;
     input SerialPackager pkg;
     external "C" MDD_lcmReadP(lcm, pkg)
-      annotation(
+      annotation (
         Include = "#include \"MDDLCM.h\"",
-        Library = {"lcm", "glib-2.0"},
+        Library = {"lcm", "glib-2.0", "pthread"},
         __iti_dll = "ITI_MDDLCM.dll",
         __iti_dllNoExport = true);
   end read;
@@ -22,9 +22,9 @@ package LCM_ "Accompanying functions for the LCM object"
     input SerialPackager pkg;
     input Integer dataSize "Size of data";
     external "C" MDD_lcmSendP(lcm, channel, pkg, dataSize)
-      annotation(
+      annotation (
         Include = "#include \"MDDLCM.h\"",
-        Library = {"lcm", "glib-2.0"},
+        Library = {"lcm", "glib-2.0", "pthread"},
         __iti_dll = "ITI_MDDLCM.dll",
         __iti_dllNoExport = true);
   end sendTo;
@@ -34,9 +34,9 @@ package LCM_ "Accompanying functions for the LCM object"
     input LCM lcm;
     output String ver "LCM version";
     external "C" ver = MDD_lcmGetVersion(lcm)
-      annotation(
+      annotation (
         Include = "#include \"MDDLCM.h\"",
-        Library = {"lcm", "glib-2.0"},
+        Library = {"lcm", "glib-2.0", "pthread"},
         __iti_dll = "ITI_MDDLCM.dll",
         __iti_dllNoExport = true);
   end getLCMVersion;

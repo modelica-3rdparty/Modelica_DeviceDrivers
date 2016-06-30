@@ -12,9 +12,9 @@ class LCM "A driver for Lightweight Communications and Marshalling."
     input Integer queueSize = 30 "Size of message queue";
     output LCM lcm;
     external "C" lcm = MDD_lcmConstructor(provider, address, port, receiver, channel, bufferSize, queueSize)
-      annotation(
+      annotation (
         Include = "#include \"MDDLCM.h\"",
-        Library = {"lcm", "glib-2.0"},
+        Library = {"lcm", "glib-2.0", "pthread"},
         __iti_dll = "ITI_MDDLCM.dll",
         __iti_dllNoExport = true);
   end constructor;
@@ -23,9 +23,9 @@ class LCM "A driver for Lightweight Communications and Marshalling."
     import Modelica_DeviceDrivers.Communication.LCM;
     input LCM lcm;
     external "C" MDD_lcmDestructor(lcm)
-      annotation(
+      annotation (
         Include = "#include \"MDDLCM.h\"",
-        Library = {"lcm", "glib-2.0"},
+        Library = {"lcm", "glib-2.0", "pthread"},
         __iti_dll = "ITI_MDDLCM.dll",
         __iti_dllNoExport = true);
   end destructor;
