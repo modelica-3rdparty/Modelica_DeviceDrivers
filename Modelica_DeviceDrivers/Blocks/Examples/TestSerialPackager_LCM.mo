@@ -10,7 +10,7 @@ model TestSerialPackager_LCM
   Modelica_DeviceDrivers.Blocks.Communication.LCMSend lcmSend(
     autoBufferSize=false,
     userBufferSize=36,
-    port_send=10002,
+    port=10002,
     channel_send="lcm_example") annotation(Placement(transformation(
     origin={-30,-44},
     extent={{-10,-10},{10,10}},
@@ -21,7 +21,7 @@ model TestSerialPackager_LCM
   Modelica_DeviceDrivers.Blocks.Communication.LCMReceive lcmReceive(
     autoBufferSize=false,
     userBufferSize=36,
-    port_recv=10002,
+    port=10002,
     channel_recv="lcm_example") annotation(Placement(transformation(
     origin={40,50},
     extent={{-10,-10},{10,10}},

@@ -381,10 +381,10 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
       "Buffer size of message data in bytes (if not deduced automatically)" annotation(Dialog(enable=not autoBufferSize, group="Incoming data"));
     parameter LCMProvider provider=LCMProvider.UDPM "LCM network provider"
       annotation (Dialog(group="Incoming data"));
-    parameter String address="127.0.0.1" "IP address of remote UDP server or logfile name"
+    parameter String address="224.0.0.0" "UDP multicast IP address or logfile name"
       annotation (Dialog(group="Incoming data", enable=(provider==LCMProvider.UDPM or provider==LCMProvider.FILE)));
-    parameter Integer port_recv=10001
-      "Listening port number of the server. Must be unique on the system"
+    parameter Integer port=10001
+      "UDP port (receivers must bind to the same port as the sender to receive multicast messages)"
       annotation (Dialog(group="Incoming data", enable=LCMProvider.UDPM));
     parameter String channel_recv="" "Channel name"
       annotation (Dialog(group="Incoming data"));
@@ -401,7 +401,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
     parameter Integer receiver = 1 "Set to be a receiver port";
     LCM lcm = LCM(
       if provider == LCMProvider.UDPM then "udpm://" else if provider == LCMProvider.FILE then "file://" else "memq://",
-      address, port_recv, receiver, channel_recv, if autoBufferSize then bufferSize else userBufferSize, queue_size);
+      address, port, receiver, channel_recv, if autoBufferSize then bufferSize else userBufferSize, queue_size);
   equation
     when initial() then
       bufferSize = if autoBufferSize then alignAtByteBoundary(pkgOut.autoPkgBitSize) else userBufferSize;
@@ -437,9 +437,9 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
       "Buffer size of message data in bytes (if not deduced automatically)." annotation(Dialog(enable=not autoBufferSize, group="Outgoing data"));
     parameter LCMProvider provider=LCMProvider.UDPM "LCM network provider"
       annotation (Dialog(group="Outgoing data"));
-    parameter String address="127.0.0.1" "IP address of remote UDP server or logfile name"
+    parameter String address="224.0.0.0" "UDP multicast IP address or logfile name"
       annotation (Dialog(group="Outgoing data", enable=(provider==LCMProvider.UDPM or provider==LCMProvider.FILE)));
-    parameter Integer port_send=10002 "Target port of the receiving UDP server"
+    parameter Integer port=10002 "UDP port (all receivers must bind to the same port to receive the multicast messages)"
       annotation (Dialog(group="Outgoing data", enable=provider==LCMProvider.UDPM));
     parameter String channel_send="" "Channel name"
       annotation (Dialog(group="Outgoing data"));
@@ -451,7 +451,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
     parameter Integer receiver = 0 "Set to be a sender port";
     LCM lcm = LCM(
       if provider == LCMProvider.UDPM then "udpm://" else if provider == LCMProvider.FILE then "file://" else "memq://",
-      address, port_send, receiver, "", 0, 0);
+      address, port, receiver, "", 0, 0);
     Integer bufferSize;
     Real dummy(start=0, fixed=true);
   equation
