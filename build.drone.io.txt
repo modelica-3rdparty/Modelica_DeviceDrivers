@@ -11,7 +11,8 @@ gcc --version
 cd Modelica_DeviceDrivers/Resources
 sudo apt-get install -qq -y libX11-dev:i386
 sudo apt-get install -qq -y libc6-dev-i386
-cmake -DCMAKE_C_FLAGS="-O3 -msse2 -DNDEBUG -m32 -fPIC" ./
+#cmake -DCMAKE_C_FLAGS="-O3 -msse2 -DNDEBUG -m32 -fPIC" ./
+cmake ./
 make
 cd test/Util
 ./test_MDDMapIntInt
