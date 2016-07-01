@@ -29,6 +29,14 @@
  * @author      tbeu
  * @since       2016-05-05
  * @test Test for MDDLCM.h.
+ *
+ * @par LCM requires a valid multicast route.  If this is a Linux computer and is
+ * simply not connected to a network, the following commands are usually
+ * sufficient as a temporary solution:
+ @verbatim
+ sudo ifconfig lo multicast
+ sudo route add -net 224.0.0.0 netmask 240.0.0.0 dev lo
+ @endverbatim
 */
 
 #include <stdio.h>
@@ -46,13 +54,13 @@ int main(void) {
 
     printf("Testing MDDLCM %s\n", MDD_lcmGetVersion(NULL));
 
-    lcm1 = MDD_lcmConstructor("udpm://", "127.0.0.1", 10002, 0, NULL, 0, 0);
+    lcm1 = MDD_lcmConstructor("udpm://", "224.0.0.0", 10002, 0, NULL, 0, 0);
     if (NULL == lcm1) {
         perror("lcm1 == NULL\n");
         exit(1);
     }
 
-    lcm2 = MDD_lcmConstructor("udpm://", "127.0.0.1", 10002, 1, CHANNEL, M_LENGTH, Q_SIZE);
+    lcm2 = MDD_lcmConstructor("udpm://", "224.0.0.0", 10002, 1, CHANNEL, M_LENGTH, Q_SIZE);
     if (NULL == lcm2) {
         MDD_lcmDestructor(lcm1);
         perror("lcm2 == NULL\n");
