@@ -417,7 +417,18 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
             Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}), graphics={Text(extent={{-150,136},{150,96}},
               textString="%name")}), Documentation(info="<html>
-<p>Supports receiving of Lightweight Communications and Marshalling (LCM) datagrams.</p>
+<p>Supports receiving of Lightweight Communications and Marshalling (LCM) datagrams
+(<a href=\"https://lcm-proj.github.io/\">https://lcm-proj.github.io/</a>).</p>
+<h4><font color=\"#008000\">Remark regarding Linux</font></h4>
+<p>
+LCM requires a valid multicast route. If this is a Linux computer and it is
+simply not connected to a network, the following commands are usually
+sufficient as a temporary solution:
+</p>
+<pre>
+sudo ifconfig lo multicast
+sudo route add -net 224.0.0.0 netmask 240.0.0.0 dev lo
+</pre>
 </html>"));
   end LCMReceive;
 
@@ -473,7 +484,18 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
             Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
               -100},{100,100}}), graphics={Text(extent={{-150,136},{150,96}},
               textString="%name")}), Documentation(info="<html>
-<p>Supports sending of Lightweight Communications and Marshalling (LCM) datagrams.</p>
+<p>Supports sending of Lightweight Communications and Marshalling (LCM) datagrams.
+(<a href=\"https://lcm-proj.github.io/\">https://lcm-proj.github.io/</a>)</p>
+<h4><font color=\"#008000\">Remark regarding Linux</font></h4>
+<p>
+LCM requires a valid multicast route. If this is a Linux computer and it is
+simply not connected to a network, the following commands are usually
+sufficient as a temporary solution:
+</p>
+<pre>
+sudo ifconfig lo multicast
+sudo route add -net 224.0.0.0 netmask 240.0.0.0 dev lo
+</pre>
 </html>"));
   end LCMSend;
 
