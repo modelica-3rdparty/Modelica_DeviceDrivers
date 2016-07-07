@@ -7,7 +7,7 @@ if (UNIX)
     ExternalProject_Add(EPglib
       # Setting the prefix will automatically set other dirs like SOURCE_DIR/INSTALL_DIR (see http://www.kitware.com/media/html/BuildingExternalProjectsWithCMake2.8.html)
       PREFIX ${CMAKE_CURRENT_SOURCE_DIR}/glib
-      BINARY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lcm/src/bin64
+      BINARY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/glib/src/bin64
       # BUILD_IN_SOURCE 1 # Project supports out of source builds, so we use BINARY_DIR for that
       # GIT_REPOSITORY https://github.com/GNOME/glib.git
       # GIT_TAG 2.40.2 # This was not completely working for me and it pulls the complete repo of 108M
@@ -24,9 +24,9 @@ if (UNIX)
     # Force compilation to 32 bit binaries on 64 bit architectures with "..=-m32"
     ExternalProject_Add(EPglib
       PREFIX ${CMAKE_CURRENT_SOURCE_DIR}/glib
-      BINARY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lcm/src/bin32
+      BINARY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/glib/src/bin32
       URL https://github.com/GNOME/glib/archive/2.40.2.tar.gz
-      CONFIGURE_COMMAND <SOURCE_DIR>/autogen.sh && <SOURCE_DIR>/configure --prefix=${CMAKE_CURRENT_SOURCE_DIR}/glib --enable-static --build=i686-pc-linux-gnu "CFLAGS=-m32" "CXXFLAGS=-m32" "LDFLAGS=-m32"
+      CONFIGURE_COMMAND <SOURCE_DIR>/autogen.sh && <SOURCE_DIR>/configure --prefix=${CMAKE_CURRENT_SOURCE_DIR}/glib --enable-static --build=i686-pc-linux-gnu "CFLAGS=-g -O2 -m32" "CXXFLAGS=-g -O2 -m32" "LDFLAGS=-m32"
       BUILD_COMMAND make
     )
     ExternalProject_Get_Property(EPglib install_dir)
