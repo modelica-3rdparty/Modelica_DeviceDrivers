@@ -14,7 +14,7 @@ if (UNIX)
       # Alternatively, one could just "copy" the source directly into the MDD repo (https://developer.atlassian.com/blog/2015/05/the-power-of-git-subtree/) with
       # git subtree add --prefix Modelica_DeviceDrivers/Resources/thirdParty/glib https://github.com/GNOME/glib tags/2.40.2 --squash
       URL https://github.com/GNOME/glib/archive/2.40.2.tar.gz
-      CONFIGURE_COMMAND <SOURCE_DIR>/autogen.sh && <SOURCE_DIR>/configure --prefix=${CMAKE_CURRENT_SOURCE_DIR}/glib --enable-static
+      CONFIGURE_COMMAND <SOURCE_DIR>/autogen.sh && <SOURCE_DIR>/configure --prefix=${CMAKE_CURRENT_SOURCE_DIR}/glib --enable-static --enable-debug=no
       BUILD_COMMAND make
     )
     ExternalProject_Get_Property(EPglib install_dir)
@@ -26,7 +26,7 @@ if (UNIX)
       PREFIX ${CMAKE_CURRENT_SOURCE_DIR}/glib
       BINARY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/glib/src/bin32
       URL https://github.com/GNOME/glib/archive/2.40.2.tar.gz
-      CONFIGURE_COMMAND <SOURCE_DIR>/autogen.sh && <SOURCE_DIR>/configure --prefix=${CMAKE_CURRENT_SOURCE_DIR}/glib --enable-static --build=i686-pc-linux-gnu "CFLAGS=-g -O2 -m32" "CXXFLAGS=-g -O2 -m32" "LDFLAGS=-m32"
+      CONFIGURE_COMMAND <SOURCE_DIR>/autogen.sh && <SOURCE_DIR>/configure --prefix=${CMAKE_CURRENT_SOURCE_DIR}/glib --enable-debug=no --enable-static --build=i686-pc-linux-gnu "CFLAGS=-O2 -fPIC -m32" "CXXFLAGS=-O2 -fPIC -m32" "LDFLAGS=-m32"
       BUILD_COMMAND make
     )
     ExternalProject_Get_Property(EPglib install_dir)

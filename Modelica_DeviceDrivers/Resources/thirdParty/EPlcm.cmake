@@ -20,7 +20,7 @@ if (UNIX)
       PREFIX ${CMAKE_CURRENT_SOURCE_DIR}/lcm
       BINARY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lcm/src/bin32
       URL https://github.com/lcm-proj/lcm/releases/download/v1.3.1/lcm-1.3.1.zip
-      CONFIGURE_COMMAND <SOURCE_DIR>/configure --prefix=${CMAKE_CURRENT_SOURCE_DIR}/lcm --without-python --without-java --enable-static --build=i686-pc-linux-gnu "CFLAGS=-g -O2 -m32" "CXXFLAGS=-g -O2 -m32" "LDFLAGS=-m32" "PKG_CONFIG_PATH=${dirGlibLib}/pkgconfig"
+      CONFIGURE_COMMAND <SOURCE_DIR>/configure --prefix=${CMAKE_CURRENT_SOURCE_DIR}/lcm --without-python --without-java --enable-static --build=i686-pc-linux-gnu "CFLAGS=-O2 -fPIC -m32" "CXXFLAGS=-O2 -fPIC -m32" "LDFLAGS=-m32" "PKG_CONFIG_PATH=${dirGlibLib}/pkgconfig"
       BUILD_COMMAND make
     )
     add_dependencies(EPlcm EPglib)
