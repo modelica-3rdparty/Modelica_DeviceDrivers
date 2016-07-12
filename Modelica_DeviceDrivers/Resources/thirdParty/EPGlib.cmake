@@ -56,6 +56,39 @@ if (UNIX)
     message(SEND_ERROR "Uups. Shouldn't be possible to get here")
   endif ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
 
+elseif (MSVC)
+	ExternalProject_Add(EPglib
+		PREFIX ${CMAKE_CURRENT_SOURCE_DIR}/glib
+		BINARY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/glib/src/bin64
+		URL https://github.com/winlibs/glib/archive/glib-2.45.4.zip
+		CONFIGURE_COMMAND msg * "Please go to folder ${CMAKE_CURRENT_SOURCE_DIR}/glib/src/EPglib/build/win32 and build glib manually using the Visual Studio sln file of your choice"
+		BUILD_COMMAND start ${CMAKE_CURRENT_SOURCE_DIR}/glib/src/EPglib/build/win32
+		INSTALL_COMMAND msg * "After building glib copy glib-2.0.dll and glib-2.0.lib into Resources/Library/win32 (32-bit build) or Resources/Library/win64 (64-bit build)"
+	)
+    if ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
+      message(STATUS "SETTING lcm library to ${PROJECT_SOURCE_DIR}/Library/win64/lcm.dll")
+      set(fLcm ${PROJECT_SOURCE_DIR}/Library/win64/lcm.dll)
+      set(fLcmIMP ${PROJECT_SOURCE_DIR}/Library/win64/lcm.lib)
+      message(STATUS "SETTING glib library to ${PROJECT_SOURCE_DIR}/Library/win64/glib-2.0.dll")
+      set(fGlibGlib20 ${PROJECT_SOURCE_DIR}/Library/win64/glib-2.0.dll)
+      set(fGlibGlib20IMP ${PROJECT_SOURCE_DIR}/Library/win64/glib-2.0.lib)
+    elseif ( CMAKE_SIZEOF_VOID_P EQUAL 4 )
+      message(STATUS "SETTING lcm library to ${PROJECT_SOURCE_DIR}/Library/win32/lcm.dll")
+      set(fLcm ${PROJECT_SOURCE_DIR}/Library/win32/lcm.dll)
+      set(fLcmIMP ${PROJECT_SOURCE_DIR}/Library/win32/lcm.lib)
+      message(STATUS "SETTING glib library to ${PROJECT_SOURCE_DIR}/Library/win32/glib-2.0.dll")
+      set(fGlibGlib20 ${PROJECT_SOURCE_DIR}/Library/win32/glib-2.0.dll)
+      set(fGlibGlib20IMP ${PROJECT_SOURCE_DIR}/Library/win32/glib-2.0.lib)
+    else ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
+      message(SEND_ERROR "Uups. Shouldn't be possible to get here")
+    endif ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
+    add_library(libLcm SHARED IMPORTED GLOBAL)
+    set_property(TARGET libLcm PROPERTY IMPORTED_LOCATION ${fLcm})
+    set_property(TARGET libLcm PROPERTY IMPORTED_IMPLIB ${fLcmIMP})
+
+    add_library(libGlibGlib20 SHARED IMPORTED GLOBAL)
+    set_property(TARGET libGlibGlib20 PROPERTY IMPORTED_LOCATION ${fGlibGlib20})
+    set_property(TARGET libGlibGlib20 PROPERTY IMPORTED_IMPLIB ${fGlibGlib20IMP})
 else (UNIX)
     message("Skipping managing ThirdParty projects from cmake (currently Linux only)")
 endif (UNIX)
