@@ -14,8 +14,26 @@ dsmodelext1.c
 
 dsmodel.c
 
+dymosim
+
 dymosim.exe
 
 dymosim.exp
 
 dymosim.lib
+
+.directory
+
+Modelica_DeviceDrivers/Resources/thirdParty/lcm/bin
+
+Modelica_DeviceDrivers/Resources/thirdParty/lcm/lib
+
+Modelica_DeviceDrivers/Resources/thirdParty/lcm/share
+
+Modelica_DeviceDrivers/Resources/thirdParty/lcm/src
+
+Modelica_DeviceDrivers/Resources/thirdParty/lcm/tmp
+
+Modelica_DeviceDrivers/Resources/thirdParty/glib/
+
+Modelica_DeviceDrivers/Resources/thirdParty/build/**
