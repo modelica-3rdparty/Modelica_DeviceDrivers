@@ -88,16 +88,25 @@ DllExport void * MDD_lcmConstructor(const char* provider, const char* address,
         lcm->lcm = lcm_create(url);
         if (NULL != lcm->lcm) {
             if (receiver) {
-                lcm->s = lcm_subscribe(lcm->lcm, receiveChannel, MDD_lcmHandler, lcm);
-                if (NULL != lcm->s) {
-                    lcm_subscription_set_queue_capacity(lcm->s, maxQueueSize);
+                if (strlen(receiveChannel) <= LCM_MAX_CHANNEL_NAME_LENGTH) {
+                    lcm->s = lcm_subscribe(lcm->lcm, receiveChannel, MDD_lcmHandler, lcm);
+                    if (NULL != lcm->s) {
+                        lcm_subscription_set_queue_capacity(lcm->s, maxQueueSize);
+                    }
+                    else {
+                        lcm_destroy(lcm->lcm);
+                        free(lcm);
+                        lcm = NULL;
+                        ModelicaFormatError("MDDLCM.h: Could not subscribe callback "
+                            "function to receiver channel \"%s\"\n", receiveChannel);
+                    }
                 }
                 else {
                     lcm_destroy(lcm->lcm);
                     free(lcm);
                     lcm = NULL;
-                    ModelicaFormatError("MDDLCM.h: Could not subscribe callback "
-                        "function to receiver channel \"%s\"\n", receiveChannel);
+                    ModelicaFormatError("MDDLCM.h: Channel name \"%s\" exceeds the maximal "
+                        "channel name length (%u)\n", receiveChannel, LCM_MAX_CHANNEL_NAME_LENGTH);
                 }
             }
         }
@@ -125,9 +134,15 @@ DllExport void MDD_lcmDestructor(void* p_lcm) {
 DllExport void MDD_lcmSend(void* p_lcm, const char* channel, const char* data, int dataSize) {
     LCM* lcm = (LCM*) p_lcm;
     if (NULL != lcm) {
-        int rc = lcm_publish(lcm->lcm, channel, data, (unsigned int)dataSize);
-        if (rc == -1) {
-            ModelicaError("MDDLCM.h: lcm_publish failed\n");
+        if (strlen(channel) <= LCM_MAX_CHANNEL_NAME_LENGTH) {
+            int rc = lcm_publish(lcm->lcm, channel, data, (unsigned int)dataSize);
+            if (rc == -1) {
+                ModelicaError("MDDLCM.h: lcm_publish failed\n");
+            }
+        }
+        else {
+            ModelicaFormatError("MDDLCM.h: Channel name \"%s\" exceeds the maximal "
+                "channel name length (%u)\n", channel, LCM_MAX_CHANNEL_NAME_LENGTH);
         }
     }
 }
