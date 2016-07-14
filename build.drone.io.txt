@@ -7,11 +7,10 @@ sudo rm /etc/apt/sources.list.d/google*
 sudo apt-get update -qq
 sudo apt-get install -qq gcc-4.8-multilib
 echo 2 | sudo update-alternatives --config gcc
-gcc --version
 cd Modelica_DeviceDrivers/Resources
-sudo apt-get install -qq -y libX11-dev:i386
-sudo apt-get install -qq -y libc6-dev-i386
-cmake -DCMAKE_C_FLAGS="-O3 -msse2 -DNDEBUG -m32 -fPIC" ./
+curl -sSL https://cmake.org/files/v2.8/cmake-2.8.12.2-Linux-i386.tar.gz | sudo tar -xzC /opt
+sudo apt-get install -qq libcomedi-dev
+/opt/cmake-2.8.12.2-Linux-i386/bin/cmake ./
 make
 cd test/Util
 ./test_MDDMapIntInt
@@ -28,25 +27,8 @@ cd ../Communication
 ./test_MDDSerialPackager
 ./test_MDDSharedMemory
 ./test_MDDUDPSocket
-cd ../..
-sudo apt-get install -qq -y libcomedi-dev
-cmake -DCMAKE_C_FLAGS="-O3 -DNDEBUG -fPIC" ./
-make
-cd test/Util
-./test_MDDMapIntInt
-./test_MDDMapIntpVoid
-./test_MDDUtilities
-cd ../OperatingSystem
-./test_MDD_getTimeMS
-sudo ./test_MDDRealtimeSynchronize_high
-./test_MDDRealtimeSynchronize_idle
-./test_MDDRealtimeSynchronize_low
-./test_MDDRealtimeSynchronize_normal
-cd ../Communication
-./test_EndiannessConversion
-./test_MDDSerialPackager
-./test_MDDSharedMemory
-./test_MDDUDPSocket
-cd ../..
+sudo ifconfig lo multicast
+sudo route add -net 224.0.0.0 netmask 240.0.0.0 dev lo
+./test_MDDLCM
 
 #Artifacts

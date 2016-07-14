@@ -1,12 +1,16 @@
 project(Modelica_DeviceDrivers)
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 2.8.12)
 enable_testing()
-
 #set(CMAKE_VERBOSE_MAKEFILE on)
 #set(CMAKE_BUILD_TYPE DEBUG)
 
+# Default settings (can be overwritten by the user in the GUI or command line, e.g., cmake -DBUILD_EXTERNAL_PROJECTS=true ..)
+set(BUILD_EXTERNAL_PROJECTS FALSE CACHE BOOL "if TRUE, download source code of external projects and (re)build them")
 # All library installation will be relative to the "Resources" directory
-set(CMAKE_INSTALL_PREFIX ${PROJECT_SOURCE_DIR})
+IF(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+  set(CMAKE_INSTALL_PREFIX ${PROJECT_SOURCE_DIR} CACHE PATH "Library installation path (don't change)" FORCE)
+ENDIF(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
@@ -31,6 +35,9 @@ if (MSVC)
 endif (MSVC)
 
 if (UNIX)
+  if (M32_FLAG)
+
+  endif()
   # Dummy Linux Winmm library for uniform treatment of GCC and MS Visual C within Modelica
   add_subdirectory(src/DummyWinmmLibrary)
   # Dummy Linux User32 library for uniform treatment of GCC and MS Visual C within Modelica
@@ -38,17 +45,32 @@ if (UNIX)
   # Dummy Linux Ws2_32 library for uniform treatment of GCC and MS Visual C within Modelica
   add_subdirectory(src/DummyWs2_32Library)
   # Are we trying to force compilation for linux32 on a native linux64 platform?
+  # (Dymola builds/built 32-bit simulation executables also on 64-bit Linux)
+  # Note, that flags can be overwritten by calling CMake (from Resources/build) like this:
+  # CFLAGS=-m32 CXXFLAGS=-m32 cmake ..
   if ( ($ENV{CFLAGS} MATCHES "-m32") AND ($ENV{CXXFLAGS} MATCHES "-m32") )
     set(M32_FLAG TRUE)
   endif()
-  # Uncomment to force 32 bit compilation on Linux (this is needed if a Modelica tool
-  # uses 32 bit simulation executable also on 64 bit Linux (as is/was the case for Dymola)
-  # Alternatively, that can be achieved by calling CMake (from Resources/build) like this:
-  # CFLAGS=-m32 CXXFLAGS=-m32 cmake ..
-  #set(M32_FLAG True)
-  #set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -m32") # force compile for 32 bit
-  #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m32") # force compile for 32 bit
+  # FIXME Actually, I would like to provide a cache variable flag to force a 32-bit build, like
+  # set(M32_FLAG FALSE CACHE BOOL "if TRUE, and using gcc under linux (64-bit), force generation of 32-bit libraries")
+  # Having that I can activate things like
+  # if (M32_FLAG)
+  #   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -m32")
+  #   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m32")
+  #   And below should do something like like LDFLAGS=-m32?
+  #   SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -m32")
+  #   SET(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -m32")
+  #   SET(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -m32")
+  #   SET(CMAKE_STATIC_LINKER_FLAGS "${CMAKE_STATIC_LINKER_FLAGS} -m32")
+  # endif()
+  # HOWEVER, this won't set CMAKE_SIZEOF_VOID_P to 4, so that 32-bit library paths are searched first!
+
+
+
 endif (UNIX)
+
+# Third party projects
+add_subdirectory(thirdParty)
 
 # Windows and Linux library for 3Dconnexion space mouse support
 # add_subdirectory(src/SpaceMouse)

@@ -14,6 +14,7 @@ addons:
 before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -qq libX11-dev:i386
+  - curl -sSL https://cmake.org/files/v2.8/cmake-2.8.12.2-Linux-i386.tar.gz | sudo tar -xzC /opt
 
 compiler:
   - gcc-4.8
@@ -27,7 +28,7 @@ before_script:
   - cd Modelica_DeviceDrivers/Resources
 
 script:
-  - cmake ./
+  - /opt/cmake-2.8.12.2-Linux-i386/bin/cmake ./
   - make
   - cd test/Util
   - ./test_MDDMapIntInt

@@ -10,3 +10,5 @@ SerialPort
 SerialPort_
 TCPIPSocketClient
 TCPIPSocketClient_
+LCM
+LCM_

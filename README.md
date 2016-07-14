@@ -1,6 +1,6 @@
 # Modelica_DeviceDrivers
 Free library for interfacing hardware drivers to Modelica models.
-There is support for joysticks, keyboards, UDP, TCP/IP, shared memory, AD/DA converters, serial port and other devices.
+There is support for joysticks, keyboards, UDP, TCP/IP, LCM, shared memory, AD/DA converters, serial port and other devices.
 
 ## Library description
 The `Modelica_DeviceDrivers` library is an open source Modelica package under [Modelica License 2](https://modelica.org/licenses/ModelicaLicense2) that interfaces hardware drivers to Modelica models.
@@ -11,7 +11,7 @@ Main features:
   * Cross-platform (Windows and Linux).
   * (Soft) real-time synchronization of a simulation.
   * Support for keyboard, joystick/gamepad, and 3Dconnexion Spacemouse.
-  * Support for a universal packaging concept to pack Modelica variables in a graphical and convenient way into a bit vector and transport such a bit vector via UDP, TCP/IP, serial I/O or shared memory (CAN support is prototypical available).
+  * Support for a universal packaging concept to pack Modelica variables in a graphical and convenient way into a bit vector and transport such a bit vector via UDP, TCP/IP, LCM, serial I/O or shared memory (CAN support is prototypical available).
   * Support of the Linux control and measurement device interface for digital and analog I/O (Comedi interface).
 
 All device drivers are made available via external Modelica functions. Furthermore, high level interfaces on these functions are provided via Modelica blocks. The first interface uses Modelica 3.2 functionality only (when-clauses and sample-operator).
