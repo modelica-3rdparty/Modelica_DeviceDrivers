@@ -1,5 +1,4 @@
 #message(STATUS "${CMAKE_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_BINARY_DIR} ${CMAKE_CURRENT_BINARY_DIR}")
-
 # Some test applications
 
 include_directories(../../Include)
@@ -55,3 +54,13 @@ add_executable(test_EndiannessConversion
   test_EndiannessConversion.c ../Util/ModelicaUtilities.c)
 add_test(test_EndiannessConversion
   ${EXECUTABLE_OUTPUT_PATH}/test_EndiannessConversion)
+
+add_executable(test_MDDLCM test_MDDLCM.c ../Util/ModelicaUtilities.c)
+target_link_libraries(test_MDDLCM libLcm)
+target_link_libraries(test_MDDLCM libGlibGlib20)
+if (UNIX)
+  target_link_libraries(test_MDDLCM rt)
+  target_link_libraries(test_MDDLCM ${CMAKE_THREAD_LIBS_INIT})
+endif (UNIX)
+add_test(test_MDDLCM
+  ${EXECUTABLE_OUTPUT_PATH}/test_MDDLCM)

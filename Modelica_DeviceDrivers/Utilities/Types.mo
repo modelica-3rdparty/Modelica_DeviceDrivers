@@ -30,4 +30,7 @@ package Types "Custom type definitions"
   type ByteOrder = enumeration(
       LE "Little endian",
       BE "Big endian") "Byte order";
+  type LCMProvider = enumeration(
+      UDPM "UDP multicast",
+      FILE "Logfile") "LCM provider";
 end Types;
