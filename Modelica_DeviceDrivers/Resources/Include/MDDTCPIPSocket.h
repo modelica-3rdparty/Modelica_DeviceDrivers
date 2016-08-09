@@ -193,10 +193,8 @@ DllExport void MDD_TCPIPClient_ReadP(void * p_tcpip, void* p_package, int recvbu
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netdb.h>
-// #include <stdio.h>
-
+#include <stdio.h>
 #include "../src/include/CompatibilityDefs.h"
-
 
 typedef struct MDDTCPIPSocket_s MDDTCPIPSocket;
 
@@ -209,7 +207,6 @@ struct MDDTCPIPSocket_s {
  */
 void * MDD_TCPIPClient_Constructor(void) {
     MDDTCPIPSocket *tcpip = (MDDTCPIPSocket *)malloc(sizeof(MDDTCPIPSocket));
-    int ret;
 
     tcpip->sfd = socket(PF_INET, SOCK_STREAM, IPPROTO_IP);
     if (tcpip->sfd < 0) {
@@ -288,7 +285,6 @@ int MDD_TCPIPClient_Connect(void *p_tcpip, const char *ipaddress, int port) {
     return 1;
 }
 
-
 /** Send data via TCP/IP socket.
  * @param p_tcpip pointer address to the tcpip socket data structure
  * @param data pointer to data that should be sent
@@ -329,7 +325,6 @@ int MDD_TCPIPClient_Send(void *p_tcpip, const char *data, int dataSize) {
 int MDD_TCPIPClient_SendP(void *p_tcpip, void *p_package, int dataSize) {
     return MDD_TCPIPClient_Send(p_tcpip, MDD_SerialPackagerGetData(p_package), dataSize);
 }
-
 
 /** Read data from TCP/IP socket.
  *
@@ -378,7 +373,6 @@ void MDD_TCPIPClient_ReadP(void *p_tcpip, void *p_package, int recvbuflen) {
         ModelicaError("MDDTCPIPSocket.h: MDD_SerialPackagerSetData failed. Buffer overflow.\n");
     }
 }
-
 
 #else
 
