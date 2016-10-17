@@ -5,7 +5,11 @@
 extern "C" {
 #endif
 
+#if defined(_MSC_VER) && _MSC_VER < 1600
+#include "stdint_msvc.h"
+#else
 #include <stdint.h>
+#endif
 
 #include "eventlog.h"
 

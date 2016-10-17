@@ -2,9 +2,13 @@
 #define _LCM_LIB_INLINE_H
 
 #include <stdio.h>
-#include <stdint.h>
 #include <string.h>
 #include <stdlib.h>
+#if defined(_MSC_VER) && _MSC_VER < 1600
+#include "stdint_msvc.h"
+#else
+#include <stdint.h>
+#endif
 
 #ifdef __cplusplus
 extern "C" {
