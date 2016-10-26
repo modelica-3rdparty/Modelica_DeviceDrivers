@@ -350,20 +350,31 @@ typedef struct {
     int speed; /** Device Baudrate */
     int parity; /** Device Parity Configuration */
     struct termios serial;
-    size_t messageLength; /**< message length (only relevant for read socket) */
-    void* msgInternal; /**< Internal serial message buffer (only relevant for read socket) */
-    ssize_t nReceivedBytes; /**< Number of received bytes (only relevant for read serial) */
+    size_t messageLength; /**< message length (only relevant for reading) */
+    unsigned char* msgInternal; /**< Internal serial message buffer (only relevant for reading) */
+    unsigned char* msgLastComplete; /**< Last *complete* received message (only relevant for reading) */
+    ssize_t nReceivedBytes; /**< Number of received bytes (only kept for backwards compatiblity) */
     int runReceive; /**< Run receiving thread as long as runReceive != 0 */
     pthread_t thread;
-    pthread_mutex_t messageMutex; /**< Exclusive access to message buffer */
+    pthread_mutex_t messageMutex; /**< Exclusive access to msgLastComplete and nReceivedBytes */
 } MDDSerialPort;
 
 void MDD_serialPortDestructor(void * p_udp);
 void* MDD_serialPortReceivingThread(void * p_serial);
 
+/** @deprecated Returns the number of bytes received during the last read.
+ *
+ * Kept for backward compatiblity. Only very limited use since due to thread parallism
+ * the returned value may already be outdated when it is returned or when a later
+ * conditional action is based on the return value.
+ */
 int MDD_serialPortGetReceivedBytes(void * p_serial) {
     MDDSerialPort * serial = (MDDSerialPort *) p_serial;
-    return serial->nReceivedBytes;
+    int nReceivedByte;
+    pthread_mutex_lock(&(serial->messageMutex));
+    nReceivedByte = (int) serial->nReceivedBytes;
+    pthread_mutex_unlock(&(serial->messageMutex));
+    return nReceivedByte;
 }
 
 /** Function to set serial device to blocking or non-blocking.
@@ -467,8 +478,10 @@ void * MDD_serialPortConstructor(const char * deviceName, int bufferSize, int pa
     int ret;
     speed_t speed;
     serial->messageLength = bufferSize;
+    serial->nReceivedBytes = 0;
     serial->runReceive = 0;
     serial->msgInternal = calloc(serial->messageLength,1);
+    serial->msgLastComplete = calloc(serial->messageLength,1);
     ret = pthread_mutex_init(&(serial->messageMutex), NULL); /* Init mutex with defaults */
     if (ret != 0) {
         ModelicaFormatError("MDDSerialPort.h: pthread_mutex_init() failed (%s)\n",
@@ -545,6 +558,7 @@ void* MDD_serialPortReceivingThread(void * p_serial) {
 
     serial_poll.fd = serial->fd;
     serial_poll.events = POLLIN | POLLHUP;
+    ssize_t messageByteCounter = 0;
 
     while (serial->runReceive) {
         int ret = poll(&serial_poll, 1, 100);
@@ -561,19 +575,32 @@ void* MDD_serialPortReceivingThread(void * p_serial) {
                     ModelicaMessage("The serial port was disconnected.\n");
                 }
                 else {
-                    /* Lock acces to serial->msgInternal */
-                    pthread_mutex_lock(&(serial->messageMutex));
-                    /* Receive the next datagram */
-                    serial->nReceivedBytes =
-                        read(serial->fd, /* serial port file handle*/
-                             serial->msgInternal, /* receive buffer */
-                             serial->messageLength /* max bytes to receive */
-                            );
-                    pthread_mutex_unlock(&(serial->messageMutex));
 
-                    if (serial->nReceivedBytes < 0) {
+
+                    if (messageByteCounter == serial->messageLength) {
+                        messageByteCounter = 0; /* reset counter */
+                    }
+
+                    /* Receive the next message */
+                    ssize_t bytesRead =
+                        read(serial->fd, /* serial port file handle*/
+                            serial->msgInternal + messageByteCounter, /* receive buffer */
+                            serial->messageLength - messageByteCounter /* max bytes to receive */
+                            );
+                    if (bytesRead < 0) {
                         ModelicaFormatError("MDDSerialPort.h: read(..) failed (%s)\n", strerror(errno));
                     }
+                    messageByteCounter += bytesRead;
+
+                    pthread_mutex_lock(&(serial->messageMutex));
+                    /* set number of read bytes (not really useful but kept for backwards compatiblity) */
+                    serial->nReceivedBytes = bytesRead;
+                    /* Read complete message? => update last complete message buffer */
+                    if (messageByteCounter == serial->messageLength) {
+                        memcpy(serial->msgLastComplete, serial->msgInternal, serial->messageLength);
+                    }
+                    pthread_mutex_unlock(&(serial->messageMutex));
+
                 }
                 break;
             default:
@@ -593,11 +620,12 @@ const char * MDD_serialPortRead(void * p_serial) {
     MDDSerialPort * serial = (MDDSerialPort *) p_serial;
     char* spBuf;
 
-    /* Lock acces to serial->msgInternal */
+    /* Lock access to serial->msgLastComplete */
     pthread_mutex_lock(&(serial->messageMutex));
     spBuf = ModelicaAllocateStringWithErrorReturn(serial->messageLength);
     if (spBuf) {
-        memcpy(spBuf, serial->msgInternal, serial->messageLength);
+        /* Copy last completely transmitted message to message buffer */
+        memcpy(spBuf, serial->msgLastComplete, serial->messageLength);
         pthread_mutex_unlock(&(serial->messageMutex));
         return (const char*) spBuf;
     }
@@ -617,9 +645,10 @@ void MDD_serialPortReadP(void * p_serial, void* p_package) {
     MDDSerialPort * serial = (MDDSerialPort *) p_serial;
     int rc;
 
-    /* Lock acces to serial->msgInternal */
+    /* Lock access to serial->msgLastComplete */
     pthread_mutex_lock(&(serial->messageMutex));
-    rc = MDD_SerialPackagerSetDataWithErrorReturn(p_package, serial->msgInternal, serial->messageLength);
+    /* Set package to last completely transmitted message */
+    rc = MDD_SerialPackagerSetDataWithErrorReturn(p_package, serial->msgLastComplete, serial->messageLength);
     pthread_mutex_unlock(&(serial->messageMutex));
     if (rc) {
         ModelicaError("MDDSerialPort.h: MDD_SerialPackagerSetData failed. Buffer overflow.\n");
@@ -674,6 +703,7 @@ void MDD_serialPortDestructor(void * p_serial) {
     }
     ModelicaFormatMessage("Closed serial port handle %d\n", serial->fd);
     free(serial->msgInternal);
+    free(serial->msgLastComplete);
     free(serial);
 }
 
