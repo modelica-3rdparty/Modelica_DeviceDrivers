@@ -1,5 +1,7 @@
 within Modelica_DeviceDrivers.OperatingSystem;
 function beep "it beeps."
+import Modelica;
+extends Modelica.Icons.Function;
 input Real frequency;
 input Real duration;
 external "C" MDD_beep(frequency,duration)

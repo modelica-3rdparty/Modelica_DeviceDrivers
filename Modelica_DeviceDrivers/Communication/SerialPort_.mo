@@ -3,6 +3,8 @@ package SerialPort_ "Accompanying functions for the SerialPort object"
   extends Modelica_DeviceDrivers.Utilities.Icons.DriverIcon;
 
   encapsulated function read
+    import Modelica;
+    extends Modelica.Icons.Function;
     import Modelica_DeviceDrivers.Communication.SerialPort;
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
     input SerialPort sPort;
@@ -15,6 +17,8 @@ package SerialPort_ "Accompanying functions for the SerialPort object"
   end read;
 
   encapsulated function sendTo
+    import Modelica;
+    extends Modelica.Icons.Function;
     import Modelica_DeviceDrivers.Communication.SerialPort;
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
     input SerialPort sPort "Serial Port object";
@@ -28,6 +32,7 @@ package SerialPort_ "Accompanying functions for the SerialPort object"
   end sendTo;
 
   encapsulated function getReceivedBytes "DEPRECATED. Get number of received bytes"
+    import Modelica;
     extends Modelica.Icons.Function;
     extends Modelica.Icons.ObsoleteModel;
     import Modelica_DeviceDrivers.Communication.SerialPort;

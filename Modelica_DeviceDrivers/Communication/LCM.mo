@@ -2,6 +2,8 @@ within Modelica_DeviceDrivers.Communication;
 class LCM "A driver for Lightweight Communications and Marshalling."
   extends ExternalObject;
   encapsulated function constructor "Creates an LCM instance."
+    import Modelica;
+    extends Modelica.Icons.Function;
     import Modelica_DeviceDrivers.Communication.LCM;
     input String provider "\"udp://\" - UDP multicast, \"file://\" - logfile, \"memq://\" - memory queue";
     input String address "IP address or logfile name";
@@ -20,6 +22,8 @@ class LCM "A driver for Lightweight Communications and Marshalling."
   end constructor;
 
   encapsulated function destructor "Destroys an LCM instance."
+    import Modelica;
+    extends Modelica.Icons.Function;
     import Modelica_DeviceDrivers.Communication.LCM;
     input LCM lcm;
     external "C" MDD_lcmDestructor(lcm)

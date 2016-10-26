@@ -2,6 +2,8 @@ within Modelica_DeviceDrivers.Communication;
 package SharedMemory_ "Accompanying functions for the SharedMemory object"
   extends Modelica_DeviceDrivers.Utilities.Icons.DriverIcon;
   encapsulated function read
+    import Modelica;
+    extends Modelica.Icons.Function;
     import Modelica_DeviceDrivers.Communication.SharedMemory;
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
     input SharedMemory sm;
@@ -14,6 +16,8 @@ package SharedMemory_ "Accompanying functions for the SharedMemory object"
   end read;
 
   encapsulated function write
+    import Modelica;
+    extends Modelica.Icons.Function;
     import Modelica_DeviceDrivers.Communication.SharedMemory;
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
     input SharedMemory sm;
@@ -27,6 +31,8 @@ package SharedMemory_ "Accompanying functions for the SharedMemory object"
   end write;
 
   encapsulated function getDataSize
+    import Modelica;
+    extends Modelica.Icons.Function;
     import Modelica_DeviceDrivers.Communication.SharedMemory;
     input SharedMemory sm;
     output Integer length;

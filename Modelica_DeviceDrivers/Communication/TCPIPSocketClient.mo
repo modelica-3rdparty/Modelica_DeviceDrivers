@@ -3,6 +3,8 @@ class TCPIPSocketClient "A client for TCP/IP packet network communication."
 extends ExternalObject;
   encapsulated function constructor
     "Creates a TCP/IP socket client instance."
+    import Modelica;
+    extends Modelica.Icons.Function;
     import Modelica_DeviceDrivers.Communication.TCPIPSocketClient;
     output TCPIPSocketClient socketClient;
   external "C" socketClient = MDD_TCPIPClient_Constructor()
@@ -14,6 +16,8 @@ extends ExternalObject;
 
 encapsulated function destructor
   "Closes a TCP/IP socket client."
+  import Modelica;
+  extends Modelica.Icons.Function;
   import Modelica_DeviceDrivers.Communication.TCPIPSocketClient;
   input TCPIPSocketClient socketClient;
   external "C" MDD_TCPIPClient_Destructor(socketClient)

@@ -1,6 +1,8 @@
 within Modelica_DeviceDrivers.OperatingSystem;
 function realtimeSynchronize
   "pauses the simulation until synchronization with real-time is achieved"
+  import Modelica;
+  extends Modelica.Icons.Function;
   input Modelica_DeviceDrivers.OperatingSystem.RealTimeSynchronization rtSync;
   input Real simTime;
   output Real calculationTime;

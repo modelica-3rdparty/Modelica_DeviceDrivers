@@ -2,6 +2,8 @@ within Modelica_DeviceDrivers.InputDevices;
 package GameController_ "Accompanying function for the GameController object"
   extends Modelica_DeviceDrivers.Utilities.Icons.DriverIcon;
   function getData "reads data from joystick"
+    import Modelica;
+    extends Modelica.Icons.Function;
     input Modelica_DeviceDrivers.InputDevices.GameController joystick;
     output Real Axes[6] "Axes values from -1 to 1";
     output Integer Buttons[32] "Buttons values";

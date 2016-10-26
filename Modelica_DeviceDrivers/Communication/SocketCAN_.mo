@@ -2,6 +2,8 @@ within Modelica_DeviceDrivers.Communication;
 package SocketCAN_ "Accompanying functions for the SocketCAN object"
   extends Modelica_DeviceDrivers.Utilities.Icons.DriverIcon;
   encapsulated function write "Write CAN frame/message to socket"
+    import Modelica;
+    extends Modelica.Icons.Function;
     import Modelica_DeviceDrivers.Communication.SocketCAN;
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
     input SocketCAN socketCAN;
@@ -17,6 +19,8 @@ package SocketCAN_ "Accompanying functions for the SocketCAN object"
 
   encapsulated function defineObject
     "Define key/value pair for map associating identifiers to frame payload data."
+    import Modelica;
+    extends Modelica.Icons.Function;
     import Modelica_DeviceDrivers.Communication.SocketCAN;
     input SocketCAN socketCAN;
     input Integer can_id "CAN frame identifier";
@@ -30,6 +34,8 @@ package SocketCAN_ "Accompanying functions for the SocketCAN object"
 
   encapsulated function readObject
     "Read previously defined CAN object from CAN interface."
+    import Modelica;
+    extends Modelica.Icons.Function;
     import Modelica_DeviceDrivers.Communication.SocketCAN;
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
     input SocketCAN socketCAN;

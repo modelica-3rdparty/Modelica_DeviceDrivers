@@ -1,5 +1,7 @@
 within Modelica_DeviceDrivers.OperatingSystem;
 function randomReal_ "returns a random real within the given range."
+  import Modelica;
+  extends Modelica.Icons.Function;
   input Real minValue = 0;
   input Real maxValue = 1;
   output Real y;

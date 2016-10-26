@@ -2,8 +2,10 @@ within Modelica_DeviceDrivers.Packaging;
 package SerialPackager_ "Accompanying functions for the SerialPackager object"
   extends Modelica_DeviceDrivers.Utilities.Icons.DriverIcon;
 encapsulated function addReal "Add Modelica Real encoded as double"
-    import Modelica_DeviceDrivers.Packaging.SerialPackager;
-    import Modelica_DeviceDrivers.Utilities.Types.ByteOrder;
+  import Modelica;
+  extends Modelica.Icons.Function;
+  import Modelica_DeviceDrivers.Packaging.SerialPackager;
+  import Modelica_DeviceDrivers.Utilities.Types.ByteOrder;
   input SerialPackager pkg;
   input Real u[:];
   input ByteOrder byteOrder;
@@ -15,8 +17,10 @@ end addReal;
 
 encapsulated function addRealAsFloat
     "Add Modelica Real encoded as float (double is casted to float!)"
-    import Modelica_DeviceDrivers.Packaging.SerialPackager;
-    import Modelica_DeviceDrivers.Utilities.Types.ByteOrder;
+  import Modelica;
+  extends Modelica.Icons.Function;
+  import Modelica_DeviceDrivers.Packaging.SerialPackager;
+  import Modelica_DeviceDrivers.Utilities.Types.ByteOrder;
   input SerialPackager pkg;
   input Real u[:];
   input ByteOrder byteOrder;
@@ -27,8 +31,10 @@ encapsulated function addRealAsFloat
 end addRealAsFloat;
 
 encapsulated function addInteger
-    import Modelica_DeviceDrivers.Packaging.SerialPackager;
-    import Modelica_DeviceDrivers.Utilities.Types.ByteOrder;
+  import Modelica;
+  extends Modelica.Icons.Function;
+  import Modelica_DeviceDrivers.Packaging.SerialPackager;
+  import Modelica_DeviceDrivers.Utilities.Types.ByteOrder;
   input SerialPackager pkg;
   input Integer u[:];
   input ByteOrder byteOrder;
@@ -39,7 +45,9 @@ encapsulated function addInteger
 end addInteger;
 
 encapsulated function addString
-    import Modelica_DeviceDrivers.Packaging.SerialPackager;
+  import Modelica;
+  extends Modelica.Icons.Function;
+  import Modelica_DeviceDrivers.Packaging.SerialPackager;
   input SerialPackager pkg;
   input String u;
   input Integer bufferSize;
@@ -50,7 +58,9 @@ encapsulated function addString
 end addString;
 
 encapsulated function addBoolean
-    import Modelica_DeviceDrivers.Packaging.SerialPackager;
+  import Modelica;
+  extends Modelica.Icons.Function;
+  import Modelica_DeviceDrivers.Packaging.SerialPackager;
   input SerialPackager pkg;
   input Boolean u[:];
   external "C" MDD_SerialPackagerAddInteger(pkg, u, size(u,1))
@@ -60,7 +70,9 @@ encapsulated function addBoolean
 end addBoolean;
 
 encapsulated function setPos
-    import Modelica_DeviceDrivers.Packaging.SerialPackager;
+  import Modelica;
+  extends Modelica.Icons.Function;
+  import Modelica_DeviceDrivers.Packaging.SerialPackager;
   input SerialPackager pkg;
   input Integer pos(min=0) "Set current byte position of package to pos";
   external "C" MDD_SerialPackagerSetPos(pkg, pos)
@@ -70,7 +82,9 @@ encapsulated function setPos
 end setPos;
 
 encapsulated function getPos
-    import Modelica_DeviceDrivers.Packaging.SerialPackager;
+  import Modelica;
+  extends Modelica.Icons.Function;
+  import Modelica_DeviceDrivers.Packaging.SerialPackager;
   input SerialPackager pkg;
   output Integer pos(min=0) "Get current byte position of package";
   external "C" pos = MDD_SerialPackagerGetPos(pkg)
@@ -80,8 +94,10 @@ encapsulated function getPos
 end getPos;
 
 encapsulated function getReal
-    import Modelica_DeviceDrivers.Packaging.SerialPackager;
-    import Modelica_DeviceDrivers.Utilities.Types.ByteOrder;
+  import Modelica;
+  extends Modelica.Icons.Function;
+  import Modelica_DeviceDrivers.Packaging.SerialPackager;
+  import Modelica_DeviceDrivers.Utilities.Types.ByteOrder;
   input SerialPackager pkg;
   input Integer n;
   input ByteOrder byteOrder;
@@ -94,8 +110,10 @@ end getReal;
 
 encapsulated function getRealFromFloat
     "Get float from package (float is casted to double)"
-    import Modelica_DeviceDrivers.Packaging.SerialPackager;
-    import Modelica_DeviceDrivers.Utilities.Types.ByteOrder;
+  import Modelica;
+  extends Modelica.Icons.Function;
+  import Modelica_DeviceDrivers.Packaging.SerialPackager;
+  import Modelica_DeviceDrivers.Utilities.Types.ByteOrder;
   input SerialPackager pkg;
   input Integer n;
   input ByteOrder byteOrder;
@@ -107,8 +125,10 @@ encapsulated function getRealFromFloat
 end getRealFromFloat;
 
 encapsulated function getInteger
-    import Modelica_DeviceDrivers.Packaging.SerialPackager;
-    import Modelica_DeviceDrivers.Utilities.Types.ByteOrder;
+  import Modelica;
+  extends Modelica.Icons.Function;
+  import Modelica_DeviceDrivers.Packaging.SerialPackager;
+  import Modelica_DeviceDrivers.Utilities.Types.ByteOrder;
   input SerialPackager pkg;
   input Integer n;
   input ByteOrder byteOrder;
@@ -120,7 +140,9 @@ encapsulated function getInteger
 end getInteger;
 
 encapsulated function getString
-    import Modelica_DeviceDrivers.Packaging.SerialPackager;
+  import Modelica;
+  extends Modelica.Icons.Function;
+  import Modelica_DeviceDrivers.Packaging.SerialPackager;
   input SerialPackager pkg;
   input Integer bufferSize;
   output String y;
@@ -131,7 +153,9 @@ encapsulated function getString
 end getString;
 
 encapsulated function getBoolean
-    import Modelica_DeviceDrivers.Packaging.SerialPackager;
+  import Modelica;
+  extends Modelica.Icons.Function;
+  import Modelica_DeviceDrivers.Packaging.SerialPackager;
   input SerialPackager pkg;
   input Integer n;
   output Boolean y[n];
@@ -142,7 +166,9 @@ encapsulated function getBoolean
 end getBoolean;
 
 encapsulated function resetPointer
-    import Modelica_DeviceDrivers.Packaging.SerialPackager;
+  import Modelica;
+  extends Modelica.Icons.Function;
+  import Modelica_DeviceDrivers.Packaging.SerialPackager;
   input SerialPackager pkg;
   external "C" MDD_SerialPackagerSetPos(pkg, 0)
   annotation(Include = "#include \"MDDSerialPackager.h\"",
@@ -151,7 +177,9 @@ encapsulated function resetPointer
 end resetPointer;
 
 encapsulated function clear
-    import Modelica_DeviceDrivers.Packaging.SerialPackager;
+  import Modelica;
+  extends Modelica.Icons.Function;
+  import Modelica_DeviceDrivers.Packaging.SerialPackager;
   input SerialPackager pkg;
   external "C" MDD_SerialPackagerClear(pkg)
   annotation(Include = "#include \"MDDSerialPackager.h\"",
@@ -160,7 +188,9 @@ encapsulated function clear
 end clear;
 
 encapsulated function getBufferSize
-    import Modelica_DeviceDrivers.Packaging.SerialPackager;
+  import Modelica;
+  extends Modelica.Icons.Function;
+  import Modelica_DeviceDrivers.Packaging.SerialPackager;
   input SerialPackager pkg;
   output Integer bufferSize;
   external "C" bufferSize = MDD_SerialPackagerGetSize(pkg)
@@ -170,7 +200,9 @@ encapsulated function getBufferSize
 end getBufferSize;
 
 encapsulated function print "Print packager state information"
-    import Modelica_DeviceDrivers.Packaging.SerialPackager;
+  import Modelica;
+  extends Modelica.Icons.Function;
+  import Modelica_DeviceDrivers.Packaging.SerialPackager;
   input SerialPackager pkg;
   external "C" MDD_SerialPackagerPrint(pkg)
   annotation(Include = "#include \"MDDSerialPackager.h\"",
@@ -180,7 +212,9 @@ end print;
 
 encapsulated function integerBitUnpack
     "Unpack integer value encoded at bit level"
-    import Modelica_DeviceDrivers.Packaging.SerialPackager;
+  import Modelica;
+  extends Modelica.Icons.Function;
+  import Modelica_DeviceDrivers.Packaging.SerialPackager;
   input SerialPackager pkg;
   input Integer bitOffset
       "Bit offset from current packager position until first encoding bit";
@@ -193,7 +227,9 @@ encapsulated function integerBitUnpack
 end integerBitUnpack;
 
 encapsulated function integerBitPack "Encode integer value at bit level"
-    import Modelica_DeviceDrivers.Packaging.SerialPackager;
+  import Modelica;
+  extends Modelica.Icons.Function;
+  import Modelica_DeviceDrivers.Packaging.SerialPackager;
   input SerialPackager pkg;
   input Integer bitOffset
       "Bit offset from current packager position until first encoding bit";

@@ -2,7 +2,9 @@ within Modelica_DeviceDrivers.HardwareIO;
 package Comedi_ "Accompanying functions for the Comedi object"
   extends Modelica_DeviceDrivers.Utilities.Icons.DriverIcon;
 encapsulated function data_write "Synchronous write to analog channel"
-    import Modelica_DeviceDrivers.HardwareIO.Comedi;
+  import Modelica;
+  extends Modelica.Icons.Function;
+  import Modelica_DeviceDrivers.HardwareIO.Comedi;
   input Comedi comedi "Device handle";
   input Integer subDevice "Subdevice number";
   input Integer channel "Channel number";
@@ -15,7 +17,9 @@ encapsulated function data_write "Synchronous write to analog channel"
 end data_write;
 
 encapsulated function data_read "Synchronous read from analog channel"
-    import Modelica_DeviceDrivers.HardwareIO.Comedi;
+  import Modelica;
+  extends Modelica.Icons.Function;
+  import Modelica_DeviceDrivers.HardwareIO.Comedi;
   input Comedi comedi "Device handle";
   input Integer subDevice "Subdevice number";
   input Integer channel "Channel number";
@@ -28,8 +32,10 @@ encapsulated function data_read "Synchronous read from analog channel"
 end data_read;
 
 encapsulated function dio_config
-    "Input/Output configuration of digital channel"
-    import Modelica_DeviceDrivers.HardwareIO.Comedi;
+  "Input/Output configuration of digital channel"
+  import Modelica;
+  extends Modelica.Icons.Function;
+  import Modelica_DeviceDrivers.HardwareIO.Comedi;
   input Comedi comedi "Device handle";
   input Integer subDevice "Subdevice number";
   input Integer channel "Channel number";
@@ -40,7 +46,9 @@ encapsulated function dio_config
 end dio_config;
 
 encapsulated function dio_write "Synchronous write to digital channel"
-    import Modelica_DeviceDrivers.HardwareIO.Comedi;
+  import Modelica;
+  extends Modelica.Icons.Function;
+  import Modelica_DeviceDrivers.HardwareIO.Comedi;
   input Comedi comedi "Device handle";
   input Integer subDevice "Subdevice number";
   input Integer channel "Channel number";
@@ -51,7 +59,9 @@ encapsulated function dio_write "Synchronous write to digital channel"
 end dio_write;
 
 encapsulated function dio_read "Synchronous read from digital channel"
-    import Modelica_DeviceDrivers.HardwareIO.Comedi;
+  import Modelica;
+  extends Modelica.Icons.Function;
+  import Modelica_DeviceDrivers.HardwareIO.Comedi;
   input Comedi comedi "Device handle";
   input Integer subDevice "Subdevice number";
   input Integer channel "Channel number";
@@ -63,6 +73,8 @@ end dio_read;
 
 encapsulated function set_global_oor_behavior
     "Set global out-of-range behavior of comedi_to_phys(..) function (i.e. behavior for sample values equal 0 or maxdata)"
+  import Modelica;
+  extends Modelica.Icons.Function;
   input Integer behavior(min=0,max=1)
       "0: COMEDI_OOR_NUMBER, 1: COMEDDI_OOR_NAN";
   output Integer old_behavior "Previous behavior setting";
@@ -72,7 +84,9 @@ encapsulated function set_global_oor_behavior
 end set_global_oor_behavior;
 
 encapsulated function get_range "Get range information of channel"
-    import Modelica_DeviceDrivers.HardwareIO.Comedi;
+  import Modelica;
+  extends Modelica.Icons.Function;
+  import Modelica_DeviceDrivers.HardwareIO.Comedi;
   input Comedi comedi "Device handle";
   input Integer subDevice "Subdevice number";
   input Integer channel "Channel number";
@@ -87,7 +101,9 @@ encapsulated function get_range "Get range information of channel"
 end get_range;
 
 encapsulated function get_maxdata "Get maximal possible raw value of channel"
-    import Modelica_DeviceDrivers.HardwareIO.Comedi;
+  import Modelica;
+  extends Modelica.Icons.Function;
+  import Modelica_DeviceDrivers.HardwareIO.Comedi;
   input Comedi comedi "Device handle";
   input Integer subDevice "Subdevice number";
   input Integer channel "Channel number";
@@ -98,6 +114,8 @@ encapsulated function get_maxdata "Get maximal possible raw value of channel"
 end get_maxdata;
 
 encapsulated function to_phys "Convert raw value of channel to physical value"
+  import Modelica;
+  extends Modelica.Icons.Function;
   input Integer rawData "Raw value from channel";
   input Real min "Physical min value of channel";
   input Real max "Physical max value of channel";
@@ -111,6 +129,8 @@ end to_phys;
 
 encapsulated function from_phys
     "Convert physical value of channel to corresponding raw value"
+  import Modelica;
+  extends Modelica.Icons.Function;
   input Real physData "Physical value of channel";
   input Real min "Physical min value of channel";
   input Real max "Physical max value of channel";
