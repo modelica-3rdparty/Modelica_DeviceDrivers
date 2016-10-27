@@ -3,7 +3,9 @@ class UDPSocket "A driver for UDP packet network communication."
 extends ExternalObject;
 encapsulated function constructor
     "Creates a UDPSocket instance with a given listening port."
-    import Modelica_DeviceDrivers.Communication.UDPSocket;
+  import Modelica;
+  extends Modelica.Icons.Function;
+  import Modelica_DeviceDrivers.Communication.UDPSocket;
   input Integer port "listening port";
   input Integer bufferSize=16*1024 "Size of receive buffer";
   output UDPSocket socket;
@@ -15,7 +17,9 @@ annotation(Include = "#include \"MDDUDPSocket.h\"",
 end constructor;
 
 encapsulated function destructor
-    import Modelica_DeviceDrivers.Communication.UDPSocket;
+  import Modelica;
+  extends Modelica.Icons.Function;
+  import Modelica_DeviceDrivers.Communication.UDPSocket;
   input UDPSocket socket;
 external "C" MDD_udpDestructor(socket)
 annotation(Include = "#include \"MDDUDPSocket.h\"",

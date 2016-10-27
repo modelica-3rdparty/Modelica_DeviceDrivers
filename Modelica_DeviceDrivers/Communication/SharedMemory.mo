@@ -3,6 +3,8 @@ class SharedMemory
   "A driver for shared memory access for inter-process communication."
 extends ExternalObject;
   encapsulated function constructor
+    import Modelica;
+    extends Modelica.Icons.Function;
     import Modelica_DeviceDrivers.Communication.SharedMemory;
     input String memoryName;
     input Integer bufferSize = 16* 1024;
@@ -15,6 +17,8 @@ extends ExternalObject;
   end constructor;
 
   encapsulated function destructor
+    import Modelica;
+    extends Modelica.Icons.Function;
     import Modelica_DeviceDrivers.Communication.SharedMemory;
     input SharedMemory sm;
     external "C" MDD_SharedMemoryDestructor(sm)

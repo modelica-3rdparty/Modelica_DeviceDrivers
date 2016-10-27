@@ -3,8 +3,10 @@ class SerialPort "A driver for serial port communication."
 extends ExternalObject;
 encapsulated function constructor
     "Creates a SerialPort instance with a given listening port."
-    import Modelica_DeviceDrivers.Communication.SerialPort;
-    import Modelica_DeviceDrivers.Utilities.Types.SerialBaudRate;
+  import Modelica;
+  extends Modelica.Icons.Function;
+  import Modelica_DeviceDrivers.Communication.SerialPort;
+  import Modelica_DeviceDrivers.Utilities.Types.SerialBaudRate;
   input String deviceName "Serial port (/dev/ttyX or \\\\.\\COMX)";
   input Integer bufferSize=16*1024 "Size of receive buffer";
   input Integer parity = 0 "0 - no parity, 1 - even, 2 - odd";
@@ -19,7 +21,9 @@ annotation(Include = "#include \"MDDSerialPort.h\"",
 end constructor;
 
 encapsulated function destructor
-    import Modelica_DeviceDrivers.Communication.SerialPort;
+  import Modelica;
+  extends Modelica.Icons.Function;
+  import Modelica_DeviceDrivers.Communication.SerialPort;
   input SerialPort sPort;
 external "C" MDD_serialPortDestructor(sPort)
 annotation(Include = "#include \"MDDSerialPort.h\"",

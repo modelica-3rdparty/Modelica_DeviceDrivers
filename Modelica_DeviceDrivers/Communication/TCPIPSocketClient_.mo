@@ -4,6 +4,8 @@ package TCPIPSocketClient_ "Accompanying functions for the TCP/IP socket client 
 
   encapsulated function connect_
     "Connects to a TCP/IP socket server."
+    import Modelica;
+    extends Modelica.Icons.Function;
     import Modelica_DeviceDrivers.Communication.TCPIPSocketClient;
     input TCPIPSocketClient socketClient;
     input String ip "IP address";
@@ -17,6 +19,8 @@ package TCPIPSocketClient_ "Accompanying functions for the TCP/IP socket client 
   end connect_;
 
   encapsulated function read
+    import Modelica;
+    extends Modelica.Icons.Function;
     import Modelica_DeviceDrivers.Communication.TCPIPSocketClient;
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
     input TCPIPSocketClient socketClient;
@@ -30,6 +34,8 @@ package TCPIPSocketClient_ "Accompanying functions for the TCP/IP socket client 
   end read;
 
   encapsulated function sendTo
+    import Modelica;
+    extends Modelica.Icons.Function;
     import Modelica_DeviceDrivers.Communication.TCPIPSocketClient;
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
     input TCPIPSocketClient socketClient;

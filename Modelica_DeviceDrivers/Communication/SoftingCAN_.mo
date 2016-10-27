@@ -2,6 +2,8 @@ within Modelica_DeviceDrivers.Communication;
 package SoftingCAN_ "Accompanying functions for the SoftingCAN object"
   extends Modelica_DeviceDrivers.Utilities.Icons.DriverIcon;
   encapsulated function defineObject "Define available objects (CAN messages)"
+    import Modelica;
+    extends Modelica.Icons.Function;
     import Modelica_DeviceDrivers.Communication.SoftingCAN;
     import Modelica_DeviceDrivers.Utilities.Types;
     import Modelica_DeviceDrivers;
@@ -20,6 +22,8 @@ package SoftingCAN_ "Accompanying functions for the SoftingCAN object"
 
   encapsulated function startChip
     "Put CAN controllers of both CAN channels into operational mode (all object definitions have to be completed before!)"
+    import Modelica;
+    extends Modelica.Icons.Function;
     import Modelica_DeviceDrivers.Communication.SoftingCAN;
     input SoftingCAN softingCAN "Handle for device";
 
@@ -31,6 +35,8 @@ package SoftingCAN_ "Accompanying functions for the SoftingCAN object"
 
   encapsulated function writeObject
     "Write object (CAN message) to transmit buffer"
+    import Modelica;
+    extends Modelica.Icons.Function;
     import Modelica_DeviceDrivers.Communication.SoftingCAN;
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
     input SoftingCAN softingCAN "Handle for device";
@@ -45,6 +51,8 @@ package SoftingCAN_ "Accompanying functions for the SoftingCAN object"
   end writeObject;
 
   encapsulated function readRcvData "Read data from object (CAN message)"
+    import Modelica;
+    extends Modelica.Icons.Function;
     import Modelica_DeviceDrivers.Communication.SoftingCAN;
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
 

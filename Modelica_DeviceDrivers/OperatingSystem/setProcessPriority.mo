@@ -1,5 +1,7 @@
 within Modelica_DeviceDrivers.OperatingSystem;
 function setProcessPriority
+import Modelica;
+extends Modelica.Icons.Function;
 input Modelica_DeviceDrivers.OperatingSystem.ProcessPriority procPrio;
 input Integer priority "Simulation process priority (-2(lowest)..2(realtime))";
 external "C" MDD_setPriority(procPrio, priority)

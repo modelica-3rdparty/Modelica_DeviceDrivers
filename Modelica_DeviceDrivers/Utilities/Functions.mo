@@ -2,6 +2,8 @@ within Modelica_DeviceDrivers.Utilities;
 package Functions
   extends Modelica.Icons.Package;
   function loadRealParameter "Loads a parameter from file"
+    import Modelica;
+    extends Modelica.Icons.Function;
     input String file="Washout.ini";
     input String name="K_Px";
     output Real u;
@@ -46,6 +48,8 @@ end TestLoadRealParameter;
   end loadRealParameter;
 
   function loadRealParameterVector "Reads a parameter array from file"
+    import Modelica;
+    extends Modelica.Icons.Function;
     import readRealParameter =
       Modelica_DeviceDrivers.Utilities.Functions.loadRealParameter;
     input String file "name of configuration file";

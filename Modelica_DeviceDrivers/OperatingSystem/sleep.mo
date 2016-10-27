@@ -1,5 +1,7 @@
 within Modelica_DeviceDrivers.OperatingSystem;
 function sleep
+  import Modelica;
+  extends Modelica.Icons.Function;
  input Real sleepingTime
     "time (in seconds) during the simulation does nothing.";
 external "C" MDD_OS_Sleep(sleepingTime)

@@ -2,6 +2,8 @@ within Modelica_DeviceDrivers.Communication;
 package LCM_ "Accompanying functions for the LCM object"
   extends Modelica_DeviceDrivers.Utilities.Icons.DriverIcon;
   encapsulated function read
+    import Modelica;
+    extends Modelica.Icons.Function;
     import Modelica_DeviceDrivers.Communication.LCM;
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
     input LCM lcm;
@@ -15,6 +17,8 @@ package LCM_ "Accompanying functions for the LCM object"
   end read;
 
   encapsulated function sendTo
+    import Modelica;
+    extends Modelica.Icons.Function;
     import Modelica_DeviceDrivers.Communication.LCM;
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
     input LCM lcm;
@@ -30,6 +34,8 @@ package LCM_ "Accompanying functions for the LCM object"
   end sendTo;
 
   encapsulated function getLCMVersion
+    import Modelica;
+    extends Modelica.Icons.Function;
     import Modelica_DeviceDrivers.Communication.LCM;
     input LCM lcm;
     output String ver "LCM version";
