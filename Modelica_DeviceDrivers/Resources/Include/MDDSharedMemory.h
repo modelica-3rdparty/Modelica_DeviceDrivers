@@ -33,9 +33,9 @@ typedef struct {
     HANDLE hMapFile;
 } MDDSharedMemory;
 
-#define MDDSM_PLOCK ((long*)smb->smBuf)
-#define MDDSM_PLEN (MDDSM_PLOCK + sizeof(long))
-#define MDDSM_DATA (char*)(MDDSM_PLEN + sizeof(int))
+#define MDDSM_PLOCK ((long volatile*)smb->smBuf)
+#define MDDSM_PLEN ((char*)smb->smBuf + sizeof(long))
+#define MDDSM_DATA (MDDSM_PLEN + sizeof(int))
 #define MDDSM_LOCK() while (InterlockedExchange(MDDSM_PLOCK, 1L) != 0) Sleep(0)
 #define MDDSM_UNLOCK() InterlockedExchange(MDDSM_PLOCK, 0)
 
@@ -53,7 +53,6 @@ DllExport void* MDD_SharedMemoryConstructor(const char * name, int bufSize) {
                             FILE_MAP_ALL_ACCESS,   /* read/write access */
                             FALSE,                 /* do not inherit the name */
                             name);                 /* name of mapping object */
-        /* printf(\"Opening existing FileMapping\\n\"); */
     }
 
     if (smb->hMapFile == NULL) {
@@ -123,6 +122,7 @@ DllExport void MDD_SharedMemoryReadP(void * p_smb, void* p_package) {
     MDDSharedMemory * smb = (MDDSharedMemory *) p_smb;
     if (smb) {
         int len, rc;
+		MDD_SerialPackagerSetPos(p_package, 0);
         MDDSM_LOCK();
         memcpy(&len, MDDSM_PLEN, sizeof(int));
         rc = MDD_SerialPackagerSetDataWithErrorReturn(p_package, MDDSM_DATA, len);
