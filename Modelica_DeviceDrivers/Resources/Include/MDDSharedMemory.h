@@ -31,49 +31,47 @@
 typedef struct {
     char * smBuf;
     HANDLE hMapFile;
+    int size;
+    HANDLE hSemaphore;
 } MDDSharedMemory;
-
-#define MDDSM_PLOCK ((long*)smb->smBuf)
-#define MDDSM_PLEN (MDDSM_PLOCK + sizeof(long))
-#define MDDSM_DATA (char*)(MDDSM_PLEN + sizeof(int))
-#define MDDSM_LOCK() while (InterlockedExchange(MDDSM_PLOCK, 1L) != 0) Sleep(0)
-#define MDDSM_UNLOCK() InterlockedExchange(MDDSM_PLOCK, 0)
 
 DllExport void* MDD_SharedMemoryConstructor(const char * name, int bufSize) {
     MDDSharedMemory * smb = (MDDSharedMemory *)malloc(sizeof(MDDSharedMemory));
-    smb->hMapFile = CreateFileMappingA(
-                        INVALID_HANDLE_VALUE,    /* use paging file */
-                        NULL,                    /* default security */
-                        PAGE_READWRITE,          /* read/write access */
-                        0,                       /* maximum object size (high-order DWORD) */
-                        sizeof(long) + sizeof(int) + bufSize, /* maximum object size (low-order DWORD) */
-                        name);                 /* name of mapping object */
+    char semName[MAX_PATH];
+
+    strncpy(semName, name, MAX_PATH - 4);
+    strcat(semName, "sem");
+    smb->hSemaphore = CreateSemaphoreA(NULL, 1, 1, semName);
     if (GetLastError() == ERROR_ALREADY_EXISTS) {
-        smb->hMapFile = OpenFileMappingA(
-                            FILE_MAP_ALL_ACCESS,   /* read/write access */
-                            FALSE,                 /* do not inherit the name */
-                            name);                 /* name of mapping object */
-        /* printf(\"Opening existing FileMapping\\n\"); */
+        smb->hMapFile = OpenSemaphoreA(SYNCHRONIZE | SEMAPHORE_MODIFY_STATE, FALSE, semName);
+    }
+    if (smb->hSemaphore == NULL) {
+        free(smb);
+        ModelicaFormatError("MDDSharedMemory.h: Could not create semaphore object: %lu.\n", GetLastError());
+        return NULL;
     }
 
+    smb->hMapFile = CreateFileMappingA(INVALID_HANDLE_VALUE,  NULL, PAGE_READWRITE, 0, bufSize, name);
+    if (GetLastError() == ERROR_ALREADY_EXISTS) {
+        smb->hMapFile = OpenFileMappingA(FILE_MAP_ALL_ACCESS, FALSE, name);
+    }
     if (smb->hMapFile == NULL) {
+        CloseHandle(smb->hSemaphore);
         free(smb);
         ModelicaFormatError("MDDSharedMemory.h: Could not create file mapping object: %lu.\n", GetLastError());
         return NULL;
     }
-    smb->smBuf = (char*) MapViewOfFile(
-                           smb->hMapFile, /* handle to map object */
-                           FILE_MAP_ALL_ACCESS, /* read/write permission */
-                           0,
-                           0,
-                           sizeof(long) + sizeof(int) + bufSize);
 
+    smb->smBuf = (char*) MapViewOfFile(smb->hMapFile, FILE_MAP_ALL_ACCESS, 0, 0, bufSize);
     if (smb->smBuf == NULL) {
         CloseHandle(smb->hMapFile);
+        CloseHandle(smb->hSemaphore);
         free(smb);
         ModelicaFormatError("MDDSharedMemory.h: Could not map view of file: %lu.\n", GetLastError());
         return NULL;
     }
+
+    smb->size = bufSize;
 
     return smb;
 }
@@ -83,6 +81,7 @@ DllExport void MDD_SharedMemoryDestructor(void* p_smb) {
     if (smb) {
         UnmapViewOfFile(smb->smBuf);
         CloseHandle(smb->hMapFile);
+        CloseHandle(smb->hSemaphore);
         free(smb);
     }
 }
@@ -91,9 +90,7 @@ DllExport int MDD_SharedMemoryGetDataSize(void * p_smb) {
     int len = 0;
     MDDSharedMemory * smb = (MDDSharedMemory *) p_smb;
     if (smb) {
-        MDDSM_LOCK();
-        memcpy(&len, MDDSM_PLEN, sizeof(int));
-        MDDSM_UNLOCK();
+        len = smb->size;
     }
     return len;
 }
@@ -101,18 +98,15 @@ DllExport int MDD_SharedMemoryGetDataSize(void * p_smb) {
 DllExport const char * MDD_SharedMemoryRead(void * p_smb) {
     MDDSharedMemory * smb = (MDDSharedMemory *) p_smb;
     if (smb) {
-        int len;
         char* smBuf;
-        MDDSM_LOCK();
-        memcpy(&len, MDDSM_PLEN, sizeof(int));
-        smBuf = ModelicaAllocateStringWithErrorReturn(len);
+        smBuf = ModelicaAllocateStringWithErrorReturn(smb->size);
         if (smBuf) {
-            memcpy(smBuf, MDDSM_DATA, len);
-            MDDSM_UNLOCK();
+            while (WAIT_OBJECT_0 != WaitForSingleObject(smb->hSemaphore, 0));
+            memcpy(smBuf, smb->smBuf, smb->size);
+            ReleaseSemaphore(smb->hSemaphore, 1L, NULL);
             return (const char*) smBuf;
         }
         else {
-            MDDSM_UNLOCK();
             ModelicaError("MDDSharedMemory.h: ModelicaAllocateString failed\n");
         }
     }
@@ -122,11 +116,10 @@ DllExport const char * MDD_SharedMemoryRead(void * p_smb) {
 DllExport void MDD_SharedMemoryReadP(void * p_smb, void* p_package) {
     MDDSharedMemory * smb = (MDDSharedMemory *) p_smb;
     if (smb) {
-        int len, rc;
-        MDDSM_LOCK();
-        memcpy(&len, MDDSM_PLEN, sizeof(int));
-        rc = MDD_SerialPackagerSetDataWithErrorReturn(p_package, MDDSM_DATA, len);
-        MDDSM_UNLOCK();
+        int rc;
+        while (WAIT_OBJECT_0 != WaitForSingleObject(smb->hSemaphore, 0));
+        rc = MDD_SerialPackagerSetDataWithErrorReturn(p_package, smb->smBuf, smb->size);
+        ReleaseSemaphore(smb->hSemaphore, 1L, NULL);
         if (rc) {
             ModelicaError("MDDSharedMemory.h: MDD_SerialPackagerSetData failed. Buffer overflow.\n");
         }
@@ -135,10 +128,9 @@ DllExport void MDD_SharedMemoryReadP(void * p_smb, void* p_package) {
 
 DllExport void MDD_SharedMemoryWrite(void * p_smb, const char * buffer, int len) {
     MDDSharedMemory * smb = (MDDSharedMemory *) p_smb;
-    MDDSM_LOCK();
-    memcpy(MDDSM_DATA, buffer, len);
-    memcpy(MDDSM_PLEN, &len, sizeof(int));
-    MDDSM_UNLOCK();
+    while (WAIT_OBJECT_0 != WaitForSingleObject(smb->hSemaphore, 0));
+    memcpy(smb->smBuf, buffer, len);
+    ReleaseSemaphore(smb->hSemaphore, 1L, NULL);
 }
 
 DllExport void MDD_SharedMemoryWriteP(void * p_smb, void* p_package, int len) {
