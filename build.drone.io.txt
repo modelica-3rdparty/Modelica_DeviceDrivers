@@ -4,6 +4,7 @@ DEBIAN_FRONTEND=noninteractive
 #Commands
 echo 'debconf debconf/frontend select Noninteractive' | sudo debconf-set-selections
 sudo rm /etc/apt/sources.list.d/google*
+sudo rm /etc/apt/sources.list.d/ondrej*
 sudo apt-get update -qq
 sudo apt-get install -qq gcc-4.8-multilib
 echo 2 | sudo update-alternatives --config gcc
