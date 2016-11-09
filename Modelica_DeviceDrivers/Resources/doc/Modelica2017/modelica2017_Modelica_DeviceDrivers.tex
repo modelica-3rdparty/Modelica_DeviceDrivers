@@ -48,6 +48,10 @@
        basicstyle=\fontsize{9pt}{10.5pt}\selectfont,
        backgroundcolor = \color{white}}
 
+\newcommand{\VW}[1]{\textcolor{red}{VW: #1}}
+\newcommand{\TB}[1]{\textcolor{orange}{VW: #1}}
+\newcommand{\BT}[1]{\textcolor{green}{VW: #1}}
+
 % begin the document
 \begin{document}
 \thispagestyle{empty}
@@ -64,7 +68,7 @@
 \author[3]{Volker Waurich}
 \affil[1]{ESI ITI GmbH, Germany, {\small\texttt{thomas.beutlich@esi-group.com}}}
 \affil[2]{PELAB, Linköping University, Sweden, {\small\texttt{bernhard.thiele@liu.se}}}
-\affil[3]{Chair of Construction Machines and Conveying Technology, TU Dresden, Germany, {\small\texttt{volker.waurich@tu-dresden.de}}}
+\affil[3]{Chair of Construction Machinery, TU Dresden, Germany, {\small\texttt{volker.waurich@tu-dresden.de}}}
 
 % \title{\vspace{-1.0cm}\textbf{Towards a Standard-Conform, Platform-Generic and Feature-Rich Modelica Device Drivers Library}}
 % \author{{\large
@@ -122,6 +126,63 @@ while x<20 loop
   x := x+y*2;  
 end while;  
 \end{lstlisting}
+
+\section{Enhanced Modelica standard compliance}
+
+\section{Enhanced tool support}
+
+
+
+\section{New features}
+
+\subsection{Serial port on Win}
+
+\subsection{Bluetooth }
+
+\subsection{TCP/IP clientndian}
+
+\subsection{LCM / UDP Broadcas}
+
+\subsection{MQTT }
+
+\subsection{More ideas to come}
+
+
+\section{Open issues and pitfalls}
+
+\subsection{Serialpackager}
+
+\subsection{Automatic buffer size}
+
+\subsection{External objects in equation}
+
+\subsection{Construction of external objects in record}
+
+\subsection{Linking to platform-dependent system libraries}
+
+\subsection{Missing fixed attribute for String}
+
+\section{Application examples}
+
+\subsection{Arduino}
+
+The arduino is an open-source electronics platform which makes it very easy to read sensors, process the data and send it to another device via a serial connection \citep{arduino:2016}.
+With the help of Modelica Device Drivers serial port implementation, the arduino can be utilized to make sensor data available in a real-time Modelica model.
+Using different kinds of potentiometers, it is possible to build customized control devices.
+As an exemplary application, pedals for a driving simulator can be equipped with a rotary potentiometer in order to measure the displacement.
+This data can be send via a serial connection to a \textit{Blocks.Comunication.SerialPortReceive} in order to drive a virtual vehicle.
+Hence, expensive or unavailable input devices can be substituted by self-built constructions.
+By using a bluetooth module, a wireless connection between arduino and the simulator is set up easily.
+\VW{I could add arduino code or an arduino circuit diagram here.}
+
+\subsection{Raspberry Pi}
+
+\subsection{HID Joystick}
+
+\section{Outlook}
+
+\section{Acknowledgements}
+
 
 \section{Lists}
 Bulleted lists are created in the usual way with the \texttt{itemize} environment:
