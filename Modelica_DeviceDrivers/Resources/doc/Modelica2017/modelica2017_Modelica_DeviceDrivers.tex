@@ -6,9 +6,8 @@
 %%% use the more modern biber and biblatex instead
 %\documentclass[backend=biber]{modelica}
 %\addbibresource{example-paper.bib}
-\usepackage[utf8]{luainputenc} % utf8 input encoding that should work for both pdflatex and lualatex
-
-\newcommand{\bthnote}[1]{{\color{blue}{$\|$#1$\parallel$}}}
+%\usepackage[utf8]{luainputenc} % utf8 input encoding that should work for both pdflatex and lualatex, but might not be available in every installation
+\usepackage[utf8]{inputenc} % utf8 input encoding which should work with pdflatex, but not lualatex
 
 \hypersetup{%
 	pdftitle  = {Towards a Standard-Conform, Platform-Generic and Feature-Rich Modelica Device Drivers Library},
@@ -24,6 +23,14 @@
 	pdfproducer = pdflatex}
 
 
+\newcommand{\BTHI}[1]{{\color{blue}{$\parallel_\textrm{BTHI}$#1$\parallel$}}}
+\newcommand{\TBEU}[1]{{\color{orange}{$\parallel_\textrm{TBEU}$#1$\parallel$}}}
+\newcommand{\VWAU}[1]{{\color{red}{$\parallel_\textrm{VWAU}$#1$\parallel$}}}
+\newcommand{\MSJO}[1]{{\color{green}{$\parallel_\textrm{MSJO}$#1$\parallel$}}}
+\newcommand{\TBEL}[1]{{\color{magenta}{$\parallel_\textrm{TBEL}$#1$\parallel$}}}
+
+
+
 % begin the document
 \begin{document}
 \thispagestyle{empty}
@@ -37,7 +44,6 @@
 \affil[1]{PELAB, Linköping University, Sweden,
 {\small\texttt{\{bernhard.thiele,martin.sjoelund\}@liu.se}}}
 \affil[2]{ESI ITI GmbH, Germany, {\small\texttt{thomas.beutlich@esi-group.com}}}
-\affil[3]{Chair of Construction Machines and Conveying Technology, TU Dresden, Germany, {\small\texttt{volker.waurich@tu-dresden.de}}}
 \affil[4]{Institute of System Dynamics and Control, DLR, Germany, {\small\texttt{tobias.bellmann@dlr.se}}}
 
 
@@ -50,8 +56,7 @@ Tbd.
 \noindent\emph{Keywords: keyword1, keyword2}
 
 \section{Introduction}
-\bthnote{TODO: Bernhard, Tobias}\\
-
+\BTHI{TODO: Bernhard, Tobias}\\
 
 History:
 \begin{itemize}
@@ -61,7 +66,7 @@ History:
 \end{itemize}
 
 \section{Modelica\_DeviceDrivers}
-\bthnote{TODO: Bernhard, Thomas, Volker}
+\BTHI{TODO: Bernhard, Thomas, Volker}
 \subsection{Enhanced Tool Support}
 \subsection{Cross-Platform Support}
 \subsection{Library Structure}
@@ -109,7 +114,7 @@ Features (aide-mémoire):
 \end{itemize}
 
 \section{Modelica Standard Compliance}
-\bthnote{TODO: Thomas, Bernhard}
+\BTHI{TODO: Thomas, Bernhard}
 
 \subsection{Enhancements}
 
@@ -128,17 +133,29 @@ Aide-mémoire:
 
 \section{Applications}
 
+\subsection{Arduino}
+\BTHI{TODO: Volker}
+
+The arduino is an open-source electronics platform which makes it very easy to read sensors, process the data and send it to another device via a serial connection \citep{arduino:2016}.
+With the help of Modelica Device Drivers serial port implementation, the arduino can be utilized to make sensor data available in a real-time Modelica model.
+Using different kinds of potentiometers, it is possible to build customized control devices.
+As an exemplary application, pedals for a driving simulator can be equipped with a rotary potentiometer in order to measure the displacement.
+This data can be send via a serial connection to a \textit{Blocks.Comunication.SerialPortReceive} in order to drive a virtual vehicle.
+Hence, expensive or unavailable input devices can be substituted by self-built constructions.
+By using a bluetooth module, a wireless connection between arduino and the simulator is set up easily.
+\VWAU{I could add arduino code or an arduino circuit diagram here.}
+
 \subsection{Arduino, Raspberry PI, embedded control}
-\bthnote{TODO: Bernhard, Martin}
+\BTHI{TODO: Bernhard, Martin}
 
 \subsection{HID Joystick}
-\bthnote{TODO: Volker }
+\BTHI{TODO: Volker }
 
 \subsection{DLR Demonstrators}
-\bthnote{TODO: Tobias}
+\BTHI{TODO: Tobias}
 
 \section{Outlook}
-\bthnote{TODO: Bernhard, Thomas, Volker}
+\BTHI{TODO: Bernhard, Thomas, Volker}
 
 \section*{Acknowledgements}
 
