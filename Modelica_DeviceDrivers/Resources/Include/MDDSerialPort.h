@@ -34,86 +34,99 @@ typedef struct {
     char* receiveBuffer;
     size_t bufferSize;
     DWORD receivedBytes;
-    DWORD receiveError;
     CRITICAL_SECTION receiveLock;
 } MDDSerialPort;
 
 DWORD WINAPI MDD_serialPortReceivingThread(LPVOID p_serial) {
     MDDSerialPort * serial = (MDDSerialPort *) p_serial;
-    if (serial) {
-        DWORD rxCount, fdwEventMask;
-        HANDLE commEvnt;
-        OVERLAPPED commSync;
-        DWORD commErr;
-        COMSTAT commStat;
+    DWORD rxCount;
+    DWORD fdwEventMask;
+    HANDLE commEvnt;
+    OVERLAPPED commSync;
+    DWORD commError;
+    COMSTAT commStat;
+    size_t rxIdx = 0;
+    char *receiveBufferTmp;
 
-        memset(&commSync, 0, sizeof(OVERLAPPED));
-        commEvnt = CreateEvent(NULL, TRUE, FALSE, NULL);
-        if (commEvnt == INVALID_HANDLE_VALUE) {
-            ExitThread(1);
-        }
-        commSync.hEvent = commEvnt;
-        ClearCommError(serial->hComm, &commErr, &commStat);
-
-        while (serial->hComm != INVALID_HANDLE_VALUE && serial->receiving == 1) {
-            BOOL waitState = WaitCommEvent(serial->hComm, &fdwEventMask, &commSync);
-            if (!waitState) {
-                if (GetLastError() == ERROR_IO_PENDING) {
-                    WaitForSingleObject(commEvnt, 1000);
-                    GetOverlappedResult(serial->hComm, &commSync, &rxCount, TRUE);
-                }
-                else {
-                    ExitThread(0);
-                }
-            }
-
-            if (fdwEventMask & (EV_RXCHAR | EV_BREAK | EV_ERR | EV_TXEMPTY)) {
-                COMSTAT curStatus;
-                EnterCriticalSection(&serial->receiveLock);
-                ClearCommError(serial->hComm, &serial->receiveError, &curStatus);
-                serial->receiveError &= CE_BREAK + CE_RXOVER + CE_OVERRUN + CE_RXPARITY + CE_FRAME + CE_IOE;
-                if (serial->receiveError) {
-                    if (serial->receiveError & (CE_BREAK | CE_IOE)) {
-                        PurgeComm(serial->hComm, PURGE_TXABORT | PURGE_TXCLEAR);
-                        PurgeComm(serial->hComm, PURGE_RXABORT | PURGE_RXCLEAR);
-                    }
-                    else {
-                        DWORD commErr;
-                        COMSTAT commStat;
-                        ClearCommError(serial->hComm, &commErr, &commStat);
-                        PurgeComm(serial->hComm, PURGE_RXCLEAR);
-                        serial->receiveError = 0;
-                        serial->receivedBytes = 0;
-                        memset(serial->receiveBuffer, 0, serial->bufferSize);
-                    }
-                }
-                else {
-                    HANDLE rdEvnt;
-                    OVERLAPPED rdSync;
-                    DWORD x;
-                    memset(&rdSync, 0, sizeof(OVERLAPPED));
-                    rdEvnt = CreateEvent(NULL, TRUE, FALSE, NULL);
-                    rdSync.hEvent = rdEvnt;
-
-                    x = curStatus.cbInQue;
-                    if (x > 0) {
-                        BOOL ret;
-                        if (x > serial->bufferSize) {
-                            x = (DWORD)serial->bufferSize;
-                        }
-                        ret = ReadFile(serial->hComm, serial->receiveBuffer, x, &serial->receivedBytes, &rdSync);
-                        if (!ret) {
-                            if (GetLastError() == ERROR_IO_PENDING) {
-                                GetOverlappedResult(serial->hComm, &rdSync, &rxCount, TRUE);
-                            }
-                        }
-                    }
-                }
-                LeaveCriticalSection(&serial->receiveLock);
-            }
-        }
-        CloseHandle(commEvnt);
+    memset(&commSync, 0, sizeof(OVERLAPPED));
+    commEvnt = CreateEvent(NULL, TRUE, FALSE, NULL);
+    if (commEvnt == INVALID_HANDLE_VALUE) {
+        ExitThread(1);
     }
+    commSync.hEvent = commEvnt;
+    ClearCommError(serial->hComm, &commError, &commStat);
+    receiveBufferTmp = (char*)calloc(serial->bufferSize, 1);
+
+    while (serial->hComm != INVALID_HANDLE_VALUE && serial->receiving == 1) {
+        BOOL waitState = WaitCommEvent(serial->hComm, &fdwEventMask, &commSync);
+        if (!waitState) {
+            if (GetLastError() == ERROR_IO_PENDING) {
+                WaitForSingleObject(commEvnt, 1000);
+                GetOverlappedResult(serial->hComm, &commSync, &rxCount, TRUE);
+            }
+            else {
+                CloseHandle(commEvnt);
+                free(receiveBufferTmp);
+                receiveBufferTmp = NULL;
+                ExitThread(0);
+            }
+        }
+
+        if (fdwEventMask & (EV_RXCHAR | EV_BREAK | EV_ERR | EV_TXEMPTY)) {
+            COMSTAT curStatus;
+            DWORD rxError;
+
+            ClearCommError(serial->hComm, &rxError, &curStatus);
+            rxError &= CE_BREAK + CE_RXOVER + CE_OVERRUN + CE_RXPARITY + CE_FRAME + CE_IOE;
+            if (rxError) {
+                if (rxError & (CE_BREAK | CE_IOE)) {
+                    PurgeComm(serial->hComm, PURGE_TXABORT | PURGE_TXCLEAR);
+                    PurgeComm(serial->hComm, PURGE_RXABORT | PURGE_RXCLEAR);
+                }
+                else {
+                    COMSTAT commStat;
+                    ClearCommError(serial->hComm, &commError, &commStat);
+                    PurgeComm(serial->hComm, PURGE_RXCLEAR);
+                    rxError = 0;
+                    EnterCriticalSection(&serial->receiveLock);
+                    serial->receivedBytes = 0;
+                    memset(serial->receiveBuffer, 0, serial->bufferSize);
+                    LeaveCriticalSection(&serial->receiveLock);
+                }
+            }
+            else {
+                HANDLE rdEvnt;
+                OVERLAPPED rdSync;
+                DWORD x;
+
+                memset(&rdSync, 0, sizeof(OVERLAPPED));
+                rdEvnt = CreateEvent(NULL, TRUE, FALSE, NULL);
+                rdSync.hEvent = rdEvnt;
+                x = curStatus.cbInQue;
+                if (x > 0) {
+                    BOOL rdRslt;
+                    if (x + rxIdx > serial->bufferSize) {
+                        x = (DWORD)(serial->bufferSize - rxIdx);
+                    }
+                    rdRslt = ReadFile(serial->hComm, &receiveBufferTmp[rxIdx], x, &rxCount, &rdSync);
+                    rxIdx += rxCount;
+                    if (rxIdx == serial->bufferSize) {
+                        EnterCriticalSection(&serial->receiveLock);
+                        serial->receivedBytes = serial->bufferSize;
+                        memcpy(serial->receiveBuffer, receiveBufferTmp, serial->bufferSize);
+                        LeaveCriticalSection(&serial->receiveLock);
+                        rxIdx = 0;
+                    }
+                    if (!rdRslt && GetLastError() == ERROR_IO_PENDING) {
+                        GetOverlappedResult(serial->hComm, &rdSync, &rxCount, TRUE);
+                    }
+                }
+                CloseHandle(rdEvnt);
+            }
+        }
+    }
+    CloseHandle(commEvnt);
+    free(receiveBufferTmp);
     return 0;
 }
 
