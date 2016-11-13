@@ -36,7 +36,6 @@ typedef struct MDDUDPSocket_s MDDUDPSocket;
 
 struct MDDUDPSocket_s {
     char * receiveBuffer;
-    char * receiveBufferTmp;
     int bufferSize;
     SOCKET SocketID;
     int receiving;
@@ -48,23 +47,28 @@ struct MDDUDPSocket_s {
 DWORD WINAPI MDD_udpReceivingThread(LPVOID pUdp) {
     SOCKADDR remoteAddr;
     MDDUDPSocket * udp = (MDDUDPSocket *)pUdp;
-    while (udp->receiving == 1) {
+    char *receiveBufferTmp = (char*)calloc(udp->bufferSize, 1);
+
+	while (udp->receiving == 1) {
         int remoteAddrLen = sizeof(SOCKADDR);
         int receivedBytes;
-        receivedBytes = recvfrom(udp->SocketID, udp->receiveBufferTmp, udp->bufferSize, 0, &remoteAddr, &remoteAddrLen);
+        receivedBytes = recvfrom(udp->SocketID, receiveBufferTmp, udp->bufferSize, 0, &remoteAddr, &remoteAddrLen);
         if (receivedBytes > 0) {
             BOOL socketError;
             EnterCriticalSection(&udp->receiveLock);
             udp->receivedBytes = receivedBytes;
-            memcpy(udp->receiveBuffer, udp->receiveBufferTmp, udp->receivedBytes);
+            memcpy(udp->receiveBuffer, receiveBufferTmp, udp->receivedBytes);
             socketError = udp->receivedBytes == SOCKET_ERROR;
             LeaveCriticalSection(&udp->receiveLock);
             if (socketError) {
+				free(receiveBufferTmp);
+				receiveBufferTmp = NULL;
                 ModelicaMessage("MDDUDPSocket.h: Receiving not possible, socket not valid.\n");
                 ExitThread(1);
             }
         }
     }
+    free(receiveBufferTmp);
     return 0;
 }
 
@@ -108,7 +112,6 @@ DllExport void * MDD_udpConstructor(int port, int bufferSize) {
             ModelicaFormatError("MDDUDPSocket.h: bind to port %d failed with error: %d\n", port, rc);
         }
         udp->receiveBuffer = (char*)calloc(bufferSize, 1);
-        udp->receiveBufferTmp = (char*)calloc(bufferSize, 1);
         InitializeCriticalSection(&udp->receiveLock);
         udp->hThread = CreateThread(0, 1024, MDD_udpReceivingThread, udp, 0, &id1);
         if (!udp->hThread) {
@@ -121,7 +124,6 @@ DllExport void * MDD_udpConstructor(int port, int bufferSize) {
             closesocket(udp->SocketID);
             DeleteCriticalSection(&udp->receiveLock);
             free(udp->receiveBuffer);
-            free(udp->receiveBufferTmp);
             free(udp);
             udp = NULL;
             WSACleanup();
@@ -154,7 +156,6 @@ DllExport void MDD_udpDestructor(void * p_udp) {
             CloseHandle(udp->hThread);
             DeleteCriticalSection(&udp->receiveLock);
             free(udp->receiveBuffer);
-            free(udp->receiveBufferTmp);
         }
         free(udp);
     }
