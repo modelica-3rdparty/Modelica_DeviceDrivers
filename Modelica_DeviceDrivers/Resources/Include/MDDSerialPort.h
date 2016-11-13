@@ -32,6 +32,7 @@ typedef struct {
     HANDLE hThread;
     int receiving;
     char* receiveBuffer;
+    char* completeMessage;
     size_t bufferSize;
     DWORD receivedBytes;
     DWORD receiveError;
@@ -46,7 +47,7 @@ DWORD WINAPI MDD_serialPortReceivingThread(LPVOID p_serial) {
         OVERLAPPED commSync;
         DWORD commErr;
         COMSTAT commStat;
-
+        int idx = 0;
         memset(&commSync, 0, sizeof(OVERLAPPED));
         commEvnt = CreateEvent(NULL, TRUE, FALSE, NULL);
         if (commEvnt == INVALID_HANDLE_VALUE) {
@@ -101,7 +102,13 @@ DWORD WINAPI MDD_serialPortReceivingThread(LPVOID p_serial) {
                         if (x > serial->bufferSize) {
                             x = (DWORD)serial->bufferSize;
                         }
-                        ret = ReadFile(serial->hComm, serial->receiveBuffer, x, &serial->receivedBytes, &rdSync);
+                        ret = ReadFile(serial->hComm, &serial->receiveBuffer[idx], x, &serial->receivedBytes, &rdSync);											
+                        idx = idx + serial->receivedBytes;
+                        if(idx == serial->bufferSize)
+                        {
+                          memcpy(serial->completeMessage, serial->receiveBuffer, serial->bufferSize);
+                          idx = 0;
+                        }
                         if (!ret) {
                             if (GetLastError() == ERROR_IO_PENDING) {
                                 GetOverlappedResult(serial->hComm, &rdSync, &rxCount, TRUE);
@@ -220,6 +227,7 @@ DllExport void * MDD_serialPortConstructor(const char * deviceName, int bufferSi
         if (receiver) {
             DWORD id1;
             serial->receiveBuffer = (char*)calloc(bufferSize, 1);
+            serial->completeMessage = (char*)calloc(bufferSize, 1);
             InitializeCriticalSection(&serial->receiveLock);
             serial->hThread = CreateThread(0, 0, MDD_serialPortReceivingThread, serial, 0, &id1);
             if (!serial->hThread) {
@@ -260,7 +268,7 @@ DllExport void MDD_serialPortReadP(void * p_serial, void* p_package) {
     if (serial && serial->hThread && serial->hComm != INVALID_HANDLE_VALUE) {
         int rc;
         EnterCriticalSection(&serial->receiveLock);
-        rc = MDD_SerialPackagerSetDataWithErrorReturn(p_package, serial->receiveBuffer, serial->receivedBytes);
+        rc = MDD_SerialPackagerSetDataWithErrorReturn(p_package, serial->completeMessage, serial->bufferSize);
         serial->receivedBytes = 0;
         LeaveCriticalSection(&serial->receiveLock);
         if (rc) {
@@ -312,6 +320,7 @@ DllExport void MDD_serialPortDestructor(void * p_serial) {
             CloseHandle(serial->hThread);
             DeleteCriticalSection(&serial->receiveLock);
             free(serial->receiveBuffer);
+            free(serial->completeMessage);
         }
         CloseHandle(serial->hComm);
         free(serial);
