@@ -316,7 +316,7 @@ void MDD_SharedMemoryReadP(void* p_smb, void* p_package) {
     }
 }
 
-void MDD_SharedMemoryWrite(void* p_smb, const char * buffer, unsigned int len) {
+void MDD_SharedMemoryWrite(void* p_smb, const char * buffer, int len) {
     MDDMmap* smb = (MDDMmap*) p_smb;
 
     /* Lock the semaphore */
@@ -328,7 +328,7 @@ void MDD_SharedMemoryWrite(void* p_smb, const char * buffer, unsigned int len) {
     }
 }
 
-void MDD_SharedMemoryWriteP(void* p_smb, void* p_package, unsigned int len) {
+void MDD_SharedMemoryWriteP(void* p_smb, void* p_package, int len) {
     MDD_SharedMemoryWrite(p_smb, MDD_SerialPackagerGetData(p_package), len);
 }
 
