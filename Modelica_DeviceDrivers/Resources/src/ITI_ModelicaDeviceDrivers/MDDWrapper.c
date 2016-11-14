@@ -18,6 +18,8 @@
  * In the moment, some files have been omitted, since they might require some extra considerations.
  *
 */
+
+#define ITI_MDD
 #include "../../Include/MDDBeep.h"
 #include "../../Include/MDDJoystick.h"
 #include "../../Include/MDDKeyboard.h"
@@ -29,3 +31,4 @@
 #include "../../Include/MDDUDPSocket.h"
 #include "../../Include/MDDUtilities.h"
 #include "../../Include/MDDTCPIPSocket.h"
+#undef ITI_MDD
