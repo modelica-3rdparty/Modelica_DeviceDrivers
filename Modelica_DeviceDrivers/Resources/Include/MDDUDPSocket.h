@@ -60,7 +60,9 @@ DWORD WINAPI MDD_udpReceivingThread(LPVOID pUdp) {
             socketError = udp->receivedBytes == SOCKET_ERROR;
             LeaveCriticalSection(&udp->receiveLock);
             if (socketError) {
+#ifndef ITI_MDD
                 ModelicaMessage("MDDUDPSocket.h: Receiving not possible, socket not valid.\n");
+#endif
                 ExitThread(1);
             }
         }
