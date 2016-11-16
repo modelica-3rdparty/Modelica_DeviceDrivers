@@ -427,7 +427,7 @@ and one Integer value is added, serialized and finally sent using UDP.
     import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
     parameter Integer bufferSize = 40
       "Buffer size (in bytes) reserved for String (ensure that same buffer size is used in corresponding GetString block!)";
-    input String data = "A mostly harmless String" annotation(Dialog(enable=true));
+    input String data = "A mostly harmless String" "Input string written to package; required: length(data) <= bufferSize" annotation(Dialog(enable=true));
   equation
     when initial() then
       pkgIn.autoPkgBitSize = if nu == 1 then
@@ -650,7 +650,7 @@ and one Integer value is added, serialized and finally sent using UDP.
     import Modelica.Utilities.Strings.length;
     parameter Integer bufferSize = 40
       "Buffer size (in bytes) reserved for String (ensure that same buffer size is used in corresponding AddString block!)";
-    discrete output String data;
+    discrete output String data "Output string (read from package)";
   protected
     Real dummy(start=0, fixed=true);
   equation
