@@ -8,7 +8,7 @@ encapsulated function constructor
   import Modelica_DeviceDrivers.Communication.SerialPort;
   import Modelica_DeviceDrivers.Utilities.Types.SerialBaudRate;
   input String deviceName "Serial port (/dev/ttyX or \\\\.\\COMX)";
-  input Integer bufferSize=16*1024 "Size of receive buffer";
+  input Integer bufferSize=16*1024 "Size of receive buffer, may be set to 0 for sending serial port (receiver=0)";
   input Integer parity = 0 "0 - no parity, 1 - even, 2 - odd";
   input Integer receiver = 1 "0 - sender, 1 - receiver";
   input SerialBaudRate baud;

@@ -276,7 +276,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
           rotation=270,
           origin={-108,0})));
   protected
-    SerialPort sPort = SerialPort(Serial_Port, bufferSize, parity, receiver, baud); // Creating port object from device
+    SerialPort sPort = SerialPort(Serial_Port, 0, parity, receiver, baud); // Creating port object from device
     Integer bufferSize;
     parameter Integer receiver = 0 "Set to be a sender port";
     Real dummy(start=0, fixed=true);
