@@ -162,7 +162,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
           rotation=270,
           origin={-108,0})));
   protected
-    UDPSocket socket = UDPSocket(0);
+    UDPSocket socket = UDPSocket(0, 0);
     Integer bufferSize;
     Real dummy(start=0, fixed=true);
   equation

@@ -6,8 +6,8 @@ encapsulated function constructor
   import Modelica;
   extends Modelica.Icons.Function;
   import Modelica_DeviceDrivers.Communication.UDPSocket;
-  input Integer port "listening port";
-  input Integer bufferSize=16*1024 "Size of receive buffer";
+  input Integer port "0 if a sending socket, otherwise the number of the listening port";
+  input Integer bufferSize=16*1024 "Size of receive buffer, can be safely set to 0 for a sending socket";
   output UDPSocket socket;
 external "C" socket = MDD_udpConstructor(port,bufferSize)
 annotation(Include = "#include \"MDDUDPSocket.h\"",
