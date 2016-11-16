@@ -255,8 +255,6 @@ struct MDDUDPSocket_s {
     pthread_mutex_t messageMutex; /**< Exclusive access to message buffer (only relevant for read socket) */
 };
 
-void MDD_udpDestructor(void * p_udp);
-
 /** Dedicated thread for receiving UDP messages.
  *
  * @param p_udp pointer address to the udp socket data structure
@@ -544,7 +542,6 @@ void MDD_udpSend(void * p_udp, const char * ipAddress, int port,
     if (ret < dataSize) {
         ModelicaFormatError("MDDUDPSocket.h: Expected to send: %d bytes, but was: %d\n"
                             "sendto(..) failed (%s)\n", dataSize, ret, strerror(errno));
-        MDD_udpDestructor((void *) udp);
     }
 
 }

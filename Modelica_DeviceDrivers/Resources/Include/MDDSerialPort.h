@@ -372,7 +372,6 @@ typedef struct {
     pthread_mutex_t messageMutex; /**< Exclusive access to msgLastComplete and nReceivedBytes */
 } MDDSerialPort;
 
-void MDD_serialPortDestructor(void * p_udp);
 void* MDD_serialPortReceivingThread(void * p_serial);
 
 /** @deprecated Returns the number of bytes received during the last read.
@@ -682,7 +681,6 @@ void MDD_serialPortSend(void * p_serial, const char * data, int dataSize) {
 
     int ret = write(serial->fd, data, dataSize); /* write to serial port */
     if (ret < dataSize) {
-        MDD_serialPortDestructor((void *) serial);
         ModelicaFormatError("MDDSerialPort.h: Expected to send: %d bytes, but was: %d\n"
                             "sendto(..) failed (%s)\n", dataSize, ret, strerror(errno));
     }
