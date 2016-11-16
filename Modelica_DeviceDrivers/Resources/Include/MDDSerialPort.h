@@ -396,7 +396,7 @@ int MDD_serialPortGetReceivedBytes(void * p_serial) {
  * @param should_block @arg 0 if the serial device shall be non-blocking
  * @arg 1 if the serial device shall be blocked
  */
-void MDD_serialPortSetBlocking (int fd, int should_block) {
+static void MDD_serialPortSetBlocking (int fd, int should_block) {
 
     struct termios ser;
     int ret;
@@ -425,7 +425,7 @@ void MDD_serialPortSetBlocking (int fd, int should_block) {
  * @param parity @arg 0 set no parity
  * @arg 1 set parity
  */
-void MDD_serialPortSetInterfaceAttributes (int fd, int speed, int parity) {
+static void MDD_serialPortSetInterfaceAttributes (int fd, int speed, int parity) {
 
     struct termios ser;
     int ret;
