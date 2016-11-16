@@ -572,7 +572,7 @@ int MDD_udpGetReceivedBytes(void * p_udp) {
  *       IP addresses) should be done here.
  * @param port @arg 0 if a sending socket shall be generated,
  *             @arg otherwise the number of the port at which the socket shall listen.
- * @param bufferSize size of the buffer used by a receiving socket (not needed for sending socket)
+ * @param bufferSize size of the buffer used by a receiving socket (not needed for sending socket, i.e., can be set to 0)
  */
 void * MDD_udpConstructor(int port, int bufferSize) {
     MDDUDPSocket* udp = (MDDUDPSocket*) malloc(sizeof(MDDUDPSocket));
@@ -645,10 +645,15 @@ void MDD_udpDestructor(void * p_udp) {
         pthread_detach(udp->thread);
     }
 
+    if (pthread_mutex_destroy(&(udp->messageMutex)) != 0) {
+        ModelicaFormatMessage("MDDUDPSocket.h: pthread_mutex_destroy() failed (%s)\n", strerror(errno));
+    }
+
     if (close(udp->sock) == -1) {
-        ModelicaFormatError("MDDUDPSocket.h: close() failed (%s)\n", strerror(errno));
+        ModelicaFormatMessage("MDDUDPSocket.h: close() failed (%s)\n", strerror(errno));
     }
     ModelicaFormatMessage("Closed UDP socket with socket handle %d\n", udp->sock);
+
     free(udp->msgInternal);
     free(udp);
 }

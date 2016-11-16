@@ -709,8 +709,12 @@ void MDD_serialPortDestructor(void * p_serial) {
         pthread_detach(serial->thread);
     }
 
+    if (pthread_mutex_destroy(&(serial->messageMutex)) != 0) {
+        ModelicaFormatMessage("MDDSerialPort.h: pthread_mutex_destroy() failed (%s)\n", strerror(errno));
+    }
+
     if (close(serial->fd) == -1) {
-        ModelicaFormatError("MDDSerialPort.h: close() failed (%s)\n", strerror(errno));
+        ModelicaFormatMessage("MDDSerialPort.h: close() failed (%s)\n", strerror(errno));
     }
     ModelicaFormatMessage("Closed serial port handle %d\n", serial->fd);
     free(serial->msgInternal);
