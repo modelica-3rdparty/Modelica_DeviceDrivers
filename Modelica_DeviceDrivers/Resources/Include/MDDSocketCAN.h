@@ -291,7 +291,6 @@ void MDD_socketCANReadP(void* p_mDDSocketCAN, int can_id, int can_dlc,
                         void* p_package) {
     MDDSocketCAN * mDDSocketCAN = (MDDSocketCAN *) p_mDDSocketCAN;
     void * value;
-    char data[8];
     int rc;
     /* Ensure exclusive access to map */
     pthread_mutex_lock(&(mDDSocketCAN->mapMutex));
