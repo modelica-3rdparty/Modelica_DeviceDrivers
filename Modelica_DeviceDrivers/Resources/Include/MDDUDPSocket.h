@@ -563,7 +563,11 @@ void MDD_udpSendP(void * p_udp, const char * ipAddress, int port,
 
 int MDD_udpGetReceivedBytes(void * p_udp) {
     MDDUDPSocket * udp = (MDDUDPSocket *) p_udp;
-    return udp->nReceivedBytes;
+    int nReceivedBytes;
+    pthread_mutex_lock(&(udp->messageMutex));
+    nReceivedBytes = udp->nReceivedBytes;
+    pthread_mutex_unlock(&(udp->messageMutex));
+    return nReceivedBytes;
 }
 
 /** Create a UDP socket.
