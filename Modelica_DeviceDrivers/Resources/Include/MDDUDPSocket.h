@@ -250,9 +250,9 @@ struct MDDUDPSocket_s {
     size_t messageLength; /**< message length (only relevant for read socket) */
     void* msgInternal;  /**< Internal UDP message buffer (only relevant for read socket) */
     ssize_t nReceivedBytes; /**< Number of received bytes (only relevant for read socket) */
-    int runReceive; /**< Run receiving thread as long as runReceive != 0  (only relevant for read socket) */
+    int runReceive; /**< Run receiving thread as long as runReceive != 0  */
     pthread_t thread;
-    pthread_mutex_t messageMutex; /**< Exclusive access to message buffer (only relevant for read socket) */
+    pthread_mutex_t messageMutex; /**< Exclusive access to message buffer */
 };
 
 /** Dedicated thread for receiving UDP messages.
@@ -572,7 +572,7 @@ int MDD_udpGetReceivedBytes(void * p_udp) {
  *       IP addresses) should be done here.
  * @param port @arg 0 if a sending socket shall be generated,
  *             @arg otherwise the number of the port at which the socket shall listen.
- * @param bufferSize size of the buffer used by a receiving socket (not needed for sending socket, i.e., can be set to 0)
+ * @param bufferSize size of the buffer used by a receiving socket (not needed for sending socket)
  */
 void * MDD_udpConstructor(int port, int bufferSize) {
     MDDUDPSocket* udp = (MDDUDPSocket*) malloc(sizeof(MDDUDPSocket));
@@ -581,6 +581,11 @@ void * MDD_udpConstructor(int port, int bufferSize) {
     udp->messageLength = bufferSize;
     udp->runReceive = 0;
     udp->msgInternal = calloc(udp->messageLength,1);
+    ret = pthread_mutex_init(&(udp->messageMutex), NULL); /* Init mutex with defaults */
+    if (ret != 0) {
+        ModelicaFormatError("MDDUDPSocket.h: pthread_mutex_init() failed (%s)\n",
+                            strerror(errno));
+    }
 
     /* Create a SOCK_DGRAM socket. */
     udp->sock = socket(PF_INET, SOCK_DGRAM, IPPROTO_IP);
@@ -612,13 +617,6 @@ void * MDD_udpConstructor(int port, int bufferSize) {
         if (bind(udp->sock, (struct sockaddr *)&(udp->sa),
                  sizeof(udp->sa)) < 0) {
             ModelicaFormatError("MDDUDPSocket.h: bind(..) failed (%s)\n",
-                                strerror(errno));
-        }
-
-        /* Init mutex with defaults */
-        ret = pthread_mutex_init(&(udp->messageMutex), NULL);
-        if (ret != 0) {
-            ModelicaFormatError("MDDUDPSocket.h: pthread_mutex_init() failed (%s)\n",
                                 strerror(errno));
         }
 
