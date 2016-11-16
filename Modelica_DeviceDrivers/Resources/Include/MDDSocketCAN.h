@@ -171,10 +171,14 @@ void MDD_socketCANDestructor(void* p_mDDSocketCAN) {
         pthread_detach(mDDSocketCAN->thread);
     }
 
+    if (pthread_mutex_destroy(&(mDDSocketCAN->mapMutex)) != 0) {
+        ModelicaFormatMessage("MDDSocketCAN.h: pthread_mutex_destroy() failed (%s)\n", strerror(errno));
+    }
+
     ModelicaFormatMessage("SocketCAN (%s): Closing descriptor %d and cleaning up ...",
                           mDDSocketCAN->ifr.ifr_name, mDDSocketCAN->skt);
     if (close(mDDSocketCAN->skt) == -1) {
-        ModelicaFormatError("MDDSocketCAN.h: close() failed (%s)\n", strerror(errno));
+        ModelicaFormatMessage("MDDSocketCAN.h: close() failed (%s)\n", strerror(errno));
     }
     nKeys = MDD_mapIntpVoidSize(mDDSocketCAN->p_mDDMapIntpVoid);
     keys = calloc(sizeof(int), nKeys);
@@ -184,6 +188,7 @@ void MDD_socketCANDestructor(void* p_mDDSocketCAN) {
         free(data);
     }
     MDD_mapIntpVoidDestructor(mDDSocketCAN->p_mDDMapIntpVoid);
+    free(keys);
 
     free(mDDSocketCAN);
     ModelicaFormatMessage("\tOK.\n");
