@@ -495,11 +495,6 @@ void * MDD_serialPortConstructor(const char * deviceName, int bufferSize, int pa
     serial->runReceive = 0;
     serial->msgInternal = calloc(serial->messageLength,1);
     serial->msgLastComplete = calloc(serial->messageLength,1);
-    ret = pthread_mutex_init(&(serial->messageMutex), NULL); /* Init mutex with defaults */
-    if (ret != 0) {
-        ModelicaFormatError("MDDSerialPort.h: pthread_mutex_init() failed (%s)\n",
-                            strerror(errno));
-    }
 
     /* Create a serial port. */
     serial->fd = open (deviceName, O_RDWR | /* sets device to read/write operation */
@@ -546,6 +541,13 @@ void * MDD_serialPortConstructor(const char * deviceName, int bufferSize, int pa
     MDD_serialPortSetBlocking (serial->fd,0);
 
     if (receiver) {
+        /* Init mutex with defaults */
+        ret = pthread_mutex_init(&(serial->messageMutex), NULL);
+        if (ret != 0) {
+            ModelicaFormatError("MDDSerialPort.h: pthread_mutex_init() failed (%s)\n",
+                                strerror(errno));
+        }
+
         /* Start dedicated receiver thread */
         serial->runReceive = 1;
         ret = pthread_create(&serial->thread, 0, MDD_serialPortReceivingThread, serial);
