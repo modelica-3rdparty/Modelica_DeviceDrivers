@@ -250,7 +250,6 @@ struct MDDUDPSocket_s {
     size_t messageLength; /**< message length (only relevant for read socket) */
     void* msgInternal;  /**< Internal UDP message buffer (only relevant for read socket) */
     ssize_t nReceivedBytes; /**< Number of received bytes (only relevant for read socket) */
-    char targetIPAddress[20];
     int runReceive; /**< Run receiving thread as long as runReceive != 0  */
     pthread_t thread;
     pthread_mutex_t messageMutex; /**< Exclusive access to message buffer */
