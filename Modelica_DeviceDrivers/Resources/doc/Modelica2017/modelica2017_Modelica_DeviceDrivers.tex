@@ -50,23 +50,66 @@
 \date{} % <--- leave date empty
 \maketitle\thispagestyle{empty} %% <-- you need this for the first page
 \abstract{%
-Tbd.
-}
+There are many cases there simulation applications need to interact with their
+environment. Typical examples are Human-in-the-Loop (HITL) simulators (including
+flight, driving, and marine training simulators), Hardware-in-the-Loop (HIL)
+simulators, but also offline process simulators which cannot operate in a
+completely self-contained manner and therefore need to be coupled to external
+applications. Embedded control applications are another related area which
+requires that applications interact with their environment. The
+\emph{Modelica\_DeviceDrivers} library, which had its first release as
+open-source library in 2012, tries to cater for such use cases. This paper
+describes the library for the first time and reports about the numerous
+challenges that the project experienced to meet its goal of supporting several
+platforms and tools within a standard-conform, platform-generic, feature-rich,
+and easy-to-use Modelica library.}
 
-\noindent\emph{Keywords: keyword1, keyword2}
+\noindent\emph{Keywords: HITL, HIL, real-time, embedded control applications,
+external C}
 
 \section{Introduction}
 \BTHI{TODO: Bernhard, Tobias}\\
 
-History:
-\begin{itemize}
-  \item Interactive Simulations and advanced Visualization with Modelica and
-  Modelica \cite{Bellmann2009}
-  \item Modelica for Embedded Systems \cite{Elmqvist2009}
-\end{itemize}
+The most common usage of Modelica models is for offline simulation experiments.
+However, in many cases simulations need to interact with their environment.
+Typical examples are Human-in-the-Loop (HITL) simulators (including flight,
+driving, and marine training simulators), Hardware-in-the-Loop (HIL) simulators,
+but also offline process simulators which cannot operate in a completely
+self-contained manner and therefore need to be coupled to external applications.
+Furthermore, Modelica can be used for developing (model-based) control
+applications which also require interaction with their environment.
+
+There are different approaches for enabling the above mentioned applications in
+the context of Modelica. Several development environments offer tool
+chains for real-time simulation and/or model-based development of embedded
+control applications. Some of these environments can be coupled with Modelica
+tools, \textit{e.g.}, by wrapping code which is generated from Modelica tools
+into respective tool internal representations which can be connected to hardware
+devices in the respective development environment.
+
+The \emph{Modelica\_DeviceDrivers} (MDD) library uses a different approach.
+The MDD library provides access to external devices by utilizing Modelica's external
+function interface for interfacing to the C API of various device drivers directly from Modelica
+models (see Section~\ref{ModelicaDeviceDrivers}).
+
+Historically, the origins of the MDD library can be traced back to the
+\emph{ExternalDevices} library \citep{Bellmann2009}\ldots
+\BTHI{TODO: Bernhard, Tobias , \cite{Elmqvist2009}}
+
 
 \section{Modelica\_DeviceDrivers}
+\label{ModelicaDeviceDrivers}
 \BTHI{TODO: Bernhard, Thomas, Volker}
+
+
+\begin{figure}[htb]
+\begin{center}
+  \includegraphics[width=\columnwidth]{figures/MDDLayeredArchitecture}
+  \caption{MDD layered architecture.}
+  \label{fig:MDDLayeredArchitecture}
+\end{center}
+\end{figure}
+
 \subsection{Enhanced Tool Support}
 \subsection{Cross-Platform Support}
 \subsection{Library Structure}

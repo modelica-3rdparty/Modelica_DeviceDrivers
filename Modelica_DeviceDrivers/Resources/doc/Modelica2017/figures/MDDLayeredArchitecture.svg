@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="DeviceDrivers_LayeredArchitecture.svg"
+   inkscape:export-filename="D:\data\worklibrary\Modelica_DeviceDrivers\Resources\Images\DeviceDrivers_LayeredArchitecture.png"
+   inkscape:export-xdpi="100"
+   inkscape:export-ydpi="100">
+  <defs
+     id="defs4">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective3765" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.979899"
+     inkscape:cx="447.90863"
+     inkscape:cy="775.2856"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:window-width="1920"
+     inkscape:window-height="1145"
+     inkscape:window-x="-2"
+     inkscape:window-y="-3"
+     inkscape:window-maximized="1"
+     inkscape:snap-grids="false"
+     inkscape:snap-object-midpoints="false"
+     inkscape:snap-bbox="false"
+     inkscape:bbox-nodes="false"
+     inkscape:bbox-paths="false">
+    <inkscape:grid
+       type="xygrid"
+       id="grid2985"
+       empspacing="5"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Bernhard Thiele</dc:title>
+          </cc:Agent>
+        </dc:creator>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#cccdea;fill-opacity:1;stroke:#000000;stroke-width:0.82209903;stroke-opacity:1"
+       id="rect2987"
+       width="435"
+       height="115"
+       x="80"
+       y="217.36218"
+       inkscape:export-filename="D:\data\worklibrary\Modelica_DeviceDrivers\Resources\Images\DeviceDrivers_LayeredArchitecture.png"
+       inkscape:export-xdpi="100"
+       inkscape:export-ydpi="100" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3757"
+       style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"><flowRegion
+         id="flowRegion3759"><rect
+           id="rect3761"
+           width="590.93921"
+           height="119.198"
+           x="100.0051"
+           y="292.72748" /></flowRegion><flowPara
+         id="flowPara3763" /></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3781"
+       style="font-size:24px;font-style:normal;font-weight:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       transform="translate(25.40625,-65.53533)"
+       inkscape:export-xdpi="100"
+       inkscape:export-ydpi="100"
+       inkscape:export-filename="D:\data\worklibrary\Modelica_DeviceDrivers\Resources\Images\DeviceDrivers_LayeredArchitecture.png"><flowRegion
+         id="flowRegion3783"><rect
+           id="rect3785"
+           width="423.98459"
+           height="98.058372"
+           x="60.609154"
+           y="303.83914"
+           style="text-align:start;text-anchor:start" /></flowRegion><flowPara
+         id="flowPara3787"
+         style="font-size:12px;text-align:start;text-anchor:start">Modelica (external C) functions grouped into following packages:</flowPara><flowPara
+         id="flowPara3789"
+         style="font-size:12px;text-align:start;text-anchor:start">- .Packaging (packaging data for the communication devices)</flowPara><flowPara
+         id="flowPara3797"
+         style="font-size:12px;text-align:start;text-anchor:start">- .Communication (UDP, shared memory, etc.)</flowPara><flowPara
+         id="flowPara3791"
+         style="font-size:12px;text-align:start;text-anchor:start">- .HardwareIO (data acquisition)</flowPara><flowPara
+         id="flowPara3793"
+         style="font-size:12px;text-align:start;text-anchor:start">- .InputDevices (keyboard, joystick, etc.)</flowPara><flowPara
+         id="flowPara3795"
+         style="font-size:12px;text-align:start;text-anchor:start">- .OperatingSystem (real-time synchronization, etc)</flowPara></flowRoot>    <rect
+       style="fill:#e0e1f3;fill-opacity:1;stroke:#000000;stroke-width:0.97587377;stroke-opacity:1"
+       id="rect2987-1"
+       width="435"
+       height="155"
+       x="80"
+       y="62.362183"
+       inkscape:export-filename="D:\data\worklibrary\Modelica_DeviceDrivers\Resources\Images\DeviceDrivers_LayeredArchitecture.png"
+       inkscape:export-xdpi="100"
+       inkscape:export-ydpi="100" />
+    <rect
+       style="fill:#e0e1f3;fill-opacity:1;stroke:#000000;stroke-width:1.18817711;stroke-opacity:1"
+       id="rect3956"
+       width="210"
+       height="120"
+       x="85"
+       y="92.362183"
+       inkscape:export-filename="D:\data\worklibrary\Modelica_DeviceDrivers\Resources\Images\DeviceDrivers_LayeredArchitecture.png"
+       inkscape:export-xdpi="100"
+       inkscape:export-ydpi="100" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3781-7"
+       style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       transform="translate(29.40625,-209.42305)"
+       inkscape:export-filename="D:\data\worklibrary\Modelica_DeviceDrivers\Resources\Images\DeviceDrivers_LayeredArchitecture.png"
+       inkscape:export-xdpi="100"
+       inkscape:export-ydpi="100"><flowRegion
+         id="flowRegion3783-4"><rect
+           id="rect3785-0"
+           width="209.98459"
+           height="117.94609"
+           x="60.609154"
+           y="303.83914"
+           style="stroke:none" /></flowRegion><flowPara
+         id="flowPara3787-9"
+         style="font-size:18px;stroke:none">.Blocks</flowPara><flowPara
+         style="font-size:12px;stroke:none"
+         id="flowPara3885">Drag &amp; Drop blocks using traditional <flowSpan
+   style="font-weight:bold;stroke:none;-inkscape-font-specification:Sans Bold"
+   id="flowSpan3887">when</flowSpan> sample() <flowSpan
+   style="font-weight:bold;stroke:none;-inkscape-font-specification:Sans Bold"
+   id="flowSpan3889">then</flowSpan> style for calls to the Function Layer. </flowPara><flowPara
+         style="font-size:12px;stroke:none"
+         id="flowPara4219">- .Blocks.<flowSpan
+   style="font-weight:bold;-inkscape-font-specification:Sans Bold"
+   id="flowSpan4223">Examples</flowSpan>:</flowPara><flowPara
+         style="font-size:12px;stroke:none"
+         id="flowPara4221">    Executable examples!</flowPara><flowPara
+         id="flowPara3793-2"
+         style="font-size:12px;stroke:none" /><flowPara
+         id="flowPara3795-4"
+         style="font-size:12px;stroke:none" /></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3781-7-5"
+       style="font-size:18px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans Bold"
+       transform="translate(24.40625,-234.52189)"
+       inkscape:export-filename="D:\data\worklibrary\Modelica_DeviceDrivers\Resources\Images\DeviceDrivers_LayeredArchitecture.png"
+       inkscape:export-xdpi="100"
+       inkscape:export-ydpi="100"><flowRegion
+         id="flowRegion3783-4-5"><rect
+           id="rect3785-0-1"
+           width="435"
+           height="25.00001"
+           x="55.59375"
+           y="298.88406"
+           style="font-size:18px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;font-family:Sans;-inkscape-font-specification:Sans Bold" /></flowRegion><flowPara
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;font-family:Sans;-inkscape-font-specification:Sans Bold"
+         id="flowPara3885-7">Block Layer</flowPara><flowPara
+         id="flowPara3793-2-6"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;font-family:Sans;-inkscape-font-specification:Sans Bold" /><flowPara
+         id="flowPara3795-4-1"
+         style="font-size:18px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;font-family:Sans;-inkscape-font-specification:Sans Bold" /></flowRoot>    <rect
+       style="fill:#e0e1f3;fill-opacity:1;stroke:#000000;stroke-width:1.18817699;stroke-opacity:1"
+       id="rect3956-4"
+       width="210"
+       height="120"
+       x="301"
+       y="92.362183"
+       inkscape:export-filename="D:\data\worklibrary\Modelica_DeviceDrivers\Resources\Images\DeviceDrivers_LayeredArchitecture.png"
+       inkscape:export-xdpi="100"
+       inkscape:export-ydpi="100" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3781-7-2"
+       style="font-size:24px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       transform="translate(249.40625,-209.42305)"
+       inkscape:export-filename="D:\data\worklibrary\Modelica_DeviceDrivers\Resources\Images\DeviceDrivers_LayeredArchitecture.png"
+       inkscape:export-xdpi="100"
+       inkscape:export-ydpi="100"><flowRegion
+         id="flowRegion3783-4-3"><rect
+           id="rect3785-0-2"
+           width="199.98459"
+           height="113.04493"
+           x="60.609154"
+           y="303.83914"
+           style="stroke:none" /></flowRegion><flowPara
+         id="flowPara3787-9-2"
+         style="font-size:18px;stroke:none">.ClockedBlocks</flowPara><flowPara
+         style="font-size:12px;stroke:none"
+         id="flowPara3885-76">Drag &amp; Drop blocks using the</flowPara><flowPara
+         style="font-size:12px;font-style:oblique;stroke:none;-inkscape-font-specification:Sans Oblique"
+         id="flowPara4031">Synchronous Language Elements</flowPara><flowPara
+         style="font-size:12px;stroke:none"
+         id="flowPara4033">extension of Modelica 3.3 for calls to</flowPara><flowPara
+         style="font-size:12px;stroke:none"
+         id="flowPara4035">the Function Layer.</flowPara><flowPara
+         style="font-size:12px;stroke:none"
+         id="flowPara4225">- .ClockedBlocks.<flowSpan
+   style="font-weight:bold;-inkscape-font-specification:Sans Bold"
+   id="flowSpan4229">Examples</flowSpan>:</flowPara><flowPara
+         style="font-size:12px;stroke:none"
+         id="flowPara4227">     Executable examples!</flowPara><flowPara
+         id="flowPara3793-2-1"
+         style="font-size:12px;stroke:none" /><flowPara
+         id="flowPara3795-4-8"
+         style="font-size:12px;stroke:none" /></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3781-9"
+       style="font-size:24px;font-style:normal;font-weight:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       transform="translate(24.40625,-81.52189)"
+       inkscape:export-filename="D:\data\worklibrary\Modelica_DeviceDrivers\Resources\Images\DeviceDrivers_LayeredArchitecture.png"
+       inkscape:export-xdpi="100"
+       inkscape:export-ydpi="100"><flowRegion
+         id="flowRegion3783-2"><rect
+           id="rect3785-7"
+           width="435"
+           height="104.99994"
+           x="55.59375"
+           y="298.88406"
+           style="text-align:start;text-anchor:start" /></flowRegion><flowPara
+         id="flowPara3787-95"
+         style="font-size:18px;font-weight:bold;text-align:center;text-anchor:middle;-inkscape-font-specification:Sans Bold">Function Layer</flowPara><flowPara
+         id="flowPara3795-3"
+         style="font-size:12px;text-align:start;text-anchor:start" /></flowRoot>    <rect
+       style="fill:#b4b9cb;fill-opacity:1;stroke:#000000;stroke-width:0.63679516;stroke-opacity:1"
+       id="rect2987-4"
+       width="435"
+       height="65"
+       x="80"
+       y="332.36218"
+       inkscape:export-filename="D:\data\worklibrary\Modelica_DeviceDrivers\Resources\Images\DeviceDrivers_LayeredArchitecture.png"
+       inkscape:export-xdpi="100"
+       inkscape:export-ydpi="100"
+       ry="0" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3781-9-1"
+       style="font-size:24px;font-style:normal;font-weight:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       transform="translate(25.90625,30.44686)"
+       inkscape:export-filename="D:\data\worklibrary\Modelica_DeviceDrivers\Resources\Images\DeviceDrivers_LayeredArchitecture.png"
+       inkscape:export-xdpi="100"
+       inkscape:export-ydpi="100"><flowRegion
+         id="flowRegion3783-2-1"><rect
+           id="rect3785-7-3"
+           width="435"
+           height="104.99994"
+           x="55.59375"
+           y="298.88406"
+           style="text-align:start;text-anchor:start" /></flowRegion><flowPara
+         id="flowPara3787-95-8"
+         style="font-size:18px;font-weight:bold;text-align:center;text-anchor:middle;-inkscape-font-specification:Sans Bold">C-Code Layer</flowPara><flowPara
+         id="flowPara3795-3-7"
+         style="font-size:12px;text-align:start;text-anchor:start" /></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3781-4"
+       style="font-size:24px;font-style:normal;font-weight:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       transform="translate(27.40625,45.491551)"
+       inkscape:export-xdpi="100"
+       inkscape:export-ydpi="100"
+       inkscape:export-filename="D:\data\worklibrary\Modelica_DeviceDrivers\Resources\Images\DeviceDrivers_LayeredArchitecture.png"><flowRegion
+         id="flowRegion3783-27"><rect
+           id="rect3785-79"
+           width="421.98459"
+           height="47.03149"
+           x="60.609154"
+           y="303.83914"
+           style="text-align:start;text-anchor:start" /></flowRegion><flowPara
+         style="font-size:12px;text-align:start;text-anchor:start"
+         id="flowPara4217">The glue C-code interfaced by the External C-Function Layer. Contains the operating system specific C-code. The C-code is available within the Resource folder of this library.</flowPara></flowRoot>  </g>
+</svg>
