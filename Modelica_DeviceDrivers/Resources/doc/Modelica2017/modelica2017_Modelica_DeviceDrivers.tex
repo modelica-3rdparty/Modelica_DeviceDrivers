@@ -22,7 +22,7 @@
 	pdfcreator = pdflatex,
 	pdfproducer = pdflatex}
 
-
+\newcommand{\modelica}[1]{\lstinline[language=modelica]|#1|}
 \newcommand{\BTHI}[1]{{\color{blue}{$\parallel_\textrm{BTHI}$#1$\parallel$}}}
 \newcommand{\TBEU}[1]{{\color{orange}{$\parallel_\textrm{TBEU}$#1$\parallel$}}}
 \newcommand{\VWAU}[1]{{\color{red}{$\parallel_\textrm{VWAU}$#1$\parallel$}}}
@@ -101,7 +101,23 @@ Historically, the origins of the MDD library can be traced back to the
 \label{ModelicaDeviceDrivers}
 \BTHI{TODO: Bernhard, Thomas, Volker}
 
+The MDD library allows to access hardware devices from Modelica models.
+This is achieved by using the Modelica external C interface to call the
+appropriate C driver functions provided by the underlying operating system (see
+Section~\ref{sec:CrossPlatformSupport}).
 
+The library is organized in several layers as indicated in
+Figure~\ref{fig:MDDLayeredArchitecture}. Notice that the library
+provides two high-level Drag \& Drop block interfaces. The first (\texttt{.Blocks}) is
+compatible to Modelica 3.2, using the traditional \modelica{when sample()}
+element for periodically calling Modelica functions from the \textsf{Function Layer}. The second
+(\texttt{.ClockedBlocks}) uses the synchronous language elements extension
+introduced in Modelica 3.3 and is compatible with the
+Modelica\_Synchronous library \citep{Otter2012}. Due to this support the MDD
+library formally depends on the Modelica\_Synchronous library, but in
+practice the Modelica\_Synchronous library (and tool support for the
+synchronous language elements extension) is only required if one actually wants
+to use the clocked block interface.
 \begin{figure}[htb]
 \begin{center}
   \includegraphics[width=\columnwidth]{figures/MDDLayeredArchitecture}
@@ -110,8 +126,16 @@ Historically, the origins of the MDD library can be traced back to the
 \end{center}
 \end{figure}
 
-\subsection{Enhanced Tool Support}
 \subsection{Cross-Platform Support}
+\label{sec:CrossPlatformSupport}
+
+Currently MS Windows and Linux are supported as main platforms, but recent
+prototypical work also targets popular embedded systems boards directly (see
+Section~\ref{sec:EmbeddedControl}).
+
+
+
+\subsection{Enhanced Tool Support}
 \subsection{Library Structure}
 \subsection{Interfaces}
 
@@ -189,6 +213,7 @@ By using a bluetooth module, a wireless connection between arduino and the simul
 \VWAU{I could add arduino code or an arduino circuit diagram here.}
 
 \subsection{Arduino, Raspberry PI, embedded control}
+\label{sec:EmbeddedControl}
 \BTHI{TODO: Bernhard, Martin}
 
 \subsection{HID Joystick}
