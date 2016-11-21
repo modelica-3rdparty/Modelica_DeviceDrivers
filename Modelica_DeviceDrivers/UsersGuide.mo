@@ -701,7 +701,7 @@ of the library:
                     Communication.SerialPort_</td>
 </tr>
 <tr><td valign=\"top\"><b>Rangarajan Varadan</b> </td>
-   <td valign=\"top\">&nbsp;</td>
+   <td valign=\"top\">at <a href=\"http://www.codeproject.com/Members/Rangarajan-Varadan\">CodeProject</a></td>
    <td valign=\"top\">Code for Windows serial port support.</td>
 </tr>
 <tr><td valign=\"top\"><b>Dietmar Winkler</b> </td>
