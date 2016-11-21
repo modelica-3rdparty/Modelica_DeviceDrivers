@@ -671,16 +671,16 @@ end ModelicaLicense2;
 <dl>
 <dt><b>Main Authors:</b></dt>
 <dd>Bernhard Thiele (main contact, release management, etc.)<br>
-    <a href=\"https://github.com/bernhard-thiele\">at Github</a><br></dd>
+    at <a href=\"https://github.com/bernhard-thiele\">GitHub</a><br></dd>
 <dd>Tobias Bellmann<br>
-    <a href=\"https://github.com/tbellmann\">at Github</a><br></dd>
+    at <a href=\"https://github.com/tbellmann\">GitHub</a><br></dd>
 <dd>tbeu<br>
-    <a href=\"https://github.com/tbeu\">at Github</a><br></dd>
+    at <a href=\"https://github.com/tbeu\">GitHub</a><br></dd>
 </dl>
 <p>
 The authors are open to include contributions.
 </p>
-<p> Please note that You can use the <b>issue tracker</b> provided by GitHub to report bugs or other issues (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues\">https://github.com/modelica/Modelica_DeviceDrivers/issues</a>)</p>
+<p> Please note that you can use the <b>issue tracker</b> provided by GitHub to report bugs or other issues (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues\">https://github.com/modelica/Modelica_DeviceDrivers/issues</a>)</p>
 
 <p>
 The following people have directly contributed to the implementation
@@ -694,19 +694,19 @@ of the library:
    <td valign=\"top\">Human readable error codes for the Softing CAN interface.</td>
 </tr>
 <tr><td valign=\"top\"><b>Dominik Sommer</b> </td>
-   <td valign=\"top\"> </td>
-   <td valign=\"top\"> Blocks.Communication.SerialPortReceive<br>
+   <td valign=\"top\">&nbsp;</td>
+   <td valign=\"top\">Blocks.Communication.SerialPortReceive<br>
                     Blocks.Communication.SerialPortSend<br>
                     Communication.SerialPort<br>
                     Communication.SerialPort_</td>
 </tr>
 <tr><td valign=\"top\"><b>Rangarajan Varadan</b> </td>
    <td valign=\"top\">&nbsp;</td>
-   <td valign=\"top\">Code for Windows serial port support..</td>
+   <td valign=\"top\">Code for Windows serial port support.</td>
 </tr>
 <tr><td valign=\"top\"><b>Dietmar Winkler</b> </td>
-   <td valign=\"top\"><a href=\"https://github.com/dietmarw\">at Github</a></td>
-   <td valign=\"top\">Github project setup, development services integration etc.</td>
+   <td valign=\"top\">at <a href=\"https://github.com/dietmarw\">Github</a></td>
+   <td valign=\"top\">GitHub project setup, development services integration etc.</td>
 </tr>
 </table>
 </html>"));
