@@ -22,6 +22,12 @@
 	pdfcreator = pdflatex,
 	pdfproducer = pdflatex}
 
+\lstset{language = c,
+       % basicstyle=\fontsize{9pt}{10.5pt}\selectfont,
+       basicstyle=\fontsize{9pt}{10.5pt}\ttfamily,
+       backgroundcolor = \color{white}}
+\newcommand{\clang}[1]{\lstinline[language=c]|#1|}
+
 \newcommand{\modelica}[1]{\lstinline[language=modelica]|#1|}
 \newcommand{\BTHI}[1]{{\color{blue}{$\parallel_\textrm{BTHI}$#1$\parallel$}}}
 \newcommand{\TBEU}[1]{{\color{orange}{$\parallel_\textrm{TBEU}$#1$\parallel$}}}
@@ -133,7 +139,26 @@ Currently MS Windows and Linux are supported as main platforms, but recent
 prototypical work also targets popular embedded systems boards directly (see
 Section~\ref{sec:EmbeddedControl}).
 
-
+When accessing hardware devices, a Modelica model or
+application calls Modelica functions from the \textsf{Function Layer} (see
+Figure~\ref{fig:MDDLayeredArchitecture}). These Modelica functions provide a
+generic interface to the underlying C-code layer which is accessed by
+Modelica's external function interface.
+The platform differentiation is handled within the \textsf{C-Code} layer which
+uses preprocessor directives for conditional inclusion/exclusion of
+platform-specific code (\mbox{\clang{#if}}, \clang{#else}, \clang{#endif}, etc.)
+similarly to the code fragment below.
+\begin{lstlisting}[language=C]
+#if defined(_MSC_VER) || defined(__CYGWIN__) || defined(__MINGW32__)
+#include <windows.h>
+/* ... */
+#elif defined(__linux__)
+#include <unistd.h>
+/* ... */
+#else
+#error "Modelica_DeviceDrivers: No support of XXX for your platform"
+#endif
+\end{lstlisting}
 
 \subsection{Enhanced Tool Support}
 \subsection{Library Structure}
