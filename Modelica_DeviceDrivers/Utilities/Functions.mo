@@ -17,7 +17,7 @@ package Functions
 <p>The function expects a file format in the style <code>&quot;identifier=value&quot;</code>.</p>
 <h4><font color=\"#008000\">Example</font></h4>
 <p>Consider following example file and assume it's saved under location<br/>
-<code>Modelica_DeviceDrivers.Utilities.RootDir+&quot;/Resources/test/Util/parameterInitValues.txt&quot;</code>:</p>
+<code>&quot;modelica://Modelica_DeviceDrivers/Resources/test/Util/parameterInitValues.txt&quot;</code>:</p>
 <pre>
 arrayvar_1=0.1
 arrayvar_2=0.2
@@ -30,10 +30,10 @@ model TestLoadRealParameter
 extends Modelica.Icons.Example;
   import Modelica_DeviceDrivers.Utilities.Functions.*;
   parameter Real var1 = loadRealParameter(
-   Modelica_DeviceDrivers.Utilities.RootDir+\"/Resources/test/Util/parameterInitValues.txt\", \"var1\");
+   Modelica.Utilities.Files.loadResource(\"modelica://Modelica_DeviceDrivers/Resources/test/Util/parameterInitValues.txt\"), \"var1\");
   parameter Integer n = 3 \"Size of arrayvar\";
   parameter Real arrayvar[n] = loadRealParameterVector(
-   Modelica_DeviceDrivers.Utilities.RootDir+\"/Resources/test/Util/parameterInitValues.txt\", \"arrayvar\", n);
+   Modelica.Utilities.Files.loadResource(\"modelica://Modelica_DeviceDrivers/Resources/test/Util/parameterInitValues.txt\"), \"arrayvar\", n);
 equation
   when sample(0, 0.1) then
     Modelica.Utilities.Streams.print(\"var1: \"+String(var1));
