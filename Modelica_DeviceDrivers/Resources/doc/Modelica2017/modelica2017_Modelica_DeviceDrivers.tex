@@ -177,10 +177,10 @@ similarly to the code fragment below.
 \begin{lstlisting}[language=C]
 #if defined(_MSC_VER) || defined(__CYGWIN__) || defined(__MINGW32__)
 #include <windows.h>
-/* ... */
+/* Microsoft Windows specific code goes here */
 #elif defined(__linux__)
 #include <unistd.h>
-/* ... */
+/* Linux specific code goes here */
 #else
 #error "Modelica_DeviceDrivers: No support of XXX for your platform"
 #endif
