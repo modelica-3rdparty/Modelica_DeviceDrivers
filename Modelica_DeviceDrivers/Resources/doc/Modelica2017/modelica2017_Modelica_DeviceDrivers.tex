@@ -56,7 +56,7 @@
 \date{} % <--- leave date empty
 \maketitle\thispagestyle{empty} %% <-- you need this for the first page
 \abstract{%
-There are many cases there simulation applications need to interact with their
+There are many cases where simulation applications need to interact with their
 environment. Typical examples are Human-in-the-Loop (HITL) simulators (including
 flight, driving, and marine training simulators), Hardware-in-the-Loop (HIL)
 simulators, but also offline process simulators which cannot operate in a
@@ -74,10 +74,11 @@ and easy-to-use Modelica library.}
 external C}
 
 \section{Introduction}
-\BTHI{TODO: Bernhard, Tobias}\\
+\BTHI{Bernhard, Tobias}\\
 
 The most common usage of Modelica models is for offline simulation experiments.
-However, in many cases simulations need to interact with their environment.
+However, in many cases simulations need to interact with their environment or
+other software components.
 Typical examples are Human-in-the-Loop (HITL) simulators (including flight,
 driving, and marine training simulators), Hardware-in-the-Loop (HIL) simulators,
 but also offline process simulators which cannot operate in a completely
@@ -86,12 +87,24 @@ Furthermore, Modelica can be used for developing (model-based) control
 applications which also require interaction with their environment.
 
 There are different approaches for enabling the above mentioned applications in
-the context of Modelica. Several development environments offer tool
-chains for real-time simulation and/or model-based development of embedded
-control applications. Some of these environments can be coupled with Modelica
-tools, \textit{e.g.}, by wrapping code which is generated from Modelica tools
-into respective tool internal representations which can be connected to hardware
-devices in the respective development environment.
+the context of Modelica. Several development environments offer tool chains for
+real-time simulation and/or model-based development of embedded control
+applications.
+Some of these environments can be coupled with Modelica tools, by wrapping code
+which is generated from Modelica tools into respective third-party tool-internal
+representations which can be connected to hardware devices in the respective
+development environment (\textit{e.g.},
+Dymola\footnote{Dassault Systèmes,
+\url{https://www.3ds.com/}.} via its DymolaBlock interface to the
+MATLAB/Simulink\footnote{MathWorks,
+\url{https://mathworks.com/}.} tool chain, OpenModelica\footnote{OSMC,
+\url{https://www.openmodelica.org/}.} via customized tool chains
+\citep{Worschech2012}, \BTHI{TODO Thomas: example for SimulationX}).
+Sometimes it may also be possible for a Modelica tool to generate Functional
+Mock-up Units (FMUs) which can be imported into compatible development
+environments, like the tool chain provided for the
+SCALEXIO\footnote{dSPACE, \url{https://www.dspace.com/}.}
+platform.
 
 The \emph{Modelica\_DeviceDrivers} (MDD) library uses a different approach.
 The MDD library provides access to external devices by utilizing Modelica's external
@@ -99,8 +112,23 @@ function interface for interfacing to the C API of various device drivers direct
 models (see Section~\ref{ModelicaDeviceDrivers}).
 
 Historically, the origins of the MDD library can be traced back to the
-\emph{ExternalDevices} library \citep{Bellmann2009}\ldots
-\BTHI{TODO: Bernhard, Tobias , \cite{Elmqvist2009}}
+\emph{ExternalDevices} library \citep{Bellmann2009}, an internal
+DLR\footnote{Deutsches Zentrum für Luft- und Raumfahrt (DLR), German Aerospace
+Center, \url{http://www.dlr.de}} Modelica library developed for the interactive
+simulation and visualization of Modelica models. The ExternalDevices library already provided UDP and shared memory communication support, support for input devices (keyboard, 3dConnexion
+SpaceMouse, and game controller), and a model-integrated real-time visualization
+system, the foundation of the later \emph{DLR Visualization} library
+\citep{Hellerer2014}.
+
+However, the ExternalDevices library was limited to
+Microsoft Windows and was developed to be used only with
+the Dymola tool. In the further course of development it was decided to
+split the ExternalDevices library into the commercial DLR
+Visualization library and an open-source cross-platform hardware interface
+library, the Modelica\_DeviceDrivers library.
+
+
+% \BTHI{TODO: Bernhard, Tobias , \cite{Elmqvist2009}}
 
 
 \section{Modelica\_DeviceDrivers}
