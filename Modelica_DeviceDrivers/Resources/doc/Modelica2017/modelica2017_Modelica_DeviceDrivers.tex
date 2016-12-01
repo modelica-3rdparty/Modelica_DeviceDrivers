@@ -47,11 +47,10 @@
 \author[3]{Volker Waurich}
 \author[1]{Martin Sjölund}
 \author[4]{Tobias Bellmann}
-\affil[1]{PELAB, Linköping University, Sweden,
-{\small\texttt{\{bernhard.thiele,martin.sjoelund\}@liu.se}}}
+\affil[1]{PELAB, Linköping University, Sweden, {\small\texttt{\{bernhard.thiele,martin.sjoelund\}@liu.se}}}
 \affil[2]{ESI ITI GmbH, Germany, {\small\texttt{thomas.beutlich@esi-group.com}}}
-\affil[4]{Institute of System Dynamics and Control, DLR, Germany, {\small\texttt{tobias.bellmann@dlr.se}}}
-
+\affil[3]{Chair of Construction Machinery, TU Dresden, Germany, {\small\texttt{volker.waurich@tu-dresden.de}}}
+\affil[4]{Institute of System Dynamics and Control, DLR, Germany, {\small\texttt{tobias.bellmann@dlr.de}}}
 
 \date{} % <--- leave date empty
 \maketitle\thispagestyle{empty} %% <-- you need this for the first page
@@ -95,16 +94,15 @@ which is generated from Modelica tools into respective third-party tool-internal
 representations which can be connected to hardware devices in the respective
 development environment (\textit{e.g.},
 Dymola\footnote{Dassault Systèmes,
-\url{https://www.3ds.com/}.} via its DymolaBlock interface to the
-MATLAB/Simulink\footnote{MathWorks,
-\url{https://mathworks.com/}.} tool chain, OpenModelica\footnote{OSMC,
-\url{https://www.openmodelica.org/}.} via customized tool chains
-\citep{Worschech2012}, \BTHI{TODO Thomas: example for SimulationX}).
+\url{https://www.3ds.com}} via its DymolaBlock interface to the
+MATLAB/Simulink\footnote{\label{tmw}The MathWorks,
+\url{https://mathworks.com}} tool chain, OpenModelica\footnote{OSMC,
+\url{https://www.openmodelica.org}} via customized tool chains
+\citep{Worschech2012}, SimulationX\footnote{SimulationX by ESI, \url{https://www.simulationx.com}} via Code Export for Simulink/Simulink Coder\footnotemark[\ref{tmw}] or HIL environments like dSPACE DS1006\footnote{\label{dspace}dSPACE, \url{https://www.dspace.com}}, NI VeriStand\footnote{National Instruments, \url{http://www.ni.com}} or ETAS LABCAR\footnote{ETAS, \url{http://www.etas.com}} \citep{Blochwitz2009}).
 Sometimes it may also be possible for a Modelica tool to generate Functional
 Mock-up Units (FMUs) which can be imported into compatible development
 environments, like the tool chain provided for the
-SCALEXIO\footnote{dSPACE, \url{https://www.dspace.com/}.}
-platform.
+SCALEXIO\footnotemark[\ref{dspace}]} platform.
 
 The \emph{Modelica\_DeviceDrivers} (MDD) library uses a different approach.
 The MDD library provides access to external devices by utilizing Modelica's external
@@ -115,8 +113,8 @@ Historically, the origins of the MDD library can be traced back to the
 \emph{ExternalDevices} library \citep{Bellmann2009}, an internal
 DLR\footnote{Deutsches Zentrum für Luft- und Raumfahrt (DLR), German Aerospace
 Center, \url{http://www.dlr.de}} Modelica library developed for the interactive
-simulation and visualization of Modelica models. The ExternalDevices library already provided UDP and shared memory communication support, support for input devices (keyboard, 3dConnexion
-SpaceMouse, and game controller), and a model-integrated real-time visualization
+simulation and visualization of Modelica models. The ExternalDevices library already provided UDP and shared memory communication support, support for input devices (keyboard, 3Dconnexion
+SpaceMouse\footnote{3Dconnexion, \url{https://www.3dconnexion.com}}, and game controller), and a model-integrated real-time visualization
 system, the foundation of the later \emph{DLR Visualization} library
 \citep{Hellerer2014}.
 
@@ -147,9 +145,9 @@ compatible to Modelica 3.2, using the traditional \modelica{when sample()}
 element for periodically calling Modelica functions from the \textsf{Function Layer}. The second
 (\texttt{.ClockedBlocks}) uses the synchronous language elements extension
 introduced in Modelica 3.3 and is compatible with the
-Modelica\_Synchronous library \citep{Otter2012}. Due to this support the MDD
-library formally depends on the Modelica\_Synchronous library, but in
-practice the Modelica\_Synchronous library (and tool support for the
+\emph{Modelica\_Synchronous} library \citep{Otter2012}. Due to this support the MDD
+library formally depends on the \emph{Modelica\_Synchronous} library, but in
+practice the \emph{Modelica\_Synchronous} library (and tool support for the
 synchronous language elements extension) is only required if one actually wants
 to use the clocked block interface.
 \begin{figure}[htb]
@@ -163,28 +161,28 @@ to use the clocked block interface.
 \subsection{Cross-Platform Support}
 \label{sec:CrossPlatformSupport}
 
-Currently MS Windows and Linux are supported as main platforms, but recent
+Currently Microsoft Windows and Linux are supported as main platforms, but recent
 prototypical work also targets popular embedded systems boards directly (see
 Section~\ref{sec:EmbeddedControl}).
 
 When accessing hardware devices, a Modelica model or
 application calls Modelica functions from the \textsf{Function Layer} (see
 Figure~\ref{fig:MDDLayeredArchitecture}). These Modelica functions provide a
-generic interface to the underlying C-code layer which is accessed by
+generic interface to the underlying \textsf{C-Code Layer} which is accessed by
 Modelica's external function interface.
-The platform differentiation is handled within the \textsf{C-Code} layer which
+The platform differentiation is handled in the \textsf{C-Code Layer} which
 uses preprocessor directives for conditional inclusion/exclusion of
 platform-specific code (\mbox{\clang{#if}}, \clang{#else}, \clang{#endif}, etc.)
 similarly to the code fragment below.
 \begin{lstlisting}[language=C]
 #if defined(_MSC_VER) || defined(__CYGWIN__) || defined(__MINGW32__)
 #include <windows.h>
-/* ... */
+/* Microsoft Windows specific code goes here */
 #elif defined(__linux__)
 #include <unistd.h>
-/* ... */
+/* Linux specific code goes here */
 #else
-#error "Modelica_DeviceDrivers: No support of XXX for your platform"
+#error "Modelica_DeviceDrivers: Unsupported compiler or platform"
 #endif
 \end{lstlisting}
 
@@ -256,14 +254,14 @@ Aide-mémoire:
 \subsection{Arduino}
 \BTHI{TODO: Volker}
 
-The arduino is an open-source electronics platform which makes it very easy to read sensors, process the data and send it to another device via a serial connection \citep{arduino:2016}.
-With the help of Modelica Device Drivers serial port implementation, the arduino can be utilized to make sensor data available in a real-time Modelica model.
+The Arduino\footnote{Arduino, \url{https://www.Arduino.cc}} is an open-source electronics platform which makes it very easy to read sensors, process the data and send it to another device via a serial connection.
+With the help of the \emph{Modelica\_DeviceDrivers} serial port implementation, the Arduino can be utilized to make sensor data available in a real-time Modelica model.
 Using different kinds of potentiometers, it is possible to build customized control devices.
 As an exemplary application, pedals for a driving simulator can be equipped with a rotary potentiometer in order to measure the displacement.
-This data can be send via a serial connection to a \textit{Blocks.Comunication.SerialPortReceive} in order to drive a virtual vehicle.
+This data can be send via a serial connection to a \textit{Blocks.Communication.SerialPortReceive} in order to drive a virtual vehicle.
 Hence, expensive or unavailable input devices can be substituted by self-built constructions.
-By using a bluetooth module, a wireless connection between arduino and the simulator is set up easily.
-\VWAU{I could add arduino code or an arduino circuit diagram here.}
+By using a Bluetooth module, a wireless connection between Arduino and the simulator is set up easily.
+\VWAU{I could add Arduino code or an Arduino circuit diagram here.}
 
 \subsection{Arduino, Raspberry PI, embedded control}
 \label{sec:EmbeddedControl}
