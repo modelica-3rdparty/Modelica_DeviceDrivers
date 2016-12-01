@@ -8,6 +8,7 @@
 %\addbibresource{example-paper.bib}
 %\usepackage[utf8]{luainputenc} % utf8 input encoding that should work for both pdflatex and lualatex, but might not be available in every installation
 \usepackage[utf8]{inputenc} % utf8 input encoding which should work with pdflatex, but not lualatex
+\usepackage{cleveref}
 
 \hypersetup{%
 	pdftitle  = {Towards a Standard-Conform, Platform-Generic and Feature-Rich Modelica Device Drivers Library},
@@ -35,7 +36,7 @@
 \newcommand{\MSJO}[1]{{\color{green}{$\parallel_\textrm{MSJO}$#1$\parallel$}}}
 \newcommand{\TBEL}[1]{{\color{magenta}{$\parallel_\textrm{TBEL}$#1$\parallel$}}}
 
-
+\crefformat{footnote}{#2\footnotemark[#1]#3}
 
 % begin the document
 \begin{document}
@@ -98,11 +99,11 @@ Dymola\footnote{Dassault Systèmes,
 MATLAB/Simulink\footnote{\label{tmw}The MathWorks,
 \url{https://mathworks.com}} tool chain, OpenModelica\footnote{OSMC,
 \url{https://www.openmodelica.org}} via customized tool chains
-\citep{Worschech2012}, SimulationX\footnote{SimulationX by ESI, \url{https://www.simulationx.com}} via Code Export for Simulink/Simulink Coder\footnotemark[\ref{tmw}] or HIL environments like dSPACE DS1006\footnote{\label{dspace}dSPACE, \url{https://www.dspace.com}}, NI VeriStand\footnote{National Instruments, \url{http://www.ni.com}} or ETAS LABCAR\footnote{ETAS, \url{http://www.etas.com}} \citep{Blochwitz2009}).
+\citep{Worschech2012}, SimulationX\footnote{SimulationX by ESI, \url{https://www.simulationx.com}} via Code Export for Simulink/Simulink Coder\cref{tmw} or HIL environments like dSPACE DS1006\footnote{\label{dspace}dSPACE, \url{https://www.dspace.com}}, NI VeriStand\footnote{National Instruments, \url{http://www.ni.com}} or ETAS LABCAR\footnote{ETAS, \url{http://www.etas.com}} \citep{Blochwitz2009}).
 Sometimes it may also be possible for a Modelica tool to generate Functional
 Mock-up Units (FMUs) which can be imported into compatible development
 environments, like the tool chain provided for the
-SCALEXIO\footnotemark[\ref{dspace}] platform.
+SCALEXIO\cref{dspace} platform.
 
 The \emph{Modelica\_DeviceDrivers} (MDD) library uses a different approach.
 The MDD library provides access to external devices by utilizing Modelica's external
