@@ -6,5 +6,6 @@ Communication
 HardwareIO
 InputDevices
 OperatingSystem
+EmbeddedTargets
 Utilities
 Incubate

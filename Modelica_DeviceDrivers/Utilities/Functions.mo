@@ -66,4 +66,33 @@ end TestLoadRealParameter;
 <p>See <a href=\"modelica://Modelica_DeviceDrivers.Utilities.Functions.loadRealParameter\"><code>loadRealParameter</code></a> for an example.</p>
 </html>"));
   end loadRealParameterVector;
+
+  function primeDecomposition "Decompose an integer into its prime factors"
+    input Integer i;
+    output Integer res[:];
+  protected
+    Integer number=i, div=2;
+  algorithm
+    assert(number >= 1, "Cannot decompose integer "+String(i)+" into prime factors");
+    if number == 1 then
+      res := {number};
+      return;
+    end if;
+    res := fill(0, 0);
+    while number <> 0 loop
+      if (mod(number,div) <> 0) then
+        div := div + 1;
+      else
+        number := .div(number, div);
+        res := cat(1, res, {div});
+        if number==1 then
+          break;
+        end if;
+      end if;
+    end while;
+    annotation (Documentation(info="<html>
+<p>Decomposes an integer into its prime factors.</p>
+</html>"));
+  end primeDecomposition;
+
 end Functions;
