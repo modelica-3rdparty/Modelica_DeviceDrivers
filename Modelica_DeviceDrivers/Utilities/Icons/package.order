@@ -17,3 +17,5 @@ SocketCANBlockIcon
 SerialPortIcon
 TCPIPconnection
 LCMconnection
+GenericICPackage
+GenericIC

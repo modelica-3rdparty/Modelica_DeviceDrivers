@@ -1,7 +1,7 @@
 within Modelica_DeviceDrivers.Blocks;
 package HardwareIO
   "Data acquisition hardware like digital-analog converter, analog-digital converter and other interface hardware."
- extends Modelica.Icons.Package;
+  extends Modelica.Icons.Package;
 
   package Comedi
     "Support for the linux control and measurement library 'Comedi'"
