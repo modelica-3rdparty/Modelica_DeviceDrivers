@@ -179,8 +179,8 @@ generic interface to the underlying \textsf{C-Code Layer} which is accessed by
 Modelica's external function interface.
 The platform differentiation is handled in the \textsf{C-Code Layer} which
 uses preprocessor directives for conditional inclusion/exclusion of
-platform-specific code (\mbox{\clang{#if}}, \clang{#else}, \clang{#endif}, etc.)
-similarly to the code fragment below.
+platform-specific code (\mbox{\clang{#if}}, \mbox{\clang{#else}},
+\mbox{\clang{#endif}}, etc.) similarly to the code fragment below.
 \begin{lstlisting}[language=C]
 #if defined(_MSC_VER) || defined(__CYGWIN__) || defined(__MINGW32__)
 #include <windows.h>
@@ -193,7 +193,19 @@ similarly to the code fragment below.
 #endif
 \end{lstlisting}
 
-\subsection{Enhanced Tool Support}
+\subsection{Extended Tool Support}
+\label{sec:ExtendedToolSupport}
+
+Initially, the library was developed using the Dymola tool. Later, considerable
+development efforts have been spent for supporting the library also within
+SimulationX and very recently also within OpenModelica. For achieving this, it
+was necessary to change parts of the library (under the constraint of
+maintaining backwards compatibility), and at the same time, to extend the
+abilities of respective tools (partly by providing support for constructs which
+are not (yet) allowed by the Modelica language standard).
+This is discussed in more detail in Section~\ref{sec:ModelicaStandardCompliance}.
+
+
 \subsection{Library Structure}
 \subsection{Interfaces}
 
@@ -239,6 +251,7 @@ Features (aide-mémoire):
 \end{itemize}
 
 \section{Modelica Standard Compliance}
+\label{sec:ModelicaStandardCompliance}
 \BTHI{TODO: Thomas, Bernhard}
 
 \subsection{Enhancements}
