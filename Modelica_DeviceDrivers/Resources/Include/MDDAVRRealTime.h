@@ -66,11 +66,8 @@ static volatile uint16_t numInterruptTriggered=0;
 /* The wait routine actually starts the clock.
  * This is done after initialization to avoid weird behaviour
  */
-static inline void MDD_avr_rt_wait(void *timer, int isInitial)
+static inline void MDD_avr_rt_wait(void *timer)
 {
-  if (isInitial) {
-    return;
-  }
   switch ((int)timer) {
 #if defined(__AVR_ATmega16__)
   case 1:

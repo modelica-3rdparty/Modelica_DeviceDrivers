@@ -4,8 +4,7 @@ extends .Modelica.Icons.Package;
 
 function wait
   input Init rt;
-  input Boolean isInitial = initial();
-  external "C" MDD_avr_rt_wait(rt, isInitial)
+  external "C" MDD_avr_rt_wait(rt)
   annotation (Include="#include \"MDDAVRRealTime.h\"");
 end wait;
 

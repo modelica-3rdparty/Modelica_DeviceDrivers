@@ -35,6 +35,8 @@ protected
   Functions.Timers.Timer clock = Functions.Timers.Timer(timer, prescaler, clearTimerOnMatch=false);
   Functions.RealTimeSynchronization.Init sync = Functions.RealTimeSynchronization.Init(clock, count, iterations);
 algorithm
-  Functions.RealTimeSynchronization.wait(sync, initial());
+  if not initial() then
+    Functions.RealTimeSynchronization.wait(sync);
+  end if;
 annotation(Icon(graphics = {Text(extent = {{-100, -100}, {100, 100}}, textString = "Real-time:\n%desiredFrequency Hz", fontName = "Arial")}, coordinateSystem(initialScale = 0.1)));
 end SynchronizeRealtime;
