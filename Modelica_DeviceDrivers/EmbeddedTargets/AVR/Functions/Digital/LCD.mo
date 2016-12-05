@@ -25,7 +25,8 @@ class Init "Interface to Hitachi HD44780, a 16x2 character LCD display"
 extends ExternalObject;
 
 function constructor "Initialize device"
-  import Modelica_DeviceDrivers.EmbeddedTargets.AVR.{Constants,Types};
+  import Modelica_DeviceDrivers.EmbeddedTargets.AVR.Constants;
+  import Modelica_DeviceDrivers.EmbeddedTargets.AVR.Types;
   extends .Modelica.Icons.Function;
   input Types.Port port "Uses up pins 0-2, 4-7 on a single port on the AVR";
   input String text=Constants.spaces_16+Constants.spaces_16 "Assumes 16x2=32 characters are passed. No bounds checking.";

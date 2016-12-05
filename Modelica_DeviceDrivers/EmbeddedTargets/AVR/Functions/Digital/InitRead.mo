@@ -2,7 +2,7 @@ within Modelica_DeviceDrivers.EmbeddedTargets.AVR.Functions.Digital;
 model InitRead
 extends ExternalObject;
 function constructor "Initialize device"
-  import Modelica_DeviceDrivers.EmbeddedTargets.AVR.{Constants,Types};
+  import Modelica_DeviceDrivers.EmbeddedTargets.AVR.Types;
   extends .Modelica.Icons.Function;
   input Types.Port port "A digital port";
   input Types.Pin pin "A pin 1-8.";
