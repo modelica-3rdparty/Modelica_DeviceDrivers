@@ -112,7 +112,7 @@ platform.
 The \emph{Modelica\_DeviceDrivers} (MDD) library uses a different approach.
 The MDD library provides access to external devices by utilizing Modelica's external
 function interface for interfacing to the C API of various device drivers directly from Modelica
-models (see Section~\ref{ModelicaDeviceDrivers}).
+models (see \cref{ModelicaDeviceDrivers}).
 
 Historically, the origins of the MDD library can be traced back to the
 \emph{ExternalDevices} library \citep{Bellmann2009}, an internal
@@ -143,10 +143,10 @@ library, the \emph{Modelica\_DeviceDrivers} library.
 The MDD library allows to access hardware devices from Modelica models.
 This is achieved by using the Modelica external C interface to call the
 appropriate C driver functions provided by the underlying operating system (see
-Section~\ref{sec:CrossPlatformSupport}).
+\cref{sec:CrossPlatformSupport}).
 
 The library is organized in several layers as indicated in
-Figure~\ref{fig:MDDLayeredArchitecture}. Notice that the library
+\cref{fig:MDDLayeredArchitecture}. Notice that the library
 provides two high-level Drag \& Drop block interfaces. The first (\texttt{Blocks}) is
 compatible to Modelica 3.2, using the traditional \modelica{when sample()}
 element for periodically calling Modelica functions from the \textsf{Function Layer}. The second
@@ -170,11 +170,11 @@ to use the clocked block interface.
 
 Currently Microsoft Windows and Linux are supported as main platforms, but recent
 prototypical work also targets popular embedded systems boards directly (see
-Section~\ref{sec:EmbeddedControl}).
+\cref{sec:EmbeddedControl}).
 
 When accessing hardware devices, a Modelica model or
 application calls Modelica functions from the \textsf{Function Layer} (see
-Figure~\ref{fig:MDDLayeredArchitecture}). These Modelica functions provide a
+\cref{fig:MDDLayeredArchitecture}). These Modelica functions provide a
 generic interface to the underlying \textsf{C-Code Layer} which is accessed by
 Modelica's external function interface.
 The platform differentiation is handled in the \textsf{C-Code Layer} which
@@ -203,7 +203,7 @@ was necessary to change parts of the library (under the constraint of
 maintaining backwards compatibility), and at the same time, to extend the
 abilities of respective tools (partly by providing support for constructs which
 are not (yet) allowed by the Modelica language standard).
-This is discussed in more detail in Section~\ref{sec:ModelicaStandardCompliance}.
+This is discussed in more detail in \cref{sec:ModelicaStandardCompliance}.
 
 
 \subsection{Library Structure}
