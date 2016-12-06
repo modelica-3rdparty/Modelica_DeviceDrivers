@@ -3,6 +3,7 @@ encapsulated package RealTimeSynchronization
 extends .Modelica.Icons.Package;
 
 function wait
+  extends .Modelica.Icons.Function;
   input Init rt;
   external "C" MDD_avr_rt_wait(rt)
   annotation (Include="#include \"MDDAVRRealTime.h\"");
@@ -13,9 +14,8 @@ class Init "Initialize AVR real-time synchronization on the given clock.
   extends ExternalObject;
 
   function constructor
-    import Modelica.Icons;
     import Modelica_DeviceDrivers.EmbeddedTargets.AVR.Functions.Timers;
-    extends Icons.Function;
+    extends .Modelica.Icons.Function;
     input Timers.Timer timer;
     input Integer timerValue "Note that 9 = every 10 cycles. So if you want to divide by 250, pass 249.";
     input Integer numTimerInterruptsPerCycle;
@@ -25,8 +25,7 @@ class Init "Initialize AVR real-time synchronization on the given clock.
   end constructor;
 
   function destructor
-    import Modelica;
-    extends Modelica.Icons.Function;
+    extends .Modelica.Icons.Function;
     input Init rt "Device handle";
     external "C" MDD_avr_rt_close(rt)
     annotation (Include="#include \"MDDAVRRealTime.h\"");
