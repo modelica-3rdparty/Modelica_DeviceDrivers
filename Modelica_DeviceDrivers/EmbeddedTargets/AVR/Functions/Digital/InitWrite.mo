@@ -1,5 +1,5 @@
 within Modelica_DeviceDrivers.EmbeddedTargets.AVR.Functions.Digital;
-model InitWrite
+class InitWrite
 extends ExternalObject;
 function constructor "Initialize device"
   import Modelica_DeviceDrivers.EmbeddedTargets.AVR.Types;
