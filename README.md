@@ -100,4 +100,4 @@ The following people have directly contributed to the implementation of the libr
 * Miguel Neves, human readable error codes for the Softing CAN interface.
 * Dominik Sommer, code for Linux serial port support.
 * [Rangarajan Varadan](http://www.codeproject.com/Members/Rangarajan-Varadan), [code for Windows serial port support](http://www.codeproject.com/Articles/81933/Serial-Port-R-W-With-Read-Thread).
-* [Dietmar Winkler](https://github.com/dietmarw), Github project setup, development services integration etc.
+* [Dietmar Winkler](https://github.com/dietmarw), GitHub project setup, development services integration etc.
