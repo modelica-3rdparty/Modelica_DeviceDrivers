@@ -146,7 +146,7 @@ appropriate C driver functions provided by the underlying operating system (see
 Section~\ref{sec:CrossPlatformSupport}).
 
 The library is organized in several layers as indicated in
-Figure~\ref{fig:MDDLayeredArchitecture}. Notice that the library
+Figure~\ref{fig:MDDLayeredArchitecture}. It
 provides two high-level Drag \& Drop block interfaces. The first (\texttt{Blocks}) is
 compatible to Modelica 3.2, using the traditional \modelica{when sample()}
 element for periodically calling Modelica functions from the \textsf{Function Layer}. The second
@@ -198,7 +198,7 @@ platform-specific code (\mbox{\clang{#if}}, \mbox{\clang{#else}},
 
 Initially, the library was developed using the Dymola tool. Later, considerable
 development efforts have been spent for supporting the library also within
-SimulationX and very recently also within OpenModelica. For achieving this, it
+SimulationX and, very recently, also within OpenModelica. For achieving this, it
 was necessary to change parts of the library (under the constraint of
 maintaining backwards compatibility), and at the same time, to extend the
 abilities of respective tools (partly by providing support for constructs which
@@ -207,6 +207,35 @@ This is discussed in more detail in Section~\ref{sec:ModelicaStandardCompliance}
 
 
 \subsection{Library Structure}
+\label{sec:LibraryStructure}
+
+Figure~\ref{fig:MDDPackageBrowseScreenshot} shows a screenshot of the package
+browser view with loaded MDD library. The first two sub packages
+\modelica{Blocks} and \modelica{ClockedBlocks} provide the drag \& drop blocks
+which correspond to the \textsf{Block Layer} of
+Figure~\ref{fig:MDDLayeredArchitecture}. The remaining sub packages (except
+\modelica{Utilities} and \modelica{EmbeddedTargets}) provide the
+\textsf{Function Layer}.
+Both layers use sub packages for subdividing the provided functionality into
+different groups. Package \modelica{EmbeddedTargets} contains highly
+target specific function and blocks for supporting restricted
+embedded systems like the Arduino microcontroller (see
+Section~\ref{sec:Applications}).
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=\columnwidth]{figures/MDDPackageBrowseScreenshot}
+  \caption{MDD library structure.}
+  \label{fig:MDDPackageBrowseScreenshot}
+\end{figure}
+
+\BTHI{TODO continue}
+
+
+
+
+
+
 \subsection{Interfaces}
 
 \subsection{Features}
@@ -270,6 +299,7 @@ Aide-mémoire:
 \end{itemize}
 
 \section{Applications}
+\label{sec:Applications}
 
 \subsection{Arduino}
 \BTHI{TODO: Volker}
