@@ -3,6 +3,7 @@ encapsulated package PWM
 extends .Modelica.Icons.Package;
 
 function set
+  extends .Modelica.Icons.Function;
   input Init pwm;
   input Integer value;
   external "C" MDD_avr_pwm_set(pwm, value)
@@ -16,8 +17,7 @@ extends ExternalObject;
 function constructor "Initialize PWM timer. Note that if you setup both
   A and B pins, you need to use the same settings for both or you randomly
   get the settings for one of them controlling the same timer."
-  import Modelica.Icons;
-  extends Icons.Function;
+  extends .Modelica.Icons.Function;
   import Modelica_DeviceDrivers.EmbeddedTargets.AVR.Functions;
   import Modelica_DeviceDrivers.EmbeddedTargets.AVR.Types;
   input Functions.Timers.Timer timer;
@@ -30,8 +30,7 @@ function constructor "Initialize PWM timer. Note that if you setup both
 end constructor;
 
 function destructor
-  import Modelica.Icons;
-  extends Icons.Function;
+  extends .Modelica.Icons.Function;
   input Init pwm "Device handle";
   external "C" MDD_avr_pwm_close(pwm)
   annotation (Include="#include \"MDDAVRAnalog.h\"");
