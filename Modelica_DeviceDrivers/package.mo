@@ -1,6 +1,7 @@
 within ;
 package Modelica_DeviceDrivers "Modelica_DeviceDrivers - A collection of drivers interfacing hardware like input devices, communication devices, shared memory, analog-digital converters and else"
   extends Modelica.Icons.Package;
+
   annotation (preferredView="info",
     uses(Modelica_Synchronous(version="0.92.1"),
        Modelica(version="3.2.2")),
@@ -54,5 +55,8 @@ liberal <i>Simplified BSD License</i> terms stated in file
 Partly optional third party sources / libraries with differing licenses are collected below the sub folder
 <a href=\"modelica://Modelica_DeviceDrivers/Resources/thirdParty\">Resources/thirdParty</a> and
 listed in file <a href=\"modelica://Modelica_DeviceDrivers/Resources/thirdParty/Readme.txt\">Resources/thirdParty/Readme.txt</a>.
-</html>"));
+</html>"),
+  Icon(graphics={
+          Bitmap(extent={{-78,-88},{100,92}}, fileName=
+            "modelica://Modelica_DeviceDrivers/Resources/Images/Icons/gears.png")}));
 end Modelica_DeviceDrivers;
