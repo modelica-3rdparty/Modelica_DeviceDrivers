@@ -938,7 +938,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
   package Internal
     extends Modelica.Icons.InternalPackage;
     package DummyFunctions
-      extends Modelica_DeviceDrivers.Utilities.Icons.InternalPackage;
+      extends Modelica.Icons.InternalPackage;
       function readUDP
         input Modelica_DeviceDrivers.Communication.UDPSocket socket;
         input Modelica_DeviceDrivers.Packaging.SerialPackager pkg;

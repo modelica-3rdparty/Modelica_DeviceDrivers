@@ -2,7 +2,7 @@ within Modelica_DeviceDrivers.Blocks.Packaging;
 package SerialPackager "Blocks for constructing packages"
   extends Modelica.Icons.Package;
   package Internal
-    extends Modelica_DeviceDrivers.Utilities.Icons.InternalPackage;
+    extends Modelica.Icons.InternalPackage;
     partial block PartialSerialPackager
       parameter Integer nu(min=0,max=1) = 0 "Output connector size"
           annotation(Dialog(connectorSizing=true), HideResult=true);
@@ -26,7 +26,7 @@ package SerialPackager "Blocks for constructing packages"
     end PartialSerialPackager;
 
     package DummyFunctions
-      extends Modelica_DeviceDrivers.Utilities.Icons.InternalPackage;
+      extends Modelica.Icons.InternalPackage;
       function addReal
         input Modelica_DeviceDrivers.Packaging.SerialPackager     pkg;
         input Real u[:];
