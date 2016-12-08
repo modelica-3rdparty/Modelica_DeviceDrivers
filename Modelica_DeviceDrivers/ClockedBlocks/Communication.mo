@@ -233,7 +233,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
   package Internal
     extends Modelica.Icons.InternalPackage;
     package DummyFunctions
-      extends Modelica_DeviceDrivers.Utilities.Icons.InternalPackage;
+      extends Modelica.Icons.InternalPackage;
       function readSharedMemory
         input Modelica_DeviceDrivers.Communication.SharedMemory sm;
         input Modelica_DeviceDrivers.Packaging.SerialPackager pkg;

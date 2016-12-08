@@ -5,7 +5,7 @@ package Packaging
     extends Modelica.Icons.Package;
 
     package Internal
-      extends Modelica_DeviceDrivers.Utilities.Icons.InternalPackage;
+      extends Modelica.Icons.InternalPackage;
       partial block PartialSerialPackager
         extends
           Modelica_DeviceDrivers.Utilities.Icons.PartialClockedDeviceDriverIcon;
@@ -28,7 +28,7 @@ package Packaging
       end PartialSerialPackager;
 
       package DummyFunctions
-        extends Modelica_DeviceDrivers.Utilities.Icons.InternalPackage;
+        extends Modelica.Icons.InternalPackage;
         function addReal
           input Modelica_DeviceDrivers.Packaging.SerialPackager     pkg;
           input Real u[:];
