@@ -232,12 +232,20 @@ Section~\ref{sec:Applications}).
   \label{fig:MDDPackageBrowseScreenshot}
 \end{figure}
 
-\BTHI{TODO continue}
-
-
-
-
-
+Furthermore, Figure~\ref{fig:MDDPackageBrowseScreenshot} gives an indication
+about the relation between the block layer and the function layer. Typically, a
+device driver block will instantiate a corresponding external object from the
+function layer. Modelica's external objects allow to maintain internal memory
+between calls to external functions. This allows to open and initialize hardware
+devices once, during Modelica's initialization phase, and maintain the so
+created device handlers in memory for accessing them in subsequent simulation phases.
+For example, the \modelica{JoystickInput} block creates an instance of the
+external object class \mbox{\modelica{GameController}.} The package
+\modelica{GameController_} collects functions that can operate on external
+objects of type \modelica{GameController}. The package provides the function
+\modelica{getData(..)}, which takes a \modelica{GameController} object as
+argument and returns the values of the axes and buttons of its associated
+hardware device.
 
 \subsection{Interfaces}
 
