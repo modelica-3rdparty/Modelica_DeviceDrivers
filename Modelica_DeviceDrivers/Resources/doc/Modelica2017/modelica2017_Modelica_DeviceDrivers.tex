@@ -9,6 +9,8 @@
 %\usepackage[utf8]{luainputenc} % utf8 input encoding that should work for both pdflatex and lualatex, but might not be available in every installation
 \usepackage[utf8]{inputenc} % utf8 input encoding which should work with pdflatex, but not lualatex
 \usepackage{cleveref}
+\usepackage{caption} % subfloats (http://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions#Subfloats)
+\usepackage{subcaption} % subfloats (http://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions#Subfloats)
 
 \hypersetup{%
 	pdftitle  = {Towards a Standard-Conform, Platform-Generic and Feature-Rich Modelica Device Drivers Library},
@@ -152,8 +154,8 @@ compatible to Modelica 3.2, using the traditional \modelica{when sample()}
 element for periodically calling Modelica functions from the \textsf{Function Layer}. The second
 (\texttt{ClockedBlocks}) uses the synchronous language elements extension
 introduced in Modelica 3.3 and is compatible with the
-\emph{Modelica\_Synchronous} library \citep{Otter2012}. Due to this support the MDD
-library formally depends on the \emph{Modelica\_Synchronous} library, but in
+\emph{Modelica\_Synchronous} library \citep{Otter2012}. Due to this support, the
+MDD library formally depends on the \emph{Modelica\_Synchronous} library, but in
 practice the \emph{Modelica\_Synchronous} library (and tool support for the
 synchronous language elements extension) is only required if one actually wants
 to use the clocked block interface.
@@ -247,7 +249,87 @@ objects of type \modelica{GameController}. The package provides the function
 argument and returns the values of the axes and buttons of its associated
 hardware device.
 
+A good way of learning how to use the block layer interface of the library is by
+exploring the \modelica{Examples} package. Care has been taken to provide
+self-explanatory usage examples for the provided device driver blocks.
+
 \subsection{Interfaces}
+
+MDD library functionality can be accessed by drag \& drop of blocks
+from the \modelica{Blocks} and \modelica{ClockedBlocks} sub packages, or by
+direct calls to the underlying functions.
+
+An example, which directly uses the function layer for accessing a
+game controller is given below:
+\begin{lstlisting}[language=modelica]
+model GameControllerExample
+  import
+    Modelica_DeviceDrivers.InputDevices.*;
+  parameter Integer id = 0 "0 = first attached game controller";
+  GameController gc = GameController(id);
+  Real axesRaw[6];
+  Integer buttons[32], pOV;
+equation
+  when sample(0,0.1) then
+    (axesRaw,buttons,pOV) = GameController_.getData(gc);
+  end when;
+end GameControllerExample;
+\end{lstlisting}
+
+The code above creates an external object named \mbox{\modelica{gc}.} The
+constructor for this object takes the argument \mbox{\modelica{id}.} This
+argument allows to specify which controller to use if several game controllers are attached to the
+system. The function \modelica{getData} is called periodically within a
+\modelica{when}-clause. It takes the external object \modelica{gc} as
+argument and returns vectors which contain the values read from the
+associated game controller. The vector is pre-dimensioned, so that it can attune
+to controllers featuring as much as six axes, 32 buttons and a POV (point of
+view) switch. The actually provided data depends on the game
+controller hardware. Tests with the actual hardware are needed for determining
+which vector entry corresponds to which physical axis or button.
+
+Figure~\ref{fig:JoystickBlocks} shows how game controllers can be accessed by
+simply dragging \& dropping a \modelica{JoystickInput} block into the diagram
+view of a Modelica tool. While Figure~\ref{fig:MDDJoystick} uses the block found
+below the \modelica{Blocks} package,
+Figure~\ref{fig:MDDJoystickClocked} uses the corresponding clocked variant from
+\modelica{ClockedBlocks}. The additional blocks \modelica{periodicClock} and
+\modelica{assignClock} are from the \emph{Modelica\_Synchronous} library. They
+associate a periodic clock to the variables and equations within the
+\modelica{JoystickInput} block. As a result, the underlying
+\modelica{GameController_.getData(..)} function will be called whenever the
+associated clock ticks (\textit{i.e.}, every $0.1\,\mathrm{s}$ in the presented
+example).
+
+\begin{figure}[htb]
+  \centering
+  \begin{subfigure}[b]{0.45\columnwidth}
+     \centering
+     \includegraphics[width=0.55\textwidth]{figures/MDDJoystick}
+     \caption{Using \modelica{Blocks}}
+     \label{fig:MDDJoystick}
+  \end{subfigure}%
+  ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc.
+    %(or a blank line to force the subfigure onto a new line)
+  \begin{subfigure}[b]{0.45\columnwidth}
+          \includegraphics[width=\textwidth]{figures/MDDJoystickClocked}
+          \caption{Using \modelica{ClockedBlocks}}
+          \label{fig:MDDJoystickClocked}
+  \end{subfigure}
+  \caption{Accessing game controller devices by using the
+  \modelica{JoystickInput} block from the \modelica{Blocks}, or the
+  \modelica{ClockedBlocks} package.}
+  \label{fig:JoystickBlocks}
+\end{figure}
+
+The example models can be simulated, but real-time synchronization is
+required for allowing enough time to pass, so that user inputs can be
+recognized.
+The MDD library provides convenient support for (soft) real-time
+synchronization\footnote{See documentation to block
+\mbox{\modelica{SynchronizeRealtime}.}}. However, a user should
+consider that Modelica tools may provide better (tool-specific) mechanisms for
+real-time synchronization.
 
 \subsection{Features}
 
