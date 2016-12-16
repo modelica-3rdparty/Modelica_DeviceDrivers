@@ -327,11 +327,67 @@ required for allowing enough time to pass, so that user inputs can be
 recognized.
 The MDD library provides convenient support for (soft) real-time
 synchronization\footnote{See documentation to block
-\mbox{\modelica{SynchronizeRealtime}.}}. However, a user should
-consider that Modelica tools may provide better (tool-specific) mechanisms for
-real-time synchronization.
+\mbox{\modelica{SynchronizeRealtime}.}
+%\url{https://build.openmodelica.org/Documentation/Modelica_DeviceDrivers.Blocks.OperatingSystem.SynchronizeRealtime.html}
+}.
+However, a user should consider that Modelica tools may provide better (tool-specific) mechanisms for real-time synchronization.
 
 \subsection{Features}
+
+The MDD library has grown to support a respectable amount of hardware devices
+and associated features which will be briefly presented in this section.
+
+\subsubsection{Input Devices}
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.7\columnwidth]{figures/OverviewInputDevices}
+  \caption{Supported input devices from the \modelica{Blocks} package.}
+  \label{fig:OverviewInputDevices}
+\end{figure}
+
+Standard input devices like keyboard and game controllers are ubiquitously
+available on the market and allow to quickly build up interactive simulations.
+MDD provides blocks for using the generic keyboard and game controller interface
+of Windows or Linux (see Figure~\ref{fig:OverviewInputDevices}). Also more
+specialized hardware like the 3Dconnexion SpaceMouse is supported for both platforms.
+Often, this blocks will be used for interactive desktop simulations, but they
+can also become part of more involved (cost-efficient) HITL simulation
+scenarios.
+
+\subsubsection{Communication}
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.9\columnwidth]{figures/OverviewCommunicationDevices}
+  \caption{Supported communication devices from the \modelica{Blocks} package.}
+  \label{fig:OverviewCommunicationDevices}
+\end{figure}
+
+The most comprehensive and complex part of the library is related to
+communication devices and their supporting Modelica and external C code.
+Figure~\ref{fig:OverviewCommunicationDevices} gives an overview over the
+supported devices.
+
+Cross-platform support for UDP and shared memory was already available in the
+first released version of MDD. Support for serial port communication is
+available since MDD v1.3 (Linux) and v1.4.0 (Windows). A client block for TCP/IP
+socket communication was added in v1.4.0 (Windows) and v1.5.0 (Linux).
+Furthermore, support for sending and receiving of Lightweight Communications and
+Marshalling (LCM) datagrams\footnote{LCM project site,
+\url{https://lcm-proj.github.io/}} was added in v1.5.0.
+LCM is a set of libraries and tools for message passing and data marshalling,
+which is particularly targeted at low-latency real-time applications for
+robotic systems \citep{Huang2010}.
+
+Basic support for the Controller Area Network bus (CAN bus) is available by two
+different block sets. The first is based on the CAN Layer2 API from
+Softing\footnote{Softing, http://industrial.softing.com/} and restricted to the
+Windows platform. The second uses the SocketCAN
+interface provided by the Linux kernel.
+
+\BTHI{TODO Serial packager and related concepts, Hardware I/O \ldots}
+
 
 Features (aide-mémoire):
 \begin{itemize}
