@@ -357,6 +357,11 @@ scenarios.
 
 \subsubsection{Communication}
 
+The most comprehensive and complex part of the library is related to
+communication devices and their supporting Modelica and external C code.
+
+\paragraph{Supported Devices}
+
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.9\columnwidth]{figures/OverviewCommunicationDevices}
@@ -364,13 +369,10 @@ scenarios.
   \label{fig:OverviewCommunicationDevices}
 \end{figure}
 
-The most comprehensive and complex part of the library is related to
-communication devices and their supporting Modelica and external C code.
-Figure~\ref{fig:OverviewCommunicationDevices} gives an overview over the
-supported devices.
 
-Cross-platform support for UDP and shared memory was already available in the
-first released version of MDD. Support for serial port communication is
+Figure~\ref{fig:OverviewCommunicationDevices} gives an overview over the
+supported devices. Cross-platform support for UDP and shared memory was already
+available in the first released version of MDD. Support for serial port communication is
 available since MDD v1.3 (Linux) and v1.4.0 (Windows). A client block for TCP/IP
 socket communication was added in v1.4.0 (Windows) and v1.5.0 (Linux).
 Furthermore, support for sending and receiving of Lightweight Communications and
@@ -386,38 +388,132 @@ Softing\footnote{Softing, http://industrial.softing.com/} and restricted to the
 Windows platform. The second uses the SocketCAN
 interface provided by the Linux kernel.
 
-\BTHI{TODO Serial packager and related concepts, Hardware I/O \ldots}
+\paragraph{Packaging Concept}
+
+Communication devices like UDP or shared memory use a common packaging concept
+in order to send or receive data. Therefore, the same packager can be used with
+different communication devices. Figure~\ref{fig:PackagingConcept} shows an
+example in which a package consisting of three variables of type \modelica{Real}
+followed by a variable of type \modelica{Integer} is either transmitted using
+shared memory or UDP blocks. Switching between the two communication devices
+is achieved by simply replacing the corresponding device block.
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=1.0\columnwidth]{figures/PackagingConcept}
+  \caption{Simple switching of communication devices due to common packaging concept
+  in order to send or receive data.}
+  \label{fig:PackagingConcept}
+\end{figure}
+
+The packages are constructed by using blocks from the \modelica{Packaging}
+sub package (see Figure~\ref{fig:MDDPackageBrowseScreenshot}). In the initial
+design of MDD it was expected that different packaging concepts would be
+supported which share a common connector interface. However, As of MDD v1.5.0
+the \modelica{SerialPackager} is the only available packager. It allows
+to periodically add (or retrieve) fixed size vectors to (or from) a package.
+Figure~\ref{fig:SerialPackagerBlocks} shows the available blocks for serializing
+Modelica variables into a ``package''.
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.6\columnwidth]{figures/SerialPackagerBlocks}
+  \caption{\modelica{SerialPackager} blocks for adding variables to a package.}
+  \label{fig:SerialPackagerBlocks}
+\end{figure}
+
+At the C side, a package is a C byte array in which C variables with
+respectively indicated type are simply successively appended in a data-flow
+prescribed order. For example, in Figure~\ref{fig:PackagingConcept} the
+resulting byte array starts with three double values ($3 \times 8$ bytes)
+followed by one int32 value ($4$ bytes), resulting in a byte array of size 28.
+For the sake of providing an illustrative example at the C language level
+the following C code snippet constructs a structurally equal package named
+\clang{data} (the example shall shed light on the concept, it does not
+advocate a coding style using magic numbers):
+\begin{lstlisting}[language=C]
+double v1[3] = {1.1, 2.2, 3.3};
+int v2 = 4;
+unsigned char* data = (unsigned char*) calloc(28, sizeof(unsigned char));
+memcpy(&data[0], &v1[0], sizeof(v1));
+memcpy(&data[24], &v2, sizeof(v2));
+\end{lstlisting}
+
+Figure~\ref{fig:SerialPackagerBlocks} shows the blocks for adding
+variables to a package, symmetrically, blocks are available for retrieving variables from a
+package. Using these blocks is deemed to be rather
+intuitive with the notable exception of the \modelica{packInt} block. This
+block allows to pack unsigned integer values on the bit level. The number of bits used
+for encoding is set by a parameter \modelica{width}, therefore the maximum value
+of the integer signal that can be encoded is $2^{\mathrm{width}} - 1$. A
+parameter \modelica{bitOffset} allows to specify the bit at which the encoding starts
+relative to the preceding block. Since MDD v1.3 most blocks support specifying
+the byte ordering (big-endian or little-endian format).
+
+It is simple to use the
+\modelica{SerialPackager} blocks for deserializing data which has been serialized by it
+(see Figure~\ref{fig:PackagingConcept}). In practice, however, communication
+typically needs to be established with a remote station which is unrelated to
+the Modelica model. As long as this remote station periodically sends or
+receives structurally static, fixed sized packages it is usually quite
+convenient to establish a communication using the MDD blocks. If the remote
+station uses a more dynamic protocol it becomes more difficult. In some cases
+using the \textsf{Function Layer} directly (instead of the \textsf{Block Layer})
+can provide additional flexibility for coping with more dynamic protocols.
+However, the main use-case for the \modelica{SerialPackager} concept is periodically
+sent, structurally static data. This restrictions may be relieved in
+future versions of MDD by providing additional ``Packagers'' that support more
+flexible means of packaging data.
+
+It turned out that the \modelica{SerialPackager} blocks were a major hurdle for
+extending the number of Modelica tools which support MDD. They use a rather
+intricate mechanism for propagating a ``package'' between connected blocks
+which is discussed further in Section~\ref{sec:ModelicaStandardCompliance}.
+
+\subsubsection{Hardware I/O}
+
+Package \modelica{HardwareIO} (see
+Figure~\ref{fig:MDDPackageBrowseScreenshot}) is intended for data acquisition
+hardware like digital-analog converter (DAC), analog-digital converter (ADC) and
+other interface hardware.
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.9\columnwidth]{figures/MDDComedi}
+  \caption{Accessing data acquisition hardware via the Linux
+  control and measurement device interface ``Comedi''.}
+  \label{fig:MDDComedi}
+\end{figure}
+
+As of MDD v1.5.0 it contains only one sub package which
+provides support for the Linux control and measurement device interface
+``Comedi''. The Comedi project develops open-source drivers, tools, and
+libraries for data acquisition\footnote{Comedi project,
+\url{http://www.comedi.org/}}. The project provides a common interface for
+accessing supported data acquisition hardware (see the website for supported
+hardware). The MDD library provides an interface to the Comedi user-space
+library.
+
+Figure~\ref{fig:MDDComedi} shows an example model which uses the provided
+blocks. Configuration of the device is performed in the Modelica record named
+\modelica{comedi}. The record contains an external object \modelica{dh} of type
+\modelica{ComediConfig} which contains the Comedi device handle and is passed in
+as a parameter to the other blocks (\modelica{comedi.dh}). Using external
+objects in records is not standard compliant to Modelica v3.3 \citep{ModelicaAssociation2012} which is
+further discussed in Section~\ref{sec:ModelicaStandardCompliance}.
+
+Writing or reading raw integer values to DAC or from ADC channels is provided by
+blocks \modelica{DataWrite} or \modelica{DataRead}, respectively. These blocks have
+each a variant which works with physical values, instead of the raw integer
+values  (\modelica{PhysicalDataWrite} and \modelica{PhysicalDataRead}).
+Blocks \modelica{DIOWrite} and \modelica{DIORead} support digital input and
+output (DIO) channels.
 
 
-Features (aide-mémoire):
-\begin{itemize}
-  \item SerialPackager
-  \item Communication
-    \begin{itemize}
-      \item UDP
-      \item Shared Memory
-      \item Softing CAN and Socket CAN
-      \item RS232
-    \end{itemize}
-  \item input devices
-    \begin{itemize}
-      \item keyboard
-      \item joystick/gamepad
-      \item 3Dconnexion SpaceMouse
-    \end{itemize}
-  \item Operating System
-    \begin{itemize}
-      \item Realtime Synchronization
-      \item Random numbers
-    \end{itemize}
-  \item Hardware I/O
-    \begin{itemize}
-      \item Comedi
-    \end{itemize}
-\end{itemize}
+\vspace{0.5cm}
+\BTHI{Write something about ``EmbeddedTarges'' features, here or write in in
+``Applications and link to it?
 
-
-\noindent  New features:
+Possibly cover new features in more detail if
+enough time and paper space. New features:
 \begin{itemize}
   \item Big endian
   \item Serial port on Win
@@ -427,6 +523,29 @@ Features (aide-mémoire):
   \item MQTT
   \item \ldots
 \end{itemize}
+}
+
+
+%%% \BTHI{Snippets that I want possibly reuse for the standard compliance}
+% discussion The definition of the \modelica{SerialPackager} input connector is given below.
+% \begin{lstlisting}[language=modelica]
+% connector PackageIn "Packager input connector"
+%   input Modelica_DeviceDrivers.Packaging.
+%     SerialPackager pkg;
+%   input Boolean trigger;
+%   input Real dummy;
+%
+%   output Boolean backwardTrigger;
+%   output Integer userPkgBitSize;
+%   output Integer autoPkgBitSize;
+% end PackageIn;
+% \end{lstlisting}
+% Most notably connector \modelica{PackageIn} contains an element
+% \modelica{pkg} which is an external object of type \modelica{SerialPackager}.
+%
+% It would be
+% possible to replace the Modelica configuration record by a configuration
+% block, though \ldots
 
 \section{Modelica Standard Compliance}
 \label{sec:ModelicaStandardCompliance}
@@ -435,6 +554,7 @@ Features (aide-mémoire):
 \subsection{Enhancements}
 
 \subsection{Pitfalls and Open Issues}
+
 
 Aide-mémoire:
 \begin{itemize}
