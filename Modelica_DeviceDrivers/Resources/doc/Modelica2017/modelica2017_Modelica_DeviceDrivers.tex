@@ -441,8 +441,8 @@ Figure~\ref{fig:SerialPackagerBlocks} shows the blocks for adding
 variables to a package, symmetrically, blocks are available for retrieving variables from a
 package. Using these blocks is deemed to be rather
 intuitive with the notable exception of the \modelica{packInt} block. This
-block allows to pack unsigned integer values on the bit level. The number of bits used
-for encoding is set by a parameter \modelica{width}, therefore the maximum value
+block allows to pack unsigned integer values at the bit level. The number of
+bits used for encoding is set by a parameter \modelica{width}, therefore the maximum value
 of the integer signal that can be encoded is $2^{\mathrm{width}} - 1$. A
 parameter \modelica{bitOffset} allows to specify the bit at which the encoding starts
 relative to the preceding block. Since MDD v1.3 most blocks support specifying
@@ -511,6 +511,8 @@ output (DIO) channels.
 \vspace{0.5cm}
 \BTHI{Write something about ``EmbeddedTarges'' features, here or write in in
 ``Applications and link to it?
+
+TODO: Add a link to the project website somewhere!
 
 Possibly cover new features in more detail if
 enough time and paper space. New features:
@@ -599,7 +601,85 @@ By using a Bluetooth module with \textit{Serial Port Profile, SPP} a wireless co
 \BTHI{TODO: Volker }
 
 \subsection{DLR Demonstrators}
-\BTHI{TODO: Tobias}
+\BTHI{Tobias}
+
+At the DLR Institute of System Dynamics and Control, several simulator systems
+utilize the \emph{Modelica\_DeviceDrivers} library for inter-system
+communication and querying of input devices.
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.9\columnwidth]{figures/DLRRoboticMotionSimulator}
+  \caption{The DLR Robotic Motion Simulator.}
+  \label{fig:DLRRoboticMotionSimulator}
+\end{figure}
+The DLR Robotic Motion Simulator \citep{bellmann2011dlr} is a 7 axis driving and
+flight simulator based on an industrial robot arm (see
+Figure~\ref{fig:DLRRoboticMotionSimulator}). The main use of this motion
+simulator is the evaluation of input devices such as side-sticks, steering
+wheels, pedals, etc., as well as the test and validation of control algorithms
+in terms of stability and real-time capability. The control architecture of the
+simulator uses blocks from the MDD library in several ways:
+\begin{itemize}
+  \item Input devices such as force-feedback steering wheels are connected via CAN Bus
+and integrated in the software framework via the CAN blocks of the library, the same
+applies for a force-feedback side-stick.
+  \item Other, consumer based input devices such as pedals or Airbus styled flight
+controls are connected via the \modelica{JoystickInput} block of the library.
+  \item The control architecture for the robot consists of two Modelica simulations on
+two different computers: First, the real-time path-planning running on a
+real-time Linux system controlling the movements of the robot, and second, the
+control panel running on a standard Windows system. The control panel is used to
+change parameters such as washout filter modes (the washout filter maps the
+movement of road vehicles / airplanes to the workspace of the simulator) and
+gives an overview on the actual robot's position and telemetry. All real-time critical
+communication (\textit{e.g.}, the simulated road vehicle / airplane forces and
+angular velocities inputs for the real-time path-planning, or the control panel
+inputs/outputs) are communicated via the library's UDP blocks and the serial
+packaging system.
+\end{itemize}
+
+\begin{figure}[htb]
+  \centering \includegraphics[width=0.9\columnwidth]{figures/DLRSimulatorCabin}
+  \caption{View into the simulator cabin of the DLR motion simulator. The
+  instrumentation package is replaceable, so that the simulator cabin can be
+  easily adapted for different simulation types, \textit{e.g.}, for driving or
+  flight simulation.}
+  \label{fig:DLRSimulatorCabin}
+\end{figure}
+Figure~\ref{fig:DLRSimulatorCabin} shows the inside of the simulator cabin.
+The instrumentation package can be adapted
+for different simulation types or for testing different input concepts.
+An on-board computer is used to query input devices, to display information on
+control screens, and to project the pilot's outside view visualization on the
+embracing concave dome shell. These
+tasks are performed using Modelica models, where the
+\modelica{SynchronizeRealtime} block is used for real-time
+synchronization. Also, communication with the other simulation components is
+performed partly via the UDP blocks.
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.5\columnwidth]{figures/DLRROBEX}
+  \caption{DLR ROBEX technology demonstrator.}
+  \label{fig:DLRROBEX}
+\end{figure}
+Figure~\ref{fig:DLRROBEX} shows the ROBEX demonstrator, another system which
+utilizes the MDD library which was developed as a technology demonstrator
+for a science exhibition. This demonstrator allows the user to command a rover
+on a scientific lunar mission. The missions goal is to pick up a sensor package from a nearby
+lander and to place it on a marked position on the lunar surface. The user
+controls the rover via an android app which is running on a tablet in front of
+the simulator screen. On the screen, the visualization of the rover is displayed.
+The underlying Modelica simulation performs the multi-body simulation of the
+rover and utilizes the DLR Visualization library to display the rover and the
+scenery. It uses MDD blocks to communicate with the tablet and the
+\modelica{SynchronizeRealtime} block to adjust the simulation speed.
+
+In very similar ways, the library is also used in several other simulator and
+demonstrator systems, \textit{e.g.}, a drilling rig training simulator, several
+desktop flight simulators, or a rover software-in-the-loop development
+environment.
 
 \section{Outlook}
 \BTHI{TODO: Bernhard, Thomas, Volker}
