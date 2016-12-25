@@ -240,9 +240,9 @@ Section~\ref{sec:Applications}).
 \end{figure}
 
 Furthermore, Figure~\ref{fig:MDDPackageBrowseScreenshot} gives an indication
-about the relation between the block layer and the function layer. Typically, a
+about the relation between the \textsf{Block Layer} and the \textsf{Function Layer}. Typically, a
 device driver block will instantiate a corresponding external object from the
-function layer. Modelica's external objects allow to maintain internal memory
+\textsf{Function Layer}. Modelica's external objects allow to maintain internal memory
 between calls to external functions. This allows to open and initialize hardware
 devices once, during Modelica's initialization phase, and maintain the so
 created device handlers in memory for accessing them in subsequent simulation phases.
@@ -254,7 +254,7 @@ objects of type \modelica{GameController}. The package provides the function
 argument and returns the values of the axes and buttons of its associated
 hardware device.
 
-A good way of learning how to use the block layer interface of the library is by
+A good way of learning how to use the \textsf{Block Layer} interface of the library is by
 exploring the \modelica{Examples} package. Care has been taken to provide
 self-explanatory usage examples for the provided device driver blocks.
 
@@ -264,7 +264,7 @@ MDD library functionality can be accessed by drag \& drop of blocks
 from the \modelica{Blocks} and \modelica{ClockedBlocks} sub packages, or by
 direct calls to the underlying functions.
 
-An example, which directly uses the function layer for accessing a
+An example, which directly uses the \textsf{Function Layer} for accessing a
 game controller is given below:
 \begin{lstlisting}[language=modelica]
 model GameControllerExample
