@@ -171,7 +171,7 @@ to use the clocked block interface.
 \subsection{Cross-Platform Support}
 \label{sec:CrossPlatformSupport}
 
-As of MDD v1.5.0, Microsoft Windows and Linux are supported as main platforms,
+As of MDD v1.5.0, Windows and Linux are supported as main platforms,
 but prototypical work also targets popular embedded systems boards directly (see
 Section~\ref{sec:EmbeddedControl}).
 
@@ -187,7 +187,7 @@ platform-specific code (\mbox{\clang{#if}}, \mbox{\clang{#else}},
 \begin{lstlisting}[language=C]
 #if defined(_MSC_VER) || defined(__CYGWIN__) || defined(__MINGW32__)
 #include <windows.h>
-/* Microsoft Windows specific code goes here */
+/* Windows specific code goes here */
 #elif defined(__linux__)
 #include <unistd.h>
 /* Linux specific code goes here */
