@@ -622,11 +622,11 @@ wheels, pedals, etc., as well as the test and validation of control algorithms
 in terms of stability and real-time capability. The control architecture of the
 simulator uses blocks from the MDD library in several ways:
 \begin{itemize}
-  \item Input devices such as force-feedback steering wheels are connected via CAN Bus
-and integrated in the software framework via the CAN blocks of the library, the same
+  \item Input devices such as force-feedback steering wheels are connected via CAN bus
+and integrated in the software framework via the CAN blocks, the same
 applies for a force-feedback side-stick.
   \item Other, consumer based input devices such as pedals or Airbus styled flight
-controls are connected via the \modelica{JoystickInput} block of the library.
+controls are connected via the \modelica{JoystickInput} block.
   \item The control architecture for the robot consists of two Modelica simulations on
 two different computers: First, the real-time path-planning running on a
 real-time Linux system controlling the movements of the robot, and second, the
@@ -636,7 +636,7 @@ movement of road vehicles / airplanes to the workspace of the simulator) and
 gives an overview on the actual robot's position and telemetry. All real-time critical
 communication (\textit{e.g.}, the simulated road vehicle / airplane forces and
 angular velocities inputs for the real-time path-planning, or the control panel
-inputs/outputs) are communicated via the library's UDP blocks and the serial
+I/O) are communicated via the UDP blocks and the serial
 packaging system.
 \end{itemize}
 
