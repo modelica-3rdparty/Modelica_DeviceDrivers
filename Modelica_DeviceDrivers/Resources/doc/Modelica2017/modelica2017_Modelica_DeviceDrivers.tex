@@ -131,8 +131,8 @@ visualization system, the foundation of the later \emph{DLR Visualization} libra
 However, the \emph{ExternalDevices} library was limited to
 Microsoft Windows and was developed to be used only with
 the Dymola tool. In the further course of development it was decided to
-split the \emph{ExternalDevices} library into the commercial DLR
-Visualization library and an open-source cross-platform hardware interface
+split the \emph{ExternalDevices} library into the commercial \emph{DLR
+Visualization} library and an open-source cross-platform hardware interface
 library, the \emph{Modelica\_DeviceDrivers} library.
 
 
@@ -665,16 +665,20 @@ performed partly via the UDP blocks.
   \caption{DLR ROBEX technology demonstrator.}
   \label{fig:DLRROBEX}
 \end{figure}
+\TBEU{Tobias: Do you have any citable references for the application or exhibition?}
 Figure~\ref{fig:DLRROBEX} shows the ROBEX demonstrator, another system which
 utilizes the MDD library which was developed as a technology demonstrator
-for a science exhibition. This demonstrator allows the user to command a rover
-on a scientific lunar mission. The missions goal is to pick up a sensor package from a nearby
+for a science exhibition.
+\TBEU{TODO: Improve readability by avoiding double wording of ''which''}This demonstrator allows the user to command a rover
+on a scientific lunar mission. The mission's goal is to pick up a sensor package from a nearby
 lander and to place it on a marked position on the lunar surface. The user
-controls the rover via an android app which is running on a tablet in front of
-the simulator screen. On the screen, the visualization of the rover is displayed.
+controls the rover via an Android App which is running on a tablet computer in front of
+the simulator screen.
+\TBEU{Bernhard: Add link to Android in footnote?}On the screen, the visualization of the rover is displayed.
 The underlying Modelica simulation performs the multi-body simulation of the
-rover and utilizes the DLR Visualization library to display the rover and the
-scenery. It uses MDD blocks to communicate with the tablet and the
+rover and utilizes the \emph{DLR Visualization} library to display the rover and the
+scenery.
+\TBEU{Tobias: Which MDD blocks exactly? I assume UDP Receiver. Is the Android App open-source and can be added as link in a footnote?}It uses MDD blocks to communicate with the tablet computer and the
 \modelica{SynchronizeRealtime} block to adjust the simulation speed.
 
 In very similar ways, the library is also used in several other simulator and
