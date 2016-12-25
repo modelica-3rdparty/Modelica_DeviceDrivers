@@ -30,8 +30,8 @@
        % basicstyle=\fontsize{9pt}{10.5pt}\selectfont,
        basicstyle=\fontsize{9pt}{10.5pt}\ttfamily,
        backgroundcolor = \color{white}}
-\newcommand{\clang}[1]{\lstinline[language=c]|#1|}
 
+\newcommand{\clang}[1]{\lstinline[language=c]|#1|}
 \newcommand{\modelica}[1]{\lstinline[language=modelica]|#1|}
 \newcommand{\BTHI}[1]{{\color{blue}{$\parallel_\textrm{BTHI}$#1$\parallel$}}}
 \newcommand{\TBEU}[1]{{\color{orange}{$\parallel_\textrm{TBEU}$#1$\parallel$}}}
@@ -424,8 +424,8 @@ Modelica variables into a ``package''.
 At the C side, a package is a C byte array in which C variables with
 respectively indicated type are simply successively appended in a data-flow
 prescribed order. For example, in Figure~\ref{fig:PackagingConcept} the
-resulting byte array starts with three double values ($3 \times 8$ bytes)
-followed by one int32 value ($4$ bytes), resulting in a byte array of size 28.
+resulting byte array starts with three \clang{double} values ($3 \times 8$ bytes)
+followed by one \clang{int32} value ($4$ bytes), resulting in a byte array of size 28.
 For the sake of providing an illustrative example at the C language level
 the following C code snippet constructs a structurally equal package named
 \clang{data} (the example shall shed light on the concept, it does not
