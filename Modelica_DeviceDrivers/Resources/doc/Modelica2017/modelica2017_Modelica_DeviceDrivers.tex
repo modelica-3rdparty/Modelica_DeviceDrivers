@@ -272,7 +272,7 @@ model GameControllerExample
     Modelica_DeviceDrivers.InputDevices.*;
   parameter Integer id = 0 "0 = first attached game controller";
   GameController gc = GameController(id);
-  Real axesRaw[6];
+  discrete Real axesRaw[6];
   Integer buttons[32], pOV;
 equation
   when sample(0,0.1) then
