@@ -220,13 +220,13 @@ Section~\ref{sec:ModelicaStandardCompliance}.
 \label{sec:LibraryStructure}
 
 Figure~\ref{fig:MDDPackageBrowseScreenshot} shows a screenshot of the package
-browser view with loaded MDD library. The first two sub packages
+browser view with loaded MDD library. The first two subpackages
 \modelica{Blocks} and \modelica{ClockedBlocks} provide the drag \& drop blocks
 which correspond to the \textsf{Block Layer} of
-Figure~\ref{fig:MDDLayeredArchitecture}. The remaining sub packages (except
+Figure~\ref{fig:MDDLayeredArchitecture}. The remaining subpackages (except
 \modelica{Utilities} and \modelica{EmbeddedTargets}) provide the
 \textsf{Function Layer}.
-Both layers use sub packages for subdividing the provided functionality into
+Both layers use subpackages for subdividing the provided functionality into
 different groups. Package \modelica{EmbeddedTargets} contains highly
 target specific function and blocks for supporting restricted
 embedded systems like the Arduino microcontroller (see
@@ -261,7 +261,7 @@ self-explanatory usage examples for the provided device driver blocks.
 \subsection{Interfaces}
 
 MDD library functionality can be accessed by drag \& drop of blocks
-from the \modelica{Blocks} and \modelica{ClockedBlocks} sub packages, or by
+from the \modelica{Blocks} and \modelica{ClockedBlocks} subpackages, or by
 direct calls to the underlying functions.
 
 An example, which directly uses the \textsf{Function Layer} for accessing a
@@ -411,7 +411,7 @@ is achieved by simply replacing the corresponding device block.
 \end{figure}
 
 The packages are constructed by using blocks from the \modelica{Packaging}
-sub package (see Figure~\ref{fig:MDDPackageBrowseScreenshot}). In the initial
+subpackage (see Figure~\ref{fig:MDDPackageBrowseScreenshot}). In the initial
 design of MDD it was expected that different packaging concepts would be
 supported which share a common connector interface. However, as of MDD v1.5.0
 the \modelica{SerialPackager} is the only available packager. It allows
@@ -490,7 +490,7 @@ other interface hardware.
   \label{fig:MDDComedi}
 \end{figure}
 
-As of MDD v1.5.0 it contains only one sub package which
+As of MDD v1.5.0 it contains only one subpackage which
 provides support for the Linux control and measurement device interface
 ``Comedi''. The Comedi project develops open-source drivers, tools, and
 libraries for data acquisition\footnote{Comedi project,
