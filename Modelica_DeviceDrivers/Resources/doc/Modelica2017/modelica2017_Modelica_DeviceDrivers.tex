@@ -185,9 +185,9 @@ Section~\ref{sec:EmbeddedControl}).
 When accessing hardware devices, a Modelica model or
 application calls Modelica functions from the \textsf{Function Layer} (see
 Figure~\ref{fig:MDDLayeredArchitecture}). These Modelica functions provide a
-generic interface to the underlying \textsf{C-Code Layer} which is accessed by
+generic interface to the underlying \textsf{C Code Layer} which is accessed by
 Modelica's external function interface.
-The platform differentiation is handled in the \textsf{C-Code Layer} which
+The platform differentiation is handled in the \textsf{C Code Layer} which
 uses preprocessor directives for conditional inclusion/exclusion of
 platform-specific code (\mbox{\clang{#if}}, \mbox{\clang{#else}},
 \mbox{\clang{#endif}}, etc.) similarly to the code fragment below.
@@ -627,18 +627,18 @@ to write to the correct bits.}.
 The advantage of including this code into the MDD library is that it makes it
 simple to write a model for a microcontroller that works the same way
 in any Modelica tool, if the Modelica tool supports the generation
-of suitably efficient, minimal C-code.
+of suitably efficient, minimal C code.
 
 The Modelica code itself tries to avoid the Integer constants from the
 data sheets. Instead, enumerations such as \modelica{prescaler}=1/128 or \modelica{clock}=2B are
-passed from Modelica and the C-code for the AVR target depends on
+passed from Modelica and the C code for the AVR target depends on
 function inlining in order to remove dead code.
 For example, the constructor for the clock takes an enumeration which
 specifies the clock which should be manipulated and after function inlining, the
-C-code for other clocks is removed.
+C code for other clocks is removed.
 The blocks in the MDD library try to take user-friendly
 constants\footnote{Parameters with Evaluate=true are avoided since the
-C-code depends on function inlining, which means constants should be passed.},
+C code depends on function inlining, which means constants should be passed.},
 such as \modelica{frequency}=$100\,\mathrm{Hz}$ or \modelica{period}=$0.1\,\mathrm{s}$ for real-time synchronization; the
 Modelica code then has logic to find good clock prescalers to create a
 matching frequency.
