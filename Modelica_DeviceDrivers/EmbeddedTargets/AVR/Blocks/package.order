@@ -1,4 +1,7 @@
 Microcontroller
-SynchronizeRealtime
 ADC
+DigitalReadBoolean
+DigitalWriteBoolean
 PWM
+SynchronizeRealtime
+
