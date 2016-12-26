@@ -642,6 +642,7 @@ C-code depends on function inlining, which means constants should be passed.},
 such as \modelica{frequency}=$100\,\mathrm{Hz}$ or \modelica{period}=$0.1\,\mathrm{s}$ for real-time synchronization; the
 Modelica code then has logic to find good clock prescalers to create a
 matching frequency.
+\TBEU{Martin: TBH, I do not get the idea behind constants over evaluated parameters. Your aim is to generate minimal C code, right? So, \emph{minimal} in the sense of memory usage of the application, I guess. Can you better explain by means of a Modelica and C code example code snippets what you are trying to achieve and how did you do it? And it is tool-specific for OpenModelica only?}
 
 The \modelica{EmbeddedTargets} models do not support simulating the microcontroller
 on a desktop platform. This would be an interesting, but time-consuming
