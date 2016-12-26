@@ -2,23 +2,25 @@ within Modelica_DeviceDrivers.EmbeddedTargets.AVR.Functions;
 package Analog
 extends .Modelica.Icons.Package;
 
-impure function read_8bit
+function read_8bit
   extends .Modelica.Icons.Function;
   input Types.AnalogPort analogPort;
   output Integer value;
   external "C" value=MDD_avr_analog_read_8bit(analogPort)
   annotation (Include="#include \"MDDAVRAnalog.h\"");
+  annotation(__ModelicaAssociation_Impure=true);
 end read_8bit;
 
-impure function read_float
+function read_float
   extends .Modelica.Icons.Function;
   input Types.AnalogPort analogPort;
   output Real value;
   external "C" value=MDD_avr_analog_read_float(analogPort)
   annotation (Include="#include \"MDDAVRAnalog.h\"");
+  annotation(__ModelicaAssociation_Impure=true);
 end read_float;
 
-impure function read_voltage
+function read_voltage
   extends .Modelica.Icons.Function;
   import Modelica.SIunits.Voltage;
   input .Modelica_DeviceDrivers.EmbeddedTargets.AVR.Types.AnalogPort analogPort;
@@ -27,6 +29,7 @@ impure function read_voltage
   output Voltage value "The voltage on the selected PIN";
   external "C" value=MDD_avr_analog_read(analogPort, vref, voltageResolution)
   annotation (Include="#include \"MDDAVRAnalog.h\"");
+  annotation(__ModelicaAssociation_Impure=true);
 end read_voltage;
 
 class Init

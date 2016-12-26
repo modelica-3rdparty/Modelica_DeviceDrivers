@@ -5,19 +5,21 @@ extends .Modelica.Icons.Package;
 encapsulated package HD44780
 extends .Modelica.Icons.Package;
 
-impure function updateTextBufferByte "Updates the text buffer of the LCD. Does not actually update the displayed text."
+function updateTextBufferByte "Updates the text buffer of the LCD. Does not actually update the displayed text."
   extends .Modelica.Icons.Function;
   input Init lcd;
   input Integer index(min=1, max=32), character(min=0, max=255);
   external "C" MDD_avr_digitial_HD44780_updateTextBufferByte(lcd, index, character)
   annotation (Include="#include \"MDDAVRHD44780.h\"");
+  annotation(__ModelicaAssociation_Impure=true);
 end updateTextBufferByte;
 
-impure function updateDisplay "Updates the displayed text of the LCD from the buffer."
+function updateDisplay "Updates the displayed text of the LCD from the buffer."
   extends .Modelica.Icons.Function;
   input Init lcd;
   external "C" MDD_avr_digitial_HD44780_updateDisplay(lcd)
   annotation (Include="#include \"MDDAVRHD44780.h\"");
+  annotation(__ModelicaAssociation_Impure=true);
 end updateDisplay;
 
 class Init "Interface to Hitachi HD44780, a 16x2 character LCD display"
