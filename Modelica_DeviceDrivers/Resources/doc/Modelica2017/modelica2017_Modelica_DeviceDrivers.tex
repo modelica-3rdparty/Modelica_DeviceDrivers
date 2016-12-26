@@ -13,17 +13,17 @@
 \usepackage{subcaption} % subfloats (http://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions#Subfloats)
 
 \hypersetup{%
-	pdftitle  = {Towards a Standard-Conform, Platform-Generic and Feature-Rich Modelica Device Drivers Library},
-	pdfauthor = {Bernhard Thiele, Thomas Beutlich, Volker Waurich, Martin Sjölund,
-	Tobias Bellmann}, pdfsubject = {12th International Modelica Conference 2017},
+  pdftitle  = {Towards a Standard-Conform, Platform-Generic and Feature-Rich Modelica Device Drivers Library},
+  pdfauthor = {Bernhard Thiele, Thomas Beutlich, Volker Waurich, Martin Sjölund,
+  Tobias Bellmann}, pdfsubject = {12th International Modelica Conference 2017},
   pdfkeywords = {Modelica, embedded systems, real-time simulation},
-	colorlinks,
-	linkcolor=black,
-	urlcolor=black,
-	citecolor=black,
-	pdfpagelayout = SinglePage,
-	pdfcreator = pdflatex,
-	pdfproducer = pdflatex}
+  colorlinks,
+  linkcolor=black,
+  urlcolor=black,
+  citecolor=black,
+  pdfpagelayout = SinglePage,
+  pdfcreator = pdflatex,
+  pdfproducer = pdflatex}
 
 \lstset{language = c,
        % basicstyle=\fontsize{9pt}{10.5pt}\selectfont,
@@ -595,17 +595,47 @@ Therefore, expensive or unavailable input devices can be substituted by self-bui
 
 
 \begin{figure}[htb]
-	\centering
-	\includegraphics[width=0.9\columnwidth]{figures/arduino}
-	\caption{Setup to read potentiometer deflection during realtime simulation with MDD serial port model.}
-	\label{fig:arduino}
+  \centering
+  \includegraphics[width=0.9\columnwidth]{figures/arduino}
+  \caption{Setup to read potentiometer deflection during realtime simulation with MDD serial port model.}
+  \label{fig:arduino}
 \end{figure}
 
 By using a Bluetooth module with \textit{Serial Port Profile, SPP} a wireless connection between Arduino is handled in the same way as a physical USB-connection. No further modifications are necessary to implement a wireless control device.
 
-\subsection{Arduino, Raspberry PI, embedded control}
+\subsection{Embedded control}
 \label{sec:EmbeddedControl}
-\BTHI{TODO: Bernhard, Martin}
+
+The MDD library has been extended to support simulation of Modelica models
+running on microcontrollers. Since microcontrollers have very limited
+hardware, no threading support, limited memory allocation, etc., the
+general-purpose external functions in MDD cannot be used.
+
+MDD.EmbeddedTargets contains blocks and functions to directly control
+I/O or clocks in the AVR ATmega microcontroller family\footnote{At this moment
+only ATmega16 and ATmega328P (=Arduino Uno).
+The code can easily be extended, but requires checking the data sheets in order to write to the correct bits.}.
+The reason for adding this code to the MDD library is that it makes it
+simple to write a model for a microcontroller that works the same way
+in any Modelica tool that supports generation of minimal C-code.
+
+The Modelica code itself tries to avoid the Integer constants from the
+datasheets. Instead, enumerations such as prescaler=1/128 or clock=2B are
+passed from Modelica and the C-code for the AVR target depends on
+function inlining in order to remove dead code.
+For example, the constructor for the clock takes an enumeraion for which
+clock to manipulate and after function inlining, the C-code for other
+clocks is removed.
+The blocks in the MDD library try to take user-friendly
+constants\footnote{Parameters with Evaluate=true are avoided since the
+C-code depends on function inlining, which means constants should be passed.},
+such as frequency=100Hz or period=0.1 for real-time synchronization; the
+Modelica code then has logic to find good clock prescalers to create a
+matching frequency.
+
+The EmbeddedTargets models do not support simulating the microcontroller
+on a desktop platform. This would be an interesting, but time-consuming
+extension to the work.
 
 \subsection{HID Joystick}
 \BTHI{TODO: Volker }
