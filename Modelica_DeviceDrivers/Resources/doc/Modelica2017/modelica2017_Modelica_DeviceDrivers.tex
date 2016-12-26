@@ -630,7 +630,7 @@ in any Modelica tool, if the Modelica tool supports the generation
 of suitably efficient, minimal C-code.
 
 The Modelica code itself tries to avoid the Integer constants from the
-data sheets. Instead, enumerations such as prescaler=1/128 or clock=2B are
+data sheets. Instead, enumerations such as \modelica{prescaler}=1/128 or \modelica{clock}=2B are
 passed from Modelica and the C-code for the AVR target depends on
 function inlining in order to remove dead code.
 For example, the constructor for the clock takes an enumeration which
@@ -639,7 +639,7 @@ C-code for other clocks is removed.
 The blocks in the MDD library try to take user-friendly
 constants\footnote{Parameters with Evaluate=true are avoided since the
 C-code depends on function inlining, which means constants should be passed.},
-such as frequency=100Hz or period=0.1 for real-time synchronization; the
+such as \modelica{frequency}=$100\,\mathrm{Hz}$ or \modelica{period}=$0.1\,\mathrm{s}$ for real-time synchronization; the
 Modelica code then has logic to find good clock prescalers to create a
 matching frequency.
 
