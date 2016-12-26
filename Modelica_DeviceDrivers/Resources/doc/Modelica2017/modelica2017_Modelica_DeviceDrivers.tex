@@ -131,12 +131,15 @@ SpaceMouse\footnote{3Dconnexion, \url{https://www.3dconnexion.com}}, and game
 controller). Additionally, it featured a model-integrated real-time
 visualization system, the foundation of the later \emph{DLR Visualization} library \citep{Hellerer2014}.
 
-However, the \emph{ExternalDevices} library was limited to
-Microsoft Windows and was developed to be used only with
-the Dymola tool. In the further course of development it was decided to
-split the \emph{ExternalDevices} library into the commercial \emph{DLR
-Visualization} library and an open-source cross-platform hardware interface
-library, the \emph{Modelica\_DeviceDrivers} library.
+However, the \emph{ExternalDevices} library was limited to Microsoft Windows and
+was developed to be used only with the Dymola tool. In the further course of
+development it was decided to split the \emph{ExternalDevices} library into the
+commercial \emph{DLR Visualization} library and an open-source cross-platform hardware
+interface library, the \emph{Modelica\_DeviceDrivers} library. The library is
+available from its GitHub project site at
+\url{https://github.com/modelica/Modelica_DeviceDrivers/}. This paper is based
+on a pre-release of MDD v1.5.0. We plan to officially release v1.5.0 shortly
+before the conference.
 
 \TBEU{Bernhard: State that MDD is developed by the Modelica Association since 20xx.}
 
@@ -515,13 +518,20 @@ values  (\modelica{PhysicalDataWrite} and \modelica{PhysicalDataRead}).
 Blocks \modelica{DIOWrite} and \modelica{DIORead} support digital input and
 output (DIO) channels.
 
+\subsubsection{Embedded Targets}
+
+MDD v1.5 introduces the new top-level package \modelica{EmbeddedTargets}. The
+package is intended for platform-specific targets, such as microcontrollers,
+that cannot so easily share code with other devices due to memory or hardware
+limitations.
+Currently, there exists first prototypical support for the
+Atmel\footnote{Atmel, \url{http://www.atmel.com}} AVR family of
+microcontrollers. This is ongoing work and the interface is not fixed, yet. A
+prototype application is described in Section~\ref{sec:EmbeddedControl}.
+
 
 \vspace{0.5cm}
-\BTHI{Write something about ``EmbeddedTarges'' features, here or write in in
-``Applications and link to it?
-
-TODO: Add a link to the project website somewhere!
-
+\BTHI{
 Possibly cover new features in more detail if
 enough time and paper space. New features:
 \begin{itemize}
@@ -534,7 +544,6 @@ enough time and paper space. New features:
   \item \ldots
 \end{itemize}
 }
-
 
 %%% \BTHI{Snippets that I want possibly reuse for the standard compliance}
 % discussion The definition of the \modelica{SerialPackager} input connector is given below.
@@ -582,10 +591,10 @@ Aide-mémoire:
 
 \subsection{Arduino}
 \BTHI{TODO: Volker}
-\TBEU{TODO: Improve doubling wording ''With the help of''}
+\TBEU{TODO: Improve double wording ''With the help of''}
 
 The Arduino\footnote{Arduino, \url{https://www.Arduino.cc}} is an open-source electronics platform which makes it very easy to read sensors, process the data and send it to another device via a serial connection.
-With the help of the MDD serial port implementation, the Arduino can be utilized to make sensor data available in a real-time Modelica model, as depicted in Figure~\ref{fig:arduino}.
+With the help of the MDD serial port implementation, the Arduino can be utilized to make sensor data available in a real-time Modelica model, as depicted in Figure~\ref{fig:arduino} \footnote{Autodesk screen shots reprinted courtesy of Autodesk, Inc.}.
 With the help of potentiometers or other deflection sensors, customized control devices can be built.
 
 As an exemplary application, self-built pedals for a driving simulator can be equipped with a sensor in order to measure the displacement. The pedal itself is a steel sheet, mounted on a revolute joint and a shock spring.
@@ -601,9 +610,41 @@ Therefore, expensive or unavailable input devices can be substituted by self-bui
 
 By using a Bluetooth module with Serial Port Profile (SPP) a wireless connection between Arduino is handled in the same way as a physical USB connection. No further modifications are necessary to implement a wireless control device.
 
-\subsection{Arduino, Raspberry PI, embedded control}
+\subsection{Embedded Control}
 \label{sec:EmbeddedControl}
-\BTHI{TODO: Bernhard, Martin}
+
+% The MDD library has been extended to support simulation of Modelica models
+% running on microcontrollers. Since microcontrollers have very limited
+% hardware, no threading support, limited memory allocation, \textit{etc.}, the
+% general-purpose external functions in MDD cannot be used.
+
+The \modelica{EmbeddedTargets} package contains blocks and functions to directly
+control I/O or clocks in the AVR ATmega microcontroller family\footnote{As of MDD
+v1.5.0, only ATmega16 and ATmega328P (=Arduino Uno) are supported.
+The code can easily be extended, but requires checking the data sheets in order
+to write to the correct bits.}.
+The advantage of including this code into the MDD library is that it makes it
+simple to write a model for a microcontroller that works the same way
+in any Modelica tool, if the Modelica tool supports the generation
+of suitably efficient, minimal C-code.
+
+The Modelica code itself tries to avoid the Integer constants from the
+data sheets. Instead, enumerations such as prescaler=1/128 or clock=2B are
+passed from Modelica and the C-code for the AVR target depends on
+function inlining in order to remove dead code.
+For example, the constructor for the clock takes an enumeration which
+specifies the clock which should be manipulated and after function inlining, the
+C-code for other clocks is removed.
+The blocks in the MDD library try to take user-friendly
+constants\footnote{Parameters with Evaluate=true are avoided since the
+C-code depends on function inlining, which means constants should be passed.},
+such as frequency=100Hz or period=0.1 for real-time synchronization; the
+Modelica code then has logic to find good clock prescalers to create a
+matching frequency.
+
+The EmbeddedTargets models do not support simulating the microcontroller
+on a desktop platform. This would be an interesting, but time-consuming
+extension to the work.
 
 \subsection{HID Joystick}
 \BTHI{TODO: Volker }
