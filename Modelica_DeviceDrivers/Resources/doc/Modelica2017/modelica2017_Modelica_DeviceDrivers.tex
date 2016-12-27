@@ -435,14 +435,12 @@ resulting byte array starts with three \clang{double} values ($3 \times 8$ bytes
 followed by one \clang{int32} value ($4$ bytes), resulting in a byte array of size 28.
 For the sake of providing an illustrative example at the C language level
 the following C code snippet constructs a structurally equal package named
-\clang{data}. (The example shall only shed light on the packaging concept, it does not
+\clang{data} (the example shall shed light on the concept, it does not
 advocate a coding style using magic numbers for array offsets):
 \begin{lstlisting}[language=C]
-#include <stdlib.h>
-#include <string.h>
 double v1[3] = {1.1, 2.2, 3.3};
 int v2 = 4;
-unsigned char* data = malloc(28*sizeof(unsigned char));
+unsigned char* data = (unsigned char*) calloc(28, sizeof(unsigned char));
 memcpy(&data[0], &v1[0], sizeof(v1));
 memcpy(&data[24], &v2, sizeof(v2));
 \end{lstlisting}
