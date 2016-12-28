@@ -77,6 +77,7 @@ and easy-to-use Modelica library.}
 Modelica external C}
 
 \section{Introduction}
+\label{sec:Introduction}
 \BTHI{Bernhard, Tobias}\\
 
 The most common usage of Modelica models is for offline simulation experiments.
@@ -563,6 +564,79 @@ enough time and paper space. New features:
 \section{Modelica Standard Compliance}
 \label{sec:ModelicaStandardCompliance}
 \BTHI{TODO: Thomas, Bernhard}
+
+Using a Modelica library-based approach for accessing hardware devices from a
+simulation started as an experiment which relied on the Dymola tool and its
+support for interfacing external C code.
+% The result was the \emph{ExternalDevices} library, the historical predecessor of
+% the MDD library (see Section~\ref{sec:Introduction}).
+However, when trying to extend the number
+of Modelica tools which support the MDD library, it became apparent that quite a
+few constructs that were useful and appreciated by the initial authors of the
+library were not supported by other tools and were partly problematic in respect
+of compliance to the Modelica standard.
+
+On one hand, this section reports on
+important development efforts (starting with MDD v1.4.0) that have been spent on the
+Modelica compliance of the library for better supporting SimulationX and
+OpenModelica, and on the other hand it addresses open issues which may
+be of interest for future improvements to the Modelica standard, or which
+may require possibly non-backwards compatible revisions of the MDD library for
+achieving full Modelica compliance.
+
+\subsection{Modelica's External Function Interface}
+
+Modelica's external function interface specification improved over the years,
+which allowed to create more satisfying, standard-conform libraries with
+external C code dependencies. For example, Modelica v3.2
+introduced a standardized directory structure for searching for
+external libraries \citep[p.\@~153]{ModelicaAssociation2010}:
+\begin{tabbing}
+pa\=ck\=ag\=e.mo {\small// contains the Modelica code}\\
+\texttt{\textbf{Resources}}\\
+\>\texttt{\textbf{Include}}\\
+\>\>Ext1.h {\small// C-header file}\\
+\>\texttt{\textbf{Library}}\\
+\>\>\texttt{\textbf{win32}}\quad {\small// Windows 32 bit libraries}\\
+\>\>\>ExtLib1.lib {\small// static link library for VisualStudio}\\
+\>\>\>ExtLib2.lib {\small// statically linking the dynamic link library}\\
+\>\>\>ExtLib2.dll {\small// dynamic link library (with manifest)}\\
+\>\>\texttt{\textbf{win64}}\\
+\>\>\>{\small// Windows 64 bit versions of above libraries}\\
+\>\>\texttt{\textbf{linux32}}\quad {\small// Linux 32 bit libraries}\\
+\>\>\>ExtLib1.a {\small// static link library}\\
+\>\>\>ExtLib2.so {\small// shared library}\\
+\>\>\texttt{\textbf{linux64}}\\
+\>\>\>{\small// Linux 64 bit versions of above libraries}\\
+\end{tabbing}
+
+Having this standardized directory structure (which was missing in Modelica
+v3.1) facilitated creating cross-platform libraries with external C library
+dependencies. For example, the Modelica code snippet below declares a
+dependency to the header file \modelica{ExtFunc1.h} and the libraries
+\modelica{ExtLib1} and \modelica{ExtLib2}:
+\begin{lstlisting}[language=modelica]
+function getFoo
+input Real u;
+output Real y;
+external "C" y = Ext1_getFoo(u)
+annotation(Include = "#include \"Ext1.h\"",
+  Library = {"ExtLib1", "ExtLib2"});
+annotation(__ModelicaAssociation_Impure=true);
+end getFoo;
+\end{lstlisting}
+A Modelica tool will map these information to compiler- and linker-dependent
+directives and thereby select the libraries which fit best for the respective
+platform.
+
+The example features an additional annotation which declares the function
+as ``impure''. The intended meaning is that a tool may not expect that the
+function returns the same output for the same input, which is the typical case
+for MDD functions which read values from external devices. Indeed, Modelica v3.3 introduced the dedicated keyword
+``impure'' to cater for such cases. However, since not all tools support this
+keyword, yet, the MDD library uses the featured annotation which is understood
+by all the tools known to support the MDD library.
+
 
 \subsection{Enhancements}
 
