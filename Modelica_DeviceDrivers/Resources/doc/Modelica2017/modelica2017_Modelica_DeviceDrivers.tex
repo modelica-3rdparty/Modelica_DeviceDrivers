@@ -524,28 +524,6 @@ Atmel\footnote{Atmel, \url{http://www.atmel.com}} AVR family of
 microcontrollers. A prototype application is described in
 Section~\ref{sec:EmbeddedControl}.
 
-
-%%% \BTHI{Snippets that I want possibly reuse for the standard compliance}
-% discussion The definition of the \modelica{SerialPackager} input connector is given below.
-% \begin{lstlisting}[language=modelica]
-% connector PackageIn "Packager input connector"
-%   input Modelica_DeviceDrivers.Packaging.
-%     SerialPackager pkg;
-%   input Boolean trigger;
-%   input Real dummy;
-%
-%   output Boolean backwardTrigger;
-%   output Integer userPkgBitSize;
-%   output Integer autoPkgBitSize;
-% end PackageIn;
-% \end{lstlisting}
-% Most notably connector \modelica{PackageIn} contains an element
-% \modelica{pkg} which is an external object of type \modelica{SerialPackager}.
-%
-% It would be
-% possible to replace the Modelica configuration record by a configuration
-% block, though \ldots
-
 \section{Modelica Standard Compliance}
 \label{sec:ModelicaStandardCompliance}
 \BTHI{TODO: Thomas, Bernhard}
@@ -624,6 +602,27 @@ by all the tools known to support the MDD library.
 
 
 \subsection{Enhancements}
+
+%%% \BTHI{Snippets that I want possibly reuse for the standard compliance}
+% discussion The definition of the \modelica{SerialPackager} input connector is given below.
+% \begin{lstlisting}[language=modelica]
+% connector PackageIn "Packager input connector"
+%   input Modelica_DeviceDrivers.Packaging.
+%     SerialPackager pkg;
+%   input Boolean trigger;
+%   input Real dummy;
+%
+%   output Boolean backwardTrigger;
+%   output Integer userPkgBitSize;
+%   output Integer autoPkgBitSize;
+% end PackageIn;
+% \end{lstlisting}
+% Most notably connector \modelica{PackageIn} contains an element
+% \modelica{pkg} which is an external object of type \modelica{SerialPackager}.
+%
+% It would be
+% possible to replace the Modelica configuration record by a configuration
+% block, though \ldots
 
 \subsection{Pitfalls and Open Issues}
 
@@ -789,6 +788,18 @@ environment.
 % Generalization of the SerialPackager by other serializers like XDR or LCM (based on XDR) might be a realistic goal
 
 \section*{Acknowledgements}
+
+Support of Linköping University by VINNOVA in the ITEA3 OPENCPS project and
+in the RTISIM project (Strategic Indo-Swedish Cooperative Innovation
+Programme) is highly appreciated. The Open Source Modelica Consortium supports
+the OpenModelica project.
+
+Finally, we would like to thank everybody who has contributed to the library,
+either by providing feedback and suggestions, or by direct contributions to
+the implementation of the library, particularly, Miguel Neves, Dominik Sommer,
+Rangarajan Varadan, and Dietmar Winkler.
+
+
 
 
 %%% choose one of the following: %%%
