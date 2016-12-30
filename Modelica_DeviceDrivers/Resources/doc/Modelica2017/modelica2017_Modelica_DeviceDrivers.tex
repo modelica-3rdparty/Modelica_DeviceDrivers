@@ -33,11 +33,18 @@
 
 \newcommand{\clang}[1]{\lstinline[language=c]|#1|}
 \newcommand{\modelica}[1]{\lstinline[language=modelica]|#1|}
-\newcommand{\BTHI}[1]{{\color{blue}{$\parallel_\textrm{BTHI}$#1$\parallel$}}}
-\newcommand{\TBEU}[1]{{\color{orange}{$\parallel_\textrm{TBEU}$#1$\parallel$}}}
-\newcommand{\VWAU}[1]{{\color{red}{$\parallel_\textrm{VWAU}$#1$\parallel$}}}
-\newcommand{\MSJO}[1]{{\color{green}{$\parallel_\textrm{MSJO}$#1$\parallel$}}}
-\newcommand{\TBEL}[1]{{\color{magenta}{$\parallel_\textrm{TBEL}$#1$\parallel$}}}
+
+% \newcommand{\BTHI}[1]{{\color{blue}{$\parallel_\textrm{BTHI}$#1$\parallel$}}}
+% \newcommand{\TBEU}[1]{{\color{orange}{$\parallel_\textrm{TBEU}$#1$\parallel$}}}
+% \newcommand{\VWAU}[1]{{\color{red}{$\parallel_\textrm{VWAU}$#1$\parallel$}}}
+% \newcommand{\MSJO}[1]{{\color{green}{$\parallel_\textrm{MSJO}$#1$\parallel$}}}
+% \newcommand{\TBEL}[1]{{\color{magenta}{$\parallel_\textrm{TBEL}$#1$\parallel$}}}
+\newcommand{\BTHI}[1]{}
+\newcommand{\TBEU}[1]{}
+\newcommand{\VWAU}[1]{}
+\newcommand{\MSJO}[1]{}
+\newcommand{\TBEL}[1]{}
+
 
 \crefformat{footnote}{#2\footnotemark[#1]#3}
 
@@ -78,7 +85,7 @@ Modelica external C}
 
 \section{Introduction}
 \label{sec:Introduction}
-\BTHI{Bernhard, Tobias}\\
+\BTHI{Bernhard, Tobias}
 
 The most common usage of Modelica models is for offline simulation experiments.
 However, in many cases simulations need to interact with their environment or
@@ -757,27 +764,18 @@ use-cases as described above in some way,  in future versions of the Modelica
 standard.
 
 
-\subsection{Enhancements}
-
-% It would be
-% possible to replace the Modelica configuration record by a configuration
-% block, though \ldots
-
-
-
-\subsection{Pitfalls and Open Issues}
-
-
-Aide-mémoire:
-\begin{itemize}
-  \item Serialpackager
-  \item Automatic buffer size
-  \item External objects in equation
-  \item Construction of external objects in record
-  \item Linking to platform-dependent system libraries
-  \item Missing fixed attribute for String
-  \item Support of several include directories
-\end{itemize}
+% \subsection{Enhancements}
+% \subsection{Pitfalls and Open Issues}
+% Aide-mémoire:
+% \begin{itemize}
+%   \item Serialpackager
+%   \item Automatic buffer size
+%   \item External objects in equation
+%   \item Construction of external objects in record
+%   \item Linking to platform-dependent system libraries
+%   \item Missing fixed attribute for String
+%   \item Support of several include directories
+% \end{itemize}
 
 \section{Applications}
 \label{sec:Applications}
