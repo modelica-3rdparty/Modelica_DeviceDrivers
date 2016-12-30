@@ -361,6 +361,7 @@ can also become part of more involved (cost-efficient) HITL simulation
 scenarios.
 
 \subsubsection{Communication}
+\label{sec:Communication}
 
 The most comprehensive and complex part of the library is related to
 communication devices and their supporting Modelica and external C code.
@@ -600,29 +601,169 @@ for MDD functions which read values from external devices. Indeed, Modelica v3.3
 keyword, yet, the MDD library uses the featured annotation which is understood
 by all the tools known to support the MDD library.
 
+\subsection{The Serial Packager}
+
+The \modelica{SerialPackager} blocks are core elements of the block-based
+communication support provided by the MDD library (see
+Section~\ref{sec:Communication}). They use a rather intricate mechanism for
+propagating a “package” between connected blocks which is discussed in this
+section.
+
+\subsubsection{Connector Definition}
+
+The definition of the \modelica{SerialPackager} input connector is given below.
+\begin{lstlisting}[language=modelica]
+connector PackageIn "Packager input connector"
+  input SerialPackager pkg;
+  input Boolean trigger;
+  input Real dummy;
+  output Boolean backwardTrigger;
+  output Integer userPkgBitSize;
+  output Integer autoPkgBitSize;
+end PackageIn;
+\end{lstlisting}
+The definition of the output connector is similar, but with reversed input and
+output causalities. Most notably connector \modelica{PackageIn} contains an
+element \modelica{pkg} which is an external object of type \modelica{SerialPackager}.
+This external object is passed between connected blocks (see
+Figure~\ref{fig:PackagingConcept}). Within an ``add'' or ``get'' block the
+passed in external object is used as an argument to external functions which
+first add or retrieve data from the package and when pass it on to the next block.
+
+\subsubsection{Basic Concept}
+
+The
+following \emph{simplified} Modelica code snippet illustrates the basic idea for
+adding the value of an input variable \modelica{u} to a package:
+\begin{lstlisting}[language=modelica]
+block AddValue
+  PackageIn pkgIn "Input connector";
+  PackageOut pkgOut "Output connector";
+  IntegerInput u "Integer input connector";
+equation
+  when initial() then
+    pkgIn.autoPkgBitSize = pkgOut.autoPkgBitSize + 32;
+  end when;
+  when pkgIn.trigger then
+    pkgOut.dummy = addValue(pkgOut.pkg, u, pkgIn.dummy);
+  end when;
+  pkgOut.pkg = pkgIn.pkg;
+  pkgOut.trigger = pkgIn.trigger;
+  pkgOut.backwardTrigger = pkgIn.backwardTrigger;
+  pkgOut.userPkgBitSize = pkgIn.userPkgBitSize;
+end AddValue;
+\end{lstlisting}
+
+The instantaneous equation \modelica{addInteger} is activated by the event
+\modelica{trigger} which is propagated through the connected packager blocks.
+The \modelica{dummy} variables are used to establish data-flow dependencies
+which ensure that (external) ``\modelica{addValue}'' functions in connected
+blocks are called in the correct order. The \modelica{backwardTrigger} event
+allows to propagate a triggering event in the inverse connector direction.
+Its supporting logic is omitted here for brevity. Variable
+\modelica{userPkgBitSize} allows to propagate a user defined package size which
+can be set at a communication device block, \textit{e.g.}, it is possible for a
+user to specify that the size of the external C ``\modelica{data}'' buffer (see
+Section~\ref{sec:Communication}) of a package should be eight bytes. However,
+the default setting is that the necessary package size is deduced automatically
+with the help of the \modelica{autoPkgBitSize} variable. The mechanism is
+described further below.
+
+\subsubsection{External Object Aliasing}
+\label{sec:External Object Aliasing}
+
+A problem with the \modelica{AddValue} block is that the \modelica{pkg}
+objects within the connectors are not explicitly created by calling an external object constructor
+function as required in the Modelica v3.3 \cite[p.\@~165]{ModelicaAssociation2014}.
+Instead, they rely on aliasing through equations and connection equations to
+access an external object which has been created at another place. In
+Figure~\ref{fig:PackagingConcept} the \modelica{pkg} object for the ``add''
+blocks is created in the  ``Packager'' block at the top of the figure, while the
+\modelica{pkg} object for the ``get'' blocks is created in the device block for reading from
+shared memory (or UDP, respectively). While the concept of external object
+aliases does not exist in Modelica v3.3, equating two external
+objects may be interpreted as an assignment to an external object,
+which is forbidden. The authors hope that future versions of
+the Modelica standard will consider use-cases such as the one described above
+and allow them explicitly.
+
+\subsubsection{Automatic Buffer Size}
+
+The actual creation of the \modelica{SerialPackager} object is performed in
+the ``Packager'' block, or, respectively, in the reading device block (see
+above). The following \emph{simplified} code illustrates the basic concept.
+\begin{lstlisting}[language=modelica]
+block Packager
+  PackageOut pkgOut(
+    pkg = SerialPackager(bufferSize),
+    dummy(start=0, fixed=true));
+  Integer bufferSize;
+equation
+  when initial() then
+    bufferSize =
+      if pkgOut.userPkgBitSize > 0 then
+      pkgOut.userPkgBitSize else
+      pkgOut.autoPkgBitSize;
+  end when;
+end Packager;
+\end{lstlisting}
+
+The difficulty here is that the \modelica{bufferSize} which is needed as an
+argument for the external object constructor
+\modelica{SerialPackager(bufferSize)} needs to be computed by solving the
+initial system of equations. This is not supported by all Modelica tools and its
+Modelica compliance was discussed at the Modelica Issue Tracker with a majority
+opting to clarify the specification in order to forbid it\footnote{Modelica Issue Tracker,
+\url{https://trac.modelica.org/Modelica/ticket/1907}}, but on the other hand
+also proposals how the Modelica standard could be extended to allow
+it\footnote{Modelica Issue Tracker,
+\url{https://trac.modelica.org/Modelica/ticket/2037}}.
+
+In the initial version of the MDD library the external object was actually
+created within the when clause, like,
+\begin{lstlisting}[language=modelica]
+when initial() then
+  pkgOut.pkg = SerialPackager(bufferSize);
+end when;
+\end{lstlisting}
+which was clearly illegal in Modelica v3.3. As part of improving the Modelica
+compliance of the library the creation of the object was moved into the
+component declaration.
+
+\subsection{External Objects in Records}
+
+The SocketCAN and the Comedi blocks use a Modelica \modelica{record} as means
+for specifying general settings for a hardware device. The idea is that the
+settings are specified once when creating an instance of the record and
+this instance is passed as parameter to blocks which use this device. For
+example, the Comedi configuration record (stripped from some elements for brevity) is defined
+as
+\begin{lstlisting}[language=modelica]
+record ComediConfig
+  parameter String deviceName =
+    "/dev/comedi0" "Name of Comedi device";
+  final parameter Comedi dh =
+    Comedi(deviceName) "Handle to comedi device";
+end record;
+\end{lstlisting}
+where \modelica{dh} is an external object. It is convenient to collect
+configuration information in a record, since this allows to pass a complete set
+of related configuration settings at once. The problem here is that passing an
+external object as part of a record can be interpreted as the record returning
+the object and assigning it to another external object (which is forbidden in
+Modelica v3.3). However, similarly to the external object aliasing described in
+Section~\ref{sec:External Object Aliasing} it seems highly desirable to consider
+use-cases as described above in some way,  in future versions of the Modelica
+standard.
+
 
 \subsection{Enhancements}
 
-%%% \BTHI{Snippets that I want possibly reuse for the standard compliance}
-% discussion The definition of the \modelica{SerialPackager} input connector is given below.
-% \begin{lstlisting}[language=modelica]
-% connector PackageIn "Packager input connector"
-%   input Modelica_DeviceDrivers.Packaging.
-%     SerialPackager pkg;
-%   input Boolean trigger;
-%   input Real dummy;
-%
-%   output Boolean backwardTrigger;
-%   output Integer userPkgBitSize;
-%   output Integer autoPkgBitSize;
-% end PackageIn;
-% \end{lstlisting}
-% Most notably connector \modelica{PackageIn} contains an element
-% \modelica{pkg} which is an external object of type \modelica{SerialPackager}.
-%
 % It would be
 % possible to replace the Modelica configuration record by a configuration
 % block, though \ldots
+
+
 
 \subsection{Pitfalls and Open Issues}
 
