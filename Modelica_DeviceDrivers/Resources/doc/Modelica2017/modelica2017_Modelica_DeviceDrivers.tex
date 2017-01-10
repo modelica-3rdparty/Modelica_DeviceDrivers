@@ -296,6 +296,7 @@ equation
 end GameControllerExample;
 \end{lstlisting}
 
+\noindent
 The code above creates an external object named \mbox{\modelica{gc}.} The
 constructor for this object takes the argument \mbox{\modelica{id}.} This
 argument allows to specify which controller to use if several game controllers are attached to the
@@ -342,6 +343,7 @@ example).
   \label{fig:JoystickBlocks}
 \end{figure}
 
+\noindent
 The example models can be simulated, but real-time synchronization is
 required to slow the simulation speed down, in order to synchronize the
 real-time inputs with the simulation progress.
@@ -358,7 +360,6 @@ The MDD library has grown to support a respectable amount of hardware devices
 and associated features which will be briefly presented in this section.
 
 \subsubsection{Input Devices}
-
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.7\columnwidth]{figures/OverviewInputDevices}
@@ -366,6 +367,7 @@ and associated features which will be briefly presented in this section.
   \label{fig:OverviewInputDevices}
 \end{figure}
 
+\noindent
 Standard input devices such as keyboard and game controllers are ubiquitously
 available on the market, enabling the user to quickly build up interactive simulations.
 MDD provides blocks for using the generic keyboard and game controller interface
@@ -418,6 +420,7 @@ example in which a package consisting of three variables of type \modelica{Real}
 followed by a variable of type \modelica{Integer} is either transmitted using
 shared memory or UDP blocks. Switching between the two communication devices
 is achieved by simply replacing the corresponding device block.
+
 \begin{figure}[htb]
   \centering
   \includegraphics[width=1.0\columnwidth]{figures/PackagingConcept}
@@ -426,6 +429,7 @@ is achieved by simply replacing the corresponding device block.
   \label{fig:PackagingConcept}
 \end{figure}
 
+\noindent
 The packages are constructed by using blocks from the \modelica{Packaging}
 sub-package (see Figure~\ref{fig:MDDPackageBrowseScreenshot}). In the initial
 design of MDD it was expected that different packaging concepts would be
@@ -457,7 +461,6 @@ unsigned char* data = (unsigned char*) calloc(28, sizeof(unsigned char));
 memcpy(&data[0], &v1[0], sizeof(v1));
 memcpy(&data[24], &v2, sizeof(v2));
 \end{lstlisting}
-
 Figure~\ref{fig:SerialPackagerBlocks} shows the blocks for adding
 variables to a package, symmetrically, blocks are available for retrieving variables from a
 package. Using these blocks is deemed to be rather
@@ -504,6 +507,7 @@ other interface hardware.
   \label{fig:MDDComedi}
 \end{figure}
 
+\noindent
 As of MDD v1.5.0 it contains only one sub-package which
 provides support for the Linux control and measurement device interface
 ``Comedi''. The Comedi project develops open-source drivers, tools, and
@@ -589,7 +593,6 @@ pa\=ck\=ag\=e.mo {\small// contains the Modelica code}\\
 \>\>\texttt{\textbf{linux64}}\\
 \>\>\>{\small// Linux 64 bit versions of above libraries}\\
 \end{tabbing}
-
 Having this standardized directory structure (which was missing in Modelica
 v3.1) facilitated creating cross-platform libraries with external C library
 dependencies. For example, the Modelica code snippet below declares a
@@ -669,7 +672,6 @@ equation
   pkgOut.userPkgBitSize = pkgIn.userPkgBitSize;
 end AddValue;
 \end{lstlisting}
-
 The instantaneous equation \modelica{addInteger} is activated by the event
 \modelica{trigger} which is propagated through the connected packager blocks.
 The \modelica{dummy} variables are used to establish data-flow dependencies
@@ -723,7 +725,6 @@ equation
   end when;
 end Packager;
 \end{lstlisting}
-
 The difficulty here is that the \modelica{bufferSize} which is needed as an
 argument for the external object constructor
 \modelica{SerialPackager(bufferSize)} needs to be computed by solving the
@@ -803,7 +804,6 @@ With the help of potentiometers or other deflection sensors, customized control 
 As an exemplary application, self-built pedals for a driving simulator can be equipped with a sensor in order to measure the displacement. The pedal itself is a steel sheet, mounted on a revolute joint and a shock spring.
 The measured deflection is transferred via a serial connection to a \modelica{Blocks.Communication.SerialPortReceive} in order to drive a virtual vehicle.
 Therefore, expensive or unavailable input devices can be substituted by custom constructions.
-
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.9\columnwidth]{figures/arduino}
@@ -811,6 +811,7 @@ Therefore, expensive or unavailable input devices can be substituted by custom c
   \label{fig:arduino}
 \end{figure}
 
+\noindent
 By using a Bluetooth module with Serial Port Profile (SPP) a wireless connection between Arduino is handled in the same way as a serial port over USB connection.
 No further modifications are necessary to implement a wireless control device.
 
@@ -866,6 +867,8 @@ communication and querying of input devices.
   \caption{The DLR Robotic Motion Simulator.}
   \label{fig:DLRRoboticMotionSimulator}
 \end{figure}
+
+\noindent
 The DLR Robotic Motion Simulator \citep{bellmann2011dlr} is a 7 axis driving and
 flight simulator based on an industrial robot arm (see
 Figure~\ref{fig:DLRRoboticMotionSimulator}). The main use of this motion
@@ -900,6 +903,8 @@ packaging system.
   flight simulation.}
   \label{fig:DLRSimulatorCabin}
 \end{figure}
+
+\noindent
 Figure~\ref{fig:DLRSimulatorCabin} shows the inside of the simulator cabin.
 The instrumentation package can be adapted
 for different simulation types or for testing different input concepts.
