@@ -14,17 +14,17 @@
 \usepackage{subcaption} % subfloats (http://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions#Subfloats)
 
 \hypersetup{%
-	pdftitle  = {Towards a Standard-Conform, Platform-Generic and Feature-Rich Modelica Device Drivers Library},
-	pdfauthor = {Bernhard Thiele, Thomas Beutlich, Volker Waurich, Martin Sjölund,
-	Tobias Bellmann}, pdfsubject = {12th International Modelica Conference 2017},
+  pdftitle  = {Towards a Standard-Conform, Platform-Generic and Feature-Rich Modelica Device Drivers Library},
+  pdfauthor = {Bernhard Thiele, Thomas Beutlich, Volker Waurich, Martin Sjölund,
+  Tobias Bellmann}, pdfsubject = {12th International Modelica Conference 2017},
   pdfkeywords = {Modelica, embedded systems, real-time simulation},
-	colorlinks,
-	linkcolor=black,
-	urlcolor=black,
-	citecolor=black,
-	pdfpagelayout = SinglePage,
-	pdfcreator = pdflatex,
-	pdfproducer = pdflatex}
+  colorlinks,
+  linkcolor=black,
+  urlcolor=black,
+  citecolor=black,
+  pdfpagelayout = SinglePage,
+  pdfcreator = pdflatex,
+  pdfproducer = pdflatex}
 
 \lstset{language = c,
        % basicstyle=\fontsize{9pt}{10.5pt}\selectfont,
@@ -58,7 +58,7 @@
 \author[3]{Volker Waurich}
 \author[1]{Martin Sjölund}
 \author[4]{Tobias Bellmann}
-\affil[1]{PELAB, Linköping University, Sweden, {\small\texttt{\{bernhard.thiele,martin.sjoelund\}@liu.se}}}
+\affil[1]{PELAB, Linköping University, Sweden, {\small\texttt{\{bernhard.thiele,martin.sjolund\}@liu.se}}}
 \affil[2]{ESI ITI GmbH, Germany, {\small\texttt{thomas.beutlich@esi-group.com}}}
 \affil[3]{Chair of Construction Machinery, TU Dresden, Germany, {\small\texttt{volker.waurich@tu-dresden.de}}}
 \affil[4]{Institute of System Dynamics and Control, DLR, Germany, {\small\texttt{tobias.bellmann@dlr.de}}}
@@ -71,14 +71,19 @@ environment. Typical examples are Human-in-the-Loop (HITL) simulators (including
 flight, driving, and marine training simulators), Hardware-in-the-Loop (HIL)
 simulators, but also offline process simulators which cannot operate in a
 completely self-contained manner and therefore need to be coupled to external
-applications. Embedded control applications are another related area which
-requires that applications interact with their environment. The
+applications. Embedded control applications are another related area
+requiring interaction between applications and their environment. The
 \emph{Modelica\_DeviceDrivers} library, which had its first release as
-open-source library in 2012, tries to cater for such use cases. This paper
+open-source library in 2012, tries to cater to such use cases. This paper
 describes the library for the first time and reports about the numerous
 challenges that the project experienced to meet its goal of supporting several
 platforms and tools within a standard-conform, platform-generic, feature-rich,
-and easy-to-use Modelica library.}
+and easy-to-use Modelica library.
+Furthermore, the paper gives an insight into the inner mechanics of the
+library's communication and serialization functionalities, the various
+supported hardware interfaces and the possibilities to generate code
+for embedded systems.
+}
 
 \noindent\emph{Keywords: human-in-the-loop, hardware-in-the-loop, real-time simulation, embedded control application,
 Modelica external C}
@@ -121,7 +126,8 @@ Mock-up Units\footnote{FMI development group,
 \url{https://www.fmi-standard.org}} (FMUs) which can be imported into compatible
 development environments, like the tool chain provided for the dSPACE SCALEXIO\cref{dspace} platform.
 
-The \emph{Modelica\_DeviceDrivers} (MDD) library uses a different approach.
+Instead of embedding the (FMI-) compiled Modelica model into a simulator
+environement, the \emph{Modelica\_DeviceDrivers} (MDD) library uses a different approach.
 The MDD library provides access to external devices by utilizing Modelica's external
 function interface for interfacing to the C API of various device drivers directly from Modelica
 models (see Section~\ref{ModelicaDeviceDrivers}).
@@ -137,8 +143,10 @@ SpaceMouse\footnote{3Dconnexion, \url{https://www.3dconnexion.com}}, and game
 controller). Additionally, it featured a model-integrated real-time
 visualization system, the foundation of the later \emph{DLR Visualization} library \citep{Hellerer2014}.
 
-However, the \emph{ExternalDevices} library was limited to Microsoft Windows and
-was developed to be used only with the Dymola tool. In the further course of
+However, the \emph{ExternalDevices} library only supported
+Microsoft Windows and was developed and tested using only the Dymola tool,
+which caused unintentional incompatibilties with other Modelica tools.
+In the further course of
 development it was decided to split the \emph{ExternalDevices} library into the
 commercial \emph{DLR Visualization} library and an open-source cross-platform hardware
 interface library, the \emph{Modelica\_DeviceDrivers} library. The library is
@@ -296,14 +304,14 @@ system. The function \modelica{getData} is called periodically within a
 argument and returns vectors which contain the values read from the
 associated game controller. The vector is pre-dimensioned, so that it can attune
 to controllers featuring as much as six axes, 32 buttons and a POV (point of
-view) switch. The actually provided data depends on the game
+view) switch. The actually available data depends on the connected game
 controller hardware. Tests with the actual hardware are needed for determining
 which vector entry corresponds to which physical axis or button.
 
 Figure~\ref{fig:JoystickBlocks} shows how game controllers can be accessed by
 simply dragging \& dropping a \modelica{JoystickInput} block into the diagram
 view of a Modelica tool. While Figure~\ref{fig:MDDJoystick} uses the block found
-below the \modelica{Blocks} package,
+in the \modelica{Blocks} package,
 Figure~\ref{fig:MDDJoystickClocked} uses the corresponding clocked variant from
 \modelica{ClockedBlocks}. The additional blocks \modelica{periodicClock} and
 \modelica{assignClock} are from the \emph{Modelica\_Synchronous} library. They
@@ -335,8 +343,8 @@ example).
 \end{figure}
 
 The example models can be simulated, but real-time synchronization is
-required for allowing enough time to pass, so that user inputs can be
-recognized.
+required to slow the simulation speed down, in order to synchronize the
+real-time inputs with the simulation progress.
 The MDD library provides convenient support for (soft) real-time
 synchronization\footnote{See documentation to block
 \mbox{\modelica{SynchronizeRealtime}.}
@@ -358,12 +366,12 @@ and associated features which will be briefly presented in this section.
   \label{fig:OverviewInputDevices}
 \end{figure}
 
-Standard input devices like keyboard and game controllers are ubiquitously
-available on the market and allow to quickly build up interactive simulations.
+Standard input devices such as keyboard and game controllers are ubiquitously
+available on the market, enabling the user to quickly build up interactive simulations.
 MDD provides blocks for using the generic keyboard and game controller interface
 of Windows or Linux (see Figure~\ref{fig:OverviewInputDevices}). Also more
 specialized hardware like the 3Dconnexion SpaceMouse is supported for both platforms.
-Often, this blocks will be used for interactive desktop simulations, but they
+Often, these blocks will be used for interactive desktop simulations, but they
 can also become part of more involved (cost-efficient) HITL simulation
 scenarios.
 
@@ -434,7 +442,7 @@ Modelica variables into a ``package''.
 \end{figure}
 
 At the C side, a package is a C byte array in which C variables with
-respectively indicated type are simply successively appended in a data-flow
+respectively indicated types are simply successively appended in a data-flow
 prescribed order. For example, in Figure~\ref{fig:PackagingConcept} the
 resulting byte array starts with three \clang{double} values ($3 \times 8$ bytes)
 followed by one \clang{int32} value ($4$ bytes), resulting in a byte array of size 28.
@@ -502,14 +510,14 @@ provides support for the Linux control and measurement device interface
 libraries for data acquisition\footnote{Comedi project,
 \url{http://www.comedi.org}}. The project provides a common interface for
 accessing supported data acquisition hardware (see the website for supported
-hardware). The MDD library provides an interface to the Comedi user-space
+hardware). The MDD library implements an interface to the Comedi user-space
 library.
 
-Figure~\ref{fig:MDDComedi} shows an example model which uses the provided
+Figure~\ref{fig:MDDComedi} shows an example model which uses the available
 blocks. Configuration of the device is performed in the Modelica record named
 \modelica{comedi}. The record contains an external object \modelica{dh} of type
-\modelica{ComediConfig} which contains the Comedi device handle and is passed in
-as a parameter to the other blocks (\modelica{comedi.dh}). Using external
+\modelica{ComediConfig} which contains the Comedi device handle and is passed through
+a parameter to the other blocks (\modelica{comedi.dh}). Using external
 objects in records is not standard compliant to Modelica v3.3 revision 1
 \citep{ModelicaAssociation2014} which is further discussed in
 Section~\ref{sec:ModelicaStandardCompliance}.
@@ -794,16 +802,17 @@ With the help of potentiometers or other deflection sensors, customized control 
 
 As an exemplary application, self-built pedals for a driving simulator can be equipped with a sensor in order to measure the displacement. The pedal itself is a steel sheet, mounted on a revolute joint and a shock spring.
 The measured deflection is transferred via a serial connection to a \modelica{Blocks.Communication.SerialPortReceive} in order to drive a virtual vehicle.
-Therefore, expensive or unavailable input devices can be substituted by self-built constructions.
+Therefore, expensive or unavailable input devices can be substituted by custom constructions.
 
 \begin{figure}[htb]
-	\centering
-	\includegraphics[width=0.9\columnwidth]{figures/arduino}
-	\caption{Setup to read potentiometer deflection during real-time simulation with MDD serial port model.}
-	\label{fig:arduino}
+  \centering
+  \includegraphics[width=0.9\columnwidth]{figures/arduino}
+  \caption{Setup to read potentiometer deflection during real-time simulation with MDD serial port model.}
+  \label{fig:arduino}
 \end{figure}
 
-By using a Bluetooth module with Serial Port Profile (SPP) a wireless connection between Arduino is handled in the same way as a physical USB connection. No further modifications are necessary to implement a wireless control device.
+By using a Bluetooth module with Serial Port Profile (SPP) a wireless connection between Arduino is handled in the same way as a serial port over USB connection.
+No further modifications are necessary to implement a wireless control device.
 
 \subsection{Embedded Control}
 \label{sec:EmbeddedControl}
@@ -821,7 +830,9 @@ to write to the correct bits.}.
 The advantage of including this code into the MDD library is that it makes it
 simple to write a model for a microcontroller that works the same way
 in any Modelica tool, if the Modelica tool supports the generation
-of suitably efficient, minimal C code.
+of suitably efficient, minimal C code without use of OS functionality such as file
+support \footnote{The code was tested with OpenModelica,
+which has an option to generate minimal code that only simulates a model.}.
 
 The Modelica code itself tries to avoid the Integer constants from the
 data sheets. Instead, enumerations such as \modelica{prescaler}=1/128 or \modelica{clock}=2B are
