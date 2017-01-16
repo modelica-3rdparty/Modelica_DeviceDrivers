@@ -27,7 +27,6 @@ The second interface uses the synchronous language elements introduced in Modeli
  - [X] Existed and maintained for at least 6 months
 
 ## Build status
-[![Build Status](https://drone.io/github.com/modelica/Modelica_DeviceDrivers/status.png)](https://drone.io/github.com/modelica/Modelica_DeviceDrivers/latest)
 [![Build Status](https://travis-ci.org/modelica/Modelica_DeviceDrivers.svg)](https://travis-ci.org/modelica/Modelica_DeviceDrivers)
 
 ## Current release
@@ -46,7 +45,7 @@ Bugfix releases usually won't have release notes, so please use the download lin
   * Impoved Modelica compatibility: Fixed the invalid integer to enumeration type conversion in `HardwareIO`.
   * Fully specified the initial conditions for example models.
   * Simplified the linking with system libraries (MSVC only).
-  * Added continuous integration for the external C code (thanks to [drone.io](https://drone.io/github.com/modelica/Modelica_DeviceDrivers/latest) and [Travis CI](https://travis-ci.org/modelica/Modelica_DeviceDrivers)).
+  * Added continuous integration for the external C code (thanks to [Travis CI](https://travis-ci.org/modelica/Modelica_DeviceDrivers)).
   * Improved and updated documentation.
   * Improved compatibility with the DLR Visualization Library.
   * Improved support of automatic Code-Export from SimulationX 3.7.
