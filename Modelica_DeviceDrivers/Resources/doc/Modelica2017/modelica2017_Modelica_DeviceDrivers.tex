@@ -593,12 +593,12 @@ dependency to the header file \modelica{ExtFunc1.h} and the libraries
 \modelica{ExtLib1} and \modelica{ExtLib2}:
 \begin{lstlisting}[language=modelica]
 function getFoo
-input Real u;
-output Real y;
-external "C" y = Ext1_getFoo(u)
-annotation(Include = "#include \"Ext1.h\"",
-  Library = {"ExtLib1", "ExtLib2"});
-annotation(__ModelicaAssociation_Impure=true);
+  input Real u;
+  output Real y;
+  external "C" y = Ext1_getFoo(u)
+    annotation(Include = "#include \"Ext1.h\"",
+    Library = {"ExtLib1", "ExtLib2"});
+  annotation(__ModelicaAssociation_Impure=true);
 end getFoo;
 \end{lstlisting}
 A Modelica tool will map these information to compiler- and linker-dependent
