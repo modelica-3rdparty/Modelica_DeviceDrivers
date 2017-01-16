@@ -105,28 +105,19 @@ Furthermore, Modelica can be used for developing (model-based) control
 applications which also require interaction with their environment.
 
 There are different approaches for enabling the above mentioned applications in
-the context of Modelica. Several development environments offer tool chains for
+the context of Modelica. Several simulator devlopment environments offer tool chains for
 real-time simulation and/or model-based development of embedded control
-applications.
-Some of these environments can be coupled with Modelica tools, by wrapping code
-which is generated from Modelica tools into respective third-party tool-internal
-representations which can be connected to hardware devices in the respective
-development environment (\textit{e.g.}, Dymola\footnote{Dassault Systèmes,
-\url{https://www.3ds.com}} via its DymolaBlock interface to the
-MATLAB/Simulink\footnote{\label{tmw}The MathWorks, \url{https://mathworks.com}}
-tool chain, OpenModelica\footnote{Open Source Modelica Consortium (OSMC),
-\url{https://www.openmodelica.org}} via customized tool chains
-\citep{Worschech2012}, SimulationX\footnote{SimulationX by ESI,
-\url{https://www.simulationx.com}} via Code Export for Simulink/Simulink
-Coder\cref{tmw} or HIL environments like dSPACE
-DS1006\footnote{\label{dspace}dSPACE, \url{https://www.dspace.com}}, NI
-VeriStand\footnote{National Instruments, \url{http://www.ni.com}} or ETAS
-LABCAR\footnote{ETAS, \url{http://www.etas.com}} \citep{Blochwitz2009}).
-\TBEU{TODO: Improve readibility: This long sentence is hardly readable with its items (tools) and subitems (methods).}
-Sometimes it may also be possible for a Modelica tool to generate Functional
+applications. Modelica tools may interface these simulator devlopment environments, by wrapping the generated, third-party-specific code
+from the Modelica tool into tool-internal representations, which then can be connected to hardware devices in the respective simulator devlopment environment. For example, such customized solutions are available in
+\begin{itemize}
+ \item Dymola\footnote{Dassault Systèmes, \url{https://www.3ds.com}} via its DymolaBlock interface to the MATLAB/Simulink\footnote{\label{tmw}The MathWorks, \url{https://mathworks.com}} tool chain
+ \item OpenModelica\footnote{Open Source Modelica Consortium (OSMC), \url{https://www.openmodelica.org}} via customized tool chains \citep{Worschech2012}
+ \item SimulationX\footnote{SimulationX by ESI, \url{https://www.simulationx.com}} via Code Export for Simulink/Simulink Coder\cref{tmw} or HIL environments like dSPACE DS1006\footnote{\label{dspace}dSPACE, \url{https://www.dspace.com}}, NI VeriStand\footnote{National Instruments, \url{http://www.ni.com}} or ETAS LAB\-CAR\footnote{ETAS, \url{http://www.etas.com}} \citep{Blochwitz2009}
+\end{itemize}
+Furthermore, it may also be possible for Modelica tools to generate Functional
 Mock-up Units\footnote{FMI development group,
-\url{https://www.fmi-standard.org}} (FMUs) which can be imported into compatible
-development environments, like the tool chain provided for the dSPACE SCALEXIO\cref{dspace} platform.
+\url{https://www.fmi-standard.org}} (FMUs) which can be imported into compatible simulator
+development environments (\textit{e.g.}, the tool chain provided for the dSPACE SCALEXIO\cref{dspace} platform).
 
 Instead of embedding the (FMI-) compiled Modelica model into a simulator
 environment, the \emph{Modelica\_DeviceDrivers} (MDD) library uses a different approach.
