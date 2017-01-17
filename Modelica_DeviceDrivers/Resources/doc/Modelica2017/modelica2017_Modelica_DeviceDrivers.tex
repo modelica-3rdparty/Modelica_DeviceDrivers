@@ -587,9 +587,9 @@ The example features an additional annotation which declares the function
 as ``impure''. The intended meaning is that a tool may not expect that the
 function returns the same output for the same input, which is the typical case
 for MDD functions which read values from external devices. Indeed, Modelica v3.3 introduced the dedicated keyword
-``impure'' to cater for such cases. However, since not all tools support this
+``impure'' to cater for such cases. However, since not all Modelica tools support this
 keyword, yet, the MDD library uses the featured annotation which is understood
-by all the tools known to support the MDD library.
+by Dymola, OpenModelica and SimulationX.
 
 \subsection{The Serial Packager}
 
