@@ -160,16 +160,18 @@ Section~\ref{sec:CrossPlatformSupport}).
 
 The library is organized in several layers as indicated in
 Figure~\ref{fig:MDDLayeredArchitecture}. It
-provides two high-level drag \& drop block interfaces. The first (\texttt{Blocks}) is
-compatible to Modelica 3.2, using the traditional \modelica{when sample()}
-element for periodically calling Modelica functions from the \textsf{Function Layer}. The second
-(\texttt{ClockedBlocks}) uses the synchronous language elements extension
-introduced in Modelica 3.3 and is compatible with the
+provides two high-level drag \& drop block interfaces.
+\begin{enumerate}
+ \item The \modelica{Blocks} components are
+compatible to Modelica~v3.2, using \modelica{when sample()}
+for periodically calling Modelica functions from the \textsf{Function Layer}.
+ \item The \modelica{ClockedBlocks} components use the synchronous language elements extension
+introduced in Modelica~v3.3 and are compatible with the
 \emph{Modelica\_Synchronous} library \citep{Otter2012}. Due to this support, the
 MDD library formally depends on the \emph{Modelica\_Synchronous} library, but in
 practice the \emph{Modelica\_Synchronous} library (and tool support for the
-synchronous language elements extension) is only required if one actually wants
-to use the clocked block interface.
+synchronous language elements extension) is only required for this \modelica{ClockedBlocks} interface.
+\end{enumerate}
 \begin{figure}[htb]
 \begin{center}
   \includegraphics[width=\columnwidth]{figures/MDDLayeredArchitecture}
