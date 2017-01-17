@@ -393,7 +393,8 @@ socket communication was added in v1.4.0 (Windows) and v1.5.0 (Linux).
 Furthermore, support for sending and receiving of Lightweight Communications and
 Marshalling (LCM) datagrams\footnote{LCM project,
 \url{https://lcm-proj.github.io}} was added in v1.5.0.
-LCM is a set of libraries and tools for message passing and data marshalling,
+LCM is a set of libraries and tools for message passing and data marshalling\footnote{As of MDD
+v1.5.0, only the communications aspect of LCM is considered.},
 which is particularly targeted at low-latency real-time applications for
 robotic systems \citep{Huang2010}.
 
@@ -475,14 +476,16 @@ station uses a more dynamic protocol it becomes more difficult. In some cases
 using the \textsf{Function Layer} directly (instead of the \textsf{Block Layer})
 can provide additional flexibility for coping with more dynamic protocols.
 However, the main use-case for the \modelica{SerialPackager} concept is periodically
-sent, structurally static data. This restrictions may be relieved in
-future versions of MDD by providing additional ``Packagers'' that support more
-flexible means of packaging data.
+sent, structurally static data. These restrictions may be relieved in
+future versions of the MDD library by providing alternative, well-established ``Packagers'' that offer support for more
+flexible means of packaging data, \textit{e.g.}, the data marshalling of the LCM library or
+the efficient binary serialization format of the MessagePack library\footnote{MessagePack project,
+\url{https://msgpack.org}}.
 
-It turned out that the \modelica{SerialPackager} blocks were a major hurdle for
+Finally, it turned out that the \modelica{SerialPackager} blocks were a major hurdle for
 extending the number of Modelica tools which support MDD. They use a rather
 intricate mechanism for propagating a ``package'' between connected blocks
-which is discussed further in Section~\ref{sec:ModelicaStandardCompliance}.
+which is discussed further in Section~\ref{sec:SerialPackager}.
 
 \subsubsection{Hardware I/O}
 
@@ -594,6 +597,7 @@ keyword, yet, the MDD library uses the featured annotation which is understood
 by Dymola, OpenModelica and SimulationX.
 
 \subsection{The Serial Packager}
+\label{sec:SerialPackager}
 
 The \modelica{SerialPackager} blocks are core elements of the block-based
 communication support provided by the MDD library (see
@@ -982,7 +986,6 @@ environment.
 
 \section{Outlook}
 \BTHI{TODO: Bernhard, Thomas, Volker}
-% Generalization of the SerialPackager by other serializers like XDR or LCM (based on XDR) might be a realistic goal
 
 The \emph{Modelica\_DeviceDrivers} library is a tried and tested library which
 can support a wide range of application scenarios. During its development
@@ -1004,13 +1007,11 @@ standard compliance will not be introduced lightly.
 Naturally, there is a large pool of conceivable feature extensions to the
 library, due to the myriad number of available external devices and
 communication protocols. A frequent request is to extend the communication
-abilities beyond the capabilities of the available \modelica{SerialPackager}.
+abilities beyond the capabilities of the available \mbox{\modelica{SerialPackager}.}
 There exists a huge choice of data serialization formats which could be utilized for this
-purpose. Particularly, with regard to Internet of Things (IoT) technology
+purpose (\textit{e.g.}, LCM or MessagePack). Particularly, with regard to the Internet of Things (IoT) technology
 becoming more important, improving communication capabilities is a worthy goal.
-Similarly, supporting embedded systems is very attractive in that perspective
-and first prototypical work in that direction has been briefly outlined in this
-paper.
+Similarly, supporting embedded systems beyond the prototypical work is very attractive in that perspective.
 
 \section*{Acknowledgements}
 
