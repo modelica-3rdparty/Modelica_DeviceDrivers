@@ -564,10 +564,10 @@ As the Modelica standard specification on the external function interface improv
 standard-conform libraries with external C code dependencies could
 be created in a more satisfying way. For example, Modelica~v3.2
 standardized the search directory structure for the external C header files and
-libraries \citep[p.\@~153]{ModelicaAssociation2010}:
-Having such a standardized directory structure facilitated creating cross-platform libraries with external C library
-dependencies. For example, the Modelica code snippet below declares a
-dependency to the header file \modelica{MDDKeyboard.h} and the libraries
+libraries \citep[p.\@~153]{ModelicaAssociation2010}.
+Modelica~v3.4 additionally introduced compiler-specific sub-directories for the platform-specific library directories, \textit{e.g.}, if Visual Studio~2015 is used as a Windows 64-bit compiler it first checks directory \modelica{win64/vs2015} for dependent libraries\footnote{Modelica Issue Tracker, \url{https://trac.modelica.org/Modelica/ticket/1316}}. Having a standardized directory structure facilitated creating cross-platform libraries with external C library
+dependencies. For example, the Modelica code snippet below declares an
+include dependency to the header file \modelica{MDDKeyboard.h} and linker dependencies to the libraries
 \modelica{X11} and \modelica{User32}:
 \begin{lstlisting}[language=modelica]
 function getKey
