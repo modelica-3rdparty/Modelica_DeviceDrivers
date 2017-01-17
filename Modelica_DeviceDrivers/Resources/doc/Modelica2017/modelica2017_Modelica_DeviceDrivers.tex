@@ -155,14 +155,12 @@ This paper is based on MDD v1.5.0.
 \label{ModelicaDeviceDrivers}
 \BTHI{TODO: Bernhard, Thomas, Volker}
 
-The MDD library allows to access hardware devices from Modelica models.
-This is achieved by using the Modelica external C interface to call the
-appropriate C driver functions provided by the underlying operating system (see
+The MDD library allows Modelica models to access hardware devices by using the Modelica external C interface calling the appropriate C driver functions provided by the underlying operating system (see
 Section~\ref{sec:CrossPlatformSupport}).
 
 The library is organized in several layers as indicated in
 Figure~\ref{fig:MDDLayeredArchitecture}. It
-provides two high-level Drag \& Drop block interfaces. The first (\texttt{Blocks}) is
+provides two high-level drag \& drop block interfaces. The first (\texttt{Blocks}) is
 compatible to Modelica 3.2, using the traditional \modelica{when sample()}
 element for periodically calling Modelica functions from the \textsf{Function Layer}. The second
 (\texttt{ClockedBlocks}) uses the synchronous language elements extension
@@ -249,15 +247,15 @@ Section~\ref{sec:Applications}).
 
 Furthermore, Figure~\ref{fig:MDDPackageBrowseScreenshot} gives an indication
 about the relation between the \textsf{Block Layer} and the \textsf{Function Layer}. Typically, a
-device driver block will instantiate a corresponding external object from the
-\textsf{Function Layer}. Modelica's external objects allow to maintain internal memory
-between calls to external functions. This allows to open and initialize hardware
-devices once, during Modelica's initialization phase, and maintain the so
-created device handlers in memory for accessing them in subsequent simulation phases.
+device driver block will instantiate the corresponding external object from the
+\textsf{Function Layer}. Modelica's external objects allow external functions to access the internal memory (created by the \modelica{constructor}) between calls to external functions, \textit{i.e.}, the so
+created device handlers are maintained in memory for accessing them in subsequent simulation phases.
+Modelica also guarantees that both the \modelica{constructor} and \modelica{destructor} functions of
+an external object are called exactly once, enabling a reliable \emph{one-time} initialization and termination of hard\-ware devices, usually during the initialization and termination phase of the Modelica simulation model, respectively.
 For example, the \modelica{JoystickInput} block creates an instance of the
-external object class \mbox{\modelica{GameController}.} The package
+external object \mbox{\modelica{GameController}.} The package
 \modelica{GameController_} collects functions that can operate on external
-objects of type \modelica{GameController}. The package provides the function
+objects of type \mbox{\modelica{GameController}.} This package provides the function
 \modelica{getData}, which takes a \modelica{GameController} object as
 argument and returns the values of the axes and buttons of its associated
 hardware device.
@@ -290,9 +288,8 @@ end GameControllerExample;
 \end{lstlisting}
 
 \noindent
-The code above creates an external object named \mbox{\modelica{gc}.} The
-constructor for this object takes the argument \mbox{\modelica{id}.} This
-argument allows to specify which controller to use if several game controllers are attached to the
+The code above creates an external object \modelica{gc} by taking the \modelica{id} as argument. This
+argument specifies the game controller to be used if several game controllers are attached to the
 system. The function \modelica{getData} is called periodically within a
 \modelica{when}-clause. It takes the external object \modelica{gc} as
 argument and returns vectors which contain the values read from the
@@ -428,7 +425,7 @@ sub-package (see Figure~\ref{fig:MDDPackageBrowseScreenshot}). In the initial
 design of MDD it was expected that different packaging concepts would be
 supported which share a common connector interface. However, as of MDD v1.5.0
 the \modelica{SerialPackager} is the only available packager. It allows
-to periodically add (or retrieve) fixed size vectors to (or from) a package.
+to periodically add or retrieve fixed size vectors to or from a package, respectively.
 Figure~\ref{fig:SerialPackagerBlocks} shows the available blocks for serializing
 Modelica variables into a ``package''.
 \begin{figure}[htb]
@@ -563,11 +560,11 @@ achieving full Modelica compliance.
 
 \subsection{Modelica's External Function Interface}
 
-Modelica's external function interface specification improved over the years,
-which allowed to create more satisfying, standard-conform libraries with
-external C code dependencies. For example, Modelica v3.2
-introduced a standardized directory structure for searching for
-external libraries \citep[p.\@~153]{ModelicaAssociation2010}:
+As the Modelica standard specification on the external function interface improved over the years,
+standard-conform libraries with external C code dependencies could
+be created in a more satisfying way. For example, Modelica~v3.2
+standardized the search directory structure for the external C header files and
+libraries \citep[p.\@~153]{ModelicaAssociation2010}:
 \begin{tabbing}
 pa\=ck\=ag\=e.mo {\small// contains the Modelica code}\\
 \texttt{\textbf{Resources}}\\
@@ -670,9 +667,9 @@ The instantaneous equation \modelica{addInteger} is activated by the event
 The \modelica{dummy} variables are used to establish data-flow dependencies
 which ensure that (external) ``\modelica{addValue}'' functions in connected
 blocks are called in the correct order. The \modelica{backwardTrigger} event
-allows to propagate a triggering event in the inverse connector direction.
+allows the propagation of a triggering event in the inverse connector direction.
 Its supporting logic is omitted here for brevity. Variable
-\modelica{userPkgBitSize} allows to propagate a user defined package size which
+\modelica{userPkgBitSize} allows the propagation of a user defined package size which
 can be set at a communication device block, \textit{e.g.}, it is possible for a
 user to specify that the size of the external C ``\modelica{data}'' buffer (see
 Section~\ref{sec:Communication}) of a package should be eight bytes. However,
@@ -757,7 +754,7 @@ record ComediConfig
 end record;
 \end{lstlisting}
 where \modelica{dh} is an external object. It is convenient to collect
-configuration information in a record, since this allows to pass a complete set
+configuration information in a record, since this allows passing a complete set
 of related configuration settings at once. The problem here is that passing an
 external object as part of a record can be interpreted as the record returning
 the object and assigning it to another external object (which is forbidden in
