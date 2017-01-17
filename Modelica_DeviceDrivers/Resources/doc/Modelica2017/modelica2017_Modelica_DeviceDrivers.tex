@@ -654,9 +654,9 @@ The instantaneous equation \modelica{addInteger} is activated by the event
 The \modelica{dummy} variables are used to establish data-flow dependencies
 which ensure that (external) ``\modelica{addValue}'' functions in connected
 blocks are called in the correct order. The \modelica{backwardTrigger} event
-allows the propagation of a triggering event in the inverse connector direction.
+allows propagating a triggering event in the inverse connector direction.
 Its supporting logic is omitted here for brevity. Variable
-\modelica{userPkgBitSize} allows the propagation of a user defined package size which
+\modelica{userPkgBitSize} allows propagating a user defined package size which
 can be set at a communication device block, \textit{e.g.}, it is possible for a
 user to specify that the size of the external C ``\modelica{data}'' buffer (see
 Section~\ref{sec:Communication}) of a package should be eight bytes. However,
