@@ -567,17 +567,17 @@ standardized the search directory structure for the external C header files and
 libraries \citep[p.\@~153]{ModelicaAssociation2010}:
 Having such a standardized directory structure facilitated creating cross-platform libraries with external C library
 dependencies. For example, the Modelica code snippet below declares a
-dependency to the header file \modelica{ExtFunc1.h} and the libraries
-\modelica{ExtLib1} and \modelica{ExtLib2}:
+dependency to the header file \modelica{MDDKeyboard.h} and the libraries
+\modelica{X11} and \modelica{User32}:
 \begin{lstlisting}[language=modelica]
-function getFoo
-  input Real u;
-  output Real y;
-  external "C" y = Ext1_getFoo(u)
-    annotation(Include = "#include \"Ext1.h\"",
-    Library = {"ExtLib1", "ExtLib2"});
+function getKey
+  input Integer keyCode "Key code";
+  output Integer keyState "Key state";
+  external "C" MDD_keyboardGetKey(keyCode, keyState) annotation(
+    Include = "#include \"MDDKeyboard.h\"",
+    Library = {"X11", "User32"});
   annotation(__ModelicaAssociation_Impure=true);
-end getFoo;
+end getKey;
 \end{lstlisting}
 A Modelica tool will map these information to compiler- and linker-dependent
 directives and thereby select the libraries which fit best for the respective
