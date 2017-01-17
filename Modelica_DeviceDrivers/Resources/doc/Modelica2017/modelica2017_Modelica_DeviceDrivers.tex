@@ -565,25 +565,7 @@ standard-conform libraries with external C code dependencies could
 be created in a more satisfying way. For example, Modelica~v3.2
 standardized the search directory structure for the external C header files and
 libraries \citep[p.\@~153]{ModelicaAssociation2010}:
-\begin{tabbing}
-pa\=ck\=ag\=e.mo {\small// contains the Modelica code}\\
-\texttt{\textbf{Resources}}\\
-\>\texttt{\textbf{Include}}\\
-\>\>Ext1.h {\small// C-header file}\\
-\>\texttt{\textbf{Library}}\\
-\>\>\texttt{\textbf{win32}}\quad {\small// Windows 32 bit libraries}\\
-\>\>\>ExtLib1.lib {\small// static link library for VisualStudio}\\
-\>\>\>ExtLib2.lib {\small// statically linking the dynamic link library}\\
-\>\>\>ExtLib2.dll {\small// dynamic link library (with manifest)}\\
-\>\>\texttt{\textbf{win64}}\\
-\>\>\>{\small// Windows 64 bit versions of above libraries}\\
-\>\>\texttt{\textbf{linux32}}\quad {\small// Linux 32 bit libraries}\\
-\>\>\>ExtLib1.a {\small// static link library}\\
-\>\>\>ExtLib2.so {\small// shared library}\\
-\>\>\texttt{\textbf{linux64}}\\
-\>\>\>{\small// Linux 64 bit versions of above libraries}\\
-\end{tabbing}
-Having this standardized directory structure (which was missing in Modelica
+Having such a standardized directory structure (which was missing in Modelica
 v3.1) facilitated creating cross-platform libraries with external C library
 dependencies. For example, the Modelica code snippet below declares a
 dependency to the header file \modelica{ExtFunc1.h} and the libraries
