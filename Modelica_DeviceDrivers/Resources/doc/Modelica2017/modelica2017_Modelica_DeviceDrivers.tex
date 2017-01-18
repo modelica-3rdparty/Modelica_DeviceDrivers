@@ -283,8 +283,8 @@ model GameControllerExample
   discrete Real axesRaw[6];
   Integer buttons[32], pOV;
 equation
-  when sample(0,0.1) then
-    (axesRaw,buttons,pOV) = GameController_.getData(gc);
+  when sample(0, 0.1) then
+    (axesRaw, buttons, pOV) = GameController_.getData(gc);
   end when;
 end GameControllerExample;
 \end{lstlisting}
@@ -727,7 +727,7 @@ it\footnote{Modelica Issue Tracker,
 \url{https://trac.modelica.org/Modelica/ticket/2037}}.
 
 In the initial version of the MDD library the external object was actually
-created within a when clause,
+created within a \modelica{when}-clause,
 which was clearly illegal in Modelica v3.3. As part of improving the Modelica
 compliance of the library the creation of the object was moved into the
 component declaration.
@@ -758,19 +758,10 @@ Section~\ref{sec:External Object Aliasing} it seems highly desirable to consider
 use-cases as described above in some way,  in future versions of the Modelica
 standard.
 
+\subsection{Fixed attribute of Strings}
 
-% \subsection{Enhancements}
-% \subsection{Pitfalls and Open Issues}
-% Aide-mémoire:
-% \begin{itemize}
-%   \item Serialpackager
-%   \item Automatic buffer size
-%   \item External objects in equation
-%   \item Construction of external objects in record
-%   \item Linking to platform-dependent system libraries
-%   \item Missing fixed attribute for String
-%   \item Support of several include directories
-% \end{itemize}
+According to Modelica v3.3 the predefined type \mbox{\modelica{String}} was designed without the \modelica{fixed} attribute (as opposed to other predefined discrete types \modelica{Boolean} or \modelica{Integer}). However, such a \modelica{fixed} attribute is particularly relevant for the \modelica{GetString} block of the \modelica{SerialPackager} when retrieving sampled String data from a package. This issue was resolved by (future) Modelica v3.4 such that future Modelica tools supporting  Modelica v3.4  the will no longer raise a warning on the \modelica{GetString} block\footnote{Modelica Issue Tracker, \url{https://trac.modelica.org/Modelica/ticket/1797}}.
+
 
 \section{Applications}
 \label{sec:Applications}
@@ -890,7 +881,7 @@ The MDD SBHS example uses a model of the board (Figure~\ref{fig:sbhsboard})
 \begin{figure}
   \centering
   \includegraphics[width=0.9\columnwidth]{figures/SBHSBoard.pdf}
-  \caption{The MDD model of the single board heater system exposes the pulse-width modulation (PWM) block to control the heater and fan, and uses the analog-to-digital converter (ADC) block to read the temperature. Note that the SBHS board uses hardware components to create a linear mapping from voltage to temperature where $0\,\mathrm{V}$ maps to $0\,$℃.}
+  \caption{The MDD model of the single board heater system exposes the pulse-width modulation (PWM) block to control the heater and fan, and uses the analog-to-digital converter (ADC) block to read the temperature. The SBHS board uses hardware components to create a linear mapping from voltage to temperature where $0\,\mathrm{V}$ maps to $0\,$℃.}
   \label{fig:sbhsboard}
 \end{figure}
 \begin{figure}
