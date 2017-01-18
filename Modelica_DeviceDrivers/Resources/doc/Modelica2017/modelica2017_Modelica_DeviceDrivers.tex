@@ -715,12 +715,7 @@ it\footnote{Modelica Issue Tracker,
 \url{https://trac.modelica.org/Modelica/ticket/2037}}.
 
 In the initial version of the MDD library the external object was actually
-created within the when clause, like,
-\begin{lstlisting}[language=modelica]
-when initial() then
-  pkgOut.pkg = SerialPackager(bufferSize);
-end when;
-\end{lstlisting}
+created within a when clause,
 which was clearly illegal in Modelica v3.3. As part of improving the Modelica
 compliance of the library the creation of the object was moved into the
 component declaration.
