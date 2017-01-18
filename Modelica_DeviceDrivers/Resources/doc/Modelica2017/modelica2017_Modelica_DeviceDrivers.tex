@@ -589,7 +589,13 @@ A Modelica tool will map this information to compiler- and linker-dependent
 directives and thereby select the libraries which fit best for the respective
 platform.
 
-The example features an additional annotation which declares the function
+Having platform-specific system libraries like \modelica{X11} (for Linux only) and \modelica{User32} (for Windows only) in one generic library annotation, proofed to be a significant development difficulty. As a remedy, dummy libraries of the Linux system libraries are provided in the Windows-specific library directories \modelica{win32} and \modelica{win64}, and vice versa. Furthermore, the linking to system libraries on Windows was simplified by the introduction of compiler-specific pragmas, \textit{e.g.}, in \modelica{MDDKeyboard.h}
+\begin{lstlisting}[language=C]
+#pragma comment( lib, "User32.lib" )
+\end{lstlisting}
+understood by the Visual Studio compilers only. However, for GCC (including the MinGW and CygWin build environments) the issue remains unresolved\footnote{Modelica Issue Tracker, \url{https://trac.modelica.org/Modelica/ticket/1668}}.
+
+The above example function \modelica{getKey} features an additional (vendor-neutral) \modelica{Impure} annotation which declares the function
 as ``impure''. The intended meaning is that a tool may not expect that the
 function returns the same output for the same input, which is the typical case
 for MDD functions which read values from external devices. Indeed, Modelica v3.3 introduced the dedicated keyword
