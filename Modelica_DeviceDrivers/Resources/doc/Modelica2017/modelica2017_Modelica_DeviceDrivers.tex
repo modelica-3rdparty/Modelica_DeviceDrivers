@@ -223,7 +223,6 @@ providing support for constructs which are not (yet) allowed by the Modelica
 language standard). This is discussed in more detail in
 Section~\ref{sec:ModelicaStandardCompliance}.
 
-
 \subsection{Library Structure}
 \label{sec:LibraryStructure}
 
@@ -807,11 +806,11 @@ The code can easily be extended, but requires checking the data sheets in order
 to write to the correct bits.}.
 The advantage of including this code into the MDD library is that it makes it
 simple to write a model for a microcontroller that works the same way
-in any Modelica tool since all the OS support, real-time code, etc is
+in any Modelica tool since all the OS support, real-time code, etc. is
 abstracted away.
 Provided that the Modelica tool produces minimal C-code (uses minimal features
 outside of standard C: for example, no linear solver included if the system has no linear systems,
-no OS or I/O functions, no threading models, etc),
+no OS or I/O functions, no threading models, etc.),
 and the model itself does not use C-code that the embedded target cannot support
 (such as file I/O), the code generator would work on pretty much any embedded
 target supporting C.
@@ -839,8 +838,8 @@ function constructor "Initialize timer"
   input Types.TimerPrescaler clockSelect;
   input Boolean clearTimerOnMatch;
   output Timer timer;
-  external "C" timer = MDD_avr_timer_init(timerSelect, clockSelect, clearTimerOnMatch)
-    annotation(Include="#include \"MDDAVRTimer.h\"");
+  external "C" timer = MDD_avr_timer_init(timerSelect, clockSelect, clearTimerOnMatch) 
+    annotation(Include = "#include \"MDDAVRTimer.h\"");
 end constructor;
 \end{lstlisting}
 \begin{lstlisting}[language=C]
