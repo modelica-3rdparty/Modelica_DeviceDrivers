@@ -247,6 +247,7 @@ Section~\ref{sec:Applications}).
   \label{fig:MDDPackageBrowseScreenshot}
 \end{figure}
 
+\noindent
 Furthermore, Figure~\ref{fig:MDDPackageBrowseScreenshot} gives an indication
 about the relation between the \textsf{Block Layer} and the \textsf{Function Layer}. Typically, a
 device driver block will instantiate the corresponding external object from the
@@ -438,6 +439,7 @@ Modelica variables into a ``package''.
   \label{fig:SerialPackagerBlocks}
 \end{figure}
 
+\noindent
 At the C side, a package is a C byte array in which C variables with
 respectively indicated types are simply successively appended in a data-flow
 prescribed order. For example, in Figure~\ref{fig:PackagingConcept} the
@@ -584,7 +586,7 @@ function getKey
   annotation(__ModelicaAssociation_Impure=true);
 end getKey;
 \end{lstlisting}
-A Modelica tool will map these information to compiler- and linker-dependent
+A Modelica tool will map this information to compiler- and linker-dependent
 directives and thereby select the libraries which fit best for the respective
 platform.
 
