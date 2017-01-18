@@ -250,8 +250,8 @@ Section~\ref{sec:Applications}).
 Furthermore, Figure~\ref{fig:MDDPackageBrowseScreenshot} gives an indication
 about the relation between the \textsf{Block Layer} and the \textsf{Function Layer}. Typically, a
 device driver block will instantiate the corresponding external object from the
-\textsf{Function Layer}. Modelica's external objects allow external functions to access the internal memory (created by the \modelica{constructor}) between calls to external functions, \textit{i.e.}, the so
-created device handlers are maintained in memory for accessing them in subsequent simulation phases.
+\textsf{Function Layer}. Modelica's external objects allow external functions to access the internal memory (created by the \modelica{constructor}) between calls to external functions, \textit{i.e.}, the
+device handlers are maintained in memory in order to access them in subsequent simulation phases.
 Modelica also guarantees that both the \modelica{constructor} and \modelica{destructor} functions of
 an external object are called exactly once, enabling a reliable \emph{one-time} initialization and termination of hard\-ware devices, usually during the initialization and termination phase of the Modelica simulation model, respectively.
 For example, the \modelica{JoystickInput} block creates an instance of the
@@ -772,7 +772,7 @@ help of the MDD library.
 
 \subsection{Arduino}
 
-The Arduino\footnote{Arduino, \url{https://arduino.cc}} is an open-source electronics platform which features easy configurations to read the sensors, process the data and send it to other devices via a serial connection. 
+The Arduino\footnote{Arduino, \url{https://arduino.cc}} is an open-source electronics platform which features easy configurations to read the sensors, process the data and send it to other devices via a serial connection.
 Therefore, the Arduino can be utilized to provide sensor data in a real-time Modelica model by means of the MDD serial port implementation, as depicted in Figure~\ref{fig:arduino} \footnote{Autodesk screen shots reprinted courtesy of Autodesk, Inc.}.
 With the help of potentiometers or other deflection sensors, customized control devices can be built.
 
