@@ -775,7 +775,7 @@ help of the MDD library.
 \subsection{Arduino}
 
 The Arduino\footnote{Arduino, \url{https://arduino.cc}} is an open-source electronics platform which features easy configurations to read the sensors, process the data and send it to other devices via a serial connection.
-Therefore, the Arduino can be utilized to provide sensor data in a real-time Modelica model by means of the MDD serial port implementation, as depicted in Figure~\ref{fig:arduino} \footnote{Autodesk screen shots reprinted courtesy of Autodesk, Inc.}.
+Therefore, the Arduino can be utilized to provide sensor data in a real-time Modelica model by means of the MDD serial port implementation, as depicted in Figure~\ref{fig:arduino}.
 With the help of potentiometers or other deflection sensors, customized control devices can be built.
 
 As an exemplary application, self-built pedals for a driving simulator can be equipped with a sensor in order to measure the displacement. The pedal itself is a steel sheet, mounted on a revolute joint and a shock spring.
@@ -784,10 +784,10 @@ Therefore, expensive or unavailable input devices can be substituted by custom c
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.9\columnwidth]{figures/arduino}
-  \caption{Setup to read potentiometer deflection during real-time simulation with MDD serial port model.}
+  \caption{Setup to read potentiometer deflection during real-time simulation with MDD serial port model \protect\footnotemark.}
   \label{fig:arduino}
 \end{figure}
-
+\footnotetext{Autodesk screen shots reprinted courtesy of Autodesk, Inc.}
 \noindent
 By using a Bluetooth module with Serial Port Profile (SPP) a wireless connection between Arduino is handled in the same way as a serial port over USB connection.
 No further modifications are necessary to implement a wireless control device.
