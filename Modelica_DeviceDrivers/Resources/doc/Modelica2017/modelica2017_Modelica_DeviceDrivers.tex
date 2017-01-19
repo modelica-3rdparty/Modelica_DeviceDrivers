@@ -240,7 +240,7 @@ target specific function and blocks for supporting restricted
 embedded systems like the Arduino microcontroller (see
 Section~\ref{sec:Applications}).
 
-\begin{figure}[htb]
+\begin{figure}[h]
   \centering
   \includegraphics[width=\columnwidth]{figures/MDDPackageBrowseScreenshot}
   \caption{MDD library structure.}
@@ -315,7 +315,7 @@ associate a periodic clock to the variables and equations within the
 associated clock ticks (\textit{i.e.}, every $0.1\,\mathrm{s}$ in the presented
 example).
 
-\begin{figure}[htb]
+\begin{figure}[tb]
   \centering
   \begin{subfigure}[b]{0.45\columnwidth}
      \centering
@@ -336,7 +336,6 @@ example).
   \label{fig:JoystickBlocks}
 \end{figure}
 
-\noindent
 The example models can be simulated, but real-time synchronization is
 required to slow the simulation speed down, in order to synchronize the
 real-time inputs with the simulation progress.
@@ -353,7 +352,7 @@ The MDD library has grown to support a respectable amount of hardware devices
 and associated features which will be briefly presented in this section.
 
 \subsubsection{Input Devices}
-\begin{figure}[htb]
+\begin{figure}[h]
   \centering
   \includegraphics[width=0.7\columnwidth]{figures/OverviewInputDevices}
   \caption{Supported input devices from the \modelica{Blocks} package.}
@@ -415,7 +414,7 @@ followed by a variable of type \modelica{Integer} is either transmitted using
 shared memory or UDP blocks. Switching between the two communication devices
 is achieved by simply replacing the corresponding device block.
 
-\begin{figure}[htb]
+\begin{figure}[h]
   \centering
   \includegraphics[width=1.0\columnwidth]{figures/PackagingConcept}
   \caption{Simple switching of communication devices due to common packaging concept
@@ -432,7 +431,7 @@ the \modelica{SerialPackager} is the only available packager. It allows
 to periodically add or retrieve fixed size vectors to or from a package, respectively.
 Figure~\ref{fig:SerialPackagerBlocks} shows the available blocks for serializing
 Modelica variables into a ``package''.
-\begin{figure}[htb]
+\begin{figure}[h]
   \centering
   \includegraphics[width=0.6\columnwidth]{figures/SerialPackagerBlocks}
   \caption{\modelica{SerialPackager} blocks for adding variables to a package.}
@@ -456,6 +455,8 @@ unsigned char* data = (unsigned char*) calloc(28, sizeof(unsigned char));
 memcpy(&data[0], &v1[0], sizeof(v1));
 memcpy(&data[24], &v2, sizeof(v2));
 \end{lstlisting}
+
+\noindent
 Figure~\ref{fig:SerialPackagerBlocks} shows the blocks for adding
 variables to a package, symmetrically, blocks are available for retrieving variables from a
 package. Using these blocks is deemed to be rather
@@ -496,7 +497,7 @@ Figure~\ref{fig:MDDPackageBrowseScreenshot}) is intended for data acquisition
 hardware like digital-analog converter (DAC), analog-digital converter (ADC) and
 other interface hardware.
 
-\begin{figure}[htb]
+\begin{figure}[h]
   \centering
   \includegraphics[width=0.9\columnwidth]{figures/MDDComedi}
   \caption{Accessing data acquisition hardware via the Linux
@@ -781,7 +782,7 @@ With the help of potentiometers or other deflection sensors, customized control 
 As an exemplary application, self-built pedals for a driving simulator can be equipped with a sensor in order to measure the displacement. The pedal itself is a steel sheet, mounted on a revolute joint and a shock spring.
 The measured deflection is transferred via a serial connection to a \modelica{Blocks.Communication.SerialPortReceive} in order to drive a virtual vehicle.
 Therefore, expensive or unavailable input devices can be substituted by custom constructions.
-\begin{figure}[htb]
+\begin{figure}[h]
   \centering
   \includegraphics[width=0.9\columnwidth]{figures/arduino}
   \caption{Setup to read potentiometer deflection during real-time simulation with MDD serial port model.}
@@ -906,14 +907,13 @@ At the DLR Institute of System Dynamics and Control, several simulator systems
 utilize the MDD library for inter-system
 communication and querying of input devices.
 
-\begin{figure}[htb]
+\begin{figure}[tb]
   \centering
   \includegraphics[width=0.9\columnwidth]{figures/DLRRoboticMotionSimulator}
   \caption{The DLR Robotic Motion Simulator.}
   \label{fig:DLRRoboticMotionSimulator}
 \end{figure}
 
-\noindent
 The DLR Robotic Motion Simulator \citep{bellmann2011dlr} is a 7 axis driving and
 flight simulator based on an industrial robot arm (see
 Figure~\ref{fig:DLRRoboticMotionSimulator}). The main use of this motion
@@ -939,7 +939,7 @@ angular velocities inputs for the real-time path-planning, or the control panel
 I/O) are communicated via the UDP blocks.
 \end{itemize}
 
-\begin{figure}[htb]
+\begin{figure}[tb]
   \centering \includegraphics[width=0.9\columnwidth]{figures/DLRSimulatorCabin}
   \caption{View into the simulator cabin of the DLR motion simulator. The
   instrumentation package is replaceable, so that the simulator cabin can be
@@ -948,7 +948,6 @@ I/O) are communicated via the UDP blocks.
   \label{fig:DLRSimulatorCabin}
 \end{figure}
 
-\noindent
 Figure~\ref{fig:DLRSimulatorCabin} shows the inside of the simulator cabin.
 The instrumentation package can be adapted
 for different simulation types or for testing different input concepts.
@@ -960,7 +959,7 @@ tasks are performed using Modelica models, where the
 synchronization. Also, communication with the other simulation components is
 performed partly via the UDP blocks.
 
-\begin{figure}[htb]
+\begin{figure}[tb]
   \centering
   \includegraphics[width=0.5\columnwidth]{figures/DLRROBEX}
   \caption{DLR ROBEX technology demonstrator.}
