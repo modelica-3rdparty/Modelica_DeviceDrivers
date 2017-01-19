@@ -659,7 +659,7 @@ block AddInteger
   IntegerInput u "Integer input connector";
 equation
   when initial() then
-    pkgIn.autoPkgBitSize = pkgOut.autoPkgBitSize + 32 /* size of int */;
+    pkgIn.autoPkgBitSize = pkgOut.autoPkgBitSize + 32 /* bit size of int32 */;
   end when;
   when pkgIn.trigger then
     pkgOut.dummy = addInteger(pkgOut.pkg, u, pkgIn.dummy);
