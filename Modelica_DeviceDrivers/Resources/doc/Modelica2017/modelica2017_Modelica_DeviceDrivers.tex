@@ -643,6 +643,9 @@ Figure~\ref{fig:PackagingConcept}). Within an ``add'' or ``get'' block the
 passed in external object is used as an argument to external functions which
 first add or retrieve data from the package and then pass it on to the next block.
 
+Due to the design of the \modelica{SerialPackager} connector sharing \emph{both} input and output variables it is impossible to have more than one \modelica{connect} equation per connector.
+However, Modelica offers no option to tell a user already at modeling time about this maximal allowed connector cardinality.
+
 \subsubsection{Basic Concept}
 
 The
