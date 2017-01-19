@@ -595,7 +595,7 @@ Having platform-specific system libraries like \modelica{X11} (for Linux only) a
 \begin{lstlisting}[language=C]
 #pragma comment( lib, "User32.lib" )
 \end{lstlisting}
-understood by the Visual Studio compilers only. However, for GCC (including the MinGW and CygWin build environments) the issue remains unresolved\footnote{Modelica Issue Tracker, \url{https://trac.modelica.org/Modelica/ticket/1668}}.
+understood by the Visual Studio compilers only. However, for GCC (including the MinGW and CygWin build environments) the issue remains unresolved\footnote{\label{T1668}Modelica Issue Tracker, \url{https://trac.modelica.org/Modelica/ticket/1668}}.
 
 \subsubsection{Impure Functions}
 
@@ -607,13 +607,15 @@ for MDD functions which read values from external devices. Indeed, Modelica v3.3
 keyword, yet, the MDD library uses the \modelica{Impure} annotation which is understood
 by Dymola, OpenModelica and SimulationX.
 
-\subsubsection{Modelica 3.4 Improvements}
+\subsubsection{Modelica Standard Improvements}
 
 A future release of MDD may benefit from the improvements on the external function interface available with (future) Modelica~v3.4.
 \begin{itemize}
  \item Compiler-specific sub-directories for the platform-specific library directories are introduced, \textit{e.g.}, if Visual Studio~2015 is used as a Windows 64-bit compiler it \emph{first} checks directory \modelica{win64/vs2015} for dependent libraries\footnote{Modelica Issue Tracker, \url{https://trac.modelica.org/Modelica/ticket/1316}}.
  \item The \modelica{IncludeDirectory} annotation accepts \emph{multiple} directories enabling a more convenient way to specify several external C header file dependencies distributed over different include directories\footnote{Modelica Issue Tracker, \url{https://trac.modelica.org/Modelica/ticket/2103}}.
 \end{itemize}
+
+However, a generalized build process\cref{T1668} of the external code still misses the definition and (future) standardization of build features such as compilation of several C source modules, compiler flags (\clang{CFLAGS}) or preprocessor defines (\clang{CPPFLAGS})\footnote{Modelica Issue Tracker, \url{https://trac.modelica.org/Modelica/ticket/2145}}.
 
 \subsection{The Serial Packager}
 \label{sec:SerialPackager}
