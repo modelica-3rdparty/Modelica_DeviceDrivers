@@ -687,7 +687,7 @@ described further below.
 A problem with the \modelica{AddValue} block is that the \modelica{pkg}
 objects within the connectors are not explicitly created by calling an external object constructor
 function as required in Modelica v3.3 \cite[p.\@~165]{ModelicaAssociation2014}.
-Instead, they rely on aliasing through equations and connect equations to
+Instead, they rely on aliasing through (connect) equations to
 access an external object which has been created at another place. In
 Figure~\ref{fig:PackagingConcept} the \modelica{pkg} object for the ``add''
 blocks is created in the ``Packager'' block at the top of the figure, while the
