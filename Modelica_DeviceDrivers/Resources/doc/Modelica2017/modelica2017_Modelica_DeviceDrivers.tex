@@ -677,12 +677,11 @@ The \modelica{dummy} variables are used to establish data-flow dependencies
 which ensure that \modelica{addValue} functions of the connected
 blocks are called in the correct order. The \modelica{backwardTrigger} event
 allows propagating a triggering event in the inverse connector direction.
-Its supporting logic is omitted here for brevity. Variable
-\modelica{userPkgBitSize} allows propagating a user defined package size which
-can be set at a communication device block, \textit{i.e.}, it is possible for a
-user to customize the package size of the external data buffer (see
+Its supporting logic is omitted here for brevity. A Modelica standard conform alternative is provided by the
+variable \modelica{userPkgBitSize} that allows propagating a user defined package size, \textit{i.e.}, it is possible for a
+user to customize the package size of the external data buffer of the communication device block (see
 Section~\ref{sec:Communication}). However,
-the default setting is that the necessary package size is deduced automatically
+in the default setting the necessary package size is deduced automatically
 with the help of the \modelica{autoPkgBitSize} variable. This approach is
 described in Section~\ref{sec:Automatic Buffer Size}.
 
@@ -714,7 +713,7 @@ void MDD_udpReadP(void* p_udp, void* p_package)
 \subsubsection{External Object Aliasing}
 \label{sec:External Object Aliasing}
 
-A problem with the ``add'' blocks is that the \modelica{pkg}
+A problem with the \textsf{Block Layer} of the \modelica{SerialPackager} is that the \modelica{pkg}
 objects within the connectors are not explicitly created by calling an external object constructor
 function as required in Modelica v3.3 \cite[p.\@~165]{ModelicaAssociation2014}.
 Instead, they rely on aliasing through (\modelica{connect}) equations to
@@ -729,6 +728,8 @@ which is forbidden. The authors hope that future versions of
 the Modelica standard will consider use-cases that the
 Modelica tools Dymola, OpenModelica and SimulationX already support\footnote{Modelica Issue Tracker,
 \url{https://trac.modelica.org/Modelica/ticket/1669}}.
+
+A Modelica standard conform implementation that avoids the aliasing is to only rely on the \textsf{Function Layer} provided by package \modelica{SerialPackager_}.
 
 \subsubsection{Automatic Buffer Size}
 \label{sec:Automatic Buffer Size}
