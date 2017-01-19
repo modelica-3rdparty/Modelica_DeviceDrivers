@@ -692,7 +692,8 @@ shared memory (or UDP, respectively). While the concept of external object
 aliases does not exist in Modelica v3.3, equating two external
 objects may be interpreted as an assignment to an external object,
 which is forbidden. The authors hope that future versions of
-the Modelica standard will consider and support such use-cases, as the Modelica tools Dymola, OpenModelica and SimulationX already do\footnote{Modelica Issue Tracker,
+the Modelica standard will consider and support use-cases that the
+Modelica tools Dymola, OpenModelica and SimulationX already support\footnote{Modelica Issue Tracker,
 \url{https://trac.modelica.org/Modelica/ticket/1669}}.
 
 \subsubsection{Automatic Buffer Size}
@@ -836,7 +837,7 @@ function constructor "Initialize timer"
   input Types.TimerPrescaler clockSelect;
   input Boolean clearTimerOnMatch;
   output Timer timer;
-  external "C" timer = MDD_avr_timer_init(timerSelect, clockSelect, clearTimerOnMatch) 
+  external "C" timer = MDD_avr_timer_init(timerSelect, clockSelect, clearTimerOnMatch)
     annotation(Include = "#include \"MDDAVRTimer.h\"");
 end constructor;
 \end{lstlisting}
