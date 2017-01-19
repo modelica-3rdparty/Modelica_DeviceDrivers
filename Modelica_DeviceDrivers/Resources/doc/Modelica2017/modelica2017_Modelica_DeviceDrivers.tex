@@ -343,7 +343,7 @@ synchronization\footnote{See documentation to block
 \mbox{\modelica{SynchronizeRealtime}.}
 %\url{https://build.openmodelica.org/Documentation/Modelica_DeviceDrivers.Blocks.OperatingSystem.SynchronizeRealtime.html}
 }.
-However, a user should consider that Modelica tools may provide better (tool-specific) mechanisms for real-time synchronization.
+However, a user should consider that Modelica tools may provide better (tool-specific) options for real-time synchronization.
 
 \subsection{Features}
 
@@ -485,9 +485,7 @@ the efficient binary serialization format of the MessagePack library\footnote{Me
 \url{https://msgpack.org}}.
 
 Finally, it turned out that the \modelica{SerialPackager} blocks were a major hurdle for
-extending the number of Modelica tools which support MDD. They use a rather
-intricate mechanism for propagating a ``package'' between connected blocks
-which is discussed further in Section~\ref{sec:SerialPackager}.
+extending the number of Modelica tools which support MDD (Section~\ref{sec:SerialPackager}).
 
 \subsubsection{Hardware I/O}
 
@@ -613,11 +611,10 @@ by Dymola, OpenModelica and SimulationX.
 \subsection{The Serial Packager}
 \label{sec:SerialPackager}
 
-The \modelica{SerialPackager} blocks are core elements of the block-based
+The \modelica{SerialPackager} blocks are the core elements of the block-based
 communication support provided by the MDD library (see
-Section~\ref{sec:Communication}). They use a rather intricate mechanism for
-propagating a ``package'' between connected blocks which is discussed in this
-section.
+Section~\ref{sec:Communication}). They use a rather intricate approach for
+propagating a ``package'' between connected blocks.
 
 \subsubsection{Connector Definition}
 
@@ -675,7 +672,7 @@ can be set at a communication device block, \textit{e.g.}, it is possible for a
 user to specify that the size of the external C ``\modelica{data}'' buffer (see
 Section~\ref{sec:Communication}) of a package should be eight bytes. However,
 the default setting is that the necessary package size is deduced automatically
-with the help of the \modelica{autoPkgBitSize} variable. The mechanism is
+with the help of the \modelica{autoPkgBitSize} variable. This approach is
 described further below.
 
 \subsubsection{External Object Aliasing}
