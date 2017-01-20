@@ -205,7 +205,7 @@ Modelica's external function interface.
 The platform differentiation is handled in the \textsf{C Code Layer} which
 uses preprocessor directives for conditional inclusion/exclusion of
 platform-specific code (\mbox{\clang{#if}}, \mbox{\clang{#else}},
-\mbox{\clang{#endif}}, \textit{etc.}) similarly to the code fragment below.
+\mbox{\clang{#endif}}, \textit{etc.}) similar to the code fragment below.
 \begin{lstlisting}[language=C]
 #if defined(_MSC_VER) || defined(__CYGWIN__) || defined(__MINGW32__)
 #include <windows.h>
@@ -873,14 +873,14 @@ The code can easily be extended, but requires checking the data sheets in order
 to write to the correct bits.}.
 The advantage of including this code into the MDD library is that it makes it
 simple to write a model for a microcontroller that works the same way
-in any Modelica tool since all the OS support, real-time code, \textit{etc.} is
-abstracted away.
+in any Modelica tool since all the OS support, real-time code, \textit{etc.},
+is abstracted away.
 Provided that the Modelica tool produces minimal C-code (uses minimal features
 outside of standard C: for example, no linear solver included if the system has no linear systems,
-no OS or I/O functions, no threading models, \textit{etc.}),
+no OS or \mbox{I/O} functions, no threading models, \textit{etc.}),
 and the model itself does not use C-code that the embedded target cannot support
-(such as file I/O), the code generator would work on pretty much any embedded
-target supporting C.
+(such as file \mbox{I/O}), the code generator would work on pretty much any
+embedded target supporting C.
 
 The Modelica code itself tries to avoid the Integer constants from the
 data sheets.
