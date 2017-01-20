@@ -683,11 +683,11 @@ equation
   pkgOut.userPkgBitSize = pkgIn.userPkgBitSize;
 end AddInteger;
 \end{lstlisting}
-The instantaneous equation \modelica{addInteger} is activated by the event
-\modelica{trigger} which is propagated through the connected packager blocks.
+The instantaneous equation invoking the \modelica{addInteger} function is
+activated by the event \modelica{trigger} which is propagated through the connected packager blocks.
 The \modelica{dummy} variables are used to establish data-flow dependencies
-which ensure that \modelica{addValue} functions of the connected
-blocks are called in the correct order. The \modelica{backwardTrigger} event
+which ensure that the ``\modelica{addValue}'' functions of connected
+blocks are invoked in the correct order. The \modelica{backwardTrigger} event
 allows propagating a triggering event in the inverse connector direction.
 Its supporting logic is omitted here for brevity. A Modelica standard conform alternative is provided by the
 variable \modelica{userPkgBitSize} that allows propagating a user defined package size, \textit{i.e.}, it is possible for a
