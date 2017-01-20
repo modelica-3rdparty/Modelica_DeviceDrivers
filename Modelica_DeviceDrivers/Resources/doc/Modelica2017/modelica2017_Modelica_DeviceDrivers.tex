@@ -105,19 +105,29 @@ Furthermore, Modelica can be used for developing (model-based) control
 applications which also require interaction with their environment.
 
 There are different approaches for enabling the above mentioned applications in
-the context of Modelica. Several simulator development environments offer tool chains for
+the context of Modelica. Several development environments offer tool chains for
 real-time simulation and/or model-based development of embedded control
-applications. Modelica tools may interface these simulator development environments, by wrapping the generated, third-party-specific code
-from the Modelica tool into tool-internal representations, which then can be connected to hardware devices in the respective simulator development environment. For example, such customized solutions are available in
-\begin{itemize}
- \item Dymola\footnote{Dassault Systèmes, \url{https://www.3ds.com}} via its DymolaBlock interface to the MATLAB/Simulink\footnote{\label{tmw}The MathWorks, \url{https://mathworks.com}} tool chain
- \item OpenModelica\footnote{Open Source Modelica Consortium (OSMC), \url{https://www.openmodelica.org}} via customized tool chains \citep{Worschech2012}
- \item SimulationX\footnote{SimulationX by ESI, \url{https://simulationx.com}} via Code Export for Simulink/Simulink Coder\cref{tmw} or HIL environments like dSPACE DS1006\footnote{\label{dspace}dSPACE, \url{https://dspace.com}}, NI VeriStand\footnote{National Instruments, \url{http://ni.com}} or ETAS LAB\-CAR\footnote{ETAS, \url{http://etas.com}} \citep{Blochwitz2009}
-\end{itemize}
-Furthermore, it may also be possible for Modelica tools to generate Functional
+applications.
+Some of these environments can be coupled with Modelica tools, by wrapping code
+which is generated from Modelica tools into respective third-party tool-internal
+representations which can be connected to hardware devices in the respective
+development environment. For example,
+such customized solutions are available in
+Dymola\footnote{Dassault Systèmes,
+\url{https://www.3ds.com}} via its DymolaBlock interface to the
+MATLAB/Simulink\footnote{\label{tmw}The MathWorks, \url{https://mathworks.com}}
+tool chain, OpenModelica\footnote{Open Source Modelica Consortium (OSMC),
+\url{https://www.openmodelica.org}} via customized tool chains
+\citep{Worschech2012}, or SimulationX\footnote{SimulationX by ESI,
+\url{https://www.simulationx.com}} via Code Export for Simulink/Simulink
+Coder\cref{tmw} or HIL environments like dSPACE
+DS1006\footnote{\label{dspace}dSPACE, \url{https://www.dspace.com}}, NI
+VeriStand\footnote{National Instruments, \url{http://www.ni.com}} or ETAS
+LABCAR\footnote{ETAS, \url{http://www.etas.com}} \citep{Blochwitz2009}.
+Furthermore, it may also be possible for a Modelica tool to generate Functional
 Mock-up Units\footnote{FMI development group,
-\url{https://fmi-standard.org}} (FMUs) which can be imported into compatible simulator
-development environments (\textit{e.g.}, the tool chain provided for the dSPACE SCALEXIO\cref{dspace} platform).
+\url{https://www.fmi-standard.org}} (FMUs) which can be imported into compatible
+simulator environments (\textit{e.g.,} the dSPACE SCALEXIO\cref{dspace} HIL simulator).
 
 Instead of embedding the (FMI-) compiled Modelica model into a simulator
 environment, the \emph{Modelica\_DeviceDrivers} (MDD) library uses a different approach.
@@ -195,7 +205,7 @@ Modelica's external function interface.
 The platform differentiation is handled in the \textsf{C Code Layer} which
 uses preprocessor directives for conditional inclusion/exclusion of
 platform-specific code (\mbox{\clang{#if}}, \mbox{\clang{#else}},
-\mbox{\clang{#endif}}, etc.) similarly to the code fragment below.
+\mbox{\clang{#endif}}, \textit{etc.}) similar to the code fragment below.
 \begin{lstlisting}[language=C]
 #if defined(_MSC_VER) || defined(__CYGWIN__) || defined(__MINGW32__)
 #include <windows.h>
@@ -215,13 +225,12 @@ Back in 2009, the library was developed using the Dymola tool. With MDD v1.4.0,
 considerable development efforts have been spent on the Modelica compliance of
 the library in order to better support SimulationX and OpenModelica.
 
-Since OpenModelica 1.11.0 Beta 1 the MDD Communication blocks are finally
+Since OpenModelica 1.11.0 Beta 1 the MDD \modelica{SerialPackager} blocks as well as the \modelica{Communication} blocks are finally
 supported by OpenModelica. For achieving this, it was necessary to change parts
-of the library (under the constraint of maintaining backwards compatibility),
+of the MDD library (under the constraint of maintaining backwards compatibility),
 and at the same time, to extend the abilities of respective tools (partly by
-providing support for constructs which are not (yet) allowed by the Modelica
-language standard). This is discussed in more detail in
-Section~\ref{sec:ModelicaStandardCompliance}.
+providing support for non-standard Modelica constructs). This is discussed in more detail in
+Section~\ref{sec:External Object Aliasing}.
 
 \subsection{Library Structure}
 \label{sec:LibraryStructure}
@@ -290,14 +299,15 @@ end GameControllerExample;
 \end{lstlisting}
 
 \noindent
-The code above creates an external object \modelica{gc} by taking the \modelica{id} as argument. This
-argument specifies the game controller to be used if several game controllers are attached to the
-system. The function \modelica{getData} is called periodically within a
-\modelica{when}-clause. It takes the external object \modelica{gc} as
-argument and returns vectors which contain the values read from the
-associated game controller. The vector is pre-dimensioned, so that it can attune
-to controllers featuring as much as six axes, 32 buttons and a POV (point of
-view) switch. The actually available data depends on the connected game
+The code above creates an external object named \mbox{\modelica{gc}.}
+The constructor for this object takes the argument \mbox{\modelica{id}.} This
+argument allows to specify which controller to use if several game controllers
+are attached to the system. The function \modelica{getData} is called
+periodically within a \modelica{when}-clause. It takes the external object
+\modelica{gc} as argument and returns vectors which contain the values read from
+the associated game controller. The vector is pre-dimensioned, so that it can
+attune to controllers featuring as much as six axes, 32 buttons and a POV (point
+of view) switch. The actually available data depends on the connected game
 controller hardware. Tests with the actual hardware are needed for determining
 which vector entry corresponds to which physical axis or button.
 
@@ -343,7 +353,7 @@ synchronization\footnote{See documentation to block
 \mbox{\modelica{SynchronizeRealtime}.}
 %\url{https://build.openmodelica.org/Documentation/Modelica_DeviceDrivers.Blocks.OperatingSystem.SynchronizeRealtime.html}
 }.
-However, a user should consider that Modelica tools may provide better (tool-specific) mechanisms for real-time synchronization.
+However, a user should consider that Modelica tools may provide better (tool-specific) options for real-time synchronization.
 
 \subsection{Features}
 
@@ -372,7 +382,8 @@ scenarios.
 \label{sec:Communication}
 
 The most comprehensive and complex part of the library is related to
-communication devices and their supporting Modelica and external C code.
+implementing support for communication devices in Modelica and external
+C code.
 
 \paragraph{Supported Devices}
 
@@ -429,7 +440,9 @@ supported which share a common connector interface. However, as of MDD v1.5.0
 the \modelica{SerialPackager} is the only available packager. It allows
 to periodically add or retrieve fixed size vectors to or from a package, respectively.
 Figure~\ref{fig:SerialPackagerBlocks} shows the available blocks for serializing
-Modelica variables into a ``package''.
+Modelica variables of the predefined types \modelica{Boolean}, \modelica{Integer}, \modelica{Real} and \mbox{\modelica{String}} into a ``package''.
+The type \modelica{Real} can be packed either as double-precision or (using a C
+static cast) as single-precision floating-point number.
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.6\columnwidth]{figures/SerialPackagerBlocks}
@@ -485,9 +498,7 @@ the efficient binary serialization format of the MessagePack library\footnote{Me
 \url{https://msgpack.org}}.
 
 Finally, it turned out that the \modelica{SerialPackager} blocks were a major hurdle for
-extending the number of Modelica tools which support MDD. They use a rather
-intricate mechanism for propagating a ``package'' between connected blocks
-which is discussed further in Section~\ref{sec:SerialPackager}.
+extending the number of Modelica tools which support MDD (see Section~\ref{sec:SerialPackager}).
 
 \subsubsection{Hardware I/O}
 
@@ -521,7 +532,7 @@ blocks. Configuration of the device is performed in the Modelica record named
 a parameter to the other blocks (\modelica{comedi.dh}). Using external
 objects in records is not standard compliant to Modelica v3.3 revision 1
 \citep{ModelicaAssociation2014} which is further discussed in
-Section~\ref{sec:ModelicaStandardCompliance}.
+Section~\ref{sec:External Objects in Records}.
 
 Writing or reading raw integer values to DAC or from ADC channels is provided by
 blocks \modelica{DataWrite} or \modelica{DataRead}, respectively. These blocks have
@@ -590,17 +601,15 @@ A Modelica tool will map this information to compiler- and linker-dependent
 directives and thereby select the libraries which fit best for the respective
 platform.
 
+\subsubsection{Linking Platform-Dependent System Libraries}
+
 Having platform-specific system libraries like \modelica{X11} (for Linux only) and \modelica{User32} (for Windows only) in one generic \modelica{Library} annotation, proofed to be a significant development difficulty. As a remedy, dummy libraries of the Linux system libraries are provided in the Windows-specific library directories \modelica{win32} and \modelica{win64}, and vice versa. Furthermore, the linking to system libraries on Windows was simplified by the introduction of compiler-specific pragmas, \textit{e.g.}, in \modelica{MDDKeyboard.h}
 \begin{lstlisting}[language=C]
 #pragma comment( lib, "User32.lib" )
 \end{lstlisting}
-understood by the Visual Studio compilers only. However, for GCC (including the MinGW and CygWin build environments) the issue remains unresolved\footnote{Modelica Issue Tracker, \url{https://trac.modelica.org/Modelica/ticket/1668}}.
+understood by the Visual Studio compilers only. However, for GCC (including the MinGW and CygWin build environments) the issue remains unresolved\footnote{\label{T1668}Modelica Issue Tracker, \url{https://trac.modelica.org/Modelica/ticket/1668}}.
 
-A future release of MDD may benefit from the improvements on the external function interface available with (future) Modelica~v3.4.
-\begin{itemize}
- \item Compiler-specific sub-directories for the platform-specific library directories are introduced, \textit{e.g.}, if Visual Studio~2015 is used as a Windows 64-bit compiler it \emph{first} checks directory \modelica{win64/vs2015} for dependent libraries\footnote{Modelica Issue Tracker, \url{https://trac.modelica.org/Modelica/ticket/1316}}.
- \item The \modelica{IncludeDirectory} annotation accepts \emph{multiple} directories enabling a more convenient way to specify several external C header file dependencies distributed over different include directories\footnote{Modelica Issue Tracker, \url{https://trac.modelica.org/Modelica/ticket/2103}}.
-\end{itemize}
+\subsubsection{Impure Functions}
 
 The above example function \modelica{getKey} features an additional (vendor-neutral) annotation which declares the function
 as ``impure''. The intended meaning is that a tool may not expect that the
@@ -610,14 +619,24 @@ for MDD functions which read values from external devices. Indeed, Modelica v3.3
 keyword, yet, the MDD library uses the \modelica{Impure} annotation which is understood
 by Dymola, OpenModelica and SimulationX.
 
+\subsubsection{Modelica Standard Improvements}
+
+Future releases of MDD may benefit from improvements on the external
+function interface which are expected in the (future) Modelica~v3.4 standard:
+\begin{itemize}
+ \item Compiler-specific sub-directories for the platform-specific library directories, \textit{e.g.}, if Visual Studio~2015 is used as a Windows 64-bit compiler it \emph{first} checks directory \modelica{win64/vs2015} for dependent libraries\footnote{Modelica Issue Tracker, \url{https://trac.modelica.org/Modelica/ticket/1316}}.
+ \item The \modelica{IncludeDirectory} annotation accepts \emph{multiple} directories enabling a more convenient way to specify several external C header file dependencies distributed over different include directories\footnote{Modelica Issue Tracker, \url{https://trac.modelica.org/Modelica/ticket/2103}}.
+\end{itemize}
+
+However, a generalized build process\cref{T1668} of the external code still misses the definition and (future) standardization of build features such as compilation of several C source modules, compiler flags (\clang{CFLAGS}) or preprocessor defines (\clang{CPPFLAGS})\footnote{Modelica Issue Tracker, \url{https://trac.modelica.org/Modelica/ticket/2145}}.
+
 \subsection{The Serial Packager}
 \label{sec:SerialPackager}
 
-The \modelica{SerialPackager} blocks are core elements of the block-based
+The \modelica{SerialPackager} blocks are the core elements of the block-based
 communication support provided by the MDD library (see
-Section~\ref{sec:Communication}). They use a rather intricate mechanism for
-propagating a ``package'' between connected blocks which is discussed in this
-section.
+Section~\ref{sec:Communication}). They use a rather intricate approach for
+propagating a ``package'' between connected blocks.
 
 \subsubsection{Connector Definition}
 
@@ -638,53 +657,97 @@ element \modelica{pkg} which is an external object of type \modelica{SerialPacka
 This external object is passed between connected blocks (see
 Figure~\ref{fig:PackagingConcept}). Within an ``add'' or ``get'' block the
 passed in external object is used as an argument to external functions which
-first add or retrieve data from the package and when pass it on to the next block.
+first add or retrieve data from the package and then pass it on to the next block.
+
+Due to the design of the \modelica{SerialPackager} connector sharing \emph{both} input and output variables it is impossible to have more than one \modelica{connect} equation per connector.
+However, Modelica offers no option to tell a user already at modeling time about this maximal allowed connector cardinality.
 
 \subsubsection{Basic Concept}
 
 The
 following \emph{simplified} Modelica code snippet illustrates the basic idea for
-adding the value of an input variable \modelica{u} to a package:
+adding the (\modelica{Integer}) value of an input variable \modelica{u} to a package:
 \begin{lstlisting}[language=modelica]
-block AddValue
+block AddInteger
   PackageIn pkgIn "Input connector";
   PackageOut pkgOut "Output connector";
   IntegerInput u "Integer input connector";
 equation
   when initial() then
-    pkgIn.autoPkgBitSize = pkgOut.autoPkgBitSize + 32;
+    pkgIn.autoPkgBitSize = pkgOut.autoPkgBitSize + 32 /* bit size of int32 */;
   end when;
   when pkgIn.trigger then
-    pkgOut.dummy = addValue(pkgOut.pkg, u, pkgIn.dummy);
+    pkgOut.dummy = addInteger(pkgOut.pkg, u, pkgIn.dummy);
   end when;
   pkgOut.pkg = pkgIn.pkg;
   pkgOut.trigger = pkgIn.trigger;
   pkgOut.backwardTrigger = pkgIn.backwardTrigger;
   pkgOut.userPkgBitSize = pkgIn.userPkgBitSize;
-end AddValue;
+end AddInteger;
 \end{lstlisting}
-The instantaneous equation \modelica{addInteger} is activated by the event
-\modelica{trigger} which is propagated through the connected packager blocks.
+The instantaneous equation invoking the \modelica{addInteger} function is
+activated by the event \modelica{trigger} which is propagated through the connected packager blocks.
 The \modelica{dummy} variables are used to establish data-flow dependencies
-which ensure that (external) ``\modelica{addValue}'' functions in connected
-blocks are called in the correct order. The \modelica{backwardTrigger} event
+which ensure that the ``\modelica{addValue}'' functions of connected
+blocks are invoked in the correct order. The \modelica{backwardTrigger} event
 allows propagating a triggering event in the inverse connector direction.
-Its supporting logic is omitted here for brevity. Variable
-\modelica{userPkgBitSize} allows propagating a user defined package size which
-can be set at a communication device block, \textit{e.g.}, it is possible for a
-user to specify that the size of the external C ``\modelica{data}'' buffer (see
-Section~\ref{sec:Communication}) of a package should be eight bytes. However,
-the default setting is that the necessary package size is deduced automatically
-with the help of the \modelica{autoPkgBitSize} variable. The mechanism is
-described further below.
+Its supporting logic is omitted here for brevity. A Modelica standard conform alternative is provided by the
+variable \modelica{userPkgBitSize} that allows propagating a user defined package size, \textit{i.e.}, it is possible for a
+user to customize the package size of the external data buffer of the communication device block (see
+Section~\ref{sec:Communication}). However,
+in the default setting the necessary package size is deduced automatically
+with the help of the \modelica{autoPkgBitSize} variable. This approach is
+described in Section~\ref{sec:Automatic Buffer Size}.
+
+% \subsubsection{Raw Data Buffer}
+%
+% In the initial release of the MDD library the raw data buffer of the ``package''
+% was internally available as \modelica{String} at the reading device blocks. For
+% performance reasons repeated calls to the provided
+% \clang{ModelicaAllocateString} function of the external function interface were
+% avoided. The external read C functions either returned externally created heap
+% memory that was allocated only once or \mbox{in/out} buffers of type
+% \clang{char*} were utilized as arguments of the C functions. Both implementations are illegal in
+% Modelica. Since Modelica variables of type \modelica{String} are immutable and
+% map to \clang{const char*} in the external C code, \clang{char*} output buffers
+% must not be used. Instead the output buffer needs to correctly be allocated at
+% the receiver by the \clang{ModelicaAllocateString} function, resulting in a
+% run-time overhead. Therefore, this approach was revised with MDD v1.4.0 where
+% only the external object of the \modelica{SerialPackager} is maintained at all
+% receiver blocks. This finally improved the overall run-time performance and
+% guaranteed the desired compliance with the Modelica standard. For backwards
+% compatibility (and internal test purposes) these deprecated MDD API functions
+% (\textit{e.g.}, \clang{MDD_udpRead} for the UDP receiver) are still available.
+%
+% \begin{lstlisting}[language=C]
+% #include <string.h>
+% #include "Modelicautilities.h"
+%
+% /* Deprecated: Return UDP raw data */
+% const char* MDD_udpRead(void* p_udp)
+% {
+%   ...
+%   char* udpBuf = ModelicaAllocateString(msgLength);
+%   memcpy(udpBuf, msgData, msgLength);
+%   return (const char*) udpBuf;
+% }
+%
+% /* Provide UDP data at package */
+% void MDD_udpReadP(void* p_udp, void* p_package)
+% {
+%   ...
+%   char* udpBuf = pkg->data;
+%   memcpy(udpBuf, msgData, msgLength);
+% }
+% \end{lstlisting}
 
 \subsubsection{External Object Aliasing}
 \label{sec:External Object Aliasing}
 
-A problem with the \modelica{AddValue} block is that the \modelica{pkg}
+A problem with the \textsf{Block Layer} of the \modelica{SerialPackager} is that the \modelica{pkg}
 objects within the connectors are not explicitly created by calling an external object constructor
 function as required in Modelica v3.3 \cite[p.\@~165]{ModelicaAssociation2014}.
-Instead, they rely on aliasing through equations and connect equations to
+Instead, they rely on aliasing through (connect) equations to
 access an external object which has been created at another place. In
 Figure~\ref{fig:PackagingConcept} the \modelica{pkg} object for the ``add''
 blocks is created in the ``Packager'' block at the top of the figure, while the
@@ -697,7 +760,10 @@ the Modelica standard will consider use-cases that the
 Modelica tools Dymola, OpenModelica and SimulationX already support\footnote{Modelica Issue Tracker,
 \url{https://trac.modelica.org/Modelica/ticket/1669}}.
 
+A Modelica standard conform implementation that avoids the aliasing is to only rely on the \textsf{Function Layer} provided by package \modelica{SerialPackager_}.
+
 \subsubsection{Automatic Buffer Size}
+\label{sec:Automatic Buffer Size}
 
 The actual creation of the \modelica{SerialPackager} object is performed in
 the ``Packager'' block, or, respectively, in the reading device block (see
@@ -734,13 +800,14 @@ which was clearly illegal in Modelica v3.3. As part of improving the Modelica
 compliance of the library the creation of the object was moved into the
 component declaration.
 
-\subsection{Construction of External Objects in Records}
+\subsection{External Objects in Records}
+\label{sec:External Objects in Records}
 
-The SocketCAN and the Comedi blocks use a Modelica \modelica{record} as means
+The \modelica{SocketCAN} and the \modelica{Comedi} blocks use a Modelica record as means
 for specifying general settings for a hardware device. The idea is that the
 settings are specified once when creating an instance of the record and
 this instance is passed as parameter to blocks which use this device. For
-example, the Comedi configuration record (stripped from some elements for brevity) is defined
+example, the \modelica{Comedi} configuration record (stripped from some elements for brevity) is defined
 as
 \begin{lstlisting}[language=modelica]
 record ComediConfig
@@ -755,9 +822,9 @@ configuration information in a record, since this allows passing a complete set
 of related configuration settings at once. The problem here is that passing an
 external object as part of a record can be interpreted as the record returning
 the object and assigning it to another external object (which is forbidden in
-Modelica v3.3). However, similarly to the external object aliasing described in
+Modelica v3.3 but supported by Dymola). However, similarly to the external object aliasing described in
 Section~\ref{sec:External Object Aliasing} it seems highly desirable to consider
-use-cases as described above in some way,  in future versions of the Modelica
+use-cases as described above in some way, in future versions of the Modelica
 standard.
 
 \subsection{Fixed attribute of Strings}
@@ -783,7 +850,7 @@ Therefore, expensive or unavailable input devices can be substituted by custom c
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.9\columnwidth]{figures/arduino}
-  \caption{Setup to read potentiometer deflection during real-time simulation with MDD serial port model \protect\footnotemark.}
+  \caption{Setup to read potentiometer deflection during real-time simulation with MDD serial port model\protect\footnotemark.}
   \label{fig:arduino}
 \end{figure}
 \footnotetext{Autodesk screen shots reprinted courtesy of Autodesk, Inc.}
@@ -806,14 +873,14 @@ The code can easily be extended, but requires checking the data sheets in order
 to write to the correct bits.}.
 The advantage of including this code into the MDD library is that it makes it
 simple to write a model for a microcontroller that works the same way
-in any Modelica tool since all the OS support, real-time code, etc. is
-abstracted away.
+in any Modelica tool since all the OS support, real-time code, \textit{etc.},
+is abstracted away.
 Provided that the Modelica tool produces minimal C-code (uses minimal features
 outside of standard C: for example, no linear solver included if the system has no linear systems,
-no OS or I/O functions, no threading models, etc.),
+no OS or \mbox{I/O} functions, no threading models, \textit{etc.}),
 and the model itself does not use C-code that the embedded target cannot support
-(such as file I/O), the code generator would work on pretty much any embedded
-target supporting C.
+(such as file \mbox{I/O}), the code generator would work on pretty much any
+embedded target supporting C.
 
 The Modelica code itself tries to avoid the Integer constants from the
 data sheets.
@@ -871,7 +938,7 @@ static inline void* MDD_avr_timer_init(int timerSelect, int clockSelect, int cle
 }
 \end{lstlisting}
 One of the AVR examples included in MDD is the single board heating system (SBHS\footnote{SBHS, \url{http://sbhs.fossee.in/}}), shown in Figure~\ref{fig:sbhs}.
-\begin{figure}
+\begin{figure}[htb]
   \centering
   \includegraphics[width=0.9\columnwidth]{figures/SBHS.jpg}
   \caption{The single board heater system running a real-time control algorithm using firmware based on MDD code. There is a programmer attached to the board to upload new firmwares, but the code runs without any computer connected to the SBHS.}
@@ -879,20 +946,34 @@ One of the AVR examples included in MDD is the single board heating system (SBHS
 \end{figure}
 The SBHS consists of a heater assembly, fan, temperature sensor, AVR ATmega16 microcontroller and associated circuitry.
 It was developed by IIT Bombay and is used for teaching and learning control systems \cite{Arora2010}.
-The MDD SBHS example uses a model of the board (Figure~\ref{fig:sbhsboard})
-\begin{figure}
-  \centering
-  \includegraphics[width=0.9\columnwidth]{figures/SBHSBoard.pdf}
-  \caption{The MDD model of the single board heater system exposes the pulse-width modulation (PWM) block to control the heater and fan, and uses the analog-to-digital converter (ADC) block to read the temperature. The SBHS board uses hardware components to create a linear mapping from voltage to temperature where $0\,\mathrm{V}$ maps to $0\,$℃.}
-  \label{fig:sbhsboard}
-\end{figure}
-\begin{figure}
-  \centering
-  \includegraphics[width=0.5\columnwidth]{figures/SBHSBoardWithController.pdf}
-  \caption{The MDD example model of the single board heater system running at $125\,\mathrm{Hz}$ together with a real-time PID controller trying to control the fan such that the temperature is at the setpoint of $45\,$℃ while the heat source is fed by a constant voltage.}
-  \label{fig:sbhswithcontroller}
-\end{figure}
-and a simple controller which it combines into the real-time controller of the board (Figure~\ref{fig:sbhswithcontroller}).
+The MDD SBHS example uses pulse width modulation (PWM) blocks to control the
+heater and fan, and an analog-to-digital converter (ADC) block to read the
+temperature. It combines these elements with a PID controller with the goal to
+control the fan such that the temperature settles at a setpoint of $45\,$℃
+while the heater assembly is fed by a constant voltage.
+
+% \BTHI{I commented this out since the figures are a bit hard to read and I try
+% to save some space. The figures are not so essential to
+% understand the text, though it would be nice to have them if one
+% could improve the figures and depict things more readable and compact, but
+% time is running out\ldots}
+% The SBHS consists of a heater assembly, fan, temperature sensor, AVR ATmega16
+% microcontroller and associated circuitry.
+% It was developed by IIT Bombay and is used for teaching and learning control systems \cite{Arora2010}.
+% The MDD SBHS example uses a model of the board (Figure~\ref{fig:sbhsboard})
+% \begin{figure}[htb]
+%   \centering
+%   \includegraphics[width=0.9\columnwidth]{figures/SBHSBoard.pdf}
+%   \caption{The MDD model of the single board heater system exposes the pulse-width modulation (PWM) block to control the heater and fan, and uses the analog-to-digital converter (ADC) block to read the temperature. The SBHS board uses hardware components to create a linear mapping from voltage to temperature where $0\,\mathrm{V}$ maps to $0\,$℃.}
+%   \label{fig:sbhsboard}
+% \end{figure}
+% \begin{figure}[htb]
+%   \centering
+%   \includegraphics[width=0.5\columnwidth]{figures/SBHSBoardWithController.pdf}
+%   \caption{The MDD example model of the single board heater system running at $125\,\mathrm{Hz}$ together with a real-time PID controller trying to control the fan such that the temperature is at the setpoint of $45\,$℃ while the heat source is fed by a constant voltage.}
+%   \label{fig:sbhswithcontroller}
+% \end{figure}
+% and a simple controller which it combines into the real-time controller of the board (Figure~\ref{fig:sbhswithcontroller}).
 
 % The \modelica{EmbeddedTargets} models do not support simulating the microcontroller
 % on a desktop platform. This would be an interesting, but time-consuming
@@ -905,7 +986,7 @@ At the DLR Institute of System Dynamics and Control, several simulator systems
 utilize the MDD library for inter-system
 communication and querying of input devices.
 
-\begin{figure}[tb]
+\begin{figure}[htb]
   \centering
   \includegraphics[width=0.9\columnwidth]{figures/DLRRoboticMotionSimulator}
   \caption{The DLR Robotic Motion Simulator.}
@@ -916,7 +997,7 @@ The DLR Robotic Motion Simulator \citep{bellmann2011dlr} is a 7 axis driving and
 flight simulator based on an industrial robot arm (see
 Figure~\ref{fig:DLRRoboticMotionSimulator}). The main use of this motion
 simulator is the evaluation of input devices such as side-sticks, steering
-wheels, pedals, etc., as well as the test and validation of control algorithms
+wheels, pedals, \textit{etc.}, as well as the test and validation of control algorithms
 in terms of stability and real-time capability. The control architecture of the
 simulator uses blocks from the MDD library in several ways:
 \begin{itemize}
@@ -934,10 +1015,11 @@ movement of road vehicles / airplanes to the workspace of the simulator) and
 gives an overview on the actual robot's position and telemetry. All real-time critical
 communication (\textit{e.g.}, the simulated road vehicle / airplane forces and
 angular velocities inputs for the real-time path-planning, or the control panel
-I/O) are communicated via the UDP blocks.
+I/O) are communicated via the UDP blocks and the serial
+packaging system.
 \end{itemize}
 
-\begin{figure}[tb]
+\begin{figure}[htb]
   \centering \includegraphics[width=0.9\columnwidth]{figures/DLRSimulatorCabin}
   \caption{View into the simulator cabin of the DLR motion simulator. The
   instrumentation package is replaceable, so that the simulator cabin can be
@@ -957,7 +1039,7 @@ tasks are performed using Modelica models, where the
 synchronization. Also, communication with the other simulation components is
 performed partly via the UDP blocks.
 
-\begin{figure}[tb]
+\begin{figure}[htb]
   \centering
   \includegraphics[width=0.5\columnwidth]{figures/DLRROBEX}
   \caption{DLR ROBEX technology demonstrator.}
