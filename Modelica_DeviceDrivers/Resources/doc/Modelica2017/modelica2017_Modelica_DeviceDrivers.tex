@@ -441,7 +441,8 @@ the \modelica{SerialPackager} is the only available packager. It allows
 to periodically add or retrieve fixed size vectors to or from a package, respectively.
 Figure~\ref{fig:SerialPackagerBlocks} shows the available blocks for serializing
 Modelica variables of the predefined types \modelica{Boolean}, \modelica{Integer}, \modelica{Real} and \mbox{\modelica{String}} into a ``package''.
-The type \modelica{Real} either can be packed as double-precision or (using a C static cast) as single-precision floating-point number.
+The type \modelica{Real} can be packed either as double-precision or (using a C
+static cast) as single-precision floating-point number.
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.6\columnwidth]{figures/SerialPackagerBlocks}
