@@ -938,7 +938,7 @@ static inline void* MDD_avr_timer_init(int timerSelect, int clockSelect, int cle
 }
 \end{lstlisting}
 One of the AVR examples included in MDD is the single board heating system (SBHS\footnote{SBHS, \url{http://sbhs.fossee.in/}}), shown in Figure~\ref{fig:sbhs}.
-\begin{figure}
+\begin{figure}[htb]
   \centering
   \includegraphics[width=0.9\columnwidth]{figures/SBHS.jpg}
   \caption{The single board heater system running a real-time control algorithm using firmware based on MDD code. There is a programmer attached to the board to upload new firmwares, but the code runs without any computer connected to the SBHS.}
@@ -947,13 +947,13 @@ One of the AVR examples included in MDD is the single board heating system (SBHS
 The SBHS consists of a heater assembly, fan, temperature sensor, AVR ATmega16 microcontroller and associated circuitry.
 It was developed by IIT Bombay and is used for teaching and learning control systems \cite{Arora2010}.
 The MDD SBHS example uses a model of the board (Figure~\ref{fig:sbhsboard})
-\begin{figure}
+\begin{figure}[htb]
   \centering
   \includegraphics[width=0.9\columnwidth]{figures/SBHSBoard.pdf}
   \caption{The MDD model of the single board heater system exposes the pulse-width modulation (PWM) block to control the heater and fan, and uses the analog-to-digital converter (ADC) block to read the temperature. The SBHS board uses hardware components to create a linear mapping from voltage to temperature where $0\,\mathrm{V}$ maps to $0\,$℃.}
   \label{fig:sbhsboard}
 \end{figure}
-\begin{figure}
+\begin{figure}[htb]
   \centering
   \includegraphics[width=0.5\columnwidth]{figures/SBHSBoardWithController.pdf}
   \caption{The MDD example model of the single board heater system running at $125\,\mathrm{Hz}$ together with a real-time PID controller trying to control the fan such that the temperature is at the setpoint of $45\,$℃ while the heat source is fed by a constant voltage.}
@@ -972,7 +972,7 @@ At the DLR Institute of System Dynamics and Control, several simulator systems
 utilize the MDD library for inter-system
 communication and querying of input devices.
 
-\begin{figure}[tb]
+\begin{figure}[htb]
   \centering
   \includegraphics[width=0.9\columnwidth]{figures/DLRRoboticMotionSimulator}
   \caption{The DLR Robotic Motion Simulator.}
@@ -1005,7 +1005,7 @@ I/O) are communicated via the UDP blocks and the serial
 packaging system.
 \end{itemize}
 
-\begin{figure}[tb]
+\begin{figure}[htb]
   \centering \includegraphics[width=0.9\columnwidth]{figures/DLRSimulatorCabin}
   \caption{View into the simulator cabin of the DLR motion simulator. The
   instrumentation package is replaceable, so that the simulator cabin can be
@@ -1025,7 +1025,7 @@ tasks are performed using Modelica models, where the
 synchronization. Also, communication with the other simulation components is
 performed partly via the UDP blocks.
 
-\begin{figure}[tb]
+\begin{figure}[htb]
   \centering
   \includegraphics[width=0.5\columnwidth]{figures/DLRROBEX}
   \caption{DLR ROBEX technology demonstrator.}
