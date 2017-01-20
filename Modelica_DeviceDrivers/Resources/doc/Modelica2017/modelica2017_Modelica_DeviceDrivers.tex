@@ -699,30 +699,47 @@ in the default setting the necessary package size is deduced automatically
 with the help of the \modelica{autoPkgBitSize} variable. This approach is
 described in Section~\ref{sec:Automatic Buffer Size}.
 
-\subsubsection{Raw Data Buffer}
-
-In the initial release of the MDD library the raw data buffer of the ``package'' was internally available as \modelica{String} at the reading device blocks. For performance reasons repeated calls to the provided \clang{ModelicaAllocateString} function of the external function interface were avoided. The external read C functions either returned externally created heap memory that was allocated only once or in/out buffers of type \clang{char*} were utilized as arguments of the C functions. Both implementations are illegal in Modelica. Since Modelica variables of type \modelica{String} are immutable and map to \clang{const char*} in the external C code, \clang{char*} output buffers must not be used. Instead the output buffer needs to correctly be allocated at the receiver by the \clang{ModelicaAllocateString} function, resulting in a run-time overhead. Therefore, this approach was revised with MDD v1.4.0 where only the external object of the \modelica{SerialPackager} is maintained at all receiver blocks. This finally improved the overall run-time performance and guaranteed the desired compliance with the Modelica standard. For backwards compatibility (and internal test purposes) these deprecated MDD API functions (\textit{e.g.}, \clang{MDD_udpRead} for the UDP receiver) are still available.
-\begin{lstlisting}[language=C]
-#include <string.h>
-#include "Modelicautilities.h"
-
-/* Deprecated: Return UDP raw data */
-const char* MDD_udpRead(void* p_udp)
-{
-  ...
-  char* udpBuf = ModelicaAllocateString(msgLength);
-  memcpy(udpBuf, msgData, msgLength);
-  return (const char*) udpBuf;
-}
-
-/* Provide UDP data at package */
-void MDD_udpReadP(void* p_udp, void* p_package)
-{
-  ...
-  char* udpBuf = pkg->data;
-  memcpy(udpBuf, msgData, msgLength);
-}
-\end{lstlisting}
+% \subsubsection{Raw Data Buffer}
+%
+% In the initial release of the MDD library the raw data buffer of the ``package''
+% was internally available as \modelica{String} at the reading device blocks. For
+% performance reasons repeated calls to the provided
+% \clang{ModelicaAllocateString} function of the external function interface were
+% avoided. The external read C functions either returned externally created heap
+% memory that was allocated only once or \mbox{in/out} buffers of type
+% \clang{char*} were utilized as arguments of the C functions. Both implementations are illegal in
+% Modelica. Since Modelica variables of type \modelica{String} are immutable and
+% map to \clang{const char*} in the external C code, \clang{char*} output buffers
+% must not be used. Instead the output buffer needs to correctly be allocated at
+% the receiver by the \clang{ModelicaAllocateString} function, resulting in a
+% run-time overhead. Therefore, this approach was revised with MDD v1.4.0 where
+% only the external object of the \modelica{SerialPackager} is maintained at all
+% receiver blocks. This finally improved the overall run-time performance and
+% guaranteed the desired compliance with the Modelica standard. For backwards
+% compatibility (and internal test purposes) these deprecated MDD API functions
+% (\textit{e.g.}, \clang{MDD_udpRead} for the UDP receiver) are still available.
+%
+% \begin{lstlisting}[language=C]
+% #include <string.h>
+% #include "Modelicautilities.h"
+%
+% /* Deprecated: Return UDP raw data */
+% const char* MDD_udpRead(void* p_udp)
+% {
+%   ...
+%   char* udpBuf = ModelicaAllocateString(msgLength);
+%   memcpy(udpBuf, msgData, msgLength);
+%   return (const char*) udpBuf;
+% }
+%
+% /* Provide UDP data at package */
+% void MDD_udpReadP(void* p_udp, void* p_package)
+% {
+%   ...
+%   char* udpBuf = pkg->data;
+%   memcpy(udpBuf, msgData, msgLength);
+% }
+% \end{lstlisting}
 
 \subsubsection{External Object Aliasing}
 \label{sec:External Object Aliasing}
