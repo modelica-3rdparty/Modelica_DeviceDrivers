@@ -289,14 +289,15 @@ end GameControllerExample;
 \end{lstlisting}
 
 \noindent
-The code above creates an external object \modelica{gc} by taking the \modelica{id} as argument. This
-argument specifies the game controller to be used if several game controllers are attached to the
-system. The function \modelica{getData} is called periodically within a
-\modelica{when}-clause. It takes the external object \modelica{gc} as
-argument and returns vectors which contain the values read from the
-associated game controller. The vector is pre-dimensioned, so that it can attune
-to controllers featuring as much as six axes, 32 buttons and a POV (point of
-view) switch. The actually available data depends on the connected game
+The code above creates an external object named \mbox{\modelica{gc}.}
+The constructor for this object takes the argument \mbox{\modelica{id}.} This
+argument allows to specify which controller to use if several game controllers
+are attached to the system. The function \modelica{getData} is called
+periodically within a \modelica{when}-clause. It takes the external object
+\modelica{gc} as argument and returns vectors which contain the values read from
+the associated game controller. The vector is pre-dimensioned, so that it can
+attune to controllers featuring as much as six axes, 32 buttons and a POV (point
+of view) switch. The actually available data depends on the connected game
 controller hardware. Tests with the actual hardware are needed for determining
 which vector entry corresponds to which physical axis or button.
 
