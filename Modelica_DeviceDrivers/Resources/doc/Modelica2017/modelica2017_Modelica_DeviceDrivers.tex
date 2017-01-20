@@ -946,20 +946,34 @@ One of the AVR examples included in MDD is the single board heating system (SBHS
 \end{figure}
 The SBHS consists of a heater assembly, fan, temperature sensor, AVR ATmega16 microcontroller and associated circuitry.
 It was developed by IIT Bombay and is used for teaching and learning control systems \cite{Arora2010}.
-The MDD SBHS example uses a model of the board (Figure~\ref{fig:sbhsboard})
-\begin{figure}[htb]
-  \centering
-  \includegraphics[width=0.9\columnwidth]{figures/SBHSBoard.pdf}
-  \caption{The MDD model of the single board heater system exposes the pulse-width modulation (PWM) block to control the heater and fan, and uses the analog-to-digital converter (ADC) block to read the temperature. The SBHS board uses hardware components to create a linear mapping from voltage to temperature where $0\,\mathrm{V}$ maps to $0\,$℃.}
-  \label{fig:sbhsboard}
-\end{figure}
-\begin{figure}[htb]
-  \centering
-  \includegraphics[width=0.5\columnwidth]{figures/SBHSBoardWithController.pdf}
-  \caption{The MDD example model of the single board heater system running at $125\,\mathrm{Hz}$ together with a real-time PID controller trying to control the fan such that the temperature is at the setpoint of $45\,$℃ while the heat source is fed by a constant voltage.}
-  \label{fig:sbhswithcontroller}
-\end{figure}
-and a simple controller which it combines into the real-time controller of the board (Figure~\ref{fig:sbhswithcontroller}).
+The MDD SBHS example uses pulse width modulation (PWM) blocks to control the
+heater and fan, and an analog-to-digital converter (ADC) block to read the
+temperature. It combines these elements with a PID controller with the goal to
+control the fan such that the temperature settles at a setpoint of $45\,$℃
+while the heater assembly is fed by a constant voltage.
+
+% \BTHI{I commented this out since the figures are a bit hard to read and I try
+% to save some space. The figures are not so essential to
+% understand the text, though it would be nice to have them if one
+% could improve the figures and depict things more readable and compact, but
+% time is running out\ldots}
+% The SBHS consists of a heater assembly, fan, temperature sensor, AVR ATmega16
+% microcontroller and associated circuitry.
+% It was developed by IIT Bombay and is used for teaching and learning control systems \cite{Arora2010}.
+% The MDD SBHS example uses a model of the board (Figure~\ref{fig:sbhsboard})
+% \begin{figure}[htb]
+%   \centering
+%   \includegraphics[width=0.9\columnwidth]{figures/SBHSBoard.pdf}
+%   \caption{The MDD model of the single board heater system exposes the pulse-width modulation (PWM) block to control the heater and fan, and uses the analog-to-digital converter (ADC) block to read the temperature. The SBHS board uses hardware components to create a linear mapping from voltage to temperature where $0\,\mathrm{V}$ maps to $0\,$℃.}
+%   \label{fig:sbhsboard}
+% \end{figure}
+% \begin{figure}[htb]
+%   \centering
+%   \includegraphics[width=0.5\columnwidth]{figures/SBHSBoardWithController.pdf}
+%   \caption{The MDD example model of the single board heater system running at $125\,\mathrm{Hz}$ together with a real-time PID controller trying to control the fan such that the temperature is at the setpoint of $45\,$℃ while the heat source is fed by a constant voltage.}
+%   \label{fig:sbhswithcontroller}
+% \end{figure}
+% and a simple controller which it combines into the real-time controller of the board (Figure~\ref{fig:sbhswithcontroller}).
 
 % The \modelica{EmbeddedTargets} models do not support simulating the microcontroller
 % on a desktop platform. This would be an interesting, but time-consuming
