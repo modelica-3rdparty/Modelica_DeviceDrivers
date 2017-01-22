@@ -829,7 +829,15 @@ standard.
 
 \subsection{Fixed attribute of Strings}
 
-According to Modelica v3.3 the predefined type \mbox{\modelica{String}} was designed without the \modelica{fixed} attribute (as opposed to other predefined discrete types \modelica{Boolean} or \modelica{Integer}). However, such a \modelica{fixed} attribute is particularly relevant for the \modelica{GetString} block of the \modelica{SerialPackager} when retrieving sampled String data from a package. This issue was resolved by (future) Modelica v3.4 such that future Modelica tools supporting  Modelica v3.4  the will no longer raise a warning on the \modelica{GetString} block\footnote{Modelica Issue Tracker, \url{https://trac.modelica.org/Modelica/ticket/1797}}.
+According to Modelica v3.3 the predefined type \mbox{\modelica{String}} was
+designed without the \modelica{fixed} attribute (as opposed to other predefined
+discrete types \modelica{Boolean} or \mbox{\modelica{Integer}).} However, such a
+\modelica{fixed} attribute is particularly relevant for the \modelica{GetString}
+block of the \modelica{SerialPackager} when retrieving sampled String data from
+a package. This issue was resolved by (future) Modelica v3.4 such that future
+Modelica tools supporting  Modelica v3.4  the will no longer raise a warning on
+the \modelica{GetString} block\footnote{Modelica Issue Tracker,
+\url{https://trac.modelica.org/Modelica/ticket/1797}}.
 
 
 \section{Applications}
