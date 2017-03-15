@@ -23,7 +23,7 @@
 % Layout: Bernhard Thiele,  Linköping University, Sweden,  2015
 % Author: Andreas Klöckner, DLR Oberpfaffenhofen, Germany, 2015
 %
-\ProvidesClass{modelica}[2015/05/20 v2.0 Modelica 2015 conference template]
+\ProvidesClass{modelica}[2016/12/13 v2.1 Modelica conference template]
 
 % Declare an abstract option
 \newif\ifmodelica@abstract
@@ -32,20 +32,20 @@
 
 % Set up basic geometry according to abstract option
 \ifmodelica@abstract
-	\LoadClass[11pt,a4paper,onecolumn]{article}
-	\RequirePackage{geometry}            %% please don't change geometry settings!
-	\geometry{left=35mm, right=35mm, top=15mm, bottom=20mm, noheadfoot}
+  \LoadClass[11pt,a4paper,onecolumn]{article}
+  \RequirePackage{geometry}            %% please don't change geometry settings!
+  \geometry{left=35mm, right=35mm, top=15mm, bottom=20mm, noheadfoot}
 \else
-	\LoadClass[11pt,a4paper,twocolumn]{article}
-	\RequirePackage{geometry}            %% please don't change geometry settings!
-	\geometry{left=18mm, right=18mm, top=25mm, bottom=25mm, noheadfoot}
+  \LoadClass[11pt,a4paper,twocolumn]{article}
+  \RequirePackage{geometry}            %% please don't change geometry settings!
+  \geometry{left=18mm, right=18mm, top=25mm, bottom=25mm, noheadfoot}
 \fi
 
 % Load packages as done in the example
 \RequirePackage{graphicx}      %% use graphics
 \RequirePackage[T1]{fontenc}   %% get hyphenation and accented letters right
 \RequirePackage{mathptmx}      %% use fitting times fonts also in formulas
-\RequirePackage{amsmath}       %% get support for pretty maths formulars
+\RequirePackage{amsmath}       %% get support for pretty math formulas
 \RequirePackage{courier}       %% For proper courier fonts in texttt
 % do not change these lines:
 \pagestyle{empty}                %% no page numbers!
@@ -82,8 +82,8 @@
 \let\modelica@maketitle\maketitle
 \renewcommand{\maketitle}{\modelica@maketitle\thispagestyle{empty}\@afterindentfalse\@afterheading}
 
-% Make headings nice and compact
-\RequirePackage[compact]{titlesec}
+% Make headings nice and compact and make sure to use a new version
+\RequirePackage[compact]{titlesec}[2016/03/21]
 \RequirePackage{doi}             %% Create cor­rect hy­per­links for DOI num­bers
 
 % Process backend
@@ -118,6 +118,6 @@
 \RequirePackage{color}
 \RequirePackage{listings}
 \input{resources/listings-modelica.cfg}
-\lstset{language = Modelica,
-       basicstyle=\fontsize{9pt}{10.5pt}\selectfont,
+\lstset{language = modelica,
+       basicstyle=\fontsize{9pt}{10.5pt}\ttfamily,
        backgroundcolor = \color{white}}

@@ -313,7 +313,8 @@ which vector entry corresponds to which physical axis or button.
 
 Figure~\ref{fig:JoystickBlocks} shows how game controllers can be accessed by
 simply dragging \& dropping a \modelica{JoystickInput} block into the diagram
-view of a Modelica tool. While Figure~\ref{fig:MDDJoystick} uses the block found
+view of a Modelica tool.
+While Figure~\ref{fig:MDDJoystick} uses the block found
 in the \modelica{Blocks} package,
 Figure~\ref{fig:MDDJoystickClocked} uses the corresponding clocked variant from
 \modelica{ClockedBlocks}. The additional blocks \modelica{periodicClock} and
@@ -324,7 +325,7 @@ associate a periodic clock to the variables and equations within the
 associated clock ticks (\textit{i.e.}, every $0.1\,\mathrm{s}$ in the presented
 example).
 
-\begin{figure}[tb]
+\begin{figure}[htb]
   \centering
   \begin{subfigure}[b]{0.45\columnwidth}
      \centering
@@ -345,6 +346,7 @@ example).
   \label{fig:JoystickBlocks}
 \end{figure}
 
+\noindent
 The example models can be simulated, but real-time synchronization is
 required to slow the simulation speed down, in order to synchronize the
 real-time inputs with the simulation progress.
@@ -361,6 +363,11 @@ The MDD library has grown to support a respectable amount of hardware devices
 and associated features which will be briefly presented in this section.
 
 \subsubsection{Input Devices}
+
+Standard input devices such as keyboard and game controllers are ubiquitously
+available on the market, enabling the user to quickly build up interactive simulations.
+MDD provides blocks for using the generic keyboard and game controller interface
+of Windows or Linux (see Figure~\ref{fig:OverviewInputDevices}).
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.7\columnwidth]{figures/OverviewInputDevices}
@@ -369,10 +376,7 @@ and associated features which will be briefly presented in this section.
 \end{figure}
 
 \noindent
-Standard input devices such as keyboard and game controllers are ubiquitously
-available on the market, enabling the user to quickly build up interactive simulations.
-MDD provides blocks for using the generic keyboard and game controller interface
-of Windows or Linux (see Figure~\ref{fig:OverviewInputDevices}). Also more
+Also more
 specialized hardware like the 3Dconnexion SpaceMouse is supported for both platforms.
 Often, these blocks will be used for interactive desktop simulations, but they
 can also become part of more involved (cost-efficient) HITL simulation
@@ -387,6 +391,8 @@ C code.
 
 \paragraph{Supported Devices}
 
+Figure~\ref{fig:OverviewCommunicationDevices} gives an overview over the
+supported devices.
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.9\columnwidth]{figures/OverviewCommunicationDevices}
@@ -394,9 +400,8 @@ C code.
   \label{fig:OverviewCommunicationDevices}
 \end{figure}
 
-
-Figure~\ref{fig:OverviewCommunicationDevices} gives an overview over the
-supported devices. Cross-platform support for UDP and shared memory was already
+\noindent
+Cross-platform support for UDP and shared memory was already
 available in the first released version of MDD. Support for serial port communication is
 available since MDD v1.3 (Linux) and v1.4.0 (Windows). A client block for TCP/IP
 socket communication was added in v1.4.0 (Windows) and v1.5.0 (Linux).
@@ -506,16 +511,6 @@ Package \modelica{HardwareIO} (see
 Figure~\ref{fig:MDDPackageBrowseScreenshot}) is intended for data acquisition
 hardware like digital-analog converter (DAC), analog-digital converter (ADC) and
 other interface hardware.
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.9\columnwidth]{figures/MDDComedi}
-  \caption{Accessing data acquisition hardware via the Linux
-  control and measurement device interface ``Comedi''.}
-  \label{fig:MDDComedi}
-\end{figure}
-
-\noindent
 As of MDD v1.5.0 it contains only one sub-package which
 provides support for the Linux control and measurement device interface
 ``Comedi''. The Comedi project develops open-source drivers, tools, and
@@ -533,7 +528,15 @@ a parameter to the other blocks (\modelica{comedi.dh}). Using external
 objects in records is not standard compliant to Modelica v3.3 revision 1
 \citep{ModelicaAssociation2014} which is further discussed in
 Section~\ref{sec:External Objects in Records}.
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.9\columnwidth]{figures/MDDComedi}
+  \caption{Accessing data acquisition hardware via the Linux
+  control and measurement device interface ``Comedi''.}
+  \label{fig:MDDComedi}
+\end{figure}
 
+\noindent
 Writing or reading raw integer values to DAC or from ADC channels is provided by
 blocks \modelica{DataWrite} or \modelica{DataRead}, respectively. These blocks have
 each a variant which works with physical values, instead of the raw integer
@@ -851,10 +854,6 @@ help of the MDD library.
 The Arduino\footnote{Arduino, \url{https://arduino.cc}} is an open-source electronics platform which features easy configurations to read the sensors, process the data and send it to other devices via a serial connection.
 Therefore, the Arduino can be utilized to provide sensor data in a real-time Modelica model by means of the MDD serial port implementation, as depicted in Figure~\ref{fig:arduino}.
 With the help of potentiometers or other deflection sensors, customized control devices can be built.
-
-As an exemplary application, self-built pedals for a driving simulator can be equipped with a sensor in order to measure the displacement. The pedal itself is a steel sheet, mounted on a revolute joint and a shock spring.
-The measured deflection is transferred via a serial connection to a \modelica{Blocks.Communication.SerialPortReceive} in order to drive a virtual vehicle.
-Therefore, expensive or unavailable input devices can be substituted by custom constructions.
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.9\columnwidth]{figures/arduino}
@@ -862,7 +861,11 @@ Therefore, expensive or unavailable input devices can be substituted by custom c
   \label{fig:arduino}
 \end{figure}
 \footnotetext{Autodesk screen shots reprinted courtesy of Autodesk, Inc.}
+
 \noindent
+As an exemplary application, self-built pedals for a driving simulator can be equipped with a sensor in order to measure the displacement. The pedal itself is a steel sheet, mounted on a revolute joint and a shock spring.
+The measured deflection is transferred via a serial connection to a \modelica{Blocks.Communication.SerialPortReceive} in order to drive a virtual vehicle.
+Therefore, expensive or unavailable input devices can be substituted by custom constructions.
 By using a Bluetooth module with Serial Port Profile (SPP) a wireless connection between Arduino is handled in the same way as a serial port over USB connection.
 No further modifications are necessary to implement a wireless control device.
 
@@ -952,6 +955,8 @@ One of the AVR examples included in MDD is the single board heating system (SBHS
   \caption{The single board heater system running a real-time control algorithm using firmware based on MDD code. There is a programmer attached to the board to upload new firmwares, but the code runs without any computer connected to the SBHS.}
   \label{fig:sbhs}
 \end{figure}
+
+\noindent
 The SBHS consists of a heater assembly, fan, temperature sensor, AVR ATmega16 microcontroller and associated circuitry.
 It was developed by IIT Bombay and is used for teaching and learning control systems \cite{Arora2010}.
 The MDD SBHS example uses pulse width modulation (PWM) blocks to control the
