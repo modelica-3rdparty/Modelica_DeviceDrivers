@@ -155,7 +155,7 @@ commercial \emph{DLR Visualization} library and an open-source cross-platform ha
 interface library, the \emph{Modelica\_DeviceDrivers} library. The library is
 available from its GitHub project site at
 \url{https://github.com/modelica/Modelica_DeviceDrivers/}.
-This paper is based on MDD v1.5.0.
+This paper is based on MDD~v1.5.0.
 
 
 % \BTHI{TODO: Bernhard, Tobias , \cite{Elmqvist2009}}
@@ -193,7 +193,7 @@ synchronous language elements extension) is only required for this \modelica{Clo
 \subsection{Cross-Platform Support}
 \label{sec:CrossPlatformSupport}
 
-As of MDD v1.5.0, Windows and Linux are supported as main platforms,
+As of MDD~v1.5.0, Windows and Linux are supported as main platforms,
 but prototypical work also targets popular embedded systems boards directly (see
 Section~\ref{sec:EmbeddedControl}).
 
@@ -221,11 +221,11 @@ platform-specific code (\mbox{\clang{#if}}, \mbox{\clang{#else}},
 \subsection{Extended Tool Support}
 \label{sec:ExtendedToolSupport}
 
-Back in 2009, the library was developed using the Dymola tool. With MDD v1.4.0,
+Back in 2009, the library was developed using the Dymola tool. With MDD~v1.4.0,
 considerable development efforts have been spent on the Modelica compliance of
 the library in order to better support SimulationX and OpenModelica.
 
-Since OpenModelica 1.11.0 Beta 1 the MDD \modelica{SerialPackager} blocks as well as the \modelica{Communication} blocks are finally
+Since OpenModelica~v1.11.0~Beta~1 the MDD \modelica{SerialPackager} blocks as well as the \modelica{Communication} blocks are finally
 supported by OpenModelica. For achieving this, it was necessary to change parts
 of the MDD library (under the constraint of maintaining backwards compatibility),
 and at the same time, to extend the abilities of respective tools (partly by
@@ -403,7 +403,7 @@ supported devices.
 \noindent
 Cross-platform support for UDP and shared memory was already
 available in the first released version of MDD. Support for serial port communication is
-available since MDD v1.3 (Linux) and v1.4.0 (Windows). A client block for TCP/IP
+available since MDD~v1.3 (Linux) and v1.4.0 (Windows). A client block for TCP/IP
 socket communication was added in v1.4.0 (Windows) and v1.5.0 (Linux).
 Furthermore, support for sending and receiving of Lightweight Communications and
 Marshalling (LCM) datagrams\footnote{LCM project,
@@ -441,7 +441,7 @@ is achieved by simply replacing the corresponding device block.
 The packages are constructed by using blocks from the \modelica{Packaging}
 sub-package (see Figure~\ref{fig:MDDPackageBrowseScreenshot}). In the initial
 design of MDD it was expected that different packaging concepts would be
-supported which share a common connector interface. However, as of MDD v1.5.0
+supported which share a common connector interface. However, as of MDD~v1.5.0
 the \modelica{SerialPackager} is the only available packager. It allows
 to periodically add or retrieve fixed size vectors to or from a package, respectively.
 Figure~\ref{fig:SerialPackagerBlocks} shows the available blocks for serializing
@@ -482,7 +482,7 @@ block allows to pack unsigned integer values at the bit level. The number of
 bits used for encoding is set by a parameter \modelica{width}, therefore the maximum value
 of the integer signal that can be encoded is $2^{\mathrm{width}} - 1$. A
 parameter \modelica{bitOffset} allows to specify the bit at which the encoding starts
-relative to the preceding block. Since MDD v1.3 most blocks support specifying
+relative to the preceding block. Since MDD~v1.3 most blocks support specifying
 the byte ordering (big-endian or little-endian format).
 
 It is simple to use the
@@ -511,7 +511,7 @@ Package \modelica{HardwareIO} (see
 Figure~\ref{fig:MDDPackageBrowseScreenshot}) is intended for data acquisition
 hardware like digital-analog converter (DAC), analog-digital converter (ADC) and
 other interface hardware.
-As of MDD v1.5.0 it contains only one sub-package which
+As of MDD~v1.5.0 it contains only one sub-package which
 provides support for the Linux control and measurement device interface
 ``Comedi''. The Comedi project develops open-source drivers, tools, and
 libraries for data acquisition\footnote{Comedi project,
@@ -525,7 +525,7 @@ blocks. Configuration of the device is performed in the Modelica record named
 \modelica{comedi}. The record contains an external object \modelica{dh} of type
 \modelica{ComediConfig} which contains the Comedi device handle and is passed through
 a parameter to the other blocks (\modelica{comedi.dh}). Using external
-objects in records is not standard compliant to Modelica v3.3 revision 1
+objects in records is not standard compliant to Modelica~v3.3~revision~1
 \citep{ModelicaAssociation2014} which is further discussed in
 Section~\ref{sec:External Objects in Records}.
 \begin{figure}[h]
@@ -547,7 +547,7 @@ output (DIO) channels.
 \subsubsection{Embedded Targets}
 \label{sec:EmbeddedTargets}
 
-MDD v1.5.0 introduced the new top-level package \modelica{EmbeddedTargets}. The
+MDD~v1.5.0 introduced the new top-level package \modelica{EmbeddedTargets}. The
 package is intended for platform-specific targets, such as microcontrollers,
 that cannot so easily share code with other devices due to memory or hardware
 limitations.
@@ -572,7 +572,7 @@ library were not supported by other tools and were partly problematic in respect
 of compliance to the Modelica standard.
 
 On one hand, this section reports on
-important development efforts (starting with MDD v1.4.0) that have been spent on the
+important development efforts (starting with MDD~v1.4.0) that have been spent on the
 Modelica compliance of the library for better supporting SimulationX and
 OpenModelica, and on the other hand it addresses open issues which may
 be of interest for future improvements to the Modelica standard, or which
@@ -617,7 +617,7 @@ understood by the Visual Studio compilers only. However, for GCC (including the 
 The above example function \modelica{getKey} features an additional (vendor-neutral) annotation which declares the function
 as ``impure''. The intended meaning is that a tool may not expect that the
 function returns the same output for the same input, which is the typical case
-for MDD functions which read values from external devices. Indeed, Modelica v3.3 introduced the dedicated keyword
+for MDD functions which read values from external devices. Indeed, Modelica~v3.3 introduced the dedicated keyword
 ``impure'' to cater for such cases. However, since not all Modelica tools support this
 keyword, yet, the MDD library uses the \modelica{Impure} annotation which is understood
 by Dymola, OpenModelica and SimulationX.
@@ -715,7 +715,7 @@ described in Section~\ref{sec:Automatic Buffer Size}.
 % map to \clang{const char*} in the external C code, \clang{char*} output buffers
 % must not be used. Instead the output buffer needs to correctly be allocated at
 % the receiver by the \clang{ModelicaAllocateString} function, resulting in a
-% run-time overhead. Therefore, this approach was revised with MDD v1.4.0 where
+% run-time overhead. Therefore, this approach was revised with MDD~v1.4.0 where
 % only the external object of the \modelica{SerialPackager} is maintained at all
 % receiver blocks. This finally improved the overall run-time performance and
 % guaranteed the desired compliance with the Modelica standard. For backwards
@@ -749,14 +749,14 @@ described in Section~\ref{sec:Automatic Buffer Size}.
 
 A problem with the \textsf{Block Layer} of the \modelica{SerialPackager} is that the \modelica{pkg}
 objects within the connectors are not explicitly created by calling an external object constructor
-function as required in Modelica v3.3 \cite[p.\@~165]{ModelicaAssociation2014}.
+function as required in Modelica~v3.3 \cite[p.\@~165]{ModelicaAssociation2014}.
 Instead, they rely on aliasing through (connect) equations to
 access an external object which has been created at another place. In
 Figure~\ref{fig:PackagingConcept} the \modelica{pkg} object for the ``add''
 blocks is created in the ``Packager'' block at the top of the figure, while the
 \modelica{pkg} object for the ``get'' blocks is created in the device block for reading from
 shared memory (or UDP, respectively). While the concept of external object
-aliases does not exist in Modelica v3.3, equating two external
+aliases does not exist in Modelica~v3.3, equating two external
 objects may be interpreted as an assignment to an external object,
 which is forbidden. The authors hope that future versions of
 the Modelica standard will consider use-cases that the
@@ -799,7 +799,7 @@ it\footnote{Modelica Issue Tracker,
 
 In the initial version of the MDD library the external object was actually
 created within a \modelica{when}-clause,
-which was clearly illegal in Modelica v3.3. As part of improving the Modelica
+which was clearly illegal in Modelica~v3.3. As part of improving the Modelica
 compliance of the library the creation of the object was moved into the
 component declaration.
 
@@ -825,20 +825,20 @@ configuration information in a record, since this allows passing a complete set
 of related configuration settings at once. The problem here is that passing an
 external object as part of a record can be interpreted as the record returning
 the object and assigning it to another external object (which is forbidden in
-Modelica v3.3 but supported by Dymola). However, similarly to the external object aliasing described in
+Modelica~v3.3 but supported by Dymola). However, similarly to the external object aliasing described in
 Section~\ref{sec:External Object Aliasing} it seems highly desirable to consider
 use-cases as described above in some way, in future versions of the Modelica
 standard.
 
 \subsection{Fixed Attribute of Strings}
 
-According to Modelica v3.3 the predefined type \mbox{\modelica{String}} was
+According to Modelica~v3.3 the predefined type \mbox{\modelica{String}} was
 designed without the \modelica{fixed} attribute (as opposed to other predefined
 types \modelica{Boolean} or \mbox{\modelica{Integer}).} However, such a
 \modelica{fixed} attribute is particularly relevant for the \modelica{GetString}
 block of the \modelica{SerialPackager} when retrieving sampled String data from
-a package. This issue was resolved by (future) Modelica v3.4 such that future
-Modelica tools supporting  Modelica v3.4 will no longer raise a warning on
+a package. This issue was resolved by (future) Modelica~v3.4 such that future
+Modelica tools supporting  Modelica~v3.4 will no longer raise a warning on
 the \modelica{GetString} block\footnote{Modelica Issue Tracker,
 \url{https://trac.modelica.org/Modelica/ticket/1797}}.
 
@@ -878,8 +878,7 @@ No further modifications are necessary to implement a wireless control device.
 % general-purpose external functions in MDD cannot be used.
 
 The \modelica{EmbeddedTargets} package (see Section~\ref{sec:EmbeddedTargets}) contains
-blocks and functions to directly control I/O or clocks in the AVR ATmega microcontroller family\footnote{As of MDD
-v1.5.0, only ATmega16 and ATmega328P (=Arduino Uno) are supported.
+blocks and functions to directly control I/O or clocks in the AVR ATmega microcontroller family\footnote{As of MDD~v1.5.0, only ATmega16 and ATmega328P (=Arduino Uno) are supported.
 The code can easily be extended, but requires checking the data sheets in order
 to write to the correct bits.}.
 The advantage of including this code into the MDD library is that it makes it
