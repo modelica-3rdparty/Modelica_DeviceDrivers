@@ -627,7 +627,7 @@ by Dymola, OpenModelica and SimulationX.
 Future releases of MDD may benefit from improvements on the external
 function interface which are expected in the (future) Modelica~v3.4 standard:
 \begin{itemize}
- \item Compiler-specific sub-directories for the platform-specific library directories, \textit{e.g.}, if Visual Studio~2015 is used as a Windows 64-bit compiler it \emph{first} checks directory \modelica{win64/vs2015} for dependent libraries\footnote{Modelica Issue Tracker, \url{https://trac.modelica.org/Modelica/ticket/1316}}.
+ \item Compiler-specific sub-directories for the platform-specific library directories, \textit{e.g.}, if Visual Studio~2015 is used as a Windows 64-bit compiler a Modelica tool may first search directory \modelica{win64/vs2015} for dependent libraries\footnote{Modelica Issue Tracker, \url{https://trac.modelica.org/Modelica/ticket/1316}}.
  \item The \modelica{IncludeDirectory} annotation accepts \emph{multiple} directories enabling a more convenient way to specify several external C header file dependencies distributed over different include directories\footnote{Modelica Issue Tracker, \url{https://trac.modelica.org/Modelica/ticket/2103}}.
 \end{itemize}
 
