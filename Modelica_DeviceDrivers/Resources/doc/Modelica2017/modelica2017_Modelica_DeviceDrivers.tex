@@ -525,7 +525,7 @@ blocks. Configuration of the device is performed in the Modelica record named
 \modelica{comedi}. The record contains an external object \modelica{dh} of type
 \modelica{ComediConfig} which contains the Comedi device handle and is passed through
 a parameter to the other blocks (\modelica{comedi.dh}). Using external
-objects in records is not standard compliant to Modelica~v3.3~revision~1
+objects in records is not standard-compliant to Modelica~v3.3~revision~1
 \citep{ModelicaAssociation2014} which is further discussed in
 Section~\ref{sec:External Objects in Records}.
 \begin{figure}[h]
@@ -556,7 +556,7 @@ Atmel\footnote{Atmel, \url{http://atmel.com}} AVR family of
 microcontrollers. A prototype application is described in
 Section~\ref{sec:EmbeddedControl}.
 
-\section{Modelica Standard Compliance}
+\section{Modelica Standard-Compliance}
 \label{sec:ModelicaStandardCompliance}
 \BTHI{TODO: Thomas, Bernhard}
 
@@ -694,7 +694,7 @@ The \modelica{dummy} variables are used to establish data-flow dependencies
 which ensure that the ``\modelica{addValue}'' functions of connected
 blocks are invoked in the correct order. The \modelica{backwardTrigger} event
 allows propagating a triggering event in the inverse connector direction.
-Its supporting logic is omitted here for brevity. A Modelica standard conform alternative is provided by the
+Its supporting logic is omitted here for brevity. A Modelica standard-conform alternative is provided by the
 variable \modelica{userPkgBitSize} that allows propagating a user defined package size, \textit{i.e.}, it is possible for a
 user to customize the package size of the external data buffer of the communication device block (see
 Section~\ref{sec:Communication}). However,
@@ -763,7 +763,7 @@ the Modelica standard will consider use-cases that the
 Modelica tools Dymola, OpenModelica and SimulationX already support\footnote{Modelica Issue Tracker,
 \url{https://trac.modelica.org/Modelica/ticket/1669}}.
 
-A Modelica standard conform implementation that avoids the aliasing is to only rely on the \textsf{Function Layer} provided by package \modelica{SerialPackager_}.
+A Modelica standard-conform implementation that avoids the aliasing is to only rely on the \textsf{Function Layer} provided by package \modelica{SerialPackager_}.
 
 \subsubsection{Automatic Buffer Size}
 \label{sec:Automatic Buffer Size}
@@ -1092,10 +1092,10 @@ compliance of the library. Still, there are open issues and one may also see the
 library as a testbed which stresses Modelica's external function interface
 to the limit. On one one hand, experiences gained thereby can provide inputs for
 further enhancements to the Modelica standard specification, on the other hand,
-further efforts in the library development can improve the level of standard compliance.
+further efforts in the library development can improve the level of standard-compliance.
 However, since backwards compatibility is a strong objective in the library
 development, non-backwards compatible changes for the sake of better
-standard compliance will not be introduced lightly.
+standard-compliance will not be introduced lightly.
 
 Naturally, there is a large pool of conceivable feature extensions to the
 library, due to the myriad number of available external devices and
