@@ -303,7 +303,7 @@ The code above creates an external object named \mbox{\modelica{gc}.}
 The constructor for this object takes the argument \mbox{\modelica{id}.} This
 argument allows to specify which controller to use if several game controllers
 are attached to the system. The function \modelica{getData} is called
-periodically within a \modelica{when}-clause. It takes the external object
+periodically within a \modelica{when}-clause. It \mbox{takes} the external object
 \modelica{gc} as argument and returns vectors which contain the values read from
 the associated game controller. The vector is pre-dimensioned, so that it can
 attune to controllers featuring as much as six axes, 32 buttons and a POV (point
@@ -510,9 +510,9 @@ extending the number of Modelica tools which support MDD (see Section~\ref{sec:S
 Package \modelica{HardwareIO} (see
 Figure~\ref{fig:MDDPackageBrowseScreenshot}) is intended for data acquisition
 hardware like digital-analog converter (DAC), analog-digital converter (ADC) and
-other interface hardware.
+other interface hard\-ware.
 As of MDD~v1.5.0 it contains only one sub-package which
-provides support for the Linux control and measurement device interface
+provides support for the Linux control and mea\-sure\-ment device interface
 ``Comedi''. The Comedi project develops open-source drivers, tools, and
 libraries for data acquisition\footnote{Comedi project,
 \url{http://comedi.org}}. The project provides a common interface for
