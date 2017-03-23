@@ -42,6 +42,7 @@ typedef struct {
 #define MDDSWAP(a,b) a^=b; b^=a; a^=b
 
 static void* MDD_int32Swap(void* a) {
+    /* In-place byte swap */
     union {
         char i1[4];
         int  i4;
@@ -57,6 +58,7 @@ static void* MDD_int32Swap(void* a) {
 }
 
 static void* MDD_floatSwap(void* a) {
+    /* In-place byte swap */
     union {
         char  i1[4];
         float r4;
@@ -72,6 +74,7 @@ static void* MDD_floatSwap(void* a) {
 }
 
 static void* MDD_doubleSwap(void* a) {
+    /* In-place byte swap */
     union {
         char   a[8];
         double b;
@@ -87,6 +90,8 @@ static void* MDD_doubleSwap(void* a) {
     memcpy(a, &tmp, sizeof(double));
     return a;
 }
+
+#undef MDDSWAP
 
 /** External object constructor for SerialPackager.
  *
@@ -247,7 +252,8 @@ DllExport void MDD_SerialPackagerAddInteger(void* p_package, int * u, size_t n, 
         (endian == MDD_ENDIAN_BIG && pkg->endian == MDD_ENDIAN_LITTLE)) {
         size_t i;
         for (i = 0; i < n; ++i) {
-            memcpy(pkg->data + pkg->pos + i*sizeof(int), MDD_int32Swap(&u[i]), sizeof(int));
+            int u_i = u[i];
+            memcpy(pkg->data + pkg->pos + i*sizeof(int), MDD_int32Swap(&u_i), sizeof(int));
         }
     }
     else {
@@ -278,7 +284,8 @@ DllExport void MDD_SerialPackagerGetInteger(void* p_package, int * y, int n, int
         (endian == MDD_ENDIAN_BIG && pkg->endian == MDD_ENDIAN_LITTLE)) {
         int i;
         for (i = 0; i < n; ++i) {
-            memcpy(&y[i], MDD_int32Swap((int*)(pkg->data + pkg->pos + i*sizeof(int))), sizeof(int));
+            int y_i = *(int*)(pkg->data + pkg->pos + i*sizeof(int));
+            memcpy(&y[i], MDD_int32Swap(&y_i), sizeof(int));
         }
     }
     else {
@@ -309,7 +316,8 @@ DllExport void MDD_SerialPackagerAddDouble(void* p_package, double * u, size_t n
         (endian == MDD_ENDIAN_BIG && pkg->endian == MDD_ENDIAN_LITTLE)) {
         size_t i;
         for (i = 0; i < n; ++i) {
-            memcpy(pkg->data + pkg->pos + i*sizeof(double), MDD_doubleSwap(&u[i]), sizeof(double));
+            double u_i = u[i];
+            memcpy(pkg->data + pkg->pos + i*sizeof(double), MDD_doubleSwap(&u_i), sizeof(double));
         }
     }
     else {
@@ -339,7 +347,8 @@ DllExport void MDD_SerialPackagerGetDouble(void* p_package, double * y, int n, i
         (endian == MDD_ENDIAN_BIG && pkg->endian == MDD_ENDIAN_LITTLE)) {
         int i;
         for (i = 0; i < n; ++i) {
-            memcpy(&y[i], MDD_doubleSwap((double*)(pkg->data + pkg->pos + i*sizeof(double))), sizeof(double));
+            double y_i = *(double*)(pkg->data + pkg->pos + i*sizeof(double));
+            memcpy(&y[i], MDD_doubleSwap(&y_i), sizeof(double));
         }
     }
     else {
@@ -369,15 +378,15 @@ DllExport void MDD_SerialPackagerAddDoubleAsFloat(void* p_package, double * u, s
         (endian == MDD_ENDIAN_BIG && pkg->endian == MDD_ENDIAN_LITTLE)) {
         size_t i;
         for (i = 0; i < n; ++i) {
-            float castedDouble = (float) u[i];
-            memcpy(pkg->data + pkg->pos + i*sizeof(float), MDD_floatSwap(&castedDouble), sizeof(float));
+            float u_i = (float) u[i];
+            memcpy(pkg->data + pkg->pos + i*sizeof(float), MDD_floatSwap(&u_i), sizeof(float));
         }
     }
     else {
         size_t i;
         for (i = 0; i < n; ++i) {
-            float castedDouble = (float) u[i];
-            memcpy(pkg->data + pkg->pos + i*sizeof(float), &castedDouble, sizeof(float));
+            float u_i = (float) u[i];
+            memcpy(pkg->data + pkg->pos + i*sizeof(float), &u_i, sizeof(float));
         }
     }
     pkg->pos += n*sizeof(float);
@@ -405,7 +414,8 @@ DllExport void MDD_SerialPackagerGetFloatAsDouble(void* p_package, double * y, i
         int i;
         for (i = 0; i < n; i++) {
             float value = 0.f;
-            memcpy(&value, MDD_floatSwap((float*)(pkg->data + pkg->pos + i*sizeof(float))), sizeof(float));
+            float y_i = *(float*)(pkg->data + pkg->pos + i*sizeof(float));
+            memcpy(&value, MDD_floatSwap(&y_i), sizeof(float));
             y[i] = (double) value;
         }
     }
