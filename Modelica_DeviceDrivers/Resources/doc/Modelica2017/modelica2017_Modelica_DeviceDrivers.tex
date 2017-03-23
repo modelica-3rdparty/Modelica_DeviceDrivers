@@ -14,6 +14,7 @@
 \usepackage{subcaption} % subfloats (http://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions#Subfloats)
 %\usepackage{lmodern}
 \usepackage{textcomp}
+%\usepackage[expansion=false]{microtype}
 
 \hypersetup{%
   pdftitle  = {Towards a Standard-Conform, Platform-Generic and Feature-Rich Modelica Device Drivers Library},
@@ -102,14 +103,14 @@ driving, and marine training simulators), Hardware-in-the-Loop (HIL) simulators,
 but also offline process simulators which cannot operate in a completely
 self-contained manner and therefore need to be coupled to external applications.
 Furthermore, Modelica can be used for developing (model-based) control
-applications which also require interaction with their environment.
+applications that also require interaction with their environment.
 
-There are different approaches for enabling the above mentioned applications in
+There are different approaches for enabling the above-mentioned applications in
 the context of Modelica. Several development environments offer tool chains for
 real-time simulation and/or model-based development of embedded control
 applications.
 Some of these environments can be coupled with Modelica tools, by wrapping code
-which is generated from Modelica tools into respective third-party tool-internal
+that is generated from Modelica tools into respective third-party tool-internal
 representations which can be connected to hardware devices in the respective
 development environment. For example,
 such customized solutions are available in
@@ -150,7 +151,7 @@ However, the \emph{ExternalDevices} library only supported
 Microsoft Windows and was developed and tested using only the Dymola tool,
 which caused unintentional incompatibilities with other Modelica tools.
 In the further course of
-development it was decided to split the \emph{ExternalDevices} library into the
+development, it was decided to split the \emph{ExternalDevices} library into the
 commercial \emph{DLR Visualization} library and an open-source cross-platform hardware
 interface library, the \emph{Modelica\_DeviceDrivers} library. The library is
 available from its GitHub project site at
@@ -200,7 +201,7 @@ Section~\ref{sec:EmbeddedControl}).
 When accessing hardware devices, a Modelica model or
 application calls Modelica functions from the \textsf{Function Layer} (see
 Figure~\ref{fig:MDDLayeredArchitecture}). These Modelica functions provide a
-generic interface to the underlying \textsf{C Code Layer} which is accessed by
+generic interface to the underlying \textsf{C Code Layer}, which is accessed by
 Modelica's external function interface.
 The platform differentiation is handled in the \textsf{C Code Layer} which
 uses preprocessor directives for conditional inclusion/exclusion of
@@ -282,7 +283,7 @@ from the \modelica{Blocks} and \modelica{ClockedBlocks} sub-packages, or by
 direct calls to the underlying functions.
 
 An example, which directly uses the \textsf{Function Layer} for accessing a
-game controller is given below:
+game controller, is given below:
 \begin{lstlisting}[language=modelica]
 model GameControllerExample
   import
@@ -301,7 +302,7 @@ end GameControllerExample;
 \noindent
 The code above creates an external object named \mbox{\modelica{gc}.}
 The constructor for this object takes the argument \mbox{\modelica{id}.} This
-argument allows to specify which controller to use if several game controllers
+argument allows specifying which controller to use if several game controllers
 are attached to the system. The function \modelica{getData} is called
 periodically within a \modelica{when}-clause. It \mbox{takes} the external object
 \modelica{gc} as argument and returns vectors which contain the values read from
@@ -355,17 +356,17 @@ synchronization\footnote{See documentation to block
 \mbox{\modelica{SynchronizeRealtime}.}
 %\url{https://build.openmodelica.org/Documentation/Modelica_DeviceDrivers.Blocks.OperatingSystem.SynchronizeRealtime.html}
 }.
-However, a user should consider that Modelica tools may provide better (tool-specific) options for real-time synchronization.
+However, a user should consider that Modelica tools might provide better (tool-specific) options for real-time synchronization.
 
 \subsection{Features}
 
 The MDD library has grown to support a respectable amount of hardware devices
-and associated features which will be briefly presented in this section.
+and associated features that will be briefly presented in this section.
 
 \subsubsection{Input Devices}
 
 Standard input devices such as keyboard and game controllers are ubiquitously
-available on the market, enabling the user to quickly build up interactive simulations.
+available on the market, enabling the user to build up interactive simulations quickly.
 MDD provides blocks for using the generic keyboard and game controller interface
 of Windows or Linux (see Figure~\ref{fig:OverviewInputDevices}).
 \begin{figure}[h]
@@ -376,7 +377,7 @@ of Windows or Linux (see Figure~\ref{fig:OverviewInputDevices}).
 \end{figure}
 
 \noindent
-Also more
+In addtion, more
 specialized hardware like the 3Dconnexion SpaceMouse is supported for both platforms.
 Often, these blocks will be used for interactive desktop simulations, but they
 can also become part of more involved (cost-efficient) HITL simulation
@@ -440,10 +441,10 @@ is achieved by simply replacing the corresponding device block.
 \noindent
 The packages are constructed by using blocks from the \modelica{Packaging}
 sub-package (see Figure~\ref{fig:MDDPackageBrowseScreenshot}). In the initial
-design of MDD it was expected that different packaging concepts would be
+design of MDD, it was expected that different packaging concepts would be
 supported which share a common connector interface. However, as of MDD~v1.5.0
 the \modelica{SerialPackager} is the only available packager. It allows
-to periodically add or retrieve fixed size vectors to or from a package, respectively.
+periodically adding or retrieving fixed size vectors to or from a package, respectively.
 Figure~\ref{fig:SerialPackagerBlocks} shows the available blocks for serializing
 Modelica variables of the predefined types \modelica{Boolean}, \modelica{Integer}, \modelica{Real} and \mbox{\modelica{String}} into a ``package''.
 The type \modelica{Real} can be packed either as double-precision or (using a C
@@ -478,7 +479,7 @@ Figure~\ref{fig:SerialPackagerBlocks} shows the blocks for adding
 variables to a package, symmetrically, blocks are available for retrieving variables from a
 package. Using these blocks is deemed to be rather
 intuitive with the notable exception of the \modelica{packInt} block. This
-block allows to pack unsigned integer values at the bit level. The number of
+block allows packing unsigned integer values at the bit level. The number of
 bits used for encoding is set by a parameter \modelica{width}, therefore the maximum value
 of the integer signal that can be encoded is $2^{\mathrm{width}} - 1$. A
 parameter \modelica{bitOffset} allows to specify the bit at which the encoding starts
@@ -488,11 +489,11 @@ the byte ordering (big-endian or little-endian format).
 It is simple to use the
 \modelica{SerialPackager} blocks for deserializing data which has been serialized by it
 (see Figure~\ref{fig:PackagingConcept}). In practice, however, communication
-typically needs to be established with a remote station which is unrelated to
+typically needs to be established with a remote station that is unrelated to
 the Modelica model. As long as this remote station periodically sends or
-receives structurally static, fixed sized packages it is usually quite
+receives structurally static, fixed sized packages, it is usually quite
 convenient to establish a communication using the MDD blocks. If the remote
-station uses a more dynamic protocol it becomes more difficult. In some cases
+station uses a more dynamic protocol, it becomes more difficult. In some cases
 using the \textsf{Function Layer} directly (instead of the \textsf{Block Layer})
 can provide additional flexibility for coping with more dynamic protocols.
 However, the main use-case for the \modelica{SerialPackager} concept is periodically
@@ -511,7 +512,7 @@ Package \modelica{HardwareIO} (see
 Figure~\ref{fig:MDDPackageBrowseScreenshot}) is intended for data acquisition
 hardware like digital-analog converter (DAC), analog-digital converter (ADC) and
 other interface hard\-ware.
-As of MDD~v1.5.0 it contains only one sub-package which
+As of MDD~v1.5.0, it contains only one sub-package, which
 provides support for the Linux control and mea\-sure\-ment device interface
 ``Comedi''. The Comedi project develops open-source drivers, tools, and
 libraries for data acquisition\footnote{Comedi project,
@@ -520,13 +521,13 @@ accessing supported data acquisition hardware (see the website for supported
 hardware). The MDD library implements an interface to the Comedi user-space
 library.
 
-Figure~\ref{fig:MDDComedi} shows an example model which uses the available
+Figure~\ref{fig:MDDComedi} shows an example model, which uses the available
 blocks. Configuration of the device is performed in the Modelica record named
 \modelica{comedi}. The record contains an external object \modelica{dh} of type
 \modelica{ComediConfig} which contains the Comedi device handle and is passed through
 a parameter to the other blocks (\modelica{comedi.dh}). Using external
 objects in records is not standard-compliant to Modelica~v3.3~revision~1
-\citep{ModelicaAssociation2014} which is further discussed in
+\citep{ModelicaAssociation2014}, which is further discussed in
 Section~\ref{sec:External Objects in Records}.
 \begin{figure}[h]
   \centering
@@ -561,12 +562,12 @@ Section~\ref{sec:EmbeddedControl}.
 \BTHI{TODO: Thomas, Bernhard}
 
 Using a Modelica library-based approach for accessing hardware devices from a
-simulation started as an experiment which relied on the Dymola tool and its
+simulation started as an experiment, which relied on the Dymola tool and its
 support for interfacing external C code.
 % The result was the \emph{ExternalDevices} library, the historical predecessor of
 % the MDD library (see Section~\ref{sec:Introduction}).
 However, when trying to extend the number
-of Modelica tools which support the MDD library, it became apparent that quite a
+of Modelica tools supporting the MDD library, it became apparent that quite a
 few constructs that were useful and appreciated by the initial authors of the
 library were not supported by other tools and were partly problematic in respect
 of compliance to the Modelica standard.
@@ -601,7 +602,7 @@ function getKey
 end getKey;
 \end{lstlisting}
 A Modelica tool will map this information to compiler- and linker-dependent
-directives and thereby select the libraries which fit best for the respective
+directives and thereby select the libraries that fit best for the respective
 platform.
 
 \subsubsection{Linking Platform-Dependent System Libraries}
@@ -617,7 +618,7 @@ understood by the Visual Studio compilers only. However, for GCC (including the 
 The above example function \modelica{getKey} features an additional (vendor-neutral) annotation which declares the function
 as ``impure''. The intended meaning is that a tool may not expect that the
 function returns the same output for the same input, which is the typical case
-for MDD functions which read values from external devices. Indeed, Modelica~v3.3 introduced the dedicated keyword
+for MDD functions that read values from external devices. Indeed, Modelica~v3.3 introduced the dedicated keyword
 ``impure'' to cater for such cases. However, since not all Modelica tools support this
 keyword, yet, the MDD library uses the \modelica{Impure} annotation which is understood
 by Dymola, OpenModelica and SimulationX.
@@ -625,7 +626,7 @@ by Dymola, OpenModelica and SimulationX.
 \subsubsection{Modelica Standard Improvements}
 
 Future releases of MDD may benefit from improvements on the external
-function interface which are expected in the (future) Modelica~v3.4 standard:
+function interface, which are expected in the (future) Modelica~v3.4 standard:
 \begin{itemize}
  \item Compiler-specific sub-directories for the platform-specific library directories, \textit{e.g.}, if Visual Studio~2015 is used as a Windows 64-bit compiler a Modelica tool may first search directory \modelica{win64/vs2015} for dependent libraries\footnote{Modelica Issue Tracker, \url{https://trac.modelica.org/Modelica/ticket/1316}}.
  \item The \modelica{IncludeDirectory} annotation accepts \emph{multiple} directories enabling a more convenient way to specify several external C header file dependencies distributed over different include directories\footnote{Modelica Issue Tracker, \url{https://trac.modelica.org/Modelica/ticket/2103}}.
@@ -656,7 +657,7 @@ end PackageIn;
 \end{lstlisting}
 The definition of the output connector is similar, but with reversed input and
 output causalities. Most notably connector \modelica{PackageIn} contains an
-element \modelica{pkg} which is an external object of type \modelica{SerialPackager}.
+element \modelica{pkg}, which is an external object of type \modelica{SerialPackager}.
 This external object is passed between connected blocks (see
 Figure~\ref{fig:PackagingConcept}). Within an ``add'' or ``get'' block the
 passed in external object is used as an argument to external functions which
@@ -800,7 +801,7 @@ it\footnote{Modelica Issue Tracker,
 In the initial version of the MDD library the external object was actually
 created within a \modelica{when}-clause,
 which was clearly illegal in Modelica~v3.3. As part of improving the Modelica
-compliance of the library the creation of the object was moved into the
+compliance of the library, the creation of the object was moved into the
 component declaration.
 
 \subsection{External Objects in Records}
@@ -809,7 +810,7 @@ component declaration.
 The \modelica{SocketCAN} and the \modelica{Comedi} blocks use a Modelica record as means
 for specifying general settings for a hardware device. The idea is that the
 settings are specified once when creating an instance of the record and
-this instance is passed as parameter to blocks which use this device. For
+this instance is passed as parameter to blocks using this device. For
 example, the \modelica{Comedi} configuration record (stripped from some elements for brevity) is defined
 as
 \begin{lstlisting}[language=modelica]
@@ -846,12 +847,12 @@ the \modelica{GetString} block\footnote{Modelica Issue Tracker,
 \section{Applications}
 \label{sec:Applications}
 
-This section describes several applications which were implemented with the
+This section describes several applications that were implemented with the
 help of the MDD library.
 
 \subsection{Arduino}
 
-The Arduino\footnote{Arduino, \url{https://arduino.cc}} is an open-source electronics platform which features easy configurations to read the sensors, process the data and send it to other devices via a serial connection.
+The Arduino\footnote{Arduino, \url{https://arduino.cc}} is an open-source electronics platform that features easy configurations to read the sensors, process the data and send it to other devices via a serial connection.
 Therefore, the Arduino can be utilized to provide sensor data in a real-time Modelica model by means of the MDD serial port implementation, as depicted in Figure~\ref{fig:arduino}.
 With the help of potentiometers or other deflection sensors, customized control devices can be built.
 \begin{figure}[h]
@@ -897,8 +898,8 @@ data sheets.
 Instead, enumerations such as \modelica{prescaler}=1/128 or \modelica{clock}=2B are
 passed from Modelica and the C code for the AVR target depends on
 function inlining in order to remove dead code.
-For example, the constructor for the clock takes an enumeration which
-specifies the clock which should be manipulated and after function inlining, the
+For example, the constructor for the clock takes an enumeration that
+specifies the clock, which should be manipulated, and after function inlining, the
 C code for other clocks is removed.
 The blocks in the MDD library try to take user-friendly constants
 such as \modelica{frequency}=$100\,\mathrm{Hz}$ or \modelica{period}=$0.1\,\mathrm{s}$ for real-time synchronization; the
@@ -907,7 +908,7 @@ matching frequency.
 The code does not use parameters since they cannot be guaranteed to be
 evaluated in Modelica, and the C-code depends on the C-compiler (AVR GCC)
 being able to inline and eliminate dead code from C-code such as the constructor.
-An example of this is the timer external object in the microcontroller which becomes one or two bitset
+An example of this is the timer external object in the microcontroller, which becomes one or two bitset
 instructions when the function is called with a constant input:
 \begin{lstlisting}[language=Modelica]
 function constructor "Initialize timer"
@@ -951,7 +952,7 @@ One of the AVR examples included in MDD is the single board heating system (SBHS
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.9\columnwidth]{figures/SBHS.jpg}
-  \caption{The single board heater system running a real-time control algorithm using firmware based on MDD code. There is a programmer attached to the board to upload new firmwares, but the code runs without any computer connected to the SBHS.}
+  \caption{The single board heater system running a real-time control algorithm using firmware based on MDD code. There is a programmer attached to the board to upload new firmware, but the code runs without any computer connected to the SBHS.}
   \label{fig:sbhs}
 \end{figure}
 
@@ -962,7 +963,7 @@ The MDD SBHS example uses pulse width modulation (PWM) blocks to control the
 heater and fan, and an analog-to-digital converter (ADC) block to read the
 temperature. It combines these elements with a PID controller with the goal to
 control the fan such that the temperature settles at a setpoint of $45\,$℃
-while the heater assembly is fed by a constant voltage.
+while a constant voltage feeds the heater assembly.
 
 % \BTHI{I commented this out since the figures are a bit hard to read and I try
 % to save some space. The figures are not so essential to
@@ -1005,7 +1006,7 @@ communication and querying of input devices.
   \label{fig:DLRRoboticMotionSimulator}
 \end{figure}
 
-The DLR Robotic Motion Simulator \citep{bellmann2011dlr} is a 7 axis driving and
+The DLR Robotic Motion Simulator \citep{bellmann2011dlr} is a 7-axis driving and
 flight simulator based on an industrial robot arm (see
 Figure~\ref{fig:DLRRoboticMotionSimulator}). The main use of this motion
 simulator is the evaluation of input devices such as side-sticks, steering
@@ -1014,12 +1015,12 @@ in terms of stability and real-time capability. The control architecture of the
 simulator uses blocks from the MDD library in several ways:
 \begin{itemize}
   \item Input devices such as force-feedback steering wheels are connected via CAN bus
-and integrated in the software framework via the CAN blocks, the same
+and integrated in the software framework via the CAN blocks; the same
 applies for a force-feedback side-stick.
   \item Other, consumer based input devices such as pedals or Airbus styled flight
 controls are connected via the \modelica{JoystickInput} block.
   \item The control architecture for the robot consists of two Modelica simulations on
-two different computers: First, the real-time path-planning running on a
+two different computers: First, the real-time path planning running on a
 real-time Linux system controlling the movements of the robot, and second, the
 control panel running on a standard Windows system. The control panel is used to
 change parameters such as washout filter modes (the washout filter maps the
@@ -1048,7 +1049,7 @@ control screens, and to project the pilot's outside view visualization on the
 embracing concave dome shell. These
 tasks are performed using Modelica models, where the
 \modelica{SynchronizeRealtime} block is used for real-time
-synchronization. Also, communication with the other simulation components is
+synchronization. In addition, communication with the other simulation components is
 performed partly via the UDP blocks.
 
 \begin{figure}[htb]
@@ -1063,7 +1064,7 @@ for a science exhibition.
 This demonstrator allows the user to command a rover
 on a scientific lunar mission. The mission's goal is to pick up a sensor package from a nearby
 lander and to place it on a marked position on the lunar surface. The user
-controls the rover via an Android App which is running on a tablet computer in front of
+controls the rover via an Android App, which runs on a tablet computer in front of
 the simulator screen.
 \TBEU{Bernhard: Add link to Android in footnote?}On the screen, the visualization of the rover is displayed.
 The underlying Modelica simulation performs the multi-body simulation of the
@@ -1080,17 +1081,17 @@ environment.
 \section{Outlook}
 \BTHI{TODO: Bernhard, Thomas, Volker}
 
-The \emph{Modelica\_DeviceDrivers} library is a tried and tested library which
-can support a wide range of application scenarios. During its development
+The \emph{Modelica\_DeviceDrivers} library is a tried and tested library, which
+can support a wide range of application scenarios. During its development,
 valuable experience on interfacing Modelica with external C code has been
 gained. Thus, the source code can also serve as an example for anybody who is
-interested in applications which require a more complex integration of Modelica
+interested in applications, which require a more complex integration of Modelica
 code with external C code.
 
 Considerable development efforts have been spent on improving the Modelica
-compliance of the library. Still, there are open issues and one may also see the
-library as a testbed which stresses Modelica's external function interface
-to the limit. On one one hand, experiences gained thereby can provide inputs for
+compliance of the library. Still, there are open issues and one may see the
+library as a testbed, which stresses Modelica's external function interface
+to the limit. On one hand, experiences gained thereby can provide inputs for
 further enhancements to the Modelica standard specification, on the other hand,
 further efforts in the library development can improve the level of standard-compliance.
 However, since backwards compatibility is a strong objective in the library
@@ -1101,7 +1102,7 @@ Naturally, there is a large pool of conceivable feature extensions to the
 library, due to the myriad number of available external devices and
 communication protocols. A frequent request is to extend the communication
 abilities beyond the capabilities of the available \mbox{\modelica{SerialPackager}.}
-There exists a huge choice of data serialization formats which could be utilized for this
+There exists a huge choice of data serialization formats that could be utilized for this
 purpose (\textit{e.g.}, LCM or MessagePack). Particularly, with regard to the Internet of Things (IoT) technology
 becoming more important, improving communication capabilities is a worthy goal.
 Similarly, supporting embedded systems beyond the prototypical work is very attractive in that perspective.
@@ -1112,7 +1113,7 @@ This work has been supported by Vinnova in the ITEA3 OPENCPS projects,
 and in the RTISIM project.
 Support from the Swedish Government has been received from the ELLIIT project,
 as well as from the European Union in the H2020 INTO-CPS project.
-The OpenModelica development is supported by the Open Source Modelica Consortium.
+The Open Source Modelica Consortium supports the OpenModelica development.
 
 Finally, the authors would like to thank everybody who has contributed to the library,
 either by providing feedback and suggestions, or by direct contributions to
