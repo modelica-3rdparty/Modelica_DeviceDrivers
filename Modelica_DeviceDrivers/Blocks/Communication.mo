@@ -921,7 +921,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
     end Internal;
     annotation (preferredView="info",Documentation(info="<html>
 <h4><font color=\"#008000\">Support for Linux Socket CAN interface</font></h4>
-<p>Modelica external function interface to use the CAN socket interface of the Linux kernel (<a href=\"http://svn.berlios.de/wsvn/socketcan/trunk/kernel/2.6/Documentation/networking/can.txt\">http://svn.berlios.de/wsvn/socketcan/trunk/kernel/2.6/Documentation/networking/can.txt</a>). </p>
+<p>Modelica external function interface to use the CAN socket interface of the Linux kernel (<a href=\"https://www.kernel.org/doc/Documentation/networking/can.txt\">https://www.kernel.org/doc/Documentation/networking/can.txt</a>). </p>
 <p><b>So far only testet with the virtual CAN interface &quot;vcan&quot;</b>. However, in principle it should work similarly with an underlying &quot;real&quot; CAN-device which is supported by the Socket CAN interface.</p>
 <h4><font color=\"#008000\">Setup of a virtual CAN interface</font></h4>
 <p>Even if a Linux computer doesn&apos;t have a CAN device, it is possible to setup a virtual CAN device that can be used similarly to a physical device. This section discusses the necessary steps to bring up a virtual CAN device (tested with Ubuntu 12.04) which can be used with the <a href=\"Modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackager_SocketCAN\">SocketCAN example model</a>. Note that this usually requires root rights. Also executing the Modelica example model might require root rights.</p>
