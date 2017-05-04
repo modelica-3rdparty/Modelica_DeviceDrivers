@@ -142,7 +142,7 @@ DllExport void * MDD_serialPortConstructor(const char * deviceName, int bufferSi
             serial = NULL;
             ModelicaFormatError("MDDSerialPort.h: CreateFileA of serial port %s failed with error: %lu\n", deviceName, GetLastError());
         }
-        ModelicaFormatMessage("Created serial port for device %s\n", deviceName);
+        ModelicaFormatMessage("MDDSerialPort.h: Created serial port for device %s\n", deviceName);
 
         memset(&dcb, 0, sizeof(dcb));
         dcb.DCBlength = sizeof(dcb);
@@ -180,22 +180,22 @@ DllExport void * MDD_serialPortConstructor(const char * deviceName, int bufferSi
                 break;
         }
 
-        ModelicaFormatMessage("Set serial port %s to speed: %d\n", deviceName, baud);
+        ModelicaFormatMessage("MDDSerialPort.h: Set serial port %s to speed: %d\n", deviceName, baud);
         switch (parity) {
             case 1:
                 /* even parity */
                 dcb.Parity = EVENPARITY;
-                ModelicaFormatMessage("Set even Parity of serial port %s\n", deviceName);
+                ModelicaFormatMessage("MDDSerialPort.h: Set even Parity of serial port %s\n", deviceName);
                 break;
             case 2:
                 /* odd parity */
                 dcb.Parity = ODDPARITY;
-                ModelicaFormatMessage("Set odd Parity of serial port %s\n", deviceName);
+                ModelicaFormatMessage("MDDSerialPort.h: Set odd Parity of serial port %s\n", deviceName);
                 break;
             default:
                 /* no parity */
                 dcb.Parity = NOPARITY;
-                ModelicaFormatMessage("Set no Parity of serial port %s\n", deviceName);
+                ModelicaFormatMessage("MDDSerialPort.h: Set no Parity of serial port %s\n", deviceName);
                 break;
         }
 
@@ -453,19 +453,19 @@ static void MDD_serialPortSetInterfaceAttributes (int fd, int speed, int parity)
             /* even parity */
             ser.c_cflag |= PARENB; /* enable parity */
             ser.c_cflag &= ~PARODD; /* set even parity */
-            ModelicaFormatMessage("Set even Parity of serial port handle: %d\n",fd);
+            ModelicaFormatMessage("MDDSerialPort.h: Set even Parity of serial port handle: %d\n",fd);
             break;
         case 2:
             /* odd parity */
             ser.c_cflag |= PARENB; /* enable parity */
             ser.c_cflag |= PARODD; /* set even parity */
-            ModelicaFormatMessage("Set odd Parity of serial port handle: %d\n",fd);
+            ModelicaFormatMessage("MDDSerialPort.h: Set odd Parity of serial port handle: %d\n",fd);
             break;
         default:
             /* no parity */
             ser.c_cflag &= ~(PARENB | PARODD); /* switch off any parity */
             ser.c_cflag |= parity; /* set parity */
-            ModelicaFormatMessage("Set no Parity of serial port handle: %d\n",fd);
+            ModelicaFormatMessage("MDDSerialPort.h: Set no Parity of serial port handle: %d\n",fd);
             break;
     }
 
@@ -537,9 +537,9 @@ void * MDD_serialPortConstructor(const char * deviceName, int bufferSize, int pa
             break;
     }
 
-    ModelicaFormatMessage("Created serial port handle: %d \n",serial->fd);
-    ModelicaFormatMessage("Created serial port for device %s\n",deviceName);
-    ModelicaFormatMessage("Set serial port %s to speed: %d\n",deviceName,(baud));
+    ModelicaFormatMessage("MDDSerialPort.h: Created serial port handle: %d \n",serial->fd);
+    ModelicaFormatMessage("MDDSerialPort.h: Created serial port for device %s\n",deviceName);
+    ModelicaFormatMessage("MDDSerialPort.h: Set serial port %s to speed: %d\n",deviceName,(baud));
 
     MDD_serialPortSetInterfaceAttributes (serial->fd, speed, parity);
     MDD_serialPortSetBlocking (serial->fd,0);
@@ -565,7 +565,7 @@ void* MDD_serialPortReceivingThread(void * p_serial) {
 
     struct pollfd serial_poll;
 
-    ModelicaFormatMessage("Started dedicated serial port receiving thread listening at port %d\n",
+    ModelicaFormatMessage("MDDSerialPort.h: Started dedicated serial port receiving thread listening at port %d\n",
                           serial->fd);
 
     serial_poll.fd = serial->fd;
@@ -584,7 +584,7 @@ void* MDD_serialPortReceivingThread(void * p_serial) {
                 break;
             case 1: /* new data available */
                 if(serial_poll.revents & POLLHUP) {
-                    ModelicaMessage("The serial port was disconnected.\n");
+                    ModelicaMessage("MDDSerialPort.h: The serial port was disconnected.\n");
                 }
                 else {
 
@@ -716,7 +716,7 @@ void MDD_serialPortDestructor(void * p_serial) {
     if (close(serial->fd) == -1) {
         ModelicaFormatMessage("MDDSerialPort.h: close() failed (%s)\n", strerror(errno));
     }
-    ModelicaFormatMessage("Closed serial port handle %d\n", serial->fd);
+    ModelicaFormatMessage("MDDSerialPort.h: Closed serial port handle %d\n", serial->fd);
     free(serial->msgInternal);
     free(serial->msgLastComplete);
     free(serial);
