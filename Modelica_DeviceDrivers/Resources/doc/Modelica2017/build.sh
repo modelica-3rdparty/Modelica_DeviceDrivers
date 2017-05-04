@@ -1,0 +1,6 @@
+#!/bin/sh
+
+pdflatex modelica2017_Modelica_DeviceDrivers.tex
+bibtex modelica2017_Modelica_DeviceDrivers
+pdflatex modelica2017_Modelica_DeviceDrivers.tex
+pdflatex modelica2017_Modelica_DeviceDrivers.tex

@@ -6,6 +6,7 @@ echo 'debconf debconf/frontend select Noninteractive' | sudo debconf-set-selecti
 sudo rm /etc/apt/sources.list.d/google*
 sudo rm /etc/apt/sources.list.d/ondrej*
 sudo apt-get update -qq
+if [[ "$DRONE_BRANCH" == "modelica2017" ]]; then sudo apt-get install -qq texlive texlive-science texlive-pictures texlive-latex-extra; fi
 sudo apt-get install -qq gcc-4.8-multilib
 echo 2 | sudo update-alternatives --config gcc
 cd Modelica_DeviceDrivers/Resources
@@ -31,5 +32,8 @@ cd ../Communication
 sudo ifconfig lo multicast
 sudo route add -net 224.0.0.0 netmask 240.0.0.0 dev lo
 ./test_MDDLCM
+cd $DRONE_BUILD_DIR/Modelica_DeviceDrivers/Resources/doc/Modelica2017
+if [[ "$DRONE_BRANCH" == "modelica2017" ]]; then ./build.sh; fi
 
 #Artifacts
+Modelica_DeviceDrivers/Resources/doc/Modelica2017/modelica2017_Modelica_DeviceDrivers.pdf
