@@ -47,13 +47,15 @@ realizes similar functionality as provided by ClockedBlocks, but is also usable 
 that have no support for the synchronous language elements.
 </p>
 <h4>Modelica tools known to work with that library</h4>
-<p>
-The library is known to work with Dymola
-(preferable Dymola 2013FD01 and later) and with SimulationX
-(with userBufferSize all non-clocked communication blocks are working
+<p>The library is known to work with</p>
+<ul>
+<li>Dymola,</li>
+<li>SimulationX (with userBufferSize all non-clocked communication blocks are working
 in SimulationX, but autoBufferSize only works for external solvers
-CVode and Fixed Step solver and fails for BDF and MEBDF solvers.
-</p>
+CVode and Fixed Step solver and fails for BDF and MEBDF solvers),</li>
+<li>OpenModelica (partial support starting with OpenModelica v1.12.0 beta, e.g., UDP, serial port, shared memory,
+LCM, keyboard).</li>
+</ul>
 </html>"));
   end Requirements;
 
@@ -180,6 +182,47 @@ First public version of the library.
 </ul>
 </html>"));
     end Version_1_4_4;
+
+    model Version_1_5_0 "Version 1.5.0 (May 12, 2017)"
+      extends Modelica.Icons.ReleaseNotes;
+      annotation (Documentation(info="<html>
+<ul>
+<li>
+<b>Important:</b> A bug fix in the shared memory implementation for <i>Windows</i>
+potentially affects applications that adapted the (wrong) buffer layout
+(see PR <a href=\"https://github.com/modelica/Modelica_DeviceDrivers/pull/138\">#138</a>)!
+</li>
+<li>Presentation of the library at the
+<a href=\"https://www.modelica.org/events/modelica2017\">Modelica'2017 conference</a>.
+</li>
+<li>
+OpenModelica v1.12.0 beta is now the third tool known to (partially) support the library
+(e.g., UDP, TCP/IP, serial port, shared memory, and LCM communication).
+</li>
+<li>
+Added support for sending and receiving of Lightweight Communications and Marshalling
+<a href=\"https://lcm-proj.github.io\">LCM</a> datagrams (only the communication aspect of LCM is considered,
+see example <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackager_LCM\">TestSerialPackager_LCM</a>).
+</li>
+<li>
+Added support for TCP/IP communication for Linux (was already available for Windows).
+</li>
+<li>
+New top-level package <a href=\"modelica://Modelica_DeviceDrivers.EmbeddedTargets\">EmbeddedTargets</a>)
+with a first prototypical support for the
+Atmel17 AVR family of microcontrollers
+(so far only known to work with OpenModelica's ExperimentalEmbeddedC code generation,
+see <a href=\"modelica://Modelica_DeviceDrivers.EmbeddedTargets.AVR\">AVR documentation</a>).
+</li>
+<li>
+Bug fixes for the serial port support.
+</li>
+<li>
+Other (minor) fixes and improvements.
+</li>
+</ul>
+</html>"));
+    end Version_1_5_0;
     annotation (Documentation(info="<html>
 <p>
 This section summarizes the changes that have been performed

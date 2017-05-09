@@ -3,7 +3,10 @@ Free library for interfacing hardware drivers to Modelica models.
 There is support for joysticks, keyboards, UDP, TCP/IP, LCM, shared memory, AD/DA converters, serial port and other devices.
 
 ## Library description
-The `Modelica_DeviceDrivers` library is an open source Modelica package under [Modelica License 2](https://modelica.org/licenses/ModelicaLicense2) that interfaces hardware drivers to Modelica models.
+The `Modelica_DeviceDrivers` library is an open source Modelica package under [Modelica License 2](https://modelica.org/licenses/ModelicaLicense2) that interfaces hardware drivers to Modelica models. An overview of the library is provided in
+
+> Bernhard Thiele, Thomas Beutlich, Volker Waurich, Martin Sjölund, and Tobias Bellmann, Towards a Standard-Conform, Platform-Generic and Feature-Rich Modelica Device Drivers Library.  In Jiří Kofránek and Francesco Casella, editors, _12th Int. Modelica Conference_, Prague, Czech Republic, May 2017.
+
 It unifies previous developments concerning device driver support in Modelica, see [Interactive Simulations and advanced Visualization with Modelica](https://modelica.org/events/modelica2009/Proceedings/memorystick/pages/papers/0056/0056.pdf) and [Modelica for Embedded Systems](https://modelica.org/events/modelica2009/Proceedings/memorystick/pages/papers/0096/0096.pdf) (Modelica'2009 conference). The functionality covered by this library has been used internally at DLR for several years, such as for Driver-in-the-Loop simulation and for the [DLR Robot Motion Simulator](http://www.dlr.de/media/en/desktopdefault.aspx/tabid-4995/8426_read-17606/).
 The previously fragmented functionality was streamlined, improved, and extended to a coherent cross-platform library.
 
@@ -33,10 +36,24 @@ The second interface uses the synchronous language elements introduced in Modeli
 
 Download [Modelica_DeviceDrivers latest release](../../releases/latest)
 
-Please note that the library is known to work with Dymola (preferable Dymola 2013FD01 and later) and with SimulationX (with `userBufferSize` all non-clocked communication blocks are working in SimulationX, but `autoBufferSize` only works for external solvers CVode and Fixed Step solver and fails for BDF and MEBDF solvers, see [#54 (comment)](https://github.com/modelica/Modelica_DeviceDrivers/issues/54#issuecomment-76032325)). If you tested the library successfully with another Modelica tool, please contact [Bernhard Thiele](https://github.com/bernhard-thiele) or send a [pull request](https://github.com/modelica/Modelica_DeviceDrivers/pulls) that updates this README.md.
+Please note that the library is known to work with
+* Dymola,
+* SimulationX (with `userBufferSize` all non-clocked communication blocks are working in SimulationX, but `autoBufferSize` only works for external solvers CVode and Fixed Step solver and fails for BDF and MEBDF solvers, see [#54 (comment)](https://github.com/modelica/Modelica_DeviceDrivers/issues/54#issuecomment-76032325)),
+* OpenModelica (partial support starting with OpenModelica v1.12.0 beta, e.g., UDP, serial port, shared memory, LCM, keyboard).
+
+If you tested the library successfully with another Modelica tool, please contact [Bernhard Thiele](https://github.com/bernhard-thiele) or send a [pull request](https://github.com/modelica/Modelica_DeviceDrivers/pulls) that updates this README.md.
 
 #### Release notes
-Bugfix releases usually won't have release notes, so please use the download link from above to get the latest release including bugfixes.  
+Bugfix releases usually won't have release notes, so please use the download link from above to get the latest release including bugfixes.
+*  Upcoming [Version v1.5.0 (2017-05-12)](../../releases/tag/v1.5.0)
+  * **Important**: A bug fix in the shared memory implementation for *Windows* potentially affects applications that adapted the (wrong) buffer layout (see #138)!
+  * Presentation of the library at the [Modelica'2017 conference](https://www.modelica.org/events/modelica2017).
+  * OpenModelica v1.12.0 beta is now the third tool known to (partially) support the library (e.g., UDP, TCP/IP, serial port, shared memory, and LCM communication).
+  * Added support for sending and receiving of Lightweight Communications and Marshalling [LCM](https://lcm-proj.github.io) datagrams (only the communication aspect of LCM is considered).
+  * Added support for TCP/IP communication for Linux (was already available for Windows).
+  * New top-level package `EmbeddedTargets` with a first prototypical support for the Atmel17 AVR family of microcontrollers (currently only known to work with OpenModelica's ExperimentalEmbeddedC code generation, see documentation).
+  * Bug fixes for the serial port support.
+  * Other (minor) fixes and improvements.  
 *  [Version v1.4.4 (2016-04-12)](../../releases/tag/v1.4.4)
   * Bugfix release, no new features, but many improvements since version v1.4.0 (more than 70 commits since v1.4.0), so let's list some of the improvements...
   * Uses latest version of Modelica Standard Library (v3.2.2).
