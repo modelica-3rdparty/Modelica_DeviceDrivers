@@ -36,5 +36,5 @@ block Microcontroller "Use as an inner block, defining the characteristics of th
   annotation(missingInnerMessage = "Missing inner block for AVR microcontroller (this cannot have default values since the microcontrollers are all different).",
              defaultComponentName="mcu",
              defaultComponentPrefixes="inner",
-             Icon(graphics = {Text(origin = {0, 0}, lineColor = {255, 255, 255}, extent = {{-50, -50}, {50, 50}}, textString = "AVR\n%platform", fontSize = 30, fontName = "Arial", textStyle = {TextStyle.Bold})}, coordinateSystem(initialScale = 0.1)));
+             Icon(graphics = {Text(lineColor = {255, 255, 255}, extent = {{-50, -50}, {50, 50}}, textString = "AVR\n%platform", fontName = "Arial", textStyle = {TextStyle.Bold})}, coordinateSystem(initialScale = 0.1)));
 end Microcontroller;
