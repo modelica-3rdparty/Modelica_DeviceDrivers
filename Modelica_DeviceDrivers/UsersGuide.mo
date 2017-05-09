@@ -172,7 +172,7 @@ First public version of the library.
 <li>Impoved Modelica compatibility: Fixed the invalid integer to enumeration type conversion in <code>HardwareIO</code>.</li>
 <li>Fully specified the initial conditions for example models.</li>
 <li>Simplified the linking with system libraries (MSVC only).</li>
-<li>Added continuous integration for the external C code (thanks to <a href=\"https://drone.io/github.com/modelica/Modelica_DeviceDrivers/latest\">drone.io</a> and <a href=\"\">Travis CI</a>).</li>
+<li>Added continuous integration for the external C code (thanks to <a href=\"https://travis-ci.org/modelica/Modelica_DeviceDrivers\">Travis CI</a>).</li>
 <li>Improved compatibility with the DLR Visualization Library.</li>
 <li>Improved support of automatic Code-Export from SimulationX 3.7.</li>
 <li>Fixes for the clocked communication blocks (added missing <code>byteOrder</code> support).</li>
