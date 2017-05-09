@@ -210,9 +210,9 @@ Added support for TCP/IP communication for Linux (was already available for Wind
 <li>
 New top-level package <a href=\"modelica://Modelica_DeviceDrivers.EmbeddedTargets\">EmbeddedTargets</a>)
 with a first prototypical support for the
-Atmel17 AVR family of microcontrollers
-(so far only known to work with OpenModelica's ExperimentalEmbeddedC code generation,
-see <a href=\"modelica://Modelica_DeviceDrivers.EmbeddedTargets.AVR\">AVR documentation</a>).
+Atmel AVR family of microcontrollers (ATmega16 and ATmega328P (=Arduino Uno) are supported; currently only known to work with OpenModelica's
+ExperimentalEmbeddedC code generation, see
+<a href=\"modelica://Modelica_DeviceDrivers.EmbeddedTargets.AVR\">AVR documentation</a>).
 </li>
 <li>
 Bug fixes for the serial port support.

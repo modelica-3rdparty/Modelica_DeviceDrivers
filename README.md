@@ -52,7 +52,7 @@ Bugfix releases usually won't have release notes, so please use the download lin
     * OpenModelica (v1.11.0 Beta 1 and later) is now the third tool known to (partially) support the library (e.g., UDP, TCP/IP, serial port, shared memory, and LCM communication).
     * Added support for sending and receiving of Lightweight Communications and Marshalling [LCM](https://lcm-proj.github.io) datagrams (only the communication aspect of LCM is considered).
     * Added support for TCP/IP communication for Linux (was already available for Windows).
-    * New top-level package `EmbeddedTargets` with a first prototypical support for the Atmel17 AVR family of microcontrollers (currently only known to work with OpenModelica's ExperimentalEmbeddedC code generation, see documentation).
+    * New top-level package `EmbeddedTargets` with a first prototypical support for the Atmel AVR family of microcontrollers (ATmega16 and ATmega328P (=Arduino Uno) are supported; currently only known to work with OpenModelica's ExperimentalEmbeddedC code generation, see documentation).
     * Bug fixes for the serial port support.
     * Other (minor) fixes and improvements.
 *  [Version v1.4.4 (2016-04-12)](../../releases/tag/v1.4.4)
