@@ -39,7 +39,7 @@ Download [Modelica_DeviceDrivers latest release](../../releases/latest)
 Please note that the library is known to work with
 * Dymola,
 * SimulationX (with `userBufferSize` all non-clocked communication blocks are working in SimulationX, but `autoBufferSize` only works for external solvers CVode and Fixed Step solver and fails for BDF and MEBDF solvers, see [#54 (comment)](https://github.com/modelica/Modelica_DeviceDrivers/issues/54#issuecomment-76032325)),
-* OpenModelica (partial support starting with OpenModelica v1.12.0 beta, e.g., UDP, serial port, shared memory, LCM, keyboard).
+* OpenModelica (partial support starting with OpenModelica v1.11.0 Beta 1, e.g., UDP, serial port, shared memory, LCM, keyboard).
 
 If you tested the library successfully with another Modelica tool, please contact [Bernhard Thiele](https://github.com/bernhard-thiele) or send a [pull request](https://github.com/modelica/Modelica_DeviceDrivers/pulls) that updates this README.md.
 
@@ -49,7 +49,7 @@ Bugfix releases usually won't have release notes, so please use the download lin
 *  **Upcoming** [Version v1.5.0 (2017-05-12)](../../releases/tag/v1.5.0)
     * **Important**: A bug fix in the shared memory implementation for *Windows* potentially affects applications that adapted the (wrong) buffer layout (see #138)!
     * Presentation of the library at the [Modelica'2017 conference](https://www.modelica.org/events/modelica2017).
-    * OpenModelica v1.12.0 beta is now the third tool known to (partially) support the library (e.g., UDP, TCP/IP, serial port, shared memory, and LCM communication).
+    * OpenModelica (v1.11.0 Beta 1 and later) is now the third tool known to (partially) support the library (e.g., UDP, TCP/IP, serial port, shared memory, and LCM communication).
     * Added support for sending and receiving of Lightweight Communications and Marshalling [LCM](https://lcm-proj.github.io) datagrams (only the communication aspect of LCM is considered).
     * Added support for TCP/IP communication for Linux (was already available for Windows).
     * New top-level package `EmbeddedTargets` with a first prototypical support for the Atmel17 AVR family of microcontrollers (currently only known to work with OpenModelica's ExperimentalEmbeddedC code generation, see documentation).

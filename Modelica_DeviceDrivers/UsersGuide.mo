@@ -196,7 +196,7 @@ potentially affects applications that adapted the (wrong) buffer layout
 <a href=\"https://www.modelica.org/events/modelica2017\">Modelica'2017 conference</a>.
 </li>
 <li>
-OpenModelica v1.12.0 beta is now the third tool known to (partially) support the library
+OpenModelica (v1.11.0 Beta 1 and later) is now the third tool known to (partially) support the library
 (e.g., UDP, TCP/IP, serial port, shared memory, and LCM communication).
 </li>
 <li>
