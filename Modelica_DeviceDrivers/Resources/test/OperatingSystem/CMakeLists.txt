@@ -6,7 +6,7 @@ include_directories(../../Include)
 
 add_executable(test_MDDBeep test_MDDBeep.c ../Util/ModelicaUtilities.c)
 if (NOT MSVC)
-  target_link_libraries(test_MDDBeep X11)
+  target_link_libraries(test_MDDBeep x11)
 endif (NOT MSVC)
 add_test(test_MDDBeep ${EXECUTABLE_OUTPUT_PATH}/test_MDDBeep)
 

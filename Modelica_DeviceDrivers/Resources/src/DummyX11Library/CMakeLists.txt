@@ -7,9 +7,9 @@ add_library(X11 SHARED ${libSrcsMDDDummyX11Library})
 
 # install to directory (CMAKE_INSTALL_PREFIX) into subdirectory "lib"
 if ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
-  install(TARGETS X11 DESTINATION Library/win64)
+  install(TARGETS x11 DESTINATION Library/win64)
 elseif ( CMAKE_SIZEOF_VOID_P EQUAL 4 )
-  install(TARGETS X11 DESTINATION Library/win32)
+  install(TARGETS x11 DESTINATION Library/win32)
 else ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
   message(SEND_ERROR "Uups. Shouldn't be possible to get here")
 endif ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
