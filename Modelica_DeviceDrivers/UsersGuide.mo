@@ -218,6 +218,9 @@ ExperimentalEmbeddedC code generation, see
 Bug fixes for the serial port support.
 </li>
 <li>
+Bug fix for the byte order swapping logic (endianness, <a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues/203\">#203</a>).
+</li>
+<li>
 Other (minor) fixes and improvements.
 </li>
 </ul>

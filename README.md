@@ -53,7 +53,8 @@ Bugfix releases usually won't have release notes, so please use the download lin
     * Added support for sending and receiving of Lightweight Communications and Marshalling [LCM](https://lcm-proj.github.io) datagrams (only the communication aspect of LCM is considered).
     * Added support for TCP/IP communication for Linux (was already available for Windows).
     * New top-level package `EmbeddedTargets` with a first prototypical support for the Atmel AVR family of microcontrollers (ATmega16 and ATmega328P (=Arduino Uno) are supported; currently only known to work with OpenModelica's ExperimentalEmbeddedC code generation, see documentation).
-    * Bug fixes for the serial port support.
+    * Bug fixes for the serial port support (#117, #118, #119, #127, #128).
+    * Bug fix for the byte order swapping logic (endianness, #203).
     * Other (minor) fixes and improvements.
 *  [Version v1.4.4 (2016-04-12)](../../releases/tag/v1.4.4)
     * Bugfix release, no new features, but many improvements since version v1.4.0 (more than 70 commits since v1.4.0), so let's list some of the improvements...
