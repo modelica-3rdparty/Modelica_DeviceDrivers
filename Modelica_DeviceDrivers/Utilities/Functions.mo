@@ -1,8 +1,7 @@
 within Modelica_DeviceDrivers.Utilities;
 package Functions
-  extends Modelica.Icons.Package;
+  extends Icons.FunctionLayerIcon;
   function loadRealParameter "Loads a parameter from file"
-    import Modelica;
     extends Modelica.Icons.Function;
     input String file="Washout.ini";
     input String name="K_Px";
@@ -44,11 +43,9 @@ equation
 end TestLoadRealParameter;
 </pre>
 </html>"));
-
   end loadRealParameter;
 
   function loadRealParameterVector "Reads a parameter array from file"
-    import Modelica;
     extends Modelica.Icons.Function;
     import readRealParameter =
       Modelica_DeviceDrivers.Utilities.Functions.loadRealParameter;
@@ -68,6 +65,7 @@ end TestLoadRealParameter;
   end loadRealParameterVector;
 
   function primeDecomposition "Decompose an integer into its prime factors"
+    extends Modelica.Icons.Function;
     input Integer i;
     output Integer res[:];
   protected
