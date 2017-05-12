@@ -46,7 +46,7 @@ If you tested the library successfully with another Modelica tool, please contac
 #### Release notes
 Bugfix releases usually won't have release notes, so please use the download link from above to get the latest release including bugfixes.
 
-*  **Upcoming** [Version v1.5.0 (2017-05-12)](../../releases/tag/v1.5.0)
+*  [Version v1.5.0 (2017-05-12)](../../releases/tag/v1.5.0)
     * **Important**: A bug fix in the shared memory implementation for *Windows* potentially affects applications that adapted the (wrong) buffer layout (see #138)!
     * Presentation of the library at the [Modelica'2017 conference](https://www.modelica.org/events/modelica2017).
     * OpenModelica (v1.11.0 Beta 1 and later) is now the third tool known to (partially) support the library (e.g., UDP, TCP/IP, serial port, shared memory, and LCM communication).
