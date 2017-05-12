@@ -18,9 +18,12 @@ package InputDevices
   protected
     GameController joystick = GameController(ID);
     discrete Real AxesRaw[6](start=zeros(6), each fixed=true) "unscaled joystick input";
+    Integer buttons_[32], pOV_; // OM v1.12.0-dev needs intermediate variables as work-around
   equation
     when sample(0,sampleTime) then
-      (AxesRaw,buttons,pOV) = Modelica_DeviceDrivers.InputDevices.GameController_.getData(joystick);
+      (AxesRaw,buttons_,pOV_) = Modelica_DeviceDrivers.InputDevices.GameController_.getData(joystick);
+      buttons = buttons_;
+      pOV = poV_;
     end when;
     axes = (AxesRaw .- 32768)/32768 ./gain;
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
