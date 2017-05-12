@@ -183,9 +183,10 @@ First public version of the library.
 </html>"));
     end Version_1_4_4;
 
-    model Version_1_5_0 "Version 1.5.0 (May 12, 2017)"
-      extends Modelica.Icons.ReleaseNotes;
-      annotation (Documentation(info="<html>
+    class Version_1_5_0 "Version 1.5.0 (May 12, 2017)"
+    extends Modelica.Icons.ReleaseNotes;
+
+  annotation (Documentation(info="<html>
 <ul>
 <li>
 <b>Important:</b> A bug fix in the shared memory implementation for <i>Windows</i>
@@ -193,7 +194,7 @@ potentially affects applications that adapted the (wrong) buffer layout
 (see PR <a href=\"https://github.com/modelica/Modelica_DeviceDrivers/pull/138\">#138</a>)!
 </li>
 <li>Presentation of the library at the
-<a href=\"https://www.modelica.org/events/modelica2017\">Modelica'2017 conference</a>.
+<a href=\"https://www.modelica.org/events/modelica2017/proceedings/html/submissions/ecp17132713_ThieleBeutlichWaurichSjolundBellmann.pdf\">Modelica'2017 conference</a>.
 </li>
 <li>
 OpenModelica (v1.11.0 Beta 1 and later) is now the third tool known to (partially) support the library
@@ -218,14 +219,15 @@ ExperimentalEmbeddedC code generation, see
 Bug fixes for the serial port support.
 </li>
 <li>
-Bug fix for the byte order swapping logic (endianness, <a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues/203\">#203</a>).
+Bug fix for the byte order swapping logic (endianness, <a ref=\"https://github.com/modelica/Modelica_DeviceDrivers/issues/203\">#203</a>).
 </li>
 <li>
 Other (minor) fixes and improvements.
 </li>
 </ul>
 </html>"));
-    end Version_1_5_0;
+      end Version_1_5_0;
+
     annotation (Documentation(info="<html>
 <p>
 This section summarizes the changes that have been performed
@@ -259,7 +261,7 @@ class ModelicaLicense2 "Modelica License 2"
     the directory &quot;Modelica_DeviceDrivers/Resources&quot; and its
     subdirectories, see <a href=\"modelica://Modelica_DeviceDrivers/Resources/License.txt\">Resources/License.txt</a>).</p>
     <table border=\"0\" cellpadding=\"2\" cellspacing=\"2\">
-    <tr><td style=\"vertical-align: top;\">Copyright &copy; 2014-2016, Link&ouml;ping University (PELAB), ESI ITI GmbH, and DLR Institute of System Dynamics and Control</td>
+    <tr><td style=\"vertical-align: top;\">Copyright &copy; 2014-2017, Link&ouml;ping University (PELAB), ESI ITI GmbH, and DLR Institute of System Dynamics and Control</td>
     </tr>
     <tr><td style=\"vertical-align: top;\">Copyright &copy; 2012-2013, DLR Institute of System Dynamics and Control</td></tr>
     </table>
