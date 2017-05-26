@@ -38,14 +38,27 @@ package OperatingSystem
 
     parameter Boolean setPriority = true "true, if process priority is to be set, otherwise false";
     parameter Types.ProcessPriority priority = "Normal" "Priority of the simulation process" annotation(Dialog(enable=setPriority));
+    parameter Boolean enableRealTimeScaling = false
+      "true, enable external real-time scaling input signal"
+      annotation (Dialog(group="Advanced"), choices(checkBox=true));
+    Modelica.Blocks.Interfaces.RealInput scaling if enableRealTimeScaling
+      "Real-time scaling factor; > 1 means the simulation is made slower than real-time"
+      annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
     output Modelica.SIunits.Time calculationTime "Time needed for calculation";
     output Modelica.SIunits.Time availableTime "Time available for calculation (integrator step size)";
   protected
     ProcessPriority procPrio(priority = priority) if setPriority;
     Real dummyState(start = 0, fixed=true) "dummy state to be integrated, to force synchronization in every integration step";
     Modelica_DeviceDrivers.OperatingSystem.RealTimeSynchronization rtSync = Modelica_DeviceDrivers.OperatingSystem.RealTimeSynchronization();
+    /* Connectors for conditional connect equations */
+    Modelica.Blocks.Interfaces.RealInput defaultScaling = 1 if not enableRealTimeScaling "Default real-time scaling";
+    Modelica.Blocks.Interfaces.RealInput actScaling annotation (HideResult=true);
   equation
-    (calculationTime, availableTime) = Modelica_DeviceDrivers.OperatingSystem.realtimeSynchronize(rtSync, time);
+    /* Conditional connect equations to either use external real-time scaling input or default scaling */
+    connect(defaultScaling, actScaling);
+    connect(scaling, actScaling);
+
+    (calculationTime, availableTime) = Modelica_DeviceDrivers.OperatingSystem.realtimeSynchronize(rtSync, time, enableRealTimeScaling, actScaling);
     der(dummyState) = calculationTime;
   annotation (preferredView="info",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,

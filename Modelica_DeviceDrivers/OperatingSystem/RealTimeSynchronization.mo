@@ -5,7 +5,7 @@ class RealTimeSynchronization "An object for real-time synchronization."
     import Modelica;
     extends Modelica.Icons.Function;
     output RealTimeSynchronization rtSync;
-    external "C" rtSync=  MDD_realtimeSynchronizeConstructor()
+    external "C" rtSync = MDD_realtimeSynchronizeConstructor()
       annotation(Include = "#include \"MDDRealtimeSynchronize.h\"",
                  Library = {"rt", "Winmm"},
                  __iti_dll = "ITI_MDD.dll",
