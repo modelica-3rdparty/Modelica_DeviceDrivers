@@ -1,4 +1,4 @@
-within Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Examples.STM32F4_Discovery;
+within Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Examples.STM32F4_Discovery.Blink;
 model Blink
   extends .Modelica.Icons.Example;
   import Modelica_DeviceDrivers.EmbeddedTargets.STM32F4;
