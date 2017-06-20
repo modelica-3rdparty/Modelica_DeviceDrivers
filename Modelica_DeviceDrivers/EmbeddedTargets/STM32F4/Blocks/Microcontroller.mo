@@ -9,27 +9,15 @@ block Microcontroller "Use as an inner block, defining the characteristics of th
     enable = true,
     tab = "General",
     group = "Constants"));
-  constant SIunits.Frequency cpuFrequency = Constants.cpuFrequency[platform] "Default frequency is the platform default (can be modified)" annotation(Dialog(
+/*  constant SIunits.Frequency cpuFrequency = Constants.cpuFrequency[platform] "Default frequency is the platform default (can be modified)" annotation(Dialog(
     enable = true,
     tab = "General",
-    group = "Constants"));
-  constant SIunits.Frequency minADCFrequency = Constants.minADCFrequency[platform] "Minimum recommended frequency to sample the ADC" annotation(Dialog(
-    enable = true,
-    tab = "General",
-    group = "Constants"));
-  constant SIunits.Frequency maxADCFrequency = Constants.maxADCFrequency[platform] "Maximum recommended frequency to sample the ADC" annotation(Dialog(
-    enable = true,
-    tab = "General",
-    group = "Constants"));
-  constant Integer adcResolution = Constants.adcResolution[platform] "Bits of resolution in the ADC" annotation(Dialog(
-    enable = true,
-    tab = "General",
-    group = "Constants"));
-  constant SIunits.Frequency desiredFrequency=if desiredPeriod==0 then 0 else (1/desiredPeriod) "Used to try to select a reasonable default pre-scaler and counter for real-time synchronization. Select this or a period (automatically re-calculated)" annotation(Dialog(
+    group = "Constants"));*/
+  constant SIunits.Frequency desiredFrequency=if desiredPeriod==0 then 0 else (1/desiredPeriod) "the frequency the progam should be synchronized, if not expicit given, calculate from desiredPeriod" annotation(Dialog(
     enable = true,
     tab = "Real-time",
     group = "Constants"));
-  constant SIunits.Time desiredPeriod=0 "Used to try to select a reasonable default pre-scaler and counter for real-time synchronization." annotation(Dialog(
+  constant SIunits.Time desiredPeriod=0 "Period the program should be synchronized, smaller than 1 ms (0.001) not supported" annotation(Dialog(
     enable = true,
     tab = "Real-time",
     group = "Constants"));

@@ -1,8 +1,7 @@
 #ifndef MDDARMREALTIME__H
 #define MDDARMREALTIME__H
 
-#include "stm32f4xx_hal.h"
-#include "stm32f4_discovery.h"
+#include <main.h>
 
 
 static inline void* MDD_stm32f4_rt_init(void* time)

@@ -11,20 +11,14 @@ block SynchronizeRealtime "A pseudo realtime synchronization"
     tab = "General",
     group = "Constants"));
   constant HAL.Init hal;
-   constant Types.TimerSelect timer annotation(Dialog(
-    enable = true,
-    tab = "General",
-    group = "Constants"));
 protected
   Functions.RealTimeSynchronization.Init sync =      Functions.RealTimeSynchronization.Init(hal);
-  constant Integer desiredPeriod = integer(floor(1000/desiredFrequency)); //TODO check desiredFrequency = 0;
+  constant Integer desiredPeriod = if desiredFrequency == 0 then 0 else integer(floor(1000/desiredFrequency));
   Integer tick(start=0);//TODO should be HALGetTick
 algorithm
   if not initial() then
     tick := tick +  desiredPeriod; 
     Functions.RealTimeSynchronization.wait(sync, tick);
-    //while (HAL.GetTick(mcu.HALinit) <= tick) loop
-    //end while;
   end if;
 annotation(Icon(graphics = {Text(extent = {{-100, -100}, {100, 100}}, textString = "Real-time:\n%desiredFrequency Hz", fontName = "Arial")}, coordinateSystem(initialScale = 0.1)));
 end SynchronizeRealtime;
