@@ -23,7 +23,7 @@ package InputDevices
     when sample(0,sampleTime) then
       (AxesRaw,buttons_,pOV_) = Modelica_DeviceDrivers.InputDevices.GameController_.getData(joystick);
       buttons = buttons_;
-      pOV = poV_;
+      pOV = pOV_;
     end when;
     axes = (AxesRaw .- 32768)/32768 ./gain;
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
