@@ -1,0 +1,4 @@
+loadFile("/home/lutz/Projects/Modelica/Modelica_DeviceDrivers/Modelica_DeviceDrivers/package.mo");getErrorString();
+getSourceFile(Modelica_DeviceDrivers);
+translateModel(Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Examples.STM32F4_Discovery.Blink.Blink, fileNamePrefix="Blink");getErrorString();
+
