@@ -1,8 +1,7 @@
 #ifndef MDDARMHAL__H
 #define MDDARMHAL__H
 
-#include "stm32f4xx_hal.h"
-#include "stm32f4_discovery.h"
+#include <main.h>
 
 static inline void* MDD_stm32f4_hal_init()
 {

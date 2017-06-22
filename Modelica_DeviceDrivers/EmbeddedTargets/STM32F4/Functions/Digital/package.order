@@ -1,5 +1,2 @@
-LCD
-read
-write
-InitRead
-InitWrite
+ledOut
+InitLed

@@ -34,12 +34,15 @@
 
 include ../../../Makefile.inc
 
-INC_DIR+= $$STM23F4CUBEROOT/Drivers/BSP/STM32F4-Discovery Inc
+3RDPARTY_BLINK_DIR=../../../../../3rdParty/STM/STM32F4/Examples/STM32F4_Discovery/Blink
+
+INC_DIR+= $$STM23F4CUBEROOT/Drivers/BSP/STM32F4-Discovery $(3RDPARTY_BLINK_DIR)/Inc
 
 CFLAGS+= -g -DSTM32F407xx -DUSE_STM32F4_DISCO $(addprefix -I,$(INC_DIR))
 
 
-LDFLAGS+=-DSTM32F407xx -TTrueSTUDIO/STM32F4-Discovery/STM32F407VG_FLASH.ld 
+LDFLAGS+=-DSTM32F407xx -T$(3RDPARTY_BLINK_DIR)/TrueSTUDIO/STM32F4-Discovery/STM32F407VG_FLASH.ld
+
 
 .PHONY: checkenv clean cleanall
 
@@ -90,7 +93,7 @@ OBJ=Debug/Example/Blink_main.o \
 Debug/BSP/STM32F4-Discovery/%.o: $(STM23F4CUBEROOT)/Drivers/BSP/STM32F4-Discovery/%.c
 	$(CC) $(CFLAGS) $< -o $@
 
-Debug/Example/User/%.o: Src/%.c
+Debug/Example/User/%.o: $(3RDPARTY_BLINK_DIR)/Src/%.c
 	$(CC) $(CFLAGS) $< -o $@
 
 Debug/Example/%.o: %.c
@@ -99,7 +102,7 @@ Debug/Example/%.o: %.c
 Debug/Drivers/STM32F4xx_HAL_Driver/%.o: $(STM23F4CUBEROOT)/Drivers/STM32F4xx_HAL_Driver/Src/%.c
 	$(CC) $(CFLAGS) $< -o $@
 
-Debug/Example/TrueSTUDIO/%.o: TrueSTUDIO/%.s
+Debug/Example/TrueSTUDIO/%.o: $(3RDPARTY_BLINK_DIR)/TrueSTUDIO/%.s
 	$(CC) $(ASFLAGS) $< -o $@
 
 Blink_main.elf: $(OBJ)

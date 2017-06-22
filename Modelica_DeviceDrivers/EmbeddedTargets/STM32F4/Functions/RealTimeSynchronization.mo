@@ -18,8 +18,7 @@ end wait;
 
 
 
-class Init "Initialize STM32F4 real-time synchronization on the given clock.
-  Note that the simulation step size must correspond to the given timer."
+class Init "Initialize STM32F4 real-time synchronization"
   extends ExternalObject;
 
   function constructor

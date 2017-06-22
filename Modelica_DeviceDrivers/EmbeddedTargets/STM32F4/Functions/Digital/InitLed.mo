@@ -1,20 +1,21 @@
 within Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Functions.Digital;
-class InitRead
+class InitLed
 extends ExternalObject;
+import Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Functions.HAL;
 function constructor "Initialize device"
   import Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Types;
   extends .Modelica.Icons.Function;
-  input Types.Port port "A digital port";
-  input Types.Pin pin "A pin 1-8.";
-  output InitRead dig;
-  external "C" dig = MDD_avr_digital_pin_init(port,pin,false)
+  input HAL.Init handle "handle";
+  input Types.LED led "A led 3 to 6";
+  output InitLed dig;
+  external "C" dig = MDD_stm32f4_led_init(handle,led)
   annotation (Include="#include \"MDDSTM32F4Digital.h\"");
 end constructor;
 
 function destructor
   extends .Modelica.Icons.Function;
-  input InitRead digital;
-  external "C" MDD_avr_digital_pin_close(digital)
+  input InitLed digital;
+  external "C" MDD_stm32f4_led_close(digital)
   annotation (Include="#include \"MDDSTM32F4Digital.h\"");
 end destructor;
-end InitRead;
+end InitLed;
