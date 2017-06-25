@@ -11,7 +11,7 @@ CC=/usr/bin/arm-none-eabi-gcc
 INC_DIR=$$STM23F4CUBEROOT/Drivers/CMSIS/Device/ST/STM32F4xx/Include \
         $$STM23F4CUBEROOT/Drivers/CMSIS/Include \
 	$$STM23F4CUBEROOT/Drivers/STM32F4xx_HAL_Driver/Inc \
-	../../../../../Resources/Include /usr/include/omc/c
+	../../../../../../../Include /usr/include/omc/c
 	
 CFLAGS= -c -mthumb -mcpu=cortex-m4 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -std=gnu11 -DUSE_HAL_DRIVER \
 	       -Os -ffunction-sections -fdata-sections -fstack-usage -Wall -Wno-unused-but-set-variable \
