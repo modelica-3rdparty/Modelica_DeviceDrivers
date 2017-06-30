@@ -19,17 +19,18 @@ but it is not as automated (no generation of makefiles) except for STM32F4-Disco
 as the host system. 
 </p>
 <p>
-Using an Ubuntu ,debian Linux, following packages are required:
+Using Ubuntu or Debian Linux, following packages are required:
 </p>
 <pre>
 sudo aptitude install arm-none-eabi-gcc
 sudo aptitude installarm-none-eabi-gdb
 sudo aptitude install openocd
-download and unpack to folder of your choice STM32F4CUBE from <a href=http://www.st.com/content/st_com/en/products/embedded-software/mcus-embedded-software/stm32-embedded-software/stm32cube-embedded-software/stm32cubef4.html>STM43F4CUBE</a>l
+download and unpack to folder of your choice STM32F4CUBE from <a href=http://www.st.com/content/st_com/en/products/embedded-software/mcus-embedded-software/stm32-embedded-software/stm32cube-embedded-software/stm32cubef4.html>STM43F4CUBE</a>
 </pre>
 <p>
 <h5><font color=\"#008000\">Create C-code, object debug code, binary and hex file for the Blink example</font></h5>
-go to the directory &quot;Modelica_DeviceDrivers/EmbeddedTargets/STM32F4/Examples/STM32F4_Discovery/Blink&quot;. Call &quot;make&quot;. When successfull, all object code will be in the &quot;Debug&quot; directory and &quot;.elf&quot; and &quot;.hex&quot; file will be created under the &quot;Blink&quot; directory.
+Set the environment variable STM23F4CUBEROOT: <br><code>export STM23F4CUBEROOT=&lsaquo;Root directory of downloaded stm32cubef4&rsaquo; </code><br><br>
+Go to the directory <a href=modelica://Modelica_DeviceDrivers/Resources/Scripts/OpenModelica/EmbeddedTargets/STM32F4/Examples/STM32F4_Discovery/Blink>Script and Makefile Directory</a>. Call &quot;make&quot;. When successfull, all object code will be in the &quot;Debug&quot; directory and &quot;.elf&quot; and &quot;.hex&quot; file will be created in the current directory.
 </p>
 <p>
 <h5><font color=\"#008000\">Debugging, flashing and running the application</font></h5>

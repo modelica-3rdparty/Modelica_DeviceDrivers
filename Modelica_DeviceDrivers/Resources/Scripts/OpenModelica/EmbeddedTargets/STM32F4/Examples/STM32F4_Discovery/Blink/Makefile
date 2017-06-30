@@ -34,7 +34,9 @@
 
 include ../../../Makefile.inc
 
-3RDPARTY_BLINK_DIR=../../../../../3rdParty/STM/STM32F4/Examples/STM32F4_Discovery/Blink
+3RDPARTY_BLINK_DIR=../../../../../../../thirdParty/STM/STM32F4/Examples/STM32F4_Discovery/Blink
+
+MODELICA_STM32F4_DISCOVERY_EXAMPLE_DIR=../../../../../../../../EmbeddedTargets/STM32F4/Examples/STM32F4_Discovery
 
 INC_DIR+= $$STM23F4CUBEROOT/Drivers/BSP/STM32F4-Discovery $(3RDPARTY_BLINK_DIR)/Inc
 
@@ -66,7 +68,7 @@ Debug/Example/User:
 Debug/Example/TrueSTUDIO:
 	@mkdir -p $@
 
-Blink_main.c: Blink.mo blink.mos
+Blink_main.c: $(MODELICA_STM32F4_DISCOVERY_EXAMPLE_DIR)/Blink.mo blink.mos
 	omc --simCodeTarget=ExperimentalEmbeddedC blink.mos
 	if [ -e "$@" ]; then cat $@ | sed 's/#include <stdio.h>/#include <stdio.h>\n#include <stdarg.h>/' > tmp.c; \
 	mv tmp.c $@;fi #TODO to be fixed in omc
