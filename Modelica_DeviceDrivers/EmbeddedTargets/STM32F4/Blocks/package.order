@@ -1,4 +1,5 @@
 Microcontroller
 DigitalReadBoolean
+DigitalWriteBoolean
 SynchronizeRealtime
 Led

@@ -11,3 +11,4 @@ FOR LEGAL REASONS SOME MIGHT NOT BE INCLUDED WITHIN THIS MODELICA_DEVICEDRIVERS 
 - lcm: Lightweight Communications and Marshalling, LGPL (https://github.com/lcm-proj/)
 - softing: Softing's CANL2 interface (http://www.softing.com/)
 - uthash: Hash table implementation (http://troydhanson.github.io/uthash/)
+- STM32F4CUBE: HAL (Hardware Abstraction Layer) for stm32f4 boards (http://www.st.com/content/st_com/en/products/embedded-software/mcus-embedded-software/stm32-embedded-software/stm32cube-embedded-software/stm32cubef4.html)

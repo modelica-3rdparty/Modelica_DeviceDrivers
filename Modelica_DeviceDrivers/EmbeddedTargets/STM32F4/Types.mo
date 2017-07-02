@@ -16,4 +16,36 @@ type LED = enumeration(
   LED6
 ) "LED";
 
+type Port = enumeration(
+  A "PORTA",
+  B "PORTB",
+  C "PORTC",
+  D "PORTD",
+  E "PORTE",
+  F "PORTF",
+  G "PORTG",
+  H "PORTH",
+  I "PORTI"
+) "Digital port";
+
+type Pin = enumeration(
+  '0',
+  '1',
+  '2',
+  '3',
+  '4',
+  '5',
+  '6',
+  '7',
+  '8',
+  '9',
+  '10',
+  '11',
+  '12',
+  '13',
+  '14',
+  '15',
+   ALL  
+) "Digital pin";
+
 end Types;

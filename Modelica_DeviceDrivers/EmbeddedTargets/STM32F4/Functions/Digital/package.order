@@ -1,2 +1,7 @@
 ledOut
 InitLed
+InitRead
+InitWrite
+read
+write
+
