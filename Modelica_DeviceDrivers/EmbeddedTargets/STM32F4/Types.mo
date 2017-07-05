@@ -48,4 +48,11 @@ type Pin = enumeration(
    ALL  
 ) "Digital pin";
 
+type Mode = enumeration(
+  RISING,
+  FALLING,
+  RISING_FALLING
+) "Interrupt mode";
+
+type Prio = Integer(min=0, max=15);
 end Types;

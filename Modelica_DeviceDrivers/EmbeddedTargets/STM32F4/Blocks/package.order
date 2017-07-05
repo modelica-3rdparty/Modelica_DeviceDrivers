@@ -3,3 +3,4 @@ DigitalReadBoolean
 DigitalWriteBoolean
 SynchronizeRealtime
 Led
+ExtInt
