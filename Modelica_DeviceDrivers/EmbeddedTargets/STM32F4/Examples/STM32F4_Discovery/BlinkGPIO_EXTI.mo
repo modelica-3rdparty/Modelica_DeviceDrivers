@@ -5,8 +5,8 @@ model BlinkGPIO_EXTI
   inner Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Blocks.Microcontroller mcu(desiredPeriod = 0.5, platform = Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Types.Platform.STM32F4DISC)
   annotation(Placement(visible = true, transformation(origin = {-67, 67}, extent = {{-23, -23}, {23, 23}}, rotation = 0)));
   STM32F4.Functions.HAL.Init HALinit = STM32F4.Functions.HAL.Init();
-  Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Blocks.SynchronizeRealtime synchronizeRealtime1(hal = HALinit)  annotation(Placement(visible = true, transformation(origin = {-4, 62}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  /* synchronizeRealtime1.actualInterval is not legal in experiment annotation*/
+  Blocks.SynchronizeRealtime synchronizeRealtime1(ahbPre = Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Types.AHBPre.DIV_1, apb1Pre = Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Types.APBPre.DIV_4, apb2Pre = Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Types.APBPre.DIV_2, clock = Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Types.Clock.HSE_PLL, hal = HALinit, overdrive = false, pllM = 8, pllN = 336, pllP = Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Types.PLLP.DIV_2, pllQ = 7, preFlash = true, pwrRegVoltage = Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Types.PWRRegulatorVoltage.SCALE1)  annotation(
+    Placement(visible = true, transformation(origin = {18, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));  /* synchronizeRealtime1.actualInterval is not legal in experiment annotation*/
   Blocks.ExtInt extInt1(handle = HALinit, mode = Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Types.Mode.FALLING, pin = Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Types.Pin.'0', port = Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Types.Port.A, preemtPrio = 2, subPrio = 0)  annotation(
     Placement(visible = true, transformation(origin = {36, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Functions.Digital.InitLed p1 = Functions.Digital.InitLed(handle  = HALinit, led = Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Types.LED.LED3);

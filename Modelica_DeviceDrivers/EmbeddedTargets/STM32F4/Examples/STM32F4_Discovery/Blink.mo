@@ -5,10 +5,11 @@ model Blink
   inner Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Blocks.Microcontroller mcu(desiredPeriod = 0.01, platform = Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Types.Platform.STM32F4DISC)
   annotation(Placement(visible = true, transformation(origin = {-67, 67}, extent = {{-23, -23}, {23, 23}}, rotation = 0)));
   STM32F4.Functions.HAL.Init HALinit = STM32F4.Functions.HAL.Init();
-  Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Blocks.SynchronizeRealtime synchronizeRealtime1(hal = HALinit)  annotation(Placement(visible = true, transformation(origin = {-4, 62}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Blocks.Led led(led = Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Types.LED.LED3, handle = HALinit)  annotation(Placement(visible = true, transformation(origin = {24, 2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Sources.BooleanExpression booleanExpression1(y = mod(time, 1) >= 0.5)  annotation(Placement(visible = true, transformation(origin = {-26, 2}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  equation
+  Blocks.SynchronizeRealtime synchronizeRealtime1(ahbPre = Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Types.AHBPre.DIV_1, apb1Pre = Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Types.APBPre.DIV_4, apb2Pre = Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Types.APBPre.DIV_2, clock = Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Types.Clock.HSE_PLL, hal = HALinit, overdrive = false, pllM = 8, pllN = 336, pllP = Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Types.PLLP.DIV_2, pllQ = 7, preFlash = true, pwrRegVoltage = Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Types.PWRRegulatorVoltage.SCALE1)  annotation(
+    Placement(visible = true, transformation(origin = {18, 70}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+equation
   connect(booleanExpression1.y, led.u) annotation(Line(points = {{-15, 2}, {12, 2}}, color = {255, 0, 255}));
   annotation(/* synchronizeRealtime1.actualInterval is not legal in experiment annotation*/Experiment(Interval = 0.01), Documentation(info = "<html>
 <h1>Blink</h1>

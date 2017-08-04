@@ -55,4 +55,53 @@ type Mode = enumeration(
 ) "Interrupt mode";
 
 type Prio = Integer(min=0, max=15);
+
+type Clock = enumeration(
+  HSI "HSI clock",
+  HSE "HSE clock",
+  HSI_PLL "HSI with PLL",
+  HSE_PLL "HSE with PLL"
+) "Clock";
+
+type PLLM = Integer(min=2, max=63) "Division factor for main PLL and audio input clock";
+type PLLN = Integer(min=50, max=432) "Main PLL multiplication factor for VCO";
+type PLLP = enumeration(
+  DIV_2, 
+  DIV_4,
+  DIV_6,
+  DIV_8
+) "Main PLL devision factor for system clock";
+type PLLQ = Integer(min=2, max=15) "Main PLL devision factor for USB OTG FS, SDIO and random number generator clocks";
+
+type AHBPre = enumeration(
+  DIV_1,
+  DIV_2,
+  DIV_4,
+  DIV_8,
+  DIV_16,
+  DIV_64,
+  DIV_128,
+  DIV_256,
+  DIV_512
+) "AHB Prescaler";
+
+
+type APBPre = enumeration(
+  DIV_1,
+  DIV_2,
+  DIV_4,
+  DIV_16
+) "APB prescaler";
+
+type PWRRegulatorVoltage = enumeration(
+  SCALE1 "Max fHCLK frequency 168 MHz with overdrive 180 Hz",
+  SCALE2 "Max fHCLK frequency 144 MHz with overdrive 168 Hz",
+  SCALE3 "Max fKCLK frequency 120 MHz"
+) "Power Regulator Voltage Scale";
+
+
+
 end Types;
+
+
+

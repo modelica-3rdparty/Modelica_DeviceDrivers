@@ -10,9 +10,56 @@ block SynchronizeRealtime "A pseudo realtime synchronization"
     enable = true,
     tab = "General",
     group = "Constants"));
-  constant HAL.Init hal;
+  constant HAL.Init hal annotation(Dialog(
+    enable = true,
+    tab = "General",
+    group = "Constants"));
+  constant Types.Clock clock annotation(Dialog(
+    enable = true,
+    tab = "General",
+    group = "Constants"));
+  constant Types.PLLM pllM annotation(Dialog(
+    enable = true,
+    tab = "General",
+    group = "Constants"));
+  constant Types.PLLN pllN annotation(Dialog(
+    enable = true,
+    tab = "General",
+    group = "Constants"));
+  constant Types.PLLP pllP annotation(Dialog(
+    enable = true,
+    tab = "General",
+    group = "Constants"));
+  constant Types.PLLQ pllQ annotation(Dialog(
+    enable = true,
+    tab = "General",
+    group = "Constants"));
+  constant Types.AHBPre ahbPre annotation(Dialog(
+    enable = true,
+    tab = "General",
+    group = "Constants"));
+  constant Types.APBPre apb1Pre annotation(Dialog(
+    enable = true,
+    tab = "General",
+    group = "Constants"));
+  constant Types.APBPre apb2Pre annotation(Dialog(
+    enable = true,
+    tab = "General",
+    group = "Constants"));
+  constant Types.PWRRegulatorVoltage pwrRegVoltage annotation(Dialog(
+    enable = true,
+    tab = "General",
+    group = "Constants"));
+  constant Boolean overdrive annotation(Dialog(
+    enable = true,
+    tab = "General",
+    group = "Constants"));
+  constant Boolean preFlash annotation(Dialog(
+    enable = true,
+    tab = "General",
+    group = "Constants"));
 protected
-  Functions.RealTimeSynchronization.Init sync =      Functions.RealTimeSynchronization.Init(hal);
+  Functions.RealTimeSynchronization.Init sync =      Functions.RealTimeSynchronization.Init(hal, clock, pllM, pllN, pllP,pllQ, ahbPre, apb1Pre, apb2Pre, pwrRegVoltage, overdrive, preFlash);
   constant Integer desiredPeriod = if desiredFrequency == 0 then 0 else integer(floor(1000/desiredFrequency));
   Integer tick(start=0);//TODO should be HALGetTick
 algorithm
