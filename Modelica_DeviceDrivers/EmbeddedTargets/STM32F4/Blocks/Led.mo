@@ -16,6 +16,6 @@ model Led
 protected
   Functions.Digital.InitLed digital = Functions.Digital.InitLed(handle, led);
 algorithm
-  Functions.Digital.ledOut(digital, led, u);
+  Functions.Digital.ledOut(digital, u);
 annotation(Icon(graphics = {Text(extent = {{-95, -95}, {95, 95}}, textString = "Digital %digital%led", fontName = "Arial")}));
 end Led;

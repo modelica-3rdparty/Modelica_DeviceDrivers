@@ -1,6 +1,6 @@
 within Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Blocks;
-model DigitalReadBoolean
-  extends .Modelica.Blocks.Interfaces.partialBooleanSO;
+model DigitalWriteBoolean
+  extends .Modelica.Blocks.Interfaces.partialBooleanSI;
   import Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Functions;
   import Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Functions.HAL;
   import Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Types;
@@ -18,8 +18,8 @@ model DigitalReadBoolean
     tab = "General",
     group = "Constants"));
 protected
-  Functions.Digital.InitRead digital = Functions.Digital.InitRead(init, port, pin);
-equation
-    y = Functions.Digital.read(digital, pin);
+  Functions.Digital.InitWrite digital = Functions.Digital.InitWrite(init, port, pin);
+algorithm
+  Functions.Digital.write(digital, pin, u);
 annotation(Icon(graphics = {Text(extent = {{-95, -95}, {95, 95}}, textString = "Digital %port%pin", fontName = "Arial")}));
-end DigitalReadBoolean;
+end DigitalWriteBoolean;
