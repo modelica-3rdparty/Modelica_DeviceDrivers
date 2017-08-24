@@ -1,1 +1,0 @@
-/usr/bin/gcc      CMakeFiles/test_MDDUtilities.dir/test_MDDUtilities.c.o CMakeFiles/test_MDDUtilities.dir/ModelicaUtilities.c.o  -o test_MDDUtilities -rdynamic 

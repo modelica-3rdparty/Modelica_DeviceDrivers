@@ -1,2 +1,0 @@
-/usr/bin/ar cr ../../libMDDUtil.a  CMakeFiles/MDDUtil.dir/MDDMapIntInt.cpp.o CMakeFiles/MDDUtil.dir/MDDMapIntpVoid.cpp.o
-/usr/bin/ranlib ../../libMDDUtil.a

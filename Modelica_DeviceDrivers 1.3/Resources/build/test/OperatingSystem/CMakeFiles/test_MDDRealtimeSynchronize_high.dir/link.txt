@@ -1,1 +1,0 @@
-/usr/bin/gcc      CMakeFiles/test_MDDRealtimeSynchronize_high.dir/test_MDDRealtimeSynchronize_high.c.o CMakeFiles/test_MDDRealtimeSynchronize_high.dir/__/Util/ModelicaUtilities.c.o  -o test_MDDRealtimeSynchronize_high -rdynamic -lm -lrt 

@@ -1,1 +1,0 @@
-/usr/bin/c++       CMakeFiles/test_MDDSocketCAN.dir/test_MDDSocketCAN.c.o CMakeFiles/test_MDDSocketCAN.dir/__/Util/ModelicaUtilities.c.o  -o test_MDDSocketCAN -rdynamic ../../libMDDUtil.a -lpthread 
