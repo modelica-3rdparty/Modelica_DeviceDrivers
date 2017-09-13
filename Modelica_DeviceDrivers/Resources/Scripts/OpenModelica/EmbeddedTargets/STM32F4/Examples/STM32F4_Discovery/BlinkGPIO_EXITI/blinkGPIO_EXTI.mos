@@ -1,0 +1,4 @@
+loadFile("../../../../../../../../package.mo");getErrorString();
+getSourceFile(Modelica_DeviceDrivers);
+translateModel(Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Examples.STM32F4_Discovery.BlinkGPIO_EXTI, fileNamePrefix="BlinkGPIO_EXTI");getErrorString();
+
