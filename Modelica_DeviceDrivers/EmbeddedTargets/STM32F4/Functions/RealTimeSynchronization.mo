@@ -38,7 +38,7 @@ class Init "Initialize STM32F4 real-time synchronization"
     input Types.PWRRegulatorVoltage voltageScale;
     input Boolean overdrive;
     input Boolean prefetchBufferEnable;
-    
+
     output Init rt;
     external "C" rt = MDD_stm32f4_rt_init(init, clock, pllM, pllN, pllP, pllQ, ahbPre, apb1Pre, apb2Pre, voltageScale, overdrive, prefetchBufferEnable)
     annotation (Include="#include \"MDDSTM32F4RealTime.h\"");

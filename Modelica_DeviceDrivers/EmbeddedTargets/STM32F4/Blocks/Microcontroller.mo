@@ -2,9 +2,9 @@ within Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Blocks;
 block Microcontroller "Use as an inner block, defining the characteristics of the STM32F4 microcontroller"
   import Modelica.SIunits;
   import Modelica_DeviceDrivers;
+  import Modelica_DeviceDrivers.EmbeddedTargets.STM32F4;
   import Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Constants;
   import Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Types;
-  extends Modelica_DeviceDrivers.Utilities.Icons.GenericIC;
   constant Types.Platform platform annotation(Dialog(
     enable = true,
     tab = "General",
@@ -21,8 +21,24 @@ block Microcontroller "Use as an inner block, defining the characteristics of th
     enable = true,
     tab = "Real-time",
     group = "Constants"));
+  STM32F4.Functions.HAL.Init hal = STM32F4.Functions.HAL.Init();
   annotation(missingInnerMessage = "Missing inner block for STM32F4 microcontroller (this cannot have default values since the microcontrollers are all different).",
              defaultComponentName="mcu",
              defaultComponentPrefixes="inner",
-             Icon(graphics = {Text(origin = {0, 0}, lineColor = {255, 255, 255}, extent = {{-50, -50}, {50, 50}}, textString = "STM32F4\n%platform", fontSize = 30, fontName = "Arial", textStyle = {TextStyle.Bold})}, coordinateSystem(initialScale = 0.1)));
+             Icon(graphics={  Text(origin={0,0},    lineColor={255,255,255},     extent={{
+              -66,-66},{66,66}},                                                                                                                                    fontName=
+              "Arial",                                                                                                                                                                  textStyle=
+              {TextStyle.Bold},
+          textString="STM32F4
+%platform"),
+        Bitmap(extent={{-128,-112},{128,112}}, fileName=
+              "modelica://Modelica_DeviceDrivers/Resources/Images/Icons/microcontroller_scheme.png"),
+                              Text(lineColor={0,0,0},           extent={{-86,
+              -88},{86,74}},                                                                                                    fontName=
+              "Arial",                                                                                                                              textStyle=
+              {TextStyle.Bold},
+          textString="AVR
+%platform"),                                                                      Text(extent={{
+              -154,158},{146,118}},
+            textString="%name")},                                                                                                                                                                                  coordinateSystem(initialScale = 0.1)));
 end Microcontroller;

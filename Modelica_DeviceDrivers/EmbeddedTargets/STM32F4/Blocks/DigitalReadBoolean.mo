@@ -5,10 +5,6 @@ model DigitalReadBoolean
   import Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Functions.HAL;
   import Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Types;
   import Modelica.SIunits;
-  constant HAL.Init init annotation(Dialog(
-    enable = true,
-    tab = "General",
-    group = "Constants"));
   constant Types.Port port annotation(Dialog(
     enable = true,
     tab = "General",
@@ -17,9 +13,10 @@ model DigitalReadBoolean
     enable = true,
     tab = "General",
     group = "Constants"));
+  outer Microcontroller mcu;
 protected
-  Functions.Digital.InitRead digital = Functions.Digital.InitRead(init, port, pin);
+  Functions.Digital.InitRead digital = Functions.Digital.InitRead(mcu.hal, port, pin);
 equation
     y = Functions.Digital.read(digital, pin);
-annotation(Icon(graphics = {Text(extent = {{-95, -95}, {95, 95}}, textString = "Digital %port%pin", fontName = "Arial")}));
+annotation(Icon(graphics={  Text(extent = {{-95, -95}, {95, 95}}, textString = "Digital %port%pin", fontName = "Arial")}));
 end DigitalReadBoolean;

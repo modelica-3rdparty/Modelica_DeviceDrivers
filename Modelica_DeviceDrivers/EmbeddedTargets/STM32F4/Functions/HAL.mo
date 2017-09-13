@@ -12,7 +12,7 @@ package HAL
   end GetTick;
 
 
-  
+
   class Init
     extends ExternalObject;
   function constructor "Initialize HAL"
@@ -28,7 +28,7 @@ package HAL
     external "C" MDD_stm32f4_hal_close(hal)
     annotation (Include="#include \"MDDSTM32F4HAL.h\"");
   end destructor;
-    
+
   end Init;
 
 end HAL;

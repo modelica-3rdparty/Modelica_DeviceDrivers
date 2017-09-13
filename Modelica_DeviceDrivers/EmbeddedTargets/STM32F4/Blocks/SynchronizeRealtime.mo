@@ -1,5 +1,6 @@
 within Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Blocks;
 block SynchronizeRealtime "A pseudo realtime synchronization"
+  extends .Modelica_DeviceDrivers.Utilities.Icons.STM32F4BlockIcon;
   import Modelica.SIunits;
   import Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Constants;
   import Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Types;
@@ -7,10 +8,6 @@ block SynchronizeRealtime "A pseudo realtime synchronization"
   import Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Functions.HAL;
   outer Microcontroller mcu;
   constant SIunits.Frequency desiredFrequency=mcu.desiredFrequency "Override the MCU global real-time settings" annotation(Dialog(
-    enable = true,
-    tab = "General",
-    group = "Constants"));
-  constant HAL.Init hal annotation(Dialog(
     enable = true,
     tab = "General",
     group = "Constants"));
@@ -59,13 +56,21 @@ block SynchronizeRealtime "A pseudo realtime synchronization"
     tab = "General",
     group = "Constants"));
 protected
-  Functions.RealTimeSynchronization.Init sync =      Functions.RealTimeSynchronization.Init(hal, clock, pllM, pllN, pllP,pllQ, ahbPre, apb1Pre, apb2Pre, pwrRegVoltage, overdrive, preFlash);
+  Functions.RealTimeSynchronization.Init sync =      Functions.RealTimeSynchronization.Init(mcu.hal, clock, pllM, pllN, pllP,pllQ, ahbPre, apb1Pre, apb2Pre, pwrRegVoltage, overdrive, preFlash);
   constant Integer desiredPeriod = if desiredFrequency == 0 then 0 else integer(floor(1000/desiredFrequency));
   Integer tick(start=0);//TODO should be HALGetTick
 algorithm
   if not initial() then
-    tick := tick +  desiredPeriod; 
+    tick := tick +  desiredPeriod;
     Functions.RealTimeSynchronization.wait(sync, tick);
   end if;
-annotation(Icon(graphics = {Text(extent = {{-100, -100}, {100, 100}}, textString = "Real-time:\n%desiredFrequency Hz", fontName = "Arial")}, coordinateSystem(initialScale = 0.1)));
+  annotation(Icon(graphics={
+        Bitmap(extent={{-58,-62},{62,58}}, fileName=
+              "modelica://Modelica_DeviceDrivers/Resources/Images/Icons/clock.png"),
+                                                                                  Text(extent={{
+              -150,-110},{150,-150}},
+          textString="%desiredFrequency Hz",
+          lineColor={0,0,0}),                                                     Text(extent={{
+              -152,144},{148,104}},
+            textString="%name")},                                                                                                            coordinateSystem(initialScale = 0.1)));
 end SynchronizeRealtime;

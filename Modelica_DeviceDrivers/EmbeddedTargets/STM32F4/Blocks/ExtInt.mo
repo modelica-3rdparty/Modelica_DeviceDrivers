@@ -4,10 +4,6 @@ model ExtInt
   import Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Functions.HAL;
   import Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Types;
   import Modelica.SIunits;
-  constant HAL.Init handle annotation(Dialog(
-    enable = true,
-    tab = "General",
-    group = "Constants"));
   constant Types.Port port annotation(Dialog(
     enable = true,
     tab = "General",
@@ -28,7 +24,8 @@ model ExtInt
     enable = true,
     tab = "General",
     group = "Constants"));
+  outer Microcontroller mcu;
 protected
-  Functions.Digital.InitExtInt hport = Functions.Digital.InitExtInt(handle, port, pin, mode, preemtPrio, subPrio );
-annotation(Icon(graphics = {Text(extent = {{-95, -95}, {95, 95}}, textString = "Digital %hportl%port%pin%mode%preemtPrio%subPrio", fontName = "Arial")}));
+  Functions.Digital.InitExtInt hport = Functions.Digital.InitExtInt(mcu.hal, port, pin, mode, preemtPrio, subPrio);
+annotation(Icon(graphics={  Text(extent = {{-95, -95}, {95, 95}}, textString = "Digital %hportl%port%pin%mode%preemtPrio%subPrio", fontName = "Arial")}));
 end ExtInt;

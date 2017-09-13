@@ -5,10 +5,6 @@ model DigitalWriteBoolean
   import Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Functions.HAL;
   import Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Types;
   import Modelica.SIunits;
-  constant HAL.Init init annotation(Dialog(
-    enable = true,
-    tab = "General",
-    group = "Constants"));
   constant Types.Port port annotation(Dialog(
     enable = true,
     tab = "General",
@@ -17,9 +13,10 @@ model DigitalWriteBoolean
     enable = true,
     tab = "General",
     group = "Constants"));
+  outer Microcontroller mcu;
 protected
-  Functions.Digital.InitWrite digital = Functions.Digital.InitWrite(init, port, pin);
+  Functions.Digital.InitWrite digital = Functions.Digital.InitWrite(mcu.hal, port, pin);
 algorithm
   Functions.Digital.write(digital, pin, u);
-annotation(Icon(graphics = {Text(extent = {{-95, -95}, {95, 95}}, textString = "Digital %port%pin", fontName = "Arial")}));
+annotation(Icon(graphics={  Text(extent = {{-95, -95}, {95, 95}}, textString = "Digital %port%pin", fontName = "Arial")}));
 end DigitalWriteBoolean;
