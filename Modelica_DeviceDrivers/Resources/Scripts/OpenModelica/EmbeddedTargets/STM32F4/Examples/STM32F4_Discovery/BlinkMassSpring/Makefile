@@ -3,7 +3,7 @@
 #
 #	Description: Makefile for building Blink Openmodelica Blink example "BlinkSpringMass_main.elf"
 #
-#	Author: Bernhard Thiele (simply adapting the ../Blink example from Lutz Berger)
+#	Author: Lutz Berger (Berger IT-COSMOS GmbH)
 #
 #	Date: 16.10.2017
 #
@@ -34,7 +34,7 @@
 
 include ../../../Makefile.inc
 
-3RDPARTY_BLINK_DIR=../../../../../../../thirdParty/STM/STM32F4/Examples/STM32F4_Discovery/BlinkSpringMass
+3RDPARTY_BLINK_DIR=../../../../../../../thirdParty/STM/STM32F4/Examples/STM32F4_Discovery/Blink
 
 MODELICA_STM32F4_DISCOVERY_EXAMPLE_DIR=../../../../../../../../EmbeddedTargets/STM32F4/Examples/STM32F4_Discovery
 
