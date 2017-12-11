@@ -259,7 +259,7 @@ struct MDDUDPSocket_s {
  *
  * @param p_udp pointer address to the udp socket data structure
  */
-int MDD_udpReceivingThread(void * p_udp) {
+void* MDD_udpReceivingThread(void * p_udp) {
     MDDUDPSocket * udp = (MDDUDPSocket *) p_udp;
     socklen_t sa_len = sizeof(struct sockaddr_in);  /*  Size of sa. */
     struct pollfd sock_poll;
@@ -309,7 +309,7 @@ int MDD_udpReceivingThread(void * p_udp) {
         }
 
     }
-    return 0;
+    return NULL;
 }
 
 /** Read data from UDP socket.
@@ -626,7 +626,7 @@ void * MDD_udpConstructor(int port, int bufferSize) {
 
         /* Start dedicated receiver thread */
         udp->runReceive = 1;
-        ret = pthread_create(&udp->thread, 0, (void *) MDD_udpReceivingThread, udp);
+        ret = pthread_create(&udp->thread, 0, &MDD_udpReceivingThread, udp);
         if (ret) {
             ModelicaFormatError("MDDUDPSocket: pthread(..) failed\n");
         }
