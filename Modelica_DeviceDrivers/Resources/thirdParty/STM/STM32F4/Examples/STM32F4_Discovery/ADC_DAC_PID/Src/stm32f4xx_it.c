@@ -174,11 +174,11 @@ void SysTick_Handler(void)
 * @param  None
 * @retval None
 */
-/*void ADCx_DMA_IRQHandler(void)
+void ADCx_DMA_IRQHandler(void)
 {
   HAL_DMA_IRQHandler(AdcHandle.DMA_Handle);
 }
-*/
+
 
 /**
   * @brief  This function handles PPP interrupt request.
