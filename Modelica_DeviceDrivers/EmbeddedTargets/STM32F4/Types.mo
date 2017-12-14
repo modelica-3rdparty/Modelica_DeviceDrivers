@@ -99,8 +99,10 @@ type PWRRegulatorVoltage = enumeration(
   SCALE3 "Max fKCLK frequency 120 MHz"
 ) "Power Regulator Voltage Scale";
 
-
-
+type ADCChannel = enumeration(
+  CHANNEL1 "corresponds to pin PB0",
+  CHANNEL2 "corresponds to pin PB1"
+) "ADC channel 8 and 9";
 end Types;
 
 
