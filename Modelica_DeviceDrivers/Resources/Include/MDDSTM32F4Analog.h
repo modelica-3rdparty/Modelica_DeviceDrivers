@@ -92,7 +92,30 @@ static inline void* MDD_stm32f4_dac_init(void* handle)
   DAC_ChannelConfTypeDef sConfig;
   DacHandle.Instance = DAC;
   int rc = 0;
-    if(HAL_DAC_Init(&DacHandle) != HAL_OK)
+
+  static TIM_HandleTypeDef  htim;
+  TIM_MasterConfigTypeDef sMasterConfig;
+
+  /*##-1- Configure the TIM peripheral #######################################*/
+  /* Time base configuration */
+  htim.Instance = TIM6;
+
+  htim.Init.Period = 0x7FF;
+  htim.Init.Prescaler = 0;
+  htim.Init.ClockDivision = 0;
+  htim.Init.CounterMode = TIM_COUNTERMODE_UP;
+  HAL_TIM_Base_Init(&htim);
+
+  /* TIM6 TRGO selection */
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_UPDATE;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+
+  HAL_TIMEx_MasterConfigSynchronization(&htim, &sMasterConfig);
+
+  /*##-2- Enable TIM peripheral counter ######################################*/
+  HAL_TIM_Base_Start(&htim);
+
+  if(HAL_DAC_Init(&DacHandle) != HAL_OK)
   {
     /* Initialization Error */
     rc = 1;
@@ -111,7 +134,7 @@ static inline void* MDD_stm32f4_dac_init(void* handle)
   }
 
   /*##-2- Enable DAC Channel1 and associated DMA #############################*/
-  if(HAL_DAC_Start_DMA(&DacHandle, DACx_CHANNEL1, (uint32_t*)&uhDACxConvertedValue, 1, DAC_ALIGN_8B_R) != HAL_OK)
+  if(HAL_DAC_Start_DMA(&DacHandle, DACx_CHANNEL1, (uint32_t*)&uhDACxConvertedValue, 1, DAC_ALIGN_12B_R) != HAL_OK)
   {
     /* Start DMA Error */
     rc = 1;

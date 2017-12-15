@@ -56,6 +56,7 @@
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 extern ADC_HandleTypeDef    AdcHandle;
+extern DAC_HandleTypeDef    DacHandle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
@@ -177,6 +178,26 @@ void SysTick_Handler(void)
 void ADCx_DMA_IRQHandler(void)
 {
   HAL_DMA_IRQHandler(AdcHandle.DMA_Handle);
+}
+
+/**
+* @brief  This function handles DMA interrupt request.
+* @param  None
+* @retval None
+*/
+void DACx_DMA_IRQHandler1(void)
+{
+  HAL_DMA_IRQHandler(DacHandle.DMA_Handle1);
+}
+
+/**
+* @brief  This function handles DMA interrupt request.
+* @param  None
+* @retval None
+*/
+void DACx_DMA_IRQHandler2(void)
+{
+  HAL_DMA_IRQHandler(DacHandle.DMA_Handle2);
 }
 
 

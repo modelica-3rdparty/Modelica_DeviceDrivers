@@ -64,6 +64,7 @@ void ADC_IRQHandler(void);
 void ADCx_DMA_IRQHandler(void);
 void DMA2_Stream0_IRQHandler(void);
 void DACx_DMA_IRQHandler1(void);
+void DACx_DMA_IRQHandler2(void);
 
 #ifdef __cplusplus
 }

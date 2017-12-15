@@ -230,6 +230,36 @@ void HAL_DAC_MspDeInit(DAC_HandleTypeDef* hdac)
 }
 
 /**
+  * @brief TIM MSP Initialization
+  *        This function configures the hardware resources used in this example:
+  *           - Peripheral's clock enable
+  *           - Peripheral's GPIO Configuration
+  * @param htim: TIM handle pointer
+  * @retval None
+  */
+void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim)
+{
+  /* TIM6 Periph clock enable */
+  __HAL_RCC_TIM6_CLK_ENABLE();
+}
+
+/**
+  * @brief TIM MSP De-Initialization
+  *        This function frees the hardware resources used in this example:
+  *          - Disable the Peripheral's clock
+  *          - Revert GPIO to their default state
+  * @param htim: TIM handle pointer
+  * @retval None
+  */
+void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef *htim)
+{
+
+  /*##-1- Reset peripherals ##################################################*/
+  __HAL_RCC_TIM6_FORCE_RESET();
+  __HAL_RCC_TIM6_RELEASE_RESET();
+}
+
+/**
   * @}
   */
 
