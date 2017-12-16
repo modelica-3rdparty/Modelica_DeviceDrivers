@@ -112,8 +112,6 @@ static inline void* MDD_stm32f4_dac_init(void* handle)
 
   HAL_TIMEx_MasterConfigSynchronization(&htim, &sMasterConfig);
 
-  /*##-2- Enable TIM peripheral counter ######################################*/
-  HAL_TIM_Base_Start(&htim);
 
   if(HAL_DAC_Init(&DacHandle) != HAL_OK)
   {
@@ -141,6 +139,8 @@ static inline void* MDD_stm32f4_dac_init(void* handle)
     return (void*)rc;
   }
 
+  /*##-2- Enable TIM peripheral counter ######################################*/
+  HAL_TIM_Base_Start(&htim);
 
   return (void*) rc;
 

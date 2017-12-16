@@ -1,6 +1,6 @@
 within Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Functions.Analog;
 
-function read
+impure function read
   extends .Modelica.Icons.Function;
   input InitADC hadc;
   input .Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Types.ADCChannel ch;
