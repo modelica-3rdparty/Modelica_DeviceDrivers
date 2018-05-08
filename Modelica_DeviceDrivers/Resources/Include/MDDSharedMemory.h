@@ -258,7 +258,7 @@ void MDD_SharedMemoryDestructor(void * p_smb) {
     ret = sem_unlink(smb->semname);
     if(ret) {
         if (errno == ENOENT) {
-            ModelicaFormatMessage("Semaphore '%s' seems to be already removed (possibly by remote process)\n", smb->shmname);
+            ModelicaFormatMessage("Semaphore '%s' seems to be already removed (possibly by remote process)\n", smb->semname);
         }
         else {
             ModelicaFormatError("MDDSharedMemory.h: sem_unlink failed (%s)\n", strerror(errno));
