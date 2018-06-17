@@ -2,58 +2,117 @@ within Modelica_DeviceDrivers.EmbeddedTargets;
 package STM32F4 "Support for STM32F4 microcontrollers"
   extends Modelica_DeviceDrivers.Utilities.Icons.GenericICPackage;
   annotation(preferredView="info",Documentation(info="<html>
-<h4><font color=\"#008000\">Support for the STM43F4 family of STM boards</font></h4>
+<h4><font color=\"#008000\">Support for the STM32F4 family of STM boards</font></h4>
 <p>
-As of MDD v1.5.0, only ATmega16, ATmega328P (=Arduino
-Uno) and STM32F4-Discovery are supported. The code can easily be extended, but requires
+As of MDD v1.5.0, only the STM32F4-Discovery board is supported. The code can easily be extended, but requires
 checking the data sheets in order to write to the correct bits.
 </p>
 <p><b>So far only known to work with OpenModelica's ExperimentalEmbeddedC code generation</b>.
 However, in principle it should work similarly with other (low foot-print) code generators.</p>
-<h4><font color=\"#008000\">Translation using OpenModelica v1.12.0 beta</font></h4>
+<h4><font color=\"#008000\">Translation using OpenModelica v1.12.0</font></h4>
 <p>
-OpenModelica v1.12.0 beta includes an experimental code generator for low footprint code.
+OpenModelica v1.12.0 includes an experimental code generator for low foot-print code.
 The code generator supports a subset of the Modelica language which will be extended in future versions.
 The current version is capable of translating the examples in the subpackages,
-but it is not as automated (no generation of makefiles) except for STM32F4-Discovery Blink example and it has been only tested using Linux
-as the host system. 
+but it is not as automated (no generation of Makefiles). For the examples within package
+<a href=\"modelica://Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Examples.STM32F4_Discovery\">Examples.STM32F4_Discovery</a>
+corresponding build scripts and Makefiles are shipped with this library.
+They can be found below the library's Resources subfolder
+(<a href=\"modelica://Modelica_DeviceDrivers/Resources/Scripts/OpenModelica/EmbeddedTargets/STM32F4/Examples/STM32F4_Discovery\">Resources/Scripts/OpenModelica/EmbeddedTargets/STM32F4/Examples/STM32F4_Discovery</a>).
+These scripts and Makefiles have only be tested using Linux as the host system.
 </p>
 <p>
-Using Debian Linux (tested with jessy 64 bit), following packages are required:
+<h5><font color=\"#008000\">Debian Linux (tested with jessy 64 bit)</font></h5>
+Following packages are required:
 </p>
 <pre>
 sudo aptitude install arm-none-eabi-gcc
 sudo aptitude installarm-none-eabi-gdb
 sudo aptitude install arm-none-eabi-binutils
-sudo aptitude install openocd <br>
-Using Ubuntu Linux (tested version 14.04.5 LTS) follow the installation guide lines in <a href=http://yottadocs.mbed.com/#linux-cross-compile>doc</a><br>,
-download and unpack to folder of your choice STM32F4CUBE from <a href=http://www.st.com/content/st_com/en/products/embedded-software/mcus-embedded-software/stm32-embedded-software/stm32cube-embedded-software/stm32cubef4.html>STM43F4CUBE</a>
+sudo aptitude install openocd
 </pre>
 <p>
-<h5><font color=\"#008000\">Create C-code, object debug code, binary and hex file for the Blink example</font></h5>
-Set the environment variable STM23F4CUBEROOT: <br><code>export STM23F4CUBEROOT=&lsaquo;Root directory of downloaded stm32cubef4&rsaquo; </code><br><br>
-Go to the directory <a href=modelica://Modelica_DeviceDrivers/Resources/Scripts/OpenModelica/EmbeddedTargets/STM32F4/Examples/STM32F4_Discovery/Blink>Script and Makefile Directory</a>. For Ubuntu users adjust the CC variable in the <a href=modelica://Modelica_DeviceDrivers/Resources/Scripts/OpenModelica/EmbeddedTargets/STM32F4/Makefile.inc>Makefile.in</a>. Call &quot;make&quot;. When successfull, all object code will be in the &quot;Debug&quot; directory and &quot;.elf&quot; and &quot;.hex&quot; file will be created in the current directory.
+<h5><font color=\"#008000\">Ubuntu 16.04.4 LTS (and presumely later)</font></h5>
+Following packages are required (tested version 16.04.4 LTS):
+</p>
+<pre>
+sudo apt-get install gdb-arm-none-eabi
+</pre>
+<p>
+(should automatically also install binutils-arm-none-eabi and gcc-arm-none-eabi).
 </p>
 <p>
-<h5><font color=\"#008000\">Debugging, flashing and running the application</font></h5>
-Using gdb:
+<h5><font color=\"#008000\">Ubuntu 14.04.5 LTS</font></h5>
+Using Ubuntu Linux 14.04.5 LTS with the default repository packages was not successfull.
+Instead follow the installation guide lines in <a href=http://yottadocs.mbed.com/#linux-cross-compile>doc</a>.
+</p>
+<p>
+<h5><font color=\"#008000\">Create C-code, object debug code, binary and hex file for the Blink example</font></h5>
+Download STM32F4CUBE from <a href=http://www.st.com/content/st_com/en/products/embedded-software/mcus-embedded-software/stm32-embedded-software/stm32cube-embedded-software/stm32cubef4.html>STM43F4CUBE</a>
+and unpack to folder of your choice.
+Set environment variable pointing to the STM32F4 HAL package:
+</p>
 <pre>
-arm-none-eabi-gdb
-</pre> in the debugger console enter
+export STM23F4CUBEROOT=/path/to/STM32Cube_FW_F4_V1.XX.X
+</pre>
+<p>
+Go to the directory
+<a href=modelica://Modelica_DeviceDrivers/Resources/Scripts/OpenModelica/EmbeddedTargets/STM32F4/Examples/STM32F4_Discovery/Blink>Script and Makefile Directory</a>.
+Call &quot;make&quot;
+When successfull, all object code will be in the &quot;Debug&quot; directory and
+&quot;.elf&quot; and &quot;.hex&quot; file will be created in the current directory.
+</p>
+<p>
+<h4><font color=\"#008000\">Debugging, flashing and running the application</font></h4>
+There are several options how this can be done, e.g., using gdb or using openocd.
+</p>
+<p>
+<h5><font color=\"#008000\">Using gdb</font></h5>
+First set up stlink:
+</p>
 <pre>
-target remote localhost:3333
+sudo apt-get install git libusb-1.0.0-dev pkg-config autotools-dev
+git clone https://github.com/texane/stlink.git
+mkdir build && cd build
+cmake -DCMAKE_BUILD_TYPE=Release ..
+make
+sudo make install
+# Reload udev rules or reboot system:
+sudo udevadm control --reload-rules
+sudo udevadm trigger
+</pre>
+<p>
+Now do:
+</p>
+<pre>
+sudo st-util
+</pre>
+<p>
+Check the port which opened (default for me: 4242). Start the debugger:
+</p>
+<pre>
+sudo arm-none-eabi-gdb
+</pre>
+<p>
+In the debugger console enter:
+</p>
+<pre>
+target remote localhost:4242
 monitor reset halt
 file Blink_main.elf
 load
 monitor reset
 continue
+</pre>
+<p>
+<h5><font color=\"#008000\">Using openocd</font></h5>
+</p>
 <pre>
-Using openocd:
-<pre>
-openocd -f /usr/share/openocd/scripts/board/stm32f4discovery.cfg</pre>
-In a new console open a telnet terminal:
+openocd -f /usr/share/openocd/scripts/board/stm32f4discovery.cfg
+</pre>
+<p>In a new console open a telnet terminal:</p>
 <pre>telnet localhost 4444</pre>
-In the telnet terminal enter:
+<p>In the telnet terminal enter:</p>
 <pre>
 > reset halt
 > flash write_image erase Blink_main.hex
