@@ -8,7 +8,9 @@ package UDPSocket_ "Accompanying functions for the UDPSocket object"
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
     input UDPSocket socket;
     input SerialPackager pkg;
-    external "C" MDD_udpReadP(socket, pkg)
+    output Integer nReceivedBytes "Number of received bytes";
+    output Integer nRecvbufOverwrites "Accumlated number of times new data was received without having been read out (retrieved) by Modelica";
+    external "C" MDD_udpReadP(socket, pkg, nReceivedBytes, nRecvbufOverwrites)
     annotation(Include = "#include \"MDDUDPSocket.h\"",
            Library = {"pthread", "Ws2_32"},
            __iti_dll = "ITI_MDD.dll",

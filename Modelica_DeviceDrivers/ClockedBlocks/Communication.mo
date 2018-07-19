@@ -133,13 +133,17 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
     parameter Integer port_recv=10001
       "Listening port number of the server. Must be unique on the system"
       annotation (Dialog(group="Incoming data"));
+    parameter Boolean showReceivedBytesPort = false "=true, if number of received bytes port is visible" annotation(Dialog(tab="Advanced"),Evaluate=true, HideResult=true, choices(checkBox=true));
 
     Interfaces.PackageOut pkgOut  annotation (Placement(
           transformation(
           extent={{-20,-20},{20,20}},
           rotation=90,
           origin={108,0})));
-
+     Modelica.Blocks.Interfaces.IntegerOutput nRecvBytes
+       "Number of received bytes" annotation (Placement(visible=
+             showReceivedBytesPort, transformation(extent={{100,70},{120,90}})));
+     output Integer nRecvbufOverwrites "Accumulated number of times new data was received without having been read out (retrieved) by Modelica";
   protected
     Integer bufferSize;
     UDPSocket socket;
@@ -164,7 +168,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
 
     dummy = previous(dummy) + Ts;
 
-    pkgOut.dummy = Modelica_DeviceDrivers.ClockedBlocks.Communication.Internal.DummyFunctions.readUDP(
+    (pkgOut.dummy,nRecvBytes,nRecvbufOverwrites) = Modelica_DeviceDrivers.ClockedBlocks.Communication.Internal.DummyFunctions.readUDP(
       socket,
       pkgOut.pkg,
       dummy);
@@ -260,8 +264,11 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
         input Modelica_DeviceDrivers.Packaging.SerialPackager pkg;
         input Real dummy;
         output Real dummy2;
+        output Integer nRecvBytes;
+        output Integer nRecvbufOverwrites;
       algorithm
-        Modelica_DeviceDrivers.Communication.UDPSocket_.read(socket, pkg);
+        (nRecvBytes, nRecvbufOverwrites) :=
+          Modelica_DeviceDrivers.Communication.UDPSocket_.read(socket, pkg);
         dummy2 := dummy;
       end readUDP;
 
