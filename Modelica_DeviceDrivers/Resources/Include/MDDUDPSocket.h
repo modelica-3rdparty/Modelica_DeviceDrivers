@@ -40,7 +40,8 @@ struct MDDUDPSocket_s {
     int bufferSize;
     SOCKET SocketID;
     int receiving;
-    int receivedBytes;
+    int nReceivedBytes;
+    int nRecvbufOverwrites; /* Accumlated number of times new data was received without having been read out (retrieved) by Modelica */
     HANDLE hThread;
     CRITICAL_SECTION receiveLock;
 };
@@ -50,14 +51,15 @@ DWORD WINAPI MDD_udpReceivingThread(LPVOID pUdp) {
     MDDUDPSocket * udp = (MDDUDPSocket *)pUdp;
     while (udp->receiving == 1) {
         int remoteAddrLen = sizeof(SOCKADDR);
-        int receivedBytes;
-        receivedBytes = recvfrom(udp->SocketID, udp->receiveBufferTmp, udp->bufferSize, 0, &remoteAddr, &remoteAddrLen);
-        if (receivedBytes > 0) {
+        int nReceivedBytes;
+        nReceivedBytes = recvfrom(udp->SocketID, udp->receiveBufferTmp, udp->bufferSize, 0, &remoteAddr, &remoteAddrLen);
+        if (nReceivedBytes > 0) {
             BOOL socketError;
             EnterCriticalSection(&udp->receiveLock);
-            udp->receivedBytes = receivedBytes;
-            memcpy(udp->receiveBuffer, udp->receiveBufferTmp, udp->receivedBytes);
-            socketError = udp->receivedBytes == SOCKET_ERROR;
+            if (udp->nReceivedBytes > 0) (udp->nRecvbufOverwrites)++;
+            udp->nReceivedBytes = nReceivedBytes;
+            memcpy(udp->receiveBuffer, udp->receiveBufferTmp, udp->nReceivedBytes);
+            socketError = udp->nReceivedBytes == SOCKET_ERROR;
             LeaveCriticalSection(&udp->receiveLock);
             if (socketError) {
 #ifndef ITI_MDD
@@ -94,7 +96,8 @@ DllExport void * MDD_udpConstructor(int port, int bufferSize) {
     }
     udp->receiving = 1;
     udp->bufferSize = bufferSize;
-    udp->receivedBytes = 0;
+    udp->nReceivedBytes = 0;
+    udp->nRecvbufOverwrites = 0;
     addr.sin_family = AF_INET;
     addr.sin_port = htons((u_short)port);
     addr.sin_addr.s_addr = INADDR_ANY;
@@ -187,8 +190,8 @@ DllExport const char * MDD_udpRead(void * p_udp) {
         EnterCriticalSection(&udp->receiveLock);
         udpBuf = ModelicaAllocateStringWithErrorReturn(udp->bufferSize);
         if (udpBuf) {
-            memcpy(udpBuf, udp->receiveBuffer, udp->receivedBytes);
-            udp->receivedBytes = 0;
+            memcpy(udpBuf, udp->receiveBuffer, udp->nReceivedBytes);
+            udp->nReceivedBytes = 0;
             LeaveCriticalSection(&udp->receiveLock);
             return (const char*) udpBuf;
         }
@@ -200,13 +203,15 @@ DllExport const char * MDD_udpRead(void * p_udp) {
     return "";
 }
 
-DllExport void MDD_udpReadP(void * p_udp, void* p_package) {
+DllExport void MDD_udpReadP(void * p_udp, void* p_package, int* nReceivedBytes, int* nRecvbufOverwrites) {
     MDDUDPSocket * udp = (MDDUDPSocket *) p_udp;
     if (udp && udp->hThread) {
         int rc;
         EnterCriticalSection(&udp->receiveLock);
-        rc = MDD_SerialPackagerSetDataWithErrorReturn(p_package, udp->receiveBuffer, udp->receivedBytes);
-        udp->receivedBytes = 0;
+        rc = MDD_SerialPackagerSetDataWithErrorReturn(p_package, udp->receiveBuffer, udp->nReceivedBytes);
+        *nReceivedBytes = udp->nReceivedBytes;
+        *nRecvbufOverwrites = udp->nRecvbufOverwrites;
+        udp->nReceivedBytes = 0;
         LeaveCriticalSection(&udp->receiveLock);
         if (rc) {
            ModelicaError("MDDUDPSocket.h: MDD_SerialPackagerSetData failed. Buffer overflow.\n");
@@ -215,14 +220,14 @@ DllExport void MDD_udpReadP(void * p_udp, void* p_package) {
 }
 
 DllExport int MDD_udpGetReceivedBytes(void * p_udp) {
-    int receivedBytes = 0;
+    int nReceivedBytes = 0;
     MDDUDPSocket * udp = (MDDUDPSocket *) p_udp;
     if (udp && udp->hThread) {
         EnterCriticalSection(&udp->receiveLock);
-        receivedBytes = udp->receivedBytes;
+        nReceivedBytes = udp->nReceivedBytes;
         LeaveCriticalSection(&udp->receiveLock);
     }
-    return receivedBytes;
+    return nReceivedBytes;
 }
 
 #elif defined(__linux__) || defined(__CYGWIN__)
@@ -250,6 +255,7 @@ struct MDDUDPSocket_s {
     size_t messageLength; /**< message length (only relevant for read socket) */
     void* msgInternal;  /**< Internal UDP message buffer (only relevant for read socket) */
     ssize_t nReceivedBytes; /**< Number of received bytes (only relevant for read socket) */
+    int nRecvbufOverwrites; /**< Accumlated number of times new data was received without having been read out (retrieved) by Modelica */
     int runReceive; /**< Run receiving thread as long as runReceive != 0  */
     pthread_t thread;
     pthread_mutex_t messageMutex; /**< Exclusive access to message buffer */
@@ -287,6 +293,7 @@ void* MDD_udpReceivingThread(void * p_udp) {
                 else {
                     /* Lock acces to udp->msgInternal  */
                     pthread_mutex_lock(&(udp->messageMutex));
+                    if (udp->nReceivedBytes > 0) (udp->nRecvbufOverwrites)++;
                     /* Receive the next datagram  */
                     udp->nReceivedBytes =
                         recvfrom(udp->sock,                   /* UDP socket */
@@ -326,6 +333,7 @@ const char * MDD_udpRead(void * p_udp) {
     udpBuf = ModelicaAllocateStringWithErrorReturn(udp->messageLength);
     if (udpBuf) {
         memcpy(udpBuf, udp->msgInternal, udp->messageLength);
+        udp->nReceivedBytes = 0;
         pthread_mutex_unlock(&(udp->messageMutex));
         return (const char*) udpBuf;
     }
@@ -338,16 +346,21 @@ const char * MDD_udpRead(void * p_udp) {
 
 /** Read data from UDP socket.
  *
- * @param p_udp pointer address to the udp socket data structure
- * @param p_package pointer to the SerialPackager
+ * @param p_udp Pointer address to the udp socket data structure
+ * @param [out] nReceivedBytes Number of received bytes
+ * @param [out] nRecvbufOverwrites  Accumlated number of times new data was received without having been read out (retrieved) by Modelica
+ * @param p_package Pointer to the SerialPackager
  */
-void MDD_udpReadP(void * p_udp, void* p_package) {
+void MDD_udpReadP(void * p_udp, void* p_package, int* nReceivedBytes, int* nRecvbufOverwrites) {
     MDDUDPSocket * udp = (MDDUDPSocket *) p_udp;
     int rc;
 
     /* Lock acces to udp->msgInternal  */
     pthread_mutex_lock(&(udp->messageMutex));
     rc = MDD_SerialPackagerSetDataWithErrorReturn(p_package, udp->msgInternal, udp->messageLength);
+    *nReceivedBytes = udp->nReceivedBytes;
+    *nRecvbufOverwrites = udp->nRecvbufOverwrites;
+    udp->nReceivedBytes = 0;
     pthread_mutex_unlock(&(udp->messageMutex));
     if (rc) {
         ModelicaError("MDDUDPSocket.h: MDD_SerialPackagerSetData failed. Buffer overflow.\n");
@@ -583,6 +596,8 @@ void * MDD_udpConstructor(int port, int bufferSize) {
     int ret;
 
     udp->messageLength = bufferSize;
+    udp->nReceivedBytes = 0;
+    udp->nRecvbufOverwrites = 0;
     udp->runReceive = 0;
     udp->msgInternal = calloc(udp->messageLength,1);
     ret = pthread_mutex_init(&(udp->messageMutex), NULL); /* Init mutex with defaults */
