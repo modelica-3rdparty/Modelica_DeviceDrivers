@@ -92,7 +92,7 @@ typedef struct {
     int runReceive; /**< Run receiving thread as long as runReceive != 0  */
 } MDDSocketCAN;
 
-void* MDD_socketCANRxThread(MDDSocketCAN * mDDSocketCAN);
+void* MDD_socketCANRxThread(void* p_mDDSocketCAN);
 
 /** Create RAW can socket and bind it to the CAN network interface ifname
  *
@@ -150,7 +150,7 @@ void* MDD_socketCANConstructor(const char* ifname) {
 
     /* Start dedicated receiver thread */
     mDDSocketCAN->runReceive = 1;
-    ret = pthread_create(&mDDSocketCAN->thread, 0, &MDD_socketCANRxThread, mDDSocketCAN);
+    ret = pthread_create(&mDDSocketCAN->thread, 0, MDD_socketCANRxThread, mDDSocketCAN);
     if (ret) {
         ModelicaFormatError("MDDSocketCAN.h: pthread(..) failed\n");
     }
@@ -307,7 +307,8 @@ void MDD_socketCANReadP(void* p_mDDSocketCAN, int can_id, int can_dlc,
  * @param[in] mDDSocketCAN pointer to external object (MDDSocketCAN struct)
  * @return NULL (if thread stopped by mDDSocketCAN->runReceive == 0)
  */
-void* MDD_socketCANRxThread(MDDSocketCAN * mDDSocketCAN) {
+void* MDD_socketCANRxThread(void* p_mDDSocketCAN) {
+    MDDSocketCAN * mDDSocketCAN = (MDDSocketCAN *) p_mDDSocketCAN;
     struct can_frame rxframe;
     int bytes_read, ret;
     void * data;
@@ -372,7 +373,8 @@ void* MDD_socketCANRxThread(MDDSocketCAN * mDDSocketCAN) {
  * @param[in] mDDSocketCAN pointer to external object (MDDSocketCAN struct)
  * @return 0 (if thread stopped by mDDSocketCAN->runReceive == 0)
  */
-int MDD_socketCANRxThread_DEPRECATED(MDDSocketCAN * mDDSocketCAN) {
+int MDD_socketCANRxThread_DEPRECATED(void* p_mDDSocketCAN) {
+    MDDSocketCAN * mDDSocketCAN = (MDDSocketCAN *) p_mDDSocketCAN;
     struct can_frame rxframe;
     int bytes_read, ret;
     void * data;
