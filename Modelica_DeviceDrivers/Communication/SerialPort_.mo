@@ -46,7 +46,7 @@ package SerialPort_ "Accompanying functions for the SerialPort object"
     annotation (Documentation(info="<html>
 <p>Deprecated function. Don't use it.</p>
 <p>
-Kept for backward compatiblity. Only very limited use since due to thread parallism
+Kept for backward compatibility. Only very limited use since due to thread parallelism
 (the serial port is read from a dedicated thread)
 the returned value may already be outdated when it is returned or when a later
 conditional action is based on the returned value.
