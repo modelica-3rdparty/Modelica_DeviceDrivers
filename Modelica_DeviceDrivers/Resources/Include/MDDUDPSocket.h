@@ -41,7 +41,7 @@ struct MDDUDPSocket_s {
     SOCKET SocketID;
     int receiving;
     int nReceivedBytes;
-    int nRecvbufOverwrites; /* Accumlated number of times new data was received without having been read out (retrieved) by Modelica */
+    int nRecvbufOverwrites; /* Accumulated number of times new data was received without having been read out (retrieved) by Modelica */
     HANDLE hThread;
     CRITICAL_SECTION receiveLock;
 };
@@ -255,7 +255,7 @@ struct MDDUDPSocket_s {
     size_t messageLength; /**< message length (only relevant for read socket) */
     void* msgInternal;  /**< Internal UDP message buffer (only relevant for read socket) */
     ssize_t nReceivedBytes; /**< Number of received bytes (only relevant for read socket) */
-    int nRecvbufOverwrites; /**< Accumlated number of times new data was received without having been read out (retrieved) by Modelica */
+    int nRecvbufOverwrites; /**< Accumulated number of times new data was received without having been read out (retrieved) by Modelica */
     int runReceive; /**< Run receiving thread as long as runReceive != 0  */
     pthread_t thread;
     pthread_mutex_t messageMutex; /**< Exclusive access to message buffer */
@@ -291,7 +291,7 @@ void* MDD_udpReceivingThread(void * p_udp) {
                     ModelicaMessage("The UDP socket was disconnected.\n");
                 }
                 else {
-                    /* Lock acces to udp->msgInternal  */
+                    /* Lock access to udp->msgInternal  */
                     pthread_mutex_lock(&(udp->messageMutex));
                     if (udp->nReceivedBytes > 0) (udp->nRecvbufOverwrites)++;
                     /* Receive the next datagram  */
@@ -306,7 +306,7 @@ void* MDD_udpReceivingThread(void * p_udp) {
                     pthread_mutex_unlock(&(udp->messageMutex));
 
                     if (udp->nReceivedBytes < 0) {
-                        ModelicaFormatError("MDDUDPSocket.h: recfrom(..) failed (%s)\n",
+                        ModelicaFormatError("MDDUDPSocket.h: recvfrom(..) failed (%s)\n",
                                             strerror(errno));
                     }
                     break;
@@ -314,7 +314,6 @@ void* MDD_udpReceivingThread(void * p_udp) {
             default:
                 ModelicaFormatError("MDDUDPSocket.h: Poll returned %d. That should not happen.\n", ret);
         }
-
     }
     return NULL;
 }
@@ -328,7 +327,7 @@ const char * MDD_udpRead(void * p_udp) {
     MDDUDPSocket * udp = (MDDUDPSocket *) p_udp;
     char* udpBuf;
 
-    /* Lock acces to udp->msgInternal  */
+    /* Lock access to udp->msgInternal  */
     pthread_mutex_lock(&(udp->messageMutex));
     udpBuf = ModelicaAllocateStringWithErrorReturn(udp->messageLength);
     if (udpBuf) {
@@ -348,14 +347,14 @@ const char * MDD_udpRead(void * p_udp) {
  *
  * @param p_udp Pointer address to the udp socket data structure
  * @param [out] nReceivedBytes Number of received bytes
- * @param [out] nRecvbufOverwrites  Accumlated number of times new data was received without having been read out (retrieved) by Modelica
+ * @param [out] nRecvbufOverwrites  Accumulated number of times new data was received without having been read out (retrieved) by Modelica
  * @param p_package Pointer to the SerialPackager
  */
 void MDD_udpReadP(void * p_udp, void* p_package, int* nReceivedBytes, int* nRecvbufOverwrites) {
     MDDUDPSocket * udp = (MDDUDPSocket *) p_udp;
     int rc;
 
-    /* Lock acces to udp->msgInternal  */
+    /* Lock access to udp->msgInternal  */
     pthread_mutex_lock(&(udp->messageMutex));
     rc = MDD_SerialPackagerSetDataWithErrorReturn(p_package, udp->msgInternal, udp->messageLength);
     *nReceivedBytes = udp->nReceivedBytes;
@@ -414,7 +413,7 @@ const char * MDD_udpNonBlockingRead(void * p_udp) {
                                 );
 
                     if (udp->nReceivedBytes < 0) {
-                        ModelicaFormatError("MDDUDPSocket.h: recfrom(..) failed (%s)\n",
+                        ModelicaFormatError("MDDUDPSocket.h: recvfrom(..) failed (%s)\n",
                                             strerror(errno));
                     }
                     return (const char*) udpBuf;
@@ -474,7 +473,7 @@ void MDD_udpNonBlockingReadP(void * p_udp, void* p_package) {
                                 &sa_len
                             );
                 if (udp->nReceivedBytes < 0) {
-                    ModelicaFormatError("MDDUDPSocket.h: recfrom(..) failed (%s)\n",
+                    ModelicaFormatError("MDDUDPSocket.h: recvfrom(..) failed (%s)\n",
                                         strerror(errno));
                 }
                 rc = MDD_SerialPackagerSetDataWithErrorReturn(p_package, udp->msgInternal, udp->nReceivedBytes);
