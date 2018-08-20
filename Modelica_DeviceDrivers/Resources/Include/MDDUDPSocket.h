@@ -32,6 +32,20 @@
 
 #pragma comment( lib, "Ws2_32.lib" )
 
+#if defined(__MINGW32__)
+/* This is an (ugly) fix if MinGW headers miss definitions for WSAPoll etc. */
+#ifndef POLLIN
+typedef struct pollfd {
+    SOCKET fd;
+    SHORT events;
+    SHORT revents;
+} WSAPOLLFD, *PWSAPOLLFD, FAR *LPWSAPOLLFD;
+WINSOCK_API_LINKAGE int WSAAPI WSAPoll(LPWSAPOLLFD fdArray, ULONG fds, INT timeout);
+#define POLLIN 768
+#define POLLHUP 2
+#endif /* POLLIN */
+#endif /* defined(__MINGW32__) */
+
 typedef struct MDDUDPSocket_s MDDUDPSocket;
 
 struct MDDUDPSocket_s {
@@ -50,7 +64,7 @@ DWORD WINAPI MDD_udpReceivingThread(LPVOID pUdp) {
     WSAPOLLFD sock_poll = {0};
 
     sock_poll.fd = udp->SocketID;
-    sock_poll.events = POLLIN | POLLHUP;
+    sock_poll.events = POLLIN;
 
     while (udp->receiving == 1) {
         int ret = WSAPoll(&sock_poll, 1, 100);
@@ -296,7 +310,7 @@ void* MDD_udpReceivingThread(void * p_udp) {
                           udp->sock);
 
     sock_poll.fd = udp->sock;
-    sock_poll.events = POLLIN | POLLHUP;
+    sock_poll.events = POLLIN;
 
     while (udp->runReceive) {
         int ret = poll(&sock_poll, 1, 100);
@@ -404,7 +418,7 @@ const char * MDD_udpNonBlockingRead(void * p_udp) {
     int ret;
 
     sock_poll.fd = udp->sock;
-    sock_poll.events = POLLIN | POLLHUP;
+    sock_poll.events = POLLIN;
 
     ret = poll(&sock_poll, 1, 0);
 
@@ -463,7 +477,7 @@ void MDD_udpNonBlockingReadP(void * p_udp, void* p_package) {
     int ret;
 
     sock_poll.fd = udp->sock;
-    sock_poll.events = POLLIN | POLLHUP;
+    sock_poll.events = POLLIN;
 
     ret = poll(&sock_poll, 1, 0);
 
