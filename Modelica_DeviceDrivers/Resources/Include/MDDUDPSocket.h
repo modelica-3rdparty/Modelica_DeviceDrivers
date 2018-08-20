@@ -36,7 +36,6 @@ typedef struct MDDUDPSocket_s MDDUDPSocket;
 
 struct MDDUDPSocket_s {
     char * receiveBuffer;
-    char * receiveBufferTmp;
     int bufferSize;
     SOCKET SocketID;
     int receiving;
@@ -47,26 +46,52 @@ struct MDDUDPSocket_s {
 };
 
 DWORD WINAPI MDD_udpReceivingThread(LPVOID pUdp) {
-    SOCKADDR remoteAddr;
     MDDUDPSocket * udp = (MDDUDPSocket *)pUdp;
+    WSAPOLLFD sock_poll = {0};
+
+    sock_poll.fd = udp->SocketID;
+    sock_poll.events = POLLIN | POLLHUP;
+
     while (udp->receiving == 1) {
-        int remoteAddrLen = sizeof(SOCKADDR);
-        int nReceivedBytes;
-        nReceivedBytes = recvfrom(udp->SocketID, udp->receiveBufferTmp, udp->bufferSize, 0, &remoteAddr, &remoteAddrLen);
-        if (nReceivedBytes > 0) {
-            BOOL socketError;
-            EnterCriticalSection(&udp->receiveLock);
-            if (udp->nReceivedBytes > 0) (udp->nRecvbufOverwrites)++;
-            udp->nReceivedBytes = nReceivedBytes;
-            memcpy(udp->receiveBuffer, udp->receiveBufferTmp, udp->nReceivedBytes);
-            socketError = udp->nReceivedBytes == SOCKET_ERROR;
-            LeaveCriticalSection(&udp->receiveLock);
-            if (socketError) {
+        int ret = WSAPoll(&sock_poll, 1, 100);
+
+        switch (ret) {
+            case SOCKET_ERROR:
+                {
+                    int rc = WSAGetLastError();
 #ifndef ITI_MDD
-                ModelicaMessage("MDDUDPSocket.h: Receiving not possible, socket not valid.\n");
+                    ModelicaFormatMessage("MDDUDPSocket.h: WSAPoll failed with error: %d\n", rc);
 #endif
-                ExitThread(1);
-            }
+                    ExitThread(1);
+                }
+                break;
+            case 0: /* no new data available. Just check if udp->receiving still true and go on */
+                break;
+            default:
+                if (sock_poll.revents & POLLHUP) {
+#ifndef ITI_MDD
+                    ModelicaMessage("The UDP socket was disconnected.\n");
+#endif
+                }
+                else {
+                    BOOL socketError;
+                    SOCKADDR remoteAddr;
+                    int remoteAddrLen = sizeof(SOCKADDR);
+                    /* Lock access to udp->receiveBuffer  */
+                    EnterCriticalSection(&udp->receiveLock);
+                    if (udp->nReceivedBytes > 0) (udp->nRecvbufOverwrites)++;
+                    /* Receive the next datagram */
+                    udp->nReceivedBytes = recvfrom(udp->SocketID, udp->receiveBuffer, udp->bufferSize, 0, &remoteAddr, &remoteAddrLen);
+                    socketError = udp->nReceivedBytes == SOCKET_ERROR;
+                    LeaveCriticalSection(&udp->receiveLock);
+                    if (socketError) {
+#ifndef ITI_MDD
+                        ModelicaMessage("MDDUDPSocket.h: Receiving not possible, socket not valid.\n");
+#endif
+                        ExitThread(1);
+                    }
+                }
+                break;
         }
     }
     return 0;
@@ -113,7 +138,6 @@ DllExport void * MDD_udpConstructor(int port, int bufferSize) {
             ModelicaFormatError("MDDUDPSocket.h: bind to port %d failed with error: %d\n", port, rc);
         }
         udp->receiveBuffer = (char*)calloc(bufferSize, 1);
-        udp->receiveBufferTmp = (char*)calloc(bufferSize, 1);
         InitializeCriticalSection(&udp->receiveLock);
         udp->hThread = CreateThread(0, 1024, MDD_udpReceivingThread, udp, 0, &id1);
         if (!udp->hThread) {
@@ -126,7 +150,6 @@ DllExport void * MDD_udpConstructor(int port, int bufferSize) {
             closesocket(udp->SocketID);
             DeleteCriticalSection(&udp->receiveLock);
             free(udp->receiveBuffer);
-            free(udp->receiveBufferTmp);
             free(udp);
             udp = NULL;
             WSACleanup();
@@ -159,7 +182,6 @@ DllExport void MDD_udpDestructor(void * p_udp) {
             CloseHandle(udp->hThread);
             DeleteCriticalSection(&udp->receiveLock);
             free(udp->receiveBuffer);
-            free(udp->receiveBufferTmp);
         }
         free(udp);
     }
@@ -287,7 +309,7 @@ void* MDD_udpReceivingThread(void * p_udp) {
             case 0: /* no new data available. Just check if udp->runReceive still true and go on */
                 break;
             case 1: /* new data available */
-                if(sock_poll.revents & POLLHUP) {
+                if (sock_poll.revents & POLLHUP) {
                     ModelicaMessage("The UDP socket was disconnected.\n");
                 }
                 else {
@@ -296,21 +318,23 @@ void* MDD_udpReceivingThread(void * p_udp) {
                     if (udp->nReceivedBytes > 0) (udp->nRecvbufOverwrites)++;
                     /* Receive the next datagram  */
                     udp->nReceivedBytes =
-                        recvfrom(udp->sock,                   /* UDP socket */
+                        recvfrom(udp->sock,                    /* UDP socket */
                                  udp->msgInternal,             /* receive buffer */
                                  udp->messageLength,           /* max bytes to receive */
                                  0,                            /* no special flags */
                                  (struct sockaddr*) &(udp->sa),/* address of sender */
                                  &sa_len
                                 );
-                    pthread_mutex_unlock(&(udp->messageMutex));
-
                     if (udp->nReceivedBytes < 0) {
+                        pthread_mutex_unlock(&(udp->messageMutex));
                         ModelicaFormatError("MDDUDPSocket.h: recvfrom(..) failed (%s)\n",
                                             strerror(errno));
                     }
-                    break;
+                    else {
+                        pthread_mutex_unlock(&(udp->messageMutex));
+                    }
                 }
+                break;
             default:
                 ModelicaFormatError("MDDUDPSocket.h: Poll returned %d. That should not happen.\n", ret);
         }
@@ -390,13 +414,11 @@ const char * MDD_udpNonBlockingRead(void * p_udp) {
             ModelicaFormatError("MDDUDPSocket.h: poll(..) failed (%s) \n",
                                 strerror(errno));
             break;
-
         case 0: /* no new data available */
             ModelicaMessage("No new data at socket available\n");
             break;
-
         case 1: /* new data available */
-            if(sock_poll.revents & POLLHUP) {
+            if (sock_poll.revents & POLLHUP) {
                 ModelicaFormatError("MDDUDPSocket.h: The UDP socket was disconnected. Exiting.\n");
             }
             else {
@@ -418,9 +440,8 @@ const char * MDD_udpNonBlockingRead(void * p_udp) {
                     }
                     return (const char*) udpBuf;
                 }
-
-                break;
             }
+            break;
         default:
             ModelicaFormatError("MDDUDPSocket.h: Poll returned %d. That should not happen.\n", ret);
     }
@@ -447,18 +468,15 @@ void MDD_udpNonBlockingReadP(void * p_udp, void* p_package) {
     ret = poll(&sock_poll, 1, 0);
 
     switch (ret) {
-
         case -1:
             ModelicaFormatError("MDDUDPSocket.h: poll(..) failed (%s) \n",
                                 strerror(errno));
             break;
-
         case 0: /* no new data available */
             ModelicaMessage("No new data at socket available\n");
             break;
-
         case 1: /* new data available */
-            if(sock_poll.revents & POLLHUP) {
+            if (sock_poll.revents & POLLHUP) {
                 ModelicaFormatError("MDDUDPSocket.h: The UDP socket was disconnected. Exiting.\n");
             }
             else {
@@ -480,8 +498,8 @@ void MDD_udpNonBlockingReadP(void * p_udp, void* p_package) {
                 if (rc) {
                     ModelicaError("MDDUDPSocket.h: MDD_SerialPackagerSetData failed. Buffer overflow.\n");
                 }
-                break;
             }
+            break;
         default:
             ModelicaFormatError("MDDUDPSocket.h: Poll returned %d. That should not happen.\n", ret);
     }
