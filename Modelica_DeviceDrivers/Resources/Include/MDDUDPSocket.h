@@ -72,9 +72,8 @@ DWORD WINAPI MDD_udpReceivingThread(LPVOID pUdp) {
         switch (ret) {
             case SOCKET_ERROR:
                 {
-                    int rc = WSAGetLastError();
 #ifndef ITI_MDD
-                    ModelicaFormatMessage("MDDUDPSocket.h: WSAPoll failed with error: %d\n", rc);
+                    ModelicaFormatWarning("MDDUDPSocket.h: WSAPoll failed with error code: %d\n", WSAGetLastError());
 #endif
                     ExitThread(1);
                 }
@@ -84,7 +83,7 @@ DWORD WINAPI MDD_udpReceivingThread(LPVOID pUdp) {
             default:
                 if (sock_poll.revents & POLLHUP) {
 #ifndef ITI_MDD
-                    ModelicaMessage("The UDP socket was disconnected.\n");
+                    ModelicaFormatWarning("MDDUDPSocket.h: The UDP socket was disconnected.\n");
 #endif
                 }
                 else {
@@ -100,7 +99,7 @@ DWORD WINAPI MDD_udpReceivingThread(LPVOID pUdp) {
                     LeaveCriticalSection(&udp->receiveLock);
                     if (socketError) {
 #ifndef ITI_MDD
-                        ModelicaMessage("MDDUDPSocket.h: Receiving not possible, socket not valid.\n");
+                        ModelicaWarning("MDDUDPSocket.h: Receiving not possible, socket not valid.\n");
 #endif
                         ExitThread(1);
                     }
@@ -121,7 +120,8 @@ DllExport void * MDD_udpConstructor(int port, int bufferSize) {
 
     rc = WSAStartup(MAKEWORD(2,2),&wsa);
     if (rc != NO_ERROR) {
-        ModelicaFormatError("MDDUDPSocket.h: WSAStartup failed: %d\n", rc);
+        ModelicaFormatError("MDDUDPSocket.h: WSAStartup failed with error code: %d\n", rc);
+        return NULL;
     }
 
     udp = (MDDUDPSocket *)calloc(sizeof(MDDUDPSocket), 1);
@@ -132,6 +132,7 @@ DllExport void * MDD_udpConstructor(int port, int bufferSize) {
         rc = WSAGetLastError();
         WSACleanup();
         ModelicaFormatError("MDDUDPSocket.h: socket failed with error: %d\n", rc);
+        return udp;
     }
     udp->receiving = 1;
     udp->bufferSize = bufferSize;
@@ -149,7 +150,8 @@ DllExport void * MDD_udpConstructor(int port, int bufferSize) {
             udp = NULL;
             rc = WSAGetLastError();
             WSACleanup();
-            ModelicaFormatError("MDDUDPSocket.h: bind to port %d failed with error: %d\n", port, rc);
+            ModelicaFormatError("MDDUDPSocket.h: bind to port %d failed with error code: %d\n", port, rc);
+            return udp;
         }
         udp->receiveBuffer = (char*)calloc(bufferSize, 1);
         InitializeCriticalSection(&udp->receiveLock);
@@ -184,7 +186,7 @@ DllExport void MDD_udpDestructor(void * p_udp) {
         udp->receiving = 0;
         rc = shutdown(udp->SocketID, 2);
         if (rc == SOCKET_ERROR) {
-            ModelicaFormatMessage("MDDUDPSocket.h: shutdown failed: %d\n", WSAGetLastError());
+            ModelicaFormatWarning("MDDUDPSocket.h: shutdown failed with error code: %d\n", WSAGetLastError());
         }
         closesocket(udp->SocketID);
         if (udp->hThread) {
@@ -206,11 +208,19 @@ DllExport void MDD_udpSend(void * p_udp, const char * ipAddress, int port,
                            const char * data, int dataSize) {
     MDDUDPSocket * udp = (MDDUDPSocket *) p_udp;
     if (udp) {
+        int rc;
         SOCKADDR_IN addr;
         addr.sin_family=AF_INET;
         addr.sin_port=htons((u_short)port);
         addr.sin_addr.s_addr=inet_addr(ipAddress);
-        sendto(udp->SocketID,data,dataSize,0,(SOCKADDR*)&addr,sizeof(SOCKADDR_IN));
+        rc = sendto(udp->SocketID,data,dataSize,0,(SOCKADDR*)&addr,sizeof(SOCKADDR_IN));
+        if (rc == SOCKET_ERROR) {
+            ModelicaFormatError("MDDUDPSocket.h: sendto failed with error code: %d\n", WSAGetLastError());
+        }
+        else if (rc < dataSize) {
+            ModelicaFormatWarning("MDDUDPSocket.h: Expected to send: %d bytes, but was: %d\n",
+                                  dataSize, rc);
+        }
     }
 }
 
@@ -324,7 +334,7 @@ void* MDD_udpReceivingThread(void * p_udp) {
                 break;
             case 1: /* new data available */
                 if (sock_poll.revents & POLLHUP) {
-                    ModelicaMessage("The UDP socket was disconnected.\n");
+                    ModelicaWarning("MDDUDPSocket.h: The UDP socket was disconnected.\n");
                 }
                 else {
                     /* Lock access to udp->msgInternal  */
@@ -583,11 +593,13 @@ void MDD_udpSend(void * p_udp, const char * ipAddress, int port,
                  0,                  /* no special flags */
                  (struct sockaddr*) &(udp->sa),  /* destination */
                  sizeof(struct sockaddr_in));
-    if (ret < dataSize) {
-        ModelicaFormatError("MDDUDPSocket.h: Expected to send: %d bytes, but was: %d\n"
-                            "sendto(..) failed (%s)\n", dataSize, ret, strerror(errno));
+    if (ret == -1) {
+        ModelicaFormatError("MDDUDPSocket.h: sendto failed with error: %s\n", strerror(errno));
     }
-
+    else if (ret < dataSize) {
+        ModelicaFormatWarning("MDDUDPSocket.h: Expected to send: %d bytes, but was: %d\n",
+                              dataSize, ret);
+    }
 }
 
 /** Send data via UDP socket.
@@ -654,7 +666,7 @@ void * MDD_udpConstructor(int port, int bufferSize) {
 
     /* We have a different setup, depending on the chosen mode (which depends on the value
      * of the port argument */
-    if(port) {
+    if (port) {
         ModelicaFormatMessage("Binding receiving UDP socket to port %d ...\n", port);
         /* need to convert the listening port number with the htons macro
            to network byte order */
@@ -674,7 +686,7 @@ void * MDD_udpConstructor(int port, int bufferSize) {
         udp->runReceive = 1;
         ret = pthread_create(&udp->thread, 0, &MDD_udpReceivingThread, udp);
         if (ret) {
-            ModelicaFormatError("MDDUDPSocket: pthread(..) failed\n");
+            ModelicaFormatError("MDDUDPSocket: pthread_create(..) failed\n");
         }
     }
 
