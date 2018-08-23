@@ -22,5 +22,4 @@ equation
           lineColor={0,0,255},
           textString=
               "Please see the AVR package documentation before testing the example!")}));
-
 end Blink;
