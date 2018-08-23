@@ -140,7 +140,7 @@ DllExport void * MDD_serialPortConstructor(const char * deviceName, int bufferSi
         if (serial->hComm == INVALID_HANDLE_VALUE) {
             free(serial);
             serial = NULL;
-            ModelicaFormatError("MDDSerialPort.h: CreateFileA of serial port %s failed with error: %lu\n", deviceName, GetLastError());
+            ModelicaFormatError("MDDSerialPort.h: CreateFileA of serial port %s failed with error code: %lu\n", deviceName, GetLastError());
         }
         ModelicaFormatMessage("Created serial port for device %s\n", deviceName);
 
@@ -150,7 +150,7 @@ DllExport void * MDD_serialPortConstructor(const char * deviceName, int bufferSi
             CloseHandle(serial->hComm);
             free(serial);
             serial = NULL;
-            ModelicaFormatError("MDDSerialPort.h: GetCommState of serial port %s failed with error: %lu\n", deviceName, GetLastError());
+            ModelicaFormatError("MDDSerialPort.h: GetCommState of serial port %s failed with error code: %lu\n", deviceName, GetLastError());
         }
 
         switch (baud) {
@@ -215,7 +215,7 @@ DllExport void * MDD_serialPortConstructor(const char * deviceName, int bufferSi
             CloseHandle(serial->hComm);
             free(serial);
             serial = NULL;
-            ModelicaFormatError("MDDSerialPort.h: SetCommState of serial port %s failed with error: %lu\n", deviceName, GetLastError());
+            ModelicaFormatError("MDDSerialPort.h: SetCommState of serial port %s failed with error code: %lu\n", deviceName, GetLastError());
         }
 
         if (!GetCommMask(serial->hComm, &fdwEventMask)) {
@@ -549,7 +549,7 @@ void * MDD_serialPortConstructor(const char * deviceName, int bufferSize, int pa
         serial->runReceive = 1;
         ret = pthread_create(&serial->thread, 0, MDD_serialPortReceivingThread, serial);
         if (ret) {
-            ModelicaFormatError("MDDSerialPort.h: pthread (MDD_serialPortReceivingThread) failed\n");
+            ModelicaFormatError("MDDSerialPort.h: pthread_create(..) failed\n");
         }
     }
 

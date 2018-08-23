@@ -18,6 +18,17 @@ void ModelicaFormatMessage(const char *string, ...) {
     va_end(p_arg);
 }
 
+void ModelicaWarning(const char *string) {
+    printf("%s", string);
+}
+
+void ModelicaFormatWarning(const char *string, ...) {
+    va_list p_arg;
+    va_start(p_arg,string);
+    vprintf(string,p_arg);
+    va_end(p_arg);
+}
+
 void ModelicaError(const char *string) {
     fprintf (stderr, "%s", string);
     exit(1);

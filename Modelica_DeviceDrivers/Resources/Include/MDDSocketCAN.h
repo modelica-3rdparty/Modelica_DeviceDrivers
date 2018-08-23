@@ -152,7 +152,7 @@ void* MDD_socketCANConstructor(const char* ifname) {
     mDDSocketCAN->runReceive = 1;
     ret = pthread_create(&mDDSocketCAN->thread, 0, MDD_socketCANRxThread, mDDSocketCAN);
     if (ret) {
-        ModelicaFormatError("MDDSocketCAN.h: pthread(..) failed\n");
+        ModelicaFormatError("MDDSocketCAN.h: pthread_create(..) failed\n");
     }
 
     return mDDSocketCAN;
