@@ -12,6 +12,38 @@ endif (UNIX)
 #SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -pthread")
 #endif (CMAKE_COMPILER_IS_GNUCC)
 
+if (MSVC)
+  if ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
+    find_library( PAHO_MQTT3CS_LIBRARY paho-mqtt3cs
+        PATHS   ${PROJECT_SOURCE_DIR}/Library/win64)
+  elseif ( CMAKE_SIZEOF_VOID_P EQUAL 4 )
+    find_library( PAHO_MQTT3CS_LIBRARY paho-mqtt3cs
+        PATHS   ${PROJECT_SOURCE_DIR}/Library/win32)
+  else ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
+    message(SEND_ERROR "Uups. Neither 64, nor 32 bit??")
+  endif ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
+endif (MSVC)
+
+if (UNIX)
+  if ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
+    find_library( PAHO_MQTT3CS_LIBRARY paho-mqtt3cs
+        PATHS   ${PROJECT_SOURCE_DIR}/Library/linux64)
+    find_library( CRYPTO_LIBRARY crypto
+        PATHS   ${PROJECT_SOURCE_DIR}/Library/linux64)
+    find_library( SSL_LIBRARY ssl
+        PATHS   ${PROJECT_SOURCE_DIR}/Library/linux64)
+  elseif ( CMAKE_SIZEOF_VOID_P EQUAL 4 )
+    find_library( PAHO_MQTT3CS_LIBRARY paho-mqtt3cs
+        PATHS   ${PROJECT_SOURCE_DIR}/Library/linux32)
+    find_library( CRYPTO_LIBRARY crypto
+        PATHS   ${PROJECT_SOURCE_DIR}/Library/linux32)
+    find_library( SSL_LIBRARY ssl
+        PATHS   ${PROJECT_SOURCE_DIR}/Library/linux32)
+  else ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
+    message(SEND_ERROR "Uups. Neither 64, nor 32 bit??")
+  endif ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
+endif (UNIX)
+
 add_executable(test_MDDUDPSocket test_MDDUDPSocket.c ../Util/ModelicaUtilities.c)
 if (UNIX)
   target_link_libraries(test_MDDUDPSocket ${CMAKE_THREAD_LIBS_INIT})
@@ -67,3 +99,12 @@ if (UNIX)
 endif (UNIX)
 add_test(test_MDDLCM
   ${EXECUTABLE_OUTPUT_PATH}/test_MDDLCM)
+
+add_executable(test_MDDMQTT test_MDDMQTT.c ../Util/ModelicaUtilities.c)
+target_link_libraries(test_MDDMQTT ${PAHO_MQTT3CS_LIBRARY})
+if (UNIX)
+  target_link_libraries(test_MDDMQTT ${CRYPTO_LIBRARY})
+  target_link_libraries(test_MDDMQTT ${SSL_LIBRARY})
+  target_link_libraries(test_MDDMQTT ${CMAKE_THREAD_LIBS_INIT})
+endif (UNIX)
+add_test(test_MDDMQTT ${EXECUTABLE_OUTPUT_PATH}/test_MDDMQTT)

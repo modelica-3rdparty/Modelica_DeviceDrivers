@@ -31,6 +31,3 @@ endif (MSVC)
 
 add_executable(test_MDDCANMessage test_MDDCANMessage.c ../Util/ModelicaUtilities.c)
 add_test(test_MDDCANMessage ${EXECUTABLE_OUTPUT_PATH}/test_MDDCANMessage)
-
-
-
