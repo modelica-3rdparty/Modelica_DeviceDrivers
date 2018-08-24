@@ -34,6 +34,7 @@
 
 #include <stdio.h>
 #include "../../Include/MDDSerialPort.h"
+#include "../../src/include/util.h"
 
 #define M_LENGTH (80)
 
@@ -70,7 +71,7 @@ int main(void) {
         sprintf(sendMessage, "Current i is %i", i);
         MDD_serialPortSend(sp1, sendMessage, M_LENGTH);
         printf("Sent: %s\n", sendMessage);
-        usleep(100); /* Need to give receiving thread a chance to read what was written */
+        MDD_msleep(1); /* Need to give receiving thread a chance to read what was written */
         recBytes = MDD_serialPortGetReceivedBytes(sp2);
         recMessage = MDD_serialPortRead(sp2);
         printf("Received %d bytes: %s\n", recBytes, recMessage);
