@@ -13,9 +13,3 @@ elseif ( CMAKE_SIZEOF_VOID_P EQUAL 4 )
 else ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
   message(SEND_ERROR "Uups. Shouldn't be possible to get here")
 endif ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
-
-
-
-
-
-

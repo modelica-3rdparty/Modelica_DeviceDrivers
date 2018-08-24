@@ -27,6 +27,8 @@ if (MSVC OR MINGW)
   add_subdirectory(src/DummyX11Library)
   # Dummy Windows pthread library for uniform treatment of GCC and MS Visual C within Modelica
   add_subdirectory(src/DummyPthreadLibrary)
+  # Dummy Windows uuid library for uniform treatment of GCC and MS Visual C within Modelica
+  add_subdirectory(src/DummyUUIDLibrary)
 endif (MSVC OR MINGW)
 
 if (MSVC)
@@ -66,9 +68,6 @@ if (UNIX)
   #   SET(CMAKE_STATIC_LINKER_FLAGS "${CMAKE_STATIC_LINKER_FLAGS} -m32")
   # endif()
   # HOWEVER, this won't set CMAKE_SIZEOF_VOID_P to 4, so that 32-bit library paths are searched first!
-
-
-
 endif (UNIX)
 
 # Third party projects
