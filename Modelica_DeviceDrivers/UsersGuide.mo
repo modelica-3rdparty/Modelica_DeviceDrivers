@@ -113,7 +113,7 @@ First public version of the library.
 <li>Included support for the <i>Linux Controller Area Network Protocol Family</i> (aka <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SocketCAN\">Socket CAN</a>). This is considered an <i><b>alpha feature</b></i>. Therefore the API is not stable and testing has been very limited.</li>
 <li>The CMake based build system for the external C sources of this library has been improved to be more robust and better documented.</li>
 <li>Bugs in the SerialPackager&apos;s <code>AddString</code> and <code>GetString</code> blocks have been resolved and new blocks <code>AddFloat</code> and <code>GetFloat</code> are now available.</li>
-<li>Some smaller additional bugfixes and improvements.</li>
+<li>Some smaller additional bug fixes and improvements.</li>
 </ul>
 </html>"));
     end Version_1_1;
@@ -166,12 +166,12 @@ First public version of the library.
 
       annotation (Documentation(info="<html>
 <ul>
-<li>Bugfix release, no new features, but many improvements since version v1.4.0 (more than 70 commits since v1.4.0), so let's list some of the improvements...</li>
+<li>Bug fix release, no new features, but many improvements since version v1.4.0 (more than 70 commits since v1.4.0), so let's list some of the improvements...</li>
 <li>Uses latest version of Modelica Standard Library (v3.2.2).</li>
 <li>Changed license of external C code and header files to <a href=\"modelica://Modelica_DeviceDrivers/Resources/License.txt\">Simplified BSD License</a>.</li> (the Modelica package parts remain under
 <a href=\"modelica://Modelica_DeviceDrivers.UsersGuide.ModelicaLicense2\">Modelica License 2</a>).
-<li>Impoved Modelica compatibility: Fixed the use of conditionally enabled variable <code>procPrio</code> outside of connect in <code>Blocks.OperatingSystem.SynchronizeRealtime</code> and <code>ClockedBlocks.OperatingSystem.SynchronizeRealtime</code>.</li>
-<li>Impoved Modelica compatibility: Fixed the invalid integer to enumeration type conversion in <code>HardwareIO</code>.</li>
+<li>Improved Modelica compatibility: Fixed the use of conditionally enabled variable <code>procPrio</code> outside of connect in <code>Blocks.OperatingSystem.SynchronizeRealtime</code> and <code>ClockedBlocks.OperatingSystem.SynchronizeRealtime</code>.</li>
+<li>Improved Modelica compatibility: Fixed the invalid integer to enumeration type conversion in <code>HardwareIO</code>.</li>
 <li>Fully specified the initial conditions for example models.</li>
 <li>Simplified the linking with system libraries (MSVC only).</li>
 <li>Added continuous integration for the external C code (thanks to <a href=\"https://travis-ci.org/modelica/Modelica_DeviceDrivers\">Travis CI</a>).</li>
@@ -209,7 +209,7 @@ see example <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSeri
 Added support for TCP/IP communication for Linux (was already available for Windows).
 </li>
 <li>
-New top-level package <a href=\"modelica://Modelica_DeviceDrivers.EmbeddedTargets\">EmbeddedTargets</a>)
+New top-level package <a href=\"modelica://Modelica_DeviceDrivers.EmbeddedTargets\">EmbeddedTargets</a>
 with a first prototypical support for the
 Atmel AVR family of microcontrollers (ATmega16 and ATmega328P (=Arduino Uno) are supported; currently only known to work with OpenModelica's
 ExperimentalEmbeddedC code generation, see
@@ -219,7 +219,7 @@ ExperimentalEmbeddedC code generation, see
 Bug fixes for the serial port support.
 </li>
 <li>
-Bug fix for the byte order swapping logic (endianness, <a ref=\"https://github.com/modelica/Modelica_DeviceDrivers/issues/203\">#203</a>).
+Bug fix for the byte order swapping logic (endianness, <a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues/203\">#203</a>).
 </li>
 <li>
 Other (minor) fixes and improvements.
@@ -227,6 +227,18 @@ Other (minor) fixes and improvements.
 </ul>
 </html>"));
       end Version_1_5_0;
+
+    class Version_1_5_1 "Version 1.5.1 (September 19, 2017)"
+    extends Modelica.Icons.ReleaseNotes;
+
+  annotation (Documentation(info="<html>
+<ul>
+<li>
+Bug fix for syntax error in <code>Blocks.InputDevices.JoystickInput</code> (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues/224\">#224</a>)
+</li>
+</ul>
+</html>"));
+      end Version_1_5_1;
 
     annotation (Documentation(info="<html>
 <p>
