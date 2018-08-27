@@ -273,7 +273,7 @@ class ModelicaLicense2 "Modelica License 2"
     the directory &quot;Modelica_DeviceDrivers/Resources&quot; and its
     subdirectories, see <a href=\"modelica://Modelica_DeviceDrivers/Resources/License.txt\">Resources/License.txt</a>).</p>
     <table border=\"0\" cellpadding=\"2\" cellspacing=\"2\">
-    <tr><td style=\"vertical-align: top;\">Copyright &copy; 2014-2017, Link&ouml;ping University (PELAB), ESI ITI GmbH, and DLR Institute of System Dynamics and Control</td>
+    <tr><td style=\"vertical-align: top;\">Copyright &copy; 2014-2018, Link&ouml;ping University (PELAB), ESI ITI GmbH, and DLR Institute of System Dynamics and Control</td>
     </tr>
     <tr><td style=\"vertical-align: top;\">Copyright &copy; 2012-2013, DLR Institute of System Dynamics and Control</td></tr>
     </table>
