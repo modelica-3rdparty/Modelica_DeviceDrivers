@@ -83,105 +83,17 @@ This library is based on various resources (mainly within the internet) describi
 
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
-    class Version_0_9 "Version 0.9 (Aug. 28, 2012)"
-      extends Modelica.Icons.ReleaseNotes;
-      annotation (Documentation(info="<html>
-<p>
-First public version of the library.
-</p>
+    class Version_1_5_1 "Version 1.5.1 (September 19, 2017)"
+    extends Modelica.Icons.ReleaseNotes;
 
-</html>"));
-    end Version_0_9;
-
-    class Version_1_0 "Version 1.0 (Sept. 20, 2012)"
-      extends Modelica.Icons.ReleaseNotes;
-      annotation (Documentation(info="<html>
+  annotation (Documentation(info="<html>
 <ul>
- <li>Improved documentation.</li>
- <li>Included prototypical support for Softing CAN interfaces</li>
-</ul>
-
-</html>"));
-    end Version_1_0;
-
-    class Version_1_1 "Version 1.1 (April 24, 2013)"
-      extends Modelica.Icons.ReleaseNotes;
-
-      annotation (Documentation(info="<html>
-<ul>
-<li>Improved Modelica 3.3 standard conformance (hopefully completely standard conform by now)</li>
-<li>Included support for the <i>Linux Controller Area Network Protocol Family</i> (aka <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SocketCAN\">Socket CAN</a>). This is considered an <i><b>alpha feature</b></i>. Therefore the API is not stable and testing has been very limited.</li>
-<li>The CMake based build system for the external C sources of this library has been improved to be more robust and better documented.</li>
-<li>Bugs in the SerialPackager&apos;s <code>AddString</code> and <code>GetString</code> blocks have been resolved and new blocks <code>AddFloat</code> and <code>GetFloat</code> are now available.</li>
-<li>Some smaller additional bug fixes and improvements.</li>
+<li>
+Bug fix for variable name spelling error in <code>Blocks.InputDevices.JoystickInput</code> (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues/224\">#224</a>)
+</li>
 </ul>
 </html>"));
-    end Version_1_1;
-
-    class Version_1_2 "Version 1.2 (October 01, 2013)"
-      extends Modelica.Icons.ReleaseNotes;
-
-      annotation (Documentation(info="<html>
-<ul>
-<li>Adapted to the conventions of the Modelica Standard Library 3.2.1 and Modelica_Synchronous 0.92.</li>
-<li>Utility functions to load parameters from a file.</li>
-</ul>
-</html>"));
-    end Version_1_2;
-
-    class Version_1_3 "Version 1.3 (May 19, 2014)"
-      extends Modelica.Icons.ReleaseNotes;
-
-      annotation (Documentation(info="<html>
-<ul>
-<li>Fixed many issues in order to support SimulationX.</li>
-<li>Particularly, a SimulationX compatible wrapper DLL to give access to the external C functions was added.</li>
-<li>Added serial port support for Linux.</li>
-</ul>
-</html>"));
-    end Version_1_3;
-
-    class Version_1_4_0 "Version 1.4.0 (Sep 01, 2015)"
-      extends Modelica.Icons.ReleaseNotes;
-
-      annotation (Documentation(info="<html>
-<ul>
-<li>Switched to <a href=\"http://semver.org/\">semantic versioning</a>.</li>
-<li>Migrated to new release process motivated by <a href=\"https://github.com/xogeny/impact/blob/master/resources/docs/modelica2015/paper/impact.md#impact-on-library-developers\">impact-on-library-developers</a>.</li>
-<li>Added support for external trigger signals to trigger communication blocks.</li>
-<li>Added support to configure byte ordering in communication blocks.</li>
-<li>Added support for TCP/IP communication for Windows.</li>
-<li>Added serial port support for Windows (was already available for Linux).</li>
-<li>Added compiler support for MinGW and Cygwin.</li>
-<li>Added support for all 32 joystick buttons.</li>
-<li>Fixed Modelica compatibility of output buffers in communication blocks.</li>
-<li>Fixed multi-threaded access of UDP and shared memory communication for Windows.</li>
-<li>Fixed many small issues, particularly for improved compatibility with SimulationX.</li>
-</ul>
-</html>"));
-    end Version_1_4_0;
-
-    class Version_1_4_4 "Version 1.4.4 (April 12, 2016)"
-      extends Modelica.Icons.ReleaseNotes;
-
-      annotation (Documentation(info="<html>
-<ul>
-<li>Bug fix release, no new features, but many improvements since version v1.4.0 (more than 70 commits since v1.4.0), so let's list some of the improvements...</li>
-<li>Uses latest version of Modelica Standard Library (v3.2.2).</li>
-<li>Changed license of external C code and header files to <a href=\"modelica://Modelica_DeviceDrivers/Resources/License.txt\">Simplified BSD License</a>.</li> (the Modelica package parts remain under
-<a href=\"modelica://Modelica_DeviceDrivers.UsersGuide.ModelicaLicense2\">Modelica License 2</a>).
-<li>Improved Modelica compatibility: Fixed the use of conditionally enabled variable <code>procPrio</code> outside of connect in <code>Blocks.OperatingSystem.SynchronizeRealtime</code> and <code>ClockedBlocks.OperatingSystem.SynchronizeRealtime</code>.</li>
-<li>Improved Modelica compatibility: Fixed the invalid integer to enumeration type conversion in <code>HardwareIO</code>.</li>
-<li>Fully specified the initial conditions for example models.</li>
-<li>Simplified the linking with system libraries (MSVC only).</li>
-<li>Added continuous integration for the external C code (thanks to <a href=\"https://travis-ci.org/modelica/Modelica_DeviceDrivers\">Travis CI</a>).</li>
-<li>Improved compatibility with the DLR Visualization Library.</li>
-<li>Improved support of automatic Code-Export from SimulationX 3.7.</li>
-<li>Fixes for the clocked communication blocks (added missing <code>byteOrder</code> support).</li>
-<li>Other (minor) fixes.</li>
-</ul>
-</html>"));
-    end Version_1_4_4;
+      end Version_1_5_1;
 
     class Version_1_5_0 "Version 1.5.0 (May 12, 2017)"
     extends Modelica.Icons.ReleaseNotes;
@@ -228,17 +140,105 @@ Other (minor) fixes and improvements.
 </html>"));
       end Version_1_5_0;
 
-    class Version_1_5_1 "Version 1.5.1 (September 19, 2017)"
-    extends Modelica.Icons.ReleaseNotes;
+    class Version_1_4_4 "Version 1.4.4 (April 12, 2016)"
+      extends Modelica.Icons.ReleaseNotes;
 
-  annotation (Documentation(info="<html>
+      annotation (Documentation(info="<html>
 <ul>
-<li>
-Bug fix for variable name spelling error in <code>Blocks.InputDevices.JoystickInput</code> (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues/224\">#224</a>)
-</li>
+<li>Bug fix release, no new features, but many improvements since version v1.4.0 (more than 70 commits since v1.4.0), so let's list some of the improvements...</li>
+<li>Uses latest version of Modelica Standard Library (v3.2.2).</li>
+<li>Changed license of external C code and header files to <a href=\"modelica://Modelica_DeviceDrivers/Resources/License.txt\">Simplified BSD License</a>.</li> (the Modelica package parts remain under
+<a href=\"modelica://Modelica_DeviceDrivers.UsersGuide.ModelicaLicense2\">Modelica License 2</a>).
+<li>Improved Modelica compatibility: Fixed the use of conditionally enabled variable <code>procPrio</code> outside of connect in <code>Blocks.OperatingSystem.SynchronizeRealtime</code> and <code>ClockedBlocks.OperatingSystem.SynchronizeRealtime</code>.</li>
+<li>Improved Modelica compatibility: Fixed the invalid integer to enumeration type conversion in <code>HardwareIO</code>.</li>
+<li>Fully specified the initial conditions for example models.</li>
+<li>Simplified the linking with system libraries (MSVC only).</li>
+<li>Added continuous integration for the external C code (thanks to <a href=\"https://travis-ci.org/modelica/Modelica_DeviceDrivers\">Travis CI</a>).</li>
+<li>Improved compatibility with the DLR Visualization Library.</li>
+<li>Improved support of automatic Code-Export from SimulationX 3.7.</li>
+<li>Fixes for the clocked communication blocks (added missing <code>byteOrder</code> support).</li>
+<li>Other (minor) fixes.</li>
 </ul>
 </html>"));
-      end Version_1_5_1;
+    end Version_1_4_4;
+
+    class Version_1_4_0 "Version 1.4.0 (Sep 01, 2015)"
+      extends Modelica.Icons.ReleaseNotes;
+
+      annotation (Documentation(info="<html>
+<ul>
+<li>Switched to <a href=\"http://semver.org/\">semantic versioning</a>.</li>
+<li>Migrated to new release process motivated by <a href=\"https://github.com/xogeny/impact/blob/master/resources/docs/modelica2015/paper/impact.md#impact-on-library-developers\">impact-on-library-developers</a>.</li>
+<li>Added support for external trigger signals to trigger communication blocks.</li>
+<li>Added support to configure byte ordering in communication blocks.</li>
+<li>Added support for TCP/IP communication for Windows.</li>
+<li>Added serial port support for Windows (was already available for Linux).</li>
+<li>Added compiler support for MinGW and Cygwin.</li>
+<li>Added support for all 32 joystick buttons.</li>
+<li>Fixed Modelica compatibility of output buffers in communication blocks.</li>
+<li>Fixed multi-threaded access of UDP and shared memory communication for Windows.</li>
+<li>Fixed many small issues, particularly for improved compatibility with SimulationX.</li>
+</ul>
+</html>"));
+    end Version_1_4_0;
+
+    class Version_1_3 "Version 1.3 (May 19, 2014)"
+      extends Modelica.Icons.ReleaseNotes;
+
+      annotation (Documentation(info="<html>
+<ul>
+<li>Fixed many issues in order to support SimulationX.</li>
+<li>Particularly, a SimulationX compatible wrapper DLL to give access to the external C functions was added.</li>
+<li>Added serial port support for Linux.</li>
+</ul>
+</html>"));
+    end Version_1_3;
+
+    class Version_1_2 "Version 1.2 (October 01, 2013)"
+      extends Modelica.Icons.ReleaseNotes;
+
+      annotation (Documentation(info="<html>
+<ul>
+<li>Adapted to the conventions of the Modelica Standard Library 3.2.1 and Modelica_Synchronous 0.92.</li>
+<li>Utility functions to load parameters from a file.</li>
+</ul>
+</html>"));
+    end Version_1_2;
+
+    class Version_1_1 "Version 1.1 (April 24, 2013)"
+      extends Modelica.Icons.ReleaseNotes;
+
+      annotation (Documentation(info="<html>
+<ul>
+<li>Improved Modelica 3.3 standard conformance (hopefully completely standard conform by now)</li>
+<li>Included support for the <i>Linux Controller Area Network Protocol Family</i> (aka <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SocketCAN\">Socket CAN</a>). This is considered an <i><b>alpha feature</b></i>. Therefore the API is not stable and testing has been very limited.</li>
+<li>The CMake based build system for the external C sources of this library has been improved to be more robust and better documented.</li>
+<li>Bugs in the SerialPackager&apos;s <code>AddString</code> and <code>GetString</code> blocks have been resolved and new blocks <code>AddFloat</code> and <code>GetFloat</code> are now available.</li>
+<li>Some smaller additional bug fixes and improvements.</li>
+</ul>
+</html>"));
+    end Version_1_1;
+
+    class Version_1_0 "Version 1.0 (Sept. 20, 2012)"
+      extends Modelica.Icons.ReleaseNotes;
+      annotation (Documentation(info="<html>
+<ul>
+ <li>Improved documentation.</li>
+ <li>Included prototypical support for Softing CAN interfaces</li>
+</ul>
+
+</html>"));
+    end Version_1_0;
+
+    class Version_0_9 "Version 0.9 (Aug. 28, 2012)"
+      extends Modelica.Icons.ReleaseNotes;
+      annotation (Documentation(info="<html>
+<p>
+First public version of the library.
+</p>
+
+</html>"));
+    end Version_0_9;
 
     annotation (Documentation(info="<html>
 <p>
