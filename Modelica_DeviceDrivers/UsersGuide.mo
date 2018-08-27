@@ -234,7 +234,7 @@ Other (minor) fixes and improvements.
   annotation (Documentation(info="<html>
 <ul>
 <li>
-Bug fix for syntax error in <code>Blocks.InputDevices.JoystickInput</code> (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues/224\">#224</a>)
+Bug fix for variable name spelling error in <code>Blocks.InputDevices.JoystickInput</code> (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues/224\">#224</a>)
 </li>
 </ul>
 </html>"));

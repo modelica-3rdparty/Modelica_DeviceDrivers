@@ -47,7 +47,7 @@ If you tested the library successfully with another Modelica tool, please contac
 Bug fix releases usually won't have release notes, so please use the download link from above to get the latest release including bug fixes.
 
 *  [Version v1.5.1 (2017-09-19)](../../releases/tag/v1.5.1)
-    * Bug fix for syntax error in `Blocks.InputDevices.JoystickInput` (#224)
+    * Bug fix for variable name spelling error in `Blocks.InputDevices.JoystickInput` (#224)
 *  [Version v1.5.0 (2017-05-12)](../../releases/tag/v1.5.0)
     * **Important**: A bug fix in the shared memory implementation for *Windows* potentially affects applications that adapted the (wrong) buffer layout (see #138)!
     * Presentation of the library at the [Modelica'2017 conference](https://www.modelica.org/events/modelica2017).
