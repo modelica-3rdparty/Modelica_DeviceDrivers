@@ -19,7 +19,7 @@ else ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
 endif ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
 
 add_library(ITI_MDD SHARED ${libSrcsITI_MDDLibrary})
-target_link_libraries(ITI_MDD Winmm Ws2_32 ${MODELICA_EXTERNAL_C})
+target_link_libraries(ITI_MDD Winmm Ws2_32 Rpcrt4 ${MODELICA_EXTERNAL_C})
 
 if ( CANL2_LIBRARY )
 	add_library(ITI_MDDSoftingCAN SHARED ${libSrcsITI_MDDSoftingCANLibrary})
@@ -43,9 +43,3 @@ elseif ( CMAKE_SIZEOF_VOID_P EQUAL 4 )
 else ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
   message(SEND_ERROR "Uups. Shouldn't be possible to get here")
 endif ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
-
-
-
-
-
-

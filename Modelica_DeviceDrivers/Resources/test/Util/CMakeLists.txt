@@ -11,7 +11,8 @@ add_executable(test_MDDMapIntpVoid test_MDDMapIntpVoid.c ../Util/ModelicaUtiliti
 add_test(test_MDDMapIntpVoid ${EXECUTABLE_OUTPUT_PATH}/test_MDDMapIntpVoid)
 
 add_executable(test_MDDUtilities test_MDDUtilities.c ../Util/ModelicaUtilities.c)
+if (UNIX OR CYGWIN)
+  target_link_libraries(test_MDDUtilities uuid)
+endif (UNIX OR CYGWIN)
 add_test(test_MDDUtilities ${EXECUTABLE_OUTPUT_PATH}/test_MDDUtilities)
 file(COPY parameterInitValues.txt DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-
-

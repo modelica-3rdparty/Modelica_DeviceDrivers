@@ -5,7 +5,7 @@ There is support for joysticks, keyboards, UDP, TCP/IP, LCM, shared memory, AD/D
 ## Library description
 The `Modelica_DeviceDrivers` (MDD) library is an open source Modelica package under [Modelica License 2](https://modelica.org/licenses/ModelicaLicense2) that interfaces hardware drivers to Modelica models. An overview of the library is provided in
 
-> Bernhard Thiele, Thomas Beutlich, Volker Waurich, Martin Sjölund, and Tobias Bellmann, Towards a Standard-Conform, Platform-Generic and Feature-Rich Modelica Device Drivers Library.  In Jiří Kofránek and Francesco Casella, editors, _12th Int. Modelica Conference_, Prague, Czech Republic, May 2017. [Download](https://www.modelica.org/events/modelica2017/proceedings/html/submissions/ecp17132713_ThieleBeutlichWaurichSjolundBellmann.pdf)
+> Bernhard Thiele, Thomas Beutlich, Volker Waurich, Martin Sjölund, and Tobias Bellmann, Towards a Standard-Conform, Platform-Generic and Feature-Rich Modelica Device Drivers Library. In Jiří Kofránek and Francesco Casella, editors, _12th Int. Modelica Conference_, Prague, Czech Republic, May 2017. [Download](https://www.modelica.org/events/modelica2017/proceedings/html/submissions/ecp17132713_ThieleBeutlichWaurichSjolundBellmann.pdf)
 
 The library unifies previous developments concerning device driver support in Modelica, see [Interactive Simulations and advanced Visualization with Modelica](https://modelica.org/events/modelica2009/Proceedings/memorystick/pages/papers/0056/0056.pdf) and [Modelica for Embedded Systems](https://modelica.org/events/modelica2009/Proceedings/memorystick/pages/papers/0096/0096.pdf) (Modelica'2009 conference). The functionality covered by this library has been used internally at DLR for several years, such as for Driver-in-the-Loop simulation and for the [DLR Robot Motion Simulator](http://www.dlr.de/media/en/desktopdefault.aspx/tabid-4995/8426_read-17606/).
 The previously fragmented functionality was streamlined, improved, and extended to a coherent cross-platform library.
@@ -44,8 +44,10 @@ Please note that the library is known to work with
 If you tested the library successfully with another Modelica tool, please contact [Bernhard Thiele](https://github.com/bernhard-thiele) or send a [pull request](https://github.com/modelica/Modelica_DeviceDrivers/pulls) that updates this README.md.
 
 #### Release notes
-Bugfix releases usually won't have release notes, so please use the download link from above to get the latest release including bugfixes.
+Bug fix releases usually won't have release notes, so please use the download link from above to get the latest release including bug fixes.
 
+*  [Version v1.5.1 (2017-09-19)](../../releases/tag/v1.5.1)
+    * Bug fix for variable name spelling error in `Blocks.InputDevices.JoystickInput` (#224)
 *  [Version v1.5.0 (2017-05-12)](../../releases/tag/v1.5.0)
     * **Important**: A bug fix in the shared memory implementation for *Windows* potentially affects applications that adapted the (wrong) buffer layout (see #138)!
     * Presentation of the library at the [Modelica'2017 conference](https://www.modelica.org/events/modelica2017).
@@ -57,11 +59,11 @@ Bugfix releases usually won't have release notes, so please use the download lin
     * Bug fix for the byte order swapping logic (endianness, #203).
     * Other (minor) fixes and improvements.
 *  [Version v1.4.4 (2016-04-12)](../../releases/tag/v1.4.4)
-    * Bugfix release, no new features, but many improvements since version v1.4.0 (more than 70 commits since v1.4.0), so let's list some of the improvements...
+    * Bug fix release, no new features, but many improvements since version v1.4.0 (more than 70 commits since v1.4.0), so let's list some of the improvements...
     * Uses latest version of Modelica Standard Library (v3.2.2).
     * Changed the license of the external C code and header files to [Simplified BSD License](Modelica_DeviceDrivers/Resources/License.txt) (the Modelica package parts remain under [Modelica License 2](https://modelica.org/licenses/ModelicaLicense2)).
-    * Impoved Modelica compatibility: Fixed the use of conditionally enabled variable `procPrio` outside of connect in `Blocks.OperatingSystem.SynchronizeRealtime` and `ClockedBlocks.OperatingSystem.SynchronizeRealtime`.
-    * Impoved Modelica compatibility: Fixed the invalid integer to enumeration type conversion in `HardwareIO`.
+    * Improved Modelica compatibility: Fixed the use of conditionally enabled variable `procPrio` outside of connect in `Blocks.OperatingSystem.SynchronizeRealtime` and `ClockedBlocks.OperatingSystem.SynchronizeRealtime`.
+    * Improved Modelica compatibility: Fixed the invalid integer to enumeration type conversion in `HardwareIO`.
     * Fully specified the initial conditions for example models.
     * Simplified the linking with system libraries (MSVC only).
     * Added continuous integration for the external C code (thanks to [Travis CI](https://travis-ci.org/modelica/Modelica_DeviceDrivers)).
@@ -95,7 +97,7 @@ Bugfix releases usually won't have release notes, so please use the download lin
     * Included support for the Linux Controller Area Network Protocol Family (aka Socket CAN). This is considered an alpha feature. Therefore the API is not stable and testing has been very limited
     * The CMake based build system for the external C sources of this library has been improved to be more robust and better documented.
     * Bugs in the SerialPackager's AddString and GetString blocks have been resolved and new blocks AddFloat and GetFloat are now available.
-    * Some smaller additional bugfixes and improvements.
+    * Some smaller additional bug fixes and improvements.
 *  [Version v1.0 (2012-10-17)](../../archive/v1.0.zip)
     * Initial release `v1.0_build5` with improved documentation
 

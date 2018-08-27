@@ -93,4 +93,17 @@ end TestLoadRealParameter;
 </html>"));
   end primeDecomposition;
 
+  function generateUUID "Generate a UUID"
+    extends Modelica.Icons.Function;
+    output String uuid "UUID";
+
+  external"C" uuid = MDD_generateUUID()
+  annotation(Include = "#include \"MDDUtilities.h\"",
+             Library = {"Rpcrt4", "uuid"},
+             __iti_dll = "ITI_MDD.dll",
+             __iti_dllNoExport = true);
+  annotation(__ModelicaAssociation_Impure=true, Documentation(info="<html>
+<p>Generates a UUID.</p>
+</html>"));
+  end generateUUID;
 end Functions;

@@ -73,7 +73,7 @@ DWORD WINAPI MDD_udpReceivingThread(LPVOID pUdp) {
             case SOCKET_ERROR:
                 {
 #ifndef ITI_MDD
-                    ModelicaFormatWarning("MDDUDPSocket.h: WSAPoll failed with error code: %d\n", WSAGetLastError());
+                    ModelicaFormatMessage("MDDUDPSocket.h: WSAPoll failed with error code: %d\n", WSAGetLastError());
 #endif
                     ExitThread(1);
                 }
@@ -83,7 +83,7 @@ DWORD WINAPI MDD_udpReceivingThread(LPVOID pUdp) {
             default:
                 if (sock_poll.revents & POLLHUP) {
 #ifndef ITI_MDD
-                    ModelicaFormatWarning("MDDUDPSocket.h: The UDP socket was disconnected.\n");
+                    ModelicaFormatMessage("MDDUDPSocket.h: The UDP socket was disconnected.\n");
 #endif
                 }
                 else {
@@ -99,7 +99,7 @@ DWORD WINAPI MDD_udpReceivingThread(LPVOID pUdp) {
                     LeaveCriticalSection(&udp->receiveLock);
                     if (socketError) {
 #ifndef ITI_MDD
-                        ModelicaWarning("MDDUDPSocket.h: Receiving not possible, socket not valid.\n");
+                        ModelicaMessage("MDDUDPSocket.h: Receiving not possible, socket not valid.\n");
 #endif
                         ExitThread(1);
                     }
@@ -186,7 +186,7 @@ DllExport void MDD_udpDestructor(void * p_udp) {
         udp->receiving = 0;
         rc = shutdown(udp->SocketID, 2);
         if (rc == SOCKET_ERROR) {
-            ModelicaFormatWarning("MDDUDPSocket.h: shutdown failed with error code: %d\n", WSAGetLastError());
+            ModelicaFormatMessage("MDDUDPSocket.h: shutdown failed with error code: %d\n", WSAGetLastError());
         }
         closesocket(udp->SocketID);
         if (udp->hThread) {
@@ -218,7 +218,7 @@ DllExport void MDD_udpSend(void * p_udp, const char * ipAddress, int port,
             ModelicaFormatError("MDDUDPSocket.h: sendto failed with error code: %d\n", WSAGetLastError());
         }
         else if (rc < dataSize) {
-            ModelicaFormatWarning("MDDUDPSocket.h: Expected to send: %d bytes, but was: %d\n",
+            ModelicaFormatMessage("MDDUDPSocket.h: Expected to send: %d bytes, but was: %d\n",
                                   dataSize, rc);
         }
     }
@@ -334,7 +334,7 @@ void* MDD_udpReceivingThread(void * p_udp) {
                 break;
             case 1: /* new data available */
                 if (sock_poll.revents & POLLHUP) {
-                    ModelicaWarning("MDDUDPSocket.h: The UDP socket was disconnected.\n");
+                    ModelicaMessage("MDDUDPSocket.h: The UDP socket was disconnected.\n");
                 }
                 else {
                     /* Lock access to udp->msgInternal  */
@@ -597,7 +597,7 @@ void MDD_udpSend(void * p_udp, const char * ipAddress, int port,
         ModelicaFormatError("MDDUDPSocket.h: sendto failed with error: %s\n", strerror(errno));
     }
     else if (ret < dataSize) {
-        ModelicaFormatWarning("MDDUDPSocket.h: Expected to send: %d bytes, but was: %d\n",
+        ModelicaFormatMessage("MDDUDPSocket.h: Expected to send: %d bytes, but was: %d\n",
                               dataSize, ret);
     }
 }
