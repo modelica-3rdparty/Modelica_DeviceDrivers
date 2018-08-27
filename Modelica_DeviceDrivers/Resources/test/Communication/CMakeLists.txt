@@ -23,6 +23,9 @@ add_test(test_MDDUDPSocket
 	${EXECUTABLE_OUTPUT_PATH}/test_MDDUDPSocket)
 
 add_executable(test_MDDTCPIPSocketClient test_MDDTCPIPSocketClient.c ../Util/ModelicaUtilities.c)
+if (MSVC OR MINGW)
+  target_link_libraries(test_MDDTCPIPSocketClient Ws2_32)
+endif (MSVC OR MINGW)
 add_test(test_MDDTCPIPSocketClient
 ${EXECUTABLE_OUTPUT_PATH}/test_MDDTCPIPSocketClient)
 
