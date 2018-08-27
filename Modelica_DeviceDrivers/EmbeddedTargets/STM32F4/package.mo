@@ -32,7 +32,7 @@ sudo aptitude install arm-none-eabi-binutils
 sudo aptitude install openocd
 </pre>
 <p>
-<h5><font color=\"#008000\">Ubuntu 16.04.4 LTS (and presumely later)</font></h5>
+<h5><font color=\"#008000\">Ubuntu 16.04.4 LTS (and presumably later)</font></h5>
 Following packages are required (tested version 16.04.4 LTS):
 </p>
 <pre>
@@ -43,7 +43,7 @@ sudo apt-get install gdb-arm-none-eabi
 </p>
 <p>
 <h5><font color=\"#008000\">Ubuntu 14.04.5 LTS</font></h5>
-Using Ubuntu Linux 14.04.5 LTS with the default repository packages was not successfull.
+Using Ubuntu Linux 14.04.5 LTS with the default repository packages was not successful.
 Instead follow the installation guide lines in <a href=http://yottadocs.mbed.com/#linux-cross-compile>doc</a>.
 </p>
 <p>
@@ -59,7 +59,7 @@ export STM23F4CUBEROOT=/path/to/STM32Cube_FW_F4_V1.XX.X
 Go to the directory
 <a href=modelica://Modelica_DeviceDrivers/Resources/Scripts/OpenModelica/EmbeddedTargets/STM32F4/Examples/STM32F4_Discovery/Blink>Script and Makefile Directory</a>.
 Call &quot;make&quot;
-When successfull, all object code will be in the &quot;Debug&quot; directory and
+When successful, all object code will be in the &quot;Debug&quot; directory and
 &quot;.elf&quot; and &quot;.hex&quot; file will be created in the current directory.
 </p>
 <p>
