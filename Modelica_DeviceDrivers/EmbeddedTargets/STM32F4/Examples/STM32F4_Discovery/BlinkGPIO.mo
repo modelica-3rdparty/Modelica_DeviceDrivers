@@ -27,7 +27,7 @@ equation
     Line(points={{-51,20},{-6,20},{-6,20},{-6,20}},          color = {255, 0, 255}));
              /* synchronizeRealtime1.actualInterval is not legal in experiment annotation*/
   annotation (                                                                             Experiment(Interval = 0.01), Documentation(info = "<html>
-<h1>BlinkGPIO</h1>
+<h4>BlinkGPIO</h4>
 <p>BlinkGPIO is a very simple STM model, which reads the input on port A pin 0 (Blue User button on board). While the User button is pressed, all User LEDs (port D pin 12 - 15) are on, else off. Use this model to see if your Modelica tool can export code for STM32F4 MCUs.</p>
 <p>STM digital pins 12 - 15 on port D corresponds to digital pin D12 - D15 on the STM32F4-Discovery. If desired, you can connect an external LEDs to this PINs, with a suitable resistor in-between (perhaps 220&#8486;). Connect the other PIN on the LED to ground.</p>
 </html>"));
