@@ -652,7 +652,7 @@ package Packaging
             Bitmap(extent={{-56,-20},{8,19}}, fileName=
                   "Modelica://Modelica_DeviceDrivers/Resources/Images/Icons/Int2BitArrow.png")}),
         Documentation(info="<html>
-<p>Currently, the pack block only supports Intel-Endiannes (<b>little-endian!</b>).</p>
+<p>Currently, the pack block only supports Intel-Endianness (<b>little-endian!</b>).</p>
 </html>"));
     end PackUnsignedInteger;
 
@@ -695,7 +695,7 @@ package Packaging
               lineColor={255,127,0},
               textString="I")}),
         Documentation(info="<html>
-<p>Currently, the unpack block only supports Intel-Endiannes (<b>little-endian!</b>).</p>
+<p>Currently, the unpack block only supports Intel-Endianness (<b>little-endian!</b>).</p>
 </html>"));
     end UnpackUnsignedInteger;
 

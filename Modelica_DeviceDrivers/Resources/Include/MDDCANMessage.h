@@ -69,7 +69,7 @@ void MDD_CANMessagePrint(void* p_cANMessage, int showBitVector) {
 
 /** Unpack integer value from CAN data (using Intel endianness).
  *
- * @TODO: This function should be improved (performance and functionality, e.g. endiannes support)
+ * @TODO: This function should be improved (performance and functionality, e.g. endianness support)
  * @NOTE: We have little endian on x86
  *
  * @param[in] p_cANMessage pointer to the CANMessage
@@ -105,7 +105,7 @@ int MDD_CANMessageIntegerBitunpacking(void* p_cANMessage, int bitStartPosition, 
 
 /** Pack integer value into CAN data (using Intel endianness).
  *
- * @TODO: This function should be improved (performance and functionality, e.g. endiannes support)
+ * @TODO: This function should be improved (performance and functionality, e.g. endianness support)
  * @NOTE: We have little endian on x86
  *
  * @param[in] p_cANMessage pointer to the CANMessage
