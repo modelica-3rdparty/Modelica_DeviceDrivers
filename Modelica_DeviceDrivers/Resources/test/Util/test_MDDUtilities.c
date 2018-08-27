@@ -37,7 +37,7 @@
 #include <string.h>
 #include "../../Include/MDDUtilities.h"
 
-int test_MDD_utilitiesLoadRealParameter() {
+static int test_MDD_utilitiesLoadRealParameter(void) {
     int failed = 0;
     double result;
     const double expected = 13;
@@ -48,11 +48,32 @@ int test_MDD_utilitiesLoadRealParameter() {
     return failed;
 }
 
-int main() {
+static int test_MDD_generateUUID(void) {
     int failed = 0;
-    printf("Testing parseParameter() from MDDUtilities.h ...");
-    failed = test_MDD_utilitiesLoadRealParameter();
+    int i;
 
-    failed == 0 ? printf("\tOK.\n") : printf("\tFAILED\n");
+    for (i = 0; i < 10; i++) {
+        const char* uuid = MDD_generateUUID();
+        if (36 != strlen(uuid)) {
+            failed = 1;
+            break;
+        }
+    }
+
     return failed;
+}
+
+int main(void) {
+    int failed1 = 0;
+    int failed2 = 0;
+
+    printf("Testing parseParameter() from MDDUtilities.h ...");
+    failed1 = test_MDD_utilitiesLoadRealParameter();
+    printf(failed1 == 0 ? "\tOK.\n" : "\tFAILED\n");
+
+    printf("Testing generateUUID() from MDDUtilities.h ...");
+    failed2 = test_MDD_generateUUID();
+    printf(failed2 == 0 ? "\tOK.\n" : "\tFAILED\n");
+
+    return failed1 + failed2;
 }
