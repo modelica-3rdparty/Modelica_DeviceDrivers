@@ -496,7 +496,7 @@ DllExport const char* MDD_SerialPackagerGetString(void* p_package, int bufferSiz
 
 /** Unpack integer value from package relative to current BYTE position (using Intel endianness).
  *
- * @Note: This function could be improved (performance and functionality, e.g. signed values, endiannes support).
+ * @Note: This function could be improved (performance and functionality, e.g. signed values, endianness support).
  * We have little endian on x86
  *
  * @param[in,out] p_package pointer to the SerialPackager
@@ -563,7 +563,7 @@ DllExport int MDD_SerialPackagerIntegerBitunpack2(void* p_package, int bitOffset
 
 /** Pack integer value into package relative to current BYTE position (using Intel endianness).
  *
- * @Note: This function could be improved (performance and functionality, e.g., signed values, endiannes support).
+ * @Note: This function could be improved (performance and functionality, e.g., signed values, endianness support).
  * We have little endian on x86
  *
  * @param[in,out] p_package pointer to the SerialPackager

@@ -31,7 +31,7 @@ package InputDevices
               fileName="modelica://Modelica_DeviceDrivers/Resources/Images/Icons/joystick.png"), Text(extent={
                 {-150,140},{150,100}}, textString="%name")}),
                 preferredView="info",Documentation(info="<html> This block reads data from the joystick ID (0 = first joystick appearing in windows control panel).
-                                Multible blocks can be used in order to retrieve data from more than one joysticks.
+                                Multiple blocks can be used in order to retrieve data from more than one joysticks.
                                 Up to six axes and 32 buttons are supported. The input values ranges between -1 and 1 and can be scaled by the
                                 vector <b>gain</b>. Via the parameter <b>sampleTime</b> the input sampling rate is chosen.</html>"));
   end JoystickInput;
