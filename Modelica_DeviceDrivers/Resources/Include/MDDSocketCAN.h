@@ -123,7 +123,7 @@ void* MDD_socketCANConstructor(const char* ifname) {
     if (ioctl(mDDSocketCAN->skt, SIOCGIFINDEX, &(mDDSocketCAN->ifr)) == -1) {
         ModelicaFormatError("MDDSocketCAN.h: ioctl failure (%s)\n", strerror(errno));
     }
-    ModelicaFormatMessage("\tOK\n", ifname);
+    ModelicaMessage("\tOK\n");
 
     /* Select that CAN interface, and bind the socket to it. */
     ModelicaFormatMessage("SocketCAN (%s): Bind socket (descriptor %d) to interface %s ...",
@@ -135,7 +135,7 @@ void* MDD_socketCANConstructor(const char* ifname) {
         ModelicaFormatError("MDDSocketCAN.h: bind failure (%s)\n", strerror(errno));
     }
     else {
-        ModelicaFormatMessage("\tOK\n");
+        ModelicaMessage("\tOK\n");
     }
 
     /* Create map for storing frame identifiers as keys and pointers to the corresponding frame payload data
@@ -235,9 +235,11 @@ void MDD_socketCANWrite(void* p_mDDSocketCAN, int can_id, int can_dlc,
         if (bytes_sent == -1)
             ModelicaFormatError("MDDSocketCAN.h: write() of CAN ID %d to %s failed (%s)\n",
                                 can_id, mDDSocketCAN->ifr.ifr_name, strerror(errno));
-        else
-            ModelicaFormatError("MDDSocketCAN.h: write() CAN ID %d to %s only wrote %d of %d bytes\n",
-                                can_id, mDDSocketCAN->ifr.ifr_name, bytes_sent, sizeof(txframe));
+        else {
+            unsigned long size = (unsigned long)sizeof(txframe);
+            ModelicaFormatError("MDDSocketCAN.h: write() CAN ID %d to %s only wrote %lu of %lu bytes\n",
+                                can_id, mDDSocketCAN->ifr.ifr_name, (unsigned long)bytes_sent, size);
+        }
     }
 }
 
