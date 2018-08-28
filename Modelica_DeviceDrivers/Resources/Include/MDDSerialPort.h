@@ -112,7 +112,7 @@ DWORD WINAPI MDD_serialPortReceivingThread(LPVOID p_serial) {
                     rxIdx += rxCount;
                     if (rxIdx == serial->bufferSize) {
                         EnterCriticalSection(&serial->receiveLock);
-                        serial->receivedBytes = serial->bufferSize;
+                        serial->receivedBytes = (DWORD)serial->bufferSize;
                         memcpy(serial->receiveBuffer, receiveBufferTmp, serial->bufferSize);
                         LeaveCriticalSection(&serial->receiveLock);
                         rxIdx = 0;

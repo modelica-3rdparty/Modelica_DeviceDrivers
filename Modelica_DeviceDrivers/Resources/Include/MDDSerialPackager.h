@@ -259,7 +259,7 @@ DllExport void MDD_SerialPackagerAddInteger(void* p_package, int * u, size_t n, 
     else {
         memcpy(pkg->data + pkg->pos, u, n*sizeof(int));
     }
-    pkg->pos += n*sizeof(int);
+    pkg->pos += (unsigned int) n*sizeof(int);
 }
 
 /** Get integer array at current byte position.
@@ -323,7 +323,7 @@ DllExport void MDD_SerialPackagerAddDouble(void* p_package, double * u, size_t n
     else {
         memcpy(pkg->data + pkg->pos, u, n*sizeof(double));
     }
-    pkg->pos += n*sizeof(double);
+    pkg->pos += (unsigned int) n*sizeof(double);
 }
 
 /** Get double array at current byte position.
@@ -389,7 +389,7 @@ DllExport void MDD_SerialPackagerAddDoubleAsFloat(void* p_package, double * u, s
             memcpy(pkg->data + pkg->pos + i*sizeof(float), &u_i, sizeof(float));
         }
     }
-    pkg->pos += n*sizeof(float);
+    pkg->pos += (unsigned int) n*sizeof(float);
 }
 
 /** Get double array which consists of the values of the float array at current byte position casted to type double.
