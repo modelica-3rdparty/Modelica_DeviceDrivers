@@ -446,8 +446,8 @@ DllExport void MDD_SerialPackagerAddString(void* p_package, const char* u, int b
         MDD_SerialPackagerAlignToByteBoundary(pkg);
     }
     if (pkg->pos + bufferSize > pkg->size) {
-        ModelicaFormatMessage("pkg->size: %d, pkg->pos+bufferSize: %d, bufferSize: %d, strlen(u): %d\n",
-                              pkg->size, pkg->pos+bufferSize, bufferSize, strlen(u));
+        ModelicaFormatMessage("pkg->size: %d, pkg->pos+bufferSize: %d, bufferSize: %d, strlen(u): %lu\n",
+                              pkg->size, pkg->pos+bufferSize, bufferSize, (unsigned long)strlen(u));
         ModelicaError("MDDSerialPackager.h: MDD_SerialPackagerAddString failed. Buffer overflow.\n");
     }
     memcpy(pkg->data + pkg->pos, u, bufferSize);
