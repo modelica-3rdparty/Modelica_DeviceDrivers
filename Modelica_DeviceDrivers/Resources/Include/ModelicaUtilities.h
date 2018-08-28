@@ -81,6 +81,7 @@ extern "C" {
 #define MODELICA_NORETURNATTR
 #endif
 #elif defined(__clang__)
+/* Encapsulated for Clang since GCC fails to process __has_attribute */
 #if __has_attribute(noreturn)
 #define MODELICA_NORETURN
 #define MODELICA_NORETURNATTR __attribute__((noreturn))
@@ -107,10 +108,8 @@ extern "C" {
   format string.
 */
 
-#if defined(__GNUC__) && __GNUC__ >= 3
-#define MODELICA_FORMATATTR_PRINTF __attribute__((format(printf, 1, 2)))
-#define MODELICA_FORMATATTR_VPRINTF __attribute__((format(printf, 1, 0)))
-#elif defined(__clang__)
+#if defined(__clang__)
+/* Encapsulated for Clang since GCC fails to process __has_attribute */
 #if __has_attribute(format)
 #define MODELICA_FORMATATTR_PRINTF __attribute__((format(printf, 1, 2)))
 #define MODELICA_FORMATATTR_VPRINTF __attribute__((format(printf, 1, 0)))
@@ -118,6 +117,9 @@ extern "C" {
 #define MODELICA_FORMATATTR_PRINTF
 #define MODELICA_FORMATATTR_VPRINTF
 #endif
+#elif defined(__GNUC__) && __GNUC__ >= 3
+#define MODELICA_FORMATATTR_PRINTF __attribute__((format(printf, 1, 2)))
+#define MODELICA_FORMATATTR_VPRINTF __attribute__((format(printf, 1, 0)))
 #else
 #define MODELICA_FORMATATTR_PRINTF
 #define MODELICA_FORMATATTR_VPRINTF
