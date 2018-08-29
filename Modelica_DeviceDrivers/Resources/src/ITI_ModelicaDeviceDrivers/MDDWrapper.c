@@ -30,5 +30,7 @@
 #include "../../Include/MDDSharedMemory.h"
 #include "../../Include/MDDUDPSocket.h"
 #include "../../Include/MDDUtilities.h"
+#include "../../Include/MDDUtilitiesMAC.h"
+#include "../../Include/MDDUtilitiesUUID.h"
 #include "../../Include/MDDTCPIPSocket.h"
 #undef ITI_MDD

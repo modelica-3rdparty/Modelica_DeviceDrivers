@@ -97,13 +97,28 @@ end TestLoadRealParameter;
     extends Modelica.Icons.Function;
     output String uuid "UUID";
 
-  external"C" uuid = MDD_generateUUID()
-  annotation(Include = "#include \"MDDUtilities.h\"",
+  external"C" uuid = MDD_utilitiesGenerateUUID()
+  annotation(Include = "#include \"MDDUtilitiesUUID.h\"",
              Library = {"Rpcrt4", "uuid"},
              __iti_dll = "ITI_MDD.dll",
              __iti_dllNoExport = true);
   annotation(__ModelicaAssociation_Impure=true, Documentation(info="<html>
 <p>Generates a UUID.</p>
+</html>"));
+  end generateUUID;
+
+  function getMACAddress "Get a MAC address"
+    extends Modelica.Icons.Function;
+    input Integer i(min=1) = 1 "Index";
+    output String mac "MAC address";
+
+  external"C" mac = MDD_utilitiesGetMACAddress(i)
+  annotation(Include = "#include \"MDDUtilitiesMAC.h\"",
+             Library = {"IPHlpApi"},
+             __iti_dll = "ITI_MDD.dll",
+             __iti_dllNoExport = true);
+  annotation(__ModelicaAssociation_Impure=true, Documentation(info="<html>
+<p>Gets the <code>i</code>-th MAC address.</p>
 </html>"));
   end generateUUID;
 end Functions;

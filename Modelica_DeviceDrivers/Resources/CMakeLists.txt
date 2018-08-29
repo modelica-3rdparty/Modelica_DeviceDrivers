@@ -48,6 +48,8 @@ if (UNIX)
   add_subdirectory(src/DummyWs2_32Library)
   # Dummy Linux Rpcrt4 library for uniform treatment of GCC and MS Visual C within Modelica
   add_subdirectory(src/DummyRpcrt4Library)
+  # Dummy Linux IPHlpApi library for uniform treatment of GCC and MS Visual C within Modelica
+  add_subdirectory(src/DummyIPHlpApiLibrary)
   # Are we trying to force compilation for linux32 on a native linux64 platform?
   # (Dymola builds/built 32-bit simulation executables also on 64-bit Linux)
   # Note, that flags can be overwritten by calling CMake (from Resources/build) like this:
