@@ -120,5 +120,5 @@ end TestLoadRealParameter;
   annotation(__ModelicaAssociation_Impure=true, Documentation(info="<html>
 <p>Gets the <code>i</code>-th MAC address.</p>
 </html>"));
-  end generateUUID;
+  end getMACAddress;
 end Functions;
