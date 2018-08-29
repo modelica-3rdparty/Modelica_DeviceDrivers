@@ -249,7 +249,7 @@ DllExport const char * MDD_udpRead(void * p_udp) {
     return "";
 }
 
-DllExport void MDD_udpReadP(void * p_udp, void* p_package, int* nReceivedBytes, int* nRecvbufOverwrites) {
+DllExport void MDD_udpReadP2(void * p_udp, void* p_package, int* nReceivedBytes, int* nRecvbufOverwrites) {
     MDDUDPSocket * udp = (MDDUDPSocket *) p_udp;
     if (udp && udp->hThread) {
         int rc;
@@ -263,6 +263,12 @@ DllExport void MDD_udpReadP(void * p_udp, void* p_package, int* nReceivedBytes, 
            ModelicaError("MDDUDPSocket.h: MDD_SerialPackagerSetData failed. Buffer overflow.\n");
         }
     }
+}
+
+/* Deprecated function superseded by MDD_udpReadP2 */
+DllExport void MDD_udpReadP(void * p_udp, void* p_package) {
+  int dummy1, dummy2;
+  MDD_udpReadP2(p_udp, p_package, &dummy1, &dummy2);
 }
 
 DllExport int MDD_udpGetReceivedBytes(void * p_udp) {
@@ -398,7 +404,7 @@ const char * MDD_udpRead(void * p_udp) {
  * @param [out] nRecvbufOverwrites  Accumulated number of times new data was received without having been read out (retrieved) by Modelica
  * @param p_package Pointer to the SerialPackager
  */
-void MDD_udpReadP(void * p_udp, void* p_package, int* nReceivedBytes, int* nRecvbufOverwrites) {
+void MDD_udpReadP2(void * p_udp, void* p_package, int* nReceivedBytes, int* nRecvbufOverwrites) {
     MDDUDPSocket * udp = (MDDUDPSocket *) p_udp;
     int rc;
 
@@ -413,6 +419,13 @@ void MDD_udpReadP(void * p_udp, void* p_package, int* nReceivedBytes, int* nRecv
         ModelicaError("MDDUDPSocket.h: MDD_SerialPackagerSetData failed. Buffer overflow.\n");
     }
 }
+
+/** @deprecated function superseded by MDD_udpReadP2 */
+void MDD_udpReadP(void * p_udp, void* p_package) {
+  int dummy1, dummy2;
+  MDD_udpReadP2(p_udp, p_package, &dummy1, &dummy2);
+}
+
 
 /** Nonblocking read data from UDP socket.
  *
