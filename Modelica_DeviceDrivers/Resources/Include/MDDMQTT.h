@@ -216,7 +216,7 @@ DllExport void * MDD_mqttConstructor(const char* provider, const char* address,
                 mqtt = NULL;
                 if (NULL != errString) {
                     ModelicaFormatError("MDDMQTT.h: Could not connect to server \"%s\" "
-                        "with client ID \"%s\": \n", url, clientID, errString);
+                        "with client ID \"%s\": %s\n", url, clientID, errString);
                 }
                 else if ('\0' != msg[0]) {
                     ModelicaFormatError("MDDMQTT.h: Could not connect to server \"%s\" "
