@@ -6,4 +6,7 @@
  *
  *
 */
+
+#define ITI_MDD
 #include "../../Include/MDDMQTT.h"
+#undef ITI_MDD

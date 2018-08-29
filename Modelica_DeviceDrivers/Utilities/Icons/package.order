@@ -16,6 +16,7 @@ SocketCANBlockIcon
 SerialPortIcon
 TCPIPconnection
 LCMconnection
+MQTTconnection
 GenericICPackage
 GenericIC
 FunctionLayerIcon
