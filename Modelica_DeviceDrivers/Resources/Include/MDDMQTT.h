@@ -17,16 +17,19 @@
 #if defined(_MSC_VER) && _MSC_VER < 1900
 #define snprintf _snprintf
 #endif
+#if defined(_MSC_VER) || defined(__MINGW32__)
 #if !defined(WIN32_LEAN_AND_MEAN)
 #define WIN32_LEAN_AND_MEAN
 #endif
 #include <windows.h>
+#endif
 #include "../src/include/CompatibilityDefs.h"
 #include "../thirdParty/paho.mqtt.c/MQTTClient.h"
 #include "ModelicaUtilities.h"
 #include "MDDSerialPackager.h"
 
 #if defined(__linux__) || defined(__CYGWIN__)
+#include <errno.h>
 #include <pthread.h>
 #endif
 
