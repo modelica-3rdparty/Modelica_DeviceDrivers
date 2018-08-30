@@ -24,8 +24,8 @@ package MQTT_ "Accompanying functions for the MQTT object"
     input MQTT mqtt;
     input String channel "Transmit Channel";
     input SerialPackager pkg;
-	input Boolean retained "Retained flag";
-	input Integer deliveryTimeout "Delivery timeout";
+    input Boolean retained "Retained flag";
+    input Integer deliveryTimeout "Delivery timeout";
     input Integer dataSize "Size of data";
     external "C" MDD_mqttSendP(mqtt, channel, pkg, retained, deliveryTimeout, dataSize)
       annotation (

@@ -112,7 +112,7 @@ DllExport void * MDD_mqttConstructor(const char* provider, const char* address,
                                      const char* password, const char* trustStore,
                                      const char* keyStore, const char* privateKey,
                                      int keepAliveInterval, int cleanSession,
-                                     int reliable, int connectTimeout, int retryInterval,
+                                     int reliable, int connectTimeout,
                                      int MQTTVersion, int disconnectTimeout,
                                      int enableServerCertAuth, int verify, int sslVersion) {
     MQTT* mqtt = (MQTT*) calloc(1, sizeof(MQTT));
@@ -175,7 +175,6 @@ DllExport void * MDD_mqttConstructor(const char* provider, const char* address,
             conn_opts.cleansession = cleanSession;
             conn_opts.reliable = reliable;
             conn_opts.connectTimeout = connectTimeout;
-            conn_opts.retryInterval = retryInterval;
             conn_opts.MQTTVersion = MQTTVersion;
             conn_opts.ssl = p_ssl_opts;
             if ('\0' != userName[0]) {

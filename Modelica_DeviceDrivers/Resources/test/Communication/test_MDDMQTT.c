@@ -47,13 +47,13 @@ int main(void) {
 
     printf("Testing MDDMQTT %s\n", MDD_mqttGetVersionInfo(NULL));
 
-    mqtt1 = MDD_mqttConstructor("tcp://", "test.mosquitto.org", 1883, 0, 1, CHANNEL, M_LENGTH, CLIENTID1, "", "", "", "", "", 20, 1, 1, 30, 20, 0, 10, 1, 1, 0);
+    mqtt1 = MDD_mqttConstructor("tcp://", "test.mosquitto.org", 1883, 0, 1, CHANNEL, M_LENGTH, CLIENTID1, "", "", "", "", "", 20, 1, 1, 30, 0, 10, 1, 1, 0);
     if (NULL == mqtt1) {
         perror("mqtt1 == NULL\n");
         exit(1);
     }
 
-    mqtt2 = MDD_mqttConstructor("tcp://", "test.mosquitto.org", 1883, 1, 1, CHANNEL, M_LENGTH, CLIENTID2, "", "", "", "", "", 20, 1, 1, 30, 20, 0, 10, 1, 1, 0);
+    mqtt2 = MDD_mqttConstructor("tcp://", "test.mosquitto.org", 1883, 1, 1, CHANNEL, M_LENGTH, CLIENTID2, "", "", "", "", "", 20, 1, 1, 30, 0, 10, 1, 1, 0);
     if (NULL == mqtt2) {
         MDD_mqttDestructor(mqtt1);
         perror("mqtt2 == NULL\n");

@@ -539,8 +539,6 @@ sudo route add -net 224.0.0.0 netmask 240.0.0.0 dev lo
       annotation(Dialog(group="Server connection", tab="Advanced"));
     parameter Integer connectTimeout = 30 "Connection timeout (in seconds)"
       annotation(Dialog(group="Server connection", tab="Advanced"));
-    parameter Integer retryInterval = 20 "Maximum time (in seconds) after which unacknowledged requests are retried during a TCP session"
-      annotation(Dialog(group="Server connection", tab="Advanced"));
     parameter Integer disconnectTimeout = 10 "Disconnection timeout (in seconds)"
       annotation(Dialog(group="Server connection", tab="Advanced"));
     parameter Boolean cleanSession = true "=true, if session state at connect and disconnect is to be discarded"
@@ -579,7 +577,7 @@ sudo route add -net 224.0.0.0 netmask 240.0.0.0 dev lo
     parameter Boolean receiver = true "Set to be a receiver port";
     MQTT mqtt = MQTT(
       if provider == MQTTProvider.TCP then "tcp://" else if provider == MQTTProvider.SSL then "ssl://" else if provider == MQTTProvider.WS then "ws://" else "wss://",
-      address, port, receiver, channel_recv, if autoBufferSize then bufferSize else userBufferSize, QoS, clientID, userName, password, trustStore, keyStore, privateKey, keepAliveInterval, cleanSession, reliable, connectTimeout, retryInterval, if protocolVersion == MQTTVersion.V5 then 5 else if protocolVersion == MQTTVersion.V311 then 4 else if protocolVersion == MQTTVersion.V31 then 3 else 0, disconnectTimeout, certAuth, verify, if sslVersion == TLSVersion.V12 then 3 else if sslVersion == TLSVersion.V11 then 2 else if sslVersion == TLSVersion.V10 then 1 else 0) "MQTT external object";
+      address, port, receiver, channel_recv, if autoBufferSize then bufferSize else userBufferSize, QoS, clientID, userName, password, trustStore, keyStore, privateKey, keepAliveInterval, cleanSession, reliable, connectTimeout, if protocolVersion == MQTTVersion.V5 then 5 else if protocolVersion == MQTTVersion.V311 then 4 else if protocolVersion == MQTTVersion.V31 then 3 else 0, disconnectTimeout, certAuth, verify, if sslVersion == TLSVersion.V12 then 3 else if sslVersion == TLSVersion.V11 then 2 else if sslVersion == TLSVersion.V10 then 1 else 0) "MQTT external object";
   equation
     when initial() then
       bufferSize = if autoBufferSize then alignAtByteBoundary(pkgOut.autoPkgBitSize) else userBufferSize;
@@ -637,8 +635,6 @@ sudo route add -net 224.0.0.0 netmask 240.0.0.0 dev lo
       annotation(Dialog(group="Server connection", tab="Advanced"));
     parameter Integer connectTimeout = 30 "Connection timeout (in seconds)"
       annotation(Dialog(group="Server connection", tab="Advanced"));
-    parameter Integer retryInterval = 20 "Maximum time (in seconds) after which unacknowledged requests are retried during a TCP session"
-      annotation(Dialog(group="Server connection", tab="Advanced"));
     parameter Integer disconnectTimeout = 10 "Disconnection timeout (in seconds)"
       annotation(Dialog(group="Server connection", tab="Advanced"));
     parameter Boolean cleanSession = true "=true, if session state at connect and disconnect is to be discarded"
@@ -677,7 +673,7 @@ sudo route add -net 224.0.0.0 netmask 240.0.0.0 dev lo
     parameter Boolean receiver = false "Set to be a sender port";
     MQTT mqtt = MQTT(
       if provider == MQTTProvider.TCP then "tcp://" else if provider == MQTTProvider.SSL then "ssl://" else if provider == MQTTProvider.WS then "ws://" else "wss://",
-      address, port, receiver, channel_send, 0, QoS, clientID, userName, password, trustStore, keyStore, privateKey, keepAliveInterval, cleanSession, reliable, connectTimeout, retryInterval, if protocolVersion == MQTTVersion.V5 then 5 else if protocolVersion == MQTTVersion.V311 then 4 else if protocolVersion == MQTTVersion.V31 then 3 else 0, disconnectTimeout, certAuth, verify, if sslVersion == TLSVersion.V12 then 3 else if sslVersion == TLSVersion.V11 then 2 else if sslVersion == TLSVersion.V10 then 1 else 0) "MQTT external object";
+      address, port, receiver, channel_send, 0, QoS, clientID, userName, password, trustStore, keyStore, privateKey, keepAliveInterval, cleanSession, reliable, connectTimeout, if protocolVersion == MQTTVersion.V5 then 5 else if protocolVersion == MQTTVersion.V311 then 4 else if protocolVersion == MQTTVersion.V31 then 3 else 0, disconnectTimeout, certAuth, verify, if sslVersion == TLSVersion.V12 then 3 else if sslVersion == TLSVersion.V11 then 2 else if sslVersion == TLSVersion.V10 then 1 else 0) "MQTT external object";
   equation
     when initial() then
       pkgIn.userPkgBitSize = if autoBufferSize then -1 else userBufferSize*8;
