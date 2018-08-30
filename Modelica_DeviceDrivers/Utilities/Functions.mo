@@ -12,9 +12,9 @@ package Functions
              __iti_dll = "ITI_MDD.dll",
              __iti_dllNoExport = true);
   annotation(Documentation(info="<html>
-<h4><font color=\"#008000\">Load parameters from file during initialization</font></h4>
+<h4>Load parameters from file during initialization</h4>
 <p>The function expects a file format in the style <code>&quot;identifier=value&quot;</code>.</p>
-<h4><font color=\"#008000\">Example</font></h4>
+<h4>Example</h4>
 <p>Consider following example file and assume it's saved under location<br/>
 <code>&quot;modelica://Modelica_DeviceDrivers/Resources/test/Util/parameterInitValues.txt&quot;</code>:</p>
 <pre>

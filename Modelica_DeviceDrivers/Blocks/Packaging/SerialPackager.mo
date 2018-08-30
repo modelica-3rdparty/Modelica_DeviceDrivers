@@ -723,10 +723,10 @@ and one Integer value is added, serialized and finally sent using UDP.
       Documentation(info="<html>
 <p>The block allows to pack unsigned integer values on bit level. The number of bits used for encoding is set by parameter <code>width</code>, therefore the maximum value of the integer signal that can be encoded is <code>2^width - 1</code>. The parameter <code>bitOffset</code> allows to specify the bit at which the encoding starts <b>relative</b> to the preceding block. </p>
 <p>If an <code>AddBoolean</code>, <code>AddInteger</code>, <code>AddReal</code> or <code>AddString</code> block follows a <code>PackUnsignedInteger</code> block the bit position after the <code>PackUnsignedInteger</code> block is aligned to the next byte boundary.</p>
-<h4><font color=\"#008000\">Endianness</font></h4>
+<h4>Endianness</h4>
 <p>Currently, the pack block only supports Intel-Endianness (<b>little-endian!</b>).</p>
 <p>For information about endianness in computing see for example <a href=\"http://en.wikipedia.org/wiki/Endianness\">http://en.wikipedia.org/wiki/Endianness</a></p>
-<h4><font color=\"#008000\">Example</font></h4>
+<h4>Example</h4>
 <p>
 The block is used in example
 <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackagerBitPack_UDP\"><code>TestSerialPackagerBitPack_UDP</code></a>, depicted below.
@@ -786,10 +786,10 @@ Value of bit                   : (0  0  0  0  0  0  1  1)  (.  .   .  .  .  .  0
       Documentation(info="<html>
 <p>The block allows to unpack unsigned integer values on bit level. The number of bits used for decoding is set by parameter <code>width</code>. The parameter <code>bitOffset</code> allows to specify the bit at which the decoding starts <b>relative</b> to the preceding block. </p>
 <p>If an <code>GetBoolean</code>, <code>GetInteger</code>, <code>GetReal</code> or <code>GetString</code> block follows an <code>UnpackUnsignedInteger</code> block the bit position after the <code>UnpackUnsignedInteger</code> block is aligned to the next byte boundary.</p>
-<h4><font color=\"#008000\">Endianness</font></h4>
+<h4>Endianness</h4>
 <p>Currently, the pack block only supports Intel-Endianness (<b>little-endian!</b>).</p>
 <p>For information about endianness in computing see for example <a href=\"http://en.wikipedia.org/wiki/Endianness\">http://en.wikipedia.org/wiki/Endianness</a></p>
-<h4><font color=\"#008000\">Example</font></h4>
+<h4>Example</h4>
 <p>
 The block is used in example
 <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackagerBitPack_UDP\"><code>TestSerialPackagerBitPack_UDP</code></a>, depicted below.

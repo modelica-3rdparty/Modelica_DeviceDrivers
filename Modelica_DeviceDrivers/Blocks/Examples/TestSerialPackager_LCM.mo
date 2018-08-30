@@ -75,7 +75,7 @@ The <code>lcmSend</code> block sends to the local port 10002. The <code>lcmRecei
 <p>
 <b>Note:</b> There is no causality between the <code>lcmSend</code> block and the <code>lcmReceive</code> block. Therefore the execution order of the blocks is not determined. Additionally, the <code>lcmReceive</code> block starts an own receiving thread, so that the time the data was received is not equal to the time the external function within the <code>lcmReceive</code> block was called. This indeterminism may also show up in the plots.
 </p>
-<h4><font color=\"#008000\">Remark regarding Linux</font></h4>
+<h4>Remark regarding Linux</h4>
 <p>
 LCM requires a valid multicast route. If this is a Linux computer and it is
 simply not connected to a network, the following commands are usually
