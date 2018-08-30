@@ -245,8 +245,8 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
               textString="%name"),         Text(extent={{-150,82},{150,42}},
             textString="%Serial_Port"),            Text(extent={{-152,-48},{148,-88}},
             textString="%baud")}), Documentation(info="<html>
-<h4><font color=\"#008000\">Support for receiving datagrams over a serial port</font></h4>
-<h4><font color=\"#008000\">Example</font></h4>
+<h4>Support for receiving datagrams over a serial port</h4>
+<h4>Example</h4>
 <p>
 See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackager_SerialPort\"><code>TestSerialPackager_SerialPort</code></a>.
 </p>
@@ -306,8 +306,8 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
               textString="%name"),         Text(extent={{-150,82},{150,42}},
             textString="%Serial_Port"),            Text(extent={{-154,-44},{146,-84}},
             textString="%baud")}), Documentation(info="<html>
-<h4><font color=\"#008000\">Support for sending datagrams over a serial port</font></h4>
-<h4><font color=\"#008000\">Example</font></h4>
+<h4>Support for sending datagrams over a serial port</h4>
+<h4>Example</h4>
 <p>
 See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackager_SerialPort\"><code>TestSerialPackager_SerialPort</code></a>.
 </p>
@@ -425,7 +425,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
               textString="%name")}), Documentation(info="<html>
 <p>Supports receiving of Lightweight Communications and Marshalling (LCM) datagrams
 (<a href=\"https://lcm-proj.github.io/\">https://lcm-proj.github.io/</a>).</p>
-<h4><font color=\"#008000\">Remark regarding Linux</font></h4>
+<h4>Remark regarding Linux</h4>
 <p>
 LCM requires a valid multicast route. If this is a Linux computer and it is
 simply not connected to a network, the following commands are usually
@@ -492,7 +492,7 @@ sudo route add -net 224.0.0.0 netmask 240.0.0.0 dev lo
               textString="%name")}), Documentation(info="<html>
 <p>Supports sending of Lightweight Communications and Marshalling (LCM) datagrams.
 (<a href=\"https://lcm-proj.github.io/\">https://lcm-proj.github.io/</a>)</p>
-<h4><font color=\"#008000\">Remark regarding Linux</font></h4>
+<h4>Remark regarding Linux</h4>
 <p>
 LCM requires a valid multicast route. If this is a Linux computer and it is
 simply not connected to a network, the following commands are usually
@@ -540,9 +540,9 @@ sudo route add -net 224.0.0.0 netmask 240.0.0.0 dev lo
               extent={{-98,72},{94,46}},
               textString="%deviceName")}),
         Documentation(info="<html>
-<h4><font color=\"#008000\">Support for Softing CAN bus</font></h4>
+<h4>Support for Softing CAN bus</h4>
 <p><b>Please, read the package information for <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN\"><code>SoftingCAN</code></a> first!</b></p>
-<h4><font color=\"#008000\">Example</font></h4>
+<h4>Example</h4>
 <p>
 See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackager_SoftingCAN\"><code>TestSerialPackager_SoftingCAN</code></a>.
 </p>
@@ -590,9 +590,9 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
               extent={{-160,24},{160,-6}},
               textString="(%startTime, %sampleTime) s")}),
         Documentation(info="<html>
-<h4><font color=\"#008000\">Support for Softing CAN bus</font></h4>
+<h4>Support for Softing CAN bus</h4>
 <p><b>Please, read the package information for <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN\"><code>SoftingCAN</code></a> first!</b></p>
-<h4><font color=\"#008000\">Example</font></h4>
+<h4>Example</h4>
 <p>
 See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackager_SoftingCAN\"><code>TestSerialPackager_SoftingCAN</code></a>.
 </p>
@@ -649,9 +649,9 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
               extent={{-160,24},{160,-6}},
               textString="(%startTime, %sampleTime) s")}),
         Documentation(info="<html>
-<h4><font color=\"#008000\">Support for Softing CAN bus</font></h4>
+<h4>Support for Softing CAN bus</h4>
 <p><b>Please, read the package information for <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN\"><code>SoftingCAN</code></a> first!</b></p>
-<h4><font color=\"#008000\">Example</font></h4>
+<h4>Example</h4>
 <p>
 See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackager_SoftingCAN\"><code>TestSerialPackager_SoftingCAN</code></a>.
 </p>
@@ -707,9 +707,9 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
     end Internal;
     annotation (preferredView="info",
     Documentation(info="<html>
-<h4><font color=\"#008000\">Prototypical support for Softing CAN interfaces</font></h4>
+<h4>Prototypical support for Softing CAN interfaces</h4>
 Please note, that the support for CAN is considered <b>prototypical</b>. Even more than for the other elements in this library there might be severe bugs in it and you use it on <b>your own risk</b>. Additionally, the API of the blocks is more likely to change in the future. So please, refrain from using it for building your next nuclear power plant or fly-by-wire system ...
-<font color=\"#008000\">System Requirements</font>
+<h4>System Requirements</h4>
 <p>
 The needed files are freely available from Softing, however the
 corresponding license sets limits on the distributability of the
@@ -768,9 +768,9 @@ not necessary mean that your Modelica tool compiles 64bit binaries, i.e., if in 
               extent={{-98,70},{98,42}},
               textString="%ifrName")}),
         Documentation(info="<html>
-<h4><font color=\"#008000\">Support for Linux Socket CAN bus</font></h4>
+<h4>Support for Linux Socket CAN bus</h4>
 <p><b>Please, read the package information for <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SocketCAN\"><code>SocketCAN</code></a> first!</b></p>
-<h4><font color=\"#008000\">Example</font></h4>
+<h4>Example</h4>
 <p>
 See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackager_SocketCAN\"><code>TestSerialPackager_SocketCAN</code></a>.
 </p>
@@ -820,9 +820,9 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
               textString="(%startTime, %sampleTime) s",
               horizontalAlignment=TextAlignment.Left)}),
         Documentation(info="<html>
-<h4><font color=\"#008000\">Support for Linux Socket CAN interface</font></h4>
+<h4>Support for Linux Socket CAN interface</h4>
 <p><b>Please, read the package information for <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SocketCAN\"><code>SocketCAN</code></a> first!</b></p>
-<h4><font color=\"#008000\">Example</font></h4>
+<h4>Example</h4>
 <p>
 See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackager_SocketCAN\"><code>TestSerialPackager_SocketCAN</code></a>.
 </p>
@@ -878,9 +878,9 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
               textString="(%startTime, %sampleTime) s",
               horizontalAlignment=TextAlignment.Left)}),
         Documentation(info="<html>
-<h4><font color=\"#008000\">Support for Linux Socket CAN interface</font></h4>
+<h4>Support for Linux Socket CAN interface</h4>
 <p><b>Please, read the package information for <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SocketCAN\"><code>SocketCAN</code></a> first!</b></p>
-<h4><font color=\"#008000\">Example</font></h4>
+<h4>Example</h4>
 <p>
 See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackager_SocketCAN\"><code>TestSerialPackager_SocketCAN</code></a>.
 </p>
@@ -926,17 +926,17 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
       end writeDummy;
     end Internal;
     annotation (preferredView="info",Documentation(info="<html>
-<h4><font color=\"#008000\">Support for Linux Socket CAN interface</font></h4>
+<h4>Support for Linux Socket CAN interface</h4>
 <p>Modelica external function interface to use the CAN socket interface of the Linux kernel (<a href=\"https://www.kernel.org/doc/Documentation/networking/can.txt\">https://www.kernel.org/doc/Documentation/networking/can.txt</a>). </p>
 <p><b>So far only tested with the virtual CAN interface &quot;vcan&quot;</b>. However, in principle it should work similarly with an underlying &quot;real&quot; CAN-device which is supported by the Socket CAN interface.</p>
-<h4><font color=\"#008000\">Setup of a virtual CAN interface</font></h4>
+<h4>Setup of a virtual CAN interface</h4>
 <p>Even if a Linux computer doesn&apos;t have a CAN device, it is possible to setup a virtual CAN device that can be used similarly to a physical device. This section discusses the necessary steps to bring up a virtual CAN device (tested with Ubuntu 12.04) which can be used with the <a href=\"Modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackager_SocketCAN\">SocketCAN example model</a>. Note that this usually requires root rights. Also executing the Modelica example model might require root rights.</p>
 <ul>
 <li>Load the vcan kernel model:<br/><code>sudo modprobe vcan</code></li>
 <li>Create a virtual CAN device with default name (default name will be &quot;vcan0&quot;):<br/><code>sudo ip link add type vcan</code></li>
 <li>Bring the device up:<br/><code>sudo ifconfig vcan0 up</code></li>
 </ul>
-<h4><font color=\"#008000\">Setup of a physical CAN interface</font></h4>
+<h4>Setup of a physical CAN interface</h4>
 <p>Please have a look in the respective documentation to Socket CAN. A physical CAN interface will require more configuration settings than the virtual interface (e.g., bitrate setting).</p>
 </html>"));
   end SocketCAN;

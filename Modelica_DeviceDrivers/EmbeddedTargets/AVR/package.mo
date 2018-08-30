@@ -6,7 +6,7 @@ package AVR "Support for AVR microcontrollers"
 
 
   annotation(preferredView="info",Documentation(info="<html>
-<h4><font color=\"#008000\">Support for the Atmel17 AVR family of microcontrollers</font></h4>
+<h4>Support for the Atmel17 AVR family of microcontrollers</h4>
 <p>
 As of MDD v1.5.0, only ATmega16 and ATmega328P (=Arduino
 Uno) are supported. The code can easily be extended, but requires
@@ -14,7 +14,7 @@ checking the data sheets in order to write to the correct bits.
 </p>
 <p><b>So far only known to work with OpenModelica's ExperimentalEmbeddedC code generation</b>.
 However, in principle it should work similarly with other (low foot-print) code generators.</p>
-<h4><font color=\"#008000\">Translation using OpenModelica v1.12.0</font></h4>
+<h4>Translation using OpenModelica v1.12.0</h4>
 <p>
 OpenModelica v1.12.0 includes an experimental code generator for low footprint code.
 The code generator supports a subset of the Modelica language which will be extended in future versions.
@@ -33,7 +33,7 @@ sudo apt-get install avr-libc
 sudo apt-get install avrdude
 </pre>
 <p>
-<h5><font color=\"#008000\">Create a MOS script for the Blink example</font></h5>
+<h5>Create a MOS script for the Blink example</h5>
 For the translation it is convenient to use the OpenModelica scripting interface and
 collect the commands in a MOS file, e.g., named
 <code>runMDDAvr.mos</code>:
@@ -49,7 +49,7 @@ translateModel(Modelica_DeviceDrivers.EmbeddedTargets.AVR.Examples.Arduino.UNO.B
 getErrorString();
 </pre>
 <p>
-<h5><font color=\"#008000\">Translate and flash Blink example</font></h5>
+<h5>Translate and flash Blink example</h5>
 Put the <code>runMDDAvr.mos</code> file in a (build) directory and execute following commands on the command line:
 </p>
 <pre>
@@ -61,7 +61,7 @@ avr-objcopy -O ihex -R .eeprom Blink Blink.hex
 avrdude -F -V -c arduino -p ATMEGA328P -P /dev/ttyACM0 -b 115200 -U flash:w:Blink.hex
 </pre>
 <p>
-<h5><font color=\"#008000\">Convenience Makefile</font></h5>
+<h5>Convenience Makefile</h5>
 The steps can also be mechanized in a Makefile, e.g., the Blink example comes
 with a Makefile, so one can simply do:
 </p>

@@ -2,14 +2,14 @@ within Modelica_DeviceDrivers.EmbeddedTargets;
 package STM32F4 "Support for STM32F4 microcontrollers"
   extends Modelica_DeviceDrivers.Utilities.Icons.GenericICPackage;
   annotation(preferredView="info",Documentation(info="<html>
-<h4><font color=\"#008000\">Support for the STM32F4 family of STM boards</font></h4>
+<h4>Support for the STM32F4 family of STM boards</h4>
 <p>
 As of MDD v1.5.0, only the STM32F4-Discovery board is supported. The code can easily be extended, but requires
 checking the data sheets in order to write to the correct bits.
 </p>
 <p><b>So far only known to work with OpenModelica's ExperimentalEmbeddedC code generation</b>.
 However, in principle it should work similarly with other (low foot-print) code generators.</p>
-<h4><font color=\"#008000\">Translation using OpenModelica v1.12.0</font></h4>
+<h4>Translation using OpenModelica v1.12.0</h4>
 <p>
 OpenModelica v1.12.0 includes an experimental code generator for low foot-print code.
 The code generator supports a subset of the Modelica language which will be extended in future versions.
@@ -22,7 +22,7 @@ They can be found below the library's Resources subfolder
 These scripts and Makefiles have only be tested using Linux as the host system.
 </p>
 <p>
-<h5><font color=\"#008000\">Debian Linux (tested with jessy 64 bit)</font></h5>
+<h5>Debian Linux (tested with jessy 64 bit)</h5>
 Following packages are required:
 </p>
 <pre>
@@ -32,7 +32,7 @@ sudo aptitude install arm-none-eabi-binutils
 sudo aptitude install openocd
 </pre>
 <p>
-<h5><font color=\"#008000\">Ubuntu 16.04.4 LTS (and presumably later)</font></h5>
+<h5>Ubuntu 16.04.4 LTS (and presumably later)</h5>
 Following packages are required (tested version 16.04.4 LTS):
 </p>
 <pre>
@@ -42,12 +42,12 @@ sudo apt-get install gdb-arm-none-eabi
 (should automatically also install binutils-arm-none-eabi and gcc-arm-none-eabi).
 </p>
 <p>
-<h5><font color=\"#008000\">Ubuntu 14.04.5 LTS</font></h5>
+<h5>Ubuntu 14.04.5 LTS</h5>
 Using Ubuntu Linux 14.04.5 LTS with the default repository packages was not successful.
 Instead follow the installation guide lines in <a href=http://yottadocs.mbed.com/#linux-cross-compile>doc</a>.
 </p>
 <p>
-<h5><font color=\"#008000\">Create C-code, object debug code, binary and hex file for the Blink example</font></h5>
+<h5>Create C-code, object debug code, binary and hex file for the Blink example</h5>
 Download STM32F4CUBE from <a href=http://www.st.com/content/st_com/en/products/embedded-software/mcus-embedded-software/stm32-embedded-software/stm32cube-embedded-software/stm32cubef4.html>STM43F4CUBE</a>
 and unpack to folder of your choice.
 Set environment variable pointing to the STM32F4 HAL package:
@@ -63,11 +63,11 @@ When successful, all object code will be in the &quot;Debug&quot; directory and
 &quot;.elf&quot; and &quot;.hex&quot; file will be created in the current directory.
 </p>
 <p>
-<h4><font color=\"#008000\">Debugging, flashing and running the application</font></h4>
+<h4>Debugging, flashing and running the application</h4>
 There are several options how this can be done, e.g., using gdb or using openocd.
 </p>
 <p>
-<h5><font color=\"#008000\">Using gdb</font></h5>
+<h5>Using gdb</h5>
 First set up stlink:
 </p>
 <pre>
@@ -105,7 +105,7 @@ monitor reset
 continue
 </pre>
 <p>
-<h5><font color=\"#008000\">Using openocd</font></h5>
+<h5>Using openocd</h5>
 </p>
 <pre>
 openocd -f /usr/share/openocd/scripts/board/stm32f4discovery.cfg
