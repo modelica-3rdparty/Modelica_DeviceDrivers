@@ -375,6 +375,7 @@ DllExport const char* MDD_mqttGetVersionInfo(void * p_mqtt) {
             size_t len = strlen(name) + strlen(ver) + 1;
             char* buf = ModelicaAllocateString(len + 1);
             snprintf(buf, len, "%s %s", name, ver);
+            buf[len] = '\0';
             return (const char*) buf;
         }
     }
