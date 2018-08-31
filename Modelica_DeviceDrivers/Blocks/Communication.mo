@@ -514,6 +514,7 @@ sudo route add -net 224.0.0.0 netmask 240.0.0.0 dev lo
     import Modelica_DeviceDrivers.Communication.MQTT;
     import Modelica_DeviceDrivers.Utilities.Types.MQTTProvider;
     import Modelica_DeviceDrivers.Utilities.Types.MQTTVersion;
+    import Modelica_DeviceDrivers.Utilities.Types.MQTTTracing;
     import Modelica_DeviceDrivers.Utilities.Types.TLSVersion;
     parameter Boolean autoBufferSize = true
       "true, buffer size is deduced automatically, otherwise set it manually"
@@ -567,6 +568,8 @@ sudo route add -net 224.0.0.0 netmask 240.0.0.0 dev lo
       annotation(Dialog(group="Transport Layer Security", tab="Advanced", enable=provider==MQTTProvider.SSL or provider==MQTTProvider.WSS,
         loadSelector(filter="Certificate files (*.key;*.pem)",
         caption="Open file")));
+    parameter MQTTTracing traceLevel = MQTTTracing.DEFAULT "MQTT client tracing"
+      annotation(Dialog(group="Tracing", tab="Advanced"));
     Interfaces.PackageOut pkgOut(pkg = SerialPackager(if autoBufferSize then bufferSize else userBufferSize), dummy(start=0, fixed=true))
       annotation (Placement(transformation(
           extent={{-20,-20},{20,20}},
@@ -577,7 +580,10 @@ sudo route add -net 224.0.0.0 netmask 240.0.0.0 dev lo
     parameter Boolean receiver = true "Set to be a receiver port";
     MQTT mqtt = MQTT(
       if provider == MQTTProvider.TCP then "tcp://" else if provider == MQTTProvider.SSL then "ssl://" else if provider == MQTTProvider.WS then "ws://" else "wss://",
-      address, port, receiver, channel_recv, if autoBufferSize then bufferSize else userBufferSize, QoS, clientID, userName, password, trustStore, keyStore, privateKey, keepAliveInterval, cleanSession, reliable, connectTimeout, if protocolVersion == MQTTVersion.V5 then 5 else if protocolVersion == MQTTVersion.V311 then 4 else if protocolVersion == MQTTVersion.V31 then 3 else 0, disconnectTimeout, certAuth, verify, if sslVersion == TLSVersion.V12 then 3 else if sslVersion == TLSVersion.V11 then 2 else if sslVersion == TLSVersion.V10 then 1 else 0) "MQTT external object";
+      address, port, receiver, channel_recv, if autoBufferSize then bufferSize else userBufferSize, QoS, clientID, userName, password, trustStore, keyStore, privateKey, keepAliveInterval, cleanSession, reliable, connectTimeout,
+      if protocolVersion == MQTTVersion.V5 then 5 else if protocolVersion == MQTTVersion.V311 then 4 else if protocolVersion == MQTTVersion.V31 then 3 else 0, disconnectTimeout, certAuth, verify,
+      if sslVersion == TLSVersion.V12 then 3 else if sslVersion == TLSVersion.V11 then 2 else if sslVersion == TLSVersion.V10 then 1 else 0,
+      if traceLevel == MQTTTracing.FATAL then 7 else if traceLevel == MQTTTracing.SEVERE then 6 else if traceLevel == MQTTTracing.ERROR then 5 else if traceLevel == MQTTTracing.PROTOCOL then 4 else if traceLevel == MQTTTracing.MINIMUM then 3 else if traceLevel == MQTTTracing.MEDIUM then 2 else if traceLevel == MQTTTracing.MAXIMUM then 1 else 0) "MQTT external object";
   equation
     when initial() then
       bufferSize = if autoBufferSize then alignAtByteBoundary(pkgOut.autoPkgBitSize) else userBufferSize;
@@ -607,6 +613,7 @@ sudo route add -net 224.0.0.0 netmask 240.0.0.0 dev lo
     import Modelica_DeviceDrivers.Communication.MQTT;
     import Modelica_DeviceDrivers.Utilities.Types.MQTTProvider;
     import Modelica_DeviceDrivers.Utilities.Types.MQTTVersion;
+    import Modelica_DeviceDrivers.Utilities.Types.MQTTTracing;
     import Modelica_DeviceDrivers.Utilities.Types.TLSVersion;
     parameter Boolean autoBufferSize = true
       "true, buffer size is deduced automatically, otherwise set it manually."
@@ -663,6 +670,8 @@ sudo route add -net 224.0.0.0 netmask 240.0.0.0 dev lo
       annotation(Dialog(group="Transport Layer Security", tab="Advanced", enable=provider==MQTTProvider.SSL or provider==MQTTProvider.WSS,
         loadSelector(filter="Certificate files (*.key;*.pem)",
         caption="Open file")));
+    parameter MQTTTracing traceLevel = MQTTTracing.DEFAULT "MQTT client tracing"
+      annotation(Dialog(group="Tracing", tab="Advanced"));
     Interfaces.PackageIn pkgIn annotation (Placement(transformation(
           extent={{-20,-20},{20,20}},
           rotation=270,
@@ -673,7 +682,10 @@ sudo route add -net 224.0.0.0 netmask 240.0.0.0 dev lo
     parameter Boolean receiver = false "Set to be a sender port";
     MQTT mqtt = MQTT(
       if provider == MQTTProvider.TCP then "tcp://" else if provider == MQTTProvider.SSL then "ssl://" else if provider == MQTTProvider.WS then "ws://" else "wss://",
-      address, port, receiver, channel_send, 0, QoS, clientID, userName, password, trustStore, keyStore, privateKey, keepAliveInterval, cleanSession, reliable, connectTimeout, if protocolVersion == MQTTVersion.V5 then 5 else if protocolVersion == MQTTVersion.V311 then 4 else if protocolVersion == MQTTVersion.V31 then 3 else 0, disconnectTimeout, certAuth, verify, if sslVersion == TLSVersion.V12 then 3 else if sslVersion == TLSVersion.V11 then 2 else if sslVersion == TLSVersion.V10 then 1 else 0) "MQTT external object";
+      address, port, receiver, channel_send, 0, QoS, clientID, userName, password, trustStore, keyStore, privateKey, keepAliveInterval, cleanSession, reliable, connectTimeout,
+      if protocolVersion == MQTTVersion.V5 then 5 else if protocolVersion == MQTTVersion.V311 then 4 else if protocolVersion == MQTTVersion.V31 then 3 else 0, disconnectTimeout, certAuth, verify,
+      if sslVersion == TLSVersion.V12 then 3 else if sslVersion == TLSVersion.V11 then 2 else if sslVersion == TLSVersion.V10 then 1 else 0,
+      if traceLevel == MQTTTracing.FATAL then 7 else if traceLevel == MQTTTracing.SEVERE then 6 else if traceLevel == MQTTTracing.ERROR then 5 else if traceLevel == MQTTTracing.PROTOCOL then 4 else if traceLevel == MQTTTracing.MINIMUM then 3 else if traceLevel == MQTTTracing.MEDIUM then 2 else if traceLevel == MQTTTracing.MAXIMUM then 1 else 0) "MQTT external object";
   equation
     when initial() then
       pkgIn.userPkgBitSize = if autoBufferSize then -1 else userBufferSize*8;

@@ -43,6 +43,15 @@ package Types "Custom type definitions"
       V31 "MQTT v3.1",
       V311 "MQTT v3.1.1",
       V5 "MQTT v5.0") "MQTT version";
+  type MQTTTracing = enumeration(
+      DEFAULT "None",
+      MAXIMUM "Maximun",
+      MEDIUM "Medium",
+      MINIMUM "Minimum",
+      PROTOCOL "Protocol",
+      ERROR "Error",
+      SEVERE "Severe",
+      FATAL "Fatal") "MQTT client tracing";
   type TLSVersion = enumeration(
       DEFAULT "SSL v2 / SSL v3",
       V10 "TLS v1.0",

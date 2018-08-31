@@ -105,6 +105,10 @@ static void MDD_mqttDisconnectedHandler(void* p_mqtt, char* cause) {
 #endif
 }
 
+static void MDD_mqttTraceHandler(enum MQTTCLIENT_TRACE_LEVELS level, char* message) {
+    ModelicaFormatMessage("%s\n", message);
+}
+
 DllExport void * MDD_mqttConstructor(const char* provider, const char* address,
                                      int port, int receiver, int QoS,
                                      const char* receiveChannel, int bufferSize,
@@ -114,7 +118,8 @@ DllExport void * MDD_mqttConstructor(const char* provider, const char* address,
                                      int keepAliveInterval, int cleanSession,
                                      int reliable, int connectTimeout,
                                      int MQTTVersion, int disconnectTimeout,
-                                     int enableServerCertAuth, int verify, int sslVersion) {
+                                     int enableServerCertAuth, int verify, int sslVersion,
+                                     int traceLevel) {
     MQTT* mqtt = (MQTT*) calloc(1, sizeof(MQTT));
     if (NULL != mqtt) {
         int rc;
@@ -164,6 +169,15 @@ DllExport void * MDD_mqttConstructor(const char* provider, const char* address,
             ModelicaError("MDDMQTT.h: Could not allocate MQTT client object\n");
             return mqtt;
         }
+
+        if (0 != traceLevel) {
+            MQTTClient_setTraceLevel((enum MQTTCLIENT_TRACE_LEVELS) traceLevel);
+            MQTTClient_setTraceCallback(MDD_mqttTraceHandler);
+        }
+        else {
+            MQTTClient_setTraceCallback(NULL);
+        }
+
         mqtt->bufferSize = bufferSize;
         mqtt->receiveBuffer = receiveBuffer;
         mqtt->QoS = QoS;

@@ -27,8 +27,9 @@ class MQTT "A driver for Message Queue Telemetry Transport."
     input Boolean enableServerCertAuth = true "false - disable verification of the server certificate, true - enable verification of the server certificate";
     input Boolean verify = false "false - disable post-connect checks, true - enable post-connect checks, including that a certificate matches the given host name";
     input Integer sslVersion = 0 "SSL/TLS version: 0 - default, 1 - TLS 1.0, 2 - TLS 1.1, 3 - TLS 1.2";
+    input Integer traceLevel = 0 "Trace level: 0 - none, 1 - maximum, 2 - medium, 3 - minimum, 4 - protocol, 5 - error, 6 - severe, 7 - fatal";
     output MQTT mqtt;
-    external "C" mqtt = MDD_mqttConstructor(provider, address, port, receiver, QoS, channel, bufferSize, clientID, userName, password, trustStore, keyStore, privateKey, keepAliveInterval, cleanSession, reliable, connectTimeout, MQTTVersion, disconnectTimeout, enableServerCertAuth, verify, sslVersion)
+    external "C" mqtt = MDD_mqttConstructor(provider, address, port, receiver, QoS, channel, bufferSize, clientID, userName, password, trustStore, keyStore, privateKey, keepAliveInterval, cleanSession, reliable, connectTimeout, MQTTVersion, disconnectTimeout, enableServerCertAuth, verify, sslVersion, traceLevel)
       annotation (
         Include = "#include \"MDDMQTT.h\"",
         Library = {"paho-mqtt3cs", "pthread", "ssl", "crypto"},

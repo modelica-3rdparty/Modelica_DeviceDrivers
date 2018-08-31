@@ -21,9 +21,6 @@ compiler:
   - gcc-4.8
 
 env:
-  global:
-    - MQTT_C_CLIENT_TRACE=ON
-    - MQTT_C_CLIENT_TRACE_LEVEL=ERROR
   matrix:
     - CFLAGS="-O3 -DNDEBUG -fPIC -msse2 -m32"
     - CFLAGS="-O3 -DNDEBUG -fPIC"
