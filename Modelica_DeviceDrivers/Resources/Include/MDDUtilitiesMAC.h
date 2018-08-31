@@ -15,7 +15,9 @@
 
 #if defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__)
 
+#ifndef WINVER
 #define WINVER 0x0501
+#endif
 #include <winsock2.h>
 #include <IPHlpApi.h>
 
