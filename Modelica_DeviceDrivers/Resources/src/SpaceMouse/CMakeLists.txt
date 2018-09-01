@@ -15,7 +15,7 @@ if (UNIX)
   else (srcXdrvlib)
     message("xdrvlib.c not found. No support for 3Dconnexion Space Mouse!")
   endif (srcXdrvlib)
-else (MSVC)
+elseif (MSVC)
   if ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
 	  find_library( MSVC_HID_LIBRARY hid
 		PATHS   ${PROJECT_SOURCE_DIR}/thirdParty/hdisdi/amd64)
