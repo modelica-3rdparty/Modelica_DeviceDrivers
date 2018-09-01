@@ -516,6 +516,7 @@ sudo route add -net 224.0.0.0 netmask 240.0.0.0 dev lo
     import Modelica_DeviceDrivers.Utilities.Types.MQTTVersion;
     import Modelica_DeviceDrivers.Utilities.Types.MQTTTracing;
     import Modelica_DeviceDrivers.Utilities.Types.TLSVersion;
+    import Modelica_DeviceDrivers.Utilities.Functions.getMACAddress;
     parameter Boolean autoBufferSize = true
       "true, buffer size is deduced automatically, otherwise set it manually"
       annotation(Dialog(group="Incoming data"), choices(checkBox=true));
@@ -534,7 +535,7 @@ sudo route add -net 224.0.0.0 netmask 240.0.0.0 dev lo
       annotation(Dialog(group="Incoming data"));
     parameter Integer QoS(min=0, max=2) = 1 "Quality of service"
       annotation(Dialog(group="Incoming data"), choices(choice=0 "At most once", choice=1 "At least once", choice=2 "Exactly once"));
-    parameter String clientID = "sendMDD-" + getInstanceName() "Unique client identifier"
+    parameter String clientID = "recv-" + getMACAddress() "Unique client identifier"
       annotation(Dialog(group="Server connection", tab="Advanced"));
     parameter Integer keepAliveInterval = 60 "Maximum time (in seconds) that should pass without communication between the client and the server"
       annotation(Dialog(group="Server connection", tab="Advanced"));
@@ -615,6 +616,7 @@ sudo route add -net 224.0.0.0 netmask 240.0.0.0 dev lo
     import Modelica_DeviceDrivers.Utilities.Types.MQTTVersion;
     import Modelica_DeviceDrivers.Utilities.Types.MQTTTracing;
     import Modelica_DeviceDrivers.Utilities.Types.TLSVersion;
+    import Modelica_DeviceDrivers.Utilities.Functions.getMACAddress;
     parameter Boolean autoBufferSize = true
       "true, buffer size is deduced automatically, otherwise set it manually."
       annotation(Dialog(group="Outgoing data"), choices(checkBox=true));
@@ -636,7 +638,7 @@ sudo route add -net 224.0.0.0 netmask 240.0.0.0 dev lo
       annotation(Dialog(group="Outgoing data", enable=QoS>0));
     parameter Boolean retained = false "Retained flag"
       annotation(Dialog(group="Outgoing data"), choices(checkBox=true));
-    parameter String clientID = "recvMDD-" + getInstanceName() "Unique client identifier"
+    parameter String clientID = "send-" + getMACAddress() "Unique client identifier"
       annotation(Dialog(group="Server connection", tab="Advanced"));
     parameter Integer keepAliveInterval = 60 "Maximum time (in seconds) that should pass without communication between the client and the server"
       annotation(Dialog(group="Server connection", tab="Advanced"));
