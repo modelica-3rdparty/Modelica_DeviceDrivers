@@ -117,7 +117,7 @@ end TestLoadRealParameter;
              Library = {"IPHlpApi"},
              __iti_dll = "ITI_MDD.dll",
              __iti_dllNoExport = true);
-  annotation(__ModelicaAssociation_Impure=true, Documentation(info="<html>
+  annotation(Documentation(info="<html>
 <p>Gets the <code>i</code>-th MAC address.</p>
 </html>"));
   end getMACAddress;
