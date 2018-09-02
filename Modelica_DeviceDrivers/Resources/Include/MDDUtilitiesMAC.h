@@ -119,6 +119,7 @@ const char* MDD_utilitiesGetMACAddress(int idx) {
         char* ret = ModelicaAllocateStringWithErrorReturn(18);
         if (NULL != ret) {
             int i;
+            ret[0] = '\0';
             for (i = 0; i < 6; ++i) {
                 char buf[4];
                 if (i == 5) {
