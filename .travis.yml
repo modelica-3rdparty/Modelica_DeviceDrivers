@@ -9,11 +9,10 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - gcc-4.8-multilib
-      - linux-libc-dev:i386
 
 before_install:
   - sudo apt-get update -qq
-  - sudo apt-get install -qq libx11-dev:i386
+  - if [[ "$CFLAGS" = *"-m32"* ]]; then sudo apt-get install -qq linux-libc-dev:i386 libx11-dev:i386 uuid-dev:i386; fi
   - curl -sSL https://cmake.org/files/v2.8/cmake-2.8.12.2-Linux-i386.tar.gz | sudo tar -xzC /opt
   - sudo ifconfig lo multicast
   - sudo route add -net 224.0.0.0 netmask 240.0.0.0 dev lo
@@ -23,8 +22,8 @@ compiler:
 
 env:
   matrix:
-    - CMAKE_C_FLAGS="-O3 -DNDEBUG -fPIC -msse2 -m32"
-    - CMAKE_C_FLAGS="-O3 -DNDEBUG -fPIC"
+    - CFLAGS="-O3 -DNDEBUG -fPIC -msse2 -m32"
+    - CFLAGS="-O3 -DNDEBUG -fPIC"
 
 before_script:
   - cd Modelica_DeviceDrivers/Resources
