@@ -79,10 +79,10 @@ DllExport const char* MDD_utilitiesGetMACAddress(int idx) {
                     for (i = 0; i < (int) pAddress->PhysicalAddressLength; ++i) {
                         char buf[4];
                         if (i == pAddress->PhysicalAddressLength - 1) {
-                            sprintf(buf, "%.2X", (int) pAddress->PhysicalAddress[i]);
+                            sprintf(buf, "%.2X", (unsigned int) pAddress->PhysicalAddress[i]);
                         }
                         else {
-                            sprintf(buf, "%.2X-", (int) pAddress->PhysicalAddress[i]);
+                            sprintf(buf, "%.2X-", (unsigned int) pAddress->PhysicalAddress[i]);
                         }
                         strncat(ret, buf, 3);
                     }
@@ -123,10 +123,10 @@ const char* MDD_utilitiesGetMACAddress(int idx) {
             for (i = 0; i < 6; ++i) {
                 char buf[4];
                 if (i == 5) {
-                    snprintf(buf, 4, "%.2X", (int) s.ifr_addr.sa_data[i]);
+                    snprintf(buf, 4, "%.2X", (unsigned int) s.ifr_addr.sa_data[i]);
                 }
                 else {
-                    snprintf(buf, 4, "%.2X-", (int) s.ifr_addr.sa_data[i]);
+                    snprintf(buf, 4, "%.2X-", (unsigned int) s.ifr_addr.sa_data[i]);
                 }
                 strncat(ret, buf, 3);
             }
