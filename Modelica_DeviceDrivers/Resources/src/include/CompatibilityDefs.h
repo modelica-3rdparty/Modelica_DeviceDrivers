@@ -37,14 +37,14 @@
 #define COMPATIBILITYDEFS_H_
 
 /* Compile dll and so from same source */
-#if defined(_MSC_VER) && !defined(ITI_CE_EXEC_MODEL)
+#if defined(_MSC_VER) && defined(MDDSHAREDLIBRARY)
 # define DllImport \
 __declspec( dllimport )
 # define DllExport \
 __declspec( dllexport )
 #else
 # define DllImport
-# define DllExport
+# define DllExport static
 #endif /*_MSC_VER */
 # define EXTERN DllImport extern
 
