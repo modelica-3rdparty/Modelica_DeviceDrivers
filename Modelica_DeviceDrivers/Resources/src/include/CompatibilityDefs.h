@@ -37,11 +37,14 @@
 #define COMPATIBILITYDEFS_H_
 
 /* Compile dll and so from same source */
-#if defined(_MSC_VER) && defined(MDDSHAREDLIBRARY)
-# define DllImport \
-__declspec( dllimport )
-# define DllExport \
-__declspec( dllexport )
+#if defined(MDDSHAREDLIBRARY)
+# if defined(_MSC_VER)
+#  define DllImport __declspec( dllimport )
+#  define DllExport __declspec( dllexport )
+# else
+#  define DllImport
+#  define DllExport
+# endif
 #else
 # define DllImport
 # define DllExport static
