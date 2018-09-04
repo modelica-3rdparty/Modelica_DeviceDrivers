@@ -44,11 +44,11 @@
 # else
 #  define DllImport
 #  define DllExport
-# endif
+# endif /* _MSC_VER */
 #else
 # define DllImport
 # define DllExport static
-#endif /*_MSC_VER */
+#endif /* MDDSHAREDLIBRARY */
 # define EXTERN DllImport extern
 
 /* Some definitions necessary in order to use <windows.h> in Dymola,
