@@ -31,6 +31,7 @@
 #include <sys/ioctl.h>
 #include <net/if.h>
 #include <netdb.h>
+#include <errno.h>
 
 #endif
 
@@ -79,10 +80,10 @@ DllExport const char* MDD_utilitiesGetMACAddress(int idx) {
                     for (i = 0; i < (int) pAddress->PhysicalAddressLength; ++i) {
                         char buf[4];
                         if (i == pAddress->PhysicalAddressLength - 1) {
-                            sprintf(buf, "%.2X", (unsigned int) pAddress->PhysicalAddress[i]);
+                            sprintf(buf, "%.2X", (unsigned char) pAddress->PhysicalAddress[i]);
                         }
                         else {
-                            sprintf(buf, "%.2X-", (unsigned int) pAddress->PhysicalAddress[i]);
+                            sprintf(buf, "%.2X-", (unsigned char) pAddress->PhysicalAddress[i]);
                         }
                         strncat(ret, buf, 3);
                     }
@@ -111,35 +112,81 @@ DllExport const char* MDD_utilitiesGetMACAddress(int idx) {
 #elif defined(__linux__)
 
 const char* MDD_utilitiesGetMACAddress(int idx) {
-    struct ifreq s;
-    int fd = socket(PF_INET, SOCK_DGRAM, IPPROTO_IP);
+    struct ifconf c;
+    char cbuf[1024];
+    int sock, rc;
 
-    strcpy(s.ifr_name, "eth0");
-    if (0 == ioctl(fd, SIOCGIFHWADDR, &s)) {
-        char* ret = ModelicaAllocateStringWithErrorReturn(18);
-        if (NULL != ret) {
-            int i;
-            ret[0] = '\0';
-            for (i = 0; i < 6; ++i) {
-                char buf[4];
-                if (i == 5) {
-                    snprintf(buf, 4, "%.2X", (unsigned int) s.ifr_addr.sa_data[i]);
+    /* Create a SOCK_DGRAM socket. */
+    sock = socket(PF_INET, SOCK_DGRAM, IPPROTO_IP);
+    if (-1 == sock) {
+        ModelicaFormatError("MDDUtilitiesMAC.h: socket(..) failed (%s)\n", strerror(errno));
+        return "";
+    }
+
+    c.ifc_len = sizeof(cbuf);
+    c.ifc_buf = cbuf;
+    rc = ioctl(sock, SIOCGIFCONF, &c);
+    if (0 == rc) {
+        struct ifreq s;
+        struct ifreq* it = c.ifc_req;
+        const struct ifreq* const end = it + (c.ifc_len / sizeof(struct ifreq));
+        int i = 1;
+        int found_idx = 0;
+        for (it = c.ifc_req; it != end; ++it) {
+            strcpy(s.ifr_name, it->ifr_name);
+            rc = ioctl(sock, SIOCGIFFLAGS, &s);
+            if (0 == rc) {
+                if (!(s.ifr_flags & IFF_LOOPBACK)) { /* ignore loopback */
+                    rc = ioctl(sock, SIOCGIFHWADDR, &s);
+                    if (0 == rc) {
+                        if (i == idx) {
+                            found_idx = 1;
+                            break;
+                        }
+                        else {
+                            i++;
+                        }
+                    }
                 }
-                else {
-                    snprintf(buf, 4, "%.2X-", (unsigned int) s.ifr_addr.sa_data[i]);
-                }
-                strncat(ret, buf, 3);
             }
-            close(fd);
-            return (const char*)ret;
+            else {
+                close(sock);
+                ModelicaFormatError("MDDUtilitiesMAC.h: ioctl(..) failed (%s)\n", strerror(errno));
+                return "";
+            }
+        }
+        if (1 == found_idx) {
+            char* ret = ModelicaAllocateStringWithErrorReturn(180);
+            if (NULL != ret) {
+                ret[0] = '\0';
+                for (i = 0; i < 6; ++i) {
+                    char buf[4];
+                    if (i == 5) {
+                        snprintf(buf, 4, "%.2X", (unsigned char) s.ifr_addr.sa_data[i]);
+                    }
+                    else {
+                        snprintf(buf, 4, "%.2X-", (unsigned char) s.ifr_addr.sa_data[i]);
+                    }
+                    strncat(ret, buf, 3);
+                }
+                close(sock);
+                return (const char*)ret;
+            }
+            else {
+                close(sock);
+                ModelicaError("MDDUtilitiesMAC.h: ModelicaAllocateString failed\n");
+                return "";
+            }
         }
         else {
-            close(fd);
-            ModelicaError("MDDUtilitiesMAC.h: ModelicaAllocateString failed\n");
-            return "";
+            close(sock);
         }
     }
-    close(fd);
+    else {
+        close(sock);
+        ModelicaFormatError("MDDUtilitiesMAC.h: ioctl(..) failed (%s)\n", strerror(errno));
+        return "";
+    }
 
     return "";
 }
