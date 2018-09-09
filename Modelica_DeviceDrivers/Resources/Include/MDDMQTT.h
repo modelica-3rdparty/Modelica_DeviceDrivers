@@ -38,6 +38,7 @@
 typedef struct {
     MQTTClient* client;
     char* receiveBuffer;
+    char* receiveChannel;
     char sslErrorMsg[MDD_SSL_ERROR_MSG_LENGTH_MAX];
     int bufferSize;
     int nReceivedBytes;
@@ -111,7 +112,7 @@ static void MDD_mqttTraceHandler(enum MQTTCLIENT_TRACE_LEVELS level, char* messa
 
 DllExport void * MDD_mqttConstructor(const char* provider, const char* address,
                                      int port, int receiver, int QoS,
-                                     const char* receiveChannel, int bufferSize,
+                                     const char* channel, int bufferSize,
                                      const char* clientID, const char* userName,
                                      const char* password, const char* trustStore,
                                      const char* keyStore, const char* privateKey,
@@ -127,6 +128,7 @@ DllExport void * MDD_mqttConstructor(const char* provider, const char* address,
         MQTTClient_SSLOptions ssl_opts = MQTTClient_SSLOptions_initializer;
         MQTTClient_SSLOptions* p_ssl_opts;
         char* receiveBuffer = NULL;
+        char* receiveChannel = NULL;
 
         if (receiver) {
             receiveBuffer = (char*)calloc(bufferSize, 1);
@@ -136,6 +138,15 @@ DllExport void * MDD_mqttConstructor(const char* provider, const char* address,
                 ModelicaError("MDDMQTT.h: Could not allocate MQTT client receive buffer\n");
                 return mqtt;
             }
+            receiveChannel = (char*)malloc(strlen(channel) + 1);
+            if (NULL == receiveChannel) {
+                free(receiveBuffer);
+                free(mqtt);
+                mqtt = NULL;
+                ModelicaError("MDDMQTT.h: Could not allocate MQTT client receive channel name\n");
+                return mqtt;
+            }
+            strcpy(receiveChannel, channel);
         }
 
         snprintf(url, 200, "%s%s:%d", provider, address, port);
@@ -164,6 +175,7 @@ DllExport void * MDD_mqttConstructor(const char* provider, const char* address,
         mqtt->client = (MQTTClient*) malloc(sizeof(MQTTClient));
         if (NULL == mqtt->client) {
             free(receiveBuffer);
+            free(receiveChannel);
             free(mqtt);
             mqtt = NULL;
             ModelicaError("MDDMQTT.h: Could not allocate MQTT client object\n");
@@ -180,6 +192,7 @@ DllExport void * MDD_mqttConstructor(const char* provider, const char* address,
 
         mqtt->bufferSize = bufferSize;
         mqtt->receiveBuffer = receiveBuffer;
+        mqtt->receiveChannel = receiveChannel;
         mqtt->QoS = QoS;
         mqtt->disconnectTimeout = disconnectTimeout;
         rc = MQTTClient_create(mqtt->client, url, clientID, MQTTCLIENT_PERSISTENCE_NONE, NULL);
@@ -209,7 +222,8 @@ DllExport void * MDD_mqttConstructor(const char* provider, const char* address,
                 if (ret != 0) {
                     MQTTClient_disconnect(*mqtt->client, 1000*mqtt->disconnectTimeout);
                     MQTTClient_destroy(mqtt->client);
-                    free(mqtt->receiveBuffer);
+                    free(receiveBuffer);
+                    free(receiveChannel);
                     free(mqtt);
                     mqtt = NULL;
                     ModelicaFormatError("MDDMQTT.h: pthread_mutex_init() failed (%s)\n", strerror(errno));
@@ -225,6 +239,7 @@ DllExport void * MDD_mqttConstructor(const char* provider, const char* address,
                 strcpy(msg, mqtt->sslErrorMsg);
                 MQTTClient_destroy(mqtt->client);
                 free(receiveBuffer);
+                free(receiveChannel);
                 free(mqtt);
                 mqtt = NULL;
                 if (NULL != errString) {
@@ -244,6 +259,7 @@ DllExport void * MDD_mqttConstructor(const char* provider, const char* address,
         else {
             const char* errString = rc != MQTTCLIENT_FAILURE ? MQTTClient_strerror(rc) : NULL;
             free(receiveBuffer);
+            free(receiveChannel);
             free(mqtt);
             mqtt = NULL;
             if (NULL != errString) {
@@ -263,6 +279,14 @@ DllExport void MDD_mqttDestructor(void* p_mqtt) {
     MQTT* mqtt = (MQTT*) p_mqtt;
     if (NULL != mqtt) {
         if (NULL != mqtt->client) {
+            if (NULL != mqtt->receiveChannel) {
+                int rc = MQTTClient_unsubscribe(*mqtt->client, mqtt->receiveChannel);
+                if (MQTTCLIENT_SUCCESS != rc) {
+                    ModelicaFormatMessage("MDDMQTT.h: MQTTClient_unsubscribe() failed (%s)\n", strerror(errno));
+                }
+                free(mqtt->receiveBuffer);
+                free(mqtt->receiveChannel);
+            }
             MQTTClient_disconnect(*mqtt->client, 1000*mqtt->disconnectTimeout);
             MQTTClient_destroy(mqtt->client);
 #if defined(_MSC_VER) || defined(__MINGW32__)
@@ -272,7 +296,6 @@ DllExport void MDD_mqttDestructor(void* p_mqtt) {
                 ModelicaFormatMessage("MDDMQTT.h: pthread_mutex_destroy() failed (%s)\n", strerror(errno));
             }
 #endif
-            free(mqtt->receiveBuffer);
         }
         free(mqtt);
     }
