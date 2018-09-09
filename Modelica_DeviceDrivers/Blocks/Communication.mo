@@ -1080,7 +1080,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
       Modelica.Blocks.Interfaces.BooleanInput conditionalInternalTrigger if not enableExternalTrigger;
       Modelica.Blocks.Interfaces.BooleanInput actTrigger annotation (HideResult=true);
     equation
-      /* Condional connect equations to either use external trigger or internal trigger */
+      /* Conditional connect equations to either use external trigger or internal trigger */
       internalTrigger = sample(startTime,sampleTime);
       connect(internalTrigger, conditionalInternalTrigger);
       connect(conditionalInternalTrigger, actTrigger);
