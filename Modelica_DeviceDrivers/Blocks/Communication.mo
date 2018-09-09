@@ -552,7 +552,7 @@ sudo route add -net 224.0.0.0 netmask 240.0.0.0 dev lo
     parameter String password = "" "Password for authentication and authorisation"
       annotation(Dialog(group="Server connection", tab="Advanced", enable=protocolVersion<>MQTTVersion.V31));
     parameter Boolean certAuth = true "=true, if verification of the server certificate is enabled"
-      annotation(Dialog(group="Transport Layer Security", tab="Advanced", enable=provider==MQTTProvider.SSL or provider==MQTTProvider.WSS, groupImage="modelica://Modelica_DeviceDrivers/Resources/Images/OpenSSL_logo.png"), choices(checkBox=true));
+      annotation(Dialog(group="Transport Layer Security", tab="Advanced", enable=provider==MQTTProvider.SSL or provider==MQTTProvider.WSS), choices(checkBox=true));
     parameter Boolean verify = false "=true, if post-connect checks are enabled"
       annotation(Dialog(group="Transport Layer Security", tab="Advanced", enable=provider==MQTTProvider.SSL or provider==MQTTProvider.WSS), choices(checkBox=true));
     parameter TLSVersion sslVersion = TLSVersion.DEFAULT "SSL/TLS version"
@@ -655,7 +655,7 @@ sudo route add -net 224.0.0.0 netmask 240.0.0.0 dev lo
     parameter String password = "" "Password for authentication and authorisation"
       annotation(Dialog(group="Server connection", tab="Advanced", enable=protocolVersion<>MQTTVersion.V31));
     parameter Boolean certAuth = true "=true, if verification of the server certificate is enabled"
-      annotation(Dialog(group="Transport Layer Security", tab="Advanced", enable=provider==MQTTProvider.SSL or provider==MQTTProvider.WSS, groupImage="modelica://Modelica_DeviceDrivers/Resources/Images/OpenSSL_logo.png"), choices(checkBox=true));
+      annotation(Dialog(group="Transport Layer Security", tab="Advanced", enable=provider==MQTTProvider.SSL or provider==MQTTProvider.WSS), choices(checkBox=true));
     parameter Boolean verify = false "=true, if post-connect checks are enabled"
       annotation(Dialog(group="Transport Layer Security", tab="Advanced", enable=provider==MQTTProvider.SSL or provider==MQTTProvider.WSS), choices(checkBox=true));
     parameter TLSVersion sslVersion = TLSVersion.DEFAULT "SSL/TLS version"
