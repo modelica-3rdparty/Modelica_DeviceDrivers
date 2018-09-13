@@ -544,7 +544,7 @@ sudo route add -net 224.0.0.0 netmask 240.0.0.0 dev lo
     parameter Integer disconnectTimeout = 10 "Disconnection timeout (in seconds)"
       annotation(Dialog(group="Server connection", tab="Advanced"));
     parameter Boolean cleanSession = true "=true, if session state at connect and disconnect is to be discarded"
-      annotation(Dialog(group="Server connection", tab="Advanced"), choices(checkBox=true));
+      annotation(Dialog(group="Server connection", tab="Advanced", enable=protocolVersion<>MQTTVersion.V5), choices(checkBox=true));
     parameter Boolean reliable = true "=true, if a published message must be completed (acknowledgements received) before another message can be sent"
       annotation(Dialog(group="Server connection", tab="Advanced"), choices(checkBox=true));
     parameter String userName = "" "User name for authentication and authorisation"
@@ -581,7 +581,8 @@ sudo route add -net 224.0.0.0 netmask 240.0.0.0 dev lo
     parameter Boolean receiver = true "Set to be a receiver port";
     MQTT mqtt = MQTT(
       if provider == MQTTProvider.TCP then "tcp://" else if provider == MQTTProvider.SSL then "ssl://" else if provider == MQTTProvider.WS then "ws://" else "wss://",
-      address, port, receiver, channel_recv, if autoBufferSize then bufferSize else userBufferSize, QoS, clientID, userName, password, trustStore, keyStore, privateKey, keepAliveInterval, cleanSession, reliable, connectTimeout,
+      address, port, receiver, channel_recv, if autoBufferSize then bufferSize else userBufferSize, QoS, clientID, userName, password, trustStore, keyStore, privateKey, keepAliveInterval,
+      if protocolVersion<>MQTTVersion.V5 then cleanSession else false, reliable, connectTimeout,
       if protocolVersion == MQTTVersion.V5 then 5 else if protocolVersion == MQTTVersion.V311 then 4 else if protocolVersion == MQTTVersion.V31 then 3 else 0, disconnectTimeout, certAuth, verify,
       if sslVersion == TLSVersion.V12 then 3 else if sslVersion == TLSVersion.V11 then 2 else if sslVersion == TLSVersion.V10 then 1 else 0,
       if traceLevel == MQTTTracing.FATAL then 7 else if traceLevel == MQTTTracing.SEVERE then 6 else if traceLevel == MQTTTracing.ERROR then 5 else if traceLevel == MQTTTracing.PROTOCOL then 4 else if traceLevel == MQTTTracing.MINIMUM then 3 else if traceLevel == MQTTTracing.MEDIUM then 2 else if traceLevel == MQTTTracing.MAXIMUM then 1 else 0) "MQTT external object";
@@ -647,7 +648,7 @@ sudo route add -net 224.0.0.0 netmask 240.0.0.0 dev lo
     parameter Integer disconnectTimeout = 10 "Disconnection timeout (in seconds)"
       annotation(Dialog(group="Server connection", tab="Advanced"));
     parameter Boolean cleanSession = true "=true, if session state at connect and disconnect is to be discarded"
-      annotation(Dialog(group="Server connection", tab="Advanced"), choices(checkBox=true));
+      annotation(Dialog(group="Server connection", tab="Advanced", enable=protocolVersion<>MQTTVersion.V5), choices(checkBox=true));
     parameter Boolean reliable = true "=true, if a published message must be completed (acknowledgements received) before another message can be sent"
       annotation(Dialog(group="Server connection", tab="Advanced"), choices(checkBox=true));
     parameter String userName = "" "User name for authentication and authorisation"
@@ -684,7 +685,8 @@ sudo route add -net 224.0.0.0 netmask 240.0.0.0 dev lo
     parameter Boolean receiver = false "Set to be a sender port";
     MQTT mqtt = MQTT(
       if provider == MQTTProvider.TCP then "tcp://" else if provider == MQTTProvider.SSL then "ssl://" else if provider == MQTTProvider.WS then "ws://" else "wss://",
-      address, port, receiver, channel_send, 0, QoS, clientID, userName, password, trustStore, keyStore, privateKey, keepAliveInterval, cleanSession, reliable, connectTimeout,
+      address, port, receiver, channel_send, 0, QoS, clientID, userName, password, trustStore, keyStore, privateKey, keepAliveInterval,
+      if protocolVersion<>MQTTVersion.V5 then cleanSession else false, reliable, connectTimeout,
       if protocolVersion == MQTTVersion.V5 then 5 else if protocolVersion == MQTTVersion.V311 then 4 else if protocolVersion == MQTTVersion.V31 then 3 else 0, disconnectTimeout, certAuth, verify,
       if sslVersion == TLSVersion.V12 then 3 else if sslVersion == TLSVersion.V11 then 2 else if sslVersion == TLSVersion.V10 then 1 else 0,
       if traceLevel == MQTTTracing.FATAL then 7 else if traceLevel == MQTTTracing.SEVERE then 6 else if traceLevel == MQTTTracing.ERROR then 5 else if traceLevel == MQTTTracing.PROTOCOL then 4 else if traceLevel == MQTTTracing.MINIMUM then 3 else if traceLevel == MQTTTracing.MEDIUM then 2 else if traceLevel == MQTTTracing.MAXIMUM then 1 else 0) "MQTT external object";
