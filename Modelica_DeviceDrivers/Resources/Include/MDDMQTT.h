@@ -213,22 +213,21 @@ DllExport void * MDD_mqttConstructor(const char* provider, const char* address,
             if (receiver) {
                 MQTTClient_setCallbacks(*mqtt->client, mqtt, MDD_mqttDisconnectedHandler, MDD_mqttMsgArrivedHandler, NULL);
             }
+#if defined(_MSC_VER) || defined(__MINGW32__)
+            InitializeCriticalSection(&mqtt->lock);
+#elif defined(__linux__) || defined(__CYGWIN__)
+            int ret = pthread_mutex_init(&mqtt->mutex, NULL);
+            if (ret != 0) {
+                MQTTClient_destroy(mqtt->client);
+                free(receiveBuffer);
+                free(receiveChannel);
+                free(mqtt);
+                mqtt = NULL;
+                ModelicaFormatError("MDDMQTT.h: pthread_mutex_init() failed (%s)\n", strerror(errno));
+            }
+#endif
             rc = MQTTClient_connect(*mqtt->client, &conn_opts);
             if (MQTTCLIENT_SUCCESS == rc) {
-#if defined(_MSC_VER) || defined(__MINGW32__)
-                InitializeCriticalSection(&mqtt->lock);
-#elif defined(__linux__) || defined(__CYGWIN__)
-                int ret = pthread_mutex_init(&mqtt->mutex, NULL);
-                if (ret != 0) {
-                    MQTTClient_disconnect(*mqtt->client, 1000*mqtt->disconnectTimeout);
-                    MQTTClient_destroy(mqtt->client);
-                    free(receiveBuffer);
-                    free(receiveChannel);
-                    free(mqtt);
-                    mqtt = NULL;
-                    ModelicaFormatError("MDDMQTT.h: pthread_mutex_init() failed (%s)\n", strerror(errno));
-                }
-#endif
                 if (receiver) {
                     rc = MQTTClient_subscribe(*mqtt->client, receiveChannel, QoS);
                 }
@@ -236,7 +235,22 @@ DllExport void * MDD_mqttConstructor(const char* provider, const char* address,
             else {
                 const char* errString = rc != MQTTCLIENT_FAILURE ? MQTTClient_strerror(rc) : NULL;
                 char msg[MDD_SSL_ERROR_MSG_LENGTH_MAX];
+#if defined(_MSC_VER) || defined(__MINGW32__)
+                EnterCriticalSection(&mqtt->lock);
+#elif defined(__linux__) || defined(__CYGWIN__)
+                pthread_mutex_lock(&mqtt->mutex);
+#endif
                 strcpy(msg, mqtt->sslErrorMsg);
+#if defined(_MSC_VER) || defined(__MINGW32__)
+                LeaveCriticalSection(&mqtt->lock);
+#elif defined(__linux__) || defined(__CYGWIN__)
+                pthread_mutex_unlock(&mqtt->mutex);
+#endif
+#if defined(_MSC_VER) || defined(__MINGW32__)
+                DeleteCriticalSection(&mqtt->lock);
+#elif defined(__linux__) || defined(__CYGWIN__)
+                pthread_mutex_destroy(&mqtt->mutex);
+#endif
                 MQTTClient_destroy(mqtt->client);
                 free(receiveBuffer);
                 free(receiveChannel);
