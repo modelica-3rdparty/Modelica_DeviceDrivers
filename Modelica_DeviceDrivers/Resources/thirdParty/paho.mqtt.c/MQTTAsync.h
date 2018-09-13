@@ -182,7 +182,11 @@
  /**
   * Return code: don't use options for another version of MQTT
   */
- #define MQTTASYNC_BAD_MQTT_OPTIONS -15
+ #define MQTTASYNC_BAD_MQTT_OPTION -15
+ /**
+  * Return code: call not applicable to the client's version of MQTT
+  */
+ #define MQTTASYNC_WRONG_MQTT_VERSION -16
 
 
 /**
@@ -288,7 +292,7 @@ typedef struct
      * been retained by the MQTT server.
      *
      * <b>retained = false</b> <br>
-     * For publishers, this ndicates that this message should not be retained
+     * For publishers, this indicates that this message should not be retained
      * by the MQTT server. For subscribers, a false setting indicates this is
      * a normal message, received as a result of it being published to the
      * server.
@@ -693,7 +697,7 @@ DLLExport int MQTTAsync_setCallbacks(MQTTAsync handle, void* context, MQTTAsync_
  * ::MQTTASYNC_FAILURE if an error occurred.
  */
 
-DLLExport int MQTTAsync_setConnectionLostCallback(MQTTAsync handle, void* context, 
+DLLExport int MQTTAsync_setConnectionLostCallback(MQTTAsync handle, void* context,
 												  MQTTAsync_connectionLost* cl);
 
 /**
@@ -717,7 +721,7 @@ DLLExport int MQTTAsync_setConnectionLostCallback(MQTTAsync handle, void* contex
  * @return ::MQTTASYNC_SUCCESS if the callbacks were correctly set,
  * ::MQTTASYNC_FAILURE if an error occurred.
  */
-DLLExport int MQTTAsync_setMessageArrivedCallback(MQTTAsync handle, void* context, 
+DLLExport int MQTTAsync_setMessageArrivedCallback(MQTTAsync handle, void* context,
 												  MQTTAsync_messageArrived* ma);
 
 /**
@@ -739,7 +743,7 @@ DLLExport int MQTTAsync_setMessageArrivedCallback(MQTTAsync handle, void* contex
  * @return ::MQTTASYNC_SUCCESS if the callbacks were correctly set,
  * ::MQTTASYNC_FAILURE if an error occurred.
  */
-DLLExport int MQTTAsync_setDeliveryCompleteCallback(MQTTAsync handle, void* context, 
+DLLExport int MQTTAsync_setDeliveryCompleteCallback(MQTTAsync handle, void* context,
 													MQTTAsync_deliveryComplete* dc);
 
 /**
@@ -816,15 +820,23 @@ typedef struct
 {
 	/** The eyecatcher for this structure.  must be MQCO. */
 	char struct_id[4];
-	/** The version number of this structure.  Must be 0 */
+	/** The version number of this structure.  Must be 0 or 1
+	 * 0 means no MQTTVersion
+	 */
 	int struct_version;
 	/** Whether to allow messages to be sent when the client library is not connected. */
 	int sendWhileDisconnected;
 	/** the maximum number of messages allowed to be buffered while not connected. */
 	int maxBufferedMessages;
+	/** Whether the MQTT version is 3.1, 3.1.1, or 5.  To use V5, this must be set.
+	 *  MQTT V5 has to be chosen here, because during the create call the message persistence
+	 *  is initialized, and we want to know whether the format of any persisted messages
+	 *  is appropriate for the MQTT version we are going to connect with.  Selecting 3.1 or
+	 *  3.1.1 and attempting to read 5.0 persisted messages will result in an error on create.  */
+	int MQTTVersion;
 } MQTTAsync_createOptions;
 
-#define MQTTAsync_createOptions_initializer { {'M', 'Q', 'C', 'O'}, 0, 0, 100 }
+#define MQTTAsync_createOptions_initializer { {'M', 'Q', 'C', 'O'}, 0, 0, 100, MQTTVERSION_DEFAULT }
 
 
 DLLExport int MQTTAsync_createWithOptions(MQTTAsync* handle, const char* serverURI, const char* clientId,
@@ -1038,7 +1050,11 @@ typedef struct
       */
 	int connectTimeout;
 	/**
-	 * The time interval in seconds
+	 * The time interval in seconds after which unacknowledged publish requests are
+	 * retried during a TCP session.  With MQTT 3.1.1 and later, retries are
+	 * not required except on reconnect.  0 turns off in-session retries, and is the
+	 * recommended setting.  Adding retries to an already overloaded network only
+	 * exacerbates the problem.
 	 */
 	int retryInterval;
 	/**

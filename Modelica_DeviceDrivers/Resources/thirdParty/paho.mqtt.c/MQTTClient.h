@@ -191,6 +191,10 @@
   * Return code: option not applicable to the requested version of MQTT
   */
  #define MQTTCLIENT_BAD_MQTT_OPTION -15
+ /**
+  * Return code: call not applicable to the requested version of MQTT
+  */
+ #define MQTTCLIENT_WRONG_MQTT_VERSION -16
 
 
 /**
@@ -297,7 +301,7 @@ typedef struct
      * been retained by the MQTT server.
      *
      * <b>retained = false</b> <br>
-     * For publishers, this ndicates that this message should not be retained
+     * For publishers, this indicates that this message should not be retained
      * by the MQTT server. For subscribers, a false setting indicates this is
      * a normal message, received as a result of it being published to the
      * server.
@@ -526,7 +530,11 @@ typedef struct
 	char struct_id[4];
 	/** The version number of this structure.  Must be 0 */
 	int struct_version;
-	/** Whether the MQTT version is 3 and 4, or 5.  To use 5, this must be set. */
+	/** Whether the MQTT version is 3.1, 3.1.1, or 5.  To use V5, this must be set.
+	 *  MQTT V5 has to be chosen here, because during the create call the message persistence
+	 *  is initialized, and we want to know whether the format of any persisted messages
+	 *  is appropriate for the MQTT version we are going to connect with.  Selecting 3.1 or
+	 *  3.1.1 and attempting to read 5.0 persisted messages will result in an error on create.  */
 	int MQTTVersion;
 } MQTTClient_createOptions;
 
@@ -802,7 +810,11 @@ typedef struct
    */
 	int connectTimeout;
 	/**
-	 * The time interval in seconds
+	 * The time interval in seconds after which unacknowledged publish requests are
+	 * retried during a TCP session.  With MQTT 3.1.1 and later, retries are
+	 * not required except on reconnect.  0 turns off in-session retries, and is the
+	 * recommended setting.  Adding retries to an already overloaded network only
+	 * exacerbates the problem.
 	 */
 	int retryInterval;
 	/**
