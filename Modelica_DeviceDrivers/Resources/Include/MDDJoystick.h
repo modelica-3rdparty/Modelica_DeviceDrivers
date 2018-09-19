@@ -3,7 +3,7 @@
  * @file
  * @author		tbellmann (Windows)
  * @author		bernhard-thiele (Linux)
- * @author    tbeu
+ * @author		tbeu
  * @since		2012-05-25
  * @copyright see Modelica_DeviceDrivers project's License.txt file
  *

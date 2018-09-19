@@ -53,4 +53,4 @@ Public Domain Dedication: http://creativecommons.org/publicdomain/zero/1.0/
 
 Bernhard Thiele (https://github.com/bernhard-thiele)
 Tobias Bellmann (https://github.com/tbellmann)
-tbeu (https://github.com/tbeu)
+Thomas Beutlich (https://github.com/beutlich)

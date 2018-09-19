@@ -258,8 +258,8 @@ on the Modelica_DeviceDrivers library.
     at <a href=\"https://github.com/bernhard-thiele\">GitHub</a><br></dd>
 <dd>Tobias Bellmann<br>
     at <a href=\"https://github.com/tbellmann\">GitHub</a><br></dd>
-<dd>tbeu<br>
-    at <a href=\"https://github.com/tbeu\">GitHub</a><br></dd>
+<dd>Thomas Beutlich<br>
+    at <a href=\"https://github.com/beutlich\">GitHub</a><br></dd>
 </dl>
 <p>
 The authors are open to include contributions.
