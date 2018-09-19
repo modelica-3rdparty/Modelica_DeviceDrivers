@@ -33,28 +33,22 @@ use the issue tracker provided by GitHub to report bugs or other issues
 (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues\">https://github.com/modelica/Modelica_DeviceDrivers/issues</a>).</p>
 <br>
 <table border=\"0\" cellpadding=\"2\" cellspacing=\"2\">
-<tr><td style=\"vertical-align: top;\">Copyright &copy; 2014-2018, Link&ouml;ping University (PELAB), ESI ITI GmbH, and DLR Institute of System Dynamics and Control</td>
+<tr><td style=\"vertical-align: top;\">Copyright &copy; 2012-2018, DLR, ESI ITI, and Link&ouml;ping University (PELAB)</td>
 </tr>
-<tr><td style=\"vertical-align: top;\">Copyright &copy; 2012-2013, DLR Institute of System Dynamics and Control</td></tr>
 </table>
 
 <p>
 <i>This Modelica package is <u>free</u> software and
 the use is completely at <u>your own risk</u>;
-it can be redistributed and/or modified under the terms of the
-Modelica license 2, see the license conditions (including the
-disclaimer of warranty)
-<a href=\"modelica://Modelica_DeviceDrivers.UsersGuide.ModelicaLicense2\">here</a>
-or at
-<a href=\"http://www.Modelica.org/licenses/ModelicaLicense2\">
-http://www.Modelica.org/licenses/ModelicaLicense2</a>.</i>
+it can be redistributed and/or modified under the terms of the BSD 3-Clause License.</i>
 </p>
-<p>Furthermore, this libray depends on (free) external C-code which is licensed under
-liberal <i>Simplified BSD License</i> terms stated in file
+<p>
+<p>This also holds for the external C-code as again stated in file
 <a href=\"modelica://Modelica_DeviceDrivers/Resources/License.txt\">Resources/License.txt</a>.
-Partly optional third party sources / libraries with differing licenses are collected below the sub folder
-<a href=\"modelica://Modelica_DeviceDrivers/Resources/thirdParty\">Resources/thirdParty</a> and
-listed in file <a href=\"modelica://Modelica_DeviceDrivers/Resources/thirdParty/Readme.txt\">Resources/thirdParty/Readme.txt</a>.
+The partly optional third party sources / libraries with differing licenses are collected below the sub folder
+<a href=\"modelica://Modelica_DeviceDrivers/Resources/thirdParty\">Resources/thirdParty</a> and are
+listed in the file <a href=\"modelica://Modelica_DeviceDrivers/Resources/thirdParty/Readme.txt\">Resources/thirdParty/Readme.txt</a>.
+</p>
 </html>"),
   Icon(graphics={
           Bitmap(extent={{-78,-88},{100,92}}, fileName=

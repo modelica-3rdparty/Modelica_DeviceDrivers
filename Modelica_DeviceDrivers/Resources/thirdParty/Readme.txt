@@ -1,5 +1,5 @@
-Third party sources / libraries and tools that are not licensed under the Modelica 2 license or under
-"Simplified BSD License" conditions. These sources / libraries are developed by other authors / organisations.
+Third party sources / libraries and tools that are not licensed under the BSD 3-Clause License
+conditions. These sources / libraries are developed by other authors / organisations.
 
 FOR LEGAL REASONS SOME MIGHT NOT BE INCLUDED WITHIN THIS MODELICA_DEVICEDRIVERS DISTRIBUTION.
 

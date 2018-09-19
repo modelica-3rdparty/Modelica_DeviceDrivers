@@ -3,7 +3,7 @@ Free library for interfacing hardware drivers to Modelica models.
 There is support for joysticks, keyboards, UDP, TCP/IP, LCM, shared memory, AD/DA converters, serial port and other devices.
 
 ## Library description
-The `Modelica_DeviceDrivers` (MDD) library is an open source Modelica package under [Modelica License 2](https://modelica.org/licenses/ModelicaLicense2) that interfaces hardware drivers to Modelica models. An overview of the library is provided in
+The `Modelica_DeviceDrivers` (MDD) library is an open source Modelica package that interfaces hardware drivers to Modelica models. An overview of the library is provided in
 
 > Bernhard Thiele, Thomas Beutlich, Volker Waurich, Martin Sjölund, and Tobias Bellmann, Towards a Standard-Conform, Platform-Generic and Feature-Rich Modelica Device Drivers Library. In Jiří Kofránek and Francesco Casella, editors, _12th Int. Modelica Conference_, Prague, Czech Republic, May 2017. [Download](https://www.modelica.org/events/modelica2017/proceedings/html/submissions/ecp17132713_ThieleBeutlichWaurichSjolundBellmann.pdf)
 
@@ -104,7 +104,7 @@ Bug fix releases usually won't have release notes, so please use the download li
 ## License
 
 This Modelica package is free software and the use is completely at your own risk;
-it can be redistributed and/or modified under the terms of the [Modelica License 2](https://modelica.org/licenses/ModelicaLicense2).
+it can be redistributed and/or modified under the terms of the [3-Clause BSD License](LICENSE).
 
 ## Development and contribution
 Main developers:
