@@ -8,5 +8,5 @@
 */
 
 #define ITI_MDD
+#define MDDSHAREDLIBRARY
 #include "../../Include/MDDMQTT.h"
-#undef ITI_MDD
