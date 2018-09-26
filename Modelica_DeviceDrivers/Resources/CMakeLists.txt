@@ -23,6 +23,10 @@ include_directories(src/include)
 include_directories(Include)
 
 if (MSVC OR MINGW)
+  # Dummy Windows crypto library for uniform treatment of GCC and MS Visual C within Modelica
+  add_subdirectory(src/DummyCryptoLibrary)
+  # Dummy Windows ssl library for uniform treatment of GCC and MS Visual C within Modelica
+  add_subdirectory(src/DummySSLLibrary)
   # Dummy Windows rt library for uniform treatment of GCC and MS Visual C within Modelica
   add_subdirectory(src/DummyRTLibrary)
   # Dummy Windows X11 library for uniform treatment of GCC and MS Visual C within Modelica

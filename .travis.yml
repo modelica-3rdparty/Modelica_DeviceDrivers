@@ -47,6 +47,7 @@ script:
   - ./test_MDDSharedMemory
   - ./test_MDDUDPSocket
   - ./test_MDDLCM
+  - ./test_MDDMQTT
   - cd ../..
 
 notifications:
