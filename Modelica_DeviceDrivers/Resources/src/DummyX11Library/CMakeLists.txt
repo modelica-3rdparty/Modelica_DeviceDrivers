@@ -1,4 +1,4 @@
-message(STATUS "WRITING BUILD FILES FOR DummyRTLibrary")
+message(STATUS "WRITING BUILD FILES FOR DummyX11Library")
 #message(STATUS "${CMAKE_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_BINARY_DIR} ${CMAKE_CURRENT_BINARY_DIR}")
 
 set(libSrcsMDDDummyX11Library MDDDummyX11Library.c)
@@ -13,9 +13,3 @@ elseif ( CMAKE_SIZEOF_VOID_P EQUAL 4 )
 else ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
   message(SEND_ERROR "Uups. Shouldn't be possible to get here")
 endif ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
-
-
-
-
-
-

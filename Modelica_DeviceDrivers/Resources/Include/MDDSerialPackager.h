@@ -259,7 +259,7 @@ DllExport void MDD_SerialPackagerAddInteger(void* p_package, int * u, size_t n, 
     else {
         memcpy(pkg->data + pkg->pos, u, n*sizeof(int));
     }
-    pkg->pos += n*sizeof(int);
+    pkg->pos += (unsigned int) n*sizeof(int);
 }
 
 /** Get integer array at current byte position.
@@ -323,7 +323,7 @@ DllExport void MDD_SerialPackagerAddDouble(void* p_package, double * u, size_t n
     else {
         memcpy(pkg->data + pkg->pos, u, n*sizeof(double));
     }
-    pkg->pos += n*sizeof(double);
+    pkg->pos += (unsigned int) n*sizeof(double);
 }
 
 /** Get double array at current byte position.
@@ -389,7 +389,7 @@ DllExport void MDD_SerialPackagerAddDoubleAsFloat(void* p_package, double * u, s
             memcpy(pkg->data + pkg->pos + i*sizeof(float), &u_i, sizeof(float));
         }
     }
-    pkg->pos += n*sizeof(float);
+    pkg->pos += (unsigned int) n*sizeof(float);
 }
 
 /** Get double array which consists of the values of the float array at current byte position casted to type double.
@@ -446,8 +446,8 @@ DllExport void MDD_SerialPackagerAddString(void* p_package, const char* u, int b
         MDD_SerialPackagerAlignToByteBoundary(pkg);
     }
     if (pkg->pos + bufferSize > pkg->size) {
-        ModelicaFormatMessage("pkg->size: %d, pkg->pos+bufferSize: %d, bufferSize: %d, strlen(u): %d\n",
-                              pkg->size, pkg->pos+bufferSize, bufferSize, strlen(u));
+        ModelicaFormatMessage("pkg->size: %d, pkg->pos+bufferSize: %d, bufferSize: %d, strlen(u): %lu\n",
+                              pkg->size, pkg->pos+bufferSize, bufferSize, (unsigned long)strlen(u));
         ModelicaError("MDDSerialPackager.h: MDD_SerialPackagerAddString failed. Buffer overflow.\n");
     }
     memcpy(pkg->data + pkg->pos, u, bufferSize);
@@ -459,8 +459,8 @@ DllExport void MDD_SerialPackagerAddString(void* p_package, const char* u, int b
  * If p_package->bitOffset != 0 the value is aligned to the next byte boundary,
  * i.e., p_package->bitOffset set to 0 and p_package->pos++.
  * @param[in,out] p_package pointer to the SerialPackager
- * @param[out] y pointer to '\0' terminated string or NULL if no terminated '\0' found in package data.
  * @param[in] bufferSize that was reserved for that string
+ * @return Extracted String value (null-terminated)
  */
 DllExport const char* MDD_SerialPackagerGetString(void* p_package, int bufferSize) {
     SerialPackager* pkg = (SerialPackager*) p_package;
@@ -481,7 +481,7 @@ DllExport const char* MDD_SerialPackagerGetString(void* p_package, int bufferSiz
     }
 
     if (!found) {
-        ModelicaError("MDDSerialPackager.h: MDD_SerialPackagerGetString failed. No terminating '\0' found in buffer\n");
+        ModelicaError("MDDSerialPackager.h: MDD_SerialPackagerGetString failed. No terminating '\\0' found in buffer\n");
     }
     else {
         char* y = ModelicaAllocateString(i - pkg->pos);
@@ -489,14 +489,14 @@ DllExport const char* MDD_SerialPackagerGetString(void* p_package, int bufferSiz
             memcpy(y, &(pkg->data[ pkg->pos ]), i - pkg->pos);
         }
         pkg->pos += bufferSize;
-        return y;
+        return (const char*) y;
     }
     return "";
 }
 
 /** Unpack integer value from package relative to current BYTE position (using Intel endianness).
  *
- * @Note: This function could be improved (performance and functionality, e.g. signed values, endiannes support).
+ * @Note: This function could be improved (performance and functionality, e.g. signed values, endianness support).
  * We have little endian on x86
  *
  * @param[in,out] p_package pointer to the SerialPackager
@@ -563,7 +563,7 @@ DllExport int MDD_SerialPackagerIntegerBitunpack2(void* p_package, int bitOffset
 
 /** Pack integer value into package relative to current BYTE position (using Intel endianness).
  *
- * @Note: This function could be improved (performance and functionality, e.g., signed values, endiannes support).
+ * @Note: This function could be improved (performance and functionality, e.g., signed values, endianness support).
  * We have little endian on x86
  *
  * @param[in,out] p_package pointer to the SerialPackager
@@ -626,12 +626,12 @@ DllExport void MDD_SerialPackagerIntegerBitpack2(void* p_package, int bitOffset,
 
 /** Pack IEEE float value into CAN data.
  *
- * @deprecated This is from the original CANMessage code. However functionality to Pack IEEE float between non-byte bounderies might not be needed in practice?
+ * @deprecated This is from the original CANMessage code. However functionality to Pack IEEE float between non-byte boundaries might not be needed in practice?
  *
  * @param[in] p_package pointer to the SerialPackager
  * @param[in] bitStartPosition data bit position where writing shall start
  * @param[in] int float value that shall be encoded into CAN message
- *            (passsed in as double in order to conform to Modelica's external function interface)
+ *            (passed in as double in order to conform to Modelica's external function interface)
  */
 void MDD_CANMessageFloatBitpacking(void* p_cANMessage, int bitStartPosition, double data) {
     CANMessage* pkg = (CANMessage*) p_cANMessage;
@@ -665,7 +665,7 @@ void MDD_CANMessageFloatBitpacking(void* p_cANMessage, int bitStartPosition, dou
 
 /** Unpack IEEE float value from CAN data.
  *
- * @deprecated This is from the original CANMessage code. However functionality to Pack IEEE float between non-byte bounderies might not be needed in practice?
+ * @deprecated This is from the original CANMessage code. However functionality to Pack IEEE float between non-byte boundaries might not be needed in practice?
  *
  * @param[in] p_cANMessage pointer to the CANMessage
  * @param[in] bitStartPosition data bit position where reading shall start (min=0)

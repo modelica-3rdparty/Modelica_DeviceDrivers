@@ -37,15 +37,18 @@
 #define COMPATIBILITYDEFS_H_
 
 /* Compile dll and so from same source */
-#if defined(_MSC_VER) && !defined(ITI_CE_EXEC_MODEL)
-# define DllImport \
-__declspec( dllimport )
-# define DllExport \
-__declspec( dllexport )
+#if defined(MDDSHAREDLIBRARY)
+# if defined(_MSC_VER)
+#  define DllImport __declspec( dllimport )
+#  define DllExport __declspec( dllexport )
+# else
+#  define DllImport
+#  define DllExport
+# endif /* _MSC_VER */
 #else
 # define DllImport
-# define DllExport
-#endif /*_MSC_VER */
+# define DllExport static
+#endif /* MDDSHAREDLIBRARY */
 # define EXTERN DllImport extern
 
 /* Some definitions necessary in order to use <windows.h> in Dymola,

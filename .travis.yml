@@ -1,0 +1,56 @@
+language: c
+
+git:
+  depth: 5
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - gcc-4.8-multilib
+
+before_install:
+  - sudo apt-get update -qq
+  - if [[ "$CFLAGS" = *"-m32"* ]]; then sudo apt-get install -qq linux-libc-dev:i386 libx11-dev:i386 uuid-dev:i386; fi
+  - curl -sSL https://cmake.org/files/v2.8/cmake-2.8.12.2-Linux-i386.tar.gz | sudo tar -xzC /opt
+  - sudo ifconfig lo multicast
+  - sudo route add -net 224.0.0.0 netmask 240.0.0.0 dev lo
+
+compiler:
+  - gcc-4.8
+
+env:
+  matrix:
+    - CFLAGS="-O3 -DNDEBUG -fPIC -msse2 -m32"
+    - CFLAGS="-O3 -DNDEBUG -fPIC"
+
+before_script:
+  - cd Modelica_DeviceDrivers/Resources
+
+script:
+  - /opt/cmake-2.8.12.2-Linux-i386/bin/cmake ./
+  - make
+  - cd test/Util
+  - ./test_MDDMapIntInt
+  - ./test_MDDMapIntpVoid
+  - ./test_MDDUtilities
+  - cd ../OperatingSystem
+  - ./test_MDD_getTimeMS
+  - sudo ./test_MDDRealtimeSynchronize_high
+  - ./test_MDDRealtimeSynchronize_idle
+  - ./test_MDDRealtimeSynchronize_low
+  - ./test_MDDRealtimeSynchronize_normal
+  - cd ../Communication
+  - ./test_EndiannessConversion
+  - ./test_MDDSerialPackager
+  - ./test_MDDSharedMemory
+  - ./test_MDDUDPSocket
+  - ./test_MDDLCM
+  - ./test_MDDMQTT
+  - cd ../..
+
+notifications:
+  email: false
+
+# sudo: false

@@ -16,6 +16,8 @@ SocketCANBlockIcon
 SerialPortIcon
 TCPIPconnection
 LCMconnection
+MQTTconnection
 GenericICPackage
 GenericIC
 FunctionLayerIcon
+STM32F4BlockIcon

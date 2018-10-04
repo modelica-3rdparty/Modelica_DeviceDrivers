@@ -122,9 +122,9 @@ annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
           textString="Please see documentation for system requirements
 for using the Softing CAN bus interface!")}),
                                experiment(StopTime=1.0), Documentation(info="<html>
-<h4><font color=\"#008000\">Support for Softing CAN bus</font></h4>
+<h4>Support for Softing CAN bus</h4>
 <p><b>Please, read the package information for <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN\"><code>SoftingCAN</code></a> first!</b></p>
-<h4><font color=\"#008000\">The example</font></h4>
+<h4>The example</h4>
 <p>
 The example is configured for the \"CANusb\" interface card from Softing (<a href=\"http://www.softing.com/\">www.softing.com</a>) (but, given that the <code>deviceName</code> parameter is set correctly, should work with all of their interface cards supporting their Softing CAN Layer 2 software API). Two messages are defined: <code>txMessage</code> for sending and <code>rxMessage</code> for receiving. The <code>SerialPackager</code> blocks are used to add/retrieve data to/from the messages.
 </p>

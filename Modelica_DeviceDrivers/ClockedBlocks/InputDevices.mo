@@ -33,7 +33,7 @@ package InputDevices
                                                                   Text(extent={
                 {-150,140},{150,100}}, textString="%name")}),
                 preferredView="info",Documentation(info="<html>
-<p>This block reads data from the joystick ID (0 = first joystick appearing in windows control panel). Multible blocks can be used in order to retrieve data from more than one joysticks. Up to six axes and 32 buttons are supported. The input values ranges between -1 and 1 and can be scaled by the vector <b>gain</b>.</p>
+<p>This block reads data from the joystick ID (0 = first joystick appearing in windows control panel). Multiple blocks can be used in order to retrieve data from more than one joysticks. Up to six axes and 32 buttons are supported. The input values ranges between -1 and 1 and can be scaled by the vector <b>gain</b>.</p>
 </html>"));
   end JoystickInput;
 
@@ -188,7 +188,7 @@ package InputDevices
                 "modelica://Modelica_DeviceDrivers/Resources/Images/Icons/Spacemouse.png")}),
               preferredView="info",Documentation(info="<html>
 <p>This block reads data from the 3Dconnexion SpaceMouse. It provides the six axis and up to sixteen button inputs. Note, that only the first SpaceMouse attached on the system can be read.The input values ranges between approx. -1 and 1 and can be scaled by the vector <b>gain</b>.</p>
-<h4><font color=\"#008000\">Note for Linux</font></h4>
+<h4>Note for Linux</h4>
 <p>Using the SpaceMouse in Linux is possible, but requires that the Linux drivers offered by 3Dconnexion are installed and active (<a href=\"http://www.3dconnexion.com/\">http://www.3dconnexion.com/</a>).</p>
 </html>"));
   end SpaceMouseInput;

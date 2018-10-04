@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg4326"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="microcontroller_scheme.svg"
+   inkscape:export-filename="/home/bernhard/data/worklibraries/Modelica_DeviceDrivers/Modelica_DeviceDrivers/Resources/Images/Icons/microcontroller_scheme.png"
+   inkscape:export-xdpi="100"
+   inkscape:export-ydpi="100">
+  <defs
+     id="defs4328" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4"
+     inkscape:cx="221.67769"
+     inkscape:cy="461.01371"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:window-width="1920"
+     inkscape:window-height="1145"
+     inkscape:window-x="-2"
+     inkscape:window-y="-3"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid4334" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata4331">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/publicdomain/" />
+        <dc:contributor>
+          <cc:Agent>
+            <dc:title></dc:title>
+          </cc:Agent>
+        </dc:contributor>
+        <dc:description>Derived from https://openclipart.org/detail/252719/microcontroller-simple-scheme</dc:description>
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/publicdomain/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       d="m 554.62324,670.73428 c 0,7.32735 -9.35433,13.24648 -20.94095,13.24648 l -351.85054,0 c -11.58661,0 -20.90551,-5.91913 -20.90551,-13.24648 l 0,-367.22609 c 0,-7.32736 9.3189,-13.22445 20.90551,-13.22445 l 137.19692,0 c 1.09842,12.9604 17.96457,23.30232 38.72836,23.30232 20.76378,0 37.62993,-10.34192 38.72836,-23.30232 l 137.1969,0 c 11.58662,0 20.90552,5.89709 20.90552,13.24646 l 0,367.20408 0.0354,0 z"
+       id="path135"
+       inkscape:connector-curvature="0"
+       style="fill:#333333;stroke:none" />
+    <path
+       d="m 554.62347,670.7345 c 0,7.32738 -9.35434,13.24647 -20.94096,13.24647 l -351.85076,0 c -11.58661,0 -20.90551,-5.91909 -20.90551,-13.24647 l 0,-367.2263 c 0,-7.32736 9.3189,-13.22446 20.90551,-13.22446 l 137.197,0 c 1.09843,12.96041 17.96459,23.30234 38.72839,23.30234 20.7638,0 37.62996,-10.34193 38.72838,-23.30234 l 137.19699,0 c 11.58662,0 20.90553,5.8971 20.90553,13.24646 l 0,367.2043 0.0354,0 z"
+       id="path137"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:3.8267715;stroke-linejoin:miter" />
+    <path
+       d="m 178.53648,500.03571 0,148.37259 c 0,9.19101 12.6496,16.62742 28.20472,16.62742 l 302.03155,0 c 15.55512,0 28.20473,-7.43641 28.20473,-16.62742 l 0,-296.74517 c 0,-9.19104 -12.64961,-16.62742 -28.20473,-16.62742 l -302.03155,0 c -15.55512,0 -28.20472,7.43638 -28.20472,16.62742 l 0,148.37258 z"
+       id="path139"
+       inkscape:connector-curvature="0"
+       style="fill:#cccccc;stroke:none" />
+    <path
+       d="m 178.53648,500.26014 0,147.67516 c 0,9.14782 12.6496,16.54925 28.20472,16.54925 l 302.03149,0 c 15.55512,0 28.20473,-7.40143 28.20473,-16.54925 l 0,-295.35031 c 0,-9.14784 -12.64961,-16.54926 -28.20473,-16.54926 l -302.03149,0 c -15.55512,0 -28.20472,7.40142 -28.20472,16.54926 l 0,147.67515 z"
+       id="path141"
+       inkscape:connector-curvature="0"
+       style="fill:none;stroke:#000000;stroke-width:2.55118108;stroke-linecap:round;stroke-linejoin:miter" />
+    <path
+       d="m 611.59946,332.55539 -7.72441,0 -33.66142,-10.91338 -15.62598,0 0,48.22441 15.62598,0 33.66142,-10.87796 7.72441,0 0,-26.43307 0,0 z"
+       id="path145"
+       inkscape:connector-curvature="0"
+       style="fill:#999999;fill-opacity:1;stroke:#000000;stroke-width:2.55118108;stroke-linejoin:miter" />
+    <path
+       d="m 611.59946,390.66563 -7.72441,0 -33.66142,-10.91339 -15.62598,0 0,48.22441 15.62598,0 33.66142,-10.87795 7.72441,0 0,-26.43307 0,0 z"
+       id="path147"
+       inkscape:connector-curvature="0"
+       style="fill:#999999;fill-opacity:1;stroke:#000000;stroke-width:2.55118108;stroke-linejoin:miter" />
+    <path
+       d="m 611.59946,448.77586 -7.72441,0 -33.66142,-10.91338 -15.62598,0 0,48.25984 15.62598,0 33.66142,-10.87795 7.72441,0 0,-26.46851 0,0 z"
+       id="path149"
+       inkscape:connector-curvature="0"
+       style="fill:#999999;fill-opacity:1;stroke:#000000;stroke-width:2.55118108;stroke-linejoin:miter" />
+    <path
+       d="m 611.59946,506.8861 -7.72441,0 -33.66142,-10.87795 -15.62598,0 0,48.2244 15.62598,0 33.66142,-10.87795 7.72441,0 0,-26.4685 0,0 z"
+       id="path151"
+       inkscape:connector-curvature="0"
+       style="fill:#999999;fill-opacity:1;stroke:#000000;stroke-width:2.55118108;stroke-linejoin:miter" />
+    <path
+       d="m 611.59946,564.99633 -7.72441,0 -33.66142,-10.87795 -15.62598,0 0,48.22441 15.62598,0 33.66142,-10.87795 7.72441,0 0,-26.46851 0,0 z"
+       id="path153"
+       inkscape:connector-curvature="0"
+       style="fill:#999999;fill-opacity:1;stroke:#000000;stroke-width:2.55118108;stroke-linejoin:miter" />
+    <path
+       d="m 611.59946,623.10657 -7.72441,0 -33.66142,-10.87796 -15.62598,0 0,48.25985 15.62598,0 33.66142,-10.91339 7.72441,0 0,-26.4685 0,0 z"
+       id="path155"
+       inkscape:connector-curvature="0"
+       style="fill:#999999;fill-opacity:1;stroke:#000000;stroke-width:2.55118108;stroke-linejoin:miter" />
+    <path
+       d="m 160.89081,321.64201 -15.62598,0 -33.62599,10.91338 -7.72441,0 0,26.43307 7.72441,0 33.62599,10.87796 15.62598,0 0,-48.22441 0,0 z"
+       id="path167"
+       inkscape:connector-curvature="0"
+       style="fill:#999999;fill-opacity:1;stroke:#000000;stroke-width:2.55118108;stroke-linejoin:miter" />
+    <path
+       d="m 160.89081,379.75224 -15.62598,0 -33.62599,10.91339 -7.72441,0 0,26.43307 7.72441,0 33.62599,10.91338 15.62598,0 0,-48.25984 0,0 z"
+       id="path169"
+       inkscape:connector-curvature="0"
+       style="fill:#999999;fill-opacity:1;stroke:#000000;stroke-width:2.55118108;stroke-linejoin:miter" />
+    <path
+       d="m 160.89081,437.89791 -15.62598,0 -33.62599,10.87795 -7.72441,0 0,26.46851 7.72441,0 33.62599,10.87795 15.62598,0 0,-48.22441 0,0 z"
+       id="path171"
+       inkscape:connector-curvature="0"
+       style="fill:#999999;fill-opacity:1;stroke:#000000;stroke-width:2.55118108;stroke-linejoin:miter" />
+    <path
+       d="m 160.89081,496.00815 -15.62598,0 -33.62599,10.87795 -7.72441,0 0,26.4685 7.72441,0 33.62599,10.87795 15.62598,0 0,-48.2244 0,0 z"
+       id="path173"
+       inkscape:connector-curvature="0"
+       style="fill:#999999;fill-opacity:1;stroke:#000000;stroke-width:2.55118108;stroke-linejoin:miter" />
+    <path
+       d="m 160.89081,554.11838 -15.62598,0 -33.62599,10.87795 -7.72441,0 0,26.46851 7.72441,0 33.62599,10.87795 15.62598,0 0,-48.22441 0,0 z"
+       id="path175"
+       inkscape:connector-curvature="0"
+       style="fill:#999999;fill-opacity:1;stroke:#000000;stroke-width:2.55118108;stroke-linejoin:miter" />
+    <path
+       d="m 160.89081,612.22861 -15.62598,0 -33.62599,10.91339 -7.72441,0 0,26.4685 7.72441,0 33.62599,10.87796 15.62598,0 0,-48.25985 0,0 z"
+       id="path177"
+       inkscape:connector-curvature="0"
+       style="fill:#999999;fill-opacity:1;stroke:#000000;stroke-width:2.55118108;stroke-linejoin:miter" />
+  </g>
+</svg>

@@ -31,7 +31,7 @@ else (BUILD_EXTERNAL_PROJECTS)
     add_library(libGlibGlib20 STATIC IMPORTED GLOBAL)
     set_property(TARGET libGlibGlib20 PROPERTY IMPORTED_LOCATION ${fGlibGlib20} )
 
-  elseif (MSVC)
+  elseif (MSVC OR MINGW)
     if ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
       message(STATUS "SETTING lcm library to ${PROJECT_SOURCE_DIR}/Library/win64/lcm.dll")
       set(fLcm ${PROJECT_SOURCE_DIR}/Library/win64/lcm.dll)

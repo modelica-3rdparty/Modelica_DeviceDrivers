@@ -6,7 +6,7 @@ package Modelica_DeviceDrivers "Modelica_DeviceDrivers - A collection of drivers
     uses(Modelica_Synchronous(version="0.92.1"),
        Modelica(version="3.2.2")),
     version="1.5.1",
-    versionDate="2017-09-04",
+    versionDate="2017-09-19",
     Documentation(info="<html>
 <p>
 Library <b>Modelica_DeviceDrivers</b> is a Modelica package
@@ -33,7 +33,7 @@ use the issue tracker provided by GitHub to report bugs or other issues
 (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues\">https://github.com/modelica/Modelica_DeviceDrivers/issues</a>).</p>
 <br>
 <table border=\"0\" cellpadding=\"2\" cellspacing=\"2\">
-<tr><td style=\"vertical-align: top;\">Copyright &copy; 2014-2017, Link&ouml;ping University (PELAB), ESI ITI GmbH, and DLR Institute of System Dynamics and Control</td>
+<tr><td style=\"vertical-align: top;\">Copyright &copy; 2014-2018, Link&ouml;ping University (PELAB), ESI ITI GmbH, and DLR Institute of System Dynamics and Control</td>
 </tr>
 <tr><td style=\"vertical-align: top;\">Copyright &copy; 2012-2013, DLR Institute of System Dynamics and Control</td></tr>
 </table>

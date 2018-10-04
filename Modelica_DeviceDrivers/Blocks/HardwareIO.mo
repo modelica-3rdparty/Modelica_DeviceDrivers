@@ -25,7 +25,7 @@ package HardwareIO
                   "modelica://Modelica_DeviceDrivers/Resources/Images/Icons/gears.png")}),
         Documentation(info="<html>
 <p>Record for configuring a Comedi device. At initialization time the comedi device given by the parameter <code>deviceName </code>will be opened and a handle to that device will be assigned to the final parameter<code> dh.</code>This handle needs to be passed as parameter to the remaining Comedi read and write blocks<code>.</code></p>
-<h4><font color=\"#008000\">Note</font></h4>
+<h4>Note</h4>
 <p>Only supported for Linux, since Comedi is only available for linux (<a href=\"http://www.comedi.org/\">http://www.comedi.org/</a>). Requires that Comedilib is installed and that the simulation process has sufficient privileges to access the intended device (usually that requires &quot;root&quot; privileges).</p>
 </html>"));
     end ComediConfig;
@@ -63,7 +63,7 @@ package HardwareIO
         Documentation(info="<html>
 <p>The parameter <code>comedi</code> needs to be set to a valid Comedi device handle, i.e., needs to be set to the record member <code>dh</code> of a <code>ComediConfig</code> record instance.</p>
 <p>Wraps the Comedi function<code> comedi_data_write(..)</code>. See the Comedi documentation for the meanings of the parameters <code>subDevice, channel, range, aref</code>.</
-<h4><font color=\"#008000\">Note</font></h4>
+<h4>Note</h4>
 <p>Only supported for Linux, since Comedi is only available for linux (<a href=\"http://www.comedi.org/\">http://www.comedi.org/</a>). Requires that Comedilib is installed and that the simulation process has sufficient privileges to access the intended device (usually that means &quot;root&quot; privileges). </p>
 </html>"));
     end DataWrite;
@@ -100,7 +100,7 @@ package HardwareIO
                 textString="%name")}),        Documentation(info="<html>
 <p>The parameter <code>comedi</code> needs to be set to a valid Comedi device handle, i.e., needs to be set to the record member <code>dh</code> of a <code>ComediConfig</code> record instance.</p>
 <p>Wraps the Comedi function<code> comedi_data_read(..)</code>. See the Comedi documentation for the meanings of the parameters <code>subDevice, channel, range, aref</code>.</p>
-<h4><font color=\"#008000\">Note</font></h4>
+<h4>Note</h4>
 <p>Only supported for Linux, since Comedi is only available for linux (<a href=\"http://www.comedi.org/\">http://www.comedi.org/</a>). Requires that Comedilib is installed and that the simulation process has sufficient privileges to access the intended device (usually that means &quot;root&quot; privileges). </p>
 </html>"));
     end DataRead;
@@ -155,7 +155,7 @@ package HardwareIO
         Documentation(info="<html>
 <p>The parameter <code>comedi</code> needs to be set to a valid Comedi device handle, i.e., needs to be set to the record member <code>dh</code> of a <code>ComediConfig</code> record instance.</p>
 <p>Uses the Comedi function<code> comedi_from_phys(..)</code> to support providing a physical value (volts or milliamps) as input to the DAC. See the Comedi documentation for the meanings of the parameters <code>subDevice, channel, range, aref.</code></p>
-<h4><font color=\"#008000\">Note</font></h4>
+<h4>Note</h4>
 <p>Only supported for Linux, since Comedi is only available for linux (<a href=\"http://www.comedi.org/\">http://www.comedi.org/</a>). Requires that Comedilib is installed and that the simulation process has sufficient privileges to access the intended device (usually that means &quot;root&quot; privileges). </p>
 </html>"));
     end PhysicalDataWrite;
@@ -209,7 +209,7 @@ package HardwareIO
                 textString="%name")}),        Documentation(info="<html>
 <p>The parameter <code>comedi</code> needs to be set to a valid Comedi device handle, i.e., needs to be set to the record member <code>dh</code> of a <code>ComediConfig</code> record instance.</p>
 <p>Uses the Comedi function<code> comedi_to_phys(..)</code> to convert a raw input obtained from the ADC to a physical value (volts or milliamps) . See the Comedi documentation for the meanings of the parameters <code>subDevice, channel, range, aref.</code></p>
-<h4><font color=\"#008000\">Note</font></h4>
+<h4>Note</h4>
 <p>Only supported for Linux, since Comedi is only available for linux (<a href=\"http://www.comedi.org/\">http://www.comedi.org/</a>). Requires that Comedilib is installed and that the simulation process has sufficient privileges to access the intended device (usually that means &quot;root&quot; privileges). </p>
 </html>"));
     end PhysicalDataRead;
@@ -250,7 +250,7 @@ package HardwareIO
         Documentation(info="<html>
 <p>The parameter <code>comedi</code> needs to be set to a valid Comedi device handle, i.e., needs to be set to the record member <code>dh</code> of a <code>ComediConfig</code> record instance.</p>
 <p>Wraps the Comedi function<code> comedi_dio_write(..)</code>. See the Comedi documentation for the meanings of the parameters <code>subDevice </code>and<code> channel</code>.</p>
-<h4><font color=\"#008000\">Note</font></h4>
+<h4>Note</h4>
 <p>Only supported for Linux, since Comedi is only available for linux (<a href=\"http://www.comedi.org/\">http://www.comedi.org/</a>). Requires that Comedilib is installed and that the simulation process has sufficient privileges to access the intended device (usually that means &quot;root&quot; privileges). </p>
 </html>"));
     end DIOWrite;
@@ -291,7 +291,7 @@ package HardwareIO
         Documentation(info="<html>
 <p>The parameter <code>comedi</code> needs to be set to a valid Comedi device handle, i.e., needs to be set to the record member <code>dh</code> of a <code>ComediConfig</code> record instance.</p>
 <p>Wraps the Comedi function<code> comedi_dio_read(..)</code>. See the Comedi documentation for the meanings of the parameters <code>subDevice </code>and<code> channel</code>.</p>
-<h4><font color=\"#008000\">Note</font></h4>
+<h4>Note</h4>
 <p>Only supported for Linux, since Comedi is only available for linux (<a href=\"http://www.comedi.org/\">http://www.comedi.org/</a>). Requires that Comedilib is installed and that the simulation process has sufficient privileges to access the intended device (usually that means &quot;root&quot; privileges). </p>
 </html>"));
     end DIORead;

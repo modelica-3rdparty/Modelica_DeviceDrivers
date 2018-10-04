@@ -28,7 +28,7 @@ package Blocks "This package contains Modelica 3.2 compatible drag'n'drop device
         fillPattern=FillPattern.Solid,
         points={{-10.0,0.0},{5.0,5.0},{5.0,-5.0}})}),
                                           Documentation(info="<html>
-<h4><font color=\"#008000\">Modelica 3.2 compatible block interface</font></h4>
+<h4>Modelica 3.2 compatible block interface</h4>
 <p>
 The blocks provided in this package use Modelica 3.2 compatible <b>when</b>-clauses and the <b>sample</b>-operator to periodically call external Modelica functions that interface to the hardware drivers.
 </p>

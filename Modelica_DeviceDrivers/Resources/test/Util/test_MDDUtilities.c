@@ -1,6 +1,6 @@
 /*
  *  Copyright (c) 2012-2016, DLR Institute of System Dynamics and Control
- *  Copyright (c) 2015-2016, Linkoeping University (PELAB) and ESI ITI GmbH
+ *  Copyright (c) 2015-2018, Linkoeping University (PELAB) and ESI ITI GmbH
  *  All rights reserved.
  *
  *  Redistribution and use in source and binary forms, with or without
@@ -28,16 +28,19 @@
  *
  * @file
  * @author      bernhard-thiele
+ * @author      tbeu
  * @since       2013-05-24
- * @test Test for MDDUtilities.h .
+ * @test Test for MDDUtilities.h, MDDUtilitiesMAC.h and MDDUtilitiesUUID.h .
  *
 */
 
 #include <stdio.h>
 #include <string.h>
 #include "../../Include/MDDUtilities.h"
+#include "../../Include/MDDUtilitiesMAC.h"
+#include "../../Include/MDDUtilitiesUUID.h"
 
-int test_MDD_utilitiesLoadRealParameter() {
+static int test_MDD_utilitiesLoadRealParameter(void) {
     int failed = 0;
     double result;
     const double expected = 13;
@@ -48,11 +51,45 @@ int test_MDD_utilitiesLoadRealParameter() {
     return failed;
 }
 
-int main() {
+static int test_MDD_generateUUID(void) {
     int failed = 0;
-    printf("Testing parseParameter() from MDDUtilities.h ...");
-    failed = test_MDD_utilitiesLoadRealParameter();
+    int i;
 
-    failed == 0 ? printf("\tOK.\n") : printf("\tFAILED\n");
+    for (i = 0; i < 10; i++) {
+        const char* uuid = MDD_utilitiesGenerateUUID();
+        if (36 != strlen(uuid)) {
+            failed = 1;
+            break;
+        }
+    }
+
     return failed;
+}
+
+static int test_MDD_getMACAddress(int i) {
+    int failed = 0;
+
+    const char* mac = MDD_utilitiesGetMACAddress(i);
+
+    return failed;
+}
+
+int main(void) {
+    int failed1 = 0;
+    int failed2 = 0;
+    int failed3 = 0;
+
+    printf("Testing parseParameter() from MDDUtilities.h ...");
+    failed1 = test_MDD_utilitiesLoadRealParameter();
+    printf(failed1 == 0 ? "\tOK.\n" : "\tFAILED\n");
+
+    printf("Testing generateUUID() from MDDUtilitiesUUID.h ...");
+    failed2 = test_MDD_generateUUID();
+    printf(failed2 == 0 ? "\tOK.\n" : "\tFAILED\n");
+
+    printf("Testing getMACAddress() from MDDUtilitiesMAC.h ...");
+    failed3 = test_MDD_getMACAddress(1);
+    printf(failed3 == 0 ? "\tOK.\n" : "\tFAILED\n");
+
+    return failed1 + failed2 + failed3;
 }

@@ -1,0 +1,18 @@
+/*
+omc --simCodeTarget=ExperimentalEmbeddedC Blink.mos
+
+avr-gcc -Os -std=c11 -ffunction-sections -fdata-sections -mmcu=atmega328p -DF_CPU=16000000UL -Wl,--gc-sections Blink_main.c -o Blink -I ~/data/worklibraries/Modelica_DeviceDrivers/Modelica_DeviceDrivers/Resources/Include -I ~/data/workspace/openmodelica/build/include/omc/c
+avr-objcopy -O ihex -R .eeprom Blink Blink.hex
+avrdude -F -V -c arduino -p ATMEGA328P -P /dev/ttyACM0 -b 115200 -U flash:w:Blink.hex
+
+*/
+
+
+print("*** Loading MSL...");
+loadModel(Modelica); getErrorString();
+print("*** Loading MDD...");
+loadFile("../../../../../../../../../package.mo"); getErrorString();
+getSourceFile(Modelica_DeviceDrivers);
+
+print("*** Translate AVR example");
+translateModel(Modelica_DeviceDrivers.EmbeddedTargets.AVR.Examples.Arduino.UNO.Blink, fileNamePrefix="Blink");getErrorString();

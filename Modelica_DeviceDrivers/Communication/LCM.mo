@@ -5,7 +5,7 @@ class LCM "A driver for Lightweight Communications and Marshalling."
     import Modelica;
     extends Modelica.Icons.Function;
     import Modelica_DeviceDrivers.Communication.LCM;
-    input String provider "\"udp://\" - UDP multicast, \"file://\" - logfile, \"memq://\" - memory queue";
+    input String provider "\"udpm://\" - UDP multicast, \"file://\" - logfile, \"memq://\" - memory queue";
     input String address "IP address or logfile name";
     input Integer port "Port (only relevant for UDP multicast provider)";
     input Integer receiver = 1 "0 - sender, 1 - receiver";

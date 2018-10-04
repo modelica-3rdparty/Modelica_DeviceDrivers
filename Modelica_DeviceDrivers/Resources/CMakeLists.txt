@@ -1,6 +1,8 @@
-project(Modelica_DeviceDrivers)
+project(Modelica_DeviceDrivers C)
 cmake_minimum_required(VERSION 2.8.12)
 enable_testing()
+# copy CTestCustom.cmake to build dir to disable interactive tests in 'make test'
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/CTestCustom.cmake ${CMAKE_CURRENT_BINARY_DIR})
 #set(CMAKE_VERBOSE_MAKEFILE on)
 #set(CMAKE_BUILD_TYPE DEBUG)
 
@@ -21,12 +23,18 @@ include_directories(src/include)
 include_directories(Include)
 
 if (MSVC OR MINGW)
+  # Dummy Windows crypto library for uniform treatment of GCC and MS Visual C within Modelica
+  add_subdirectory(src/DummyCryptoLibrary)
+  # Dummy Windows ssl library for uniform treatment of GCC and MS Visual C within Modelica
+  add_subdirectory(src/DummySSLLibrary)
   # Dummy Windows rt library for uniform treatment of GCC and MS Visual C within Modelica
   add_subdirectory(src/DummyRTLibrary)
   # Dummy Windows X11 library for uniform treatment of GCC and MS Visual C within Modelica
   add_subdirectory(src/DummyX11Library)
   # Dummy Windows pthread library for uniform treatment of GCC and MS Visual C within Modelica
   add_subdirectory(src/DummyPthreadLibrary)
+  # Dummy Windows uuid library for uniform treatment of GCC and MS Visual C within Modelica
+  add_subdirectory(src/DummyUUIDLibrary)
 endif (MSVC OR MINGW)
 
 if (MSVC)
@@ -44,6 +52,10 @@ if (UNIX)
   add_subdirectory(src/DummyUser32Library)
   # Dummy Linux Ws2_32 library for uniform treatment of GCC and MS Visual C within Modelica
   add_subdirectory(src/DummyWs2_32Library)
+  # Dummy Linux Rpcrt4 library for uniform treatment of GCC and MS Visual C within Modelica
+  add_subdirectory(src/DummyRpcrt4Library)
+  # Dummy Linux IPHlpApi library for uniform treatment of GCC and MS Visual C within Modelica
+  add_subdirectory(src/DummyIPHlpApiLibrary)
   # Are we trying to force compilation for linux32 on a native linux64 platform?
   # (Dymola builds/built 32-bit simulation executables also on 64-bit Linux)
   # Note, that flags can be overwritten by calling CMake (from Resources/build) like this:
@@ -64,9 +76,6 @@ if (UNIX)
   #   SET(CMAKE_STATIC_LINKER_FLAGS "${CMAKE_STATIC_LINKER_FLAGS} -m32")
   # endif()
   # HOWEVER, this won't set CMAKE_SIZEOF_VOID_P to 4, so that 32-bit library paths are searched first!
-
-
-
 endif (UNIX)
 
 # Third party projects

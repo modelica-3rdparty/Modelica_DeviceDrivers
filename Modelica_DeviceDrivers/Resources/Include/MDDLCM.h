@@ -82,6 +82,7 @@ DllExport void * MDD_lcmConstructor(const char* provider, const char* address,
             free(lcm);
             lcm = NULL;
             ModelicaFormatError("MDDLCM.h: Invalid LCM network provider \"%s\"\n", provider);
+            return lcm;
         }
         lcm->lcm = lcm_create(url);
         if (NULL != lcm->lcm) {

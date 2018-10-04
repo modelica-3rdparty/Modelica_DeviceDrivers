@@ -11,7 +11,7 @@ equation
   connect(booleanExpression1.y, writeBool.u) annotation(Line(points = {{-15, 2}, {12, 2}}, color = {255, 0, 255}));
              /* synchronizeRealtime1.actualInterval is not legal in experiment annotation*/
   annotation (                                                                             Experiment(Interval = 0.01), Documentation(info = "<html>
-<h1>Blink</h1>
+<h4>Blink</h4>
 <p>Blink is a very simple Arduino model, which simply toggles the built-in LED on the board on and off at the given frequency (this version blinks at a frequency given by the model using single precision floating point; it is also possible to simply flip the LED bit in each time step which gives a more accurate result). Use this model to see if your Modelica tool can export code for AVR MCUs.</p>
 <p>Arduino digital pin 13 corresponds to digital pin B5 on the ATmega328P. If desired, you can connect an external LED to this PIN, with a suitable resistor in-between (perhaps 220&#8486;). Connect the other PIN on the LED to ground.</p>
 <p>See also the <a href=\"https://www.arduino.cc/en/tutorial/blink\">Arduino tutorial</a> corresponding to this model.</p>
@@ -22,5 +22,4 @@ equation
           lineColor={0,0,255},
           textString=
               "Please see the AVR package documentation before testing the example!")}));
-
 end Blink;

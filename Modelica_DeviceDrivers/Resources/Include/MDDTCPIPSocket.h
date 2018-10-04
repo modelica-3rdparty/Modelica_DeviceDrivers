@@ -44,7 +44,7 @@ DllExport void * MDD_TCPIPClient_Constructor(void) {
             /* Initialize Winsock */
             rc = WSAStartup(MAKEWORD(2,2), &wsa);
             if (rc != NO_ERROR) {
-                ModelicaFormatError("MDDTCPIPSocket.h: WSAStartup failed with error: %d\n", rc);
+                ModelicaFormatError("MDDTCPIPSocket.h: WSAStartup failed with error code: %d\n", rc);
             }
         }
     }
@@ -75,7 +75,7 @@ DllExport int MDD_TCPIPClient_Connect(void * p_tcpip, const char* ipaddress, int
                 free(*tcpip);
                 *tcpip = NULL;
                 WSACleanup();
-                ModelicaFormatError("MDDTCPIPSocket.h: getaddrinfo failed with error: %d\n", rc);
+                ModelicaFormatError("MDDTCPIPSocket.h: getaddrinfo failed with error code: %d\n", rc);
             }
 
             /* Attempt to connect to an address until one succeeds */
@@ -88,7 +88,7 @@ DllExport int MDD_TCPIPClient_Connect(void * p_tcpip, const char* ipaddress, int
                     *tcpip = NULL;
                     rc = WSAGetLastError();
                     WSACleanup();
-                    ModelicaFormatError("MDDTCPIPSocket.h: socket failed with error: %d\n", rc);
+                    ModelicaFormatError("MDDTCPIPSocket.h: socket failed with error code: %d\n", rc);
                 }
 
                 /* Connect to server */
@@ -140,7 +140,7 @@ DllExport int MDD_TCPIPClient_Send(void * p_tcpip, const char * data, int dataSi
     if (tcpip && *tcpip) {
         rc = send((*tcpip)->SocketID, data, dataSize, 0);
         if (rc == SOCKET_ERROR) {
-            ModelicaFormatMessage("MDDTCPIPSocket.h: send failed with error: %d\n", WSAGetLastError());
+            ModelicaFormatMessage("MDDTCPIPSocket.h: send failed with error code: %d\n", WSAGetLastError());
             rc = 1;
         }
     }
@@ -158,7 +158,7 @@ DllExport const char * MDD_TCPIPClient_Read(void * p_tcpip, int recvbuflen) {
         if (tcpBuf) {
             int rc = recv((*tcpip)->SocketID, tcpBuf, recvbuflen, 0);
             if (rc == SOCKET_ERROR) {
-                ModelicaFormatMessage("MDDTCPIPSocket.h: recv failed with error: %d\n", WSAGetLastError());
+                ModelicaFormatMessage("MDDTCPIPSocket.h: recv failed with error code: %d\n", WSAGetLastError());
             }
             return (const char*) tcpBuf;
         }
@@ -173,7 +173,7 @@ DllExport void MDD_TCPIPClient_ReadP(void * p_tcpip, void* p_package, int recvbu
         if (tcpBuf) {
             int rc = recv((*tcpip)->SocketID, tcpBuf, recvbuflen, 0);
             if (rc == SOCKET_ERROR) {
-                ModelicaFormatMessage("MDDTCPIPSocket.h: recv failed with error: %d\n", WSAGetLastError());
+                ModelicaFormatMessage("MDDTCPIPSocket.h: recv failed with error code: %d\n", WSAGetLastError());
             }
             rc = MDD_SerialPackagerSetDataWithErrorReturn(p_package, tcpBuf, rc);
             free(tcpBuf);

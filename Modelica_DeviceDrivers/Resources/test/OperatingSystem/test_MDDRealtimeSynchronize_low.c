@@ -11,7 +11,7 @@ int main(void) {
   printf("Priority \"below normal\" with Ts=%lf...\n", Ts);
   MDD_setPriority(procPrio, -1);
   for (simTime=Ts; simTime < 1.0; simTime += Ts) {
-    calculationTime = MDD_realtimeSynchronize(rtSync, simTime, &availableTime);
+    calculationTime = MDD_realtimeSynchronize(rtSync, simTime, 0, 1, &availableTime);
     printf("simTime: %lf, availableTime: %lf, calculationTime: %lf\n", simTime, availableTime, calculationTime);
     alwaysInTime = alwaysInTime && availableTime > 0;
   }
@@ -21,4 +21,3 @@ int main(void) {
 
   return !(alwaysInTime  > 0); /* Need to invert boolean value since a zero return value indicates success */
 }
-

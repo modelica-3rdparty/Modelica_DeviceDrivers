@@ -33,4 +33,28 @@ package Types "Custom type definitions"
   type LCMProvider = enumeration(
       UDPM "UDP multicast",
       FILE "Logfile") "LCM provider";
+  type MQTTProvider = enumeration(
+      TCP "TCP",
+      SSL "Secure TLS encrypted TCP",
+      WS "Websocket",
+      WSS "Secure TLS encrypted websocket") "MQTT provider";
+  type MQTTVersion = enumeration(
+      DEFAULT "Try MQTT v3.1.1 then fall back to MQTT v3.1",
+      V31 "MQTT v3.1",
+      V311 "MQTT v3.1.1",
+      V5 "MQTT v5.0") "MQTT version";
+  type MQTTTracing = enumeration(
+      DEFAULT "None",
+      MAXIMUM "Maximun",
+      MEDIUM "Medium",
+      MINIMUM "Minimum",
+      PROTOCOL "Protocol",
+      ERROR "Error",
+      SEVERE "Severe",
+      FATAL "Fatal") "MQTT client tracing";
+  type TLSVersion = enumeration(
+      DEFAULT "SSL v2 / SSL v3",
+      V10 "TLS v1.0",
+      V11 "TLS v1.1",
+      V12 "TLS v1.2") "SSL/TLS version";
 end Types;
