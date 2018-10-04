@@ -1,10 +1,16 @@
 within Modelica_DeviceDrivers.EmbeddedTargets;
-package STM32F4 "Support for STM32F4 microcontrollers"
+package STM32F4 "EXPERIMENTAL: Support for STM32F4 microcontrollers. UNSTABLE API!"
   extends Modelica_DeviceDrivers.Utilities.Icons.GenericICPackage;
+
+  extends Modelica_DeviceDrivers.Utilities.Icons.ExperimentalNoStableAPIPackage;
+
   annotation(preferredView="info",Documentation(info="<html>
-<h4>Support for the STM32F4 family of STM boards</h4>
+<h4>EXPERIMENTAL: Support for the STM32F4 family of STM boards</h4>
 <p>
-As of MDD v1.5.0, only the STM32F4-Discovery board is supported. The code can easily be extended, but requires
+<b>Experimental feature with unstable API! Don't use it, except you want to experiment and you are prepared for severe bugs and other limitations.</b>
+</p>
+<p>
+As of MDD v1.6.0, only the STM32F4-Discovery board is supported. The code can easily be extended, but requires
 checking the data sheets in order to write to the correct bits.
 </p>
 <p><b>So far only known to work with OpenModelica's ExperimentalEmbeddedC code generation</b>.
@@ -119,5 +125,5 @@ openocd -f /usr/share/openocd/scripts/board/stm32f4discovery.cfg
 > reset run
 </pre>
 </html>"),
-Icon(graphics = {Text(origin = {32, -3}, lineColor = {255, 255, 255}, extent = {{-44, 19}, {-20, -13}}, textString = "STM32F4", fontSize = 70, fontName = "Arial", textStyle = {TextStyle.Bold})}, coordinateSystem(initialScale = 0.1)));
+Icon(graphics={  Text(origin = {32, -3}, lineColor = {255, 255, 255}, extent = {{-44, 19}, {-20, -13}}, textString = "STM32F4", fontSize = 70, fontName = "Arial", textStyle = {TextStyle.Bold})}, coordinateSystem(initialScale = 0.1)));
 end STM32F4;
