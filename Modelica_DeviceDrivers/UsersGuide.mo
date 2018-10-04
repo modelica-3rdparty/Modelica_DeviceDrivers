@@ -83,22 +83,59 @@ This library is based on various resources (mainly within the internet) describi
 
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
+    class Version_1_6_0 "Version 1.6.0 (October 6, 2018)"
+    extends Modelica.Icons.ReleaseNotes;
+
+      annotation (Documentation(info="<html>
+<ul>
+<li>Support for MQTT (Message Queuing Telemetry Transport protocol) client communication (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues/130\">#130</a>, <a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues/256\">#256</a>).
+See example <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackager_MQTT\">TestSerialPackager_MQTT</a>.
+</li>
+<li>
+Utility function to retrieve MAC address (<a href=\"modelica://Modelica_DeviceDrivers.Utilities.Functions.getMACAddress\">getMACAddress</a>, <a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues/255\">#255</a>).
+</li>
+<li>
+Utility function to generate a UUID (<a href=\"modelica://Modelica_DeviceDrivers.Utilities.Functions.generateUUID\">generateUUID</a>, <a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues/244\">#244</a>).
+</li>
+<li>
+Number of received bytes in `UDPReceive` block are provided as outputs (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues/236\">#236</a>).
+</li>
+<li>
+Scalable real-time synchronization (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues/215\">#215</a>).
+</li>
+<li>
+Adaption of the new Modelica Association license: <b>BSD-3 clause</b>
+(<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues/238\">#238</a>, <a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues/264\">#254</a>).
+The C-code parts of the library were already BSD 3-Clause licensed, but the Modelica code
+was licensed under the Modelica License 2. Since Modelica Association projects,
+most notably the Modelica Standard Library (MSL), changed from Modelica License 2 to
+the BSD 3-Clause license, the Modelica_DeviceDrivers library follows this development.
+</li>
+<li>
+Other (minor) fixes and improvements.
+</li>
+</ul>
+</html>"));
+    end Version_1_6_0;
+
     class Version_1_5_1 "Version 1.5.1 (September 19, 2017)"
     extends Modelica.Icons.ReleaseNotes;
 
-  annotation (Documentation(info="<html>
+      annotation (Documentation(info=
+                                 "<html>
 <ul>
 <li>
 Bug fix for variable name spelling error in <code>Blocks.InputDevices.JoystickInput</code> (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues/224\">#224</a>)
 </li>
 </ul>
 </html>"));
-      end Version_1_5_1;
+    end Version_1_5_1;
 
     class Version_1_5_0 "Version 1.5.0 (May 12, 2017)"
     extends Modelica.Icons.ReleaseNotes;
 
-  annotation (Documentation(info="<html>
+      annotation (Documentation(info=
+                                 "<html>
 <ul>
 <li>
 <b>Important:</b> A bug fix in the shared memory implementation for <i>Windows</i>
@@ -138,7 +175,7 @@ Other (minor) fixes and improvements.
 </li>
 </ul>
 </html>"));
-      end Version_1_5_0;
+    end Version_1_5_0;
 
     class Version_1_4_4 "Version 1.4.4 (April 12, 2016)"
       extends Modelica.Icons.ReleaseNotes;
@@ -295,7 +332,6 @@ of the library:
 </table>
 </html>"));
   end Contact;
-
   annotation (DocumentationClass=true, Documentation(info="<html>
 <p>
 Library <b>Modelica_DeviceDrivers</b> is a Modelica package
