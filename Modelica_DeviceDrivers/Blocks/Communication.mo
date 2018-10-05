@@ -375,7 +375,8 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
   block LCMReceive "A block for receiving LCM datagrams"
     extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
     extends Modelica_DeviceDrivers.Utilities.Icons.LCMconnection;
-    extends Modelica_DeviceDrivers.Blocks.Communication.Internal.PartialSampleTrigger;
+    extends
+      Modelica_DeviceDrivers.Blocks.Communication.Internal.PartialSampleTrigger;
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
     import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
     import Modelica_DeviceDrivers.Communication.LCM;
@@ -442,7 +443,8 @@ sudo route add -net 224.0.0.0 netmask 240.0.0.0 dev lo
     import Modelica_DeviceDrivers;
     extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
     extends Modelica_DeviceDrivers.Utilities.Icons.LCMconnection;
-    extends Modelica_DeviceDrivers.Blocks.Communication.Internal.PartialSampleTrigger;
+    extends
+      Modelica_DeviceDrivers.Blocks.Communication.Internal.PartialSampleTrigger;
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
     import Modelica_DeviceDrivers.Communication.LCM;
     import Modelica_DeviceDrivers.Utilities.Types.LCMProvider;
@@ -508,7 +510,8 @@ sudo route add -net 224.0.0.0 netmask 240.0.0.0 dev lo
   block MQTTReceive "A block for receiving MQTT datagrams"
     extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
     extends Modelica_DeviceDrivers.Utilities.Icons.MQTTconnection;
-    extends Modelica_DeviceDrivers.Blocks.Communication.Internal.PartialSampleTrigger;
+    extends
+      Modelica_DeviceDrivers.Blocks.Communication.Internal.PartialSampleTrigger;
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
     import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
     import Modelica_DeviceDrivers.Communication.MQTT;
@@ -610,7 +613,8 @@ sudo route add -net 224.0.0.0 netmask 240.0.0.0 dev lo
   block MQTTSend "A block for sending MQTT datagrams"
     extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
     extends Modelica_DeviceDrivers.Utilities.Icons.MQTTconnection;
-    extends Modelica_DeviceDrivers.Blocks.Communication.Internal.PartialSampleTrigger;
+    extends
+      Modelica_DeviceDrivers.Blocks.Communication.Internal.PartialSampleTrigger;
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
     import Modelica_DeviceDrivers.Communication.MQTT;
     import Modelica_DeviceDrivers.Utilities.Types.MQTTProvider;

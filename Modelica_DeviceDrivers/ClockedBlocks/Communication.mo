@@ -4,7 +4,8 @@ package Communication
   model SharedMemoryRead "A block for reading data from a shared memory buffer"
     extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
     extends Modelica_DeviceDrivers.Utilities.Icons.SharedMemoryIcon;
-    extends Modelica_DeviceDrivers.Utilities.Icons.PartialClockedDeviceDriverIcon;
+    extends
+      Modelica_DeviceDrivers.Utilities.Icons.PartialClockedDeviceDriverIcon;
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
     import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
     import Modelica_DeviceDrivers.Communication.SharedMemory;
@@ -288,5 +289,4 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
     end DummyFunctions;
 
   end Internal;
-
 end Communication;

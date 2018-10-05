@@ -21,3 +21,4 @@ GenericICPackage
 GenericIC
 FunctionLayerIcon
 STM32F4BlockIcon
+ExperimentalNoStableAPIPackage
