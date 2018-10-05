@@ -1,7 +1,8 @@
 /** Map/Dictionary support for int key and int value.
  *
  * @file
- * @author      bernhard-thiele, tbeu
+ * @author      bernhard-thiele
+ * @author      tbeu
  * @since       2012-12-22
  * @copyright see Modelica_DeviceDrivers project's License.txt file
  *

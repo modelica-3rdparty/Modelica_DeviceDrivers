@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2016, Linkoeping University (PELAB) and ESI ITI GmbH
+ *  Copyright (c) 2016-2018, DLR, ESI ITI, and Linkoeping University (PELAB)
  *  All rights reserved.
  *
  *  Redistribution and use in source and binary forms, with or without

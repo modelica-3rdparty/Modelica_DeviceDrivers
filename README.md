@@ -3,7 +3,7 @@ Free library for interfacing hardware drivers to Modelica models.
 There is support for joysticks, keyboards, UDP, TCP/IP, LCM, MQTT, shared memory, AD/DA converters, serial port and other devices.
 
 ## Library description
-The `Modelica_DeviceDrivers` (MDD) library is an open source Modelica package under [Modelica License 2](https://modelica.org/licenses/ModelicaLicense2) that interfaces hardware drivers to Modelica models. An overview of the library is provided in
+The `Modelica_DeviceDrivers` (MDD) library is an open source Modelica package that interfaces hardware drivers to Modelica models. An overview of the library is provided in
 
 > Bernhard Thiele, Thomas Beutlich, Volker Waurich, Martin Sjölund, and Tobias Bellmann, Towards a Standard-Conform, Platform-Generic and Feature-Rich Modelica Device Drivers Library. In Jiří Kofránek and Francesco Casella, editors, _12th Int. Modelica Conference_, Prague, Czech Republic, May 2017. [Download](https://www.modelica.org/events/modelica2017/proceedings/html/submissions/ecp17132713_ThieleBeutlichWaurichSjolundBellmann.pdf)
 
@@ -85,7 +85,7 @@ Bug fix releases usually won't have release notes, so please use the download li
     * Fixed multi-threaded access of UDP and shared memory communication for Windows.
     * Fixed many small issues, particularly for improved compatibility with SimulationX.
 *  [Version v1.3 (2014-05-19)](../../archive/v1.3+build.2.zip)
-    * Fixed many issues in order to support SimulationX (with the indispensable help of [tbeu](https://github.com/tbeu)).
+    * Fixed many issues in order to support SimulationX (with the indispensable help of [Thomas Beutlich](https://github.com/beutlich)).
     * Particularly, a SimulationX compatible wrapper DLL to give access to the external C functions was added.
     * Added serial port support for Linux.
 *  [Version v1.2 (2013-10-01)](../../archive/v1.2+build.1.zip)
@@ -104,13 +104,13 @@ Bug fix releases usually won't have release notes, so please use the download li
 ## License
 
 This Modelica package is free software and the use is completely at your own risk;
-it can be redistributed and/or modified under the terms of the [Modelica License 2](https://modelica.org/licenses/ModelicaLicense2).
+it can be redistributed and/or modified under the terms of the [3-Clause BSD License](LICENSE).
 
 ## Development and contribution
 Main developers:
 * [Bernhard Thiele](https://github.com/bernhard-thiele), release management and the Linux specific code
 * [Tobias Bellmann](https://github.com/tbellmann), most of the initial MS Windows specific code
-* [tbeu](https://github.com/tbeu), various fixes and improvements, particularly SimulationX support
+* [Thomas Beutlich](https://github.com/beutlich), various fixes and improvements, particularly SimulationX support
 
 You may report any issues with using the [Issues](https://github.com/modelica/Modelica_DeviceDrivers/issues) button.
 
