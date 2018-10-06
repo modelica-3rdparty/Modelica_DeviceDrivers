@@ -46,6 +46,18 @@ If you tested the library successfully with another Modelica tool, please contac
 #### Release notes
 Bug fix releases usually won't have release notes, so please use the download link from above to get the latest release including bug fixes.
 
+*  [Version v1.6.0 (2018-10-06)](../../releases/tag/v1.6.0)
+   * (Support for MQTT (Message Queuing Telemetry Transport protocol) client communication (see #130, #256).
+   * Utility function to retrieve MAC address (`Utilities.Functions.getMACAddress`, see #255).
+   * Utility function to generate a UUID (`Utilities.Functions.generateUUID()`, see #244).
+   * Number of received bytes in `UDPReceive` block is provided as output (see #236).
+   * Scalable real-time synchronization (see #215).
+   * Adaption of the new Modelica Association license for libraries:
+     [The 3-Clause BSD License](https://modelica.org/licenses/modelica-3-clause-bsd) (see #238, #264).
+     The C-code parts of the library were already BSD 3-Clause licensed, but the Modelica code was licensed
+     under the Modelica License 2. Since Modelica Association projects, most notably the Modelica Standard Library (MSL),
+     changed from Modelica License 2 to the BSD 3-Clause license, the Modelica_DeviceDrivers library follows this development.
+   * Other (minor) fixes and improvements.
 *  [Version v1.5.1 (2017-09-19)](../../releases/tag/v1.5.1)
     * Bug fix for variable name spelling error in `Blocks.InputDevices.JoystickInput` (#224)
 *  [Version v1.5.0 (2017-05-12)](../../releases/tag/v1.5.0)
