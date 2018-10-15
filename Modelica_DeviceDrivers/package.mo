@@ -27,8 +27,7 @@ For an introduction, have especially a look at:
      gives author and acknowledgement information for this library.</li>
 </ul>
 <p>The library is developed at
-<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/\">https://github.com/modelica/Modelica_DeviceDrivers/</a>
-(switch to the <i>master</i> branch for the latest development version). You can
+<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/\">https://github.com/modelica/Modelica_DeviceDrivers/</a>. You can
 use the issue tracker provided by GitHub to report bugs or other issues
 (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues\">https://github.com/modelica/Modelica_DeviceDrivers/issues</a>).</p>
 <br>
