@@ -47,7 +47,7 @@ If you tested the library successfully with another Modelica tool, please contac
 Bug fix releases usually won't have release notes, so please use the download link from above to get the latest release including bug fixes.
 
 *  [Version v1.6.0 (2018-10-06)](../../releases/tag/v1.6.0)
-   * (Support for MQTT (Message Queuing Telemetry Transport protocol) client communication (see #130, #256).
+   * Support for MQTT (Message Queuing Telemetry Transport protocol) client communication (see #130, #256).
    * Utility function to retrieve MAC address (`Utilities.Functions.getMACAddress`, see #255).
    * Utility function to generate a UUID (`Utilities.Functions.generateUUID()`, see #244).
    * Number of received bytes in `UDPReceive` block is provided as output (see #236).
