@@ -61,7 +61,7 @@ package OperatingSystem
       (calculationTime, availableTime) := Modelica_DeviceDrivers.OperatingSystem.realtimeSynchronize(rtSync, time, enableRealTimeScaling, actScaling);
     end if;
   equation
-    /* Condional connect equations */
+    /* Conditional connect equations */
     connect(defaultScaling, actScaling);
     connect(scaling, actScaling);
     connect(procPrio.initialized, initialized);

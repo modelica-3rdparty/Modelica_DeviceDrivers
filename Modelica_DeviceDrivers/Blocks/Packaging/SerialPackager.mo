@@ -205,7 +205,7 @@ package SerialPackager "Blocks for constructing packages"
     Integer backwardPropagatedBufferSize;
     Integer bufferSize;
   equation
-    /* Condional connect equations to either use external trigger or internal trigger */
+    /* Conditional connect equations to either use external trigger or internal trigger */
     internalTrigger = if useBackwardSampleTimePropagation then pkgOut.backwardTrigger else sample(0,sampleTime);
     connect(internalTrigger, conditionalInternalTrigger);
     connect(conditionalInternalTrigger, actTrigger);
