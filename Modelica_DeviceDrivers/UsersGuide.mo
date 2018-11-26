@@ -311,7 +311,7 @@ of the library:
 <table border=1 cellspacing=0 cellpadding=2>
 
 <tr><td valign=\"top\"><b>Miguel Neves</b> </td>
-   <td valign=\"top\">&nbsp;</td>
+   <td valign=\"top\">at <a href=\"https://github.com/ChukasNeves\">GitHub</a></td>
    <td valign=\"top\">Human readable error codes for the Softing CAN interface.</td>
 </tr>
 <tr><td valign=\"top\"><b>Dominik Sommer</b> </td>
@@ -326,7 +326,7 @@ of the library:
    <td valign=\"top\">Code for Windows serial port support.</td>
 </tr>
 <tr><td valign=\"top\"><b>Dietmar Winkler</b> </td>
-   <td valign=\"top\">at <a href=\"https://github.com/dietmarw\">Github</a></td>
+   <td valign=\"top\">at <a href=\"https://github.com/dietmarw\">GitHub</a></td>
    <td valign=\"top\">GitHub project setup, development services integration etc.</td>
 </tr>
 </table>
