@@ -129,7 +129,7 @@ You may report any issues with using the [Issues](https://github.com/modelica/Mo
 Contributions in shape of [Pull Requests](https://github.com/modelica/Modelica_DeviceDrivers/pulls) are always welcome.
 
 The following people have directly contributed to the implementation of the library (many more have contributed by providing feedback and suggestions):
-* Miguel Neves, human readable error codes for the Softing CAN interface.
+* [Miguel Neves](https://github.com/chukasNeves), human readable error codes for the Softing CAN interface.
 * Dominik Sommer, code for Linux serial port support.
 * [Rangarajan Varadan](http://www.codeproject.com/Members/Rangarajan-Varadan), [code for Windows serial port support](http://www.codeproject.com/Articles/81933/Serial-Port-R-W-With-Read-Thread).
 * [Dietmar Winkler](https://github.com/dietmarw), GitHub project setup, development services integration etc.
