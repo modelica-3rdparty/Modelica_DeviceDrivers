@@ -5,9 +5,9 @@
 include_directories(../../Include)
 
 add_executable(test_MDDJoystick test_MDDJoystick.c ../Util/ModelicaUtilities.c)
-if (MSVC OR MINGW)
+if (MSVC OR MINGW OR CYGWIN)
   target_link_libraries(test_MDDJoystick Winmm)
-endif (MSVC OR MINGW)
+endif (MSVC OR MINGW OR CYGWIN)
 add_test(test_MDDJoystick ${EXECUTABLE_OUTPUT_PATH}/test_MDDJoystick)
 
 add_executable(test_MDDKeyboard test_MDDKeyboard.c ../Util/ModelicaUtilities.c)
