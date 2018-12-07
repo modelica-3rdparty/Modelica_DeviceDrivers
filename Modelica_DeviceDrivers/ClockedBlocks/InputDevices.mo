@@ -24,7 +24,7 @@ package InputDevices
   equation
     when Clock() then
       (AxesRaw,buttons,pOV) = Modelica_DeviceDrivers.InputDevices.GameController_.getData(joystick);
-      axes = (AxesRaw .- 32768)/32768 ./gain;
+      axes = (AxesRaw .- 32768)/32768 .*gain;
     end when;
 
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
