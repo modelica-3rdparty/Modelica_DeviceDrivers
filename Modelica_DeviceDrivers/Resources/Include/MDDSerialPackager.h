@@ -486,7 +486,7 @@ DllExport const char* MDD_SerialPackagerGetString(void* p_package, int bufferSiz
     else {
         char* y = ModelicaAllocateString(i - pkg->pos);
         if (y) {
-            memcpy(y, &(pkg->data[ pkg->pos ]), i - pkg->pos);
+            memcpy(y, &(pkg->data[ pkg->pos ]), i - pkg->pos + 1); // +1 for the trailing '\0'
         }
         pkg->pos += bufferSize;
         return (const char*) y;
