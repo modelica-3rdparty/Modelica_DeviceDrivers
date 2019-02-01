@@ -9,7 +9,7 @@ package UDPSocket_ "Accompanying functions for the UDPSocket object"
     input UDPSocket socket;
     input SerialPackager pkg;
     output Integer nReceivedBytes "Number of received bytes";
-    output Integer nRecvbufOverwrites "Accumulated number of times new data was received without having been read out (retrieved) by Modelica";
+    output Integer nRecvbufOverwrites "Accumulated number of times new data was received and written into the receive buffer without having been read out (retrieved) by Modelica";
     external "C" MDD_udpReadP2(socket, pkg, nReceivedBytes, nRecvbufOverwrites)
     annotation(Include = "#include \"MDDUDPSocket.h\"",
            Library = {"pthread", "Ws2_32"},

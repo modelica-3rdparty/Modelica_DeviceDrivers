@@ -43,13 +43,13 @@ int main(void) {
     int i;
     int recBytes;
 
-    recSocket = MDD_udpConstructor(10002, 80);
+    recSocket = MDD_udpConstructor(10002, 80, 1); /* Use detached  receive thread */
     if (recSocket == 0) {
         perror("recSocket == NULL\n");
         exit(1);
     }
 
-    sendSocket = MDD_udpConstructor(0,0);
+    sendSocket = MDD_udpConstructor(0, 0, 0);
     if (sendSocket == 0) {
         MDD_udpDestructor(recSocket);
         perror("sendSocket == NULL\n");
