@@ -43,7 +43,8 @@ int main(void) {
     int i;
     int recBytes;
 
-    recSocket = MDD_udpConstructor(10002, 80, 1); /* Use detached  receive thread */
+    printf("Create UDP listening socket and start dedicated receive thread\n");
+    recSocket = MDD_udpConstructor(10002, 80, 1); 
     if (recSocket == 0) {
         perror("recSocket == NULL\n");
         exit(1);
@@ -62,6 +63,32 @@ int main(void) {
         MDD_udpSend(sendSocket, "127.0.0.1", 10002, sendMessage, 80);
         //MDD_msleep(1);
         recBytes = MDD_udpGetReceivedBytes(recSocket);
+        recMessage = MDD_udpRead(recSocket);
+        printf("Received %d bytes: %s\n", recBytes, recMessage);
+    }
+
+    MDD_udpDestructor(recSocket);
+    MDD_udpDestructor(sendSocket);
+
+    MDD_msleep(100);
+
+    printf("\nCreate UDP listening socket, but don't start dedicated receive thread\n");
+    recSocket = MDD_udpConstructor(10002, 80, 0);
+    if (recSocket == 0) {
+        perror("recSocket == NULL\n");
+        exit(1);
+    }
+
+    sendSocket = MDD_udpConstructor(0, 0, 0);
+    if (sendSocket == 0) {
+        MDD_udpDestructor(recSocket);
+        perror("sendSocket == NULL\n");
+        exit(1);
+    }
+
+    for (i = 0; i < 10; i++) {
+        sprintf(sendMessage, "Current i is %i", i);
+        MDD_udpSend(sendSocket, "127.0.0.1", 10002, sendMessage, 80);
         recMessage = MDD_udpRead(recSocket);
         printf("Received %d bytes: %s\n", recBytes, recMessage);
     }

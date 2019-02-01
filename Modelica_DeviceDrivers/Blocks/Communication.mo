@@ -111,7 +111,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
     parameter Integer port_recv=10001
       "Listening port number of the server. Must be unique on the system"
       annotation (Dialog(group="Incoming data"));
-    parameter Boolean useRecvThread=true "true, detached receiving thread writes datagrams into shared buffer (latest available datagram is used by simulation thread). Otherwise, simulation progress is blocked until a new incoming datagram is available"  annotation(Dialog(group="Incoming data"), choices(checkBox=true));
+    parameter Boolean useRecvThread=true "true, dedicated receiving thread writes datagrams into shared buffer (latest available datagram is used by simulation thread). Otherwise, simulation progress is blocked until a new incoming datagram is available"  annotation(Dialog(group="Incoming data"), choices(checkBox=true));
     parameter Boolean showReceivedBytesPort = false "=true, if number of received bytes port is visible" annotation(Dialog(tab="Advanced"),Evaluate=true, HideResult=true, choices(checkBox=true));
     Interfaces.PackageOut pkgOut(pkg = SerialPackager(if autoBufferSize then bufferSize else userBufferSize), dummy(start=0, fixed=true))
       annotation (Placement(transformation(

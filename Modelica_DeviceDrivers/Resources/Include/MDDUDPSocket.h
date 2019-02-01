@@ -712,7 +712,7 @@ int MDD_udpGetReceivedBytes(void * p_udp) {
  * @param port @arg 0 if a sending socket shall be generated,
  *             @arg otherwise the number of the port at which the socket shall listen.
  * @param bufferSize size of the buffer used by a receiving socket (not needed for sending socket, i.e., can be set to 0)
- * @param useReceiveThread true, detached receiving thread writes package into shared buffer
+ * @param useReceiveThread true, dedicated receiving thread writes package into shared buffer
  */
 void * MDD_udpConstructor(int port, int bufferSize, int useReceiveThread) {
     MDDUDPSocket* udp = (MDDUDPSocket*) malloc(sizeof(MDDUDPSocket));
