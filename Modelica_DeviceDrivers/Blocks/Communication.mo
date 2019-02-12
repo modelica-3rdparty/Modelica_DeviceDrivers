@@ -118,10 +118,10 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
           extent={{-20,-20},{20,20}},
           rotation=90,
           origin={108,0})));
-    Modelica.Blocks.Interfaces.IntegerOutput nRecvBytes
+    Modelica.Blocks.Interfaces.IntegerOutput nRecvBytes(start=0, fixed=true)
       "Number of received bytes" annotation (Placement(visible=
             showReceivedBytesPort, transformation(extent={{100,70},{120,90}})));
-    output Integer nRecvbufOverwrites "Accumulated number of times new data was received without having been read out (retrieved) by Modelica";
+    output Integer nRecvbufOverwrites(start=0, fixed=true) "Accumulated number of times new data was received without having been read out (retrieved) by Modelica";
   protected
     Integer bufferSize;
     UDPSocket socket = UDPSocket(port_recv, if autoBufferSize then bufferSize else userBufferSize, useRecvThread);
