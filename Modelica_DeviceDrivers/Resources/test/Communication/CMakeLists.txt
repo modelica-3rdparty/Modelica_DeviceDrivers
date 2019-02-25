@@ -136,7 +136,7 @@ if (MSVC)
     message(SEND_ERROR "Uups. Neither 64, nor 32 bit??")
   endif ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
 endif (MSVC)
-  
+
 add_executable(test_MDDMQTT test_MDDMQTT.c ../Util/ModelicaUtilities.c)
 set_property(TARGET test_MDDMQTT PROPERTY FOLDER "test/Communication")
 target_link_libraries(test_MDDMQTT ${PAHO_MQTT3CS_LIBRARY})
@@ -167,3 +167,13 @@ if (MSVC)
     message(SEND_ERROR "Uups. Neither 64, nor 32 bit??")
   endif ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
 endif (MSVC)
+
+add_executable(test_MDDTCPIPSocketServer test_MDDTCPIPSocketServer.c ../Util/ModelicaUtilities.c ../../Include/MDDTCPIPSocketServer.h ../../src/include/util.h)
+add_test(test_MDDTCPIPSocketServer ${EXECUTABLE_OUTPUT_PATH}/test_MDDTCPIPSocketServer)
+set_property(TARGET test_MDDTCPIPSocketServer PROPERTY FOLDER "test/Communication")
+
+add_executable(TCPIPClientAsRemoteStation TCPIPClientAsRemoteStation.c ../Util/ModelicaUtilities.c)
+set_property(TARGET TCPIPClientAsRemoteStation PROPERTY FOLDER "test/Communication")
+if (MSVC OR MINGW)
+  target_link_libraries(TCPIPClientAsRemoteStation Ws2_32)
+endif (MSVC OR MINGW)

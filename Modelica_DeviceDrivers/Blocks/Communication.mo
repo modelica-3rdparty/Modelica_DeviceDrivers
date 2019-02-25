@@ -1299,6 +1299,34 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
         Modelica_DeviceDrivers.Communication.MQTT_.sendTo(mqtt, channel, pkg, retained, deliveryTimeout, dataSize);
         dummy2 := dummy;
       end sendToMQTT;
+
+      function readPTCPIPServer
+        extends Modelica.Icons.Function;
+        input Modelica_DeviceDrivers.Communication.TCPIPServer tcpipserver;
+        input Modelica_DeviceDrivers.Packaging.SerialPackager pkg;
+        input Integer clientIndex "Index of the TCP/IP client";
+        input Integer recvbuflen "Size of receive buffer";
+        input Real dummy;
+        output Real dummy2;
+        output Integer nRecvBytes "Number of received bytes. If 0 it means that no new data is available.";
+      algorithm
+        nRecvBytes := Modelica_DeviceDrivers.Communication.TCPIPServer_.readP(tcpipserver, pkg, clientIndex, recvbuflen);
+        dummy2 := dummy;
+      end readPTCPIPServer;
+
+      function sendPTCPIPServer
+        extends Modelica.Icons.Function;
+        input Modelica_DeviceDrivers.Communication.TCPIPServer tcpipserver;
+        input Modelica_DeviceDrivers.Packaging.SerialPackager pkg;
+        input Integer dataSize "Size of data to be sent in byte";
+        input Integer clientIndex "Index of the TCP/IP client";
+        input Real dummy;
+        output Real dummy2;
+        output Integer dataSent;
+      algorithm
+        dataSent := Modelica_DeviceDrivers.Communication.TCPIPServer_.sendP(tcpipserver, pkg, dataSize, clientIndex);
+        dummy2 := dummy;
+      end sendPTCPIPServer;
     end DummyFunctions;
 
     block PartialSampleTrigger
@@ -1329,4 +1357,188 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
       /* "actTrigger" can now be used by extending classes to trigger calls to I/O devices */
     end PartialSampleTrigger;
   end Internal;
+
+  block TCPIPServerConfig "Configuration for TCP/IP server"
+    extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
+    extends Modelica_DeviceDrivers.Utilities.Icons.TCPIPconnection;
+    parameter Integer port = 10001 "The listening port of the server";
+    parameter Integer maxClients = 1 "Maximum number of clients that can connect simultaneously";
+    parameter Boolean useNonblockingMode = true "=true, use non-blocking TCP/IP socket, otherwise receiving and sending will block" annotation(Dialog(group="Advanced"), choices(checkBox=true));
+    output Modelica_DeviceDrivers.Communication.TCPIPServer tcpipserver = Modelica_DeviceDrivers.Communication.TCPIPServer(port, maxClients, useNonblockingMode) "Device handle";
+    annotation (
+    defaultComponentName="tcpipserverconfig",
+    defaultComponentPrefixes="inner",missingInnerMessage="The TCPIPServerConfig component is missing! A default component is added, but it its configuration is most likely not what you want!",
+    Icon(graphics={
+          Text(
+            extent={{-100,-72},{100,-96}},
+            lineColor={0,0,0},
+            textString="maxClients: %maxClients"),
+          Text(extent={{-150,142},{150,102}}, textString="%name"),
+          Text(
+            extent={{-100,96},{100,72}},
+            lineColor={0,0,0},
+            textString="port: %port")}),
+      Documentation(info="<html>
+<p>
+TCP/IP server configuration block. This block is supposed to be used as an inner (global) object. The TCP/IP receive and send blocks reference this configuration block as outer block.
+</p>
+</html>"));
+  end TCPIPServerConfig;
+
+  block TCPIPServerReceive
+    "A block for receiving TCP/IP packets stemming from a client that connected to our server"
+    extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
+    extends Modelica_DeviceDrivers.Utilities.Icons.TCPIPconnection;
+    extends Modelica_DeviceDrivers.Blocks.Communication.Internal.PartialSampleTrigger;
+    import Modelica_DeviceDrivers.Packaging.SerialPackager;
+    import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
+    parameter Integer clientIndex(min=1) = 1 "Index of the TCP/IP client" annotation(Dialog(group="Incoming data"));
+    parameter Boolean autoBufferSize = true "true, buffer size is deduced automatically, otherwise set it manually" annotation(Dialog(group="Incoming data"), choices(checkBox=true));
+    parameter Integer userBufferSize=16*1024 "Buffer size of message data in bytes (if not deduced automatically)" annotation(Dialog(enable=not autoBufferSize, group="Incoming data"));
+    parameter Boolean blockUntilConnected = false "=true, block initialization until client connected" annotation(Dialog(group="Advanced"), choices(checkBox=true));
+    parameter Boolean showAdvancedOutputs = false "=true, if advanced output ports are visible" annotation(Dialog(group="Advanced"),Evaluate=true, HideResult=true, choices(checkBox=true));
+
+    Modelica_DeviceDrivers.Blocks.Interfaces.PackageOut pkgOut(pkg=SerialPackager(
+          if autoBufferSize then bufferSize else userBufferSize),
+          dummy(start=0,fixed=true)) annotation (Placement(transformation(
+          extent={{-20,-20},{20,20}},
+          rotation=90,
+          origin={108,0})));
+    Modelica.Blocks.Interfaces.IntegerOutput nReceivedBytes "Number of received bytes"
+      annotation (Placement(visible=showAdvancedOutputs, transformation(extent={{100,70},
+              {120,90}})));
+    Modelica.Blocks.Interfaces.BooleanOutput recvTrigger
+      "Triggers if new data was received"
+      annotation (Placement(visible=showAdvancedOutputs, transformation(extent={{100,-70},{120,-50}})));
+    output Boolean accepted "Indicates whether a client at `clientIndex` has been accepted";
+
+  protected
+    outer Modelica_DeviceDrivers.Blocks.Communication.TCPIPServerConfig
+      tcpipserverconfig
+      annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+    Integer bufferSize;
+    Boolean block_;
+  initial algorithm
+    assert(clientIndex <= tcpipserverconfig.maxClients, "clientIndex="+String(clientIndex)+" out of range maxClients="+String(tcpipserverconfig.maxClients));
+    block_ := blockUntilConnected;
+    while block_ loop
+      accepted :=
+        Modelica_DeviceDrivers.Communication.TCPIPServer_.hasAcceptedClient(
+        tcpipserverconfig.tcpipserver, clientIndex);
+      block_ := not accepted;
+    end while;
+  equation
+    when initial() then
+      bufferSize = if autoBufferSize then alignAtByteBoundary(pkgOut.autoPkgBitSize) else userBufferSize;
+    end when;
+    when actTrigger then
+      accepted = Modelica_DeviceDrivers.Communication.TCPIPServer_.hasAcceptedClient(tcpipserverconfig.tcpipserver, clientIndex);
+      block_ = pre(block_);
+    end when;
+    when actTrigger and accepted then
+       (pkgOut.dummy,nReceivedBytes) =
+        Modelica_DeviceDrivers.Blocks.Communication.Internal.DummyFunctions.readPTCPIPServer(
+        tcpipserverconfig.tcpipserver,
+        pkgOut.pkg,
+        clientIndex,
+        bufferSize,
+        time);
+       // Modelica.Utilities.Streams.print("TCPIPServerReceive, t="+String(time)+": nReceivedBytes="+String(nReceivedBytes));
+    end when;
+    recvTrigger = actTrigger and nReceivedBytes > 0;
+    pkgOut.trigger = recvTrigger;
+
+    annotation (preferredView="info",
+            Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+              -100},{100,100}}), graphics={Text(extent={{-150,136},{150,96}},
+              textString="%name"),
+          Text(
+            extent={{-100,100},{100,40}},
+            lineColor={0,0,0},
+            textString="%clientIndex")}),
+                                     Documentation(info="<html>
+<p>Supports receiving of TCP/IP packets stemming from a client that connected to our server.</p>
+</html>"));
+  end TCPIPServerReceive;
+
+  block TCPIPServerSend
+    "A block for sending TCP/IP packets to a client that connected to our server."
+    extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
+    extends Modelica_DeviceDrivers.Utilities.Icons.TCPIPconnection;
+    extends Modelica_DeviceDrivers.Blocks.Communication.Internal.PartialSampleTrigger;
+    import Modelica_DeviceDrivers.Packaging.SerialPackager;
+    import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
+
+    parameter Integer clientIndex(min=1) = 1 "Index of the TCP/IP client" annotation(Dialog(group="Outgoing data"));
+    parameter Boolean autoBufferSize = true "true, buffer size is deduced automatically, otherwise set it manually." annotation(Dialog(group="Outgoing data"), choices(checkBox=true));
+    parameter Integer userBufferSize=16*1024 "Buffer size of message data in bytes (if not deduced automatically)." annotation(Dialog(enable=not autoBufferSize, group="Outgoing data"));
+
+    parameter Boolean blockUntilConnected = false "=true, block initialization until client connected" annotation(Dialog(group="Advanced"), choices(checkBox=true));
+
+    Modelica_DeviceDrivers.Blocks.Interfaces.PackageIn pkgIn annotation (Placement(
+          transformation(
+          extent={{-20,-20},{20,20}},
+          rotation=270,
+          origin={-108,0})));
+
+   output Integer dataSent;
+   output Boolean accepted "Indicates whether a client at `clientIndex` has been accepted";
+  protected
+    Integer bufferSize(start=0,fixed=true);
+    Real dummy1(start=0, fixed=true), dummy2(start=0, fixed=true);
+    Integer pkgSize(start=0,fixed=true);
+    outer Modelica_DeviceDrivers.Blocks.Communication.TCPIPServerConfig
+      tcpipserverconfig
+      annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+    Boolean block_;
+  initial algorithm
+    assert(clientIndex <= tcpipserverconfig.maxClients, "clientIndex="+String(clientIndex)+" out of range maxClients="+String(tcpipserverconfig.maxClients));
+    block_ := blockUntilConnected;
+    while block_ loop
+      accepted :=
+        Modelica_DeviceDrivers.Communication.TCPIPServer_.hasAcceptedClient(
+        tcpipserverconfig.tcpipserver, clientIndex);
+      block_ := not accepted;
+    end while;
+  equation
+    when initial() then
+      pkgIn.userPkgBitSize = if autoBufferSize then -1 else userBufferSize*8;
+      pkgIn.autoPkgBitSize = 0;
+
+      bufferSize = if autoBufferSize then
+        Modelica_DeviceDrivers.Packaging.SerialPackager_.getBufferSize(pkgIn.pkg)
+          else userBufferSize;
+    end when;
+
+    when actTrigger then
+      accepted = Modelica_DeviceDrivers.Communication.TCPIPServer_.hasAcceptedClient(tcpipserverconfig.tcpipserver, clientIndex);
+      block_ = pre(block_);
+    end when;
+    pkgIn.backwardTrigger = actTrigger and accepted;
+    when pkgIn.trigger then
+       // Modelica.Utilities.Streams.print("TCPIPServerSend, t="+String(time));
+
+       (pkgSize, dummy1) = Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.Internal.DummyFunctions.getPos(pkgIn.pkg, pkgIn.dummy);
+       assert(pkgSize <= bufferSize, "Buffer overflow");
+
+      (dummy2, dataSent) =
+        Modelica_DeviceDrivers.Blocks.Communication.Internal.DummyFunctions.sendPTCPIPServer(
+        tcpipserverconfig.tcpipserver,
+        pkgIn.pkg,
+        pkgSize,
+        clientIndex,
+        dummy1);
+    end when;
+    annotation (preferredView="info",
+            Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+              -100},{100,100}}), graphics={Text(extent={{-150,136},{150,96}},
+              textString="%name"),
+          Text(
+            extent={{-100,100},{100,40}},
+            lineColor={0,0,0},
+            textString="%clientIndex")}),
+                                     Documentation(info="<html>
+<p>Supports sending of TCP/IP packets to a client that connected to our server.</p>
+</html>"));
+  end TCPIPServerSend;
 end Communication;
