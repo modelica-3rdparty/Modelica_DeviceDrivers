@@ -440,7 +440,7 @@ DllExport void MDD_SerialPackagerGetFloatAsDouble(void* p_package, double * y, i
  */
 DllExport void MDD_SerialPackagerAddString(void* p_package, const char* u, int bufferSize) {
     SerialPackager* pkg = (SerialPackager*) p_package;
-    //unsigned int size = (strlen(u)+1)*sizeof(char);
+    /* unsigned int size = (strlen(u)+1)*sizeof(char); */
 
     if (pkg->bitOffset != 0) {
         MDD_SerialPackagerAlignToByteBoundary(pkg);
