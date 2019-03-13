@@ -4,9 +4,10 @@ package Modelica_DeviceDrivers "Modelica_DeviceDrivers - A collection of drivers
 
   annotation (preferredView="info",
     uses(Modelica_Synchronous(version="0.92.1"),
-       Modelica(version="3.2.2")),
-    version="1.6.0",
-    versionDate="2018-10-06",
+       Modelica(version="3.2.3")),
+    version="1.7.0",
+    versionDate="2019-03-28",
+    conversion(nonFromVersion="1.6.0"),
     Documentation(info="<html>
 <p>
 Library <b>Modelica_DeviceDrivers</b> is a Modelica package
@@ -32,7 +33,7 @@ use the issue tracker provided by GitHub to report bugs or other issues
 (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues\">https://github.com/modelica/Modelica_DeviceDrivers/issues</a>).</p>
 <br>
 <table border=\"0\" cellpadding=\"2\" cellspacing=\"2\">
-<tr><td style=\"vertical-align: top;\">Copyright &copy; 2012-2018, DLR, ESI ITI, and Link&ouml;ping University (PELAB)</td>
+<tr><td style=\"vertical-align: top;\">Copyright &copy; 2012-2019, DLR, ESI ITI, and Link&ouml;ping University (PELAB)</td>
 </tr>
 </table>
 
