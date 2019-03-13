@@ -25,7 +25,7 @@ package InputDevices
       buttons = buttons_;
       pOV = pOV_;
     end when;
-    axes = (AxesRaw .- 32768)/32768 ./gain;
+    axes = (AxesRaw .- 32768)/32768 .*gain;
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}), graphics={Bitmap(extent={{-86,-88},{88,88}},
               fileName="modelica://Modelica_DeviceDrivers/Resources/Images/Icons/joystick.png"), Text(extent={

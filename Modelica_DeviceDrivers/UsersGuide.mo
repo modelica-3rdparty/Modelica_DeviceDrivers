@@ -83,6 +83,28 @@ This library is based on various resources (mainly within the internet) describi
 
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
+    class Version_1_7_0 "Version 1.7.0 (March 28, 2019)"
+    extends Modelica.Icons.ReleaseNotes;
+
+      annotation (Documentation(info="<html>
+<p>Enhancements:</p>
+<ul>
+<li>Uses latest version of Modelica Standard Library (v3.2.3).</li>
+<li>Option for using blocking UDP receive calls (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/pull/275\">#275</a>). On the function interface level an optional third argument in the <a href=\"modelica://Modelica_DeviceDrivers.Communication.UDPSocket.constructor\">UDPSocket constructor</a> allows to create the external object without starting a dedicated receive thread (default: <span style=\"font-family: Courier New;\">useRecvThread=true</span>). On the block interface level (block <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.UDPReceive\">UDPReceive</a>) a new parameter <span style=\"font-family: Courier New;\">useRecvThread</span> (default: <span style=\"font-family: Courier New;\">useRecvThread=true</span>) allows to select the desired behavior. See example <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackager_UDPWithoutReceiveThread\">TestSerialPackager_UDPWithoutReceiveThread</a>.</li>
+<li>Added parameter <span style=\"font-family: Courier New;\">enable</span> (default: <span style=\"font-family: Courier New;\">enable=true</span>) for conditionally enabling or disabling the real-time synchronization within the <a href=\"modelica://Modelica_DeviceDrivers.Blocks.OperatingSystem.SynchronizeRealtime\">SynchronizeRealtime</a> block (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues/270\">#270</a>).</li>
+<li>Update OpenSSL to 1.0.2q (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/pull/269\">#269</a>).</li>
+</ul>
+<p>Bug fixes:</p>
+<ul>
+<li>EmbeddedTargets.AVR: Only start the RT synch timer once (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/pull/274\">#274</a>).</li>
+<li>Fixed Cygwin build (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/pull/271\">#271</a>). </li>
+<li>Fixed scale factor calculation error in <span style=\"font-family: Courier New;\">JoystickInput</span> block (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/pull/272\">#272</a>).</li>
+<li>Fix missing byte copy of &apos;\\0&apos; in external C code function <code>MDDEXT_SerialPackagerGetString()</code> (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/pull/273\">#273</a>).</li>
+</ul>
+<p>Other (minor) fixes and improvements.</p>
+</html>"));
+    end Version_1_7_0;
+
     class Version_1_6_0 "Version 1.6.0 (October 6, 2018)"
     extends Modelica.Icons.ReleaseNotes;
 
@@ -311,7 +333,7 @@ of the library:
 <table border=1 cellspacing=0 cellpadding=2>
 
 <tr><td valign=\"top\"><b>Miguel Neves</b> </td>
-   <td valign=\"top\">&nbsp;</td>
+   <td valign=\"top\">at <a href=\"https://github.com/ChukasNeves\">GitHub</a></td>
    <td valign=\"top\">Human readable error codes for the Softing CAN interface.</td>
 </tr>
 <tr><td valign=\"top\"><b>Dominik Sommer</b> </td>
@@ -326,7 +348,7 @@ of the library:
    <td valign=\"top\">Code for Windows serial port support.</td>
 </tr>
 <tr><td valign=\"top\"><b>Dietmar Winkler</b> </td>
-   <td valign=\"top\">at <a href=\"https://github.com/dietmarw\">Github</a></td>
+   <td valign=\"top\">at <a href=\"https://github.com/dietmarw\">GitHub</a></td>
    <td valign=\"top\">GitHub project setup, development services integration etc.</td>
 </tr>
 </table>

@@ -440,7 +440,7 @@ DllExport void MDD_SerialPackagerGetFloatAsDouble(void* p_package, double * y, i
  */
 DllExport void MDD_SerialPackagerAddString(void* p_package, const char* u, int bufferSize) {
     SerialPackager* pkg = (SerialPackager*) p_package;
-    //unsigned int size = (strlen(u)+1)*sizeof(char);
+    /* unsigned int size = (strlen(u)+1)*sizeof(char); */
 
     if (pkg->bitOffset != 0) {
         MDD_SerialPackagerAlignToByteBoundary(pkg);
@@ -486,7 +486,7 @@ DllExport const char* MDD_SerialPackagerGetString(void* p_package, int bufferSiz
     else {
         char* y = ModelicaAllocateString(i - pkg->pos);
         if (y) {
-            memcpy(y, &(pkg->data[ pkg->pos ]), i - pkg->pos);
+            memcpy(y, &(pkg->data[ pkg->pos ]), i - pkg->pos + 1); // +1 for the trailing '\0'
         }
         pkg->pos += bufferSize;
         return (const char*) y;

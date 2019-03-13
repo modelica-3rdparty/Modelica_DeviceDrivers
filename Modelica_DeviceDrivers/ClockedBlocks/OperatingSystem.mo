@@ -40,6 +40,7 @@ package OperatingSystem
 
     parameter Boolean setPriority = true "true, if process priority is to be set, otherwise false";
     parameter Types.ProcessPriority priority = "Normal" "Priority of the simulation process" annotation(Dialog(enable=setPriority));
+    parameter Boolean enable = true "true, if real-time synchronization is enabled, otherwise it is disabled!" annotation(Dialog(group="Advanced"), choices(checkBox=true));
     parameter Boolean enableRealTimeScaling = false
       "true, enable external real-time scaling input signal"
       annotation (Dialog(group="Advanced"), choices(checkBox=true));
@@ -57,11 +58,11 @@ package OperatingSystem
     Modelica.Blocks.Interfaces.RealInput defaultScaling = 1 if not enableRealTimeScaling "Default real-time scaling";
     Modelica.Blocks.Interfaces.RealInput actScaling annotation (HideResult=true);
   algorithm
-    if initialized then
+    if enable and initialized then
       (calculationTime, availableTime) := Modelica_DeviceDrivers.OperatingSystem.realtimeSynchronize(rtSync, time, enableRealTimeScaling, actScaling);
     end if;
   equation
-    /* Condional connect equations */
+    /* Conditional connect equations */
     connect(defaultScaling, actScaling);
     connect(scaling, actScaling);
     connect(procPrio.initialized, initialized);

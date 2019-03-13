@@ -111,19 +111,20 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
     parameter Integer port_recv=10001
       "Listening port number of the server. Must be unique on the system"
       annotation (Dialog(group="Incoming data"));
+    parameter Boolean useRecvThread=true "true, dedicated receiving thread writes datagrams into shared buffer (latest available datagram is used by simulation thread). Otherwise, simulation progress is blocked until a new incoming datagram is available"  annotation(Dialog(group="Incoming data"), choices(checkBox=true));
     parameter Boolean showReceivedBytesPort = false "=true, if number of received bytes port is visible" annotation(Dialog(tab="Advanced"),Evaluate=true, HideResult=true, choices(checkBox=true));
     Interfaces.PackageOut pkgOut(pkg = SerialPackager(if autoBufferSize then bufferSize else userBufferSize), dummy(start=0, fixed=true))
       annotation (Placement(transformation(
           extent={{-20,-20},{20,20}},
           rotation=90,
           origin={108,0})));
-    Modelica.Blocks.Interfaces.IntegerOutput nRecvBytes
+    Modelica.Blocks.Interfaces.IntegerOutput nRecvBytes(start=0, fixed=true)
       "Number of received bytes" annotation (Placement(visible=
             showReceivedBytesPort, transformation(extent={{100,70},{120,90}})));
-    output Integer nRecvbufOverwrites "Accumulated number of times new data was received without having been read out (retrieved) by Modelica";
+    output Integer nRecvbufOverwrites(start=0, fixed=true) "Accumulated number of times new data was received without having been read out (retrieved) by Modelica";
   protected
     Integer bufferSize;
-    UDPSocket socket = UDPSocket(port_recv, if autoBufferSize then bufferSize else userBufferSize);
+    UDPSocket socket = UDPSocket(port_recv, if autoBufferSize then bufferSize else userBufferSize, useRecvThread);
   equation
     when initial() then
       bufferSize = if autoBufferSize then alignAtByteBoundary(pkgOut.autoPkgBitSize) else userBufferSize;

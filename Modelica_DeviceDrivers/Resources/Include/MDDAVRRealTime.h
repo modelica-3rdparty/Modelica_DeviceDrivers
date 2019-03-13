@@ -65,54 +65,54 @@ static volatile uint16_t numInterruptTriggered=0;
 
 /* The wait routine actually starts the clock.
  * This is done after initialization to avoid weird behaviour
+ * ensuring that the clock does not start until we have performed a step
  */
 static inline void MDD_avr_rt_wait(void *timer)
 {
-  switch ((int)timer) {
+  static int initialized = 0; /* We assume there is only one real-time synchronization external object */
+  if (!initialized) {
+    initialized = 1;
+    switch ((int)timer) {
 #if defined(__AVR_ATmega16__)
-  case 1:
-    TCNT0 = 0;
-    TIMSK |= (1 << OCIE0); /* Set the ISR COMPA vect */
-    break;
+    case 1:
+      TCNT0 = 0;
+      TIMSK |= (1 << OCIE0); /* Set the ISR COMPA vect */
+      break;
 #elif defined(TCCR0B) && defined(OCIE0A)
-  case 1:
-    TCNT0 = 0;
-    TIMSK0 |= (1 << OCIE0A); /* Set the ISR COMPA vect */
-    break;
+    case 1:
+      TCNT0 = 0;
+      TIMSK0 |= (1 << OCIE0A); /* Set the ISR COMPA vect */
+      break;
 #endif
 #if defined(__AVR_ATmega16__) || defined(__AVR_ATmega328P__)
-  case 2:
-    TCNT1 = 0;
+    case 2:
+      TCNT1 = 0;
 #if defined(__AVR_ATmega16__)
-    TIMSK |= (1 << OCIE1A); /* Set the ISR COMPA vect */
+      TIMSK |= (1 << OCIE1A); /* Set the ISR COMPA vect */
 #else
-    TIMSK1 |= (1 << OCIE1A); /* Set the ISR COMPA vect */
+      TIMSK1 |= (1 << OCIE1A); /* Set the ISR COMPA vect */
 #endif
-    break;
+      break;
 #endif
 #if defined(__AVR_ATmega16__)
-  case 3:
-    TCNT2 = 0;
-    TIMSK |= (1 << OCIE2); /* Set the ISR COMPA vect */
-    break;
+    case 3:
+      TCNT2 = 0;
+      TIMSK |= (1 << OCIE2); /* Set the ISR COMPA vect */
+      break;
 #elif defined(__AVR_ATmega328P__)
-  case 3:
-    TCNT2 = 0;
-    TIMSK2 |= (1 << OCIE2A); /* Set the ISR COMPA vect */
-    break;
+    case 3:
+      TCNT2 = 0;
+      TIMSK2 |= (1 << OCIE2A); /* Set the ISR COMPA vect */
+      break;
 #endif
-  default:
-    exit(1);
+    default:
+      exit(1);
+    }
+    sei();
   }
-  sei();
 
   int interruptTriggered_Local;
-  do {
-    ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
-    {
-      interruptTriggered_Local = interruptTriggered;
-    }
-  } while (interruptTriggered_Local==0);
+  while (interruptTriggered == 0); /* Should not need to be atomic; single byte read */
   interruptTriggered = 0;
 }
 

@@ -52,6 +52,7 @@ struct MDDUDPSocket_s {
     char * receiveBuffer;
     int bufferSize;
     SOCKET SocketID;
+    int useReceiveThread;
     int receiving;
     int nReceivedBytes;
     int nRecvbufOverwrites; /* Accumulated number of times new data was received without having been read out (retrieved) by Modelica */
@@ -110,7 +111,7 @@ DWORD WINAPI MDD_udpReceivingThread(LPVOID pUdp) {
     return 0;
 }
 
-DllExport void * MDD_udpConstructor(int port, int bufferSize) {
+DllExport void * MDD_udpConstructor(int port, int bufferSize, int useReceiveThread) {
 
     int rc; /* Error variable */
     WSADATA wsa;
@@ -134,7 +135,8 @@ DllExport void * MDD_udpConstructor(int port, int bufferSize) {
         ModelicaFormatError("MDDUDPSocket.h: socket failed with error: %d\n", rc);
         return udp;
     }
-    udp->receiving = 1;
+    udp->useReceiveThread = useReceiveThread;
+    udp->receiving = 0;
     udp->bufferSize = bufferSize;
     udp->nReceivedBytes = 0;
     udp->nRecvbufOverwrites = 0;
@@ -155,21 +157,24 @@ DllExport void * MDD_udpConstructor(int port, int bufferSize) {
         }
         udp->receiveBuffer = (char*)calloc(bufferSize, 1);
         InitializeCriticalSection(&udp->receiveLock);
-        udp->hThread = CreateThread(0, 1024, MDD_udpReceivingThread, udp, 0, &id1);
-        if (!udp->hThread) {
-            DWORD dw = GetLastError();
-            udp->receiving = 0;
-            rc = shutdown(udp->SocketID, 2);
-            if (rc == SOCKET_ERROR) {
-                ModelicaFormatMessage("MDDUDPSocket.h: shutdown failed: %d\n", WSAGetLastError());
+        if (udp->useReceiveThread) {
+            udp->receiving = 1;
+            udp->hThread = CreateThread(0, 1024, MDD_udpReceivingThread, udp, 0, &id1);
+            if (!udp->hThread) {
+                DWORD dw = GetLastError();
+                udp->receiving = 0;
+                rc = shutdown(udp->SocketID, 2);
+                if (rc == SOCKET_ERROR) {
+                    ModelicaFormatMessage("MDDUDPSocket.h: shutdown failed: %d\n", WSAGetLastError());
+                }
+                closesocket(udp->SocketID);
+                DeleteCriticalSection(&udp->receiveLock);
+                free(udp->receiveBuffer);
+                free(udp);
+                udp = NULL;
+                WSACleanup();
+                ModelicaFormatError("MDDUDPSocket.h: Error creating UDP receiver thread: %lu\n", dw);
             }
-            closesocket(udp->SocketID);
-            DeleteCriticalSection(&udp->receiveLock);
-            free(udp->receiveBuffer);
-            free(udp);
-            udp = NULL;
-            WSACleanup();
-            ModelicaFormatError("MDDUDPSocket.h: Error creating UDP receiver thread: %lu\n", dw);
         }
         ModelicaFormatMessage("MDDUDPSocket.h: Waiting for data on port %d.\n", port);
     }
@@ -181,15 +186,15 @@ DllExport void * MDD_udpConstructor(int port, int bufferSize) {
 
 DllExport void MDD_udpDestructor(void * p_udp) {
     MDDUDPSocket * udp = (MDDUDPSocket *) p_udp;
+    int rc;
     if (udp) {
-        int rc;
         udp->receiving = 0;
         rc = shutdown(udp->SocketID, 2);
         if (rc == SOCKET_ERROR) {
             ModelicaFormatMessage("MDDUDPSocket.h: shutdown failed with error code: %d\n", WSAGetLastError());
         }
         closesocket(udp->SocketID);
-        if (udp->hThread) {
+        if (udp->useReceiveThread && udp->hThread) {
             DWORD dwEc = 1;
             WaitForSingleObject(udp->hThread, 1000);
             if (GetExitCodeThread(udp->hThread, &dwEc) && dwEc == STILL_ACTIVE) {
@@ -207,8 +212,8 @@ DllExport void MDD_udpDestructor(void * p_udp) {
 DllExport void MDD_udpSend(void * p_udp, const char * ipAddress, int port,
                            const char * data, int dataSize) {
     MDDUDPSocket * udp = (MDDUDPSocket *) p_udp;
+    int rc;
     if (udp) {
-        int rc;
         SOCKADDR_IN addr;
         addr.sin_family=AF_INET;
         addr.sin_port=htons((u_short)port);
@@ -231,8 +236,20 @@ DllExport void MDD_udpSendP(void * p_udp, const char * ipAddress, int port,
 
 DllExport const char * MDD_udpRead(void * p_udp) {
     MDDUDPSocket * udp = (MDDUDPSocket *) p_udp;
-    if (udp && udp->hThread) {
-        char* udpBuf;
+    SOCKADDR remoteAddr;
+    int remoteAddrLen;
+    char* udpBuf;
+
+    if (udp && (!udp->useReceiveThread || (udp->useReceiveThread && udp->hThread))) {
+
+        if (!udp->useReceiveThread) {
+            remoteAddrLen = sizeof(SOCKADDR);
+            udp->nReceivedBytes = recvfrom(udp->SocketID, udp->receiveBuffer, udp->bufferSize,0,&remoteAddr,&remoteAddrLen);
+            if(udp->nReceivedBytes==SOCKET_ERROR) {
+                ModelicaFormatMessage("MDDUDPSocket.h: Receiving not possible, socket not valid.\n");
+            }
+        }
+
         EnterCriticalSection(&udp->receiveLock);
         udpBuf = ModelicaAllocateStringWithErrorReturn(udp->bufferSize);
         if (udpBuf) {
@@ -246,13 +263,27 @@ DllExport const char * MDD_udpRead(void * p_udp) {
             ModelicaError("MDDUDPSocket.h: ModelicaAllocateString failed\n");
         }
     }
+
     return "";
 }
 
+
 DllExport void MDD_udpReadP2(void * p_udp, void* p_package, int* nReceivedBytes, int* nRecvbufOverwrites) {
     MDDUDPSocket * udp = (MDDUDPSocket *) p_udp;
-    if (udp && udp->hThread) {
-        int rc;
+    SOCKADDR remoteAddr;
+    int remoteAddrLen;
+    int rc;
+
+    if (udp && (!udp->useReceiveThread || (udp->useReceiveThread && udp->hThread))) {
+
+        if (!udp->useReceiveThread) {
+            remoteAddrLen = sizeof(SOCKADDR);
+            udp->nReceivedBytes = recvfrom(udp->SocketID, udp->receiveBuffer, udp->bufferSize,0,&remoteAddr,&remoteAddrLen);
+            if(udp->nReceivedBytes==SOCKET_ERROR) {
+                ModelicaFormatMessage("MDDUDPSocket.h: Receiving not possible, socket not valid.\n");
+            }
+        }
+
         EnterCriticalSection(&udp->receiveLock);
         rc = MDD_SerialPackagerSetDataWithErrorReturn(p_package, udp->receiveBuffer, udp->nReceivedBytes);
         *nReceivedBytes = udp->nReceivedBytes;
@@ -274,7 +305,8 @@ DllExport void MDD_udpReadP(void * p_udp, void* p_package) {
 DllExport int MDD_udpGetReceivedBytes(void * p_udp) {
     int nReceivedBytes = 0;
     MDDUDPSocket * udp = (MDDUDPSocket *) p_udp;
-    if (udp && udp->hThread) {
+
+    if (udp && udp->useReceiveThread && udp->hThread) {
         EnterCriticalSection(&udp->receiveLock);
         nReceivedBytes = udp->nReceivedBytes;
         LeaveCriticalSection(&udp->receiveLock);
@@ -308,6 +340,7 @@ struct MDDUDPSocket_s {
     void* msgInternal;  /**< Internal UDP message buffer (only relevant for read socket) */
     ssize_t nReceivedBytes; /**< Number of received bytes (only relevant for read socket) */
     int nRecvbufOverwrites; /**< Accumulated number of times new data was received without having been read out (retrieved) by Modelica */
+    int useReceiveThread; /**< true, create dedicated receive thread and do not block main thread for incoming data (latest available data is used) */
     int runReceive; /**< Run receiving thread as long as runReceive != 0  */
     pthread_t thread;
     pthread_mutex_t messageMutex; /**< Exclusive access to message buffer */
@@ -321,6 +354,7 @@ void* MDD_udpReceivingThread(void * p_udp) {
     MDDUDPSocket * udp = (MDDUDPSocket *) p_udp;
     socklen_t sa_len = sizeof(struct sockaddr_in);  /*  Size of sa. */
     struct pollfd sock_poll;
+    int ret;
 
     ModelicaFormatMessage("Started dedicated UDP receiving thread listening at port %d\n",
                           udp->sock);
@@ -329,7 +363,7 @@ void* MDD_udpReceivingThread(void * p_udp) {
     sock_poll.events = POLLIN;
 
     while (udp->runReceive) {
-        int ret = poll(&sock_poll, 1, 100);
+        ret = poll(&sock_poll, 1, 100);
 
         switch (ret) {
             case -1:
@@ -372,6 +406,31 @@ void* MDD_udpReceivingThread(void * p_udp) {
     return NULL;
 }
 
+/** Blocking UDP receive.
+ *
+ * @param p_udp pointer address to the udp socket data structure
+ */
+int MDD_udpBlockingReceive(void * p_udp) {
+    MDDUDPSocket * udp = (MDDUDPSocket *) p_udp;
+    socklen_t sa_len = sizeof(struct sockaddr_in);  /*  Size of sa. */
+    /* Receive the next datagram  */
+	udp->nReceivedBytes =
+		recvfrom(udp->sock,                   /* UDP socket */
+		udp->msgInternal,             /* receive buffer */
+		udp->messageLength,           /* max bytes to receive */
+		0,                            /* no special flags */
+		(struct sockaddr*) &(udp->sa),/* sender’s address */
+		&sa_len
+		);
+
+	if (udp->nReceivedBytes < 0)
+	{
+		ModelicaFormatError("MDDUDPSocket.h: recfrom(..) failed (%s)\n",
+			strerror(errno));
+	}
+	return 0;
+}
+
 /** Read data from UDP socket.
  *
  * @param p_udp pointer address to the udp socket data structure
@@ -380,6 +439,10 @@ void* MDD_udpReceivingThread(void * p_udp) {
 const char * MDD_udpRead(void * p_udp) {
     MDDUDPSocket * udp = (MDDUDPSocket *) p_udp;
     char* udpBuf;
+
+    if(!udp->useReceiveThread) {
+		 MDD_udpBlockingReceive(p_udp);
+     }
 
     /* Lock access to udp->msgInternal  */
     pthread_mutex_lock(&(udp->messageMutex));
@@ -407,6 +470,10 @@ const char * MDD_udpRead(void * p_udp) {
 void MDD_udpReadP2(void * p_udp, void* p_package, int* nReceivedBytes, int* nRecvbufOverwrites) {
     MDDUDPSocket * udp = (MDDUDPSocket *) p_udp;
     int rc;
+
+    if(!udp->useReceiveThread) {
+		 MDD_udpBlockingReceive(p_udp);
+     }
 
     /* Lock access to udp->msgInternal  */
     pthread_mutex_lock(&(udp->messageMutex));
@@ -498,6 +565,7 @@ void MDD_udpNonBlockingReadP(void * p_udp, void* p_package) {
     socklen_t sa_len = sizeof(struct sockaddr_in);  /*  Size of sa. */
     struct pollfd sock_poll;
     int ret;
+    int rc;
 
     sock_poll.fd = udp->sock;
     sock_poll.events = POLLIN;
@@ -517,7 +585,6 @@ void MDD_udpNonBlockingReadP(void * p_udp, void* p_package) {
                 ModelicaFormatError("MDDUDPSocket.h: The UDP socket was disconnected. Exiting.\n");
             }
             else {
-                int rc;
                 /* Receive the next datagram. */
                 udp->nReceivedBytes =
                        recvfrom(udp->sock,                    /* UDP socket */
@@ -646,14 +713,16 @@ int MDD_udpGetReceivedBytes(void * p_udp) {
  * @param port @arg 0 if a sending socket shall be generated,
  *             @arg otherwise the number of the port at which the socket shall listen.
  * @param bufferSize size of the buffer used by a receiving socket (not needed for sending socket, i.e., can be set to 0)
+ * @param useReceiveThread true, dedicated receiving thread writes package into shared buffer
  */
-void * MDD_udpConstructor(int port, int bufferSize) {
+void * MDD_udpConstructor(int port, int bufferSize, int useReceiveThread) {
     MDDUDPSocket* udp = (MDDUDPSocket*) malloc(sizeof(MDDUDPSocket));
     int ret;
 
     udp->messageLength = bufferSize;
     udp->nReceivedBytes = 0;
     udp->nRecvbufOverwrites = 0;
+    udp->useReceiveThread = useReceiveThread;
     udp->runReceive = 0;
     udp->msgInternal = calloc(udp->messageLength,1);
     ret = pthread_mutex_init(&(udp->messageMutex), NULL); /* Init mutex with defaults */
@@ -695,11 +764,13 @@ void * MDD_udpConstructor(int port, int bufferSize) {
                                 strerror(errno));
         }
 
-        /* Start dedicated receiver thread */
-        udp->runReceive = 1;
-        ret = pthread_create(&udp->thread, 0, &MDD_udpReceivingThread, udp);
-        if (ret) {
-            ModelicaFormatError("MDDUDPSocket: pthread_create(..) failed\n");
+        if (udp->useReceiveThread) {
+            /* Start dedicated receiver thread */
+            udp->runReceive = 1;
+            ret = pthread_create(&udp->thread, 0, &MDD_udpReceivingThread, udp);
+            if (ret) {
+                ModelicaFormatError("MDDUDPSocket: pthread_create(..) failed\n");
+            }
         }
     }
 

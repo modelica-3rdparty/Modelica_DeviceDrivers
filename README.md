@@ -47,7 +47,7 @@ If you tested the library successfully with another Modelica tool, please contac
 Bug fix releases usually won't have release notes, so please use the download link from above to get the latest release including bug fixes.
 
 *  [Version v1.6.0 (2018-10-06)](../../releases/tag/v1.6.0)
-   * (Support for MQTT (Message Queuing Telemetry Transport protocol) client communication (see #130, #256).
+   * Support for MQTT (Message Queuing Telemetry Transport protocol) client communication (see #130, #256).
    * Utility function to retrieve MAC address (`Utilities.Functions.getMACAddress`, see #255).
    * Utility function to generate a UUID (`Utilities.Functions.generateUUID()`, see #244).
    * Number of received bytes in `UDPReceive` block is provided as output (see #236).
@@ -129,7 +129,7 @@ You may report any issues with using the [Issues](https://github.com/modelica/Mo
 Contributions in shape of [Pull Requests](https://github.com/modelica/Modelica_DeviceDrivers/pulls) are always welcome.
 
 The following people have directly contributed to the implementation of the library (many more have contributed by providing feedback and suggestions):
-* Miguel Neves, human readable error codes for the Softing CAN interface.
+* [Miguel Neves](https://github.com/ChukasNeves), human readable error codes for the Softing CAN interface.
 * Dominik Sommer, code for Linux serial port support.
 * [Rangarajan Varadan](http://www.codeproject.com/Members/Rangarajan-Varadan), [code for Windows serial port support](http://www.codeproject.com/Articles/81933/Serial-Port-R-W-With-Read-Thread).
 * [Dietmar Winkler](https://github.com/dietmarw), GitHub project setup, development services integration etc.

@@ -13,7 +13,7 @@
 
 #if !defined(ITI_COMP_SIM)
 
-#if defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__)
+#if defined(_MSC_VER) || defined(__MINGW32__)
 
 #ifndef WINVER
 #define WINVER 0x0501
@@ -23,7 +23,7 @@
 
 #pragma comment( lib, "IPHlpApi.lib" )
 
-#elif defined(__linux__)
+#elif defined(__linux__) || defined(__CYGWIN__)
 
 #include <unistd.h>
 #include <sys/types.h>
@@ -41,7 +41,7 @@
 #include "../src/include/CompatibilityDefs.h"
 #include "ModelicaUtilities.h"
 
-#if defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__)
+#if defined(_MSC_VER) || defined(__MINGW32__)
 
 DllExport const char* MDD_utilitiesGetMACAddress(int idx) {
     PIP_ADAPTER_ADDRESSES pAddresses = NULL;
@@ -109,7 +109,7 @@ DllExport const char* MDD_utilitiesGetMACAddress(int idx) {
     return "";
 }
 
-#elif defined(__linux__)
+#elif defined(__linux__) || defined(__CYGWIN__)
 
 const char* MDD_utilitiesGetMACAddress(int idx) {
     struct ifconf c;
