@@ -6,7 +6,7 @@ package Modelica_DeviceDrivers "Modelica_DeviceDrivers - A collection of drivers
     uses(Modelica_Synchronous(version="0.92.1"),
        Modelica(version="3.2.3")),
     version="1.7.0",
-    versionBuild=1,
+    versionBuild=2,
     versionDate="2019-03-28",
     conversion(nonFromVersion="1.6.0"),
     Documentation(info="<html>
