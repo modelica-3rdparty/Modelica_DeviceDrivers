@@ -1,6 +1,6 @@
 within Modelica_DeviceDrivers.EmbeddedTargets.AVR.Examples.SBHS;
 model Board "Base SBHS board"
-  extends .Modelica.Blocks.Interfaces.BlockIcon;
+  extends Modelica.Blocks.Icons.Block;
   import Modelica_DeviceDrivers.EmbeddedTargets.AVR;
   import Modelica_DeviceDrivers.EmbeddedTargets.AVR.Blocks;
   import Modelica_DeviceDrivers.EmbeddedTargets.AVR.Functions.Digital.LCD.HD44780;
