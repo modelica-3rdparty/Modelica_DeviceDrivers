@@ -50,7 +50,7 @@ Bug fix releases usually won't have release notes, so please use the download li
    * Uses latest version of Modelica Standard Library (v3.2.3).
    * Option for using blocking UDP receive calls (#275). On the function interface level an optional third argument in the `UDPSocket` constructor allows to create the external object without starting a dedicated receive thread (default: `useRecvThread=true`). On the block interface level (block `UDPReceive`) a new parameter `useRecvThread` (default: `useRecvThread=true`) allows to select the desired behavior. See example `Blocks.Examples.TestSerialPackager_UDPWithoutReceiveThread`.
    * Added parameter `enable` (default: `enable=true`) for conditionally enabling or disabling the real-time synchronization within the `Blocks.OperatingSystem.SynchronizeRealtime` block (#270).
-   * Update OpenSSL to 1.0.2q (#269).
+   * Update OpenSSL to 1.0.2r (#280).
    * Bug fixes:
      * `EmbeddedTargets.AVR`: Only start the RT synch timer once (#274).
      * `EmbeddedTargets.AVR`: Fixed reading of digital pins (#266).
