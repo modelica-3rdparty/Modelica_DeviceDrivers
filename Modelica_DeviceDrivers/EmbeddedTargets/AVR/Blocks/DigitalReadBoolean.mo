@@ -14,7 +14,7 @@ model DigitalReadBoolean
     group = "Constants"));
 protected
   Functions.Digital.InitRead digital = Functions.Digital.InitRead(port, pin);
-equation
-  y = Functions.Digital.read(digital, pin);
+algorithm
+  y := Functions.Digital.read(digital, pin);
 annotation(Icon(graphics = {Text(extent = {{-95, -95}, {95, 95}}, textString = "Digital %port%pin", fontName = "Arial")}));
 end DigitalReadBoolean;

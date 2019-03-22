@@ -97,6 +97,7 @@ This library is based on various resources (mainly within the internet) describi
 <p>Bug fixes:</p>
 <ul>
 <li>EmbeddedTargets.AVR: Only start the RT synch timer once (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/pull/274\">#274</a>).</li>
+<li>EmbeddedTargets.AVR: Fixed reading of digital pins (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/pull/266\">#266</a>).</li>
 <li>Fixed Cygwin build (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/pull/271\">#271</a>). </li>
 <li>Fixed scale factor calculation error in <code>JoystickInput</code> block (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/pull/272\">#272</a>).</li>
 <li>Fix missing byte copy of &apos;\\0&apos; in external C code function <code>MDDEXT_SerialPackagerGetString()</code> (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/pull/273\">#273</a>).</li>

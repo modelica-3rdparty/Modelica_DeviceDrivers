@@ -2,7 +2,7 @@ within Modelica_DeviceDrivers.Blocks.Examples;
 model TestSerialPackager_ExternalTrigger
   "Example for using the external trigger feature"
 extends Modelica.Icons.Example;
-  Modelica.Blocks.Sources.IntegerExpression iExp(y=integer(3*sin(time) + 3))
+  Modelica.Blocks.Sources.IntegerExpression iExp(y(start=0,fixed=true)=integer(3*sin(time) + 3))
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Packaging.SerialPackager.Packager
                           packager(useBackwardSampleTimePropagation=false,
