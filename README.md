@@ -46,6 +46,18 @@ If you tested the library successfully with another Modelica tool, please contac
 #### Release notes
 Bug fix releases usually won't have release notes, so please use the download link from above to get the latest release including bug fixes.
 
+*  Upcoming release v1.7.0 (2019-03-28)
+   * Uses latest version of Modelica Standard Library (v3.2.3).
+   * Option for using blocking UDP receive calls (#275). On the function interface level an optional third argument in the `UDPSocket` constructor allows to create the external object without starting a dedicated receive thread (default: `useRecvThread=true`). On the block interface level (block `UDPReceive`) a new parameter `useRecvThread` (default: `useRecvThread=true`) allows to select the desired behavior. See example `Blocks.Examples.TestSerialPackager_UDPWithoutReceiveThread`.
+   * Added parameter `enable` (default: `enable=true`) for conditionally enabling or disabling the real-time synchronization within the `Blocks.OperatingSystem.SynchronizeRealtime` block (#270).
+   * Update OpenSSL to 1.0.2q (#269).
+   * Bug fixes:
+     * `EmbeddedTargets.AVR`: Only start the RT synch timer once (#274).
+     * `EmbeddedTargets.AVR`: Fixed reading of digital pins (#266).
+     * Fixed Cygwin build (#271).
+     * Fixed scale factor calculation error in `JoystickInput` block (#272).
+     * Fix missing byte copy of `\0` in external C code function `MDDEXT_SerialPackagerGetString()` (#273).
+   * Other (minor) fixes and improvements.
 *  [Version v1.6.0 (2018-10-06)](../../releases/tag/v1.6.0)
    * Support for MQTT (Message Queuing Telemetry Transport protocol) client communication (see #130, #256).
    * Utility function to retrieve MAC address (`Utilities.Functions.getMACAddress`, see #255).
@@ -120,9 +132,9 @@ it can be redistributed and/or modified under the terms of the [3-Clause BSD Lic
 
 ## Development and contribution
 Main developers:
-* [Bernhard Thiele](https://github.com/bernhard-thiele), release management and the Linux specific code
-* [Tobias Bellmann](https://github.com/tbellmann), most of the initial MS Windows specific code
-* [Thomas Beutlich](https://github.com/beutlich), various fixes and improvements, particularly SimulationX support
+* [Bernhard Thiele](https://github.com/bernhard-thiele), release management, Linux specific code, etc.
+* [Thomas Beutlich](https://github.com/beutlich), SimulationX support, new features, Windows specific code, etc.
+* [Tobias Bellmann](https://github.com/tbellmann), most of the initial MS Windows specific code.
 
 You may report any issues with using the [Issues](https://github.com/modelica/Modelica_DeviceDrivers/issues) button.
 
@@ -133,3 +145,6 @@ The following people have directly contributed to the implementation of the libr
 * Dominik Sommer, code for Linux serial port support.
 * [Rangarajan Varadan](http://www.codeproject.com/Members/Rangarajan-Varadan), [code for Windows serial port support](http://www.codeproject.com/Articles/81933/Serial-Port-R-W-With-Read-Thread).
 * [Dietmar Winkler](https://github.com/dietmarw), GitHub project setup, development services integration etc.
+* [Martin Sjölund](https://github.com/sjoelund), `EmbeddedTargets.AVR` support.
+* [Lutz Berger](https://github.com/it-cosmos), `EmbeddedTargets.STM32F4` (experimental) support.
+* And several more contributed bug fix PRs etc.
