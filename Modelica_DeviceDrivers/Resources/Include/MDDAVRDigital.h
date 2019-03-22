@@ -13,39 +13,48 @@
  */
 static inline void* MDD_avr_digital_pin_init(int port, int pin, int isOutput)
 {
-  volatile uint8_t *ddr, *res;
+  volatile uint8_t *ddr, *res, *inp;
+  /*In this function the code to set a pin as input is added, which was not present earlier.
+	The variable 'inp' is added for the same.
+  */
   switch (port) {
 #if defined(PORTA)
   case 1:
     res = &PORTA;
     ddr = &DDRA;
+    inp = &PINA;  //The address of 'PINx' is assigned to 'inp', hence can be used to accept input
     break;
 #endif
 #if defined(PORTB)
   case 2:
     res = &PORTB;
     ddr = &DDRB;
+    inp = &PINB;
     break;
 #endif
 #if defined(PORTC)
   case 3:
     res = &PORTC;
     ddr = &DDRC;
+    inp = &PINC;
     break;
 #endif
 #if defined(PORTD)
   case 4:
     res = &PORTD;
     ddr = &DDRD;
+    inp = &PIND;
     break;
 #endif
   }
   if (isOutput) {
     *ddr |= (1<<(pin-1));
+    return (void*)res;
   } else {
+	  //If the pin is of type input then the corresponding pin is set a input using DDR register and returned.
     *ddr &= ~(1<<(pin-1));
+    return (void*)inp;
   }
-  return (void*)res;
 }
 
 static inline void MDD_avr_digital_pin_close(void *in_port)
