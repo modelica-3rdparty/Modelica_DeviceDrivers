@@ -92,7 +92,7 @@ This library is based on various resources (mainly within the internet) describi
 <li>Uses latest version of Modelica Standard Library (v3.2.3).</li>
 <li>Option for using blocking UDP receive calls (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/pull/275\">#275</a>). On the function interface level an optional third argument in the <a href=\"modelica://Modelica_DeviceDrivers.Communication.UDPSocket.constructor\">UDPSocket constructor</a> allows to create the external object without starting a dedicated receive thread (default: <span style=\"font-family: Courier New;\">useRecvThread=true</span>). On the block interface level (block <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.UDPReceive\">UDPReceive</a>) a new parameter <span style=\"font-family: Courier New;\">useRecvThread</span> (default: <span style=\"font-family: Courier New;\">useRecvThread=true</span>) allows to select the desired behavior. See example <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackager_UDPWithoutReceiveThread\">TestSerialPackager_UDPWithoutReceiveThread</a>.</li>
 <li>Added parameter <code>enable</code> (default: <code>enable=true</code>) for conditionally enabling or disabling the real-time synchronization within the <a href=\"modelica://Modelica_DeviceDrivers.Blocks.OperatingSystem.SynchronizeRealtime\">SynchronizeRealtime</a> block (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues/270\">#270</a>).</li>
-<li>Update OpenSSL to 1.0.2r (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/pull/269\">#280</a>).</li>
+<li>Update OpenSSL to 1.0.2r (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/pull/280\">#280</a>).</li>
 </ul>
 <p>Bug fixes:</p>
 <ul>
