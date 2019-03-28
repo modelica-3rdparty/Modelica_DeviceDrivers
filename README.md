@@ -46,7 +46,7 @@ If you tested the library successfully with another Modelica tool, please contac
 #### Release notes
 Bug fix releases usually won't have release notes, so please use the download link from above to get the latest release including bug fixes.
 
-*  Upcoming release v1.7.0 (2019-03-28)
+*  [Version v1.7.0 (2019-03-28)](../../releases/tag/v1.7.0)
    * Uses latest version of Modelica Standard Library (v3.2.3).
    * Option for using blocking UDP receive calls (#275). On the function interface level an optional third argument in the `UDPSocket` constructor allows to create the external object without starting a dedicated receive thread (default: `useRecvThread=true`). On the block interface level (block `UDPReceive`) a new parameter `useRecvThread` (default: `useRecvThread=true`) allows to select the desired behavior. See example `Blocks.Examples.TestSerialPackager_UDPWithoutReceiveThread`.
    * Added parameter `enable` (default: `enable=true`) for conditionally enabling or disabling the real-time synchronization within the `Blocks.OperatingSystem.SynchronizeRealtime` block (#270).
