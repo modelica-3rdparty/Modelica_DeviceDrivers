@@ -208,7 +208,7 @@ Other (minor) fixes and improvements.
 <li>Bug fix release, no new features, but many improvements since version v1.4.0 (more than 70 commits since v1.4.0), so let's list some of the improvements...</li>
 <li>Uses latest version of Modelica Standard Library (v3.2.2).</li>
 <li>Changed license of external C code and header files to <a href=\"modelica://Modelica_DeviceDrivers/Resources/License.txt\">Simplified BSD License</a>.</li> (the Modelica package parts remain under
-<a href=\"modelica://Modelica_DeviceDrivers.UsersGuide.ModelicaLicense2\">Modelica License 2</a>).
+Modelica License 2).
 <li>Improved Modelica compatibility: Fixed the use of conditionally enabled variable <code>procPrio</code> outside of connect in <code>Blocks.OperatingSystem.SynchronizeRealtime</code> and <code>ClockedBlocks.OperatingSystem.SynchronizeRealtime</code>.</li>
 <li>Improved Modelica compatibility: Fixed the invalid integer to enumeration type conversion in <code>HardwareIO</code>.</li>
 <li>Fully specified the initial conditions for example models.</li>
