@@ -1,5 +1,5 @@
 within Modelica_DeviceDrivers.Blocks;
-package Communication
+package Communication "Blocks for communication devices such as network, CAN, shared memory, etc."
     extends Modelica.Icons.Package;
   block SharedMemoryRead
     "A block for reading data out of shared memory buffers"

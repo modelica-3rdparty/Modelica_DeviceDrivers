@@ -1,5 +1,5 @@
 within Modelica_DeviceDrivers.Blocks;
-package Interfaces
+package Interfaces "Connectors and partial models for the provided device driver blocks."
     extends Modelica.Icons.InterfacesPackage;
 
   connector PackageIn "Packager input connector"
