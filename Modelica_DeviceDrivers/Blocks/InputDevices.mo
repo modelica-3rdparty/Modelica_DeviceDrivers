@@ -1,5 +1,5 @@
 within Modelica_DeviceDrivers.Blocks;
-package InputDevices
+package InputDevices "Blocks for input devices, such as keyboard, gamecontroller, etc."
     extends Modelica.Icons.Package;
   block JoystickInput
     "Joystick input implementation for interactive simulations"

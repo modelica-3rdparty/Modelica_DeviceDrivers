@@ -1,5 +1,5 @@
 within Modelica_DeviceDrivers.Blocks;
-package OperatingSystem
+package OperatingSystem "Blocks for miscellaneous OS API related facilities, e.g., real-time synchronization."
   extends Modelica.Icons.Package;
 
   block SynchronizeRealtime "A pseudo realtime synchronization"
