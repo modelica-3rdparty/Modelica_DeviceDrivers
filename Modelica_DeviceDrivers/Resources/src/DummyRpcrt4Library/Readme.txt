@@ -1,1 +1,0 @@
-Dummy library for Linux.
