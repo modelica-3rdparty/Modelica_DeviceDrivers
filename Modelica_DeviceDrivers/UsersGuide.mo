@@ -67,7 +67,7 @@ Technical details of this library are described in the paper:
 </p>
 <dl>
 <dt>Bernhard Thiele, Thomas Beutlich, Volker Waurich, Martin Sj&ouml;lund, and Tobias Bellmann.</dt>
-<dd> <strong>Towards a Standard-Conform, Platform-Generic and Feature-Rich Modelica Device Drivers Library.</strong>.
+<dd> <strong>Towards a Standard-Conform, Platform-Generic and Feature-Rich Modelica Device Drivers Library</strong>.
      In Jiř&iacute; Kofr&aacute;nek and Francesco Casella, editors,
      12th Int. Modelica Conference, Prague, Czech Republic, May 2017.
      <a href=\"https://www.modelica.org/events/modelica2017/proceedings/html/submissions/ecp17132713_ThieleBeutlichWaurichSjolundBellmann.pdf\">Download</a>.
