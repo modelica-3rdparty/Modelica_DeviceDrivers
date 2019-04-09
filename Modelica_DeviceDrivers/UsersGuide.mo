@@ -1,4 +1,4 @@
-within Modelica_DeviceDrivers;
+﻿within Modelica_DeviceDrivers;
 package UsersGuide "User's Guide"
     extends Modelica.Icons.Information;
 
@@ -62,6 +62,19 @@ LCM, keyboard).</li>
   class References "References"
     extends Modelica.Icons.References;
     annotation (Documentation(info="<html>
+<p>
+Technical details of this library are described in the paper:
+</p>
+<dl>
+<dt>Bernhard Thiele, Thomas Beutlich, Volker Waurich, Martin Sj&ouml;lund, and Tobias Bellmann.</dt>
+<dd> <strong>Towards a Standard-Conform, Platform-Generic and Feature-Rich Modelica Device Drivers Library.</strong>.
+     In Jiř&iacute; Kofr&aacute;nek and Francesco Casella, editors,
+     12th Int. Modelica Conference, Prague, Czech Republic, May 2017.
+     <a href=\"https://www.modelica.org/events/modelica2017/proceedings/html/submissions/ecp17132713_ThieleBeutlichWaurichSjolundBellmann.pdf\">Download</a>.
+</dd>
+</dl>
+</li>
+
 <p>
 This library is based on various resources (mainly within the internet) describing the C-APIs of the devices supported in this library. Amongst others, following references were used:
 </p>
@@ -316,11 +329,11 @@ on the Modelica_DeviceDrivers library.
 <dt><b>Main Authors:</b></dt>
 <dd>Bernhard Thiele (main contact, release management, etc.)<br>
     at <a href=\"https://github.com/bernhard-thiele\">GitHub</a><br></dd>
-<dd>Tobias Bellmann<br>
-    at <a href=\"https://github.com/tbellmann\">GitHub</a><br></dd>
 <dd>Thomas Beutlich<br>
     at <a href=\"https://github.com/beutlich\">GitHub</a><br></dd>
 </dl>
+<dd>Tobias Bellmann<br>
+    at <a href=\"https://github.com/tbellmann\">GitHub</a><br></dd>
 <p>
 The authors are open to include contributions.
 </p>
@@ -328,7 +341,7 @@ The authors are open to include contributions.
 
 <p>
 The following people have directly contributed to the implementation
-of the library:
+of the library (many more have contributed by providing feedback and suggestions):
 </p>
 
 <table border=1 cellspacing=0 cellpadding=2>
@@ -352,7 +365,18 @@ of the library:
    <td valign=\"top\">at <a href=\"https://github.com/dietmarw\">GitHub</a></td>
    <td valign=\"top\">GitHub project setup, development services integration etc.</td>
 </tr>
+<tr><td valign=\"top\"><b>Martin Sj&ouml;lund</b> </td>
+   <td valign=\"top\">at <a href=\"https://github.com/sjoelund\">GitHub</a></td>
+   <td valign=\"top\"><code>EmbeddedTargets.AVR</code> support.</td>
+</tr>
+<tr><td valign=\"top\"><b>Lutz Berger</b> </td>
+   <td valign=\"top\">at <a href=\"https://github.com/it-cosmos\">GitHub</a></td>
+   <td valign=\"top\"><code>EmbeddedTargets.STM32F4</code> (experimental) support.</td>
+</tr>
 </table>
+<p>
+Several more contributed bug fix PRs etc.
+</p>
 </html>"));
   end Contact;
   annotation (DocumentationClass=true, Documentation(info="<html>
