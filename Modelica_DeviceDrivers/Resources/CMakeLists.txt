@@ -22,49 +22,29 @@ set(CMAKE_EDIT_COMMAND cmake-gui)
 include_directories(src/include)
 include_directories(Include)
 
-if (MSVC OR MINGW)
-  # Dummy Windows crypto library for uniform treatment of GCC and MS Visual C within Modelica
-  add_subdirectory(src/DummyCryptoLibrary)
-  # Dummy Windows ssl library for uniform treatment of GCC and MS Visual C within Modelica
-  add_subdirectory(src/DummySSLLibrary)
-  # Dummy Windows rt library for uniform treatment of GCC and MS Visual C within Modelica
-  add_subdirectory(src/DummyRTLibrary)
-  # Dummy Windows X11 library for uniform treatment of GCC and MS Visual C within Modelica
-  add_subdirectory(src/DummyX11Library)
-  # Dummy Windows pthread library for uniform treatment of GCC and MS Visual C within Modelica
-  add_subdirectory(src/DummyPthreadLibrary)
-  # Dummy Windows uuid library for uniform treatment of GCC and MS Visual C within Modelica
-  add_subdirectory(src/DummyUUIDLibrary)
-endif (MSVC OR MINGW)
-
-if (MSVC)
-  # Create a SimulationX specific DLL wrapper library
-  add_subdirectory(src/ITI_ModelicaDeviceDrivers)
-endif (MSVC)
+# Set subdirectory "INSTALL_LIB" to platform specific directories
+# (install libraries to (${CMAKE_INSTALL_PREFIX}/${INSTALL_LIB}))
+if (UNIX)
+  if ( (CMAKE_SIZEOF_VOID_P EQUAL 8) AND (NOT M32_FLAG) )
+		set(INSTALL_LIB  "Library/linux64")
+  elseif ( (CMAKE_SIZEOF_VOID_P EQUAL 4) OR (M32_FLAG) )
+		set(INSTALL_LIB  "Library/linux32")
+  else ( (CMAKE_SIZEOF_VOID_P EQUAL 8) AND (NOT M32_FLAG) )
+    message(SEND_ERROR "Uups. Shouldn't be possible to get here")
+  endif ( (CMAKE_SIZEOF_VOID_P EQUAL 8) AND (NOT M32_FLAG) )
+elseif (MSVC OR MINGW)
+  if ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
+		set(INSTALL_LIB  "Library/win64")
+  elseif ( CMAKE_SIZEOF_VOID_P EQUAL 4 )
+		set(INSTALL_LIB  "Library/win32")
+  else ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
+    message(SEND_ERROR "Uups. Shouldn't be possible to get here")
+  endif ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
+else (UNIX)
+  message(SEND_ERROR "Uups. Not UNIX (or CYGWIN), not MSVC or MINGW => No Support")
+endif (UNIX)
 
 if (UNIX)
-  if (M32_FLAG)
-
-  endif()
-  if (CYGWIN)
-    # Dummy Windows X11 library for uniform treatment of GCC and MS Visual C within Modelica
-    add_subdirectory(src/DummyX11Library)
-  else (CYGWIN)
-    # Dummy Linux Winmm library for uniform treatment of GCC and MS Visual C within Modelica
-    add_subdirectory(src/DummyWinmmLibrary)
-    # Dummy Linux IPHlpApi library for uniform treatment of GCC and MS Visual C within Modelica
-    add_subdirectory(src/DummyIPHlpApiLibrary)
-  endif (CYGWIN) 
-  # Dummy Linux User32 library for uniform treatment of GCC and MS Visual C within Modelica
-  add_subdirectory(src/DummyUser32Library)
-  # Dummy Linux Ws2_32 library for uniform treatment of GCC and MS Visual C within Modelica
-  add_subdirectory(src/DummyWs2_32Library)
-  # Dummy Linux Rpcrt4 library for uniform treatment of GCC and MS Visual C within Modelica
-  add_subdirectory(src/DummyRpcrt4Library)
-  # Are we trying to force compilation for linux32 on a native linux64 platform?
-  # (Dymola builds/built 32-bit simulation executables also on 64-bit Linux)
-  # Note, that flags can be overwritten by calling CMake (from Resources/build) like this:
-  # CFLAGS=-m32 CXXFLAGS=-m32 cmake ..
   if ( ($ENV{CFLAGS} MATCHES "-m32") AND ($ENV{CXXFLAGS} MATCHES "-m32") )
     set(M32_FLAG TRUE)
   endif()
@@ -82,6 +62,14 @@ if (UNIX)
   # endif()
   # HOWEVER, this won't set CMAKE_SIZEOF_VOID_P to 4, so that 32-bit library paths are searched first!
 endif (UNIX)
+
+# Dummy libraries for uniform treatment of GCC and MS Visual C within Modelica
+add_subdirectory(src/DummyLibraries)
+
+if (MSVC)
+  # Create a SimulationX specific DLL wrapper library
+  add_subdirectory(src/ITI_ModelicaDeviceDrivers)
+endif (MSVC)
 
 # Third party projects
 add_subdirectory(thirdParty)
