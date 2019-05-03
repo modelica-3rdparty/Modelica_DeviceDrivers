@@ -1,5 +1,5 @@
 project(Modelica_DeviceDrivers C)
-cmake_minimum_required(VERSION 3.12.0)
+cmake_minimum_required(VERSION 2.8.12)
 enable_testing()
 # copy CTestCustom.cmake to build dir to disable interactive tests in 'make test'
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/CTestCustom.cmake ${CMAKE_CURRENT_BINARY_DIR})
