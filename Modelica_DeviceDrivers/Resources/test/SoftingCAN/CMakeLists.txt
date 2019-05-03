@@ -19,6 +19,7 @@ if (MSVC)
 
   if ( CANL2_LIBRARY )
 	add_executable(test_MDDSoftingCAN test_MDDSoftingCAN.c ../Util/ModelicaUtilities.c)
+	set_property(TARGET test_MDDSoftingCAN PROPERTY FOLDER "test/SoftingCAN")
 	target_link_libraries(test_MDDSoftingCAN ${CANL2_LIBRARY})
 	add_test(test_MDDSoftingCAN ${EXECUTABLE_OUTPUT_PATH}/test_MDDSoftingCAN)
     if ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
@@ -37,4 +38,5 @@ else (MSVC)
 endif (MSVC)
 
 add_executable(test_MDDCANMessage test_MDDCANMessage.c ../Util/ModelicaUtilities.c)
+set_property(TARGET test_MDDCANMessage PROPERTY FOLDER "test/SoftingCAN")
 add_test(test_MDDCANMessage ${EXECUTABLE_OUTPUT_PATH}/test_MDDCANMessage)

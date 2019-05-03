@@ -5,6 +5,7 @@
 include_directories(../../Include)
 
 add_executable(test_MDDBeep test_MDDBeep.c ../Util/ModelicaUtilities.c)
+set_property(TARGET test_MDDBeep PROPERTY FOLDER "test/OperatingSystem")
 if (NOT MSVC)
   target_link_libraries(test_MDDBeep X11)
 endif (NOT MSVC)
@@ -12,6 +13,7 @@ add_test(test_MDDBeep ${EXECUTABLE_OUTPUT_PATH}/test_MDDBeep)
 
 
 add_executable(test_MDD_getTimeMS test_MDD_getTimeMS.c ../Util/ModelicaUtilities.c)
+set_property(TARGET test_MDD_getTimeMS PROPERTY FOLDER "test/OperatingSystem")
 IF (MSVC OR MINGW OR CYGWIN)
   target_link_libraries(test_MDD_getTimeMS Winmm)
 ELSE (MSVC OR MINGW OR CYGWIN)
@@ -20,6 +22,7 @@ ENDIF (MSVC OR MINGW OR CYGWIN)
 add_test(test_MDD_getTimeMS ${EXECUTABLE_OUTPUT_PATH}/test_MDD_getTimeMS)
 
 add_executable(test_MDDRealtimeSynchronize_idle test_MDDRealtimeSynchronize_idle.c ../Util/ModelicaUtilities.c)
+set_property(TARGET test_MDDRealtimeSynchronize_idle PROPERTY FOLDER "test/OperatingSystem")
 IF (MSVC OR MINGW OR CYGWIN)
   target_link_libraries(test_MDDRealtimeSynchronize_idle Winmm)
 ELSE (MSVC OR MINGW OR CYGWIN)
@@ -28,6 +31,7 @@ ENDIF (MSVC OR MINGW OR CYGWIN)
 add_test(test_MDDRealtimeSynchronize_idle ${EXECUTABLE_OUTPUT_PATH}/test_MDDRealtimeSynchronize_idle)
 
 add_executable(test_MDDRealtimeSynchronize_low test_MDDRealtimeSynchronize_low.c ../Util/ModelicaUtilities.c)
+set_property(TARGET test_MDDRealtimeSynchronize_low PROPERTY FOLDER "test/OperatingSystem")
 IF (MSVC OR MINGW OR CYGWIN)
   target_link_libraries(test_MDDRealtimeSynchronize_low Winmm)
 ELSE (MSVC OR MINGW OR CYGWIN)
@@ -36,6 +40,7 @@ ENDIF (MSVC OR MINGW OR CYGWIN)
 add_test(test_MDDRealtimeSynchronize_low ${EXECUTABLE_OUTPUT_PATH}/test_MDDRealtimeSynchronize_low)
 
 add_executable(test_MDDRealtimeSynchronize_normal test_MDDRealtimeSynchronize_normal.c ../Util/ModelicaUtilities.c)
+set_property(TARGET test_MDDRealtimeSynchronize_normal PROPERTY FOLDER "test/OperatingSystem")
 IF (MSVC OR MINGW OR CYGWIN)
   target_link_libraries(test_MDDRealtimeSynchronize_normal Winmm)
 ELSE (MSVC OR MINGW OR CYGWIN)
@@ -44,6 +49,7 @@ ENDIF (MSVC OR MINGW OR CYGWIN)
 add_test(test_MDDRealtimeSynchronize_normal ${EXECUTABLE_OUTPUT_PATH}/test_MDDRealtimeSynchronize_normal)
 
 add_executable(test_MDDRealtimeSynchronize_high test_MDDRealtimeSynchronize_high.c ../Util/ModelicaUtilities.c)
+set_property(TARGET test_MDDRealtimeSynchronize_high PROPERTY FOLDER "test/OperatingSystem")
 IF (MSVC OR MINGW OR CYGWIN)
   target_link_libraries(test_MDDRealtimeSynchronize_high Winmm)
 ELSE (MSVC OR MINGW OR CYGWIN)
@@ -52,19 +58,10 @@ ENDIF (MSVC OR MINGW OR CYGWIN)
 add_test(test_MDDRealtimeSynchronize_high ${EXECUTABLE_OUTPUT_PATH}/test_MDDRealtimeSynchronize_high)
 
 add_executable(test_MDDRealtimeSynchronize_realtime test_MDDRealtimeSynchronize_realtime.c ../Util/ModelicaUtilities.c)
+set_property(TARGET test_MDDRealtimeSynchronize_realtime PROPERTY FOLDER "test/OperatingSystem")
 IF (MSVC OR MINGW OR CYGWIN)
   target_link_libraries(test_MDDRealtimeSynchronize_realtime Winmm)
 ELSE (MSVC OR MINGW OR CYGWIN)
   target_link_libraries(test_MDDRealtimeSynchronize_realtime m rt)
 ENDIF (MSVC OR MINGW OR CYGWIN)
 add_test(test_MDDRealtimeSynchronize_realtime ${EXECUTABLE_OUTPUT_PATH}/test_MDDRealtimeSynchronize_realtime)
-
-
-
-
-
-
-
-
-
-
