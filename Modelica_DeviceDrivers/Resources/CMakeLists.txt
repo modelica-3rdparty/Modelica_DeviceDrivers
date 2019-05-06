@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 2.8.12)
 enable_testing()
 # copy CTestCustom.cmake to build dir to disable interactive tests in 'make test'
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/CTestCustom.cmake ${CMAKE_CURRENT_BINARY_DIR})
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 #set(CMAKE_VERBOSE_MAKEFILE on)
 #set(CMAKE_BUILD_TYPE DEBUG)
 
