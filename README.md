@@ -30,7 +30,7 @@ The second interface uses the synchronous language elements introduced in Modeli
  - [X] Existed and maintained for at least 6 months
 
 ## Build status
-[![Build Status](https://travis-ci.org/modelica/Modelica_DeviceDrivers.svg)](https://travis-ci.org/modelica/Modelica_DeviceDrivers)
+[![Build Status](https://travis-ci.org/modelica-3rdparty/Modelica_DeviceDrivers.svg)](https://travis-ci.org/modelica-3rdparty/Modelica_DeviceDrivers)
 
 ## Current release
 
@@ -90,7 +90,7 @@ Bug fix releases usually won't have release notes, so please use the download li
     * Improved Modelica compatibility: Fixed the invalid integer to enumeration type conversion in `HardwareIO`.
     * Fully specified the initial conditions for example models.
     * Simplified the linking with system libraries (MSVC only).
-    * Added continuous integration for the external C code (thanks to [Travis CI](https://travis-ci.org/modelica/Modelica_DeviceDrivers)).
+    * Added continuous integration for the external C code (thanks to [Travis CI](https://travis-ci.org/modelica-3rdparty/Modelica_DeviceDrivers)).
     * Improved and updated documentation.
     * Improved compatibility with the DLR Visualization Library.
     * Improved support of automatic Code-Export from SimulationX 3.7.
