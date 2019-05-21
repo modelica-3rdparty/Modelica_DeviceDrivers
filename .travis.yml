@@ -1,4 +1,4 @@
-language: c
+language: cpp
 
 git:
   depth: 5
@@ -9,6 +9,7 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - gcc-4.8-multilib
+      - g++-4.8-multilib
 
 before_install:
   - sudo apt-get update -qq
@@ -22,8 +23,8 @@ compiler:
 
 env:
   matrix:
-    - CFLAGS="-O3 -DNDEBUG -fPIC -msse2 -m32"
-    - CFLAGS="-O3 -DNDEBUG -fPIC"
+    - CFLAGS="-O3 -DNDEBUG -fPIC -msse2 -m32" CXXFLAGS="-O3 -DNDEBUG -fPIC -msse2 -m32"
+    - CFLAGS="-O3 -DNDEBUG -fPIC" CXXFLAGS="-O3 -DNDEBUG -fPIC"
 
 before_script:
   - cd Modelica_DeviceDrivers/Resources
@@ -41,6 +42,7 @@ script:
   - ./test_MDDRealtimeSynchronize_idle
   - ./test_MDDRealtimeSynchronize_low
   - ./test_MDDRealtimeSynchronize_normal
+  - sudo ./test_MDDRealtimeSynchronize
   - cd ../Communication
   - ./test_EndiannessConversion
   - ./test_MDDSerialPackager
@@ -49,6 +51,8 @@ script:
   - ./test_MDDLCM
   - ./test_MDDMQTT
   - cd ../..
+  # Alternatively, instead of individual binary execution, use ctest:
+  # - sudo /opt/cmake-2.8.12.2-Linux-i386/bin/ctest --output-on-failure -E "MDDSpaceMouse|MDDTCPIPSocketClient|MDDSerialPort|MDDBeep|MDDSocketCAN"
 
 notifications:
   email: false

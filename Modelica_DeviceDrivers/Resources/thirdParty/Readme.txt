@@ -1,4 +1,4 @@
-Third party sources / libraries and tools that are not licensed under the BSD 3-Clause License
+Third party sources / libraries and tools that are (mostly) not licensed under the BSD-3-Clause License
 conditions. These sources / libraries are developed by other authors / organisations.
 
 FOR LEGAL REASONS SOME MIGHT NOT BE INCLUDED WITHIN THIS MODELICA_DEVICEDRIVERS DISTRIBUTION.
@@ -6,6 +6,7 @@ FOR LEGAL REASONS SOME MIGHT NOT BE INCLUDED WITHIN THIS MODELICA_DEVICEDRIVERS 
 - 3DconnexionSDK: 3Dconnexion Software Developer Kit for Linux (http://www.3dconnexion.com/)
 - boost: Boost library macros for machine type Endianness (http://www.boost.org/)
 - glib: low-level system libraries, LGPL (https://github.com/GNOME/glib/)
+- googletest: Google Testing and Mocking Framework, BSD-3-Clause (https://github.com/google/googletest)
 - hdisdi: Microsoft Device Driver files used for space mouse (http://www.microsoft.com/)
 - ITI: ModelicaExternalC.lib version for SimulationX by ESI ITI (https://github.com/ESI-ITI-GmbH/ModelicaExternalC/)
 - lcm: Lightweight Communications and Marshalling, LGPL (https://github.com/lcm-proj/)

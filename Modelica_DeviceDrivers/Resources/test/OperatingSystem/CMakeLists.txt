@@ -65,3 +65,12 @@ ELSE (MSVC OR MINGW OR CYGWIN)
   target_link_libraries(test_MDDRealtimeSynchronize_realtime m rt)
 ENDIF (MSVC OR MINGW OR CYGWIN)
 add_test(test_MDDRealtimeSynchronize_realtime ${EXECUTABLE_OUTPUT_PATH}/test_MDDRealtimeSynchronize_realtime)
+
+
+package_add_test(test_MDDRealtimeSynchronize test_MDDRealtimeSynchronize.cpp ../Util/ModelicaUtilities.c)
+set_property(TARGET test_MDDRealtimeSynchronize PROPERTY FOLDER "test/OperatingSystem")
+if (MSVC OR MINGW OR CYGWIN)
+  target_link_libraries(test_MDDRealtimeSynchronize Winmm)
+else()
+  target_link_libraries(test_MDDRealtimeSynchronize m rt)
+endif()

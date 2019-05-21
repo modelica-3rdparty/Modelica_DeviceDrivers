@@ -1,8 +1,5 @@
-project(Modelica_DeviceDrivers C)
-cmake_minimum_required(VERSION 2.8.12)
-enable_testing()
-# copy CTestCustom.cmake to build dir to disable interactive tests in 'make test'
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/CTestCustom.cmake ${CMAKE_CURRENT_BINARY_DIR})
+project(Modelica_DeviceDrivers C CXX)
+cmake_minimum_required(VERSION 2.8.12...3.12.0)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 #set(CMAKE_VERBOSE_MAKEFILE on)
 #set(CMAKE_BUILD_TYPE DEBUG)
@@ -81,22 +78,14 @@ add_subdirectory(thirdParty)
 # Library providing some utility functions
 add_subdirectory(src/Util)
 
-
-# Various little C test programs:
-# Operating System module
-add_subdirectory(test/OperatingSystem)
-# Input Devices module
-add_subdirectory(test/InputDevices)
-# Communication module
-add_subdirectory(test/Communication)
-# Softing CAN module
-add_subdirectory(test/SoftingCAN)
-# Linux comedi daq interface
-add_subdirectory(test/HardwareIO)
-# Linux socket CAN interface
-add_subdirectory(test/SocketCAN)
-# Utility module
-add_subdirectory(test/Util)
+# Various little C tests for the different modules
+option(PACKAGE_TESTS "Build the tests" ON)
+if(PACKAGE_TESTS)
+    enable_testing()
+    add_subdirectory(test)
+		# copy CTestCustom.cmake to build dir to disable interactive tests in 'make test'
+		configure_file(${CMAKE_CURRENT_SOURCE_DIR}/CTestCustom.cmake ${CMAKE_CURRENT_BINARY_DIR})
+endif()
 
 
 # Forget about everything under this line
