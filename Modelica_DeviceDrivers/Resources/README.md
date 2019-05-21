@@ -55,6 +55,6 @@ Public Domain Dedication: http://creativecommons.org/publicdomain/zero/1.0/
 
 ## Contact
 
-Bernhard Thiele (https://github.com/bernhard-thiele)
-Tobias Bellmann (https://github.com/tbellmann)
-Thomas Beutlich (https://github.com/beutlich)
+- Bernhard Thiele (https://github.com/bernhard-thiele)
+- Tobias Bellmann (https://github.com/tbellmann)
+- Thomas Beutlich (https://github.com/beutlich)
