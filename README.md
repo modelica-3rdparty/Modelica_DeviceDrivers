@@ -66,9 +66,21 @@ For information about previous releases, see [Release Notes of Previous Versions
 ## License
 
 This Modelica package is free software and the use is completely at your own risk;
-it can be redistributed and/or modified under the terms of the [3-Clause BSD License](LICENSE).
+it can be redistributed and/or modified under the terms of the [BSD-3-Clause License](LICENSE).
 
 ## Development and contribution
+
+The master branch of the  Modelica_DeviceDrivers library should work out-of-the-box when loading the library into a supporting Modelica tool. The branch contains the necessary external C libraries as pre-build binaries below folder [Modelica_DeviceDrivers/Resources/Library](Modelica_DeviceDrivers/Resources/Library).
+
+If you need to build the external C libraries from the sources, clone the repo with
+
+```git
+git clone --recursive https://github.com/modelica/Modelica_DeviceDrivers.git
+git submodule update --init --recursive
+```
+
+and see [Modelica_DeviceDrivers/Resources/README.md](Modelica_DeviceDrivers/Resources/README.md).
+
 Main developers:
 * [Bernhard Thiele](https://github.com/bernhard-thiele), release management, Linux specific code, etc.
 * [Thomas Beutlich](https://github.com/beutlich), SimulationX support, new features, Windows specific code, etc.
