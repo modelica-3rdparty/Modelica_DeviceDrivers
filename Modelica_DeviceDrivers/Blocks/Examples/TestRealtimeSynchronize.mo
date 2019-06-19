@@ -23,8 +23,8 @@ equation
     annotation (Line(points={{-42,10},{-59,10}}, color={255,0,255}));
   connect(pre1.y, t2.trigger)
     annotation (Line(points={{-19,10},{30,10},{30,30}}, color={255,0,255}));
-  connect(pre1.y, realtimeSynchronize.trigger)
-    annotation (Line(points={{-19,10},{-10,10},{-10,38}}, color={255,0,255}));
+  connect(realtimeSynchronize.trigger, pre1.y)
+    annotation (Line(points={{-10,38},{-10,10},{-19,10}}, color={255,0,255}));
   annotation (experiment(StopTime=5), Documentation(info="<html>
 <p>
 Example which uses an externally triggered real-time synchronization block. Whenever the real-time synchronization block is triggered it will block simulation progress until simulation time == real-time (wall clock time).

@@ -19,10 +19,15 @@ package OperatingSystem "Blocks for miscellaneous OS API related facilities, e.g
     parameter Boolean shouldCatchupTime = false "true, try to catch up delays from missed dead-lines by progressing faster than real-time, otherwise do not" annotation (Dialog(group="Advanced"), choices(checkBox=true));
 
     Modelica.Blocks.Interfaces.BooleanInput trigger if sampled and enableExternalTrigger annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=90,origin={0,-120})));
-    Modelica.Blocks.Interfaces.RealOutput wallClockTime(unit="s") "Wall clock time that elapsed since initialization of the real-time synchronization object" annotation (Placement(visible=showAdvancedOutputs,transformation(extent={{100,70},{120,90}})));
-    Modelica.Blocks.Interfaces.RealOutput remainingTime(unit="s") "Wall clock time that is left before real-time deadline is reached" annotation (Placement(visible=showAdvancedOutputs,transformation(extent={{100,30},{120,50}})));
-    Modelica.Blocks.Interfaces.RealOutput computingTime(unit="s") "Time between invocations of real-time sync function, i.e., \"computing time\" in seconds" annotation (Placement(visible=showAdvancedOutputs,transformation(extent={{100,-50},{120,-30}})));
-    Modelica.Blocks.Interfaces.RealOutput lastSimTime(unit="s") "Simulation time at the previous invocation of the real-time sync function, the simulation start time at its the first invocation" annotation (Placement(visible=showAdvancedOutputs,transformation(extent={{100,-90},{120,-70}})));
+    Modelica.Blocks.Interfaces.RealOutput wallClockTime(unit="s") "Wall clock time that elapsed since initialization of the real-time synchronization object" annotation (Placement(visible=showAdvancedOutputs,transformation(extent={{100,50},
+              {120,70}})));
+    Modelica.Blocks.Interfaces.RealOutput remainingTime(unit="s") "Wall clock time that is left before real-time deadline is reached" annotation (Placement(visible=showAdvancedOutputs,transformation(extent={{100,-30},
+              {120,-10}})));
+    Modelica.Blocks.Interfaces.RealOutput computingTime(unit="s") "Time between invocations of real-time sync function, i.e., \"computing time\" in seconds" annotation (Placement(visible=showAdvancedOutputs,transformation(extent={{100,-70},
+              {120,-50}})));
+    Modelica.Blocks.Interfaces.RealOutput simTime(unit="s") annotation (
+        Placement(visible=showAdvancedOutputs, transformation(extent={{100,10},
+              {120,30}})));
 
 
     Internal.RealtimeSynchronize_Continuous rtSync_Continuous(
@@ -51,35 +56,35 @@ package OperatingSystem "Blocks for miscellaneous OS API related facilities, e.g
     connect(trigger, rtSync_Sampled.trigger) annotation (Line(points={{0,-120},{0,
             -90},{-50,-90},{-50,-62}}, color={255,0,255}));
     connect(rtSync_Continuous.wallClockTime, mux_continuous.u1[1]) annotation (
-        Line(points={{-39,38},{-32,38},{-32,39},{-22,39}}, color={0,0,127}));
-    connect(rtSync_Continuous.remainingTime, mux_continuous.u2[1]) annotation (
-        Line(points={{-39,34},{-30,34},{-30,33},{-22,33}}, color={0,0,127}));
-    connect(rtSync_Continuous.computingTime, mux_continuous.u3[1]) annotation (
-        Line(points={{-39,26},{-30,26},{-30,27},{-22,27}}, color={0,0,127}));
-    connect(rtSync_Continuous.lastSimTime, mux_continuous.u4[1]) annotation (
-        Line(points={{-39,22},{-30,22},{-30,21},{-22,21}}, color={0,0,127}));
+        Line(points={{-39,36},{-32,36},{-32,39},{-22,39}}, color={0,0,127}));
     connect(rtSync_Sampled.wallClockTime, mux_sampled.u1[1]) annotation (Line(
-          points={{-39,-42},{-32,-42},{-32,-41},{-22,-41}}, color={0,0,127}));
-    connect(rtSync_Sampled.remainingTime, mux_sampled.u2[1]) annotation (Line(
-          points={{-39,-46},{-30,-46},{-30,-47},{-22,-47}}, color={0,0,127}));
-    connect(rtSync_Sampled.computingTime, mux_sampled.u3[1]) annotation (Line(
-          points={{-39,-54},{-30,-54},{-30,-53},{-22,-53}}, color={0,0,127}));
-    connect(rtSync_Sampled.lastSimTime, mux_sampled.u4[1]) annotation (Line(
-          points={{-39,-58},{-32,-58},{-32,-59},{-22,-59}}, color={0,0,127}));
+          points={{-39,-44},{-32,-44},{-32,-41},{-22,-41}}, color={0,0,127}));
     connect(demux.y1[1], wallClockTime) annotation (Line(points={{41,9},{50,9},
-            {50,80},{110,80}}, color={0,0,127}));
-    connect(demux.y2[1], remainingTime) annotation (Line(points={{41,3},{60,3},
-            {60,40},{110,40}}, color={0,0,127}));
-    connect(demux.y4[1], lastSimTime) annotation (Line(points={{41,-9},{50,-9},
-            {50,-80},{110,-80}}, color={0,0,127}));
-    connect(demux.y3[1], computingTime) annotation (Line(points={{41,-3},{60,-3},
-            {60,-40},{110,-40}}, color={0,0,127}));
+            {50,60},{110,60}}, color={0,0,127}));
     connect(dummyOutputs.y, demux.u) annotation (Line(points={{1,80},{10,80},{
             10,0},{18,0}}, color={0,0,127}));
     connect(mux_continuous.y, demux.u) annotation (Line(points={{1,30},{10,30},
             {10,0},{18,0}}, color={0,0,127}));
     connect(mux_sampled.y, demux.u) annotation (Line(points={{1,-50},{10,-50},{
             10,0},{18,0}}, color={0,0,127}));
+    connect(demux.y2[1], simTime) annotation (Line(points={{41,3},{60,3},{60,20},
+            {110,20}}, color={0,0,127}));
+    connect(demux.y4[1], computingTime) annotation (Line(points={{41,-9},{50,-9},
+            {50,-60},{110,-60}}, color={0,0,127}));
+    connect(demux.y3[1], remainingTime) annotation (Line(points={{41,-3},{60,-3},
+            {60,-20},{110,-20}}, color={0,0,127}));
+    connect(rtSync_Continuous.simTime, mux_continuous.u2[1]) annotation (Line(
+          points={{-39,32},{-32,32},{-32,33},{-22,33}}, color={0,0,127}));
+    connect(rtSync_Continuous.remainingTime, mux_continuous.u3[1]) annotation (
+        Line(points={{-39,28},{-30,28},{-30,27},{-22,27}}, color={0,0,127}));
+    connect(rtSync_Continuous.computingTime, mux_continuous.u4[1]) annotation (
+        Line(points={{-39,24},{-32,24},{-32,21},{-22,21}}, color={0,0,127}));
+    connect(rtSync_Sampled.simTime, mux_sampled.u2[1]) annotation (Line(points=
+            {{-39,-48},{-30,-48},{-30,-47},{-22,-47}}, color={0,0,127}));
+    connect(rtSync_Sampled.remainingTime, mux_sampled.u3[1]) annotation (Line(
+          points={{-39,-52},{-32,-52},{-32,-53},{-22,-53}}, color={0,0,127}));
+    connect(rtSync_Sampled.computingTime, mux_sampled.u4[1]) annotation (Line(
+          points={{-39,-56},{-30,-56},{-30,-59},{-22,-59}}, color={0,0,127}));
     annotation (Icon( coordinateSystem(preserveAspectRatio=true,  extent={{-100,
               -100},{100,100}}), graphics={Rectangle(
             visible=not enable,
@@ -315,24 +320,30 @@ package OperatingSystem "Blocks for miscellaneous OS API related facilities, e.g
 
     partial block PartialRealtimeSynchronize
       "An improved block for real-time synchronization. Common interface definitions."
+      import Modelica.SIunits;
       input Real scaling(min=0) = 1 "real-time scaling factor; > 1 means the simulation is made slower than real-time" annotation(Dialog(enable=true));
       parameter Boolean showAdvancedOutputs = true "Show output for computing time and remaining time"  annotation (Dialog(group="Advanced"), choices(checkBox=true));
       parameter Boolean shouldCatchupTime = false "true, try to catch up delays from missed dead-lines by progressing faster than real-time, otherwise do not" annotation (Dialog(group="Advanced"), choices(checkBox=true));
-      final parameter Modelica.SIunits.Time startSimTime(fixed=false);
+      final parameter SIunits.Time startSimTime(fixed=false);
 
       Modelica_DeviceDrivers.OperatingSystem.RTSync rtSync =  Modelica_DeviceDrivers.OperatingSystem.RTSync(startSimTime, shouldCatchupTime);
 
-      Modelica.Blocks.Interfaces.RealOutput wallClockTime(unit="s") "Wall clock time that elapsed since initialization of the real-time synchronization object" annotation (Placement(visible=showAdvancedOutputs,transformation(extent={{100,70},
-                {120,90}})));
-      Modelica.Blocks.Interfaces.RealOutput remainingTime(unit="s") "Wall clock time that is left before real-time deadline is reached" annotation (Placement(visible=showAdvancedOutputs,transformation(extent={{100,30},
-                {120,50}})));
-      Modelica.Blocks.Interfaces.RealOutput computingTime(unit="s") "Wall clock time between invocations of real-time sync function, i.e., \"computing time\" in seconds" annotation (Placement(visible=showAdvancedOutputs,transformation(extent={{100,-50},
-                {120,-30}})));
-      Modelica.Blocks.Interfaces.RealOutput lastSimTime(unit="s") "Simulation time at the previous invocation of the real-time sync function, the simulation start time at its the first invocation" annotation (Placement(visible=showAdvancedOutputs,transformation(extent={{100,-90},
-                {120,-70}})));
-      output Real lastStepSize "(= time - lastSimTime) The last simulation time step size between invocations of the real-time sync function";
+      Modelica.Blocks.Interfaces.RealOutput wallClockTime(unit="s") "Wall clock time (= real-time) that elapsed since initialization of the real-time synchronization object" annotation (Placement(visible=showAdvancedOutputs,transformation(extent={{100,50},
+                {120,70}})));
+      Modelica.Blocks.Interfaces.RealOutput remainingTime(unit="s") "Wall clock time that is left before real-time deadline is reached" annotation (Placement(visible=showAdvancedOutputs,transformation(extent={{100,-30},
+                {120,-10}})));
+      Modelica.Blocks.Interfaces.RealOutput computingTime(unit="s") "Wall clock time between invocations of the real-time sync function, i.e., \"computing time\" in seconds" annotation (Placement(visible=showAdvancedOutputs,transformation(extent={{100,-70},
+                {120,-50}})));
+      Modelica.Blocks.Interfaces.RealOutput simTime(unit="s") "(= time) Simulation time at the the real-time sync function invocation" annotation (Placement(visible=showAdvancedOutputs,transformation(extent={{100,10},
+                {120,30}})));
+      output SIunits.Duration lastStepSize "(= time - lastSimTime) The last simulation time step size between invocations of the real-time sync function";
+      output SIunits.Time lastSimTime "Simulation time at the previous invocation of the real-time sync function, the simulation start time at its the first invocation";
     initial equation
       startSimTime = time;
+      simTime = time;
+    equation
+      connect(computingTime, computingTime)
+        annotation (Line(points={{110,-60},{110,-60}}, color={0,0,127}));
       annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
             coordinateSystem(preserveAspectRatio=false)));
     end PartialRealtimeSynchronize;
@@ -344,8 +355,9 @@ package OperatingSystem "Blocks for miscellaneous OS API related facilities, e.g
     // protected
     //   Real dummyState(start = 0, fixed=true) "Dummy state to be integrated, to force synchronization in every integration step"; // FIXME: Do we need this?
     equation
-      (wallClockTime, remainingTime, computingTime, lastSimTime) = Modelica_DeviceDrivers.OperatingSystem.rtSyncSynchronize(rtSync, time, scaling);
-      lastStepSize = time - lastSimTime;
+      simTime = time;
+      (wallClockTime, remainingTime, computingTime, lastSimTime) = Modelica_DeviceDrivers.OperatingSystem.rtSyncSynchronize(rtSync, simTime, scaling);
+      lastStepSize = simTime - lastSimTime;
     //  der(dummyState) = computingTime;
 
       annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -361,7 +373,6 @@ package OperatingSystem "Blocks for miscellaneous OS API related facilities, e.g
       extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
       extends Modelica_DeviceDrivers.Blocks.OperatingSystem.Internal.PartialRealtimeSynchronize;
       extends Modelica_DeviceDrivers.Blocks.Communication.Internal.PartialSampleTrigger;
-      discrete output Modelica.SIunits.Time simTime(start=startSimTime, fixed=true);
     equation
 
       when actTrigger then
