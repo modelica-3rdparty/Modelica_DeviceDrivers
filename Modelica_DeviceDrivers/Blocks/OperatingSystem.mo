@@ -341,9 +341,6 @@ package OperatingSystem "Blocks for miscellaneous OS API related facilities, e.g
     initial equation
       startSimTime = time;
       simTime = time;
-    equation
-      connect(computingTime, computingTime)
-        annotation (Line(points={{110,-60},{110,-60}}, color={0,0,127}));
       annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
             coordinateSystem(preserveAspectRatio=false)));
     end PartialRealtimeSynchronize;
