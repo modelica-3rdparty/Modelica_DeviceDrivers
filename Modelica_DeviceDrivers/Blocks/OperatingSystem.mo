@@ -340,7 +340,12 @@ package OperatingSystem "Blocks for miscellaneous OS API related facilities, e.g
       output SIunits.Time lastSimTime "Simulation time at the previous invocation of the real-time sync function, the simulation start time at its the first invocation";
     initial equation
       startSimTime = time;
+      wallClockTime = 0;
+      remainingTime = 0;
+      computingTime = 0;
       simTime = time;
+      lastStepSize = 0;
+      lastSimTime = 0;
       annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
             coordinateSystem(preserveAspectRatio=false)));
     end PartialRealtimeSynchronize;
