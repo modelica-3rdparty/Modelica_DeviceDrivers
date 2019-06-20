@@ -1,7 +1,6 @@
 within Modelica_DeviceDrivers.OperatingSystem;
 class RealTimeSynchronization "Deprecated. Use RTSync instead. An object for real-time synchronization."
   extends ExternalObject;
-  extends Modelica.Icons.ObsoleteModel;
   function constructor "Creates a RealTimeSynchronization instance."
     import Modelica;
     extends Modelica.Icons.Function;
