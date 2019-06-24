@@ -14,6 +14,17 @@ set_property(TARGET gtest_main PROPERTY FOLDER "googletest")
 set_property(TARGET gmock PROPERTY FOLDER "googletest")
 set_property(TARGET gmock_main PROPERTY FOLDER "googletest")
 
+# Workaround for VS2010 https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/pull/291#issuecomment-504923476
+if (MSVC)
+    if (${MSVC_VERSION} VERSION_LESS "1700")
+        target_compile_options(gmock PUBLIC /WX-)
+        target_compile_options(gmock_main PUBLIC /WX-)
+        target_compile_options(gtest PUBLIC /WX-)
+        target_compile_options(gtest_main PUBLIC /WX-)
+    endif()
+endif()
+
+
 # Keep CACHE cleaner
 mark_as_advanced(
     BUILD_GMOCK BUILD_GTEST BUILD_SHARED_LIBS

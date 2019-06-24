@@ -1,8 +1,8 @@
 within Modelica_DeviceDrivers.OperatingSystem;
 function realtimeSynchronize
-  "pauses the simulation until synchronization with real-time is achieved"
-  import Modelica;
+  "Deprecated. Use rtSyncSynchronize instead. Pauses the simulation until synchronization with real-time is achieved"
   extends Modelica.Icons.Function;
+  extends Modelica.Icons.ObsoleteModel;
   input Modelica_DeviceDrivers.OperatingSystem.RealTimeSynchronization rtSync;
   input Real simTime;
   input Boolean enableScaling = false "true, enable real-time scaling, else disable scaling";

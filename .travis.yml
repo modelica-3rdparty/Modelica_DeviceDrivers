@@ -43,6 +43,7 @@ script:
   - ./test_MDDRealtimeSynchronize_low
   - ./test_MDDRealtimeSynchronize_normal
   - sudo ./test_MDDRealtimeSynchronize
+  - ./test_MDDRTSync
   - cd ../Communication
   - ./test_EndiannessConversion
   - ./test_MDDSerialPackager

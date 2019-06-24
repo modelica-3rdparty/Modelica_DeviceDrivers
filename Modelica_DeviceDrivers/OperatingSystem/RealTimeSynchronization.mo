@@ -1,5 +1,5 @@
 within Modelica_DeviceDrivers.OperatingSystem;
-class RealTimeSynchronization "An object for real-time synchronization."
+class RealTimeSynchronization "Deprecated. Use RTSync instead. An object for real-time synchronization."
   extends ExternalObject;
   function constructor "Creates a RealTimeSynchronization instance."
     import Modelica;

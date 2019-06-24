@@ -7,3 +7,5 @@ RealTimeSynchronization
 realtimeSynchronize
 setProcessPriority
 sleep
+RTSync
+rtSyncSynchronize
