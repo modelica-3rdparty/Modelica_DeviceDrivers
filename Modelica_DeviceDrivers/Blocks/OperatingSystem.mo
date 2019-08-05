@@ -15,7 +15,7 @@ package OperatingSystem "Blocks for miscellaneous OS API related facilities, e.g
     parameter SI.Period sampleTime = 0.01 "Sample period of component" annotation(Dialog(enable = sampled and not enableExternalTrigger, group="Activation"));
     parameter SI.Time startTime = 0 "First sample time instant" annotation(Dialog(enable = sampled and not enableExternalTrigger, group="Activation"));
 
-    parameter Boolean showAdvancedOutputs = true "Show output for computing time and remaining time"  annotation (Dialog(group="Advanced"), choices(checkBox=true));
+    parameter Boolean showAdvancedOutputs = false "Show output for computing time and remaining time"  annotation (Dialog(group="Advanced"), choices(checkBox=true));
     parameter Boolean shouldCatchupTime = false "true, try to catch up delays from missed dead-lines by progressing faster than real-time, otherwise do not" annotation (Dialog(group="Advanced"), choices(checkBox=true));
 
     Modelica.Blocks.Interfaces.BooleanInput trigger if sampled and enableExternalTrigger annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=90,origin={0,-120})));
