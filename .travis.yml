@@ -30,7 +30,7 @@ before_script:
   - cd Modelica_DeviceDrivers/Resources
 
 script:
-  - /opt/cmake-2.8.12.2-Linux-i386/bin/cmake ./
+  - /opt/cmake-2.8.12.2-Linux-i386/bin/cmake -D CMAKE_C_COMPILER=gcc-4.8 -D CMAKE_CXX_COMPILER=g++-4.8 ./
   - make
   - cd test/Util
   - ./test_MDDMapIntInt
