@@ -33,6 +33,7 @@ elseif (MSVC)
 	  set(libSrcsMDDSpaceMouseLibrary MDDSpaceMouse.c)
 	  add_library(MDDSpaceMouse SHARED ${libSrcsMDDSpaceMouseLibrary})
 	  target_link_libraries(MDDSpaceMouse ${MSVC_HID_LIBRARY} ${MSVC_SETUPAPI_LIBRARY})
+	  target_compile_definitions(MDDSpaceMouse PUBLIC MDDSHAREDLIBRARY)
 	  # 2014-04-14: Hack to create a static library of the same name that overwrites previously created import lib.
 	  add_library(MDDSpaceMouseStatic STATIC ${libSrcsMDDSpaceMouseLibrary})
 	  set_target_properties(MDDSpaceMouseStatic PROPERTIES OUTPUT_NAME MDDSpaceMouse)
