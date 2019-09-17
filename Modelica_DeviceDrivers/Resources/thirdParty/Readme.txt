@@ -10,6 +10,7 @@ FOR LEGAL REASONS SOME MIGHT NOT BE INCLUDED WITHIN THIS MODELICA_DEVICEDRIVERS 
 - hdisdi: Microsoft Device Driver files used for space mouse (http://www.microsoft.com/)
 - ITI: ModelicaExternalC.lib version for SimulationX by ESI ITI (https://github.com/ESI-ITI-GmbH/ModelicaExternalC/)
 - lcm: Lightweight Communications and Marshalling, LGPL (https://github.com/lcm-proj/)
+- Mircrosoft: Winsock Server Code Example, Microsoft Limited Public License (https://docs.microsoft.com/de-de/windows/win32/winsock/complete-server-code?redirectedfrom=MSDN)
 - paho.mqtt.c: Eclipse Paho MQTT C client (https://github.com/eclipse/paho.mqtt.c/)
 - softing: Softing's CANL2 interface (http://www.softing.com/)
 - uthash: Hash table implementation (http://troydhanson.github.io/uthash/)
