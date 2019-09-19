@@ -12,7 +12,10 @@ extends ExternalObject;
     input Boolean useNonblockingMode = true "=true, use non-blocking TCP/IP socket, otherwise receiving and sending will block";
     output TCPIPServer tcpipserver;
   external "C" tcpipserver = MDD_TCPIPServer_Constructor(port, maxClients, useNonblockingMode)
-  annotation(Include = "#include \"MDDTCPIPSocketServer.h\"");
+  annotation(Include = "#include \"MDDTCPIPSocketServer.h\"",
+           Library = {"pthread", "Ws2_32"},
+           __iti_dll = "ITI_MDD.dll",
+           __iti_dllNoExport = true);
   end constructor;
 
   encapsulated function destructor
@@ -22,7 +25,10 @@ extends ExternalObject;
     import Modelica_DeviceDrivers.Communication.TCPIPServer;
     input TCPIPServer tcpipserver;
     external "C" MDD_TCPIPServer_Destructor(tcpipserver)
-    annotation(Include = "#include \"MDDTCPIPSocketServer.h\"");
+    annotation(Include = "#include \"MDDTCPIPSocketServer.h\"",
+           Library = {"pthread", "Ws2_32"},
+           __iti_dll = "ITI_MDD.dll",
+           __iti_dllNoExport = true);
   end destructor;
 
 end TCPIPServer;

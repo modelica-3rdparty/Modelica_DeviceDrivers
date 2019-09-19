@@ -169,6 +169,9 @@ if (MSVC)
 endif (MSVC)
 
 add_executable(test_MDDTCPIPSocketServer test_MDDTCPIPSocketServer.c ../Util/ModelicaUtilities.c ../../Include/MDDTCPIPSocketServer.h ../../src/include/util.h)
+if (UNIX)
+	target_link_libraries(test_MDDTCPIPSocketServer ${CMAKE_THREAD_LIBS_INIT})
+endif (UNIX)
 add_test(test_MDDTCPIPSocketServer ${EXECUTABLE_OUTPUT_PATH}/test_MDDTCPIPSocketServer)
 set_property(TARGET test_MDDTCPIPSocketServer PROPERTY FOLDER "test/Communication")
 

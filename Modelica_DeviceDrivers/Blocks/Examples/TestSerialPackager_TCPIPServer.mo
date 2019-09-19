@@ -87,9 +87,5 @@ a client is provided in as C code test program
         Text(
           extent={{-68,102},{66,84}},
           lineColor={238,46,47},
-          textString="Needs a connecting client to give meaningful results"),
-                              Text(
-          extent={{-80,80},{80,60}},
-          lineColor={0,0,255},
-          textString="Currently only available on Windows!")}));
+          textString="Needs a connecting client to give meaningful results")}));
 end TestSerialPackager_TCPIPServer;

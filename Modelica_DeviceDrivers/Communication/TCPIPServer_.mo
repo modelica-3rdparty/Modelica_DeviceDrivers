@@ -9,7 +9,10 @@ package TCPIPServer_ "Accompanying functions for the TCP/IP server"
     output String data;
     output Integer nRecvBytes "Number of received bytes. If 0 it means that no new data is available.";
     external "C" data = MDD_TCPIPServer_read(tcpipserver, clientIndex, recvbuflen, nRecvBytes)
-    annotation(Include = "#include \"MDDTCPIPSocketServer.h\"");
+    annotation(Include = "#include \"MDDTCPIPSocketServer.h\"",
+           Library = {"pthread", "Ws2_32"},
+           __iti_dll = "ITI_MDD.dll",
+           __iti_dllNoExport = true);
   end read;
 
   function send
@@ -20,7 +23,10 @@ package TCPIPServer_ "Accompanying functions for the TCP/IP server"
     input String data "Data that should be sent";
     output Integer dataSent;
     external "C" dataSent = MDD_TCPIPServer_send(tcpipserver, data, dataSize, clientIndex)
-    annotation(Include = "#include \"MDDTCPIPSocketServer.h\"");
+    annotation(Include = "#include \"MDDTCPIPSocketServer.h\"",
+           Library = {"pthread", "Ws2_32"},
+           __iti_dll = "ITI_MDD.dll",
+           __iti_dllNoExport = true);
   end send;
 
   function readP
@@ -31,7 +37,10 @@ package TCPIPServer_ "Accompanying functions for the TCP/IP server"
     input Integer recvbuflen "Size of receive buffer";
     output Integer nRecvBytes "Number of received bytes. If 0 it means that no new data is available.";
     external "C" MDD_TCPIPServer_readP(tcpipserver, pkg, clientIndex, recvbuflen, nRecvBytes)
-    annotation(Include = "#include \"MDDTCPIPSocketServer.h\"");
+    annotation(Include = "#include \"MDDTCPIPSocketServer.h\"",
+           Library = {"pthread", "Ws2_32"},
+           __iti_dll = "ITI_MDD.dll",
+           __iti_dllNoExport = true);
   end readP;
 
   function sendP
@@ -42,7 +51,10 @@ package TCPIPServer_ "Accompanying functions for the TCP/IP server"
     input Integer clientIndex "Index of the TCP/IP client";
     output Integer dataSent;
     external "C" dataSent = MDD_TCPIPServer_sendP(tcpipserver, pkg, dataSize, clientIndex)
-    annotation(Include = "#include \"MDDTCPIPSocketServer.h\"");
+    annotation(Include = "#include \"MDDTCPIPSocketServer.h\"",
+           Library = {"pthread", "Ws2_32"},
+           __iti_dll = "ITI_MDD.dll",
+           __iti_dllNoExport = true);
   end sendP;
 
   function acceptedClients
@@ -51,7 +63,10 @@ package TCPIPServer_ "Accompanying functions for the TCP/IP server"
     input Integer maxClients "Number of clients for which the tcpipserver object was configured";
     output Boolean acceptedClients[maxClients] "=true, a client was accepted at the respective index position";
     external "C" MDD_TCPIPServer_acceptedClients(tcpipserver, acceptedClients, maxClients)
-    annotation(Include = "#include \"MDDTCPIPSocketServer.h\"");
+    annotation(Include = "#include \"MDDTCPIPSocketServer.h\"",
+           Library = {"pthread", "Ws2_32"},
+           __iti_dll = "ITI_MDD.dll",
+           __iti_dllNoExport = true);
   end acceptedClients;
 
   function hasAcceptedClient
@@ -61,6 +76,9 @@ package TCPIPServer_ "Accompanying functions for the TCP/IP server"
     input Integer clientIndex;
     output Boolean accepted;
     external "C" accepted = MDD_TCPIPServer_hasAcceptedClient(tcpipserver, clientIndex)
-    annotation(Include = "#include \"MDDTCPIPSocketServer.h\"");
+    annotation(Include = "#include \"MDDTCPIPSocketServer.h\"",
+           Library = {"pthread", "Ws2_32"},
+           __iti_dll = "ITI_MDD.dll",
+           __iti_dllNoExport = true);
   end hasAcceptedClient;
 end TCPIPServer_;

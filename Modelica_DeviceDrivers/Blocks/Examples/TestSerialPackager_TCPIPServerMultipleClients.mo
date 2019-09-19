@@ -101,9 +101,5 @@ connect(addInteger[1:2].pkgOut[1], tCPIPSend[1:2].pkgIn)"),
         Text(
           extent={{-80,100},{80,80}},
           lineColor={238,46,47},
-          textString="Needs connecting clients to give meaningful results"),
-                              Text(
-          extent={{-80,80},{80,60}},
-          lineColor={0,0,255},
-          textString="Currently only available on Windows!")}));
+          textString="Needs connecting clients to give meaningful results")}));
 end TestSerialPackager_TCPIPServerMultipleClients;
