@@ -5,8 +5,6 @@
 * @since 2019-08-01
 * @copyright see Modelica_DeviceDrivers project's License.txt file
 *
-*
-* @TODO MDD_TCPIPServer_send consistent Windows/Linux return value
 */
 
 #ifndef MDDTCPIPSOCKETSERVER_H_
@@ -446,19 +444,20 @@ DllExport void MDD_TCPIPServer_readP(void * p_tcpip, void* p_package, int client
 * @param [in] data Pointer to data that should be sent.
 * @param [in] dataSize Size of data to be sent in byte.
 * @param [in] clientIndex index of the TCP/IP client (index range [1,max])
-* @return Return value of Windows 'send' function.
+* @return On success, return the number of bytes sent, 0 if operation would block, -1 on non-fatal error.
 */
 DllExport int MDD_TCPIPServer_send(void* p_tcpip, const char* data, int dataSize, int clientIndex) {
     MDDTCPIPServer* tcpip = (MDDTCPIPServer*)p_tcpip;
     int clientIndexC = clientIndex - 1;
     SOCKET clientSocket = tcpip->clientSockets[clientIndexC];
     int iSendResult = SOCKET_ERROR;
+    int retval = -1;
     int wsaLastError = 0;
     int rc = 0;
 
     if (clientSocket == INVALID_SOCKET) {
         ModelicaFormatMessage("MDDTCPIPSocketServer.h:%d: Trying to send to invalid socket at client index %d. Skipping ...\n", __LINE__, clientIndex);
-        iSendResult = SOCKET_ERROR;
+        retval = -1;
     }
     else {
         /* ModelicaFormatMessage("MDDTCPIPSocketServer.h:%d: Send %d bytes to client at index %d. data: %s\n", __LINE__, dataSize, clientIndex, data); */
@@ -467,6 +466,7 @@ DllExport int MDD_TCPIPServer_send(void* p_tcpip, const char* data, int dataSize
             wsaLastError = WSAGetLastError();
             if (wsaLastError == WSAEWOULDBLOCK) {
                 ModelicaFormatMessage("MDDTCPIPSocketServer.h:%d: Cannot send because the socket at client index %d is marked as nonblocking and the requested operation would block.\n", __LINE__, clientIndex);
+                retval = 0;
             }
             else if (wsaLastError == WSAESHUTDOWN || wsaLastError == WSAECONNRESET) {
                 if (wsaLastError == WSAESHUTDOWN)
@@ -480,6 +480,7 @@ DllExport int MDD_TCPIPServer_send(void* p_tcpip, const char* data, int dataSize
                 }
                 tcpip->clientSockets[clientIndexC] = INVALID_SOCKET;
                 LeaveCriticalSection(&tcpip->tcpipLock);
+                retval = -1;
             }
             else {
                 closesocket(tcpip->clientSockets[clientIndexC]);
@@ -487,7 +488,7 @@ DllExport int MDD_TCPIPServer_send(void* p_tcpip, const char* data, int dataSize
             }
         }
     }
-    return iSendResult;
+    return retval;
 }
 
 /** Send data via TCP/IP client socket from SerialPackager package.
@@ -495,7 +496,7 @@ DllExport int MDD_TCPIPServer_send(void* p_tcpip, const char* data, int dataSize
 * @param [inout] p_package pointer to the SerialPackager
 * @param [in] dataSize Size of data to be sent in byte.
 * @param [in] clientIndex index of the TCP/IP client (index range [1,max])
-* @return Return value of Windows 'send' function.
+* @return On success, return the number of bytes sent, 0 if operation would block, -1 on non-fatal error.
 */
 DllExport int MDD_TCPIPServer_sendP(void* p_tcpip, void* p_package, int dataSize, int clientIndex) {
     return MDD_TCPIPServer_send(p_tcpip, MDD_SerialPackagerGetData(p_package), dataSize, clientIndex);
@@ -1010,19 +1011,20 @@ DllExport void MDD_TCPIPServer_readP(void * p_tcpip, void* p_package, int client
 * @param [in] data Pointer to data that should be sent.
 * @param [in] dataSize Size of data to be sent in byte.
 * @param [in] clientIndex index of the TCP/IP client (index range [1,max])
-* @return Return value of Windows 'send' function. FIXME------------------------------------
+* @return On success, return the number of bytes sent, 0 if operation would block, -1 on non-fatal error.
 */
 DllExport int MDD_TCPIPServer_send(void* p_tcpip, const char* data, int dataSize, int clientIndex) {
     MDDTCPIPServer* tcpip = (MDDTCPIPServer*)p_tcpip;
     int clientIndexC = clientIndex - 1;
     int clientSocket = tcpip->clientSockets[clientIndexC];
     int iSendResult = -1;
+    int retval = -1;
     int err = 0;
     int rc = 0;
 
     if (clientSocket == -1) {
         ModelicaFormatMessage("MDDTCPIPSocketServer.h:%d: Trying to send to invalid socket at client index %d. Skipping ...\n", __LINE__, clientIndex);
-        iSendResult = -1;
+        retval = -1;
     }
     else {
         /* ModelicaFormatMessage("MDDTCPIPSocketServer.h:%d: Send %d bytes to client at index %d. data: %s\n", __LINE__, dataSize, clientIndex, data); */
@@ -1030,6 +1032,7 @@ DllExport int MDD_TCPIPServer_send(void* p_tcpip, const char* data, int dataSize
         if (iSendResult == -1) {
             if (errno == EAGAIN || errno == EWOULDBLOCK ) {
                 ModelicaFormatMessage("MDDTCPIPSocketServer.h:%d: Cannot send because the socket at client index %d is marked as nonblocking and the requested operation would block.\n", __LINE__, clientIndex);
+                retval = 0;
             }
             else if (errno == ECONNRESET) {
                 ModelicaFormatMessage("MDDTCPIPSocketServer.h:%d: send failed with error ECONNRESET at client index %d. Close socket and continue ...\n", __LINE__, clientIndex);
@@ -1040,6 +1043,7 @@ DllExport int MDD_TCPIPServer_send(void* p_tcpip, const char* data, int dataSize
                 }
                 tcpip->clientSockets[clientIndexC] = -1;
                 pthread_mutex_unlock(&(tcpip->tcpipLock));
+                retval = -1;
             }
             else {
                 err = errno;
@@ -1048,7 +1052,7 @@ DllExport int MDD_TCPIPServer_send(void* p_tcpip, const char* data, int dataSize
             }
         }
     }
-    return iSendResult;
+    return retval;
 }
 
 /** Send data via TCP/IP client socket from SerialPackager package.
@@ -1056,7 +1060,7 @@ DllExport int MDD_TCPIPServer_send(void* p_tcpip, const char* data, int dataSize
 * @param [inout] p_package pointer to the SerialPackager
 * @param [in] dataSize Size of data to be sent in byte.
 * @param [in] clientIndex index of the TCP/IP client (index range [1,max])
-* @return Return value of Windows 'send' function. FIXME------------------------------------
+* @return On success, return the number of bytes sent, 0 if operation would block, -1 on non-fatal error.
 */
 DllExport int MDD_TCPIPServer_sendP(void* p_tcpip, void* p_package, int dataSize, int clientIndex) {
     return MDD_TCPIPServer_send(p_tcpip, MDD_SerialPackagerGetData(p_package), dataSize, clientIndex);

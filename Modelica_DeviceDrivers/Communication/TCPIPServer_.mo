@@ -21,7 +21,7 @@ package TCPIPServer_ "Accompanying functions for the TCP/IP server"
     input Integer clientIndex "Index of the TCP/IP client";
     input Integer dataSize "Size of data to be sent in byte";
     input String data "Data that should be sent";
-    output Integer dataSent;
+    output Integer dataSent "On success, return the number of bytes sent, 0 if operation would block, -1 on non-fatal error";
     external "C" dataSent = MDD_TCPIPServer_send(tcpipserver, data, dataSize, clientIndex)
     annotation(Include = "#include \"MDDTCPIPSocketServer.h\"",
            Library = {"pthread", "Ws2_32"},
@@ -49,7 +49,7 @@ package TCPIPServer_ "Accompanying functions for the TCP/IP server"
     input Modelica_DeviceDrivers.Packaging.SerialPackager pkg;
     input Integer dataSize "Size of data to be sent in byte";
     input Integer clientIndex "Index of the TCP/IP client";
-    output Integer dataSent;
+    output Integer dataSent "On success, return the number of bytes sent, 0 if operation would block, -1 on non-fatal error";
     external "C" dataSent = MDD_TCPIPServer_sendP(tcpipserver, pkg, dataSize, clientIndex)
     annotation(Include = "#include \"MDDTCPIPSocketServer.h\"",
            Library = {"pthread", "Ws2_32"},
