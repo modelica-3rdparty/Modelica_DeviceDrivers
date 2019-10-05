@@ -1413,8 +1413,7 @@ TCP/IP server configuration block. This block is supposed to be used as an inner
     output Boolean accepted "Indicates whether a client at `clientIndex` has been accepted";
 
   protected
-    outer Modelica_DeviceDrivers.Blocks.Communication.TCPIPServerConfig
-      tcpipserverconfig
+    outer Modelica_DeviceDrivers.Blocks.Communication.TCPIPServerConfig tcpipserverconfig
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
     Integer bufferSize;
     Boolean block_;
@@ -1487,8 +1486,7 @@ TCP/IP server configuration block. This block is supposed to be used as an inner
     Integer bufferSize(start=0,fixed=true);
     Real dummy1(start=0, fixed=true), dummy2(start=0, fixed=true);
     Integer pkgSize(start=0,fixed=true);
-    outer Modelica_DeviceDrivers.Blocks.Communication.TCPIPServerConfig
-      tcpipserverconfig
+    outer Modelica_DeviceDrivers.Blocks.Communication.TCPIPServerConfig tcpipserverconfig
       annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
     Boolean block_;
   initial algorithm
