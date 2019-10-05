@@ -16,10 +16,10 @@ extern "C" {
 
 #include <string.h>
 const char* MDD_utilitiesGetLastFileName(const char* pathname) {
-    char * pch1 = strrchr(pathname, '/');
-    char * pch2 = strrchr(pathname, '\\');
-    int pos_ch1 = pch1 != NULL ? pch1 - pathname + 1 : 0;
-    int pos_ch2 = pch2 != NULL ? pch2 - pathname + 1 : 0;
+    const char * pch1 = strrchr(pathname, '/');
+    const char * pch2 = strrchr(pathname, '\\');
+    size_t pos_ch1 = pch1 != NULL ? pch1 - pathname + 1 : 0;
+    size_t pos_ch2 = pch2 != NULL ? pch2 - pathname + 1 : 0;
     return pos_ch1 == 0 && pos_ch2 == 0 ? pathname : pos_ch1 > pos_ch2 ? pch1 + 1 : pch2 + 1;
 }
 #define MDD_FILE() MDD_utilitiesGetLastFileName(__FILE__)
