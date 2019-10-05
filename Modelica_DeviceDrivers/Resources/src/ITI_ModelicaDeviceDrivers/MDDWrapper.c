@@ -34,3 +34,4 @@
 #include "../../Include/MDDUtilitiesMAC.h"
 #include "../../Include/MDDUtilitiesUUID.h"
 #include "../../Include/MDDTCPIPSocket.h"
+#include "../../Include/MDDTCPIPSocketServer.h"
