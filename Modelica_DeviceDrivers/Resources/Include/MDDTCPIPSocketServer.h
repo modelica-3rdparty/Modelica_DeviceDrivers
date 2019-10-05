@@ -1072,7 +1072,7 @@ DllExport int MDD_TCPIPServer_sendP(void* p_tcpip, void* p_package, int dataSize
 
 #else
 
-#error "HapticsLibrary: No support of TCP/IP Socket for your platform"
+#error "Modelica_DeviceDrivers: No support of TCP/IP Socket for your platform"
 
 #endif /* defined(_MSC_VER) */
 
