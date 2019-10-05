@@ -15,7 +15,6 @@ int main(void) {
     char sendbuf_server[DEFAULT_BUFLEN] = { 0 };
     unsigned int i = 0;
     int acceptedClients[MAX_CLIENTS];
-    memset(acceptedClients, 0, sizeof(acceptedClients));
 
     /***********************************************************************/
     /* Set up TCP/IP client so that the server has something that connects */
@@ -34,6 +33,7 @@ int main(void) {
         exit(EXIT_FAILURE);
     }
 
+    memset(acceptedClients, 0, sizeof(acceptedClients));
     while (acceptedClients[0] != 1) {
         MDD_TCPIPServer_acceptedClients(server, acceptedClients, MAX_CLIENTS);
         MDD_msleep(100);
