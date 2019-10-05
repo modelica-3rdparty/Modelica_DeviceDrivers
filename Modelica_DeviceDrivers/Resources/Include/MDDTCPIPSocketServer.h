@@ -56,14 +56,15 @@ DWORD WINAPI MDD_TCPIPServer_acceptingThread(void * p_tcpip) {
 
     ModelicaFormatMessage("MDDTCPIPSocketServer.h: Started thread MDD_TCPIPServer_acceptingThread.\n");
     while (tcpip->runAcceptingThread == 1) {
+        int i;
         // Accept a client socket
         EnterCriticalSection(&tcpip->tcpipLock);
         maxClients = tcpip->maxClients;
-        for (int i = 0; i < maxClients; ++i)
+        for (i = 0; i < maxClients; ++i)
             clientSockets[i] = tcpip->clientSockets[i];
         LeaveCriticalSection(&tcpip->tcpipLock);
 
-        for (int i = 0; i < maxClients; ++i) {
+        for (i = 0; i < maxClients; ++i) {
             if (tcpip->runAcceptingThread != 1) {
                 free(clientSockets);
                 ModelicaFormatMessage("MDDTCPIPSocketServer.h: Exiting thread MDD_TCPIPServer_acceptingThread.\n");
@@ -120,6 +121,7 @@ DllExport void * MDD_TCPIPServer_Constructor(int serverport, int maxClients, int
     MDDTCPIPServer* tcpip = (MDDTCPIPServer*) malloc(sizeof(MDDTCPIPServer));
     WSADATA wsaData;
     int iResult;
+    int i;
     struct addrinfo *result = NULL;
     struct addrinfo hints;
     DWORD threadId;
@@ -131,7 +133,7 @@ DllExport void * MDD_TCPIPServer_Constructor(int serverport, int maxClients, int
     tcpip->nRecvBytes = (int*)calloc(tcpip->maxClients, sizeof(int));
     tcpip->recvbufslen = (int*)calloc(tcpip->maxClients, sizeof(int));
     tcpip->recvbufs = (char**)calloc(tcpip->maxClients, sizeof(char*));
-    for (int i = 0; i < tcpip->maxClients; ++i) {
+    for (i = 0; i < tcpip->maxClients; ++i) {
         tcpip->clientSockets[i] = INVALID_SOCKET;
         tcpip->nRecvBytes[i] = 0;
         tcpip->recvbufs[i] = NULL;
@@ -214,8 +216,9 @@ DllExport void MDD_TCPIPServer_Destructor(void * p_tcpip) {
     MDDTCPIPServer* tcpip = (MDDTCPIPServer*) p_tcpip;
     /* ModelicaFormatMessage("MDDTCPIPSocketServer.h: MDD_TCPIPServer_Destructor\n"); */
     if (tcpip) {
+        int i;
         tcpip->runAcceptingThread = 0;
-        for (int i = 0; i < tcpip->maxClients; ++i) {
+        for (i = 0; i < tcpip->maxClients; ++i) {
             if (tcpip->clientSockets[i] != INVALID_SOCKET) {
                 shutdown(tcpip->clientSockets[i], SD_SEND);
                 closesocket(tcpip->clientSockets[i]);
@@ -236,7 +239,7 @@ DllExport void MDD_TCPIPServer_Destructor(void * p_tcpip) {
 
         free(tcpip->clientSockets);
         free(tcpip->nRecvBytes);
-        for (int i = 0; i < tcpip->maxClients; ++i) {
+        for (i = 0; i < tcpip->maxClients; ++i) {
             if (tcpip->recvbufs[i]) {
                 free(tcpip->recvbufs[i]);
                 tcpip->recvbufs[i] = NULL;
@@ -252,12 +255,12 @@ DllExport void MDD_TCPIPServer_Destructor(void * p_tcpip) {
 /** Check for connected clients. */
 DllExport void MDD_TCPIPServer_acceptedClients(void * p_tcpip, int* acceptedClients, size_t dim) {
     MDDTCPIPServer* tcpip = (MDDTCPIPServer*)p_tcpip;
-
+    int i;
     if (dim != tcpip->maxClients) {
         ModelicaFormatError("MDDTCPIPSocketServer.h:%d: Size of acceptedClients != %d\n", __LINE__, tcpip->maxClients);
     }
     EnterCriticalSection(&tcpip->tcpipLock);
-    for (int i = 0; i < tcpip->maxClients; ++i) {
+    for (i = 0; i < tcpip->maxClients; ++i) {
         acceptedClients[i] = (tcpip->clientSockets[i] != INVALID_SOCKET) ? 1 : 0;
     }
     LeaveCriticalSection(&tcpip->tcpipLock);
