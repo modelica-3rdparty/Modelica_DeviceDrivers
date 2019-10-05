@@ -1367,7 +1367,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
     output Modelica_DeviceDrivers.Communication.TCPIPServer tcpipserver = Modelica_DeviceDrivers.Communication.TCPIPServer(port, maxClients, useNonblockingMode) "Device handle";
     annotation (
     defaultComponentName="tcpipserverconfig",
-    defaultComponentPrefixes="inner",missingInnerMessage="The TCPIPServerConfig component is missing! A default component is added, but it its configuration is most likely not what you want!",
+    defaultComponentPrefixes="inner",missingInnerMessage="The TCPIPServerConfig component is missing! A default component is added, but its configuration is most likely not what you want!",
     Icon(graphics={
           Text(
             extent={{-100,-72},{100,-96}},
