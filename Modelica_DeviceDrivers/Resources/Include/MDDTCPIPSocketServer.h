@@ -253,7 +253,7 @@ DllExport void MDD_TCPIPServer_Destructor(void * p_tcpip) {
 }
 
 /** Check for connected clients. */
-DllExport void MDD_TCPIPServer_acceptedClients(void * p_tcpip, int* acceptedClients, size_t dim) {
+DllExport void MDD_TCPIPServer_AcceptedClients(void * p_tcpip, int* acceptedClients, size_t dim) {
     MDDTCPIPServer* tcpip = (MDDTCPIPServer*)p_tcpip;
     int i;
     if (dim != tcpip->maxClients) {
@@ -267,7 +267,7 @@ DllExport void MDD_TCPIPServer_acceptedClients(void * p_tcpip, int* acceptedClie
 }
 
 /** Check if a client at the specified index has been accepted by the server. */
-DllExport int MDD_TCPIPServer_hasAcceptedClient(void * p_tcpip, int clientIndex) {
+DllExport int MDD_TCPIPServer_HasAcceptedClient(void * p_tcpip, int clientIndex) {
     MDDTCPIPServer* tcpip = (MDDTCPIPServer*)p_tcpip;
     int clientIndexC = clientIndex - 1;
     int ret = 0;
@@ -279,7 +279,7 @@ DllExport int MDD_TCPIPServer_hasAcceptedClient(void * p_tcpip, int clientIndex)
 
 /** Read data via TCP/IP client socket.
 *
-* @FIXME Adapt to MDD_TCPIPServer_readP. Untested function. Lot's of code duplication with MDD_TCPIPServer_readP.
+* @FIXME Adapt to MDD_TCPIPServer_ReadP. Untested function. Lot's of code duplication with MDD_TCPIPServer_ReadP.
 *
 * @param [inout] p_tcpip MDDTCPIPServer data structure as opaque pointer.
 * @param [in] clientIndex index of the TCP/IP client (index range [1,max])
@@ -287,7 +287,7 @@ DllExport int MDD_TCPIPServer_hasAcceptedClient(void * p_tcpip, int clientIndex)
 * @param [out] nRecvBytes If 0 it means that no new data is available.
 * @return Pointer to the data buffer. If no new data is available, an empty string is returned.
 */
-DllExport const char* MDD_TCPIPServer_read(void * p_tcpip, int clientIndex, int recvbuflen, int* nRecvBytes) {
+DllExport const char* MDD_TCPIPServer_Read(void * p_tcpip, int clientIndex, int recvbuflen, int* nRecvBytes) {
     MDDTCPIPServer* tcpip = (MDDTCPIPServer*)p_tcpip;
     int clientIndexC = clientIndex - 1;
     SOCKET clientSocket = tcpip->clientSockets[clientIndexC];
@@ -371,7 +371,7 @@ DllExport const char* MDD_TCPIPServer_read(void * p_tcpip, int clientIndex, int 
 * @param [in] recvbuflen Size of the receiving buffer
 * @param [out] nRecvBytes If 0 it means that no new data is available.
 */
-DllExport void MDD_TCPIPServer_readP(void * p_tcpip, void* p_package, int clientIndex, int recvbuflen, int* nRecvBytes) {
+DllExport void MDD_TCPIPServer_ReadP(void * p_tcpip, void* p_package, int clientIndex, int recvbuflen, int* nRecvBytes) {
     MDDTCPIPServer* tcpip = (MDDTCPIPServer*)p_tcpip;
     int clientIndexC = clientIndex - 1;
     SOCKET clientSocket = tcpip->clientSockets[clientIndexC];
@@ -404,7 +404,7 @@ DllExport void MDD_TCPIPServer_readP(void * p_tcpip, void* p_package, int client
             /* ModelicaFormatMessage("MDDTCPIPSocketServer.h:%d: Got %d bytes reading: %s\n", *nRecvBytes, __LINE__, tcpip->recvbuf); */
             rc = MDD_SerialPackagerSetDataWithErrorReturn(p_package, tcpip->recvbufs[clientIndexC], *nRecvBytes);
             if (rc) {
-                ModelicaFormatError("MDDTCPIPSocketServer.h:%d: MDD_TCPIPServer_readP failed. Buffer overflow.\n", __LINE__);
+                ModelicaFormatError("MDDTCPIPSocketServer.h:%d: MDD_TCPIPServer_ReadP failed. Buffer overflow.\n", __LINE__);
             }
         }
         else if (*nRecvBytes == 0) {
@@ -419,7 +419,7 @@ DllExport void MDD_TCPIPServer_readP(void * p_tcpip, void* p_package, int client
         }
         else if (WSAGetLastError() == WSAEWOULDBLOCK) {
             // Just skip and check at next sample point
-            /* ModelicaFormatMessage("MDDTCPIPSocketServer.h:%d: MDD_TCPIPServer_readP WSAEWOULDBLOCK\n", __LINE__); */
+            /* ModelicaFormatMessage("MDDTCPIPSocketServer.h:%d: MDD_TCPIPServer_ReadP WSAEWOULDBLOCK\n", __LINE__); */
             *nRecvBytes = 0;
         }
         else if (WSAGetLastError() == WSAECONNRESET) {
@@ -449,7 +449,7 @@ DllExport void MDD_TCPIPServer_readP(void * p_tcpip, void* p_package, int client
 * @param [in] clientIndex index of the TCP/IP client (index range [1,max])
 * @return On success, return the number of bytes sent, 0 if operation would block, -1 on non-fatal error.
 */
-DllExport int MDD_TCPIPServer_send(void* p_tcpip, const char* data, int dataSize, int clientIndex) {
+DllExport int MDD_TCPIPServer_Send(void* p_tcpip, const char* data, int dataSize, int clientIndex) {
     MDDTCPIPServer* tcpip = (MDDTCPIPServer*)p_tcpip;
     int clientIndexC = clientIndex - 1;
     SOCKET clientSocket = tcpip->clientSockets[clientIndexC];
@@ -501,8 +501,8 @@ DllExport int MDD_TCPIPServer_send(void* p_tcpip, const char* data, int dataSize
 * @param [in] clientIndex index of the TCP/IP client (index range [1,max])
 * @return On success, return the number of bytes sent, 0 if operation would block, -1 on non-fatal error.
 */
-DllExport int MDD_TCPIPServer_sendP(void* p_tcpip, void* p_package, int dataSize, int clientIndex) {
-    return MDD_TCPIPServer_send(p_tcpip, MDD_SerialPackagerGetData(p_package), dataSize, clientIndex);
+DllExport int MDD_TCPIPServer_SendP(void* p_tcpip, void* p_package, int dataSize, int clientIndex) {
+    return MDD_TCPIPServer_Send(p_tcpip, MDD_SerialPackagerGetData(p_package), dataSize, clientIndex);
 }
 
 
@@ -731,7 +731,6 @@ DllExport void * MDD_TCPIPServer_Constructor(int serverport, int maxClients, int
 
     // Setup the TCP listening socket
     iResult = bind(tcpip->listenSocket, result->ai_addr, (int)result->ai_addrlen);
-    // iResult = bind(tcpip->listenSocket, (struct sockaddr *)&(result->ai_addr), sizeof(result->ai_addr)) // FIXME not sure which bind call is correct
     if (iResult == -1) {
         err = errno;
         freeaddrinfo(result);
@@ -817,7 +816,7 @@ DllExport void MDD_TCPIPServer_Destructor(void * p_tcpip) {
 }
 
 /** Check for connected clients. */
-DllExport void MDD_TCPIPServer_acceptedClients(void * p_tcpip, int* acceptedClients, size_t dim) {
+DllExport void MDD_TCPIPServer_AcceptedClients(void * p_tcpip, int* acceptedClients, size_t dim) {
     MDDTCPIPServer* tcpip = (MDDTCPIPServer*)p_tcpip;
     int i = 0;
 
@@ -833,7 +832,7 @@ DllExport void MDD_TCPIPServer_acceptedClients(void * p_tcpip, int* acceptedClie
 }
 
 /** Check if a client at the specified index has been accepted by the server. */
-DllExport int MDD_TCPIPServer_hasAcceptedClient(void * p_tcpip, int clientIndex) {
+DllExport int MDD_TCPIPServer_HasAcceptedClient(void * p_tcpip, int clientIndex) {
     MDDTCPIPServer* tcpip = (MDDTCPIPServer*)p_tcpip;
     int clientIndexC = clientIndex - 1;
     int ret = 0;
@@ -845,7 +844,7 @@ DllExport int MDD_TCPIPServer_hasAcceptedClient(void * p_tcpip, int clientIndex)
 
 /** Read data via TCP/IP client socket.
 *
-* @FIXME Adapt to MDD_TCPIPServer_readP. Untested function. Lot's of code duplication with MDD_TCPIPServer_readP.
+* @FIXME Adapt to MDD_TCPIPServer_ReadP. Untested function. Lot's of code duplication with MDD_TCPIPServer_ReadP.
 *
 * @param [inout] p_tcpip MDDTCPIPServer data structure as opaque pointer.
 * @param [in] clientIndex index of the TCP/IP client (index range [1,max])
@@ -853,7 +852,7 @@ DllExport int MDD_TCPIPServer_hasAcceptedClient(void * p_tcpip, int clientIndex)
 * @param [out] nRecvBytes If 0 it means that no new data is available.
 * @return Pointer to the data buffer. If no new data is available, an empty string is returned.
 */
-DllExport const char* MDD_TCPIPServer_read(void * p_tcpip, int clientIndex, int recvbuflen, int* nRecvBytes) {
+DllExport const char* MDD_TCPIPServer_Read(void * p_tcpip, int clientIndex, int recvbuflen, int* nRecvBytes) {
     MDDTCPIPServer* tcpip = (MDDTCPIPServer*)p_tcpip;
     int clientIndexC = clientIndex - 1;
     int clientSocket = tcpip->clientSockets[clientIndexC];
@@ -938,7 +937,7 @@ DllExport const char* MDD_TCPIPServer_read(void * p_tcpip, int clientIndex, int 
 * @param [in] recvbuflen Size of the receiving buffer
 * @param [out] nRecvBytes If 0 it means that no new data is available.
 */
-DllExport void MDD_TCPIPServer_readP(void * p_tcpip, void* p_package, int clientIndex, int recvbuflen, int* nRecvBytes) {
+DllExport void MDD_TCPIPServer_ReadP(void * p_tcpip, void* p_package, int clientIndex, int recvbuflen, int* nRecvBytes) {
     MDDTCPIPServer* tcpip = (MDDTCPIPServer*)p_tcpip;
     int clientIndexC = clientIndex - 1;
     int clientSocket = tcpip->clientSockets[clientIndexC];
@@ -971,7 +970,7 @@ DllExport void MDD_TCPIPServer_readP(void * p_tcpip, void* p_package, int client
             /* ModelicaFormatMessage("MDDTCPIPSocketServer.h:%d: Got %d bytes reading: %s\n", *nRecvBytes, __LINE__, tcpip->recvbuf); */
             rc = MDD_SerialPackagerSetDataWithErrorReturn(p_package, tcpip->recvbufs[clientIndexC], *nRecvBytes);
             if (rc) {
-                ModelicaFormatError("MDDTCPIPSocketServer.h:%d: MDD_TCPIPServer_readP failed for client %d. Buffer overflow.\n", __LINE__, clientIndex);
+                ModelicaFormatError("MDDTCPIPSocketServer.h:%d: MDD_TCPIPServer_ReadP failed for client %d. Buffer overflow.\n", __LINE__, clientIndex);
             }
         }
         else if (*nRecvBytes == 0) {
@@ -986,7 +985,7 @@ DllExport void MDD_TCPIPServer_readP(void * p_tcpip, void* p_package, int client
         }
         else if (errno == EAGAIN || errno == EWOULDBLOCK) {
             // Just skip and check at next sample point
-            /* ModelicaFormatMessage("MDDTCPIPSocketServer.h:%d: MDD_TCPIPServer_readP WSAEWOULDBLOCK\n", __LINE__); */
+            /* ModelicaFormatMessage("MDDTCPIPSocketServer.h:%d: MDD_TCPIPServer_ReadP WSAEWOULDBLOCK\n", __LINE__); */
             *nRecvBytes = 0;
         }
         else if (errno == ECONNRESET) {
@@ -1016,7 +1015,7 @@ DllExport void MDD_TCPIPServer_readP(void * p_tcpip, void* p_package, int client
 * @param [in] clientIndex index of the TCP/IP client (index range [1,max])
 * @return On success, return the number of bytes sent, 0 if operation would block, -1 on non-fatal error.
 */
-DllExport int MDD_TCPIPServer_send(void* p_tcpip, const char* data, int dataSize, int clientIndex) {
+DllExport int MDD_TCPIPServer_Send(void* p_tcpip, const char* data, int dataSize, int clientIndex) {
     MDDTCPIPServer* tcpip = (MDDTCPIPServer*)p_tcpip;
     int clientIndexC = clientIndex - 1;
     int clientSocket = tcpip->clientSockets[clientIndexC];
@@ -1065,8 +1064,8 @@ DllExport int MDD_TCPIPServer_send(void* p_tcpip, const char* data, int dataSize
 * @param [in] clientIndex index of the TCP/IP client (index range [1,max])
 * @return On success, return the number of bytes sent, 0 if operation would block, -1 on non-fatal error.
 */
-DllExport int MDD_TCPIPServer_sendP(void* p_tcpip, void* p_package, int dataSize, int clientIndex) {
-    return MDD_TCPIPServer_send(p_tcpip, MDD_SerialPackagerGetData(p_package), dataSize, clientIndex);
+DllExport int MDD_TCPIPServer_SendP(void* p_tcpip, void* p_package, int dataSize, int clientIndex) {
+    return MDD_TCPIPServer_Send(p_tcpip, MDD_SerialPackagerGetData(p_package), dataSize, clientIndex);
 }
 
 

@@ -35,7 +35,7 @@ int main(void) {
 
     memset(acceptedClients, 0, sizeof(acceptedClients));
     while (acceptedClients[0] != 1) {
-        MDD_TCPIPServer_acceptedClients(server, acceptedClients, MAX_CLIENTS);
+        MDD_TCPIPServer_AcceptedClients(server, acceptedClients, MAX_CLIENTS);
         MDD_msleep(100);
     }
 
@@ -43,7 +43,7 @@ int main(void) {
         sprintf(sendbuf_client, "Current i is %d", i);
         MDD_TCPIPClient_Send(client, sendbuf_client, DEFAULT_BUFLEN);
         MDD_msleep(100);
-        recvbuf_server = MDD_TCPIPServer_read(server, 1, DEFAULT_BUFLEN, &nRecvBytes);
+        recvbuf_server = MDD_TCPIPServer_Read(server, 1, DEFAULT_BUFLEN, &nRecvBytes);
         printf("%d: nReceivedBytes: %d\n", i, nRecvBytes);
         printf("%d: recvbuf: %s\n", i, recvbuf_server);
         if (nRecvBytes > DEFAULT_BUFLEN) {
@@ -52,7 +52,7 @@ int main(void) {
         else if (nRecvBytes > 0) {
             memcpy(sendbuf_server, recvbuf_server, nRecvBytes);
             printf("%d: sendbuf_server: %s\n", i, sendbuf_server);
-            nSentBytes = MDD_TCPIPServer_send(server, sendbuf_server, nRecvBytes, 1);
+            nSentBytes = MDD_TCPIPServer_Send(server, sendbuf_server, nRecvBytes, 1);
             //nSentBytes = TCPIPServer_send(server, "QoK", 4, 1);
             printf("%d: nSentBytes: %d\n", i, nSentBytes);
         }
