@@ -62,6 +62,21 @@ Bug fix releases usually do not have release notes, so please use the download l
 
 For information about previous releases, see [Release Notes of Previous Versions](ReleaseNotesPreviousVersions.md).
 
+## Citing
+
+Use the following BibTeX lines to cite the Modelica_DeviceDrivers library
+
+```
+@inproceedings{modelica2017mdd,
+  author = {Thiele, Bernhard and Beutlich, Thomas and Waurich, Volker and Sjölund, Martin and Bellmann, Tobias},
+  booktitle = {Proceedings of the 12th International Modelica Conference, Prague, Czech Republic, May 15-17, 2017},
+  number = {132},
+  pages = {713-723},
+  publisher = {Linköping University Electronic Press, Linköpings universitet},
+  title = {Towards a Standard-Conform, Platform-Generic and Feature-Rich Modelica Device Drivers Library},
+  year = {2017}
+}
+```
 
 ## License
 
@@ -70,9 +85,9 @@ it can be redistributed and/or modified under the terms of the [BSD-3-Clause Lic
 
 ## Development and contribution
 
-The master branch of the  Modelica_DeviceDrivers library should work out-of-the-box when loading the library into a supporting Modelica tool. The branch contains the necessary external C libraries as pre-build binaries below folder [Modelica_DeviceDrivers/Resources/Library](Modelica_DeviceDrivers/Resources/Library).
+The master branch of the Modelica_DeviceDrivers library should work out-of-the-box when loading the library into a supporting Modelica tool. The branch contains the necessary external C libraries as pre-build binaries below folder [Modelica_DeviceDrivers/Resources/Library](Modelica_DeviceDrivers/Resources/Library).
 
-If you need to build the external C libraries from the sources, clone the repo with
+If you need to build the external C libraries from the sources, clone the repository with
 
 ```git
 git clone --recursive https://github.com/modelica/Modelica_DeviceDrivers.git
