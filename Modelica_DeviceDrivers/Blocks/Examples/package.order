@@ -20,3 +20,5 @@ TestSerialPackager_TCPIP
 TestSerialPackager_LCM
 TestSerialPackager_MQTT
 TestRealtimeSynchronize
+TestSerialPackager_TCPIPServer
+TestSerialPackager_TCPIPServerMultipleClients
