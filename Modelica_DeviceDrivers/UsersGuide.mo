@@ -1,101 +1,27 @@
 ﻿within Modelica_DeviceDrivers;
 package UsersGuide "User's Guide"
-    extends Modelica.Icons.Information;
-
-  class GettingStarted "Getting started"
-      extends Modelica.Icons.Information;
-
-    annotation (Documentation(info="<html>
-<p>In this section, a first introduction to the Modelica_DeviceDrivers library is given at hand of several examples.</p>
-<h4>Introduction</h4>
-<p>The library allows to access some selected external devices in Modelica models. This is achieved by using the Modelica external C interface to call the appropriate C driver functions provided by the underlying operating system. Currently MS Windows and Linux are supported.</p>
-<p>The library is organized in several layers as indicated below. It is noteworthy that the library provides two high-level Drag &amp; Drop block interfaces. The first (.Blocks) is compatible to Modelica 3.2, using the traditional &quot;when sample()&quot; element for periodically calling Modelica functions from the Function Layer. The second (.ClockedBlocks) uses the<i> Synchronous Language Elements</i> extension introduced in Modelica 3.3 for periodic execution.</p>
-<p><img src=\"modelica://Modelica_DeviceDrivers/Resources/Images/DeviceDrivers_LayeredArchitecture.png\"/></p>
-<h4>Usage Examples</h4>
-<p>Looking at the examples in <code>.Blocks.Examples</code> (or <code>.ClockedBlocks.Examples</code>, respectively) the usage of the library should be self-explanatory. In the following two exemplarily examples are considered.</p>
-<h5>User Input devices</h5>
-<p> E.g., using a joystick or gamepad as input for a real-time simulation just requires to drag &amp; drop two blocks: <code>.Blocks.OperatingSystem.SynchronizeRealtime</code> and <code>.Blocks.InputDevices.JoystickInput</code> (or respectively, <code>.ClockedBlocks.OperatingSystem.SynchronizeRealtime</code> and <code>.ClockedBlocks.InputDevices.JoystickInput</code>). See the executable example at <code>.(Clocked)Blocks.Examples.TestInputJoystick</code>:</p>
-<p><img src=\"modelica://Modelica_DeviceDrivers/Resources/Images/TestInputJoystick.png\"/></p>
-<p>The <code>SynchronizeRealtime</code> block synchronizes the simulation time with the operating systems real-time clock. That allows interactive Modelica simulations, e.g., a vehicle driving simulation using a gamepad for user inputs.</p>
-<h5>Communication Devices</h5>
-<p>Communication devices like UDP or shared memory use a common packaging concept in order to send or receive data. Therefore the same Packager can be used with different communication devices, as indicated in the figure below.</p>
-<p><img src=\"modelica://Modelica_DeviceDrivers/Resources/Images/PackagingConcept.png\"/></p>
-</html>"));
-  end GettingStarted;
-
-  class Requirements "Requirements"
-    extends Modelica.Icons.Information;
-    annotation (Documentation(info="<html>
-<p>
-The tool must support the Modelica external function interface as specified in Section 12.9 of the Modelica specification 3.2 and later.
-</p>
-<p>
-<b>Optionally</b> following requirements need to be additionally satisfied.
-</p>
-<ol>
-<li>For the (optional) use of the blocks provided in
-<a href=\"modelica://Modelica_DeviceDrivers.ClockedBlocks\">ClockedBlocks</a> the
-tool needs support for the Modelica 3.3 language elements of Chapter 16
-\"Synchronous Language Elements\" of the Modelica Language Specification 3.3 </li>
-<li>
-The examples provided for the ClockedBlocks depend on the
-<a href=\"modelica://Modelica_Synchronous\">Modelica_Synchronous</a> library.</li>
-</ol>
-<p>
-Please note that the package <a href=\"modelica://Modelica_DeviceDrivers.Blocks\">Blocks</a>
-realizes similar functionality as provided by ClockedBlocks, but is also usable by tools
-that have no support for the synchronous language elements.
-</p>
-<h4>Modelica tools known to work with that library</h4>
-<p>The library is known to work with</p>
-<ul>
-<li>Dymola,</li>
-<li>SimulationX (with userBufferSize all non-clocked communication blocks are working
-in SimulationX, but autoBufferSize only works for external solvers
-CVode and Fixed Step solver and fails for BDF and MEBDF solvers),</li>
-<li>OpenModelica (partial support starting with OpenModelica v1.12.0 beta, e.g., UDP, serial port, shared memory,
-LCM, keyboard).</li>
-</ul>
-</html>"));
-  end Requirements;
-
-  class References "References"
-    extends Modelica.Icons.References;
-    annotation (Documentation(info="<html>
-<p>
-Technical details of this library are described in the paper:
-</p>
-<dl>
-<dt>Bernhard Thiele, Thomas Beutlich, Volker Waurich, Martin Sj&ouml;lund, and Tobias Bellmann.</dt>
-<dd> <strong>Towards a Standard-Conform, Platform-Generic and Feature-Rich Modelica Device Drivers Library</strong>.
-     In Jiř&iacute; Kofr&aacute;nek and Francesco Casella, editors,
-     12th Int. Modelica Conference, Prague, Czech Republic, May 2017.
-     <a href=\"https://www.modelica.org/events/modelica2017/proceedings/html/submissions/ecp17132713_ThieleBeutlichWaurichSjolundBellmann.pdf\">Download</a>.
-</dd>
-</dl>
-</li>
-
-<p>
-This library is based on various resources (mainly within the internet) describing the C-APIs of the devices supported in this library. Amongst others, following references were used:
-</p>
-<dl>
-<dt>MSDN (2012):</dt>
-<dd> <b>Microsoft Developer Network</b>.
-      <a href=\"http://msdn.microsoft.com/\">http://msdn.microsoft.com/</a>. <br>&nbsp;</dd>
-<dt>Robert Love (2007):</dt>
-<dd> <b>Linux System Programming</b>.
-      O'Reilly Media. <br>&nbsp;</dd>
-<dt>Linux Man Pages (2012):</dt>
-<dd> e.g., <a href=\"http://linux.die.net/man/\">http://linux.die.net/man/</a>. <br>&nbsp;</dd>
-<dt>The IEEE and The Open Group (2004):</dt>
-<dd> <b>The Open Group Base Specifications Issue 6</b>.
-      <a href=\"http://pubs.opengroup.org/onlinepubs/009695399/\">http://pubs.opengroup.org/onlinepubs/009695399/</a>. <br>&nbsp;</dd>
-</dl>
-</html>"));
-  end References;
-
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
+    class Version_1_8_0 "Version 1.8.0 (January 11, 2020)"
+    extends Modelica.Icons.ReleaseNotes;
+
+      annotation (Documentation(info="<html>
+<p>Enhancements:</p>
+<ul>
+<li>TCP/IP server communication (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/pull/296\">#296</a>). In addition to the existing TCP/IP client blocks (see <a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues/78\">#78</a>) there are now also blocks for setting up a TCP/IP server. See examples <span style=\"font-family: monospace;\">Blocks.Examples.TestSerialPackager_TCPIPServer</span> and <span style=\"font-family: monospace;\">Blocks.Examples.TestSerialPackager_TCPIPServerMultipleClients</span>.</li>
+<li>Enhanced real-time synchronization block (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues/290\">#290</a>). Added an enhanced real-time synchronization block<br>(<span style=\"font-family: monospace;\">Blocks.OperatingSystem.RealtimeSynchronize</span>) and deprecated the existing block (<span style=\"font-family: monospace;\">Blocks.OperatingSystem.SynchronizeRealtime</span>). The deprecated block is known to not working well with recent Dymola versions (e.g., Dymola 2020). The new <span style=\"font-family: monospace;\">RealtimeSynchronize</span> block supports a sample-based real-time synchronization mode which is recommended for more deterministic, less solver sensitive behavior. See example <span style=\"font-family: monospace;\">Blocks.Examples.TestRealtimeSynchronize</span>.</li>
+<li>An utility block for debugging purposes which prints a message when triggered by an event (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues/289\">#289</a>).</li>
+<li>Update 3rd-party library paho.mqtt.c to v1.3.1 (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/pull/293\">#293</a>)</li>
+</ul>
+<p>Bug fixes:</p>
+<ul>
+<li>Fixed Spacemouse not working under Windows 10 bug (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues/289\">#289</a>).</li>
+<li>More similar behavior for getMACAddress() in Windows and Linux (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues/263\">#263</a>). </li>
+</ul>
+<p>Other (minor) fixes and improvements.</p>
+</html>"));
+    end Version_1_8_0;
+
     class Version_1_7_0 "Version 1.7.0 (March 28, 2019)"
     extends Modelica.Icons.ReleaseNotes;
 
@@ -321,6 +247,99 @@ on the Modelica_DeviceDrivers library.
 
 </html>"));
   end ReleaseNotes;
+    extends Modelica.Icons.Information;
+
+  class GettingStarted "Getting started"
+      extends Modelica.Icons.Information;
+
+    annotation (Documentation(info="<html>
+<p>In this section, a first introduction to the Modelica_DeviceDrivers library is given at hand of several examples.</p>
+<h4>Introduction</h4>
+<p>The library allows to access some selected external devices in Modelica models. This is achieved by using the Modelica external C interface to call the appropriate C driver functions provided by the underlying operating system. Currently MS Windows and Linux are supported.</p>
+<p>The library is organized in several layers as indicated below. It is noteworthy that the library provides two high-level Drag &amp; Drop block interfaces. The first (.Blocks) is compatible to Modelica 3.2, using the traditional &quot;when sample()&quot; element for periodically calling Modelica functions from the Function Layer. The second (.ClockedBlocks) uses the<i> Synchronous Language Elements</i> extension introduced in Modelica 3.3 for periodic execution.</p>
+<p><img src=\"modelica://Modelica_DeviceDrivers/Resources/Images/DeviceDrivers_LayeredArchitecture.png\"/></p>
+<h4>Usage Examples</h4>
+<p>Looking at the examples in <code>.Blocks.Examples</code> (or <code>.ClockedBlocks.Examples</code>, respectively) the usage of the library should be self-explanatory. In the following two exemplarily examples are considered.</p>
+<h5>User Input devices</h5>
+<p> E.g., using a joystick or gamepad as input for a real-time simulation just requires to drag &amp; drop two blocks: <code>.Blocks.OperatingSystem.SynchronizeRealtime</code> and <code>.Blocks.InputDevices.JoystickInput</code> (or respectively, <code>.ClockedBlocks.OperatingSystem.SynchronizeRealtime</code> and <code>.ClockedBlocks.InputDevices.JoystickInput</code>). See the executable example at <code>.(Clocked)Blocks.Examples.TestInputJoystick</code>:</p>
+<p><img src=\"modelica://Modelica_DeviceDrivers/Resources/Images/TestInputJoystick.png\"/></p>
+<p>The <code>SynchronizeRealtime</code> block synchronizes the simulation time with the operating systems real-time clock. That allows interactive Modelica simulations, e.g., a vehicle driving simulation using a gamepad for user inputs.</p>
+<h5>Communication Devices</h5>
+<p>Communication devices like UDP or shared memory use a common packaging concept in order to send or receive data. Therefore the same Packager can be used with different communication devices, as indicated in the figure below.</p>
+<p><img src=\"modelica://Modelica_DeviceDrivers/Resources/Images/PackagingConcept.png\"/></p>
+</html>"));
+  end GettingStarted;
+
+  class Requirements "Requirements"
+    extends Modelica.Icons.Information;
+    annotation (Documentation(info="<html>
+<p>
+The tool must support the Modelica external function interface as specified in Section 12.9 of the Modelica specification 3.2 and later.
+</p>
+<p>
+<b>Optionally</b> following requirements need to be additionally satisfied.
+</p>
+<ol>
+<li>For the (optional) use of the blocks provided in
+<a href=\"modelica://Modelica_DeviceDrivers.ClockedBlocks\">ClockedBlocks</a> the
+tool needs support for the Modelica 3.3 language elements of Chapter 16
+\"Synchronous Language Elements\" of the Modelica Language Specification 3.3 </li>
+<li>
+The examples provided for the ClockedBlocks depend on the
+<a href=\"modelica://Modelica_Synchronous\">Modelica_Synchronous</a> library.</li>
+</ol>
+<p>
+Please note that the package <a href=\"modelica://Modelica_DeviceDrivers.Blocks\">Blocks</a>
+realizes similar functionality as provided by ClockedBlocks, but is also usable by tools
+that have no support for the synchronous language elements.
+</p>
+<h4>Modelica tools known to work with that library</h4>
+<p>The library is known to work with</p>
+<ul>
+<li>Dymola,</li>
+<li>SimulationX (with userBufferSize all non-clocked communication blocks are working
+in SimulationX, but autoBufferSize only works for external solvers
+CVode and Fixed Step solver and fails for BDF and MEBDF solvers),</li>
+<li>OpenModelica (partial support starting with OpenModelica v1.12.0 beta, e.g., UDP, serial port, shared memory,
+LCM, keyboard).</li>
+</ul>
+</html>"));
+  end Requirements;
+
+  class References "References"
+    extends Modelica.Icons.References;
+    annotation (Documentation(info="<html>
+<p>
+Technical details of this library are described in the paper:
+</p>
+<dl>
+<dt>Bernhard Thiele, Thomas Beutlich, Volker Waurich, Martin Sj&ouml;lund, and Tobias Bellmann.</dt>
+<dd> <strong>Towards a Standard-Conform, Platform-Generic and Feature-Rich Modelica Device Drivers Library</strong>.
+     In Jiř&iacute; Kofr&aacute;nek and Francesco Casella, editors,
+     12th Int. Modelica Conference, Prague, Czech Republic, May 2017.
+     <a href=\"https://www.modelica.org/events/modelica2017/proceedings/html/submissions/ecp17132713_ThieleBeutlichWaurichSjolundBellmann.pdf\">Download</a>.
+</dd>
+</dl>
+</li>
+
+<p>
+This library is based on various resources (mainly within the internet) describing the C-APIs of the devices supported in this library. Amongst others, following references were used:
+</p>
+<dl>
+<dt>MSDN (2012):</dt>
+<dd> <b>Microsoft Developer Network</b>.
+      <a href=\"http://msdn.microsoft.com/\">http://msdn.microsoft.com/</a>. <br>&nbsp;</dd>
+<dt>Robert Love (2007):</dt>
+<dd> <b>Linux System Programming</b>.
+      O'Reilly Media. <br>&nbsp;</dd>
+<dt>Linux Man Pages (2012):</dt>
+<dd> e.g., <a href=\"http://linux.die.net/man/\">http://linux.die.net/man/</a>. <br>&nbsp;</dd>
+<dt>The IEEE and The Open Group (2004):</dt>
+<dd> <b>The Open Group Base Specifications Issue 6</b>.
+      <a href=\"http://pubs.opengroup.org/onlinepubs/009695399/\">http://pubs.opengroup.org/onlinepubs/009695399/</a>. <br>&nbsp;</dd>
+</dl>
+</html>"));
+  end References;
 
   class Contact "Contact"
     extends Modelica.Icons.Contact;

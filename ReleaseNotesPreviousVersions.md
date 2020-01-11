@@ -2,6 +2,18 @@
 
 Notice that bug fix releases usually do not have release notes.
 
+*  [Version v1.7.0 (2019-03-28)](../../releases/tag/v1.7.0)
+   * Uses latest version of Modelica Standard Library (v3.2.3).
+   * Option for using blocking UDP receive calls (#275). On the function interface level an optional third argument in the `UDPSocket` constructor allows to create the external object without starting a dedicated receive thread (default: `useRecvThread=true`). On the block interface level (block `UDPReceive`) a new parameter `useRecvThread` (default: `useRecvThread=true`) allows to select the desired behavior. See example `Blocks.Examples.TestSerialPackager_UDPWithoutReceiveThread`.
+   * Added parameter `enable` (default: `enable=true`) for conditionally enabling or disabling the real-time synchronization within the `Blocks.OperatingSystem.SynchronizeRealtime` block (#270).
+   * Update OpenSSL to 1.0.2r (#280).
+   * Bug fixes:
+     * `EmbeddedTargets.AVR`: Only start the RT synch timer once (#274).
+     * `EmbeddedTargets.AVR`: Fixed reading of digital pins (#266).
+     * Fixed Cygwin build (#271).
+     * Fixed scale factor calculation error in `JoystickInput` block (#272).
+     * Fix missing byte copy of `\0` in external C code function `MDDEXT_SerialPackagerGetString()` (#273).
+   * Other (minor) fixes and improvements.
 *  [Version v1.6.0 (2018-10-06)](../../releases/tag/v1.6.0)
    * Support for MQTT (Message Queuing Telemetry Transport protocol) client communication (see #130, #256).
    * Utility function to retrieve MAC address (`Utilities.Functions.getMACAddress`, see #255).
