@@ -65,14 +65,16 @@ For information about previous releases, see [Release Notes of Previous Versions
 Use the following BibTeX lines to cite the Modelica_DeviceDrivers library
 
 ```
-@inproceedings{modelica2017mdd,
-  author = {Thiele, Bernhard and Beutlich, Thomas and Waurich, Volker and Sjölund, Martin and Bellmann, Tobias},
-  booktitle = {Proceedings of the 12th International Modelica Conference, Prague, Czech Republic, May 15-17, 2017},
-  number = {132},
-  pages = {713-723},
-  publisher = {Linköping University Electronic Press, Linköpings universitet},
-  title = {Towards a Standard-Conform, Platform-Generic and Feature-Rich Modelica Device Drivers Library},
-  year = {2017}
+@InProceedings{modelica2017mdd,
+  Title = {Towards a Standard-Conform, Platform-Generic and Feature-Rich Modelica Device Drivers Library},
+  Author = {Thiele, Bernhard and Beutlich, Thomas and Waurich, Volker and Sjölund, Martin and Bellmann, Tobias},
+  Booktitle = {Proceedings of the 12th International Modelica Conference},
+  Year = {2017},
+  Address = {Prague, Czech Republic},
+  Editor = {Kofránek, Jiří and Casella, Francesco},
+  Month = may,
+  Pages = {713--723},
+  Doi = {10.3384/ecp17132713},
 }
 ```
 
