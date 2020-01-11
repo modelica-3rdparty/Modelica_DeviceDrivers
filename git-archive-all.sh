@@ -3,8 +3,8 @@
 # Description: Utility script for creating MDD releases.
 #              The script builds archive files (tar.gz and zip) for the MDD
 #              repository *including* submodules in the current path.
-MDDVERSION="1.6.0"
-MDDVERSIONV="v1_6_0"
+MDDVERSION="1.8.0"
+MDDVERSIONV="v1_8_0"
 
 # Below there should be no need for changes
 MDDPREFIX="Modelica_DeviceDrivers $MDDVERSION"
