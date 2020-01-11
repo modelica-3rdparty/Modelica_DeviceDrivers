@@ -3,12 +3,11 @@ package Modelica_DeviceDrivers "Modelica_DeviceDrivers - A collection of drivers
   extends Modelica.Icons.Package;
 
   annotation (preferredView="info",
-    uses(Modelica_Synchronous(version="0.92.1"),
-       Modelica(version="3.2.3")),
-    version="1.7.1",
+    uses(Modelica_Synchronous(version="0.92.2"), Modelica(version="3.2.3")),
+    version="1.8.0",
     versionBuild=1,
-    versionDate="2019-04-05",
-    conversion(nonFromVersion="1.7.0", nonFromVersion="1.6.0"),
+    versionDate="2020-01-11",
+    conversion(nonFromVersion="1.7.1", nonFromVersion="1.7.0", nonFromVersion="1.6.0"),
     Documentation(info="<html>
 <p>
 Library <b>Modelica_DeviceDrivers</b> is a Modelica package
@@ -34,7 +33,7 @@ use the issue tracker provided by GitHub to report bugs or other issues
 (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues\">https://github.com/modelica/Modelica_DeviceDrivers/issues</a>).</p>
 <br>
 <table border=\"0\" cellpadding=\"2\" cellspacing=\"2\">
-<tr><td style=\"vertical-align: top;\">Copyright &copy; 2012-2019, DLR, ESI ITI, and Link&ouml;ping University (PELAB)</td>
+<tr><td style=\"vertical-align: top;\">Copyright &copy; 2012-2020, DLR, ESI ITI, and Link&ouml;ping University (PELAB)</td>
 </tr>
 </table>
 

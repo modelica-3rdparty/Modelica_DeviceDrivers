@@ -167,6 +167,19 @@ package SerialPackager "Blocks for constructing packages"
       value := Modelica_DeviceDrivers.Packaging.SerialPackager_.integerBitUnpack(pkg, bitOffset, width);
       dummy2 := dummy;
     end integerBitUnpack;
+
+    function getPos
+      import Modelica;
+      extends Modelica.Icons.Function;
+      import Modelica_DeviceDrivers.Packaging.SerialPackager;
+      input SerialPackager pkg;
+      input Real dummy;
+      output Integer pos(min=0) "Get current byte position of package";
+      output Real dummy2;
+    algorithm
+      pos := Modelica_DeviceDrivers.Packaging.SerialPackager_.getPos(pkg);
+      dummy2 := dummy;
+    end getPos;
     end DummyFunctions;
   end Internal;
 

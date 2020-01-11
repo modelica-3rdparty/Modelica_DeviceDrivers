@@ -20,7 +20,7 @@
 #include <malloc.h>
 #include "../../Include/MDDSpaceMouse.h"
 
-#define MAX_DEVICES 10
+#define MAX_DEVICES 50
 int SPC_nDevices = 0;
 /* Struct for the HID devices */
 typedef struct _HidDevice {
@@ -309,7 +309,7 @@ next:
  * @param[out] pdAxes array with 6 elements (value range [-1 1])
  * @param[out] piButtons array with 16 elements
  * */
-void MDD_spaceMouseGetData(double * pdAxes, int * piButtons) {
+DllExport void MDD_spaceMouseGetData(double * pdAxes, int * piButtons) {
     int i,j;
     if (SPC_ThreadID == 0) {
         CreateThread(0,1024,MDD_spaceMouseGetDataThread,NULL,0,&SPC_ThreadID);

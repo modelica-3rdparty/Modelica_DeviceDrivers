@@ -63,6 +63,7 @@ elseif (UNIX)
 endif ()
 
 add_executable(test_MDDUDPSocket test_MDDUDPSocket.c ../Util/ModelicaUtilities.c)
+set_property(TARGET test_MDDUDPSocket PROPERTY FOLDER "test/Communication")
 if (UNIX)
   target_link_libraries(test_MDDUDPSocket ${CMAKE_THREAD_LIBS_INIT})
 else (UNIX)
@@ -73,6 +74,7 @@ add_test(test_MDDUDPSocket
 	${EXECUTABLE_OUTPUT_PATH}/test_MDDUDPSocket)
 
 add_executable(test_MDDTCPIPSocketClient test_MDDTCPIPSocketClient.c ../Util/ModelicaUtilities.c)
+set_property(TARGET test_MDDTCPIPSocketClient PROPERTY FOLDER "test/Communication")
 if (MSVC OR MINGW)
   target_link_libraries(test_MDDTCPIPSocketClient Ws2_32)
 endif (MSVC OR MINGW)
@@ -81,6 +83,7 @@ ${EXECUTABLE_OUTPUT_PATH}/test_MDDTCPIPSocketClient)
 
 add_executable(test_MDDSerialPackager
   test_MDDSerialPackager.c ../Util/ModelicaUtilities.c)
+set_property(TARGET test_MDDSerialPackager PROPERTY FOLDER "test/Communication")
 if (NOT MSVC)
   target_link_libraries(test_MDDSerialPackager m)
 endif (NOT MSVC)
@@ -89,6 +92,7 @@ add_test(test_MDDSerialPackager
 
 add_executable(test_MDDSharedMemory
   test_MDDSharedMemory.c ../Util/ModelicaUtilities.c)
+set_property(TARGET test_MDDSharedMemory PROPERTY FOLDER "test/Communication")
 if (UNIX)
   target_link_libraries(test_MDDSharedMemory rt)
   target_link_libraries(test_MDDSharedMemory ${CMAKE_THREAD_LIBS_INIT})
@@ -97,6 +101,7 @@ add_test(test_MDDSharedMemory
   ${EXECUTABLE_OUTPUT_PATH}/test_MDDSharedMemory)
 
 add_executable(test_MDDSerialPort test_MDDSerialPort.c ../Util/ModelicaUtilities.c)
+set_property(TARGET test_MDDSerialPort PROPERTY FOLDER "test/Communication")
 if (UNIX)
   target_link_libraries(test_MDDSerialPort ${CMAKE_THREAD_LIBS_INIT})
 endif (UNIX)
@@ -105,10 +110,12 @@ add_test(test_MDDSerialPort
 
 add_executable(test_EndiannessConversion
   test_EndiannessConversion.c ../Util/ModelicaUtilities.c)
+set_property(TARGET test_EndiannessConversion PROPERTY FOLDER "test/Communication")
 add_test(test_EndiannessConversion
   ${EXECUTABLE_OUTPUT_PATH}/test_EndiannessConversion)
 
 add_executable(test_MDDLCM test_MDDLCM.c ../Util/ModelicaUtilities.c)
+set_property(TARGET test_MDDLCM PROPERTY FOLDER "test/Communication")
 target_link_libraries(test_MDDLCM libLcm)
 if (CYGWIN)
   target_link_libraries(test_MDDLCM glib-2.0)
@@ -129,8 +136,9 @@ if (MSVC)
     message(SEND_ERROR "Uups. Neither 64, nor 32 bit??")
   endif ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
 endif (MSVC)
-  
+
 add_executable(test_MDDMQTT test_MDDMQTT.c ../Util/ModelicaUtilities.c)
+set_property(TARGET test_MDDMQTT PROPERTY FOLDER "test/Communication")
 target_link_libraries(test_MDDMQTT ${PAHO_MQTT3CS_LIBRARY})
 if (CYGWIN)
   target_link_libraries(test_MDDMQTT ${CMAKE_THREAD_LIBS_INIT})
@@ -159,3 +167,16 @@ if (MSVC)
     message(SEND_ERROR "Uups. Neither 64, nor 32 bit??")
   endif ( CMAKE_SIZEOF_VOID_P EQUAL 8 )
 endif (MSVC)
+
+add_executable(test_MDDTCPIPSocketServer test_MDDTCPIPSocketServer.c ../Util/ModelicaUtilities.c ../../Include/MDDTCPIPSocketServer.h ../../src/include/util.h)
+if (UNIX)
+	target_link_libraries(test_MDDTCPIPSocketServer ${CMAKE_THREAD_LIBS_INIT})
+endif (UNIX)
+add_test(test_MDDTCPIPSocketServer ${EXECUTABLE_OUTPUT_PATH}/test_MDDTCPIPSocketServer)
+set_property(TARGET test_MDDTCPIPSocketServer PROPERTY FOLDER "test/Communication")
+
+add_executable(TCPIPClientAsRemoteStation TCPIPClientAsRemoteStation.c ../Util/ModelicaUtilities.c)
+set_property(TARGET TCPIPClientAsRemoteStation PROPERTY FOLDER "test/Communication")
+if (MSVC OR MINGW)
+  target_link_libraries(TCPIPClientAsRemoteStation Ws2_32)
+endif (MSVC OR MINGW)

@@ -6,6 +6,7 @@ include_directories(../../Include)
 
 if (UNIX AND NOT CYGWIN)
   add_executable(test_MDDSocketCAN test_MDDSocketCAN.c ../Util/ModelicaUtilities.c)
+  set_property(TARGET test_MDDSocketCAN PROPERTY FOLDER "test/SocketCAN")
   # Make sure to link with the correct threading library:
   find_package (Threads)
   target_link_libraries(test_MDDSocketCAN ${CMAKE_THREAD_LIBS_INIT})
@@ -13,6 +14,3 @@ if (UNIX AND NOT CYGWIN)
 else (UNIX AND NOT CYGWIN)
   message("Socket CAN support only available for linux. Skipping ..")
 endif (UNIX AND NOT CYGWIN)
-
-
-
