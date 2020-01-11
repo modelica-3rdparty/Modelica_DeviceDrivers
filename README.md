@@ -47,10 +47,9 @@ If you tested the library successfully with another Modelica tool, please contac
 
 Bug fix releases usually do not have release notes, so please use the download link from above to get the latest release including bug fixes.
 
-*  DRAFT release (*not publicly released, yet!*) [Version v1.8.0 (2020-01-11)](../../releases/tag/v1.8.0)
+* DRAFT release (*not published, yet!*) [Version v1.8.0 (2020-01-11)](../../releases/tag/v1.8.0)
   * TCP/IP server communication (#296). In addition to the existing TCP/IP client blocks (see #78) there are now also blocks for setting up a TCP/IP server. See examples `Blocks.Examples.TestSerialPackager_TCPIPServer` and `Blocks.Examples.TestSerialPackager_TCPIPServerMultipleClients`.
-  * Enhanced real-time synchronization block (#290). Added an enhanced real-time synchronization block
-  (`Blocks.OperatingSystem.RealtimeSynchronize`) and deprecated the existing block (`Blocks.OperatingSystem.SynchronizeRealtime`). The deprecated block is known to not working well with recent Dymola versions (e.g., Dymola 2020). The new `RealtimeSynchronize` block supports a sample-based real-time synchronization mode which is recommended for more deterministic, less solver sensitive behavior. See example `Blocks.Examples.TestRealtimeSynchronize`.
+  * Enhanced real-time synchronization block (#290). Added an enhanced real-time synchronization block (`Blocks.OperatingSystem.RealtimeSynchronize`) and deprecated the existing block (`Blocks.OperatingSystem.SynchronizeRealtime`). The deprecated block is known to not working well with recent Dymola versions (e.g., Dymola 2020). The new `RealtimeSynchronize` block supports a sample-based real-time synchronization mode which is recommended for more deterministic, less solver sensitive behavior. See example `Blocks.Examples.TestRealtimeSynchronize`.
   * An utility block for debugging purposes which prints a message when triggered by an event (#289).
   * Updated 3rd-party library paho.mqtt.c to v1.3.1 (#293)
   * Bug fixes:
