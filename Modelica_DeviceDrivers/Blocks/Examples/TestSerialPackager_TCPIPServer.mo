@@ -78,7 +78,7 @@ socket.
 </p>
 <p>
 For meaningful results a TCP/IP client needs to connect and send suitable data, otherwise no data is received. Such
-a client is provided in as C code test program 
+a client is provided as C code test program 
 (<a href=\"modelica://Modelica_DeviceDrivers/Resources/test/Communication/TCPIPClientAsRemoteStation.c\">Resources/test/Communication/TCPIPClientAsRemoteStation.c</a>).
 </p>
 </html>"),
