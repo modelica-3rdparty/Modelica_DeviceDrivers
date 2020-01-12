@@ -27,8 +27,8 @@ They can be found below the library's Resources subfolder
 (<a href=\"modelica://Modelica_DeviceDrivers/Resources/Scripts/OpenModelica/EmbeddedTargets/STM32F4/Examples/STM32F4_Discovery\">Resources/Scripts/OpenModelica/EmbeddedTargets/STM32F4/Examples/STM32F4_Discovery</a>).
 These scripts and Makefiles have only be tested using Linux as the host system.
 </p>
-<p>
 <h5>Debian Linux (tested with jessy 64 bit)</h5>
+<p>
 Following packages are required:
 </p>
 <pre>
@@ -37,8 +37,8 @@ sudo aptitude installarm-none-eabi-gdb
 sudo aptitude install arm-none-eabi-binutils
 sudo aptitude install openocd
 </pre>
-<p>
 <h5>Ubuntu 16.04.4 LTS (and presumably later)</h5>
+<p>
 Following packages are required (tested version 16.04.4 LTS):
 </p>
 <pre>
@@ -47,14 +47,14 @@ sudo apt-get install gdb-arm-none-eabi
 <p>
 (should automatically also install binutils-arm-none-eabi and gcc-arm-none-eabi).
 </p>
-<p>
 <h5>Ubuntu 14.04.5 LTS</h5>
-Using Ubuntu Linux 14.04.5 LTS with the default repository packages was not successful.
-Instead follow the installation guide lines in <a href=http://yottadocs.mbed.com/#linux-cross-compile>doc</a>.
-</p>
 <p>
+Using Ubuntu Linux 14.04.5 LTS with the default repository packages was not successful.
+Instead follow the installation guide lines in <a href=\"http://yottadocs.mbed.com/#linux-cross-compile\">doc</a>.
+</p>
 <h5>Create C-code, object debug code, binary and hex file for the Blink example</h5>
-Download STM32F4CUBE from <a href=http://www.st.com/content/st_com/en/products/embedded-software/mcus-embedded-software/stm32-embedded-software/stm32cube-embedded-software/stm32cubef4.html>STM43F4CUBE</a>
+<p>
+Download STM32F4CUBE from <a href=\"http://www.st.com/content/st_com/en/products/embedded-software/mcus-embedded-software/stm32-embedded-software/stm32cube-embedded-software/stm32cubef4.html\">STM43F4CUBE</a>
 and unpack to folder of your choice.
 Set environment variable pointing to the STM32F4 HAL package:
 </p>
@@ -63,17 +63,17 @@ export STM23F4CUBEROOT=/path/to/STM32Cube_FW_F4_V1.XX.X
 </pre>
 <p>
 Go to the directory
-<a href=modelica://Modelica_DeviceDrivers/Resources/Scripts/OpenModelica/EmbeddedTargets/STM32F4/Examples/STM32F4_Discovery/Blink>Script and Makefile Directory</a>.
+<a href=\"modelica://Modelica_DeviceDrivers/Resources/Scripts/OpenModelica/EmbeddedTargets/STM32F4/Examples/STM32F4_Discovery/Blink\">Script and Makefile Directory</a>.
 Call &quot;make&quot;
 When successful, all object code will be in the &quot;Debug&quot; directory and
 &quot;.elf&quot; and &quot;.hex&quot; file will be created in the current directory.
 </p>
-<p>
 <h4>Debugging, flashing and running the application</h4>
+<p>
 There are several options how this can be done, e.g., using gdb or using openocd.
 </p>
-<p>
 <h5>Using gdb</h5>
+<p>
 First set up stlink:
 </p>
 <pre>
@@ -110,9 +110,7 @@ load
 monitor reset
 continue
 </pre>
-<p>
 <h5>Using openocd</h5>
-</p>
 <pre>
 openocd -f /usr/share/openocd/scripts/board/stm32f4discovery.cfg
 </pre>

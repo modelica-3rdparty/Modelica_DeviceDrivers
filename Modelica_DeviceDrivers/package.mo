@@ -43,7 +43,7 @@ the use is completely at <u>your own risk</u>;
 it can be redistributed and/or modified under the terms of the BSD 3-Clause License.</i>
 </p>
 <p>
-<p>This also holds for the external C-code as again stated in file
+This also holds for the external C-code as again stated in file
 <a href=\"modelica://Modelica_DeviceDrivers/Resources/License.txt\">Resources/License.txt</a>.
 The partly optional third party sources / libraries with differing licenses are collected below the sub folder
 <a href=\"modelica://Modelica_DeviceDrivers/Resources/thirdParty\">Resources/thirdParty</a> and are

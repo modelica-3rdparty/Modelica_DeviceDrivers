@@ -146,8 +146,7 @@ Other (minor) fixes and improvements.
 <ul>
 <li>Bug fix release, no new features, but many improvements since version v1.4.0 (more than 70 commits since v1.4.0), so let's list some of the improvements...</li>
 <li>Uses latest version of Modelica Standard Library (v3.2.2).</li>
-<li>Changed license of external C code and header files to <a href=\"modelica://Modelica_DeviceDrivers/Resources/License.txt\">Simplified BSD License</a>.</li> (the Modelica package parts remain under
-Modelica License 2).
+<li>Changed license of external C code and header files to <a href=\"modelica://Modelica_DeviceDrivers/Resources/License.txt\">Simplified BSD License</a>. (The Modelica package parts remain under Modelica License 2.)</li>
 <li>Improved Modelica compatibility: Fixed the use of conditionally enabled variable <code>procPrio</code> outside of connect in <code>Blocks.OperatingSystem.SynchronizeRealtime</code> and <code>ClockedBlocks.OperatingSystem.SynchronizeRealtime</code>.</li>
 <li>Improved Modelica compatibility: Fixed the invalid integer to enumeration type conversion in <code>HardwareIO</code>.</li>
 <li>Fully specified the initial conditions for example models.</li>
@@ -320,7 +319,6 @@ Technical details of this library are described in the paper:
      <a href=\"https://www.modelica.org/events/modelica2017/proceedings/html/submissions/ecp17132713_ThieleBeutlichWaurichSjolundBellmann.pdf\">Download</a>.
 </dd>
 </dl>
-</li>
 
 <p>
 This library is based on various resources (mainly within the internet) describing the C-APIs of the devices supported in this library. Amongst others, following references were used:
@@ -350,20 +348,24 @@ This library is based on various resources (mainly within the internet) describi
     at <a href=\"https://github.com/bernhard-thiele\">GitHub</a><br></dd>
 <dd>Thomas Beutlich<br>
     at <a href=\"https://github.com/beutlich\">GitHub</a><br></dd>
-</dl>
 <dd>Tobias Bellmann<br>
     at <a href=\"https://github.com/tbellmann\">GitHub</a><br></dd>
+</dl>
+
 <p>
 The authors are open to include contributions.
 </p>
-<p> Please note that you can use the <b>issue tracker</b> provided by GitHub to report bugs or other issues (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues\">https://github.com/modelica/Modelica_DeviceDrivers/issues</a>)</p>
+
+<p>
+Please note that you can use the <b>issue tracker</b> provided by GitHub to report bugs or other issues (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues\">https://github.com/modelica/Modelica_DeviceDrivers/issues</a>)
+</p>
 
 <p>
 The following people have directly contributed to the implementation
 of the library (many more have contributed by providing feedback and suggestions):
 </p>
 
-<table border=1 cellspacing=0 cellpadding=2>
+<table border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
 
 <tr><td valign=\"top\"><b>Miguel Neves</b> </td>
    <td valign=\"top\">at <a href=\"https://github.com/ChukasNeves\">GitHub</a></td>

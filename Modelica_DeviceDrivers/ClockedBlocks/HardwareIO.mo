@@ -64,7 +64,7 @@ package HardwareIO
 <p>The parameter <code>comedi</code> needs to be set to a valid Comedi device handle, i.e., needs to be set to the record member <code>dh</code> of a <code>ComediConfig</code> record instance.</p>
 <p>Wraps the Comedi function<code> comedi_data_write(..)</code>. See the Comedi documentation for the meanings of the parameters <code>subDevice, channel, range, aref</code>.</p>
 <h4>Note</h4>
-<p>Only supported for Linux, since Comedi is only available for linux (<a href=\"http://www.comedi.org/\">http://www.comedi.org/</a>). Requires that Comedilib is installed and that the simulation process has sufficient privileges to access the intended device (usually that means &quot;root&quot; privileges). </p>
+<p>Only supported for Linux, since Comedi is only available for linux (<a href=\"http://www.comedi.org/\">http://www.comedi.org/</a>). Requires that Comedilib is installed and that the simulation process has sufficient privileges to access the intended device (usually that means &quot;root&quot; privileges).</p>
 </html>"));
     end DataWrite;
 
@@ -101,7 +101,7 @@ package HardwareIO
 <p>The parameter <code>comedi</code> needs to be set to a valid Comedi device handle, i.e., needs to be set to the record member <code>dh</code> of a <code>ComediConfig</code> record instance.</p>
 <p>Wraps the Comedi function<code> comedi_data_read(..)</code>. See the Comedi documentation for the meanings of the parameters <code>subDevice, channel, range, aref</code>.</p>
 <h4>Note</h4>
-<p>Only supported for Linux, since Comedi is only available for linux (<a href=\"http://www.comedi.org/\">http://www.comedi.org/</a>). Requires that Comedilib is installed and that the simulation process has sufficient privileges to access the intended device (usually that means &quot;root&quot; privileges). </p>
+<p>Only supported for Linux, since Comedi is only available for linux (<a href=\"http://www.comedi.org/\">http://www.comedi.org/</a>). Requires that Comedilib is installed and that the simulation process has sufficient privileges to access the intended device (usually that means &quot;root&quot; privileges).</p>
 </html>"));
     end DataRead;
 
@@ -163,7 +163,7 @@ package HardwareIO
 <p>The parameter <code>comedi</code> needs to be set to a valid Comedi device handle, i.e., needs to be set to the record member <code>dh</code> of a <code>ComediConfig</code> record instance.</p>
 <p>Uses the Comedi function<code> comedi_from_phys(..)</code> to support providing a physical value (volts or milliamps) as input to the DAC. See the Comedi documentation for the meanings of the parameters <code>subDevice, channel, range, aref.</code></p>
 <h4>Note</h4>
-<p>Only supported for Linux, since Comedi is only available for linux (<a href=\"http://www.comedi.org/\">http://www.comedi.org/</a>). Requires that Comedilib is installed and that the simulation process has sufficient privileges to access the intended device (usually that means &quot;root&quot; privileges). </p>
+<p>Only supported for Linux, since Comedi is only available for linux (<a href=\"http://www.comedi.org/\">http://www.comedi.org/</a>). Requires that Comedilib is installed and that the simulation process has sufficient privileges to access the intended device (usually that means &quot;root&quot; privileges).</p>
 </html>"));
     end PhysicalDataWrite;
 
@@ -223,7 +223,7 @@ package HardwareIO
 <p>The parameter <code>comedi</code> needs to be set to a valid Comedi device handle, i.e., needs to be set to the record member <code>dh</code> of a <code>ComediConfig</code> record instance.</p>
 <p>Uses the Comedi function<code> comedi_to_phys(..)</code> to convert a raw input obtained from the ADC to a physical value (volts or milliamps) . See the Comedi documentation for the meanings of the parameters <code>subDevice, channel, range, aref.</code></p>
 <h4>Note</h4>
-<p>Only supported for Linux, since Comedi is only available for linux (<a href=\"http://www.comedi.org/\">http://www.comedi.org/</a>). Requires that Comedilib is installed and that the simulation process has sufficient privileges to access the intended device (usually that means &quot;root&quot; privileges). </p>
+<p>Only supported for Linux, since Comedi is only available for linux (<a href=\"http://www.comedi.org/\">http://www.comedi.org/</a>). Requires that Comedilib is installed and that the simulation process has sufficient privileges to access the intended device (usually that means &quot;root&quot; privileges).</p>
 </html>"));
     end PhysicalDataRead;
 
@@ -268,7 +268,7 @@ package HardwareIO
 <p>The parameter <code>comedi</code> needs to be set to a valid Comedi device handle, i.e., needs to be set to the record member <code>dh</code> of a <code>ComediConfig</code> record instance.</p>
 <p>Wraps the Comedi function<code> comedi_dio_write(..)</code>. See the Comedi documentation for the meanings of the parameters <code>subDevice </code>and<code> channel</code>.</p>
 <h4>Note</h4>
-<p>Only supported for Linux, since Comedi is only available for linux (<a href=\"http://www.comedi.org/\">http://www.comedi.org/</a>). Requires that Comedilib is installed and that the simulation process has sufficient privileges to access the intended device (usually that means &quot;root&quot; privileges). </p>
+<p>Only supported for Linux, since Comedi is only available for linux (<a href=\"http://www.comedi.org/\">http://www.comedi.org/</a>). Requires that Comedilib is installed and that the simulation process has sufficient privileges to access the intended device (usually that means &quot;root&quot; privileges).</p>
 </html>"));
     end DIOWrite;
 
@@ -315,7 +315,7 @@ package HardwareIO
 <p>The parameter <code>comedi</code> needs to be set to a valid Comedi device handle, i.e., needs to be set to the record member <code>dh</code> of a <code>ComediConfig</code> record instance.</p>
 <p>Wraps the Comedi function<code> comedi_dio_read(..)</code>. See the Comedi documentation for the meanings of the parameters <code>subDevice </code>and<code> channel</code>.</p>
 <h4>Note</h4>
-<p>Only supported for Linux, since Comedi is only available for linux (<a href=\"http://www.comedi.org/\">http://www.comedi.org/</a>). Requires that Comedilib is installed and that the simulation process has sufficient privileges to access the intended device (usually that means &quot;root&quot; privileges). </p>
+<p>Only supported for Linux, since Comedi is only available for linux (<a href=\"http://www.comedi.org/\">http://www.comedi.org/</a>). Requires that Comedilib is installed and that the simulation process has sufficient privileges to access the intended device (usually that means &quot;root&quot; privileges).</p>
 </html>"));
     end DIORead;
 
@@ -330,6 +330,7 @@ package HardwareIO
         annotation (Documentation(info="<html>
 <p>
 Enumeration that defines the available reference channels used in a DAQ-card
+</p>
 </html>"));
 
       type Direction = enumeration(
