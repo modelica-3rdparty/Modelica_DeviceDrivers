@@ -32,8 +32,8 @@ sudo apt-get install gcc-avr
 sudo apt-get install avr-libc
 sudo apt-get install avrdude
 </pre>
-<p>
 <h5>Create a MOS script for the Blink example</h5>
+<p>
 For the translation it is convenient to use the OpenModelica scripting interface and
 collect the commands in a MOS file, e.g., named
 <code>runMDDAvr.mos</code>:
@@ -48,8 +48,8 @@ getErrorString();
 translateModel(Modelica_DeviceDrivers.EmbeddedTargets.AVR.Examples.Arduino.UNO.Blink, fileNamePrefix=\"Blink\");
 getErrorString();
 </pre>
-<p>
 <h5>Translate and flash Blink example</h5>
+<p>
 Put the <code>runMDDAvr.mos</code> file in a (build) directory and execute following commands on the command line:
 </p>
 <pre>
@@ -60,8 +60,8 @@ avr-gcc -Os -std=c11 -ffunction-sections -fdata-sections -mmcu=atmega328p -DF_CP
 avr-objcopy -O ihex -R .eeprom Blink Blink.hex
 avrdude -F -V -c arduino -p ATMEGA328P -P /dev/ttyACM0 -b 115200 -U flash:w:Blink.hex
 </pre>
-<p>
 <h5>Convenience Makefile</h5>
+<p>
 The steps can also be mechanized in a Makefile, e.g., the Blink example comes
 with a Makefile, so one can simply do:
 </p>
