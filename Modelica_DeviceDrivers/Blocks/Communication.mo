@@ -1149,9 +1149,9 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
 <h4>Setup of a virtual CAN interface</h4>
 <p>Even if a Linux computer doesn&apos;t have a CAN device, it is possible to setup a virtual CAN device that can be used similarly to a physical device. This section discusses the necessary steps to bring up a virtual CAN device (tested with Ubuntu 12.04) which can be used with the <a href=\"Modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackager_SocketCAN\">SocketCAN example model</a>. Note that this usually requires root rights. Also executing the Modelica example model might require root rights.</p>
 <ul>
-<li>Load the vcan kernel model:<br/><code>sudo modprobe vcan</code></li>
-<li>Create a virtual CAN device with default name (default name will be &quot;vcan0&quot;):<br/><code>sudo ip link add type vcan</code></li>
-<li>Bring the device up:<br/><code>sudo ifconfig vcan0 up</code></li>
+<li>Load the vcan kernel model:<br><code>sudo modprobe vcan</code></li>
+<li>Create a virtual CAN device with default name (default name will be &quot;vcan0&quot;):<br><code>sudo ip link add type vcan</code></li>
+<li>Bring the device up:<br><code>sudo ifconfig vcan0 up</code></li>
 </ul>
 <h4>Setup of a physical CAN interface</h4>
 <p>Please have a look in the respective documentation to Socket CAN. A physical CAN interface will require more configuration settings than the virtual interface (e.g., bitrate setting).</p>

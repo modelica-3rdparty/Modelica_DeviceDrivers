@@ -15,7 +15,7 @@ package Functions
 <h4>Load parameters from file during initialization</h4>
 <p>The function expects a file format in the style <code>&quot;identifier=value&quot;</code>.</p>
 <h4>Example</h4>
-<p>Consider following example file and assume it's saved under location<br/>
+<p>Consider following example file and assume it's saved under location<br>
 <code>&quot;modelica://Modelica_DeviceDrivers/Resources/test/Util/parameterInitValues.txt&quot;</code>:</p>
 <pre>
 arrayvar_1=0.1
