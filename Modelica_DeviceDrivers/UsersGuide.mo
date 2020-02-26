@@ -2,6 +2,18 @@
 package UsersGuide "User's Guide"
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
+    class Version_1_8_1 "Version 1.8.1 (February 26, 2020)"
+    extends Modelica.Icons.ReleaseNotes;
+
+      annotation (Documentation(info="<html>
+<ul>
+<li>
+Fix declaration of <code>MDD_spaceMouseGetData</code> in external C code (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues/305\">#305</a>)
+</li>
+</ul>
+</html>"));
+    end Version_1_8_1;
+
     class Version_1_8_0 "Version 1.8.0 (January 11, 2020)"
     extends Modelica.Icons.ReleaseNotes;
 

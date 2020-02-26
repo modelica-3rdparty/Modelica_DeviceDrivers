@@ -20,7 +20,7 @@
 * @param[out] pdAxes array with 6 elements (value range [-1 1])
 * @param[out] piButtons array with 16 elements
 */
-DllExport void MDD_spaceMouseGetData(double * pdAxes, int * piButtons);
+EXTERN void MDD_spaceMouseGetData(double * pdAxes, int * piButtons);
 
 #endif /* !defined(ITI_COMP_SIM) */
 
