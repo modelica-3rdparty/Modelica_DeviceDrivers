@@ -45,8 +45,10 @@ If you tested the library successfully with another Modelica tool, please contac
 
 #### Release notes
 
-Bug fix releases usually do not have release notes, so please use the download link from above to get the latest release including bug fixes.
+Bug fix releases may not have release notes, so please use the download link from above to get the latest release including bug fixes.
 
+* [Version v1.8.1 (2020-02-26)](../../releases/tag/v1.8.1)
+  * Fix declaration of `MDD_spaceMouseGetData` in external C code (#305).
 * [Version v1.8.0 (2020-01-11)](../../releases/tag/v1.8.0)
   * TCP/IP server communication (#296). In addition to the existing TCP/IP client blocks (see #78) there are now also blocks for setting up a TCP/IP server. See examples `Blocks.Examples.TestSerialPackager_TCPIPServer` and `Blocks.Examples.TestSerialPackager_TCPIPServerMultipleClients`.
   * Enhanced real-time synchronization block (#290). Added an enhanced real-time synchronization block (`Blocks.OperatingSystem.RealtimeSynchronize`) and deprecated the existing block (`Blocks.OperatingSystem.SynchronizeRealtime`). The deprecated block is known to not working well with recent Dymola versions (e.g., Dymola 2020). The new `RealtimeSynchronize` block supports a sample-based real-time synchronization mode which is recommended for more deterministic, less solver sensitive behavior. See example `Blocks.Examples.TestRealtimeSynchronize`.
