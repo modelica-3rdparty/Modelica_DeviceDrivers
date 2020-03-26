@@ -9,7 +9,7 @@ package UsersGuide "User's Guide"
 <ul>
 <li>
 Updated Linux MQTT binary dependencies. The updated libraries are compiled with
-the <code>-fPIC</code> flag, which fixes a related FMU creation problem
+the <code>-fPIC</code> flag, which fixes a related FMU generation problem
 (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues/306\">#306</a>).
 </li>
 </ul>
