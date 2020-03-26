@@ -2,6 +2,20 @@
 package UsersGuide "User's Guide"
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
+    class Version_1_8_2 "Version 1.8.2 (March 26, 2020)"
+    extends Modelica.Icons.ReleaseNotes;
+
+      annotation (Documentation(info="<html>
+<ul>
+<li>
+Updated Linux MQTT binary dependencies. The updated libraries are compiled with
+the <code>-fPIC</code> flag, which fixes a related FMU creation problem
+(<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues/306\">#306</a>).
+</li>
+</ul>
+</html>"));
+    end Version_1_8_2;
+
     class Version_1_8_1 "Version 1.8.1 (February 26, 2020)"
     extends Modelica.Icons.ReleaseNotes;
 
