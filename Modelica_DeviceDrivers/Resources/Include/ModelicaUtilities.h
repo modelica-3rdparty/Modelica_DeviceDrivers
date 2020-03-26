@@ -1,6 +1,6 @@
 /* ModelicaUtilities.h - External utility functions header
 
-   Copyright (C) 2010-2018, Modelica Association and DLR
+   Copyright (C) 2010-2020, Modelica Association and contributors
    All rights reserved.
 
    Redistribution and use in source and binary forms, with or without
@@ -33,7 +33,7 @@
 
    These functions are defined in section 12.8.6 of the
    Modelica Specification 3.0 and section 12.9.6 of the
-   Modelica Specification 3.1 and 3.2.
+   Modelica Specification 3.1 and later.
 
    A generic C-implementation of these functions cannot be given,
    because it is tool dependent how strings are output in a
@@ -60,7 +60,8 @@ extern "C" {
   C11/C++11 standard with fallback to GNU, Clang or MSVC extensions if using
   an older compiler.
 */
-
+#undef MODELICA_NORETURN
+#undef MODELICA_NORETURNATTR
 #if __STDC_VERSION__ >= 201112L
 #define MODELICA_NORETURN _Noreturn
 #define MODELICA_NORETURNATTR
@@ -150,6 +151,20 @@ never returns to the calling function, but handles the error
 similarly to an assert in the Modelica code.
 */
 
+void ModelicaWarning(const char *string);
+/*
+Output the warning message string (no format control).
+*/
+
+void ModelicaFormatWarning(const char *string, ...) MODELICA_FORMATATTR_PRINTF;
+/*
+Output the warning message under the same format control as the C-function printf.
+*/
+
+void ModelicaVFormatWarning(const char *string, va_list args) MODELICA_FORMATATTR_VPRINTF;
+/*
+Output the warning message under the same format control as the C-function vprintf.
+*/
 
 MODELICA_NORETURN void ModelicaFormatError(const char *string, ...) MODELICA_NORETURNATTR MODELICA_FORMATATTR_PRINTF;
 /*
