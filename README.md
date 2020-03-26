@@ -47,7 +47,7 @@ If you tested the library successfully with another Modelica tool, please contac
 
 Bug fix releases may not have release notes, so please use the download link from above to get the latest release including bug fixes.
 
-* DRAFT [Version v1.8.2 (2020-02-26)](../../releases/tag/v1.8.2)
+* [Version v1.8.2 (2020-02-26)](../../releases/tag/v1.8.2)
   * Updated Linux MQTT binary dependencies. The updated libraries are compiled with the `-fPIC` flag, which fixes a related FMU generation problem (#306).
 * [Version v1.8.1 (2020-02-26)](../../releases/tag/v1.8.1)
   * Fix declaration of `MDD_spaceMouseGetData` in external C code (#305).
