@@ -45,7 +45,7 @@ package Types "Custom type definitions"
       V5 "MQTT v5.0") "MQTT version";
   type MQTTTracing = enumeration(
       DEFAULT "None",
-      MAXIMUM "Maximun",
+      MAXIMUM "Maximum",
       MEDIUM "Medium",
       MINIMUM "Minimum",
       PROTOCOL "Protocol",
