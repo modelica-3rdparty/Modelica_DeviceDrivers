@@ -4,7 +4,7 @@
  * @author      bernhard-thiele
  * @author      tbeu
  * @since       2012-07-10
- * @copyright see Modelica_DeviceDrivers project's License.txt file
+ * @copyright see accompanying file LICENSE_Modelica_DeviceDrivers.txt
  *
  * The first version of the packager ("MinimalSerialPackager") was written by tbellmann.
  *

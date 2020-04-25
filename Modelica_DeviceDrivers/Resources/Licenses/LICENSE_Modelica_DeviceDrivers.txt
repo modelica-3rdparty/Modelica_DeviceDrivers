@@ -1,8 +1,4 @@
-= License for Modelica_DeviceDrivers C-code
-
-The C-code and header files are licensed by the Copyright holders according to
-the BSD 3-Clause License stated below (with exception of the "thirdParty" folder
-and its subfolders!).
+BSD 3-Clause License
 
 Copyright (c) 2012-2020, DLR, ESI ITI, and Linköping University (PELAB)
 All rights reserved.

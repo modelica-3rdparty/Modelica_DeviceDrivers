@@ -3,7 +3,7 @@
  * @file
  * @author		Tobias Bellmann <tobias.bellmann@dlr.de>
  * @since		2014-04-13
- * @copyright see Modelica_DeviceDrivers project's License.txt file
+ * @copyright see accompanying file LICENSE_Modelica_DeviceDrivers.txt
  *
  * Little handy functions offered in the OperatingSystem package.
  */

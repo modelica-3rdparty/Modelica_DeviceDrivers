@@ -5,7 +5,7 @@
  * @author		bernhard-thiele (Linux)
  * @author		tbeu
  * @since		2012-05-25
- * @copyright see Modelica_DeviceDrivers project's License.txt file
+ * @copyright see accompanying file LICENSE_Modelica_DeviceDrivers.txt
  *
  * @remark The Linux implementation mimics the interface of the windows version, that's
  *         why it is somewhat odd.

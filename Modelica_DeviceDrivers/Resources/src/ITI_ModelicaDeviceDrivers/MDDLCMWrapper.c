@@ -3,8 +3,7 @@
  * @file
  * @author		tbeu
  * @since		2016-05-05
- *
- *
+ * @copyright see accompanying file LICENSE_Modelica_DeviceDrivers.txt
 */
 
 #define ITI_MDD

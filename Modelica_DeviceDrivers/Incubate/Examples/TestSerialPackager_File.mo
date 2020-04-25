@@ -6,7 +6,7 @@ model TestSerialPackager_File "Example for file source and file sink"
     autoBufferSize=false,
     userBufferSize=512,
     showReceivedBytesPort=true,
-    fileName= Modelica.Utilities.Files.loadResource("modelica://Modelica_DeviceDrivers/Resources/License.txt"))
+    fileName= Modelica.Utilities.Files.loadResource("modelica://Modelica_DeviceDrivers/Resources/Licenses/LICENSE_Modelica_DeviceDrivers.txt"))
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
