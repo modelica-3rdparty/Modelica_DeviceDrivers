@@ -4,9 +4,7 @@
  * @author tbellmann (Windows)
  * @author bernhard-thiele (Linux)
  * @since 2012-06-05
- * @copyright see Modelica_DeviceDrivers project's License.txt file
- *
- *
+ * @copyright see accompanying file LICENSE_Modelica_DeviceDrivers.txt
 */
 
 #include "../include/CompatibilityDefs.h"

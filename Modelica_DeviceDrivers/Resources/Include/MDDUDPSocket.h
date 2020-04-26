@@ -5,7 +5,7 @@
  * @author bernhard-thiele (Linux)
  * @author tbeu
  * @since 2012-05-29
- * @copyright see Modelica_DeviceDrivers project's License.txt file
+ * @copyright see accompanying file LICENSE_Modelica_DeviceDrivers.txt
  *
  * @note Linux version: Using recvfrom(..) seems to be tricky, especially
  * in mixed 64 and 32 bit environments. Had the problem that (sporadically!) an

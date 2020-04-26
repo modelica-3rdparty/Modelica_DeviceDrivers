@@ -5,7 +5,7 @@
  * @author      bernhard-thiele
  * @author      tbeu
  * @since       2012-05-29
- * @copyright see Modelica_DeviceDrivers project's License.txt file
+ * @copyright see accompanying file LICENSE_Modelica_DeviceDrivers.txt
  */
 
 #ifndef MDDREALTIMESYNCHRONIZE_H_

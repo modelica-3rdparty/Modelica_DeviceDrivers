@@ -3,8 +3,7 @@
  * @file
  * @author		bernhard-thiele
  * @since		2014-04-12
- *
- *
+ * @copyright see accompanying file LICENSE_Modelica_DeviceDrivers.txt
 */
 
 #define MDDSOFTINGCANUSECMAKE

@@ -5,7 +5,7 @@
  * @author  bernhard-thiele (Linux)
  * @author  tbeu
  * @since   2012-06-04
- * @copyright see Modelica_DeviceDrivers project's License.txt file
+ * @copyright see accompanying file LICENSE_Modelica_DeviceDrivers.txt
  *
  */
 

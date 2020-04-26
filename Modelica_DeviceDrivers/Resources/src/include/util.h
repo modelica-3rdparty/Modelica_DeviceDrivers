@@ -3,7 +3,7 @@
  * @file
  * @author      bernhard-thiele
  * @since       2012-06-06
- * @copyright see Modelica_DeviceDrivers project's License.txt file
+ * @copyright see accompanying file LICENSE_Modelica_DeviceDrivers.txt
  *
  */
 
