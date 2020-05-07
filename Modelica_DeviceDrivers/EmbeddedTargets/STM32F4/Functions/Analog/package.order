@@ -1,0 +1,4 @@
+InitADC
+InitDAC
+read
+write
