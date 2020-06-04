@@ -1,4 +1,7 @@
 # Modelica_DeviceDrivers
+
+__The master has been updated to the upcoming Modelica Standard Library 4 (MSL 4). Please use the Modelica_DeviceDrivers release v1.8.2 (last MSL 3 release) until your tool is updated for MSL 4.__
+
 Free library for interfacing hardware drivers to Modelica models.
 There is support for joysticks, keyboards, UDP, TCP/IP, LCM, MQTT, shared memory, AD/DA converters, serial port and other devices.
 
