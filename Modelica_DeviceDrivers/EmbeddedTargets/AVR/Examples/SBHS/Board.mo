@@ -38,8 +38,8 @@ model Board "Base SBHS board"
   Integer f10=integer(mod(fan/10,10));
   Integer f1=integer(mod(fan,10));
 
-  discrete Real lastRefreshTemp(start=-10.0, fixed=true);
-  discrete Real lastRefresh(start=-10.0, fixed=true);
+  Real lastRefreshTemp(start=-10.0, fixed=true);
+  Real lastRefresh(start=-10.0, fixed=true);
 
   inner Modelica_DeviceDrivers.EmbeddedTargets.AVR.Blocks.Microcontroller mcu(desiredFrequency = 125, platform = Modelica_DeviceDrivers.EmbeddedTargets.AVR.Types.Platform.ATmega16)  annotation (
   Placement(visible = true, transformation(origin = {-62, 70}, extent = {{-22, -22}, {22, 22}}, rotation = 0)));
