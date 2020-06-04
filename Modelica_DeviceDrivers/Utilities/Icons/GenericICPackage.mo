@@ -6,4 +6,3 @@ This partial class is intended to design a <em>default icon for microcontrollers
 </p>
 </html>"));
 end GenericICPackage;
-

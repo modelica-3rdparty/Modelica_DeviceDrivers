@@ -54,5 +54,4 @@ You need an entire 8-bit digitial output port in order to use this driver.</p>
 end Init;
 
 end HD44780;
-
 end LCD;

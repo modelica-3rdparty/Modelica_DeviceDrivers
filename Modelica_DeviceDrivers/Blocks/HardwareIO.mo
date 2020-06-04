@@ -36,7 +36,7 @@ package HardwareIO
         annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
       import Modelica_DeviceDrivers.HardwareIO.Comedi;
 
-      parameter Modelica.SIunits.Period sampleTime = 0.01 "Sample time of block";
+      parameter Modelica.Units.SI.Period sampleTime=0.01 "Sample time of block";
       parameter Comedi comedi "Handle to comedi device";
       parameter Integer subDevice=1 "Subdevice";
       parameter Integer channel=0 "Channel";
@@ -72,7 +72,7 @@ package HardwareIO
       extends Modelica_DeviceDrivers.Utilities.Icons.ComediBlockIcon;
       import Modelica_DeviceDrivers.HardwareIO.Comedi;
 
-      parameter Modelica.SIunits.Period sampleTime = 0.01 "Sample time of block";
+      parameter Modelica.Units.SI.Period sampleTime=0.01 "Sample time of block";
       parameter Comedi comedi "Handle to comedi device";
       parameter Integer subDevice=0 "Subdevice";
       parameter Integer channel=0 "Channel";
@@ -112,7 +112,7 @@ package HardwareIO
         annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
       import Modelica_DeviceDrivers.HardwareIO.Comedi;
 
-      parameter Modelica.SIunits.Period sampleTime = 0.01 "Sample time of block";
+      parameter Modelica.Units.SI.Period sampleTime=0.01 "Sample time of block";
       parameter Comedi comedi "Handle to comedi device";
       parameter Integer subDevice=1 "Subdevice";
       parameter Integer channel=0 "Channel";
@@ -165,7 +165,7 @@ package HardwareIO
       extends Modelica_DeviceDrivers.Utilities.Icons.ComediBlockIcon;
       import Modelica_DeviceDrivers.HardwareIO.Comedi;
 
-      parameter Modelica.SIunits.Period sampleTime = 0.01 "Sample time of block";
+      parameter Modelica.Units.SI.Period sampleTime=0.01 "Sample time of block";
       parameter Comedi comedi "Handle to comedi device";
       parameter Integer subDevice=0 "Subdevice";
       parameter Integer channel=0 "Channel";
@@ -220,7 +220,7 @@ package HardwareIO
         annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
       import Modelica_DeviceDrivers.HardwareIO.Comedi;
 
-      parameter Modelica.SIunits.Period sampleTime = 0.01 "Sample time of block";
+      parameter Modelica.Units.SI.Period sampleTime=0.01 "Sample time of block";
       parameter Comedi comedi "Handle to comedi device";
       parameter Integer subDevice=2 "Subdevice";
       parameter Integer channel=0 "Channel";
@@ -259,7 +259,7 @@ package HardwareIO
       extends Modelica_DeviceDrivers.Utilities.Icons.ComediBlockIcon;
       import Modelica_DeviceDrivers.HardwareIO.Comedi;
 
-      parameter Modelica.SIunits.Period sampleTime = 0.01 "Sample time of block";
+      parameter Modelica.Units.SI.Period sampleTime=0.01 "Sample time of block";
       parameter Comedi comedi "Handle to comedi device";
       parameter Integer subDevice=2 "Subdevice";
       parameter Integer channel=0 "Channel";

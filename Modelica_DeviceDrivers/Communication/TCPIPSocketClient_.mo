@@ -48,5 +48,4 @@ package TCPIPSocketClient_ "Accompanying functions for the TCP/IP socket client 
            __iti_dll = "ITI_MDD.dll",
            __iti_dllNoExport = true);
   end sendTo;
-
 end TCPIPSocketClient_;

@@ -1,6 +1,6 @@
 within Modelica_DeviceDrivers.Incubate.Bustesting;
 block Comp2
-extends Modelica.Blocks.Interfaces.BlockIcon;
+extends Modelica.Blocks.Icons.Block;
   input CANBus cANBus annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,

@@ -4,11 +4,12 @@ extends .Modelica.Icons.UtilitiesPackage;
 
 function getClockCounterValue "Function to calculate a clock counter value for PWM or interrupts at a specific frequency"
   extends .Modelica.Icons.Function;
-  import Modelica.SIunits;
+  import SIunits =
+         Modelica.Units.SI;
   input SIunits.Frequency prescaledFrequency, desiredFrequency;
   input Real allowedError;
   output Integer i;
-protected
+  protected
   String msg = "Could not get a good 8-bit counter value for the prescaled ("+String(prescaledFrequency)+"Hz) and desired ("+String(desiredFrequency)+"Hz) frequencies.";
 algorithm
   i := integer(prescaledFrequency / desiredFrequency);
@@ -28,20 +29,21 @@ end getClockCounterValue;
 
 function reasonableClockSelect "Function to calculate a reasonable prescaler for PWM or interrupts at a specific frequency"
   extends .Modelica.Icons.Function;
-  import Modelica.SIunits;
+  import SIunits =
+         Modelica.Units.SI;
   import Modelica_DeviceDrivers.EmbeddedTargets.AVR.Types;
   input SIunits.Frequency cpu, desired;
   input Real allowedError;
   input SIunits.Frequency prescalerConstants[Types.TimerPrescaler];
   output Types.TimerPrescaler prescaler;
-protected
+  protected
   Real n;
 
   function isReasonableClock
     extends .Modelica.Icons.Function;
     input Real cpu, desired, prescaler, allowedError;
     output Boolean b=true;
-  protected
+    protected
     Integer n = integer(cpu / (prescaler * desired));
     Real error;
     Integer factors[:];
@@ -76,11 +78,12 @@ end reasonableClockSelect;
 
 function getAnalogPrescaler
   extends .Modelica.Icons.Function;
-  import Modelica.SIunits;
+  import SIunits =
+         Modelica.Units.SI;
   import Modelica_DeviceDrivers.EmbeddedTargets.AVR;
   input SIunits.Frequency cpuFrequency, minFrequency, maxFrequency;
   output AVR.Types.AnalogPrescaler prescaler;
-protected
+  protected
   Real tmp;
 algorithm
   for p in AVR.Types.AnalogPrescaler loop
@@ -92,5 +95,4 @@ algorithm
   end for;
   assert(false, "Could not find an analog prescaler that puts the CPU frequency " + String(cpuFrequency) + " within the bounds of " + String(minFrequency) + " and " + String(maxFrequency));
 end getAnalogPrescaler;
-
 end Utilities;

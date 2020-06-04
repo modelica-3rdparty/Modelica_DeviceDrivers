@@ -196,9 +196,13 @@ package SerialPackager "Blocks for constructing packages"
     parameter Boolean useBackwardSampleTimePropagation = true
       "true, use backward propagation for sample time, otherwise switch to forward propagation"
       annotation(Dialog(enable = not enableExternalTrigger, tab="Advanced", group="Activation"), choices(checkBox=true));
-    parameter Modelica.SIunits.Period sampleTime=0.01
-      "Sample time if forward propagation of sample time is used"
-       annotation (Dialog(enable = (not useBackwardSampleTimePropagation) and (not enableExternalTrigger), tab="Advanced", group="Activation"));
+    parameter Modelica.Units.SI.Period sampleTime=0.01
+      "Sample time if forward propagation of sample time is used" annotation (
+        Dialog(
+        enable=(not useBackwardSampleTimePropagation) and (not
+            enableExternalTrigger),
+        tab="Advanced",
+        group="Activation"));
 
     parameter Boolean useBackwardPropagatedBufferSize = true
       "true, use backward propagated (automatic) buffer size for package, otherwise use manually specified buffer size below"

@@ -45,5 +45,4 @@ class MapStandardIO "Maps stdin/stdout to the AVR UART."
     annotation (Include="#include \"MDDAVRSerialStdio.h\"");
   end destructor;
 end MapStandardIO;
-
 end SerialPort;

@@ -1,5 +1,4 @@
 within Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Functions;
-
 package HAL
   extends .Modelica.Icons.Package;
 
@@ -10,7 +9,6 @@ package HAL
     external "C" tick = MDD_stm32f4_hal_getTick(hal);
     annotation (Include="#include \"MDDSTM32F4HAL.h\"");
   end GetTick;
-
 
 
   class Init
@@ -30,5 +28,4 @@ package HAL
   end destructor;
 
   end Init;
-
 end HAL;

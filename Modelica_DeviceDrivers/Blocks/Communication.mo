@@ -774,7 +774,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
       import Modelica_DeviceDrivers.Communication.SoftingCAN;
       import Modelica_DeviceDrivers.Utilities.Types;
       import Modelica_DeviceDrivers.Packaging.SerialPackager;
-      import SI = Modelica.SIunits;
+      import      Modelica.Units.SI;
       parameter Integer ident(min=0) "Identifier of CAN message (CAN Id)";
       Interfaces.PackageOut pkgOut(pkg = SerialPackager(8), dummy(start=0, fixed=true))
         annotation (Placement(transformation(extent={{-20,-128},{20,-88}})));
@@ -824,7 +824,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
       import Modelica_DeviceDrivers.Communication.SoftingCAN;
       import Modelica_DeviceDrivers.Packaging.SerialPackager;
       import Modelica_DeviceDrivers.Utilities.Types;
-      import SI = Modelica.SIunits;
+      import      Modelica.Units.SI;
       parameter Integer ident(min=0) "Identifier of CAN message (CAN Id)";
       parameter Integer dlc(min=0,max=8) = 8
         "Data length code (payload of data in bytes, max=8)";
@@ -1331,7 +1331,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
 
     block PartialSampleTrigger
       "Common code for triggering calls to external I/O devices"
-      import SI = Modelica.SIunits;
+      import      Modelica.Units.SI;
       parameter Boolean enableExternalTrigger = false
         "true, enable external trigger input signal, otherwise use sample time settings below"
         annotation (Dialog(group="Activation"), choices(checkBox=true));
@@ -1389,7 +1389,8 @@ TCP/IP server configuration block. This block is supposed to be used as an inner
     "A block for receiving TCP/IP packets stemming from a client that connected to our server"
     extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
     extends Modelica_DeviceDrivers.Utilities.Icons.TCPIPconnection;
-    extends Modelica_DeviceDrivers.Blocks.Communication.Internal.PartialSampleTrigger;
+    extends
+      Modelica_DeviceDrivers.Blocks.Communication.Internal.PartialSampleTrigger;
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
     import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
     parameter Integer clientIndex(min=1) = 1 "Index of the TCP/IP client" annotation(Dialog(group="Incoming data"));
@@ -1464,7 +1465,8 @@ TCP/IP server configuration block. This block is supposed to be used as an inner
     "A block for sending TCP/IP packets to a client that connected to our server."
     extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
     extends Modelica_DeviceDrivers.Utilities.Icons.TCPIPconnection;
-    extends Modelica_DeviceDrivers.Blocks.Communication.Internal.PartialSampleTrigger;
+    extends
+      Modelica_DeviceDrivers.Blocks.Communication.Internal.PartialSampleTrigger;
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
     import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
 

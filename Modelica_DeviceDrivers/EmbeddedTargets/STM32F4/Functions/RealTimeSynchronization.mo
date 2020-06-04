@@ -17,7 +17,6 @@ end wait;
 
 
 
-
 class Init "Initialize STM32F4 real-time synchronization"
   extends ExternalObject;
 
@@ -51,7 +50,6 @@ class Init "Initialize STM32F4 real-time synchronization"
     annotation (Include="#include \"MDDSTM32F4RealTime.h\"");
   end destructor;
 end Init;
-
 
 
 

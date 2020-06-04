@@ -1,7 +1,7 @@
 within Modelica_DeviceDrivers.OperatingSystem;
 function rtSyncSynchronize "Slow down task so that simulation time == real-time."
   extends Modelica.Icons.Function;
-  import SI = Modelica.SIunits;
+  import      Modelica.Units.SI;
   input Modelica_DeviceDrivers.OperatingSystem.RTSync rtSync;
   input SI.Time simTime;
   input Real scaling(min=0) = 1 "Real-time scaling factor; > 1 means the simulation is made slower than real-time";

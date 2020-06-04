@@ -9,7 +9,8 @@ package Communication
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
     import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
     import Modelica_DeviceDrivers.Communication.UDPSocket;
-    parameter Modelica.SIunits.Period sampleTime=0.01 "Sample time for input update";
+    parameter Modelica.Units.SI.Period sampleTime=0.01
+      "Sample time for input update";
     parameter Boolean autoBufferSize = true
       "true, buffer size is deduced automatically, otherwise set it manually"
       annotation(Dialog(group="Incoming data"), choices(checkBox=true));
@@ -71,7 +72,8 @@ package Communication
   block TextFileSource
     "A block which creates a stream of SerialPackager packages from a text file."
     extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
-    extends Modelica_DeviceDrivers.Blocks.Communication.Internal.PartialSampleTrigger;
+    extends
+      Modelica_DeviceDrivers.Blocks.Communication.Internal.PartialSampleTrigger;
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
     import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
     import Modelica.Utilities.Streams;
@@ -149,7 +151,8 @@ package Communication
   block TextFileSink
     "A block for printing to the terminal or to a text file interpreting the package content as string."
      extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
-     extends Modelica_DeviceDrivers.Blocks.Communication.Internal.PartialSampleTrigger;
+     extends
+      Modelica_DeviceDrivers.Blocks.Communication.Internal.PartialSampleTrigger;
     import Modelica_DeviceDrivers.Packaging.SerialPackager;
     import Modelica.Utilities.Streams;
 

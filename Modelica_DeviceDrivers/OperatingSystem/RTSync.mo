@@ -3,7 +3,8 @@ class RTSync "An object for real-time synchronization."
   extends ExternalObject;
   function constructor "Creates a RTSync instance."
     extends Modelica.Icons.Function;
-    input Modelica.SIunits.Time startSimTime "Simulation start time (usually 0)";
+    input Modelica.Units.SI.Time startSimTime
+      "Simulation start time (usually 0)";
     input Boolean shouldCatchupTime "true, try to catch up delays from missed dead-lines by progressing faster than real-time, otherwise do not";
     output RTSync rtSync;
     external "C" rtSync = MDD_RTSyncConstructor(startSimTime, shouldCatchupTime)

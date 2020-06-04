@@ -1,11 +1,11 @@
 within Modelica_DeviceDrivers.Incubate.Bustesting;
 block Comp1
-extends Modelica.Blocks.Interfaces.BlockIcon;
+extends Modelica.Blocks.Icons.Block;
   output CANBus cANBus annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={100,10})));
-  Modelica.Blocks.Sources.Sine sine(freqHz=2)
+  Modelica.Blocks.Sources.Sine sine(f=2)
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Modelica.Blocks.Sources.IntegerStep integerStep(startTime=0.2)
     annotation (Placement(transformation(extent={{-56,-22},{-36,-2}})));

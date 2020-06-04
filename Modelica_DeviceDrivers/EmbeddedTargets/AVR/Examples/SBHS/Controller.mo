@@ -1,4 +1,4 @@
-within Modelica_DeviceDrivers.EmbeddedTargets.AVR.Examples.SBHS;
+﻿within Modelica_DeviceDrivers.EmbeddedTargets.AVR.Examples.SBHS;
 model Controller
   extends Modelica.Blocks.Icons.Block;
   Modelica.Blocks.Interfaces.RealInput degC(final unit="degC") annotation(Placement(visible = true, transformation(origin = {-120, 48}, extent = {{-20, -20}, {20, 20}}, rotation = 0), iconTransformation(origin = {-120, 50}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
@@ -15,6 +15,5 @@ equation
   der(ierror) = if ierror > -4 then max(degC-setpoint, -2) else 0;
 annotation(Icon(graphics = {
     Text(origin = {-123, 81}, extent = {{-17, 11}, {17, -11}}, textString = "°C", fontName = "Arial"), Text(origin = {-122, -14}, extent = {{-20, 18}, {20, -18}}, textString = "Setpoint", fontName = "Arial"),
-    Text(origin = {117, 23}, extent = {{-17, 7}, {17, -7}}, textString = "Fan", fontName = "Arial")
-  }));
+    Text(origin = {117, 23}, extent = {{-17, 7}, {17, -7}}, textString = "Fan", fontName = "Arial")}));
 end Controller;
