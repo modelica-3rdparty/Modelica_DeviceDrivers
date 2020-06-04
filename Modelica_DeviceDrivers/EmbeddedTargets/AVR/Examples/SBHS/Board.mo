@@ -50,12 +50,15 @@ model Board "Base SBHS board"
   transformation(origin = {12, 18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica_DeviceDrivers.EmbeddedTargets.AVR.Blocks.PWM pwm(prescaler = Modelica_DeviceDrivers.EmbeddedTargets.AVR.Types.TimerPrescaler.'1/1024',timer = Modelica_DeviceDrivers.EmbeddedTargets.AVR.Types.TimerSelect.Timer1, timerNumbers = {Modelica_DeviceDrivers.EmbeddedTargets.AVR.Types.TimerNumber.A, Modelica_DeviceDrivers.EmbeddedTargets.AVR.Types.TimerNumber.B})  annotation (
   Placement(visible = true, transformation(origin = {-42, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica.Blocks.Math.Gain gain1(y(unit="V"), u(unit="degC"), k(unit="degC/V")=23.7252) "ADC raw*0.1163 on the SBHS factory firmware; AD590 with custom resistances, etc" annotation(Placement(visible = true, transformation(origin = {58, 18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
+  Modelica.Blocks.Math.Gain gain1(y(unit="degC"), u(unit="V"), k(unit="degC/V")=23.7252) "ADC raw*0.1163 on the SBHS factory firmware; AD590 with custom resistances, etc" annotation(Placement(visible = true, transformation(origin = {58, 18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
-  connect(gain1.y, degC) annotation(Line(points = {{70, 18}, {88, 18}, {88, 0}, {110, 0}, {110, 0}}, color = {0, 0, 127}));
-  connect(adc.y, gain1.u) annotation(Line(points = {{24, 18}, {46, 18}, {46, 18}, {46, 18}}, color = {0, 0, 127}));
-  connect(heat, pwm.u[1]) annotation(Line(points = {{-120, -42}, {-78, -42}, {-78, 0}, {-56, 0}, {-56, 0}, {-54, 0}}, color = {255, 127, 0}));
-  connect(fan, pwm.u[2]) annotation(Line(points = {{-120, 38}, {-78, 38}, {-78, 0}, {-54, 0}, {-54, 0}}, color = {255, 127, 0}));
+  connect(gain1.y, degC) annotation(Line(points={{69,18},{88,18},{88,0},{110,0},
+          {110,0}},                                                                                  color = {0, 0, 127}));
+  connect(adc.y, gain1.u) annotation(Line(points={{23,18},{46,18},{46,18},{46,18}},          color = {0, 0, 127}));
+  connect(heat, pwm.u[1]) annotation(Line(points={{-120,-42},{-78,-42},{-78,0},{
+          -56,0},{-56,-1},{-54,-1}},                                                                                  color = {255, 127, 0}));
+  connect(fan, pwm.u[2]) annotation(Line(points={{-120,38},{-78,38},{-78,0},{-54,
+          0},{-54,1}},                                                                                   color = {255, 127, 0}));
 algorithm
   if time-lastRefreshTemp >= 0.5 then // We don't support sample(), or events... yet
     HD44780.updateTextBufferByte(lcd, 17, '0'+i10);
@@ -82,5 +85,5 @@ algorithm
   end if;
 annotation (
   defaultComponentName="sbhs",
-  Icon(graphics = {Text(origin = {-120, -11}, extent = {{-24, 7}, {20, -7}}, textString = "Heat", fontSize = 25, fontName = "Arial"), Text(origin = {-120, 75}, extent = {{-18, 11}, {18, -11}}, textString = "Fan", fontSize = 25, fontName = "Arial"), Text(origin = {136, 22}, extent = {{-22, 14}, {22, -14}}, textString = "Temp [°C]", fontSize = 25, fontName = "Arial")}, coordinateSystem(initialScale = 0.1)), Diagram(graphics = {Text(origin = {-87, 17}, extent = {{-7, 7}, {7, -7}}, textString = "Timer1B", fontName = "Arial"), Text(origin = {-87, -21}, extent = {{-7, 7}, {7, -7}}, textString = "Timer1A", fontName = "Arial")}));
+  Icon(graphics={  Text(origin = {-120, -11}, extent = {{-24, 7}, {20, -7}}, textString = "Heat", fontSize = 25, fontName = "Arial"), Text(origin = {-120, 75}, extent = {{-18, 11}, {18, -11}}, textString = "Fan", fontSize = 25, fontName = "Arial"), Text(origin = {136, 22}, extent = {{-22, 14}, {22, -14}}, textString = "Temp [°C]", fontSize = 25, fontName = "Arial")}, coordinateSystem(initialScale = 0.1)), Diagram(graphics={  Text(origin = {-87, 17}, extent = {{-7, 7}, {7, -7}}, textString = "Timer1B", fontName = "Arial"), Text(origin = {-87, -21}, extent = {{-7, 7}, {7, -7}}, textString = "Timer1A", fontName = "Arial")}));
 end Board;
