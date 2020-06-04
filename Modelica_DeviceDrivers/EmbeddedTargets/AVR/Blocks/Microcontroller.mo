@@ -1,6 +1,7 @@
 within Modelica_DeviceDrivers.EmbeddedTargets.AVR.Blocks;
 block Microcontroller "Use as an inner block, defining the characteristics of the AVR microcontroller"
-  import Modelica.SIunits;
+  import SIunits =
+         Modelica.Units.SI;
   import Modelica_DeviceDrivers;
   import Modelica_DeviceDrivers.EmbeddedTargets.AVR.Constants;
   import Modelica_DeviceDrivers.EmbeddedTargets.AVR.Types;

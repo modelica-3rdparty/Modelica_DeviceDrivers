@@ -31,5 +31,4 @@ class Init "Initialize AVR real-time synchronization on the given clock.
     annotation (Include="#include \"MDDAVRRealTime.h\"");
   end destructor;
 end Init;
-
 end RealTimeSynchronization;

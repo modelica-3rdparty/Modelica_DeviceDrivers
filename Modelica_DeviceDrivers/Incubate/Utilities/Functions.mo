@@ -1090,5 +1090,4 @@ int MD_getCounter(const char * filename)
 ");
 
   end incrementalCounter;
-
 end Functions;

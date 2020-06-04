@@ -3,7 +3,8 @@ model DigitalReadBoolean
   extends .Modelica.Blocks.Interfaces.partialBooleanSO;
   import Modelica_DeviceDrivers.EmbeddedTargets.AVR.Functions;
   import Modelica_DeviceDrivers.EmbeddedTargets.AVR.Types;
-  import Modelica.SIunits;
+  import SIunits =
+         Modelica.Units.SI;
   constant Types.Port port annotation(Dialog(
     enable = true,
     tab = "General",

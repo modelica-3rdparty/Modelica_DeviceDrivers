@@ -4,7 +4,7 @@ package Logging "a collection of logging blocks"
   model LogVector "Logs a vector to disk in csv format"
   extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
   parameter String filename = "result.log" "Filename for the logging file";
-  parameter Modelica.SIunits.Period sampleTime = 0.01 "Sample time of logging";
+    parameter Modelica.Units.SI.Period sampleTime=0.01 "Sample time of logging";
   parameter Integer n=1 "Vector size";
 
     Modelica.Blocks.Interfaces.RealInput u[n]

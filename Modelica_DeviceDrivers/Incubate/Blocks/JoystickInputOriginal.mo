@@ -3,7 +3,8 @@ block JoystickInputOriginal
   "Original block without OM related work-around (won't instantiate in 2017-05-12 OM). Joystick input implementation for interactive simulations"
   extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
   import Modelica_DeviceDrivers.InputDevices.GameController;
-  parameter Modelica.SIunits.Period sampleTime = 0.01 "sample time for input update";
+  parameter Modelica.Units.SI.Period sampleTime=0.01
+    "sample time for input update";
   parameter Real gain[6] = ones(6) "gain of axis output";
   parameter Integer ID= 0
     "ID number of the joystick (0 = first joystick attached to the system)";

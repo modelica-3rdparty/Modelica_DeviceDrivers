@@ -1,4 +1,4 @@
-within Modelica_DeviceDrivers.EmbeddedTargets.AVR.Examples.SBHS;
+﻿within Modelica_DeviceDrivers.EmbeddedTargets.AVR.Examples.SBHS;
 model Board "Base SBHS board"
   extends Modelica.Blocks.Icons.Block;
   import Modelica_DeviceDrivers.EmbeddedTargets.AVR;
@@ -18,8 +18,8 @@ model Board "Base SBHS board"
   Functions.SerialPort.Init serial = Functions.SerialPort.Init(SerialBaudRate.B38400);
   Functions.SerialPort.MapStandardIO io = Functions.SerialPort.MapStandardIO(serial, stdin=false, stdout=true);
 
-  import Modelica.SIunits.Voltage;
-  import Modelica.SIunits.Conversions.NonSIunits.Temperature_degC;
+  import Modelica.Units.SI.Voltage;
+  import Modelica.Units.NonSI.Temperature_degC;
 
   HD44780.Init lcd = HD44780.Init(AVR.Types.Port.C,"TEMP TIME    FAN0123456789ABCDEF");
 
@@ -41,14 +41,14 @@ model Board "Base SBHS board"
   discrete Real lastRefreshTemp(start=-10.0, fixed=true);
   discrete Real lastRefresh(start=-10.0, fixed=true);
 
-  inner Modelica_DeviceDrivers.EmbeddedTargets.AVR.Blocks.Microcontroller mcu(desiredFrequency = 125, platform = Modelica_DeviceDrivers.EmbeddedTargets.AVR.Types.Platform.ATmega16)  annotation(
+  inner Modelica_DeviceDrivers.EmbeddedTargets.AVR.Blocks.Microcontroller mcu(desiredFrequency = 125, platform = Modelica_DeviceDrivers.EmbeddedTargets.AVR.Types.Platform.ATmega16)  annotation (
   Placement(visible = true, transformation(origin = {-62, 70}, extent = {{-22, -22}, {22, 22}}, rotation = 0)));
-  Modelica_DeviceDrivers.EmbeddedTargets.AVR.Blocks.SynchronizeRealtime synchronizeRealtime1(timer = Modelica_DeviceDrivers.EmbeddedTargets.AVR.Types.TimerSelect.Timer0)  annotation(
+  Modelica_DeviceDrivers.EmbeddedTargets.AVR.Blocks.SynchronizeRealtime synchronizeRealtime1(timer = Modelica_DeviceDrivers.EmbeddedTargets.AVR.Types.TimerSelect.Timer0)  annotation (
   Placement(visible = true, transformation(origin = {-14, 70}, extent = {{-20, -20}, {20, 20}}, rotation = 0)));
-  Modelica_DeviceDrivers.EmbeddedTargets.AVR.Blocks.ADC adc(analogPort = Modelica_DeviceDrivers.EmbeddedTargets.AVR.Types.AnalogPort.A0, voltageReference = 5, voltageReferenceSelect = Modelica_DeviceDrivers.EmbeddedTargets.AVR.Types.VRefSelect.AREF)  annotation(
+  Modelica_DeviceDrivers.EmbeddedTargets.AVR.Blocks.ADC adc(analogPort = Modelica_DeviceDrivers.EmbeddedTargets.AVR.Types.AnalogPort.A0, voltageReference = 5, voltageReferenceSelect = Modelica_DeviceDrivers.EmbeddedTargets.AVR.Types.VRefSelect.AREF)  annotation (
   Placement(visible = true,
   transformation(origin = {12, 18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
-  Modelica_DeviceDrivers.EmbeddedTargets.AVR.Blocks.PWM pwm(prescaler = Modelica_DeviceDrivers.EmbeddedTargets.AVR.Types.TimerPrescaler.'1/1024',timer = Modelica_DeviceDrivers.EmbeddedTargets.AVR.Types.TimerSelect.Timer1, timerNumbers = {Modelica_DeviceDrivers.EmbeddedTargets.AVR.Types.TimerNumber.A, Modelica_DeviceDrivers.EmbeddedTargets.AVR.Types.TimerNumber.B})  annotation(
+  Modelica_DeviceDrivers.EmbeddedTargets.AVR.Blocks.PWM pwm(prescaler = Modelica_DeviceDrivers.EmbeddedTargets.AVR.Types.TimerPrescaler.'1/1024',timer = Modelica_DeviceDrivers.EmbeddedTargets.AVR.Types.TimerSelect.Timer1, timerNumbers = {Modelica_DeviceDrivers.EmbeddedTargets.AVR.Types.TimerNumber.A, Modelica_DeviceDrivers.EmbeddedTargets.AVR.Types.TimerNumber.B})  annotation (
   Placement(visible = true, transformation(origin = {-42, 0}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
   Modelica.Blocks.Math.Gain gain1(y(unit="V"), u(unit="degC"), k(unit="degC/V")=23.7252) "ADC raw*0.1163 on the SBHS factory firmware; AD590 with custom resistances, etc" annotation(Placement(visible = true, transformation(origin = {58, 18}, extent = {{-10, -10}, {10, 10}}, rotation = 0)));
 equation
@@ -80,7 +80,7 @@ algorithm
     HD44780.updateDisplay(lcd);
     lastRefresh := time;
   end if;
-annotation(
+annotation (
   defaultComponentName="sbhs",
   Icon(graphics = {Text(origin = {-120, -11}, extent = {{-24, 7}, {20, -7}}, textString = "Heat", fontSize = 25, fontName = "Arial"), Text(origin = {-120, 75}, extent = {{-18, 11}, {18, -11}}, textString = "Fan", fontSize = 25, fontName = "Arial"), Text(origin = {136, 22}, extent = {{-22, 14}, {22, -14}}, textString = "Temp [°C]", fontSize = 25, fontName = "Arial")}, coordinateSystem(initialScale = 0.1)), Diagram(graphics = {Text(origin = {-87, 17}, extent = {{-7, 7}, {7, -7}}, textString = "Timer1B", fontName = "Arial"), Text(origin = {-87, -21}, extent = {{-7, 7}, {7, -7}}, textString = "Timer1A", fontName = "Arial")}));
 end Board;

@@ -5,7 +5,8 @@ package InputDevices "Blocks for input devices, such as keyboard, gamecontroller
     "Joystick input implementation for interactive simulations"
     extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
     import Modelica_DeviceDrivers.InputDevices.GameController;
-    parameter Modelica.SIunits.Period sampleTime = 0.01 "sample time for input update";
+    parameter Modelica.Units.SI.Period sampleTime=0.01
+      "sample time for input update";
     parameter Real gain[6] = ones(6) "gain of axis output";
     parameter Integer ID= 0
       "ID number of the joystick (0 = first joystick attached to the system)";
@@ -39,7 +40,8 @@ package InputDevices "Blocks for input devices, such as keyboard, gamecontroller
   block KeyboardKeyInput
     "Keyboard input implementation for interactive simulations"
     extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
-    parameter Modelica.SIunits.Period sampleTime=0.01 "sample time for input update";
+    parameter Modelica.Units.SI.Period sampleTime=0.01
+      "sample time for input update";
     parameter Modelica_DeviceDrivers.Blocks.InputDevices.Types.keyCodes keyCode="Return"
       "Monitored Key";
     parameter Boolean useKeyKombination=false
@@ -161,7 +163,8 @@ package InputDevices "Blocks for input devices, such as keyboard, gamecontroller
   block SpaceMouseInput
     "SpaceMouse input implementation for interactive simulations"
     extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
-    parameter Modelica.SIunits.Period sampleTime = 0.01 "sample time for input update";
+    parameter Modelica.Units.SI.Period sampleTime=0.01
+      "sample time for input update";
     parameter Real gain[6] = ones(6) "gain of axis output";
     Modelica.Blocks.Interfaces.RealOutput axes[6]
       annotation (Placement(transformation(extent={{100,50},{120,70}})));
@@ -195,7 +198,8 @@ package InputDevices "Blocks for input devices, such as keyboard, gamecontroller
   block KeyboardInput
     "Keyboard input implementation for interactive simulations"
     extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
-    parameter Modelica.SIunits.Period sampleTime = 0.01 "sample time for input update";
+    parameter Modelica.Units.SI.Period sampleTime=0.01
+      "sample time for input update";
     Modelica.Blocks.Interfaces.BooleanOutput keyUp
       annotation (Placement(transformation(extent={{100,50},{120,70}})));
     Modelica.Blocks.Interfaces.BooleanOutput keyDown

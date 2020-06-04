@@ -4,7 +4,8 @@ model DigitalReadBoolean
   import Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Functions;
   import Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Functions.HAL;
   import Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Types;
-  import Modelica.SIunits;
+  import SIunits =
+         Modelica.Units.SI;
   constant Types.Port port annotation(Dialog(
     enable = true,
     tab = "General",

@@ -37,5 +37,4 @@ function destructor
 end destructor;
 
 end Init;
-
 end PWM;

@@ -22,7 +22,7 @@ end read_float;
 
 function read_voltage
   extends .Modelica.Icons.Function;
-  import Modelica.SIunits.Voltage;
+  import Modelica.Units.SI.Voltage;
   input .Modelica_DeviceDrivers.EmbeddedTargets.AVR.Types.AnalogPort analogPort;
   input Voltage vref "We need to pass a reference voltage in order to read a voltage";
   input Integer voltageResolution "In bits; 10 bit resolution.";
@@ -55,5 +55,4 @@ class Init
   end destructor;
 
 end Init;
-
 end Analog;

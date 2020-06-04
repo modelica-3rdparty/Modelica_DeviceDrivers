@@ -4,7 +4,7 @@ package OperatingSystem "Blocks for miscellaneous OS API related facilities, e.g
 
   block RealtimeSynchronize "Block for pseudo real-time synchronization. Supersedes \"SynchronizeRealtime\"."
     extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
-    import SI = Modelica.SIunits;
+    import      Modelica.Units.SI;
 
     input Real scaling(min=0) = 1 "real-time scaling factor; > 1 means the simulation is made slower than real-time" annotation(Dialog(enable=true, group="Time varying input signal"));
 
@@ -158,7 +158,8 @@ package OperatingSystem "Blocks for miscellaneous OS API related facilities, e.g
   block RandomRealSource
     extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
     parameter Integer n=1 "Dimension of output vector";
-    parameter Modelica.SIunits.Period sampleTime = 0.01 "Sample time of random number generation";
+    parameter Modelica.Units.SI.Period sampleTime=0.01
+      "Sample time of random number generation";
     input Real minValue[n]=fill(0,n) "Minimum value of random output" annotation(Dialog(enable=true));
     input Real maxValue[n]=fill(1,n) "Maximum value of random output" annotation(Dialog(enable=true));
 
@@ -252,8 +253,9 @@ package OperatingSystem "Blocks for miscellaneous OS API related facilities, e.g
     Modelica.Blocks.Interfaces.RealInput scaling if enableRealTimeScaling
       "Real-time scaling factor; > 1 means the simulation is made slower than real-time"
       annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-    output Modelica.SIunits.Time calculationTime "Time needed for calculation";
-    output Modelica.SIunits.Time availableTime "Time available for calculation (integrator step size)";
+    output Modelica.Units.SI.Time calculationTime "Time needed for calculation";
+    output Modelica.Units.SI.Time availableTime
+      "Time available for calculation (integrator step size)";
   protected
     ProcessPriority procPrio(final priority = priority) if setPriority;
     Real dummyState(start = 0, fixed=true) "dummy state to be integrated, to force synchronization in every integration step";
@@ -320,7 +322,8 @@ package OperatingSystem "Blocks for miscellaneous OS API related facilities, e.g
 
     partial block PartialRealtimeSynchronize
       "An improved block for real-time synchronization. Common interface definitions."
-      import Modelica.SIunits;
+      import SIunits =
+             Modelica.Units.SI;
       input Real scaling(min=0) = 1 "real-time scaling factor; > 1 means the simulation is made slower than real-time" annotation(Dialog(enable=true));
       parameter Boolean showAdvancedOutputs = true "Show output for computing time and remaining time"  annotation (Dialog(group="Advanced"), choices(checkBox=true));
       parameter Boolean shouldCatchupTime = false "true, try to catch up delays from missed dead-lines by progressing faster than real-time, otherwise do not" annotation (Dialog(group="Advanced"), choices(checkBox=true));
@@ -347,7 +350,8 @@ package OperatingSystem "Blocks for miscellaneous OS API related facilities, e.g
     block RealtimeSynchronize_Continuous
       "An improved block for real-time synchronization. Continuous case."
       extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
-      extends Modelica_DeviceDrivers.Blocks.OperatingSystem.Internal.PartialRealtimeSynchronize;
+      extends
+        Modelica_DeviceDrivers.Blocks.OperatingSystem.Internal.PartialRealtimeSynchronize;
     // protected
     //   Real dummyState(start = 0, fixed=true) "Dummy state to be integrated, to force synchronization in every integration step"; // FIXME: Do we need this?
     equation
@@ -367,8 +371,10 @@ package OperatingSystem "Blocks for miscellaneous OS API related facilities, e.g
     block RealtimeSynchronize_Sampled
       "An improved block for real-time synchronization. Sampled Cased."
       extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
-      extends Modelica_DeviceDrivers.Blocks.OperatingSystem.Internal.PartialRealtimeSynchronize;
-      extends Modelica_DeviceDrivers.Blocks.Communication.Internal.PartialSampleTrigger;
+      extends
+        Modelica_DeviceDrivers.Blocks.OperatingSystem.Internal.PartialRealtimeSynchronize;
+      extends
+        Modelica_DeviceDrivers.Blocks.Communication.Internal.PartialSampleTrigger;
     equation
 
       when actTrigger then
@@ -385,5 +391,4 @@ package OperatingSystem "Blocks for miscellaneous OS API related facilities, e.g
             coordinateSystem(preserveAspectRatio=false)));
     end RealtimeSynchronize_Sampled;
   end Internal;
-
 end OperatingSystem;
