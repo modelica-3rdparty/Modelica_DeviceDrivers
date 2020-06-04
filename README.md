@@ -47,6 +47,11 @@ If you tested the library successfully with another Modelica tool, please contac
 
 Bug fix releases may not have release notes, so please use the download link from above to get the latest release including bug fixes.
 
+* Upcoming release [Version v2.0.0 (2020-06-??)](../../releases/tag/v2.0.0)
+  * Migrating from Modelica Standard Library 3 (MSL 3) to MSL 4
+  * Non-backwards compatible release! However, apart from the MSL 4 dependency
+    this release is compatible to previous releases and no update of user libraries
+    is necessary apart from migrating to MSL 4.
 * [Version v1.8.2 (2020-03-26)](../../releases/tag/v1.8.2)
   * Updated Linux MQTT binary dependencies. The updated libraries are compiled with the `-fPIC` flag, which fixes a related FMU generation problem (#306).
 * [Version v1.8.1 (2020-02-26)](../../releases/tag/v1.8.1)
