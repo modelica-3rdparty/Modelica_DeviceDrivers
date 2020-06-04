@@ -1,6 +1,6 @@
 within Modelica_DeviceDrivers.Utilities;
 package Functions
-  extends Icons.FunctionLayerIcon;
+  extends Modelica.Icons.FunctionsPackage;
   function loadRealParameter "Loads a parameter from file"
     extends Modelica.Icons.Function;
     input String file="Washout.ini";
