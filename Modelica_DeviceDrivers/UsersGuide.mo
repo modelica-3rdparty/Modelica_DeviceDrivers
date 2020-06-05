@@ -10,7 +10,7 @@ package UsersGuide "User's Guide"
 <p>However, apart from the MSL 4 dependency this release is compatible to previous releases and no update of user libraries is necessary apart from migrating to MSL 4.</p>
 <p>Enhancements:</p>
 <ul>
-<li>Add all license files to better assist tool vendors in distribution of source or binary files (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/pull/313\">#313</a>).</li>
+<li>Added all license files to better assist tool vendors in distribution of source or binary files (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/pull/313\">#313</a>).</li>
 <li>Updated 3rd-party library paho.mqtt.c to v1.3.2 (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/pull/314\">#314</a>) (another update planned before final release).</li>
 </ul>
 <p>Bug fixes:</p>

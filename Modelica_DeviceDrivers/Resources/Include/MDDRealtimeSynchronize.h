@@ -954,7 +954,7 @@ DllExport void MDD_RTSyncSynchronize(void * rtSyncObj, double simTime, double sc
         }
 
         *remainingTime = ( t_abs.tv_sec - t_now.tv_sec )
-                         + ((double)t_abs.tv_nsec - (double)t_now.tv_nsec)/NSEC_PER_SEC;
+                         + (double)(t_abs.tv_nsec - t_now.tv_nsec)/NSEC_PER_SEC;
 
         /* wait until (scaled) simulation time == real-time */
         ret = clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &t_abs, NULL);
