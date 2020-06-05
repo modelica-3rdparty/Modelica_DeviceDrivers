@@ -51,10 +51,13 @@ If you tested the library successfully with another Modelica tool, please contac
 Bug fix releases may not have release notes, so please use the download link from above to get the latest release including bug fixes.
 
 * Upcoming release [Version v2.0.0 (2020-06-??)](../../releases/tag/v2.0.0)
-  * Migrating from Modelica Standard Library 3 (MSL 3) to MSL 4
-  * Non-backwards compatible release! However, apart from the MSL 4 dependency
-    this release is compatible to previous releases and no update of user libraries
-    is necessary apart from migrating to MSL 4.
+  * Migrated from Modelica Standard Library 3 (MSL 3) to MSL 4 -> _Non-backwards compatible release!_
+  * However, apart from the MSL 4 dependency this release is compatible to previous releases and no update of user libraries is necessary apart from migrating to MSL 4.
+  * Enhancements:
+    * Add all license files to better assist tool vendors in distribution of source or binary files (#313).
+    * Updated 3rd-party library paho.mqtt.c to v1.3.2 (#314) (_another update planned before final release_).
+  * Bug fixes:
+    * Fixed small issues in the SBHS Board example (#318).
 * [Version v1.8.2 (2020-03-26)](../../releases/tag/v1.8.2)
   * Updated Linux MQTT binary dependencies. The updated libraries are compiled with the `-fPIC` flag, which fixes a related FMU generation problem (#306).
 * [Version v1.8.1 (2020-02-26)](../../releases/tag/v1.8.1)

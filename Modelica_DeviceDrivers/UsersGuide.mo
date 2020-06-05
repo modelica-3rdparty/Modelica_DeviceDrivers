@@ -2,6 +2,25 @@
 package UsersGuide "User's Guide"
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
+    class Version_2_0_0 "Version 2.0.0-dev (June ??, 2020)"
+    extends Modelica.Icons.ReleaseNotes;
+
+      annotation (Documentation(info="<html>
+<p>Migrated from Modelica Standard Library 3 (MSL 3) to MSL 4 &#8594; Non-backwards compatible release!</p>
+<p>However, apart from the MSL 4 dependency this release is compatible to previous releases and no update of user libraries is necessary apart from migrating to MSL 4.</p>
+<p>Enhancements:</p>
+<ul>
+<li>Add all license files to better assist tool vendors in distribution of source or binary files (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/pull/313\">#313</a>).</li>
+<li>Updated 3rd-party library paho.mqtt.c to v1.3.2 (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/pull/314\">#314</a>) (another update planned before final release).</li>
+</ul>
+<p>Bug fixes:</p>
+<ul>
+<li>Fixed small issues in the SBHS Board example (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/pull/318\">#318</a>).</li>
+</ul>
+<p>Other (minor) fixes and improvements.</p>
+</html>"));
+    end Version_2_0_0;
+
     class Version_1_8_2 "Version 1.8.2 (March 26, 2020)"
     extends Modelica.Icons.ReleaseNotes;
 
