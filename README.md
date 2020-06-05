@@ -54,7 +54,7 @@ Bug fix releases may not have release notes, so please use the download link fro
   * Migrated from Modelica Standard Library 3 (MSL 3) to MSL 4 -> _Non-backwards compatible release!_
   * However, apart from the MSL 4 dependency this release is compatible to previous releases and no update of user libraries is necessary apart from migrating to MSL 4.
   * Enhancements:
-    * Add all license files to better assist tool vendors in distribution of source or binary files (#313).
+    * Added all license files to better assist tool vendors in distribution of source or binary files (#313).
     * Updated 3rd-party library paho.mqtt.c to v1.3.2 (#314) (_another update planned before final release_).
   * Bug fixes:
     * Fixed small issues in the SBHS Board example (#318).
