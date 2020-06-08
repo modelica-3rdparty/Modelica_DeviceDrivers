@@ -2,7 +2,7 @@
 package UsersGuide "User's Guide"
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
-    class Version_2_0_0 "Version 2.0.0-dev (June ??, 2020)"
+    class Version_2_0_0 "Version 2.0.0 (June 8, 2020)"
     extends Modelica.Icons.ReleaseNotes;
 
       annotation (Documentation(info="<html>
@@ -11,7 +11,7 @@ package UsersGuide "User's Guide"
 <p>Enhancements:</p>
 <ul>
 <li>Added all license files to better assist tool vendors in distribution of source or binary files (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/pull/313\">#313</a>).</li>
-<li>Updated 3rd-party library paho.mqtt.c to v1.3.2 (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/pull/314\">#314</a>) (another update planned before final release).</li>
+<li>Updated 3rd-party library paho.mqtt.c to v1.3.4 (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/pull/320\">#320</a>).</li>
 </ul>
 <p>Bug fixes:</p>
 <ul>
