@@ -179,7 +179,7 @@
  #define MQTTCLIENT_BAD_MQTT_VERSION -11
 /**
  * Return code: protocol prefix in serverURI should be tcp://, ssl://, ws:// or wss://
- * The TLS enabled prefixes (ssl, wss) are only valid if the TLS version of the library
+ * The TLS enabled prefixes (ssl, wss) are only valid if a TLS version of the library
  * is linked with.
  */
 #define MQTTCLIENT_BAD_PROTOCOL -14
@@ -416,8 +416,9 @@ typedef void MQTTClient_connectionLost(void* context, char* cause);
  * function. You can set this to NULL if your application doesn't handle
  * disconnections.
  * @param ma A pointer to an MQTTClient_messageArrived() callback
- * function. This callback function must be specified when you call
- * MQTTClient_setCallbacks().
+ * function. This callback function must be set when you call
+ * MQTTClient_setCallbacks(), as otherwise there would be nowhere to deliver
+ * any incoming messages.
  * @param dc A pointer to an MQTTClient_deliveryComplete() callback
  * function. You can set this to NULL if your application publishes
  * synchronously or if you do not want to check for successful delivery.
@@ -492,7 +493,9 @@ LIBMQTT_API int MQTTClient_setPublished(MQTTClient handle, void* context, MQTTCl
  * this function.
  * @param serverURI A null-terminated string specifying the server to
  * which the client will connect. It takes the form <i>protocol://host:port</i>.
- * Currently, <i>protocol</i> must be <i>tcp</i> or <i>ssl</i>.
+ * Currently, <i>protocol</i> must be <i>tcp</i>, <i>ssl</i>, <i>ws</i> or <i>wss</i>.
+ * The TLS enabled prefixes (ssl, wss) are only valid if a TLS version of the library
+ * is linked with.
  * For <i>host</i>, you can
  * specify either an IP address or a host name. For instance, to connect to
  * a server running on the local machines with the default MQTT port, specify
@@ -875,7 +878,10 @@ typedef struct
 	/**
    * An optional array of null-terminated strings specifying the servers to
    * which the client will connect. Each string takes the form <i>protocol://host:port</i>.
-   * <i>protocol</i> must be <i>tcp</i> or <i>ssl</i>. For <i>host</i>, you can
+   * <i>protocol</i> must be <i>tcp</i>, <i>ssl</i>, <i>ws</i> or <i>wss</i>.
+   * The TLS enabled prefixes (ssl, wss) are only valid if a TLS version of the library
+   * is linked with.
+   * For <i>host</i>, you can
    * specify either an IP address or a host name. For instance, to connect to
    * a server running on the local machines with the default MQTT port, specify
    * <i>tcp://localhost:1883</i>.
@@ -926,6 +932,12 @@ typedef struct
 0, NULL, MQTTVERSION_DEFAULT, {NULL, 0, 0}, {0, NULL}, -1, 0, NULL}
 
 #define MQTTClient_connectOptions_initializer5 { {'M', 'Q', 'T', 'C'}, 7, 60, 0, 1, NULL, NULL, NULL, 30, 0, NULL,\
+0, NULL, MQTTVERSION_5, {NULL, 0, 0}, {0, NULL}, -1, 1, NULL}
+
+#define MQTTClient_connectOptions_initializer_ws { {'M', 'Q', 'T', 'C'}, 7, 45, 1, 1, NULL, NULL, NULL, 30, 0, NULL,\
+0, NULL, MQTTVERSION_DEFAULT, {NULL, 0, 0}, {0, NULL}, -1, 0, NULL}
+
+#define MQTTClient_connectOptions_initializer5_ws { {'M', 'Q', 'T', 'C'}, 7, 45, 0, 1, NULL, NULL, NULL, 30, 0, NULL,\
 0, NULL, MQTTVERSION_5, {NULL, 0, 0}, {0, NULL}, -1, 1, NULL}
 
 /**
