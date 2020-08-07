@@ -708,8 +708,9 @@ typedef struct MQTTAsync_responseOptions MQTTAsync_callOptions;
  * function. You can set this to NULL if your application doesn't handle
  * disconnections.
  * @param ma A pointer to an MQTTAsync_messageArrived() callback
- * function.  You can set this to NULL if your application doesn't handle
- * receipt of messages.
+ * function.  If this callback is not set, an error will be returned.
+ * You must set this callback because otherwise there would be
+ * no way to deliver any incoming messages.
  * @param dc A pointer to an MQTTAsync_deliveryComplete() callback
  * function. You can set this to NULL if you do not want to check
  * for successful delivery.
@@ -823,7 +824,10 @@ LIBMQTT_API int MQTTAsync_reconnect(MQTTAsync handle);
  * this function.
  * @param serverURI A null-terminated string specifying the server to
  * which the client will connect. It takes the form <i>protocol://host:port</i>.
- * <i>protocol</i> must be <i>tcp</i> or <i>ssl</i>. For <i>host</i>, you can
+ * <i>protocol</i> must be <i>tcp</i>, <i>ssl</i>, <i>ws</i> or <i>wss</i>.
+ * The TLS enabled prefixes (ssl, wss) are only valid if a TLS version of
+ * the library is linked with.
+ * For <i>host</i>, you can
  * specify either an IP address or a host name. For instance, to connect to
  * a server running on the local machines with the default MQTT port, specify
  * <i>tcp://localhost:1883</i>.
@@ -863,13 +867,14 @@ typedef struct
 {
 	/** The eyecatcher for this structure.  must be MQCO. */
 	char struct_id[4];
-	/** The version number of this structure.  Must be 0 or 1
+	/** The version number of this structure.  Must be 0, 1 or 2
 	 * 0 means no MQTTVersion
+	 * 1 means no allowDisconnectedSendAtAnyTime, deleteOldestMessages, restoreMessages
 	 */
 	int struct_version;
 	/** Whether to allow messages to be sent when the client library is not connected. */
 	int sendWhileDisconnected;
-	/** the maximum number of messages allowed to be buffered while not connected. */
+	/** The maximum number of messages allowed to be buffered while not connected. */
 	int maxBufferedMessages;
 	/** Whether the MQTT version is 3.1, 3.1.1, or 5.  To use V5, this must be set.
 	 *  MQTT V5 has to be chosen here, because during the create call the message persistence
@@ -877,11 +882,23 @@ typedef struct
 	 *  is appropriate for the MQTT version we are going to connect with.  Selecting 3.1 or
 	 *  3.1.1 and attempting to read 5.0 persisted messages will result in an error on create.  */
 	int MQTTVersion;
+	/**
+	 * Allow sending of messages while disconnected before a first successful connect.
+	 */
+	int allowDisconnectedSendAtAnyTime;
+	/*
+	 * When the maximum number of buffered messages is reached, delete the oldest rather than the newest.
+	 */
+	int deleteOldestMessages;
+	/*
+	 * Restore messages from persistence on create - or clear it.
+	 */
+	int restoreMessages;
 } MQTTAsync_createOptions;
 
-#define MQTTAsync_createOptions_initializer  { {'M', 'Q', 'C', 'O'}, 1, 0, 100, MQTTVERSION_DEFAULT }
+#define MQTTAsync_createOptions_initializer  { {'M', 'Q', 'C', 'O'}, 2, 0, 100, MQTTVERSION_DEFAULT, 0, 0, 1}
 
-#define MQTTAsync_createOptions_initializer5 { {'M', 'Q', 'C', 'O'}, 1, 0, 100, MQTTVERSION_5 }
+#define MQTTAsync_createOptions_initializer5 { {'M', 'Q', 'C', 'O'}, 2, 0, 100, MQTTVERSION_5, 0, 0, 1}
 
 
 LIBMQTT_API int MQTTAsync_createWithOptions(MQTTAsync* handle, const char* serverURI, const char* clientId,
@@ -1161,7 +1178,10 @@ typedef struct
 	/**
 	  * An array of null-terminated strings specifying the servers to
       * which the client will connect. Each string takes the form <i>protocol://host:port</i>.
-      * <i>protocol</i> must be <i>tcp</i> or <i>ssl</i>. For <i>host</i>, you can
+      * <i>protocol</i> must be <i>tcp</i>, <i>ssl</i>, <i>ws</i> or <i>wss</i>.
+      * The TLS enabled prefixes (ssl, wss) are only valid if a TLS version of the library
+      * is linked with.
+      * For <i>host</i>, you can
       * specify either an IP address or a domain name. For instance, to connect to
       * a server running on the local machines with the default MQTT port, specify
       * <i>tcp://localhost:1883</i>.
@@ -1228,6 +1248,12 @@ typedef struct
 NULL, NULL, NULL, NULL, 0, NULL, MQTTVERSION_DEFAULT, 0, 1, 60, {0, NULL}, 0, NULL, NULL, NULL, NULL, NULL}
 
 #define MQTTAsync_connectOptions_initializer5 { {'M', 'Q', 'T', 'C'}, 7, 60, 0, 65535, NULL, NULL, NULL, 30, 0,\
+NULL, NULL, NULL, NULL, 0, NULL, MQTTVERSION_5, 0, 1, 60, {0, NULL}, 1, NULL, NULL, NULL, NULL, NULL}
+
+#define MQTTAsync_connectOptions_initializer_ws { {'M', 'Q', 'T', 'C'}, 7, 45, 1, 65535, NULL, NULL, NULL, 30, 0,\
+NULL, NULL, NULL, NULL, 0, NULL, MQTTVERSION_DEFAULT, 0, 1, 60, {0, NULL}, 0, NULL, NULL, NULL, NULL, NULL}
+
+#define MQTTAsync_connectOptions_initializer5_ws { {'M', 'Q', 'T', 'C'}, 7, 45, 0, 65535, NULL, NULL, NULL, 30, 0,\
 NULL, NULL, NULL, NULL, 0, NULL, MQTTVERSION_5, 0, 1, 60, {0, NULL}, 1, NULL, NULL, NULL, NULL, NULL}
 
 
