@@ -320,22 +320,12 @@ on the Modelica_DeviceDrivers library.
 <p>
 The tool must support the Modelica external function interface as specified in Section 12.9 of the Modelica specification 3.2 and later.
 </p>
-<p>
-<b>Optionally</b> following requirements need to be additionally satisfied.
-</p>
-<ol>
-<li>For the (optional) use of the blocks provided in
+<p>For the (optional) use of the blocks provided in
 <a href=\"modelica://Modelica_DeviceDrivers.ClockedBlocks\">ClockedBlocks</a> the
 tool needs support for the Modelica 3.3 language elements of Chapter 16
-\"Synchronous Language Elements\" of the Modelica Language Specification 3.3 </li>
-<li>
-The examples provided for the ClockedBlocks depend on the
-<a href=\"modelica://Modelica_Synchronous\">Modelica_Synchronous</a> library.</li>
-</ol>
-<p>
-Please note that the package <a href=\"modelica://Modelica_DeviceDrivers.Blocks\">Blocks</a>
-realizes similar functionality as provided by ClockedBlocks, but is also usable by tools
-that have no support for the synchronous language elements.
+\"Synchronous Language Elements\" of the Modelica Language Specification 3.3.
+Please notice that except for the underlying activation mechanism, the realized functionality is similar as the one provided by
+<a href=\"modelica://Modelica_DeviceDrivers.Blocks\">Blocks</a>.
 </p>
 <h4>Modelica tools known to work with that library</h4>
 <p>The library is known to work with</p>
