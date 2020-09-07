@@ -1,6 +1,6 @@
 within Modelica_DeviceDrivers.ClockedBlocks;
 package Examples
-  "Executable usage examples for the provided device driver blocks (require Modelica_Synchronous library!)"
+  "Executable usage examples for the provided device driver blocks"
   extends Modelica.Icons.ExamplesPackage;
 
   model TestSerialPackager "Example for using the SerialPackager"
