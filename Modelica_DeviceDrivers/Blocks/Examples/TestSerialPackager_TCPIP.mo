@@ -46,16 +46,16 @@ equation
     connect(getInteger.pkgIn, getFloat.pkgOut[1]) annotation (Line(
         points={{40,-27.2},{40,-18.8}}));
  connect(tcpipClient.pkgOut,getReal.pkgIn) annotation(Line(
-  points={{5,15.7},{5,20.7},{5,35.7},{40,35.7},{40,30.7}}));
+  points={{5,15.8},{5,15.8},{5,35.7},{40,35.7},{40,30.8}}));
  connect(addInteger.pkgOut[1],tcpipClient.pkgIn) annotation(Line(
-  points={{-30,-26.7},{-30,-31.7},{5,-31.7},{5,-10.7},{5,-5.7}}));
+  points={{-30,-26.8},{-30,-31.7},{5,-31.7},{5,-5.8},{5,-5.8}}));
   annotation (
     Documentation(info="<html>
 <p>
 The <code>tcpipClient</code> block tries to connect to the server on local TCP port 27015. Once the client connects, the client sends data to the server and receives any data send back from the server. The client then closes the socket and exits.
 </p>
 <p>
-There is <a href=\"modelica://Modelica_DeviceDrivers/Resources/test/Communication/test_TCPIPSocketServerEcho.cpp\">test server</a> provided that echos the received data back to the client.
+There is <a href=\"modelica://Modelica_DeviceDrivers/Resources/thirdParty/Microsoft/test_TCPIPSocketServerEcho.cpp\">test server</a> provided that echos the received data back to the client.
 </p>
 </html>"),
     experiment(
