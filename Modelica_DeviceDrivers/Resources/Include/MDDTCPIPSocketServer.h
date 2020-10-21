@@ -490,6 +490,9 @@ DllExport int MDD_TCPIPServer_Send(void* p_tcpip, const char* data, int dataSize
                 ModelicaFormatError("MDDTCPIPSocketServer.h:%d: send failed for client at index %d with error: %d\n", __LINE__, clientIndex, wsaLastError);
             }
         }
+        else {
+            retval = iSendResult;
+        }
     }
     return retval;
 }
@@ -1052,6 +1055,9 @@ DllExport int MDD_TCPIPServer_Send(void* p_tcpip, const char* data, int dataSize
                 close(tcpip->clientSockets[clientIndexC]);
                 ModelicaFormatError("MDDTCPIPSocketServer.h:%d: send failed for client at index %d (%s).\n", __LINE__, clientIndex, strerror(err));
             }
+        }
+        else {
+            retval = iSendResult;
         }
     }
     return retval;
