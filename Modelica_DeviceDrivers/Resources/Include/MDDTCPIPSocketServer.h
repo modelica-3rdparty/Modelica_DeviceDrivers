@@ -21,7 +21,6 @@
 #define WIN32_LEAN_AND_MEAN
 #endif
 
-#include <winsock2.h>
 #include <ws2tcpip.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -159,7 +158,7 @@ DllExport void * MDD_TCPIPServer_Constructor(int serverport, int maxClients, int
         MDD_TCPIPServer_Destructor(tcpip); // Explicit call, because it won't be called automatically by Modelica, since object not constructed, yet.
         ModelicaFormatError("MDDTCPIPSocketServer.h:%d: given server port number %d higher than allowable for IPv4 (maximum 65535)", __LINE__, serverport);
     }
-  _snprintf(serverport_str, 9, "%d", serverport);
+    _snprintf(serverport_str, 9, "%d", serverport);
     iResult = getaddrinfo(NULL, serverport_str, &hints, &result);
     if ( iResult != 0 ) {
         MDD_TCPIPServer_Destructor(tcpip); // Explicit call, because it won't be called automatically by Modelica, since object not constructed, yet.
