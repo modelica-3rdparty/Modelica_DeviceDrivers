@@ -9,7 +9,7 @@ type Platform = enumeration(
       ARMCR4
          "STM32F4 ...")
   "The microcontroller platform used";
-                       //TODO add pattforms
+                       //TODO add platforms
 
 
 
