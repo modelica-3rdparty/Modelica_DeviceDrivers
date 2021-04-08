@@ -1,5 +1,7 @@
 SharedMemory
 SharedMemory_
+SharedMemoryNoCleanup
+SharedMemoryNoCleanup_
 UDPSocket
 UDPSocket_
 SoftingCAN

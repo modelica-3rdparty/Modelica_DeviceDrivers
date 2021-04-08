@@ -271,6 +271,12 @@ void MDD_SharedMemoryDestructor(void * p_smb) {
     free(smb);
 }
 
+void MDD_SharedMemoryNoCleanupDestructor(void * p_smb) {
+    MDDMmap* smb = (MDDMmap*) p_smb;
+    /* Skip cleanup */  
+    free(smb);
+}
+
 const char * MDD_SharedMemoryRead(void* p_smb) {
     MDDMmap* smb = (MDDMmap*) p_smb;
 

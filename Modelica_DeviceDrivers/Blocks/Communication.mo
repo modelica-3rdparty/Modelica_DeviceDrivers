@@ -95,6 +95,106 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
 </html>"));
   end SharedMemoryWrite;
 
+  block SharedMemoryReadNoCleanup
+    "Hack. Linux only. Variant which doesn't close shared memory object and semaphore"
+    extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
+    extends Modelica_DeviceDrivers.Utilities.Icons.SharedMemoryIcon;
+    extends
+      Modelica_DeviceDrivers.Blocks.Communication.Internal.PartialSampleTrigger;
+    import Modelica_DeviceDrivers.Packaging.SerialPackager;
+    import Modelica_DeviceDrivers.Packaging.alignAtByteBoundary;
+    import Modelica_DeviceDrivers.Communication.SharedMemoryNoCleanup;
+    import Modelica_DeviceDrivers.Communication.SharedMemoryNoCleanup_;
+
+    parameter Boolean autoBufferSize = false
+      "true, buffer size is deduced automatically, otherwise set it manually"
+      annotation(Dialog(group="Shared memory partition"), choices(checkBox=true));
+    parameter Integer userBufferSize=16*1024
+      "Buffer size of shared memory partition in bytes (if not deduced automatically)"
+      annotation(Dialog(enable=not autoBufferSize, group="Shared memory partition"));
+    parameter String memoryID="sharedMemory" "ID of the shared memory buffer" annotation(Dialog(group="Shared memory partition"));
+    Interfaces.PackageOut pkgOut(pkg = SerialPackager(if autoBufferSize then bufferSize else userBufferSize), dummy(start=0, fixed=true))
+      annotation (Placement(
+          transformation(
+          extent={{-20,-20},{20,20}},
+          rotation=90,
+          origin={108,0})));
+  protected
+    SharedMemoryNoCleanup sm = SharedMemoryNoCleanup(memoryID, bufferSize);
+    Integer bufferSize;
+  equation
+    when initial() then
+      bufferSize = if autoBufferSize then alignAtByteBoundary(pkgOut.autoPkgBitSize) else userBufferSize;
+    end when;
+    pkgOut.trigger = actTrigger "using inherited trigger";
+    when pkgOut.trigger then
+      pkgOut.dummy = Modelica_DeviceDrivers.Blocks.Communication.Internal.DummyFunctions.readSharedMemoryNoCleanup(
+        sm,
+        pkgOut.pkg,
+        time);
+    end when;
+      annotation (preferredView="info",
+                Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+              -100},{100,100}}), graphics={Text(extent={{-150,136},{150,96}},
+              textString="%name"), Bitmap(extent={{-100,-100},{100,100}},
+              fileName="modelica://Modelica_DeviceDrivers/Resources/Images/Icons/DooFi-Trash-Bins.png")}),
+                                     Documentation(info="<html>
+<p>Supports reading from a named shared memory partition. The name of the shared memory partition is
+provided by the parameter <b>memoryID</b>. If the shared memory partition does not yet exist during initialization, it is created.</p>
+</html>"));
+  end SharedMemoryReadNoCleanup;
+
+  block SharedMemoryWriteNoCleanup
+    "Hack. Linux only. Variant which doesn't close shared memory object and semaphore"
+    import Modelica_DeviceDrivers;
+    extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
+    extends Modelica_DeviceDrivers.Utilities.Icons.SharedMemoryIcon;
+    extends
+      Modelica_DeviceDrivers.Blocks.Communication.Internal.PartialSampleTrigger;
+    import Modelica_DeviceDrivers.Packaging.SerialPackager;
+    import Modelica_DeviceDrivers.Communication.SharedMemoryNoCleanup;
+    import Modelica_DeviceDrivers.Communication.SharedMemoryNoCleanup_;
+    parameter Boolean autoBufferSize = false
+      "true, buffer size is deduced automatically, otherwise set it manually"
+      annotation(Dialog(group="Shared memory partition"), choices(checkBox=true));
+    parameter Integer userBufferSize=16*1024
+      "Buffer size of shared memory partition in bytes (if not deduced automatically)"
+      annotation(Dialog(enable=not autoBufferSize, group="Shared memory partition"));
+    parameter String memoryID="sharedMemory" "ID of the shared memory buffer" annotation(Dialog(group="Shared memory partition"));
+    Interfaces.PackageIn pkgIn annotation (Placement(
+          transformation(
+          extent={{-20,20},{20,-20}},
+          rotation=90,
+          origin={-108,0})));
+  protected
+    SharedMemoryNoCleanup sm = SharedMemoryNoCleanup(memoryID, if autoBufferSize then bufferSize else userBufferSize);
+    Integer bufferSize;
+    Real dummy(start=0, fixed=true);
+  equation
+    when initial() then
+      pkgIn.userPkgBitSize = if autoBufferSize then -1 else userBufferSize*8;
+      pkgIn.autoPkgBitSize = 0;
+      bufferSize = if autoBufferSize then Modelica_DeviceDrivers.Packaging.SerialPackager_.getBufferSize(pkgIn.pkg) else userBufferSize;
+    end when;
+    pkgIn.backwardTrigger = actTrigger "using inherited trigger";
+    when pkgIn.trigger then
+      dummy = Modelica_DeviceDrivers.Blocks.Communication.Internal.DummyFunctions.writeSharedMemoryNoCleanup(
+        sm,
+        pkgIn.pkg,
+        bufferSize,
+        pkgIn.dummy);
+    end when;
+    annotation (preferredView="info",
+            Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+              -100},{100,100}}), graphics={Text(extent={{-150,136},{150,96}},
+              textString="%name"), Bitmap(extent={{-100,-100},{100,100}},
+              fileName="modelica://Modelica_DeviceDrivers/Resources/Images/Icons/DooFi-Trash-Bins.png")}),
+                                     Documentation(info="<html>
+<p>Supports writing to a named shared memory partition. The name of the shared memory partition is
+provided by the parameter <b>memoryID</b>. If the shared memory partition does not yet exist during initialization, it is created.</p>
+</html>"));
+  end SharedMemoryWriteNoCleanup;
+
   block UDPReceive "A block for receiving UDP datagrams"
     extends Modelica_DeviceDrivers.Utilities.Icons.BaseIcon;
     extends Modelica_DeviceDrivers.Utilities.Icons.UDPconnection;
@@ -1208,6 +1308,27 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
         Modelica_DeviceDrivers.Communication.SharedMemory_.write(sm, pkg, len);
         dummy2 := dummy;
       end writeSharedMemory;
+
+      function readSharedMemoryNoCleanup
+        input Modelica_DeviceDrivers.Communication.SharedMemoryNoCleanup sm;
+        input Modelica_DeviceDrivers.Packaging.SerialPackager pkg;
+        input Real dummy;
+        output Real dummy2;
+      algorithm
+        Modelica_DeviceDrivers.Communication.SharedMemoryNoCleanup_.read(sm, pkg);
+        dummy2 := dummy;
+      end readSharedMemoryNoCleanup;
+
+      function writeSharedMemoryNoCleanup
+        input Modelica_DeviceDrivers.Communication.SharedMemoryNoCleanup sm;
+        input Modelica_DeviceDrivers.Packaging.SerialPackager pkg;
+        input Integer len;
+        input Real dummy;
+        output Real dummy2;
+      algorithm
+        Modelica_DeviceDrivers.Communication.SharedMemoryNoCleanup_.write(sm, pkg, len);
+        dummy2 := dummy;
+      end writeSharedMemoryNoCleanup;
 
       function readSerial
         input Modelica_DeviceDrivers.Communication.SerialPort sPort
