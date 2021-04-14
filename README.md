@@ -42,7 +42,7 @@ Download [Modelica_DeviceDrivers latest release](../../releases/latest)
 Please note that the library is known to work with
 * Dymola,
 * SimulationX (with `userBufferSize` all non-clocked communication blocks are working in SimulationX, but `autoBufferSize` only works for external solvers CVode and Fixed Step solver and fails for BDF and MEBDF solvers, see [#54 (comment)](https://github.com/modelica/Modelica_DeviceDrivers/issues/54#issuecomment-76032325)),
-* OpenModelica (partial support starting with OpenModelica v1.11.0 Beta 1, e.g., UDP, serial port, shared memory, LCM, keyboard).
+* OpenModelica (partial support, e.g., UDP, serial port, shared memory, LCM, keyboard).
 
 If you tested the library successfully with another Modelica tool, please contact [Bernhard Thiele](https://github.com/bernhard-thiele) or send a [pull request](https://github.com/modelica/Modelica_DeviceDrivers/pulls) that updates this README.md.
 
