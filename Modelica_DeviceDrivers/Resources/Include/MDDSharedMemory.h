@@ -194,9 +194,14 @@ void * MDD_SharedMemoryConstructor(const char * name, int bufSize, int cleanup) 
         }
 
         ModelicaFormatMessage("Open shared memory object '%s' for r/w\n", smb->shmname);
-        smb->shmdes = shm_open(smb->shmname, O_CREAT|O_RDWR|O_TRUNC, 0644);
+        smb->shmdes = shm_open(smb->shmname, O_RDWR, 0644);
         if ( smb->shmdes == -1 ) {
-            ModelicaFormatError("MDDSharedMemory.h: shm_open failure (%s)", strerror(errno));
+            ModelicaFormatMessage("Open shared memory object '%s' for r/w failed (%s) => Create new shared memory object\n", smb->shmname, strerror(errno));
+            // usleep(100);
+            smb->shmdes = shm_open(smb->shmname, O_CREAT|O_RDWR|O_TRUNC, 0644);
+            if ( smb->shmdes == -1 ) {
+                ModelicaFormatError("MDDSharedMemory.h: shm_open(%s, O_CREAT|O_RDWR|O_TRUNC, 0644) failure (%s)", smb->shmname, strerror(errno));
+            }
         }
 
         /* 'truncate' shared memory object to needed size
