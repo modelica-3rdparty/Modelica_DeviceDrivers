@@ -1,4 +1,4 @@
-within Modelica_DeviceDrivers.Blocks;
+﻿within Modelica_DeviceDrivers.Blocks;
 package Communication "Blocks for communication devices such as network, CAN, shared memory, etc."
     extends Modelica.Icons.Package;
   block SharedMemoryRead
@@ -19,6 +19,8 @@ package Communication "Blocks for communication devices such as network, CAN, sh
       "Buffer size of shared memory partition in bytes (if not deduced automatically)"
       annotation(Dialog(enable=not autoBufferSize, group="Shared memory partition"));
     parameter String memoryID="sharedMemory" "ID of the shared memory buffer" annotation(Dialog(group="Shared memory partition"));
+    parameter Boolean cleanup = true "true, unlink shared memory at process termination, otherwise no unlink ⇒ 'memoryID' can still be opened (Linux specific, otherwise no effect)"
+      annotation(Dialog(group="Shared memory partition"), choices(checkBox=true));
     Interfaces.PackageOut pkgOut(pkg = SerialPackager(if autoBufferSize then bufferSize else userBufferSize), dummy(start=0, fixed=true))
       annotation (Placement(
           transformation(
@@ -26,7 +28,7 @@ package Communication "Blocks for communication devices such as network, CAN, sh
           rotation=90,
           origin={108,0})));
   protected
-    SharedMemory sm = SharedMemory(memoryID, bufferSize);
+    SharedMemory sm = SharedMemory(memoryID, bufferSize, cleanup);
     Integer bufferSize;
   equation
     when initial() then
@@ -63,13 +65,15 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
       "Buffer size of shared memory partition in bytes (if not deduced automatically)"
       annotation(Dialog(enable=not autoBufferSize, group="Shared memory partition"));
     parameter String memoryID="sharedMemory" "ID of the shared memory buffer" annotation(Dialog(group="Shared memory partition"));
+    parameter Boolean cleanup = true "true, unlink shared memory at process termination, otherwise no unlink ⇒ 'memoryID' can still be opened (Linux specific, otherwise no effect)"
+      annotation(Dialog(group="Shared memory partition"), choices(checkBox=true));
     Interfaces.PackageIn pkgIn annotation (Placement(
           transformation(
           extent={{-20,20},{20,-20}},
           rotation=90,
           origin={-108,0})));
   protected
-    SharedMemory sm = SharedMemory(memoryID, if autoBufferSize then bufferSize else userBufferSize);
+    SharedMemory sm = SharedMemory(memoryID, if autoBufferSize then bufferSize else userBufferSize, cleanup);
     Integer bufferSize;
     Real dummy(start=0, fixed=true);
   equation

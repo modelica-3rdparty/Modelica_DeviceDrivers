@@ -35,7 +35,8 @@ typedef struct {
     HANDLE hSemaphore;
 } MDDSharedMemory;
 
-DllExport void* MDD_SharedMemoryConstructor(const char * name, int bufSize) {
+/** Argument 'cleanup' has no effect, only needed for signature compatibility with linux version */
+DllExport void* MDD_SharedMemoryConstructor(const char * name, int bufSize, int cleanup) {
     MDDSharedMemory * smb = (MDDSharedMemory *)malloc(sizeof(MDDSharedMemory));
     char semName[MAX_PATH];
 
@@ -150,8 +151,7 @@ DllExport void MDD_SharedMemoryWriteP(void * p_smb, void* p_package, int len) {
 
 typedef struct MDDMmap_struct MDDMmap;
 
-/** External object structure keeping track of persistent data
- */
+/** External object structure keeping track of persistent data */
 struct MDDMmap_struct {
     char shmname[30]; /**< name of memory partition */
     char semname[33]; /**< name of semaphore derived from shmname */
@@ -159,12 +159,14 @@ struct MDDMmap_struct {
     int shmdes;  /**< shared memory file descriptor */
     caddr_t shmptr;  /**< pointer to shared memory partition */
     sem_t *semdes; /**< address of semaphore */
+    int cleanup; /**< if true, unlink shared memory in destructor, otherwise don't unlink (=> 'memoryID' can still be opened after process termination) */
 };
 
-void * MDD_SharedMemoryConstructor(const char * name, int bufSize) {
+void * MDD_SharedMemoryConstructor(const char * name, int bufSize, int cleanup) {
     int sval;
     MDDMmap* smb = (MDDMmap*) malloc(sizeof(MDDMmap));
     smb->shm_size = bufSize;
+    smb->cleanup = cleanup;
     strncpy(smb->shmname, name, (30 - 1));
     strcpy(smb->semname, smb->shmname);
     strcat(smb->semname, "sem");
@@ -192,9 +194,14 @@ void * MDD_SharedMemoryConstructor(const char * name, int bufSize) {
         }
 
         ModelicaFormatMessage("Open shared memory object '%s' for r/w\n", smb->shmname);
-        smb->shmdes = shm_open(smb->shmname, O_CREAT|O_RDWR|O_TRUNC, 0644);
+        smb->shmdes = shm_open(smb->shmname, O_RDWR, 0644);
         if ( smb->shmdes == -1 ) {
-            ModelicaFormatError("MDDSharedMemory.h: shm_open failure (%s)", strerror(errno));
+            ModelicaFormatMessage("Open shared memory object '%s' for r/w failed (%s) => Create new shared memory object\n", smb->shmname, strerror(errno));
+            // usleep(100);
+            smb->shmdes = shm_open(smb->shmname, O_CREAT|O_RDWR|O_TRUNC, 0644);
+            if ( smb->shmdes == -1 ) {
+                ModelicaFormatError("MDDSharedMemory.h: shm_open(%s, O_CREAT|O_RDWR|O_TRUNC, 0644) failure (%s)", smb->shmname, strerror(errno));
+            }
         }
 
         /* 'truncate' shared memory object to needed size
@@ -240,32 +247,34 @@ void MDD_SharedMemoryDestructor(void * p_smb) {
         ModelicaFormatError("MDDSharedMemory.h: sem_close failed (%s)\n", strerror(errno));
     }
 
-    ModelicaFormatMessage("Unlinking shared memory object '%s' and semaphore '%s' ...\n", smb->shmname, smb->semname);
-    /* Delete the shared memory object */
-    ret = shm_unlink(smb->shmname);
-    if(ret) {
-        if (errno == ENOENT) {
-            ModelicaFormatMessage("Shared memory object '%s' seems to be already removed (possibly by remote process)\n", smb->shmname);
+    if (smb->cleanup) {
+        ModelicaFormatMessage("Unlinking shared memory object '%s' and semaphore '%s' ...\n", smb->shmname, smb->semname);
+        /* Delete the shared memory object */
+        ret = shm_unlink(smb->shmname);
+        if(ret) {
+            if (errno == ENOENT) {
+                ModelicaFormatMessage("Shared memory object '%s' seems to be already removed (possibly by remote process)\n", smb->shmname);
+            }
+            else {
+                ModelicaFormatError("MDDSharedMemory.h: shm_unlink failed (%s)\n", strerror(errno));
+            }
         }
         else {
-            ModelicaFormatError("MDDSharedMemory.h: shm_unlink failed (%s)\n", strerror(errno));
+            ModelicaFormatMessage("Shared memory object '%s' successfully unlinked\n", smb->shmname);
         }
-    }
-    else {
-        ModelicaFormatMessage("Shared memory object '%s' successfully unlinked\n", smb->shmname);
-    }
-    /* Unlink the semaphore */
-    ret = sem_unlink(smb->semname);
-    if(ret) {
-        if (errno == ENOENT) {
-            ModelicaFormatMessage("Semaphore '%s' seems to be already removed (possibly by remote process)\n", smb->semname);
+        /* Unlink the semaphore */
+        ret = sem_unlink(smb->semname);
+        if(ret) {
+            if (errno == ENOENT) {
+                ModelicaFormatMessage("Semaphore '%s' seems to be already removed (possibly by remote process)\n", smb->semname);
+            }
+            else {
+                ModelicaFormatError("MDDSharedMemory.h: sem_unlink failed (%s)\n", strerror(errno));
+            }
         }
         else {
-            ModelicaFormatError("MDDSharedMemory.h: sem_unlink failed (%s)\n", strerror(errno));
+            ModelicaFormatMessage("Semaphore '%s' successfully unlinked\n", smb->semname);
         }
-    }
-    else {
-        ModelicaFormatMessage("Semaphore '%s' successfully unlinked\n", smb->semname);
     }
 
     free(smb);

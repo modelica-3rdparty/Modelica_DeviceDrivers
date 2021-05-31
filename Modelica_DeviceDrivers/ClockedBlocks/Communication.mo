@@ -1,4 +1,4 @@
-within Modelica_DeviceDrivers.ClockedBlocks;
+﻿within Modelica_DeviceDrivers.ClockedBlocks;
 package Communication
   extends Modelica.Icons.Package;
   model SharedMemoryRead "A block for reading data from a shared memory buffer"
@@ -18,6 +18,8 @@ package Communication
       "Buffer size of shared memory partition in bytes (if not deduced automatically)"
       annotation(Dialog(enable=not autoBufferSize, group="Shared memory partition"));
     parameter String memoryID="sharedMemory" "ID of the shared memory buffer" annotation(Dialog(group="Shared memory partition"));
+    parameter Boolean cleanup = true "true, unlink shared memory at process termination, otherwise no unlink ⇒ 'memoryID' can still be opened (Linux specific, otherwise no effect)"
+      annotation(Dialog(group="Shared memory partition"), choices(checkBox=true));
 
     Interfaces.PackageOut pkgOut annotation (Placement(
           transformation(
@@ -77,6 +79,8 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
       "Buffer size of shared memory partition in bytes (if not deduced automatically)"
       annotation(Dialog(enable=not autoBufferSize, group="Shared memory partition"));
     parameter String memoryID="sharedMemory" "ID of the shared memory buffer" annotation(Dialog(group="Shared memory partition"));
+    parameter Boolean cleanup = true "true, unlink shared memory at process termination, otherwise no unlink ⇒ 'memoryID' can still be opened (Linux specific, otherwise no effect)"
+      annotation(Dialog(group="Shared memory partition"), choices(checkBox=true));
 
     Interfaces.PackageIn pkgIn annotation (Placement(
           transformation(

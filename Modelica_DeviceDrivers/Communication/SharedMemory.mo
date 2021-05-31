@@ -1,4 +1,4 @@
-within Modelica_DeviceDrivers.Communication;
+﻿within Modelica_DeviceDrivers.Communication;
 class SharedMemory
   "A driver for shared memory access for inter-process communication."
 extends ExternalObject;
@@ -8,8 +8,9 @@ extends ExternalObject;
     import Modelica_DeviceDrivers.Communication.SharedMemory;
     input String memoryName;
     input Integer bufferSize = 16* 1024;
+    input Boolean cleanup = true "true, unlink shared memory at process termination, otherwise no unlink ⇒ 'memoryID' can still be opened (Linux specific, otherwise no effect)";
     output SharedMemory sm;
-    external "C" sm =  MDD_SharedMemoryConstructor(memoryName,bufferSize)
+    external "C" sm =  MDD_SharedMemoryConstructor(memoryName,bufferSize,cleanup)
     annotation(Include = "#include \"MDDSharedMemory.h\"",
            Library = {"rt", "pthread"},
            __iti_dll = "ITI_MDD.dll",

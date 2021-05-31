@@ -32,6 +32,7 @@
 */
 
 #include <stdio.h>
+#include <stdbool.h>
 #include "../../Include/MDDSharedMemory.h"
 
 #define M_LENGTH (80)
@@ -45,13 +46,13 @@ int main(void) {
 
     printf("Testing MDDSharedMemory\n");
 
-    smb1 = MDD_SharedMemoryConstructor(semname, M_LENGTH);
+    smb1 = MDD_SharedMemoryConstructor(semname, M_LENGTH, true);
     if (smb1 == 0) {
         perror("smb1 == NULL\n");
         exit(1);
     }
 
-    smb2 = MDD_SharedMemoryConstructor(semname, M_LENGTH);
+    smb2 = MDD_SharedMemoryConstructor(semname, M_LENGTH, true);
     if (smb2 == 0) {
         MDD_SharedMemoryDestructor(smb1);
         perror("smb2 == NULL\n");
