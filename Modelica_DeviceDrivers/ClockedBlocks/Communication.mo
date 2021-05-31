@@ -139,6 +139,8 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
       "Listening port number of the server. Must be unique on the system"
       annotation (Dialog(group="Incoming data"));
     parameter Boolean showReceivedBytesPort = false "=true, if number of received bytes port is visible" annotation(Dialog(tab="Advanced"),Evaluate=true, HideResult=true, choices(checkBox=true));
+    parameter Boolean useRecvThread = true "true, dedicated receiving thread writes datagrams into shared buffer (latest available datagram is used by simulation thread). Otherwise, simulation progress is blocked until a new incoming datagram is available"  annotation(Dialog(group="Incoming data"), choices(checkBox=true));
+    parameter Boolean skipFirstTick = false "true, skip call to readUDP(...) at first clock tick, e.g., to avoid infinite blocking if 'useRecvThread=false' and the 'UDPSend' block is within the same model" annotation(Dialog(group="Incoming data"), choices(checkBox=true));
 
     Interfaces.PackageOut pkgOut  annotation (Placement(
           transformation(
@@ -162,7 +164,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
          else userBufferSize;
       pkgOut.pkg = SerialPackager(bufferSize);
   //    Modelica.Utilities.Streams.print("Open Socket "+String(port_recv)+" with bufferSize "+String(bufferSize));
-      socket = UDPSocket(port_recv, bufferSize);
+      socket = UDPSocket(port_recv, bufferSize, useRecvThread);
       initialized = true;
     else
       pkgOut.pkg = previous(pkgOut.pkg);
@@ -173,10 +175,13 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
 
     dummy = previous(dummy) + Ts;
 
-    (pkgOut.dummy,nRecvBytes,nRecvbufOverwrites) = Modelica_DeviceDrivers.ClockedBlocks.Communication.Internal.DummyFunctions.readUDP(
-      socket,
-      pkgOut.pkg,
-      dummy);
+    // if skipFirstTick=true skip readUDP(...) at first clock tick
+      (pkgOut.dummy,nRecvBytes,nRecvbufOverwrites) = Modelica_DeviceDrivers.ClockedBlocks.Communication.Internal.DummyFunctions.readUDP_Conditional(
+        socket,
+        pkgOut.pkg,
+        not skipFirstTick or previous(initialized),
+        dummy);
+
 
     annotation (preferredView="info",
             Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -264,18 +269,25 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
         dummy2 := dummy;
       end writeSharedMemory;
 
-      function readUDP
+      function readUDP_Conditional
         input Modelica_DeviceDrivers.Communication.UDPSocket socket;
         input Modelica_DeviceDrivers.Packaging.SerialPackager pkg;
+        input Boolean read_condition "true, call 'read' function, otherwise skip it and return 'nRecvBytes=0' and 'nRecvbufOverwrites=0'";
         input Real dummy;
         output Real dummy2;
         output Integer nRecvBytes;
         output Integer nRecvbufOverwrites;
       algorithm
-        (nRecvBytes, nRecvbufOverwrites) :=
-          Modelica_DeviceDrivers.Communication.UDPSocket_.read(socket, pkg);
+        if read_condition then
+          (nRecvBytes, nRecvbufOverwrites) :=
+            Modelica_DeviceDrivers.Communication.UDPSocket_.read(socket, pkg);
+        else
+          nRecvBytes := 0;
+          nRecvbufOverwrites := 0;
+        end if;
+
         dummy2 := dummy;
-      end readUDP;
+      end readUDP_Conditional;
 
       function sendToUDP
         input Modelica_DeviceDrivers.Communication.UDPSocket socket;
