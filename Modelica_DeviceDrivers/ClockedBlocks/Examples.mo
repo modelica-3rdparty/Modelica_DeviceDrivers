@@ -502,7 +502,11 @@ The <code>uDPSend</code> block sends to the local port 10002. The <code>uDPRecei
 <p>
 <b>Note:</b> There is no causality between the <code>uDPSend</code> block and the <code>uDPReceive</code> block. Therefore the execution order of the blocks is not determined. Additionally, the <code>uDPReceive</code> block starts an own receiving thread, so that the time the data was received is not equal to the time the external function within the <code>uDPReceive</code> block was called. This indeterminism may also show up in the plots.
 </p>
-</html>"));
+</html>"),
+      Diagram(graphics={Text(
+            extent={{-98,-74},{-18,-80}},
+            lineColor={28,108,200},
+            textString="Ensure that send is called before receive is called")}));
   end TestSerialPackager_UDPWithoutReceiveThread;
 
   model TestSerialPackagerBitPack_UDP
