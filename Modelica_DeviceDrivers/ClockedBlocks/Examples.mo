@@ -355,6 +355,156 @@ The <code>uDPSend</code> block sends to the local port 10002. The <code>uDPRecei
 </html>"));
   end TestSerialPackager_UDP;
 
+  model TestSerialPackager_UDPWithoutReceiveThread
+    "Example for UDP communication without dedicated receive thread"
+  extends Modelica.Icons.Example;
+    Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.Packager
+                       packager
+      annotation (Placement(transformation(extent={{-20,60},{0,80}})));
+    Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.AddReal
+                      addReal(n=3, nu=1)
+      annotation (Placement(transformation(extent={{-20,20},{0,40}})));
+    Modelica.Blocks.Sources.RealExpression realExpression[3](y=sin(time)*{1,2,3})
+      annotation (Placement(transformation(extent={{-76,20},{-56,40}})));
+    Modelica_DeviceDrivers.ClockedBlocks.Communication.UDPSend
+                                    uDPSend(port_send=10002)
+                                                   annotation (Placement(
+          transformation(
+          extent={{-10,-10},{10,10}},
+          rotation=270,
+          origin={-10,-58})));
+    Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.AddInteger
+                         addInteger(nu=1)
+      annotation (Placement(transformation(extent={{-20,-38},{0,-18}})));
+    Modelica.Blocks.Sources.IntegerExpression integerExpression(y=integer(10*sin(
+          time)))
+      annotation (Placement(transformation(extent={{-76,-38},{-56,-18}})));
+    Modelica.Clocked.IntegerSignals.Sampler.SampleClocked sample1
+      annotation (Placement(transformation(extent={{-46,-34},{-34,-22}})));
+    Modelica.Clocked.RealSignals.Sampler.SampleVectorizedAndClocked sample2(n=3)
+      annotation (Placement(transformation(extent={{-46,24},{-34,36}})));
+    Modelica_DeviceDrivers.ClockedBlocks.Communication.UDPReceive
+                                   uDPReceive(port_recv=10002,
+      useRecvThread=false,
+      skipFirstTick=true)               annotation (Placement(transformation(
+          extent={{-10,-10},{10,10}},
+          rotation=270,
+          origin={30,70})));
+    Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.GetReal
+                      getReal(n=3, nu=1)
+      annotation (Placement(transformation(extent={{20,20},{40,40}})));
+    Modelica_DeviceDrivers.ClockedBlocks.Packaging.SerialPackager.GetInteger
+                         getInteger
+      annotation (Placement(transformation(extent={{20,-44},{40,-24}})));
+    Modelica.Clocked.RealSignals.Sampler.AssignClockVectorized assignClock1(n=3)
+      annotation (Placement(transformation(extent={{52,24},{64,36}})));
+    Modelica.Clocked.IntegerSignals.Sampler.AssignClock assignClock2
+      annotation (Placement(transformation(extent={{52,-40},{64,-28}})));
+    Packaging.SerialPackager.AddFloat addFloat(nu=1, n=2)
+      annotation (Placement(transformation(extent={{-20,-8},{0,12}})));
+    Modelica.Blocks.Sources.RealExpression realExpression1[2](y=sin(time)*{1,2})
+      annotation (Placement(transformation(extent={{-76,-8},{-56,12}})));
+    Modelica.Clocked.RealSignals.Sampler.SampleVectorizedAndClocked sample3(n=2)
+      annotation (Placement(transformation(extent={{-46,-4},{-34,8}})));
+    Packaging.SerialPackager.GetFloat getFloat(nu=1, n=2)
+      annotation (Placement(transformation(extent={{20,-14},{40,6}})));
+    Modelica.Clocked.RealSignals.Sampler.AssignClockVectorized assignClock3(n=2)
+      annotation (Placement(transformation(extent={{52,-10},{64,2}})));
+    Modelica.Clocked.ClockSignals.Clocks.EventClock eventClock1
+      annotation (Placement(transformation(extent={{-56,-66},{-44,-54}})));
+    Modelica.Clocked.ClockSignals.Clocks.EventClock eventClock2
+      annotation (Placement(transformation(extent={{-46,-96},{-34,-84}})));
+    Modelica.Blocks.Sources.BooleanExpression trigger(y=sample(0, 0.1))
+      annotation (Placement(transformation(extent={{-98,-70},{-70,-50}})));
+    Modelica.Blocks.Sources.BooleanExpression pre_trigger(y=pre(trigger.y))
+      annotation (Placement(transformation(extent={{-88,-100},{-60,-80}})));
+  equation
+    connect(packager.pkgOut, addReal.pkgIn) annotation (Line(
+        points={{-10,59.2},{-10,40.8}}));
+    connect(addInteger.pkgOut[1], uDPSend.pkgIn) annotation (Line(
+        points={{-10,-38.8},{-10,-47.2}}));
+    connect(integerExpression.y, sample1.u) annotation (Line(
+        points={{-55,-28},{-47.2,-28}},
+        color={255,127,0}));
+    connect(sample1.y, addInteger.u[1]) annotation (Line(
+        points={{-33.4,-28},{-22,-28}},
+        color={255,127,0}));
+    connect(uDPReceive.pkgOut,getReal.pkgIn) annotation (Line(
+        points={{30,59.2},{30,40.8}}));
+    connect(getInteger.y[1], assignClock2.u) annotation (Line(
+        points={{41,-34},{50.8,-34}},
+        color={255,127,0}));
+    connect(addReal.pkgOut[1], addFloat.pkgIn) annotation (Line(
+        points={{-10,19.2},{-10,12.8}}));
+    connect(addFloat.pkgOut[1], addInteger.pkgIn) annotation (Line(
+        points={{-10,-8.8},{-10,-17.2}}));
+    connect(realExpression1.y, sample3.u) annotation (Line(
+        points={{-55,2},{-47.2,2}},
+        color={0,0,127}));
+    connect(realExpression.y, sample2.u) annotation (Line(
+        points={{-55,30},{-47.2,30}},
+        color={0,0,127}));
+    connect(sample2.y, addReal.u) annotation (Line(
+        points={{-33.4,30},{-22,30}},
+        color={0,0,127}));
+    connect(sample3.y, addFloat.u) annotation (Line(
+        points={{-33.4,2},{-22,2}},
+        color={0,0,127}));
+    connect(getReal.pkgOut[1], getFloat.pkgIn) annotation (Line(
+        points={{30,19.2},{30,6.8}}));
+    connect(getFloat.pkgOut[1], getInteger.pkgIn) annotation (Line(
+        points={{30,-14.8},{30,-23.2}}));
+    connect(getReal.y, assignClock1.u) annotation (Line(
+        points={{41,30},{50.8,30}},
+        color={0,0,127}));
+    connect(getFloat.y, assignClock3.u) annotation (Line(
+        points={{41,-4},{50.8,-4}},
+        color={0,0,127}));
+    connect(sample1.clock, eventClock1.y) annotation (Line(
+        points={{-40,-35.2},{-40,-60},{-43.4,-60}},
+        color={175,175,175},
+        pattern=LinePattern.Dot,
+        thickness=0.5));
+    connect(sample3.clock, eventClock1.y) annotation (Line(
+        points={{-40,-5.2},{-40,-14},{-28,-14},{-28,-60},{-43.4,-60}},
+        color={175,175,175},
+        pattern=LinePattern.Dot,
+        thickness=0.5));
+    connect(eventClock1.y, sample2.clock) annotation (Line(
+        points={{-43.4,-60},{-28,-60},{-28,14},{-40,14},{-40,22.8}},
+        color={175,175,175},
+        pattern=LinePattern.Dot,
+        thickness=0.5));
+    connect(trigger.y, eventClock1.u)
+      annotation (Line(points={{-68.6,-60},{-57.2,-60}}, color={255,0,255}));
+    connect(pre_trigger.y, eventClock2.u)
+      annotation (Line(points={{-58.6,-90},{-47.2,-90}}, color={255,0,255}));
+    connect(eventClock2.y, assignClock2.clock) annotation (Line(
+        points={{-33.4,-90},{58,-90},{58,-41.2}},
+        color={175,175,175},
+        pattern=LinePattern.Dot,
+        thickness=0.5));
+    connect(eventClock2.y, assignClock3.clock) annotation (Line(
+        points={{-33.4,-90},{80,-90},{80,-20},{58,-20},{58,-11.2}},
+        color={175,175,175},
+        pattern=LinePattern.Dot,
+        thickness=0.5));
+    connect(eventClock2.y, assignClock1.clock) annotation (Line(
+        points={{-33.4,-90},{80,-90},{80,12},{58,12},{58,22.8}},
+        color={175,175,175},
+        pattern=LinePattern.Dot,
+        thickness=0.5));
+    annotation (experiment(StopTime=5.0),
+      Documentation(info="<html>
+<p>
+The <code>uDPSend</code> block sends to the local port 10002. The <code>uDPReceive</code> block starts a background process that listens at port 10002. Consequently, the <code>uDPReceive</code> block receives what the <code>uDPSend</code> block sends.
+</p>
+<p>
+<b>Note:</b> There is no causality between the <code>uDPSend</code> block and the <code>uDPReceive</code> block. Therefore the execution order of the blocks is not determined. Additionally, the <code>uDPReceive</code> block starts an own receiving thread, so that the time the data was received is not equal to the time the external function within the <code>uDPReceive</code> block was called. This indeterminism may also show up in the plots.
+</p>
+</html>"));
+  end TestSerialPackager_UDPWithoutReceiveThread;
+
   model TestSerialPackagerBitPack_UDP
     "Example for the PackUnsignedInteger and UnpackUnsignedInteger blocks from the SerialPackager"
   extends Modelica.Icons.Example;
