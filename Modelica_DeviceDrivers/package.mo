@@ -6,7 +6,7 @@ package Modelica_DeviceDrivers "Modelica_DeviceDrivers - A collection of drivers
     uses(Modelica(version="4.0.0")),
     version="2.0.0",
     versionDate="2020-06-08",
-    conversion(nonFromVersion="1.8.1", nonFromVersion="1.8.0", nonFromVersion="1.7.1", nonFromVersion="1.7.0", nonFromVersion="1.6.0",nonFromVersion="1.8.2"),
+    conversion(noneFromVersion="1.8.1", noneFromVersion="1.8.0", noneFromVersion="1.7.1", noneFromVersion="1.7.0", noneFromVersion="1.6.0",noneFromVersion="1.8.2"),
     Documentation(info="<html>
 <p>
 Library <b>Modelica_DeviceDrivers</b> is a Modelica package
