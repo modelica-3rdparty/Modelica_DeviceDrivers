@@ -86,6 +86,10 @@ DllExport void MDD_SharedMemoryDestructor(void* p_smb) {
     }
 }
 
+DllExport void MDD_SharedMemoryNoCleanupDestructor(void * p_smb) {
+    MDD_SharedMemoryDestructor(p_smb);
+}
+
 DllExport int MDD_SharedMemoryGetDataSize(void * p_smb) {
     int len = 0;
     MDDSharedMemory * smb = (MDDSharedMemory *) p_smb;
