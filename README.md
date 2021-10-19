@@ -41,10 +41,10 @@ Download [Modelica_DeviceDrivers latest release](../../releases/latest)
 
 Please note that the library is known to work with
 * Dymola,
-* SimulationX (with `userBufferSize` all non-clocked communication blocks are working in SimulationX, but `autoBufferSize` only works for external solvers CVode and Fixed Step solver and fails for BDF and MEBDF solvers, see [#54 (comment)](https://github.com/modelica/Modelica_DeviceDrivers/issues/54#issuecomment-76032325)),
+* SimulationX (with `userBufferSize` all non-clocked communication blocks are working in SimulationX, but `autoBufferSize` only works for external solvers CVode and Fixed Step solver and fails for BDF and MEBDF solvers, see [#54 (comment)](https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues/54#issuecomment-76032325)),
 * OpenModelica (partial support, e.g., UDP, serial port, shared memory, LCM, keyboard).
 
-If you tested the library successfully with another Modelica tool, please contact [Bernhard Thiele](https://github.com/bernhard-thiele) or send a [pull request](https://github.com/modelica/Modelica_DeviceDrivers/pulls) that updates this README.md.
+If you tested the library successfully with another Modelica tool, please contact [Bernhard Thiele](https://github.com/bernhard-thiele) or send a [pull request](https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/pulls) that updates this README.md.
 
 #### Release notes
 
@@ -104,7 +104,7 @@ The master branch of the Modelica_DeviceDrivers library should work out-of-the-b
 If you need to build the external C libraries from the sources, clone the repository with
 
 ```git
-git clone --recursive https://github.com/modelica/Modelica_DeviceDrivers.git
+git clone --recursive https://github.com/modelica-3rdparty/Modelica_DeviceDrivers.git
 git submodule update --init --recursive
 ```
 
@@ -115,9 +115,9 @@ Main developers:
 * [Thomas Beutlich](https://github.com/beutlich), SimulationX support, new features, Windows specific code, etc.
 * [Tobias Bellmann](https://github.com/tbellmann), most of the initial MS Windows specific code.
 
-You may report any issues with using the [Issues](https://github.com/modelica/Modelica_DeviceDrivers/issues) button.
+You may report any issues with using the [Issues](https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues) button.
 
-Contributions in shape of [Pull Requests](https://github.com/modelica/Modelica_DeviceDrivers/pulls) are always welcome.
+Contributions in shape of [Pull Requests](https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/pulls) are always welcome.
 
 The following people have directly contributed to the implementation of the library (many more have contributed by providing feedback and suggestions):
 * [Miguel Neves](https://github.com/ChukasNeves), human readable error codes for the Softing CAN interface.

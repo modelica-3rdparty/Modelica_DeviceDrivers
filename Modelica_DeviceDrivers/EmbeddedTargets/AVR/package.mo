@@ -21,7 +21,7 @@ The code generator supports a subset of the Modelica language which will be exte
 The current version is capable of translating the examples in the subpackages,
 but it is not as automated (no generation of makefiles) and it has been only tested using Linux
 as the host system. The basics are described in the initial AVR pull request
-<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/pull/169\">#169</a>,
+<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/pull/169\">#169</a>,
 but the description below aims to be a bit more complete.
 </p>
 <p>
