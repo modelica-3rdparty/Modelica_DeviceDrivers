@@ -74,17 +74,17 @@ Fix declaration of <code>MDD_spaceMouseGetData</code> in external C code (<a hre
 <p>Enhancements:</p>
 <ul>
 <li>Uses latest version of Modelica Standard Library (v3.2.3).</li>
-<li>Option for using blocking UDP receive calls (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/pull/275\">#275</a>). On the function interface level an optional third argument in the <a href=\"modelica://Modelica_DeviceDrivers.Communication.UDPSocket.constructor\">UDPSocket constructor</a> allows to create the external object without starting a dedicated receive thread (default: <span style=\"font-family: Courier New;\">useRecvThread=true</span>). On the block interface level (block <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.UDPReceive\">UDPReceive</a>) a new parameter <span style=\"font-family: Courier New;\">useRecvThread</span> (default: <span style=\"font-family: Courier New;\">useRecvThread=true</span>) allows to select the desired behavior. See example <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackager_UDPWithoutReceiveThread\">TestSerialPackager_UDPWithoutReceiveThread</a>.</li>
-<li>Added parameter <code>enable</code> (default: <code>enable=true</code>) for conditionally enabling or disabling the real-time synchronization within the <a href=\"modelica://Modelica_DeviceDrivers.Blocks.OperatingSystem.SynchronizeRealtime\">SynchronizeRealtime</a> block (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues/270\">#270</a>).</li>
-<li>Update OpenSSL to 1.0.2r (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/pull/280\">#280</a>).</li>
+<li>Option for using blocking UDP receive calls (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/pull/275\">#275</a>). On the function interface level an optional third argument in the <a href=\"modelica://Modelica_DeviceDrivers.Communication.UDPSocket.constructor\">UDPSocket constructor</a> allows to create the external object without starting a dedicated receive thread (default: <span style=\"font-family: Courier New;\">useRecvThread=true</span>). On the block interface level (block <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Communication.UDPReceive\">UDPReceive</a>) a new parameter <span style=\"font-family: Courier New;\">useRecvThread</span> (default: <span style=\"font-family: Courier New;\">useRecvThread=true</span>) allows to select the desired behavior. See example <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackager_UDPWithoutReceiveThread\">TestSerialPackager_UDPWithoutReceiveThread</a>.</li>
+<li>Added parameter <code>enable</code> (default: <code>enable=true</code>) for conditionally enabling or disabling the real-time synchronization within the <a href=\"modelica://Modelica_DeviceDrivers.Blocks.OperatingSystem.SynchronizeRealtime\">SynchronizeRealtime</a> block (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues/270\">#270</a>).</li>
+<li>Update OpenSSL to 1.0.2r (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/pull/280\">#280</a>).</li>
 </ul>
 <p>Bug fixes:</p>
 <ul>
-<li>EmbeddedTargets.AVR: Only start the RT synch timer once (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/pull/274\">#274</a>).</li>
-<li>EmbeddedTargets.AVR: Fixed reading of digital pins (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/pull/266\">#266</a>).</li>
-<li>Fixed Cygwin build (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/pull/271\">#271</a>). </li>
-<li>Fixed scale factor calculation error in <code>JoystickInput</code> block (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/pull/272\">#272</a>).</li>
-<li>Fix missing byte copy of &apos;\\0&apos; in external C code function <code>MDDEXT_SerialPackagerGetString()</code> (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/pull/273\">#273</a>).</li>
+<li>EmbeddedTargets.AVR: Only start the RT synch timer once (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/pull/274\">#274</a>).</li>
+<li>EmbeddedTargets.AVR: Fixed reading of digital pins (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/pull/266\">#266</a>).</li>
+<li>Fixed Cygwin build (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/pull/271\">#271</a>). </li>
+<li>Fixed scale factor calculation error in <code>JoystickInput</code> block (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/pull/272\">#272</a>).</li>
+<li>Fix missing byte copy of &apos;\\0&apos; in external C code function <code>MDDEXT_SerialPackagerGetString()</code> (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/pull/273\">#273</a>).</li>
 </ul>
 <p>Other (minor) fixes and improvements.</p>
 </html>"));
@@ -95,24 +95,24 @@ Fix declaration of <code>MDD_spaceMouseGetData</code> in external C code (<a hre
 
       annotation (Documentation(info="<html>
 <ul>
-<li>Support for MQTT (Message Queuing Telemetry Transport protocol) client communication (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues/130\">#130</a>, <a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues/256\">#256</a>).
+<li>Support for MQTT (Message Queuing Telemetry Transport protocol) client communication (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues/130\">#130</a>, <a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues/256\">#256</a>).
 See example <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackager_MQTT\">TestSerialPackager_MQTT</a>.
 </li>
 <li>
-Utility function to retrieve MAC address (<a href=\"modelica://Modelica_DeviceDrivers.Utilities.Functions.getMACAddress\">getMACAddress</a>, <a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues/255\">#255</a>).
+Utility function to retrieve MAC address (<a href=\"modelica://Modelica_DeviceDrivers.Utilities.Functions.getMACAddress\">getMACAddress</a>, <a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues/255\">#255</a>).
 </li>
 <li>
-Utility function to generate a UUID (<a href=\"modelica://Modelica_DeviceDrivers.Utilities.Functions.generateUUID\">generateUUID</a>, <a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues/244\">#244</a>).
+Utility function to generate a UUID (<a href=\"modelica://Modelica_DeviceDrivers.Utilities.Functions.generateUUID\">generateUUID</a>, <a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues/244\">#244</a>).
 </li>
 <li>
-Number of received bytes in `UDPReceive` block are provided as outputs (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues/236\">#236</a>).
+Number of received bytes in `UDPReceive` block are provided as outputs (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues/236\">#236</a>).
 </li>
 <li>
-Scalable real-time synchronization (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues/215\">#215</a>).
+Scalable real-time synchronization (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues/215\">#215</a>).
 </li>
 <li>
 Adaption of the new Modelica Association license: <b>BSD-3 clause</b>
-(<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues/238\">#238</a>, <a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues/264\">#254</a>).
+(<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues/238\">#238</a>, <a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues/264\">#254</a>).
 The C-code parts of the library were already BSD 3-Clause licensed, but the Modelica code
 was licensed under the Modelica License 2. Since Modelica Association projects,
 most notably the Modelica Standard Library (MSL), changed from Modelica License 2 to
@@ -132,7 +132,7 @@ Other (minor) fixes and improvements.
                                  "<html>
 <ul>
 <li>
-Bug fix for variable name spelling error in <code>Blocks.InputDevices.JoystickInput</code> (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues/224\">#224</a>)
+Bug fix for variable name spelling error in <code>Blocks.InputDevices.JoystickInput</code> (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues/224\">#224</a>)
 </li>
 </ul>
 </html>"));
@@ -147,7 +147,7 @@ Bug fix for variable name spelling error in <code>Blocks.InputDevices.JoystickIn
 <li>
 <b>Important:</b> A bug fix in the shared memory implementation for <i>Windows</i>
 potentially affects applications that adapted the (wrong) buffer layout
-(see PR <a href=\"https://github.com/modelica/Modelica_DeviceDrivers/pull/138\">#138</a>)!
+(see PR <a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/pull/138\">#138</a>)!
 </li>
 <li>Presentation of the library at the
 <a href=\"https://www.modelica.org/events/modelica2017/proceedings/html/submissions/ecp17132713_ThieleBeutlichWaurichSjolundBellmann.pdf\">Modelica'2017 conference</a>.
@@ -175,7 +175,7 @@ ExperimentalEmbeddedC code generation, see
 Bug fixes for the serial port support.
 </li>
 <li>
-Bug fix for the byte order swapping logic (endianness, <a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues/203\">#203</a>).
+Bug fix for the byte order swapping logic (endianness, <a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues/203\">#203</a>).
 </li>
 <li>
 Other (minor) fixes and improvements.
@@ -392,7 +392,7 @@ The authors are open to include contributions.
 </p>
 
 <p>
-Please note that you can use the <b>issue tracker</b> provided by GitHub to report bugs or other issues (<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues\">https://github.com/modelica/Modelica_DeviceDrivers/issues</a>)
+Please note that you can use the <b>issue tracker</b> provided by GitHub to report bugs or other issues (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues\">https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues</a>)
 </p>
 
 <p>

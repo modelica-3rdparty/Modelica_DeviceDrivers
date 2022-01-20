@@ -123,7 +123,7 @@ typedef struct  {
 
 /** Structure for initializing a channel
  *
- * https://github.com/modelica/Modelica_DeviceDrivers/issues/18
+ * https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues/18
  */
 typedef struct mdd_canl2_ch_s {
     CAN_HANDLE     ulChannelHandle;
