@@ -42,8 +42,8 @@ model TestSerialPackager_SocketCAN
   Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.UnpackUnsignedInteger
     unpackInt2(width=16)
     annotation (Placement(transformation(extent={{20,-52},{40,-32}})));
-Modelica_DeviceDrivers.Blocks.OperatingSystem.SynchronizeRealtime
-  synchronizeRealtime
+Modelica_DeviceDrivers.Blocks.OperatingSystem.RealtimeSynchronize
+  realtimeSynchronize
   annotation (Placement(transformation(extent={{60,40},{80,60}})));
 equation
   connect(integerExpression1.y,addInteger.u[1]) annotation (Line(

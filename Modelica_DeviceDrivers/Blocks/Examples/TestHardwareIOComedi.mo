@@ -21,8 +21,8 @@ extends Modelica.Icons.Example;
     comedi=comedi.dh,
     subDevice=0,
     channel=0) annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  Modelica_DeviceDrivers.Blocks.OperatingSystem.SynchronizeRealtime
-    synchronizeRealtime
+  Modelica_DeviceDrivers.Blocks.OperatingSystem.RealtimeSynchronize
+    realtimeSynchronize
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Modelica_DeviceDrivers.Blocks.HardwareIO.Comedi.DIOWrite dioWrite(
                                                                    comedi=
