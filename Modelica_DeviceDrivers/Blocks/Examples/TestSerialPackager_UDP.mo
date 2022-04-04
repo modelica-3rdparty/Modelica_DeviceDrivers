@@ -67,6 +67,12 @@ The <code>uDPSend</code> block sends to the local port 10002. The <code>uDPRecei
 <p>
 <b>Note:</b> There is no causality between the <code>uDPSend</code> block and the <code>uDPReceive</code> block. Therefore the execution order of the blocks is not determined. Additionally, the <code>uDPReceive</code> block starts an own receiving thread, so that the time the data was received is not equal to the time the external function within the <code>uDPReceive</code> block was called. This indeterminism may also show up in the plots.
 </p>
+<p>This example sends data to address 127.0.0.1, which is a special-purpose 
+IPv4 address and is called the localhost or loopback address.
+When you have to transfer data to another computer you have to use in uDPSend 
+that computer's IP. You've also to set the port number of the remote computer you want to send to.</p>
+<p>When you want to receive data from another computer, you have set in uDPReceive 
+the actual port number of the local computer you a willing to receive data to.</p><p>
 </html>"),
     experiment(
       StopTime=5,

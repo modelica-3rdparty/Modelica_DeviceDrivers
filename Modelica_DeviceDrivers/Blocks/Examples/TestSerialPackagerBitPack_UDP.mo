@@ -93,5 +93,11 @@ equation
 <p>
 In particular this model demonstrates how integer values can be packed and unpacked at bit level using the <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.PackUnsignedInteger\"> <code>PackUnsignedInteger</code></a> and <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.UnpackUnsignedInteger\"><code>UnpackUnsignedInteger</code></a> blocks.
 </p>
+<p>This example sends data to address 127.0.0.1, which is a special-purpose 
+IPv4 address and is called the localhost or loopback address.
+When you have to transfer data to another computer you have to use in uDPSend 
+that computer's IP. You've also to set the port number of the remote computer you want to send to.</p>
+<p>When you want to receive data from another computer, you have set in uDPReceive 
+the actual port number of the local computer you a willing to receive data to.</p><p>
 </html>"));
 end TestSerialPackagerBitPack_UDP;
