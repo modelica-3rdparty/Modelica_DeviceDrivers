@@ -875,6 +875,8 @@ DllExport void MDD_RTSyncDestructor(void* rtSyncObj) {
     }
 }
 
+#include <stdint.h>
+
 /**  Slow down sampling period so that simulation time == real-time.
 *
 *
@@ -891,6 +893,7 @@ DllExport void MDD_RTSyncSynchronize(void * rtSyncObj, double simTime, double sc
     struct timespec t_now;
     struct timespec t_elapsed;
     struct timespec t_abs; /* Absolute time until which execution will be delayed (to catch up with real-time) */
+    struct timespec t_subtrahend_might_be_modified_for_carry; /* TODO consider changing `timespec_subtract(...)` for less surprising code */
     double samplingPeriod = 0, fractpart = 0, intpart = 0;
     int ret = 0;
 
@@ -925,7 +928,8 @@ DllExport void MDD_RTSyncSynchronize(void * rtSyncObj, double simTime, double sc
         }
 
         /* Determine computation time */
-        ret = timespec_subtract(&t_elapsed, &t_now, &rtSync->t_last);
+        t_subtrahend_might_be_modified_for_carry = rtSync->t_last;
+        ret = timespec_subtract(&t_elapsed, &t_now, &t_subtrahend_might_be_modified_for_carry);
         if (ret) {
             ModelicaError("MDDRealtimeSynchronize.h: Uups, negative computing time?!\n");
         }
@@ -959,7 +963,7 @@ DllExport void MDD_RTSyncSynchronize(void * rtSyncObj, double simTime, double sc
         /* wait until (scaled) simulation time == real-time */
         ret = clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &t_abs, NULL);
         if (ret) {
-            ModelicaError("MDDRealtimeSynchronize.h: clock_nanosleep(..) failed\n");
+            ModelicaFormatError("MDDRealtimeSynchronize.h: clock_nanosleep(..) failed\n");
         }
 
         /* get value the current time of the real-time clock (should be equal to t_abs if everything is OK) */
@@ -967,7 +971,8 @@ DllExport void MDD_RTSyncSynchronize(void * rtSyncObj, double simTime, double sc
         rtSync->lastSimTime = simTime;
 
         /* wall clock time since start */
-        ret = timespec_subtract(&t_elapsed, &(rtSync->t_last), &(rtSync->t_start));
+        t_subtrahend_might_be_modified_for_carry = rtSync->t_start;
+        ret = timespec_subtract(&t_elapsed, &(rtSync->t_last), &t_subtrahend_might_be_modified_for_carry);
         if (ret == 1) {
             ModelicaFormatError("MDDRealtimeSynchronize.h: timespec_subtract returned negative number\n");
         }
