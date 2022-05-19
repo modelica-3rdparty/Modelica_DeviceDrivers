@@ -806,7 +806,7 @@ DllExport double MDD_sampledRealtimeSynchronize(void* rtSyncObj, double simTime,
         // FIXME: Introduce a tmp (pseudo code struct timespec t_tmp = rtSync->t_start) for doing the carry?;
         ret = timespec_subtract(&t_elapsed, &(rtSync->t_clockRealtime), &(rtSync->t_start));
         if (ret == 1) {
-            ModelicaFormatError("MDDRealtimeSynchronize.h: timespec_subtract returned negative number\n");
+            ModelicaError("MDDRealtimeSynchronize.h: timespec_subtract returned negative number\n");
         }
         *wallClockTime = (double)t_elapsed.tv_sec + (double)t_elapsed.tv_nsec/NSEC_PER_SEC;
     }
@@ -874,8 +874,6 @@ DllExport void MDD_RTSyncDestructor(void* rtSyncObj) {
         free(rtSync);
     }
 }
-
-#include <stdint.h>
 
 /**  Slow down sampling period so that simulation time == real-time.
 *
