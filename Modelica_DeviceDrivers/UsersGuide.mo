@@ -2,6 +2,26 @@
 package UsersGuide "User's Guide"
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
+    class Version_2_1_0 "Version 2.1.0 (August 10, 2022)"
+    extends Modelica.Icons.ReleaseNotes;
+
+      annotation (Documentation(info="<html>
+<p>Enhancements:</p>
+<ul>
+<li>Added <code>useRecvThread</code> parameter also for clocked UDPReceive variant (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues/342\">#342</a>).</li>
+<li>Option for not unlinking shared memory partition at process termination (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues/339\">#339</a>).</li>
+<li>Updated 3rd-party library paho.mqtt.c to v1.3.9 (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/pull/341\">#341</a>).</li>
+</ul>
+<p>Bug fixes:</p>
+<ul>
+<li>Fixed <code>RealtimeSynchronize</code> block \"clock_nanosleep\" error on Linux (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues/357\">#357</a>).</li>
+<li>Fixed <code>MDD_TCPIPServer_Send(...)</code> return value, so that it works as described in the documentation \"On success, return the number of bytes sent, 0 if operation would block, -1 on non-fatal error\" (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues/323\">#323</a>).</li>
+<li>Serial port interface on Windows: Fixed spurious byte sent at the end of a simulation (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues/352\">#352</a>).</li>
+</ul>
+<p>Other (minor) fixes and improvements.</p>
+</html>"));
+    end Version_2_1_0;
+
     class Version_2_0_0 "Version 2.0.0 (June 8, 2020)"
     extends Modelica.Icons.ReleaseNotes;
 

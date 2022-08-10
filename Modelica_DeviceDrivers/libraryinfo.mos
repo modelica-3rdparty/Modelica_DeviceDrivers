@@ -2,8 +2,8 @@ LibraryInfoMenuCommand(
   category="libraries",
   text="Modelica Device Drivers",
   reference="Modelica_DeviceDrivers",
-  version="2.0.0",
+  version="2.1.0",
   isModel=true,
-  description="Modelica Device Drivers library (version 2.0.0)",
+  description="Modelica Device Drivers library (version 2.1.0)",
   ModelicaVersion=">=4.0.0",
   pos=106)
