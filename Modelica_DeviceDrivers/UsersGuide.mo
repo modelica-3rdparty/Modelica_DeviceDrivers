@@ -8,14 +8,14 @@ package UsersGuide "User's Guide"
       annotation (Documentation(info="<html>
 <p>Enhancements:</p>
 <ul>
-<li>Added <code>useRecvThread</code> parameter also for clocked UDPReceive variant (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues/342\">#342</a>).</li>
-<li>Option for not unlinking shared memory partition at process termination (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues/339\">#339</a>).</li>
+<li>Added parameter <code>useRecvThread</code> also for <em>clocked</em> <code>UDPReceive</code> variant (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues/342\">#342</a>).</li>
+<li>Added option for not unlinking shared memory partition at process termination (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues/339\">#339</a>).</li>
 <li>Updated 3rd-party library paho.mqtt.c to v1.3.9 (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/pull/341\">#341</a>).</li>
 </ul>
 <p>Bug fixes:</p>
 <ul>
-<li>Fixed <code>RealtimeSynchronize</code> block \"clock_nanosleep\" error on Linux (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues/357\">#357</a>).</li>
-<li>Fixed <code>MDD_TCPIPServer_Send(...)</code> return value, so that it works as described in the documentation \"On success, return the number of bytes sent, 0 if operation would block, -1 on non-fatal error\" (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues/323\">#323</a>).</li>
+<li>Fixed <code>RealtimeSynchronize</code> block &quot;clock_nanosleep&quot; error on Linux (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues/357\">#357</a>).</li>
+<li>Fixed <code>MDD_TCPIPServer_Send(...)</code> return value, so that it works as described in the documentation &quot;On success, return the number of bytes sent, 0 if operation would block, -1 on non-fatal error&quot; (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues/323\">#323</a>).</li>
 <li>Serial port interface on Windows: Fixed spurious byte sent at the end of a simulation (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues/352\">#352</a>).</li>
 </ul>
 <p>Other (minor) fixes and improvements.</p>
