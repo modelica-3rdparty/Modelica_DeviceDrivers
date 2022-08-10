@@ -3,7 +3,7 @@ model TestInputSpaceMouse "Example for a 3Dconnexion SpaceMouse"
 extends Modelica.Icons.Example;
   InputDevices.SpaceMouseInput spaceMouseInput
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-  OperatingSystem.SynchronizeRealtime synchronizeRealtime
+  OperatingSystem.RealtimeSynchronize realtimeSynchronize
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   annotation (experiment(StopTime=5.0), Documentation(info="<html>
 <p>

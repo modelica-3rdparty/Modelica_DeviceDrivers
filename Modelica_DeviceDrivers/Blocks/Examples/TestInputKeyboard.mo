@@ -1,7 +1,7 @@
 within Modelica_DeviceDrivers.Blocks.Examples;
 model TestInputKeyboard "Example for keyboard input"
 extends Modelica.Icons.Example;
-  OperatingSystem.SynchronizeRealtime synchronizeRealtime
+  OperatingSystem.RealtimeSynchronize realtimeSynchronize
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   InputDevices.KeyboardInput keyboardInput
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));

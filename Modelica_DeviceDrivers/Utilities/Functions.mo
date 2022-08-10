@@ -1,13 +1,13 @@
 within Modelica_DeviceDrivers.Utilities;
 package Functions
-  extends Icons.FunctionLayerIcon;
+  extends Modelica.Icons.FunctionsPackage;
   function loadRealParameter "Loads a parameter from file"
     extends Modelica.Icons.Function;
     input String file="Washout.ini";
     input String name="K_Px";
     output Real u;
 
-  external"C" u=  MDD_utilitiesLoadRealParameter(file, name)
+  external"C" u = MDD_utilitiesLoadRealParameter(file, name)
   annotation(Include = "#include \"MDDUtilities.h\"",
              __iti_dll = "ITI_MDD.dll",
              __iti_dllNoExport = true);

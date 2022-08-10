@@ -9,8 +9,8 @@ Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN.SoftingCANConfig
 Modelica_DeviceDrivers.Blocks.Communication.SoftingCAN.SoftingReadMessage
   rxMessage(ident=101)
   annotation (Placement(transformation(extent={{12,20},{32,40}})));
-Modelica_DeviceDrivers.Blocks.OperatingSystem.SynchronizeRealtime
-  synchronizeRealtime
+Modelica_DeviceDrivers.Blocks.OperatingSystem.RealtimeSynchronize
+  realtimeSynchronize
   annotation (Placement(transformation(extent={{40,32},{60,52}})));
 Modelica_DeviceDrivers.Blocks.Packaging.SerialPackager.UnpackUnsignedInteger
                                                                    unpackInt(

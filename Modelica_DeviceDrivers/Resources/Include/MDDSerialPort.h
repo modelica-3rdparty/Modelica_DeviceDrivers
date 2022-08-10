@@ -6,7 +6,7 @@
  * @author Rangarajan Varadan (Windows)
  * @author tbeu
  * @since 2012-05-29
- * @copyright see Modelica_DeviceDrivers project's License.txt file
+ * @copyright see accompanying file LICENSE_Modelica_DeviceDrivers.txt
  *
  */
 
@@ -310,12 +310,10 @@ DllExport void MDD_serialPortSendP(void * p_serial, void* p_package, int dataSiz
 DllExport void MDD_serialPortDestructor(void * p_serial) {
     MDDSerialPort * serial = (MDDSerialPort *) p_serial;
     if (serial) {
-        char c = 0;
         serial->receiving = 0;
         EscapeCommFunction(serial->hComm, CLRDTR);
         PurgeComm(serial->hComm, PURGE_TXABORT | PURGE_TXCLEAR);
         PurgeComm(serial->hComm, PURGE_RXABORT | PURGE_RXCLEAR);
-        MDD_serialPortSend(p_serial, &c, 1);
         if (serial->hThread) {
             DWORD dwEc = 1;
             WaitForSingleObject(serial->hThread, 1000);

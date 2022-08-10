@@ -4,7 +4,7 @@
  * @author		tbellmann
  * @author    tbeu
  * @since		2013-05-24
- * @copyright see Modelica_DeviceDrivers project's License.txt file
+ * @copyright see accompanying file LICENSE_Modelica_DeviceDrivers.txt
  *
  * Little handy functions offered in the Utilities package.
  */

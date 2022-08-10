@@ -5,7 +5,7 @@
  * @author bernhard-thiele (Linux)
  * @author tbeu
  * @since 2012-05-29
- * @copyright see Modelica_DeviceDrivers project's License.txt file
+ * @copyright see accompanying file LICENSE_Modelica_DeviceDrivers.txt
  *
  * @note Linux version: Using recvfrom(..) seems to be tricky, especially
  * in mixed 64 and 32 bit environments. Had the problem that (sporadically!) an
@@ -27,7 +27,7 @@
 
 #if defined(_MSC_VER) || defined(__MINGW32__)
 
-#include <winsock2.h>
+#include <ws2tcpip.h>
 #include "../src/include/CompatibilityDefs.h"
 
 #pragma comment( lib, "Ws2_32.lib" )
@@ -186,8 +186,8 @@ DllExport void * MDD_udpConstructor(int port, int bufferSize, int useReceiveThre
 
 DllExport void MDD_udpDestructor(void * p_udp) {
     MDDUDPSocket * udp = (MDDUDPSocket *) p_udp;
-    int rc;
     if (udp) {
+        int rc;
         udp->receiving = 0;
         rc = shutdown(udp->SocketID, 2);
         if (rc == SOCKET_ERROR) {
@@ -212,13 +212,19 @@ DllExport void MDD_udpDestructor(void * p_udp) {
 DllExport void MDD_udpSend(void * p_udp, const char * ipAddress, int port,
                            const char * data, int dataSize) {
     MDDUDPSocket * udp = (MDDUDPSocket *) p_udp;
-    int rc;
     if (udp) {
+        int rc;
         SOCKADDR_IN addr;
         addr.sin_family=AF_INET;
         addr.sin_port=htons((u_short)port);
-        addr.sin_addr.s_addr=inet_addr(ipAddress);
-        rc = sendto(udp->SocketID,data,dataSize,0,(SOCKADDR*)&addr,sizeof(SOCKADDR_IN));
+        rc = inet_pton(AF_INET, ipAddress, &addr.sin_addr.s_addr);
+        if (rc == 0) {
+            ModelicaFormatError("MDDUDPSocket.h: inet_pton failed for \"%s\"\n", ipAddress);
+        }
+        else if (rc == -1) {
+            ModelicaFormatError("MDDUDPSocket.h: inet_pton failed with error code: %d\n", WSAGetLastError());
+        }
+        rc = sendto(udp->SocketID, data, dataSize, 0, (SOCKADDR*)&addr, sizeof(SOCKADDR_IN));
         if (rc == SOCKET_ERROR) {
             ModelicaFormatError("MDDUDPSocket.h: sendto failed with error code: %d\n", WSAGetLastError());
         }
@@ -236,13 +242,13 @@ DllExport void MDD_udpSendP(void * p_udp, const char * ipAddress, int port,
 
 DllExport const char * MDD_udpRead(void * p_udp) {
     MDDUDPSocket * udp = (MDDUDPSocket *) p_udp;
-    SOCKADDR remoteAddr;
-    int remoteAddrLen;
-    char* udpBuf;
 
     if (udp && (!udp->useReceiveThread || (udp->useReceiveThread && udp->hThread))) {
+        char* udpBuf;
 
         if (!udp->useReceiveThread) {
+            SOCKADDR remoteAddr;
+            int remoteAddrLen;
             remoteAddrLen = sizeof(SOCKADDR);
             udp->nReceivedBytes = recvfrom(udp->SocketID, udp->receiveBuffer, udp->bufferSize,0,&remoteAddr,&remoteAddrLen);
             if(udp->nReceivedBytes==SOCKET_ERROR) {
@@ -270,13 +276,13 @@ DllExport const char * MDD_udpRead(void * p_udp) {
 
 DllExport void MDD_udpReadP2(void * p_udp, void* p_package, int* nReceivedBytes, int* nRecvbufOverwrites) {
     MDDUDPSocket * udp = (MDDUDPSocket *) p_udp;
-    SOCKADDR remoteAddr;
-    int remoteAddrLen;
-    int rc;
 
     if (udp && (!udp->useReceiveThread || (udp->useReceiveThread && udp->hThread))) {
+        int rc;
 
         if (!udp->useReceiveThread) {
+            SOCKADDR remoteAddr;
+            int remoteAddrLen;
             remoteAddrLen = sizeof(SOCKADDR);
             udp->nReceivedBytes = recvfrom(udp->SocketID, udp->receiveBuffer, udp->bufferSize,0,&remoteAddr,&remoteAddrLen);
             if(udp->nReceivedBytes==SOCKET_ERROR) {

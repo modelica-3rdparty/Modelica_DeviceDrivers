@@ -3,7 +3,7 @@
  * @file
  * @author tbeu
  * @since 2016-05-05
- * @copyright see Modelica_DeviceDrivers project's License.txt file
+ * @copyright see accompanying file LICENSE_Modelica_DeviceDrivers.txt
  *
  */
 

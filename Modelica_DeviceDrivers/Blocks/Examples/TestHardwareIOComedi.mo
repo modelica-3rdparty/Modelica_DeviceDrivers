@@ -11,7 +11,7 @@ extends Modelica.Icons.Example;
                                                         comedi
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Sources.Sine sine(
-    freqHz=2,
+    f=2,
     amplitude=2000,
     offset=2000)
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
@@ -21,8 +21,8 @@ extends Modelica.Icons.Example;
     comedi=comedi.dh,
     subDevice=0,
     channel=0) annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  Modelica_DeviceDrivers.Blocks.OperatingSystem.SynchronizeRealtime
-    synchronizeRealtime
+  Modelica_DeviceDrivers.Blocks.OperatingSystem.RealtimeSynchronize
+    realtimeSynchronize
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Modelica_DeviceDrivers.Blocks.HardwareIO.Comedi.DIOWrite dioWrite(
                                                                    comedi=
@@ -40,7 +40,7 @@ extends Modelica.Icons.Example;
       comedi=comedi.dh, channel=1)
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   Modelica.Blocks.Sources.Sine sine1(
-    freqHz=2,
+    f=2,
     amplitude=4,
     offset=0)
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));

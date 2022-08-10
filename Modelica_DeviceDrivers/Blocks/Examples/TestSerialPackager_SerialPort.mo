@@ -17,7 +17,7 @@ extends Modelica.Icons.Example;
       Serial_Port="/dev/pts/3",
     sampleTime=0.1)
     annotation (Placement(transformation(extent={{-30,40},{-10,60}})));
-  Modelica_DeviceDrivers.Blocks.OperatingSystem.SynchronizeRealtime synchronizeRealtime
+  OperatingSystem.RealtimeSynchronize                               realtimeSynchronize
     annotation (Placement(transformation(extent={{62,50},{82,70}})));
   Packaging.SerialPackager.UnpackUnsignedInteger unpackInt(      width=10, nu=1)
     annotation (Placement(transformation(extent={{-18,-2},{2,18}})));

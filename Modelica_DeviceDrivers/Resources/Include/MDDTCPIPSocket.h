@@ -4,7 +4,7 @@
  * @author tbeu (Windows)
  * @author bernhard-thiele (Linux adaption)
  * @since 2015-04-18
- * @copyright see Modelica_DeviceDrivers project's License.txt file
+ * @copyright see accompanying file LICENSE_Modelica_DeviceDrivers.txt
  *
  */
 

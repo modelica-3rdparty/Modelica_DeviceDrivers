@@ -1,6 +1,7 @@
 within Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Blocks;
 block Microcontroller "Use as an inner block, defining the characteristics of the STM32F4 microcontroller"
-  import Modelica.SIunits;
+  import SIunits =
+         Modelica.Units.SI;
   import Modelica_DeviceDrivers;
   import Modelica_DeviceDrivers.EmbeddedTargets.STM32F4;
   import Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Constants;

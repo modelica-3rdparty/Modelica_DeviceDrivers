@@ -3,11 +3,10 @@ package Modelica_DeviceDrivers "Modelica_DeviceDrivers - A collection of drivers
   extends Modelica.Icons.Package;
 
   annotation (preferredView="info",
-    uses(Modelica_Synchronous(version="0.92.2"), Modelica(version="3.2.3")),
-    version="1.8.2",
-    versionBuild=1,
-    versionDate="2020-03-26",
-    conversion(nonFromVersion="1.8.1", nonFromVersion="1.8.0", nonFromVersion="1.7.1", nonFromVersion="1.7.0", nonFromVersion="1.6.0"),
+    uses(Modelica(version="4.0.0")),
+    version="2.1.0",
+    versionDate="2022-08-10",
+    conversion(noneFromVersion="2.0.0", noneFromVersion="1.8.1", noneFromVersion="1.8.0", noneFromVersion="1.7.1", noneFromVersion="1.7.0", noneFromVersion="1.6.0",noneFromVersion="1.8.2"),
     Documentation(info="<html>
 <p>
 Library <b>Modelica_DeviceDrivers</b> is a Modelica package
@@ -28,9 +27,9 @@ For an introduction, have especially a look at:
      gives author and acknowledgement information for this library.</li>
 </ul>
 <p>The library is developed at
-<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/\">https://github.com/modelica/Modelica_DeviceDrivers/</a>. You can
+<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/\">https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/</a>. You can
 use the issue tracker provided by GitHub to report bugs or other issues
-(<a href=\"https://github.com/modelica/Modelica_DeviceDrivers/issues\">https://github.com/modelica/Modelica_DeviceDrivers/issues</a>).</p>
+(<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues\">https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues</a>).</p>
 <br>
 <table border=\"0\" cellpadding=\"2\" cellspacing=\"2\">
 <tr><td style=\"vertical-align: top;\">Copyright &copy; 2012-2020, DLR, ESI ITI, and Link&ouml;ping University (PELAB)</td>
@@ -43,9 +42,7 @@ the use is completely at <u>your own risk</u>;
 it can be redistributed and/or modified under the terms of the BSD 3-Clause License.</i>
 </p>
 <p>
-This also holds for the external C-code as again stated in file
-<a href=\"modelica://Modelica_DeviceDrivers/Resources/License.txt\">Resources/License.txt</a>.
-The partly optional third party sources / libraries with differing licenses are collected below the sub folder
+The partly optional third-party sources / libraries with differing licenses are collected below the sub folder
 <a href=\"modelica://Modelica_DeviceDrivers/Resources/thirdParty\">Resources/thirdParty</a> and are
 listed in the file <a href=\"modelica://Modelica_DeviceDrivers/Resources/thirdParty/Readme.txt\">Resources/thirdParty/Readme.txt</a>.
 </p>

@@ -12,9 +12,9 @@ model BlinkGPIO_EXTI
   Functions.Digital.InitLed p2 = Functions.Digital.InitLed(handle =  mcu.hal, led = Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Types.LED.LED4);
   Functions.Digital.InitLed p3 = Functions.Digital.InitLed(handle =  mcu.hal, led = Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Types.LED.LED5);
   Functions.Digital.InitLed p4 = Functions.Digital.InitLed(handle =  mcu.hal, led = Modelica_DeviceDrivers.EmbeddedTargets.STM32F4.Types.LED.LED6);
-  annotation (                                                                             Experiment(Interval = 0.01), Documentation(info = "<html>
+  annotation (                                                                             Experiment(Interval = 0.01), Documentation(info="<html>
 <h4>BlinkGPIO_EXTI</h4>
-<p>BlinkGPIO_EXTI is a model configuring interrupt on falling edge on GPIO Line 0. Since Modelica is not able to generate code for the <a href=\"modelica://Modelica_DeviceDrivers/Resources/Scripts/OpenModelica/EmbeddedTargets/STM32F4/Examples/STM32F4_Discovery/ext_callback.c\">callback function</a>, the user has to edit code here manually. In the callback function all User LEDs (port D pin 12 - 15) are toggled. As a result, the LEDs are toggled when the blue user button is released. Use this model to see if your Modelica tool can export code for STM32F4 MCUs..</p>
+<p>BlinkGPIO_EXTI is a model configuring interrupt on falling edge on GPIO Line 0. Since Modelica is not able to generate code for the <a href=\"modelica://Modelica_DeviceDrivers/Resources/Scripts/OpenModelica/EmbeddedTargets/STM32F4/Examples/STM32F4_Discovery/BlinkGPIO_EXITI/ext_callback.c\">callback function</a>, the user has to edit code here manually. In the callback function all User LEDs (port D pin 12 - 15) are toggled. As a result, the LEDs are toggled when the blue user button is released. Use this model to see if your Modelica tool can export code for STM32F4 MCUs..</p>
 <p>STM digital pins 12 - 15 on port D corresponds to digital pin D12 - D15 on the STM32F4-Discovery. If desired, you can connect an external LEDs to this PINs, with a suitable resistor in-between (perhaps 220&#8486;). Connect the other PIN on the LED to ground.</p>
 </html>"));  /* synchronizeRealtime1.actualInterval is not legal in experiment annotation*/
 end BlinkGPIO_EXTI;

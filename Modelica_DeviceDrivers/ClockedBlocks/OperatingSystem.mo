@@ -47,8 +47,9 @@ package OperatingSystem
     Modelica.Blocks.Interfaces.RealInput scaling if enableRealTimeScaling
       "Real-time scaling factor; > 1 means the simulation is made slower than real-time"
       annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-    output Modelica.SIunits.Time calculationTime "Time needed for calculation";
-    output Modelica.SIunits.Time availableTime "Time available for calculation (integrator step size)";
+    output Modelica.Units.SI.Time calculationTime "Time needed for calculation";
+    output Modelica.Units.SI.Time availableTime
+      "Time available for calculation (integrator step size)";
   protected
     ProcessPriority procPrio(priority = priority) if setPriority;
     Modelica.Blocks.Interfaces.BooleanInput initialized;

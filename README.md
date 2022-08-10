@@ -1,4 +1,5 @@
 # Modelica_DeviceDrivers
+
 Free library for interfacing hardware drivers to Modelica models.
 There is support for joysticks, keyboards, UDP, TCP/IP, LCM, MQTT, shared memory, AD/DA converters, serial port and other devices.
 
@@ -7,7 +8,7 @@ The `Modelica_DeviceDrivers` (MDD) library is an open source Modelica package th
 
 > Bernhard Thiele, Thomas Beutlich, Volker Waurich, Martin Sjölund, and Tobias Bellmann, Towards a Standard-Conform, Platform-Generic and Feature-Rich Modelica Device Drivers Library. In Jiří Kofránek and Francesco Casella, editors, _12th Int. Modelica Conference_, Prague, Czech Republic, May 2017. [Download](https://www.modelica.org/events/modelica2017/proceedings/html/submissions/ecp17132713_ThieleBeutlichWaurichSjolundBellmann.pdf)
 
-The library unifies previous developments concerning device driver support in Modelica, see [Interactive Simulations and advanced Visualization with Modelica](https://modelica.org/events/modelica2009/Proceedings/memorystick/pages/papers/0056/0056.pdf) and [Modelica for Embedded Systems](https://modelica.org/events/modelica2009/Proceedings/memorystick/pages/papers/0096/0096.pdf) (Modelica'2009 conference). The functionality covered by this library has been used internally at DLR for several years, such as for Driver-in-the-Loop simulation and for the [DLR Robot Motion Simulator](http://www.dlr.de/media/en/desktopdefault.aspx/tabid-4995/8426_read-17606/).
+The library unifies previous developments concerning device driver support in Modelica, see [Interactive Simulations and advanced Visualization with Modelica](https://ep.liu.se/ecp/043/062/ecp09430056.pdf) and [Modelica for Embedded Systems](https://ep.liu.se/ecp/043/040/ecp09430096.pdf) (Modelica'2009 conference). The functionality covered by this library has been used internally at DLR for several years, such as for Driver-in-the-Loop simulation and for the [DLR Robot Motion Simulator](http://www.dlr.de/media/en/desktopdefault.aspx/tabid-4995/8426_read-17606/).
 The previously fragmented functionality was streamlined, improved, and extended to a coherent cross-platform library.
 
 Main features:
@@ -18,7 +19,7 @@ Main features:
   * Support of the Linux control and measurement device interface for digital and analog I/O (Comedi interface).
 
 All device drivers are made available via external Modelica functions. Furthermore, high level interfaces on these functions are provided via Modelica blocks. The first interface uses Modelica 3.2 functionality only (when-clauses and sample-operator).
-The second interface uses the synchronous language elements introduced in Modelica 3.3 and is based on clocks (works together with the `Modelica_Synchronous` library).
+The second interface uses the synchronous language elements introduced in Modelica 3.3 and is based on clocks.
 
 ![BlockOverview](screenshot.png)
 
@@ -38,28 +39,34 @@ Download [Modelica_DeviceDrivers latest release](../../releases/latest)
 
 Please note that the library is known to work with
 * Dymola,
-* SimulationX (with `userBufferSize` all non-clocked communication blocks are working in SimulationX, but `autoBufferSize` only works for external solvers CVode and Fixed Step solver and fails for BDF and MEBDF solvers, see [#54 (comment)](https://github.com/modelica/Modelica_DeviceDrivers/issues/54#issuecomment-76032325)),
-* OpenModelica (partial support starting with OpenModelica v1.11.0 Beta 1, e.g., UDP, serial port, shared memory, LCM, keyboard).
+* SimulationX (with `userBufferSize` all non-clocked communication blocks are working in SimulationX, but `autoBufferSize` only works for external solvers CVode and Fixed Step solver and fails for BDF and MEBDF solvers, see [#54 (comment)](https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues/54#issuecomment-76032325)),
+* OpenModelica (partial support, e.g., UDP, serial port, shared memory, LCM, keyboard).
 
-If you tested the library successfully with another Modelica tool, please contact [Bernhard Thiele](https://github.com/bernhard-thiele) or send a [pull request](https://github.com/modelica/Modelica_DeviceDrivers/pulls) that updates this README.md.
+If you tested the library successfully with another Modelica tool, please contact [Bernhard Thiele](https://github.com/bernhard-thiele) or send a [pull request](https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/pulls) that updates this README.md.
 
 #### Release notes
 
 Bug fix releases may not have release notes, so please use the download link from above to get the latest release including bug fixes.
 
-* DRAFT [Version v1.8.2 (2020-02-26)](../../releases/tag/v1.8.2)
-  * Updated Linux MQTT binary dependencies. The updated libraries are compiled with the `-fPIC` flag, which fixes a related FMU generation problem (#306).
-* [Version v1.8.1 (2020-02-26)](../../releases/tag/v1.8.1)
-  * Fix declaration of `MDD_spaceMouseGetData` in external C code (#305).
-* [Version v1.8.0 (2020-01-11)](../../releases/tag/v1.8.0)
-  * TCP/IP server communication (#296). In addition to the existing TCP/IP client blocks (see #78) there are now also blocks for setting up a TCP/IP server. See examples `Blocks.Examples.TestSerialPackager_TCPIPServer` and `Blocks.Examples.TestSerialPackager_TCPIPServerMultipleClients`.
-  * Enhanced real-time synchronization block (#290). Added an enhanced real-time synchronization block (`Blocks.OperatingSystem.RealtimeSynchronize`) and deprecated the existing block (`Blocks.OperatingSystem.SynchronizeRealtime`). The deprecated block is known to not working well with recent Dymola versions (e.g., Dymola 2020). The new `RealtimeSynchronize` block supports a sample-based real-time synchronization mode which is recommended for more deterministic, less solver sensitive behavior. See example `Blocks.Examples.TestRealtimeSynchronize`.
-  * An utility block for debugging purposes which prints a message when triggered by an event (#289).
-  * Updated 3rd-party library paho.mqtt.c to v1.3.1 (#293)
+* [DRAFT Version v2.1.0 (2022-08-10)](../../releases/tag/v2.1.0)
+  * Enhancements:
+    * Add `useRecvThread` parameter also for clocked UDPReceive variant (#342).
+    * Option for not unlinking shared memory partition at process termination (#339).
+    * Updated 3rd-parth library paho.mqtt.c to v1.3.9 (#341).
   * Bug fixes:
-    * Fixed Spacemouse not working under Windows 10 bug (#289).
-    * More similar behavior for getMACAddress() in Windows and Linux (#263).
-  * Other (minor) fixes and improvements.
+    * Fixed sporadic RealtimeSynchronize block "clock_nanosleep" error on Linux (#357).
+    * Fixed `MDD_TCPIPServer_Send(...)` return value, so that it works as described in the documentation: "On success, return the number of bytes sent, 0 if operation would block, -1 on non-fatal error" (#323).
+    * Serial port interface on Windows: Fixed spurious byte sent at the end of a simulation (#352).
+* [Version v2.0.0 (2020-06-08)](../../releases/tag/v2.0.0)
+  * Migrated from Modelica Standard Library 3 (MSL 3) to MSL 4 -> _Non-backwards compatible release!_
+  * However, apart from the MSL 4 dependency this release is compatible to previous releases and no update of user libraries is necessary apart from migrating to MSL 4.
+  * Enhancements:
+    * Added all license files to better assist tool vendors in distribution of source or binary files (#313).
+    * Updated 3rd-party library paho.mqtt.c to v1.3.4 (#320).
+  * Bug fixes:
+    * Fixed small issues in the SBHS Board example (#318).
+* [Version v1.8.2 (2020-03-26)](../../releases/tag/v1.8.2)
+  * Updated Linux MQTT binary dependencies. The updated libraries are compiled with the `-fPIC` flag, which fixes a related FMU generation problem (#306).
 
 For information about previous releases, see [Release Notes of Previous Versions](ReleaseNotesPreviousVersions.md).
 
@@ -93,7 +100,7 @@ The master branch of the Modelica_DeviceDrivers library should work out-of-the-b
 If you need to build the external C libraries from the sources, clone the repository with
 
 ```git
-git clone --recursive https://github.com/modelica/Modelica_DeviceDrivers.git
+git clone --recursive https://github.com/modelica-3rdparty/Modelica_DeviceDrivers.git
 git submodule update --init --recursive
 ```
 
@@ -104,9 +111,9 @@ Main developers:
 * [Thomas Beutlich](https://github.com/beutlich), SimulationX support, new features, Windows specific code, etc.
 * [Tobias Bellmann](https://github.com/tbellmann), most of the initial MS Windows specific code.
 
-You may report any issues with using the [Issues](https://github.com/modelica/Modelica_DeviceDrivers/issues) button.
+You may report any issues with using the [Issues](https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues) button.
 
-Contributions in shape of [Pull Requests](https://github.com/modelica/Modelica_DeviceDrivers/pulls) are always welcome.
+Contributions in shape of [Pull Requests](https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/pulls) are always welcome.
 
 The following people have directly contributed to the implementation of the library (many more have contributed by providing feedback and suggestions):
 * [Miguel Neves](https://github.com/ChukasNeves), human readable error codes for the Softing CAN interface.

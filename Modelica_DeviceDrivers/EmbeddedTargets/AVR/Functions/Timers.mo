@@ -27,5 +27,4 @@ class Timer
   end destructor;
 
 end Timer;
-
 end Timers;

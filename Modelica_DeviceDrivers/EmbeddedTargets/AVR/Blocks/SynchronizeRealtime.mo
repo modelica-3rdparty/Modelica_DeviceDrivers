@@ -1,6 +1,7 @@
 within Modelica_DeviceDrivers.EmbeddedTargets.AVR.Blocks;
 block SynchronizeRealtime "A pseudo realtime synchronization"
-  import Modelica.SIunits;
+  import SIunits =
+         Modelica.Units.SI;
   import Modelica_DeviceDrivers.EmbeddedTargets.AVR.Constants;
   import Modelica_DeviceDrivers.EmbeddedTargets.AVR.Types;
   import Modelica_DeviceDrivers.EmbeddedTargets.AVR.Functions;

@@ -3,7 +3,7 @@
 * @file
 * @author bernhard-thiele
 * @since 2019-08-01
-* @copyright see Modelica_DeviceDrivers project's License.txt file
+* @copyright see accompanying file LICENSE_Modelica_DeviceDrivers.txt
 *
 */
 
@@ -21,7 +21,6 @@
 #define WIN32_LEAN_AND_MEAN
 #endif
 
-#include <winsock2.h>
 #include <ws2tcpip.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -159,7 +158,7 @@ DllExport void * MDD_TCPIPServer_Constructor(int serverport, int maxClients, int
         MDD_TCPIPServer_Destructor(tcpip); // Explicit call, because it won't be called automatically by Modelica, since object not constructed, yet.
         ModelicaFormatError("MDDTCPIPSocketServer.h:%d: given server port number %d higher than allowable for IPv4 (maximum 65535)", __LINE__, serverport);
     }
-  _snprintf(serverport_str, 9, "%d", serverport);
+    _snprintf(serverport_str, 9, "%d", serverport);
     iResult = getaddrinfo(NULL, serverport_str, &hints, &result);
     if ( iResult != 0 ) {
         MDD_TCPIPServer_Destructor(tcpip); // Explicit call, because it won't be called automatically by Modelica, since object not constructed, yet.
@@ -489,6 +488,9 @@ DllExport int MDD_TCPIPServer_Send(void* p_tcpip, const char* data, int dataSize
                 closesocket(tcpip->clientSockets[clientIndexC]);
                 ModelicaFormatError("MDDTCPIPSocketServer.h:%d: send failed for client at index %d with error: %d\n", __LINE__, clientIndex, wsaLastError);
             }
+        }
+        else {
+            retval = iSendResult;
         }
     }
     return retval;
@@ -1052,6 +1054,9 @@ DllExport int MDD_TCPIPServer_Send(void* p_tcpip, const char* data, int dataSize
                 close(tcpip->clientSockets[clientIndexC]);
                 ModelicaFormatError("MDDTCPIPSocketServer.h:%d: send failed for client at index %d (%s).\n", __LINE__, clientIndex, strerror(err));
             }
+        }
+        else {
+            retval = iSendResult;
         }
     }
     return retval;

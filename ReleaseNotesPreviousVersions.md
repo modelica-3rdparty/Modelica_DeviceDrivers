@@ -2,6 +2,17 @@
 
 Notice that bug fix releases usually do not have release notes.
 
+* [Version v1.8.1 (2020-02-26)](../../releases/tag/v1.8.1)
+  * Fix declaration of `MDD_spaceMouseGetData` in external C code (#305).
+* [Version v1.8.0 (2020-01-11)](../../releases/tag/v1.8.0)
+  * TCP/IP server communication (#296). In addition to the existing TCP/IP client blocks (see #78) there are now also blocks for setting up a TCP/IP server. See examples `Blocks.Examples.TestSerialPackager_TCPIPServer` and `Blocks.Examples.TestSerialPackager_TCPIPServerMultipleClients`.
+  * Enhanced real-time synchronization block (#290). Added an enhanced real-time synchronization block (`Blocks.OperatingSystem.RealtimeSynchronize`) and deprecated the existing block (`Blocks.OperatingSystem.SynchronizeRealtime`). The deprecated block is known to not working well with recent Dymola versions (e.g., Dymola 2020). The new `RealtimeSynchronize` block supports a sample-based real-time synchronization mode which is recommended for more deterministic, less solver sensitive behavior. See example `Blocks.Examples.TestRealtimeSynchronize`.
+  * An utility block for debugging purposes which prints a message when triggered by an event (#289).
+  * Updated 3rd-party library paho.mqtt.c to v1.3.1 (#293)
+  * Bug fixes:
+    * Fixed Spacemouse not working under Windows 10 bug (#289).
+    * More similar behavior for getMACAddress() in Windows and Linux (#263).
+  * Other (minor) fixes and improvements.
 *  [Version v1.7.0 (2019-03-28)](../../releases/tag/v1.7.0)
    * Uses latest version of Modelica Standard Library (v3.2.3).
    * Option for using blocking UDP receive calls (#275). On the function interface level an optional third argument in the `UDPSocket` constructor allows to create the external object without starting a dedicated receive thread (default: `useRecvThread=true`). On the block interface level (block `UDPReceive`) a new parameter `useRecvThread` (default: `useRecvThread=true`) allows to select the desired behavior. See example `Blocks.Examples.TestSerialPackager_UDPWithoutReceiveThread`.
