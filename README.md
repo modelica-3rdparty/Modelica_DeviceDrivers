@@ -48,7 +48,7 @@ If you tested the library successfully with another Modelica tool, please contac
 
 Bug fix releases may not have release notes, so please use the download link from above to get the latest release including bug fixes.
 
-* [DRAFT Version v2.1.0 (2022-08-10)](../../releases/tag/v2.1.0)
+* [Version v2.1.0 (2022-08-10)](../../releases/tag/v2.1.0)
   * Enhancements:
     * Added parameter `useRecvThread` also for _clocked_ `UDPReceive` variant (#342).
     * Added option for not unlinking shared memory partition at process termination (#339).
