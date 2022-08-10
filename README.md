@@ -1,7 +1,5 @@
 # Modelica_DeviceDrivers
 
-__The master and the latest release has been updated to the Modelica Standard Library 4 (MSL 4, released 2020-06-04). Please use the Modelica_DeviceDrivers release v1.8.2 (last MSL 3 release) until your tool is updated for MSL 4.__
-
 Free library for interfacing hardware drivers to Modelica models.
 There is support for joysticks, keyboards, UDP, TCP/IP, LCM, MQTT, shared memory, AD/DA converters, serial port and other devices.
 
@@ -50,6 +48,15 @@ If you tested the library successfully with another Modelica tool, please contac
 
 Bug fix releases may not have release notes, so please use the download link from above to get the latest release including bug fixes.
 
+* [DRAFT Version v2.1.0 (2022-08-10)](../../releases/tag/v2.1.0)
+  * Enhancements:
+    * Add `useRecvThread` parameter also for clocked UDPReceive variant (#342).
+    * Option for not unlinking shared memory partition at process termination (#339).
+    * Updated 3rd-parth library paho.mqtt.c to v1.3.9 (#341).
+  * Bug fixes:
+    * Fixed sporadic RealtimeSynchronize block "clock_nanosleep" error on Linux (#357).
+    * Fixed `MDD_TCPIPServer_Send(...)` return value, so that it works as described in the documentation: "On success, return the number of bytes sent, 0 if operation would block, -1 on non-fatal error" (#323).
+    * Serial port interface on Windows: Fixed spurious byte sent at the end of a simulation (#352).
 * [Version v2.0.0 (2020-06-08)](../../releases/tag/v2.0.0)
   * Migrated from Modelica Standard Library 3 (MSL 3) to MSL 4 -> _Non-backwards compatible release!_
   * However, apart from the MSL 4 dependency this release is compatible to previous releases and no update of user libraries is necessary apart from migrating to MSL 4.
@@ -60,17 +67,6 @@ Bug fix releases may not have release notes, so please use the download link fro
     * Fixed small issues in the SBHS Board example (#318).
 * [Version v1.8.2 (2020-03-26)](../../releases/tag/v1.8.2)
   * Updated Linux MQTT binary dependencies. The updated libraries are compiled with the `-fPIC` flag, which fixes a related FMU generation problem (#306).
-* [Version v1.8.1 (2020-02-26)](../../releases/tag/v1.8.1)
-  * Fix declaration of `MDD_spaceMouseGetData` in external C code (#305).
-* [Version v1.8.0 (2020-01-11)](../../releases/tag/v1.8.0)
-  * TCP/IP server communication (#296). In addition to the existing TCP/IP client blocks (see #78) there are now also blocks for setting up a TCP/IP server. See examples `Blocks.Examples.TestSerialPackager_TCPIPServer` and `Blocks.Examples.TestSerialPackager_TCPIPServerMultipleClients`.
-  * Enhanced real-time synchronization block (#290). Added an enhanced real-time synchronization block (`Blocks.OperatingSystem.RealtimeSynchronize`) and deprecated the existing block (`Blocks.OperatingSystem.SynchronizeRealtime`). The deprecated block is known to not working well with recent Dymola versions (e.g., Dymola 2020). The new `RealtimeSynchronize` block supports a sample-based real-time synchronization mode which is recommended for more deterministic, less solver sensitive behavior. See example `Blocks.Examples.TestRealtimeSynchronize`.
-  * An utility block for debugging purposes which prints a message when triggered by an event (#289).
-  * Updated 3rd-party library paho.mqtt.c to v1.3.1 (#293)
-  * Bug fixes:
-    * Fixed Spacemouse not working under Windows 10 bug (#289).
-    * More similar behavior for getMACAddress() in Windows and Linux (#263).
-  * Other (minor) fixes and improvements.
 
 For information about previous releases, see [Release Notes of Previous Versions](ReleaseNotesPreviousVersions.md).
 
