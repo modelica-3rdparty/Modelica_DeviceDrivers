@@ -4,6 +4,7 @@ Free library for interfacing hardware drivers to Modelica models.
 There is support for joysticks, keyboards, UDP, TCP/IP, LCM, MQTT, shared memory, AD/DA converters, serial port and other devices.
 
 ## Library description
+
 The `Modelica_DeviceDrivers` (MDD) library is an open source Modelica package that interfaces hardware drivers to Modelica models. An overview of the library is provided in
 
 > Bernhard Thiele, Thomas Beutlich, Volker Waurich, Martin Sjölund, and Tobias Bellmann, Towards a Standard-Conform, Platform-Generic and Feature-Rich Modelica Device Drivers Library. In Jiří Kofránek and Francesco Casella, editors, _12th Int. Modelica Conference_, Prague, Czech Republic, May 2017. [Download](https://www.modelica.org/events/modelica2017/proceedings/html/submissions/ecp17132713_ThieleBeutlichWaurichSjolundBellmann.pdf)
@@ -31,7 +32,8 @@ The second interface uses the synchronous language elements introduced in Modeli
  - [X] Existed and maintained for at least 6 months
 
 ## Build status
-[![Build Status](https://travis-ci.org/modelica-3rdparty/Modelica_DeviceDrivers.svg)](https://travis-ci.org/modelica-3rdparty/Modelica_DeviceDrivers)
+
+[![Build Status](https://app.travis-ci.com/modelica-3rdparty/Modelica_DeviceDrivers.svg?branch=master)](https://app.travis-ci.com/modelica-3rdparty/Modelica_DeviceDrivers)
 
 ## Current release
 
