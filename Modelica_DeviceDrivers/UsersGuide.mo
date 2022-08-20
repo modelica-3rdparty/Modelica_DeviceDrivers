@@ -10,7 +10,7 @@ package UsersGuide "User's Guide"
 <ul>
 <li>Added parameter <code>useRecvThread</code> also for <em>clocked</em> <code>UDPReceive</code> variant (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues/342\">#342</a>).</li>
 <li>Added option for not unlinking shared memory partition at process termination (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues/339\">#339</a>).</li>
-<li>Updated 3rd-party library paho.mqtt.c to v1.3.9 (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/pull/341\">#341</a>).</li>
+<li>Updated 3rd-party library paho.mqtt.c to v1.3.10 (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/pull/355\">#355</a>).</li>
 </ul>
 <p>Bug fixes:</p>
 <ul>
