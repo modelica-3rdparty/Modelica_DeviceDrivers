@@ -54,7 +54,7 @@ Bug fix releases may not have release notes, so please use the download link fro
   * Enhancements:
     * Added parameter `useRecvThread` also for _clocked_ `UDPReceive` variant (#342).
     * Added option for not unlinking shared memory partition at process termination (#339).
-    * Updated 3rd-parth library paho.mqtt.c to v1.3.9 (#341).
+    * Updated 3rd-parth library paho.mqtt.c to v1.3.10 (#355).
   * Bug fixes:
     * Fixed sporadic `RealtimeSynchronize` block "clock_nanosleep" error on Linux (#357).
     * Fixed `MDD_TCPIPServer_Send(...)` return value, so that it works as described in the documentation: "On success, return the number of bytes sent, 0 if operation would block, -1 on non-fatal error" (#323).
