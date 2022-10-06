@@ -4,6 +4,7 @@ Free library for interfacing hardware drivers to Modelica models.
 There is support for joysticks, keyboards, UDP, TCP/IP, LCM, MQTT, shared memory, AD/DA converters, serial port and other devices.
 
 ## Library description
+
 The `Modelica_DeviceDrivers` (MDD) library is an open source Modelica package that interfaces hardware drivers to Modelica models. An overview of the library is provided in
 
 > Bernhard Thiele, Thomas Beutlich, Volker Waurich, Martin Sjölund, and Tobias Bellmann, Towards a Standard-Conform, Platform-Generic and Feature-Rich Modelica Device Drivers Library. In Jiří Kofránek and Francesco Casella, editors, _12th Int. Modelica Conference_, Prague, Czech Republic, May 2017. [Download](https://www.modelica.org/events/modelica2017/proceedings/html/submissions/ecp17132713_ThieleBeutlichWaurichSjolundBellmann.pdf)
@@ -31,7 +32,8 @@ The second interface uses the synchronous language elements introduced in Modeli
  - [X] Existed and maintained for at least 6 months
 
 ## Build status
-[![Build Status](https://travis-ci.org/modelica-3rdparty/Modelica_DeviceDrivers.svg)](https://travis-ci.org/modelica-3rdparty/Modelica_DeviceDrivers)
+
+[![Build Status](https://app.travis-ci.com/modelica-3rdparty/Modelica_DeviceDrivers.svg?branch=master)](https://app.travis-ci.com/modelica-3rdparty/Modelica_DeviceDrivers)
 
 ## Current release
 
@@ -48,11 +50,11 @@ If you tested the library successfully with another Modelica tool, please contac
 
 Bug fix releases may not have release notes, so please use the download link from above to get the latest release including bug fixes.
 
-* [DRAFT Version v2.1.0 (2022-08-10)](../../releases/tag/v2.1.0)
+* [Version v2.1.0 (2022-08-10)](../../releases/tag/v2.1.0)
   * Enhancements:
     * Added parameter `useRecvThread` also for _clocked_ `UDPReceive` variant (#342).
     * Added option for not unlinking shared memory partition at process termination (#339).
-    * Updated 3rd-parth library paho.mqtt.c to v1.3.9 (#341).
+    * Updated 3rd-parth library paho.mqtt.c to v1.3.10 (#355).
   * Bug fixes:
     * Fixed sporadic `RealtimeSynchronize` block "clock_nanosleep" error on Linux (#357).
     * Fixed `MDD_TCPIPServer_Send(...)` return value, so that it works as described in the documentation: "On success, return the number of bytes sent, 0 if operation would block, -1 on non-fatal error" (#323).

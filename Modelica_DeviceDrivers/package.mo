@@ -4,9 +4,9 @@ package Modelica_DeviceDrivers "Modelica_DeviceDrivers - A collection of drivers
 
   annotation (preferredView="info",
     uses(Modelica(version="4.0.0")),
-    version="2.1.0",
-    versionDate="2022-08-10",
-    conversion(noneFromVersion="2.0.0", noneFromVersion="1.8.1", noneFromVersion="1.8.0", noneFromVersion="1.7.1", noneFromVersion="1.7.0", noneFromVersion="1.6.0",noneFromVersion="1.8.2"),
+    version="2.1.1",
+    versionDate="2022-10-06",
+    conversion(noneFromVersion="2.1.0", noneFromVersion="2.0.0", noneFromVersion="1.8.1", noneFromVersion="1.8.0", noneFromVersion="1.7.1", noneFromVersion="1.7.0", noneFromVersion="1.6.0",noneFromVersion="1.8.2"),
     Documentation(info="<html>
 <p>
 Library <b>Modelica_DeviceDrivers</b> is a Modelica package
