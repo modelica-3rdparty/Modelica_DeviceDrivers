@@ -814,18 +814,14 @@ DllExport double MDD_sampledRealtimeSynchronize(void* rtSyncObj, double simTime,
     return deltaTime;
 }
 
-double MDD_getTimeMS(double dummy) {
+DllExport double MDD_getTimeMS(double dummy) {
     struct timespec ts;
-    int ret, ms;
-
-    ret = clock_gettime(CLOCK_MONOTONIC, &ts);
+    int ret = clock_gettime(CLOCK_MONOTONIC, &ts);
     if (ret) {
         ModelicaFormatError("MDDRealtimeSynchronize.h: clock_gettime failed (%s)\n", strerror(errno));
     }
-
-    ms = ts.tv_sec*1000 + floor( (double)ts.tv_nsec/1000.0 + 0.5);
-
-    return (double)ms;
+    double epoch_ms = (double)ts.tv_sec*1000.0 + floor( (double)ts.tv_nsec/1e6 + 0.5);
+    return epoch_ms;
 }
 
 /******************************************************/
