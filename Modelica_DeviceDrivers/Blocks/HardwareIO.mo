@@ -325,4 +325,77 @@ Enumeration that defines the available reference channels used in a DAQ-card
 </html>"));
     end Types;
   end Comedi;
+
+  package IIO "Support for the linux device communication library 'libiio'"
+     extends Modelica.Icons.Package;
+
+    record IIOConfig "Configuration for the linux device communication library 'libiio'"
+    extends Modelica_DeviceDrivers.Utilities.Icons.ComediRecordIcon;
+
+      import Modelica_DeviceDrivers.HardwareIO.IIO;
+      parameter String deviceName = "" "Network address of IIO device. Leave empty for local device (Linux only)";
+
+      final parameter IIO dh = IIO(deviceName) "Handle to comedi device";
+
+      annotation (defaultComponentName="iio",
+            preferredView="info",
+            Icon(graphics={
+            Text(
+              extent={{-98,72},{94,46}},
+              textString="%deviceName"),
+              Bitmap(extent={{-96,-92},{10,20}}, fileName=
+                  "modelica://Modelica_DeviceDrivers/Resources/Images/Icons/gears.png")}),
+        Documentation(info="<html>
+<p>Record for configuring a IIO device. At initialization time the IIO device given by the parameter <span style=\"font-family: Courier New;\">deviceName </span>will be opened and a handle to that device will be assigned to the final parameter<span style=\"font-family: Courier New;\"> dh.</span>This handle needs to be passed as parameter to the remaining IIO read and write blocks<span style=\"font-family: Courier New;\">.</span></p>
+<h4>Note</h4>
+<p>If accessing a local linux device, it iis required that the simulation process has sufficient privileges to access the intended device (usually that requires &quot;root&quot; privileges).</p>
+</html>"));
+    end IIOConfig;
+
+    block PhysicalDataRead "Read Real value from IIO channel"
+      extends Modelica_DeviceDrivers.Utilities.Icons.ComediBlockIcon;
+      import Modelica_DeviceDrivers.HardwareIO.IIO;
+      import Modelica_DeviceDrivers.HardwareIO.IIOchannel;
+
+      parameter Modelica.Units.SI.Period sampleTime=0.01 "Sample time of block";
+      parameter IIO iio "Handle to comedi device";
+      parameter String devicename "Device name";
+      parameter String channelname "Channel name";
+      Modelica.Blocks.Interfaces.RealOutput y
+        annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    protected
+      final parameter IIOchannel channel = IIOchannel(iio, devicename, channelname);
+      Real scaleData "Scale value read from channel";
+      Real rawData "Raw value read from channel";
+
+    equation
+      when initial() then
+        scaleData = Modelica_DeviceDrivers.HardwareIO.IIO_.data_read(channel, "scale");
+      end when;
+      when sample(0,sampleTime) then
+        rawData = Modelica_DeviceDrivers.HardwareIO.IIO_.data_read(channel, "raw");
+        y = scaleData*rawData;
+      end when;
+
+      annotation (defaultComponentName="dataRead",
+              preferredView="info",
+              Icon(graphics={Text(extent={{-222,
+                  88},{222,58}},
+              textColor={0,0,0},
+              textString="Device: %devicename"), Text(extent={{-222,
+                  54},{222,24}},
+              textString="channel: %channelname",
+              textColor={0,0,0}), Text(extent={{-220,
+                  20},{224,-10}},
+              textString="Ts: %sampleTime",
+              textColor={0,0,0}), Text(extent={{-220,
+                  -104},{224,-134}},
+              textString="Device: %iio",
+              textColor={0,0,0}), Text(extent={{-152,142},{148,102}},
+                textString="%name")}), Documentation(info="<html>
+<p>The parameter <span style=\"font-family: Courier New;\">iio</span> needs to be set to a valid IIO context handle, i.e., needs to be set to the record member <span style=\"font-family: Courier New;\">dh</span> of a <span style=\"font-family: Courier New;\">IIOConfig</span> record instance.</p>
+<p>Uses the Comedi function<span style=\"font-family: Courier New;\"> iio_channel_attr_read_double(..)</span> to read the a <span style=\"font-family: Courier New;\">raw</span> and <span style=\"font-family: Courier New;\">scale</span> attribute of a IIO channel and multiplies them to get the value reading.</p>
+</html>"));
+    end PhysicalDataRead;
+  end IIO;
 end HardwareIO;
