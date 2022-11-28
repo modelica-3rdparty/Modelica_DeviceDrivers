@@ -604,7 +604,7 @@ void MDD_udpNonBlockingReadP(void * p_udp, void* p_package) {
                     ModelicaFormatError("MDDUDPSocket.h: recvfrom(..) failed (%s)\n",
                                         strerror(errno));
                 }
-                rc = MDD_SerialPackagerSetDataWithErrorReturn(p_package, (char*) udp->msgInternal, udp->nReceivedBytes);
+                rc = MDD_SerialPackagerSetDataWithErrorReturn(p_package, (const char*) udp->msgInternal, udp->nReceivedBytes);
                 if (rc) {
                     ModelicaError("MDDUDPSocket.h: MDD_SerialPackagerSetData failed. Buffer overflow.\n");
                 }
