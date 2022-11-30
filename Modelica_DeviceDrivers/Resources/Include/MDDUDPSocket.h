@@ -483,7 +483,7 @@ void MDD_udpReadP2(void * p_udp, void* p_package, int* nReceivedBytes, int* nRec
 
     /* Lock access to udp->msgInternal  */
     pthread_mutex_lock(&(udp->messageMutex));
-    rc = MDD_SerialPackagerSetDataWithErrorReturn(p_package, udp->msgInternal, udp->messageLength);
+    rc = MDD_SerialPackagerSetDataWithErrorReturn(p_package, (const char*)udp->msgInternal, udp->messageLength);
     *nReceivedBytes = udp->nReceivedBytes;
     *nRecvbufOverwrites = udp->nRecvbufOverwrites;
     udp->nReceivedBytes = 0;
@@ -604,7 +604,7 @@ void MDD_udpNonBlockingReadP(void * p_udp, void* p_package) {
                     ModelicaFormatError("MDDUDPSocket.h: recvfrom(..) failed (%s)\n",
                                         strerror(errno));
                 }
-                rc = MDD_SerialPackagerSetDataWithErrorReturn(p_package, udp->msgInternal, udp->nReceivedBytes);
+                rc = MDD_SerialPackagerSetDataWithErrorReturn(p_package, (const char*) udp->msgInternal, udp->nReceivedBytes);
                 if (rc) {
                     ModelicaError("MDDUDPSocket.h: MDD_SerialPackagerSetData failed. Buffer overflow.\n");
                 }
