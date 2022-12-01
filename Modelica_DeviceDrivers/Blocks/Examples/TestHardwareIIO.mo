@@ -89,16 +89,11 @@ model TestHardwareIIO "Example to access the Inertial Measurement Unit of a Pine
 </html>"));
   end BullsEyeLevel;
 equation
-  connect(dataRead_x.y, a.u1[1]) annotation (Line(points={{-59,0},{-50,0},{-50,-23},{-42,-23}},
-                                                                                              color={0,0,127}));
-  connect(dataRead_y.y, a.u2[1]) annotation (Line(points={{-59,-30},{-42,-30}},
-                                                                            color={0,0,127}));
-  connect(dataRead_z.y, a.u3[1]) annotation (Line(points={{-59,-60},{-50,-60},{-50,-37},{-42,-37}},
-                                                                                                  color={0,0,127}));
+  connect(dataRead_x.y, a.u1[1]) annotation (Line(points={{-59,0},{-50,0},{-50,-23},{-42,-23}}, color={0,0,127}));
+  connect(dataRead_y.y, a.u2[1]) annotation (Line(points={{-59,-30},{-42,-30}}, color={0,0,127}));
+  connect(dataRead_z.y, a.u3[1]) annotation (Line(points={{-59,-60},{-50,-60},{-50,-37},{-42,-37}}, color={0,0,127}));
   connect(a.y, bullsEyeLevel.u) annotation (Line(points={{-19,-30},{2,-30}}, color={0,0,127}));
-  annotation (
-      experiment(__Dymola_Algorithm="Dassl", StopTime=20),
-    Documentation(info="<html>
+  annotation (Documentation(info="<html>
 <p>This example was tested with a Mobian installation on a Pinephone. The package <span style=\"font-family: Courier New;\">iiod</span> has to be installed on the phone. It works out-of-the-box without further configuration.</p>
 <p>Any other linux device supporting IIO can be used. Only the IIO deamon has to be installed and configured.</p>
 </html>"));
