@@ -95,6 +95,6 @@ equation
   connect(a.y, bullsEyeLevel.u) annotation (Line(points={{-19,-30},{2,-30}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>This example was tested with a Mobian installation on a Pinephone. The package <span style=\"font-family: Courier New;\">iiod</span> has to be installed on the phone. It works out-of-the-box without further configuration.</p>
-<p>Any other linux device supporting IIO can be used. Only the IIO deamon has to be installed and configured.</p>
+<p>Any other linux device supporting IIO (i. e. a Raspberry Pi connected to a MPU6050 chip) can be used. Only the IIO deamon has to be installed and configured.</p>
 </html>"));
 end TestHardwareIIO;
