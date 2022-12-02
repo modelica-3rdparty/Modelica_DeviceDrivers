@@ -348,7 +348,9 @@ Enumeration that defines the available reference channels used in a DAQ-card
         Documentation(info="<html>
 <p>Record for configuring a IIO device. At initialization time the IIO device given by the parameter <span style=\"font-family: Courier New;\">deviceName </span>will be opened and a handle to that device will be assigned to the final parameter<span style=\"font-family: Courier New;\"> dh.</span>This handle needs to be passed as parameter to the remaining IIO read and write blocks<span style=\"font-family: Courier New;\">.</span></p>
 <h4>Note</h4>
-<p>If accessing a local linux device, it iis required that the simulation process has sufficient privileges to access the intended device (usually that requires &quot;root&quot; privileges).</p>
+<p>On Windows, the code should work fine with the provided <span style=\"font-family: Courier New;\">libiio.lib</span> file from the libiio Release (<a href=\"https://github.com/analogdevicesinc/libiio\">https://github.com/analogdevicesinc/libiio</a>).</p>
+<p>For linux, the IIO library has to be compiled first. Best practice is to run <span style=\"font-family: Courier New;\">cmake</span> with the <span style=\"font-family: Courier New;\">BUILD_SHARED_LIBS=OFF</span> parameter. This will create <span style=\"font-family: Courier New;\">libiio.a</span> in the build directory, which you can place in <span style=\"font-family: Courier New;\">Resources/library/linux64</span>.</p>
+<p>If accessing a local linux device, it is required that the simulation process has sufficient privileges to access the intended device (usually that requires &quot;root&quot; privileges).</p>
 </html>"));
     end IIOConfig;
 
