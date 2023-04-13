@@ -1,8 +1,8 @@
-/** Linux Comedi DAQ support (header-only library).
+/** Linux Internet-I/O support (header-only library).
  *
  * @file
- * @author      bernhard-thiele
- * @since       2012-06-26
+ * @author      m-kormann
+ * @since       2023-04-13
  * @copyright see accompanying file LICENSE_Modelica_DeviceDrivers.txt
  */
 
@@ -20,18 +20,12 @@
 	} \
 }
 
-// Streaming devices
-
-static struct iio_buffer  *rxbuf;
-static struct iio_channel **channels;
-static unsigned int channel_count;
-
 void* MDD_iio_open(const char* targetname) {
-	static struct iio_context *ctx;
-	if(strlen(targetname) > 0) {
+	struct iio_context *ctx = NULL;
+	if (targetname[0] != '\0') {
 		IIO_ENSURE(ctx = iio_create_network_context(targetname), "Could not open IIO host", targetname);
 	}
-	else  {
+	else {
 		IIO_ENSURE(ctx = iio_create_local_context(), "Could not open IIO host", "locally");
 	}
 	IIO_ENSURE(iio_context_get_devices_count(ctx) > 3, "No devices found at host", targetname);
@@ -42,7 +36,7 @@ void* MDD_iio_open(const char* targetname) {
 void MDD_iio_close(void* p_ctx) {
 	static struct iio_context *ctx;
 	ctx = (struct iio_context *) p_ctx;
-    if (ctx) {
+	if (ctx) {
 		iio_context_destroy(ctx);
 	}
 }
@@ -60,12 +54,8 @@ void* MDD_iio_open_channel(void *p_ctx, const char* devicename, const char* chan
 	return (void *) chn;
 }
 
-void MDD_iio_close_channel (void* p_chn) {
-}
-
 double MDD_iio_data_read(void* p_chn, const char* attrname) {
-	struct iio_channel *chn;
-	chn = (struct iio_channel *) p_chn;
+	struct iio_channel *chn = (struct iio_channel *) p_chn;
 
 	double val = 0;
 
