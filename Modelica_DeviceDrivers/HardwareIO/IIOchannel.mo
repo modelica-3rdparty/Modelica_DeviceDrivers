@@ -21,8 +21,6 @@ encapsulated function destructor "Close channel"
   extends Modelica.Icons.Function;
   import Modelica_DeviceDrivers.HardwareIO.IIOchannel;
   input IIOchannel channel "Channel context";
-  external "C" MDD_iio_close_channel(channel)
-  annotation (Include="#include \"MDDIIO.h\"", Library="libiio");
 end destructor;
 
 end IIOchannel;
