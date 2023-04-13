@@ -15,52 +15,52 @@
 #include "ModelicaUtilities.h"
 
 #define IIO_ENSURE(expr, message, context) { \
-	if (!(expr)) { \
-		(void) ModelicaFormatError("%s %s (%s:%d)\n", message, context, __FILE__, __LINE__); \
-	} \
+    if (!(expr)) { \
+        (void) ModelicaFormatError("%s %s (%s:%d)\n", message, context, __FILE__, __LINE__); \
+    } \
 }
 
 void* MDD_iio_open(const char* targetname) {
-	struct iio_context *ctx = NULL;
-	if (targetname[0] != '\0') {
-		IIO_ENSURE(ctx = iio_create_network_context(targetname), "Could not open IIO host", targetname);
-	}
-	else {
-		IIO_ENSURE(ctx = iio_create_local_context(), "Could not open IIO host", "locally");
-	}
-	IIO_ENSURE(iio_context_get_devices_count(ctx) > 3, "No devices found at host", targetname);
+    struct iio_context *ctx = NULL;
+    if (targetname[0] != '\0') {
+        IIO_ENSURE(ctx = iio_create_network_context(targetname), "Could not open IIO host", targetname);
+    }
+    else {
+        IIO_ENSURE(ctx = iio_create_local_context(), "Could not open IIO host", "locally");
+    }
+    IIO_ENSURE(iio_context_get_devices_count(ctx) > 3, "No devices found at host", targetname);
 
     return (void*) ctx;
 }
 
 void MDD_iio_close(void* p_ctx) {
-	static struct iio_context *ctx;
-	ctx = (struct iio_context *) p_ctx;
-	if (ctx) {
-		iio_context_destroy(ctx);
-	}
+    static struct iio_context *ctx;
+    ctx = (struct iio_context *) p_ctx;
+    if (ctx) {
+        iio_context_destroy(ctx);
+    }
 }
 
 void* MDD_iio_open_channel(void *p_ctx, const char* devicename, const char* channelname) {
-	static struct iio_context *ctx;
-	ctx = (struct iio_context *) p_ctx;
+    static struct iio_context *ctx;
+    ctx = (struct iio_context *) p_ctx;
 
-	static struct iio_device *dev;
-	IIO_ENSURE(dev = iio_context_find_device(ctx, devicename), "Device not found: ", devicename);
+    static struct iio_device *dev;
+    IIO_ENSURE(dev = iio_context_find_device(ctx, devicename), "Device not found: ", devicename);
 
-	struct iio_channel *chn;
-	IIO_ENSURE(chn = iio_device_find_channel(dev, channelname, false), "Channel not found: ", channelname);
+    struct iio_channel *chn;
+    IIO_ENSURE(chn = iio_device_find_channel(dev, channelname, false), "Channel not found: ", channelname);
 
-	return (void *) chn;
+    return (void *) chn;
 }
 
 double MDD_iio_data_read(void* p_chn, const char* attrname) {
-	struct iio_channel *chn = (struct iio_channel *) p_chn;
+    struct iio_channel *chn = (struct iio_channel *) p_chn;
 
-	double val = 0;
+    double val = 0;
 
-	int ret = iio_channel_attr_read_double(chn, attrname, &val);
-	IIO_ENSURE(ret == 0, "Attribute not found: ", attrname);
+    int ret = iio_channel_attr_read_double(chn, attrname, &val);
+    IIO_ENSURE(ret == 0, "Attribute not found: ", attrname);
 
     return val;
 }
