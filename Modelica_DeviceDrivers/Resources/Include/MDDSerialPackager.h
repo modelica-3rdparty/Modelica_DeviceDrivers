@@ -464,7 +464,7 @@ DllExport void MDD_SerialPackagerAddString(void* p_package, const char* u, int b
  */
 DllExport const char* MDD_SerialPackagerGetString(void* p_package, int bufferSize) {
     SerialPackager* pkg = (SerialPackager*) p_package;
-    unsigned int i, found = 0;
+    unsigned char* pNull;
     if (pkg->bitOffset != 0) {
         MDD_SerialPackagerAlignToByteBoundary(pkg);
     }
@@ -473,20 +473,14 @@ DllExport const char* MDD_SerialPackagerGetString(void* p_package, int bufferSiz
         ModelicaError("MDDSerialPackager.h: MDD_SerialPackagerGetString failed. Buffer overflow.\n");
     }
 
-    for (i=pkg->pos; i < pkg->pos + bufferSize; i++) {
-        if (pkg->data[i] == '\0') {
-            found = 1;
-            break;
-        }
-    }
-
-    if (!found) {
+    pNull = (unsigned char*)memchr(pkg->data + pkg->pos, '\0', (size_t)bufferSize);
+    if (pNull == NULL) {
         ModelicaError("MDDSerialPackager.h: MDD_SerialPackagerGetString failed. No terminating '\\0' found in buffer\n");
     }
     else {
-        char* y = ModelicaAllocateString(i - pkg->pos);
+        char* y = ModelicaAllocateString(pNull - pkg->data - pkg->pos);
         if (y) {
-            memcpy(y, &(pkg->data[ pkg->pos ]), i - pkg->pos + 1); // +1 for the trailing '\0'
+            memcpy(y, pkg->data + pkg->pos, pNull - pkg->data - pkg->pos + 1); // +1 for the trailing '\0'
         }
         pkg->pos += bufferSize;
         return (const char*) y;
