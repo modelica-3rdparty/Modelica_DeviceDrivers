@@ -28,7 +28,8 @@ model TestHardwareIIO "Example to access the Inertial Measurement Unit of a Pine
     channelname="accel_z") annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
   Modelica.Blocks.Routing.Multiplex3 a annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 
-  BullsEyeLevel bullsEyeLevel annotation (Placement(transformation(extent={{10,-70},{90,10}})));
+  BullsEyeLevel bullsEyeLevel(theta(fixed=true, start=0), psi(fixed=true, start=0))
+    annotation (Placement(transformation(extent={{10,-70},{90,10}})));
 
   model BullsEyeLevel
     extends Modelica.Blocks.Interfaces.MIMO(nin=3,nout=2);
@@ -39,8 +40,8 @@ model TestHardwareIIO "Example to access the Inertial Measurement Unit of a Pine
     Modelica.Units.SI.Velocity v[3] "Velocity of the ball";
     Modelica.Units.SI.Acceleration a[3] "Acceleration of the ball";
 
-    Modelica.Units.SI.Angle theta "Polar angle from the origin to the ball";
-    Modelica.Units.SI.Angle psi "Azimuth angle from the origin to the ball";
+    Real theta "Polar angle from the origin to the ball" annotation (Dialog(showStartAttribute=true));
+    Real psi "Azimuth angle from the origin to the ball" annotation (Dialog(showStartAttribute=true));
 
     Modelica.Mechanics.MultiBody.Types.Axis e_r "Normalized vector from the origin to the ball";
     Modelica.Mechanics.MultiBody.Types.Axis e_theta "Normalized vector in azimuth direction on the sphere";
