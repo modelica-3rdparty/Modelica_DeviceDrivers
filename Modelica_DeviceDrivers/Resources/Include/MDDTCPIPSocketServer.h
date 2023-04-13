@@ -170,7 +170,7 @@ DllExport void * MDD_TCPIPServer_Constructor(int serverport, int maxClients, int
     if (tcpip->listenSocket == INVALID_SOCKET) {
         freeaddrinfo(result);
         MDD_TCPIPServer_Destructor(tcpip); // Explicit call, because it won't be called automatically by Modelica, since object not constructed, yet.
-        ModelicaFormatError("MDDTCPIPSocketServer.h:%d: socket failed with error: %ld\n", __LINE__, WSAGetLastError());
+        ModelicaFormatError("MDDTCPIPSocketServer.h:%d: socket failed with error: %d\n", __LINE__, WSAGetLastError());
     }
 
     // Non-blocking vs blocking mode
@@ -178,7 +178,7 @@ DllExport void * MDD_TCPIPServer_Constructor(int serverport, int maxClients, int
     if (iResult != NO_ERROR) {
         freeaddrinfo(result);
         MDD_TCPIPServer_Destructor(tcpip); // Explicit call, because it won't be called automatically by Modelica, since object not constructed, yet.
-        ModelicaFormatError("MDDTCPIPSocketServer.h:%d: ioctlsocket failed with error: %ld\n", __LINE__, iResult);
+        ModelicaFormatError("MDDTCPIPSocketServer.h:%d: ioctlsocket failed with error: %d\n", __LINE__, iResult);
     }
 
     // Setup the TCP listening socket
