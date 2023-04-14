@@ -34,18 +34,16 @@ void* MDD_iio_open(const char* targetname) {
 }
 
 void MDD_iio_close(void* p_ctx) {
-    static struct iio_context *ctx;
-    ctx = (struct iio_context *) p_ctx;
+    struct iio_context *ctx = (struct iio_context *) p_ctx;
     if (ctx) {
         iio_context_destroy(ctx);
     }
 }
 
 void* MDD_iio_open_channel(void *p_ctx, const char* devicename, const char* channelname) {
-    static struct iio_context *ctx;
-    ctx = (struct iio_context *) p_ctx;
+    struct iio_context *ctx = (struct iio_context *) p_ctx;
 
-    static struct iio_device *dev;
+    struct iio_device *dev;
     IIO_ENSURE(dev = iio_context_find_device(ctx, devicename), "Device not found: ", devicename);
 
     struct iio_channel *chn;
