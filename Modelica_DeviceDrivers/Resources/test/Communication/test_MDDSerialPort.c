@@ -53,13 +53,13 @@ int main(void) {
 
     printf("Testing MDDSerialPort\n");
 
-    sp1 = MDD_serialPortConstructor(sendName, M_LENGTH, 0, 0, 5);
+    sp1 = MDD_serialPortConstructor(sendName, M_LENGTH, 0, 0, 5, 8);
     if (sp1 == 0) {
         perror("sp1 == NULL\n");
         exit(1);
     }
 
-    sp2 = MDD_serialPortConstructor(recName, M_LENGTH, 0, 1, 5);
+    sp2 = MDD_serialPortConstructor(recName, M_LENGTH, 0, 1, 5, 8);
     if (sp2 == 0) {
         MDD_serialPortDestructor(sp1);
         perror("sp2 == NULL\n");

@@ -130,7 +130,7 @@ DWORD WINAPI MDD_serialPortReceivingThread(LPVOID p_serial) {
     return 0;
 }
 
-DllExport void * MDD_serialPortConstructor(const char * deviceName, int bufferSize, int parity, int receiver, int baud) {
+DllExport void * MDD_serialPortConstructor(const char * deviceName, int bufferSize, int parity, int receiver, int baud, int byteSize) {
     /* Allocation of data structure memory */
     MDDSerialPort* serial = (MDDSerialPort*) calloc(sizeof(MDDSerialPort), 1);
     if (serial) {
@@ -200,7 +200,7 @@ DllExport void * MDD_serialPortConstructor(const char * deviceName, int bufferSi
         }
 
         dcb.fBinary = 1;
-        dcb.ByteSize = 8;
+        dcb.ByteSize = byteSize;
         dcb.StopBits = ONESTOPBIT;
         dcb.fDsrSensitivity = FALSE;
         dcb.fOutX = FALSE;
@@ -417,26 +417,47 @@ static void MDD_serialPortSetBlocking (int fd, int should_block) {
 
 /** Function to set serial device attributes
  *
- * @param @param fd file descriptor of opened serial port
+ * @param fd file descriptor of opened serial port
  * @param speed set speed of the serial port interface in baud starting with "B" e.g.B115200
  * @param parity @arg 0 set no parity
  * @arg 1 set parity
+ * @param byteSize byte size
  */
-static void MDD_serialPortSetInterfaceAttributes (int fd, int speed, int parity) {
+static void MDD_serialPortSetInterfaceAttributes (int fd, int speed, int parity, int byteSize) {
 
     struct termios ser;
     int ret;
     memset (&ser, 0, sizeof(ser));
     ret = tcgetattr (fd, &ser);
     if (ret != 0) {
-        ModelicaFormatError("MDDSerialPort.h: Error %d from tcgetattr\n",ret);
+        ModelicaFormatError("MDDSerialPort.h: Error %d from tcgetattr\n", ret);
         return;
     }
 
     cfsetospeed (&ser, speed); /* set output speed */
     cfsetispeed (&ser, speed); /* set input speed */
 
-    ser.c_cflag = ( ser.c_cflag & ~CSIZE) | CS8; /* 8 bit characters shall be used */
+    {
+        unsigned byteSizeFlag;
+        switch (byteSize) {
+            case 8:
+                byteSizeFlag = CS8; /* 8 bit characters shall be used */
+                break;
+            case 7:
+                byteSizeFlag = CS7; /* 7 bit characters shall be used */
+                break;
+            case 6:
+                byteSizeFlag = CS6; /* 6 bit characters shall be used */
+                break;
+            case 5:
+                byteSizeFlag = CS5; /* 5 bit characters shall be used */
+                break;
+           default:
+                ModelicaFormatError("MDDSerialPort.h: Invalid byte size %d\n", byteSize);
+                return;
+        }
+        ser.c_cflag = ( ser.c_cflag & ~CSIZE) | byteSizeFlag;
+    }
     ser.c_iflag &= ~IGNBRK; /* ignore break signal */
     /*ser.c_iflag |= IGNBRK; // ignore break signal*/
     ser.c_lflag = 0; /* no signaling characters, no echo */
@@ -482,7 +503,7 @@ static void MDD_serialPortSetInterfaceAttributes (int fd, int speed, int parity)
  *
  * @param bufferSize size of the buffer used by a receiving socket (not needed for sending socket)
  */
-void * MDD_serialPortConstructor(const char * deviceName, int bufferSize, int parity, int receiver, int baud) {
+void * MDD_serialPortConstructor(const char * deviceName, int bufferSize, int parity, int receiver, int baud, int byteSize) {
     /* Allocation of data structure memory */
     MDDSerialPort* serial = (MDDSerialPort*) malloc(sizeof(MDDSerialPort));
     int ret;
@@ -539,7 +560,7 @@ void * MDD_serialPortConstructor(const char * deviceName, int bufferSize, int pa
     ModelicaFormatMessage("Created serial port for device %s\n",deviceName);
     ModelicaFormatMessage("Set serial port %s to speed: %d\n",deviceName,(baud));
 
-    MDD_serialPortSetInterfaceAttributes (serial->fd, speed, parity);
+    MDD_serialPortSetInterfaceAttributes (serial->fd, speed, parity, byteSize);
     MDD_serialPortSetBlocking (serial->fd,0);
 
     if (receiver) {
