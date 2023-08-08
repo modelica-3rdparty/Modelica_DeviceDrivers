@@ -214,9 +214,9 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
       annotation(Dialog(group="Incoming data"), choices(checkBox=true));
     parameter Integer userBufferSize=16*64
       "Buffer size of message data in bytes (if not deduced automatically)" annotation(Dialog(enable=not autoBufferSize, group="Incoming data"));
-    parameter String Serial_Port="/dev/ttyPS1" "Serial port to send data"
+    parameter String Serial_Port = "/dev/ttyPS1" "Serial port to receive data from"
      annotation (Dialog(group="Incoming data"));
-    parameter SerialBaudRate baud= SerialBaudRate.B9600 "Serial port baud rate"
+    parameter SerialBaudRate baud = SerialBaudRate.B9600 "Serial port baud rate"
     annotation (Dialog(group="Incoming data"));
     parameter Integer parity = 0
       "set parity (0 - no parity, 1 - even, 2 - odd)"
@@ -272,7 +272,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
       annotation(Dialog(group="Outgoing data"), choices(checkBox=true));
     parameter Integer userBufferSize=16*64
       "Buffer size of message data in bytes (if not deduced automatically)." annotation(Dialog(enable=not autoBufferSize, group="Outgoing data"));
-    parameter String Serial_Port="/dev/ttyPS0" "SerialPort to sendData"
+    parameter String Serial_Port = "/dev/ttyPS0" "SerialPort to send data"
       annotation (Dialog(group="Outgoing data"));
     parameter SerialBaudRate baud = SerialBaudRate.B9600
       "Serial port baud rate"
