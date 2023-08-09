@@ -220,7 +220,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
       annotation (Dialog(group="Incoming data"));
     parameter Integer parity = 0 "set parity (0 - no parity, 1 - even, 2 - odd)"
       annotation (Dialog(group="Outgoing data"));
-    parameter Integer byteSize(min=5, max=8) = 8 "Byte size"
+    parameter Integer byteSize(min=5, max=8) = 8 "Number of data bits transmitted per (serial data format) byte (8 is most common)"
       annotation (Dialog(group="Outgoing data"));
     Interfaces.PackageOut pkgOut(pkg = SerialPackager(if autoBufferSize then bufferSize else userBufferSize), dummy(start=0, fixed=true))
       annotation (Placement(transformation(
@@ -279,7 +279,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
       annotation (Dialog(group="Outgoing data"));
     parameter Integer parity = 0 "set parity (0 - no parity, 1 - even, 2 - odd)"
       annotation (Dialog(group="Outgoing data"));
-    parameter Integer byteSize(min=5, max=8) = 8 "Byte size"
+    parameter Integer byteSize(min=5, max=8) = 8 "Number of data bits transmitted per (serial data format) byte (8 is most common)"
       annotation (Dialog(group="Outgoing data"));
 
     Interfaces.PackageIn pkgIn annotation (
