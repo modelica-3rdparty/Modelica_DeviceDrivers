@@ -1,0 +1,34 @@
+authors:
+  - name: "DLR, ESI ITI, and Linköping University (PELAB)"
+cff-version: 1.2.0
+license: BSD-3-Clause
+message: "If you use this software, please cite it using these metadata."
+preferred-citation:
+  abbreviation: modelica2017mdd
+  authors:
+    - family-names: Thiele
+      given-names: Bernhard
+    - family-names: Beutlich
+      given-names: Thomas
+    - family-names: Waurich
+      given-names: Volker
+    - family-names: Sjölund
+      given-names: Martin
+    - family-names: Bellmann
+      given-names: Tobias
+  collection-title: "Proceedings of the 12th International Modelica Conference"
+  collection-type: proceedings
+  doi: 10.3384/ecp17132713
+  editors:
+    - family-names: Kofránek
+      given-names: Jiří
+    - family-names: Casella
+      given-names: Francesco
+  location:
+    name: "Prague, Czech Republic"
+  month: 5
+  pages: "713-723"
+  title: "Towards a Standard-Conform, Platform-Generic and Feature-Rich Modelica Device Drivers Library"
+  type: conference-paper
+  year: 2017
+title: "Modelica_DeviceDrivers"
