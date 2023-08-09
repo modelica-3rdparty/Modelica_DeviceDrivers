@@ -212,14 +212,15 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
     parameter Boolean autoBufferSize = true
       "true, buffer size is deduced automatically, otherwise set it manually"
       annotation(Dialog(group="Incoming data"), choices(checkBox=true));
-    parameter Integer userBufferSize=16*64
-      "Buffer size of message data in bytes (if not deduced automatically)" annotation(Dialog(enable=not autoBufferSize, group="Incoming data"));
+    parameter Integer userBufferSize=16*64 "Buffer size of message data in bytes (if not deduced automatically)"
+      annotation(Dialog(enable=not autoBufferSize, group="Incoming data"));
     parameter String Serial_Port = "/dev/ttyPS1" "Serial port to receive data from"
-     annotation (Dialog(group="Incoming data"));
-    parameter SerialBaudRate baud = SerialBaudRate.B9600 "Serial port baud rate"
-    annotation (Dialog(group="Incoming data"));
-    parameter Integer parity = 0
-      "set parity (0 - no parity, 1 - even, 2 - odd)"
+      annotation (Dialog(group="Incoming data"));
+    parameter SerialBaudRate baud= SerialBaudRate.B9600 "Serial port baud rate"
+      annotation (Dialog(group="Incoming data"));
+    parameter Integer parity = 0 "set parity (0 - no parity, 1 - even, 2 - odd)"
+      annotation (Dialog(group="Outgoing data"));
+    parameter Integer byteSize(min=5, max=8) = 8 "Number of data bits transmitted per (serial data format) byte (8 is most common)"
       annotation (Dialog(group="Outgoing data"));
     Interfaces.PackageOut pkgOut(pkg = SerialPackager(if autoBufferSize then bufferSize else userBufferSize), dummy(start=0, fixed=true))
       annotation (Placement(transformation(
@@ -229,7 +230,7 @@ provided by the parameter <b>memoryID</b>. If the shared memory partition does n
 
   protected
     Integer bufferSize;
-    SerialPort sPort = SerialPort(Serial_Port, if autoBufferSize then bufferSize else userBufferSize, parity, receiver, baud);
+    SerialPort sPort = SerialPort(Serial_Port, if autoBufferSize then bufferSize else userBufferSize, parity, receiver, baud, byteSize);
     parameter Integer receiver = 1 "Set to be a receiver port";
 
   equation
@@ -270,16 +271,16 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
     parameter Boolean autoBufferSize = true
       "true, buffer size is deduced automatically, otherwise set it manually."
       annotation(Dialog(group="Outgoing data"), choices(checkBox=true));
-    parameter Integer userBufferSize=16*64
-      "Buffer size of message data in bytes (if not deduced automatically)." annotation(Dialog(enable=not autoBufferSize, group="Outgoing data"));
+    parameter Integer userBufferSize=16*64 "Buffer size of message data in bytes (if not deduced automatically)."
+      annotation(Dialog(enable=not autoBufferSize, group="Outgoing data"));
     parameter String Serial_Port = "/dev/ttyPS0" "SerialPort to send data"
       annotation (Dialog(group="Outgoing data"));
-    parameter SerialBaudRate baud = SerialBaudRate.B9600
-      "Serial port baud rate"
-       annotation (Dialog(group="Outgoing data"));
-    parameter Integer parity = 0
-      "set parity (0 - no parity, 1 - even, 2 - odd)"
-       annotation (Dialog(group="Outgoing data"));
+    parameter SerialBaudRate baud = SerialBaudRate.B9600 "Serial port baud rate"
+      annotation (Dialog(group="Outgoing data"));
+    parameter Integer parity = 0 "set parity (0 - no parity, 1 - even, 2 - odd)"
+      annotation (Dialog(group="Outgoing data"));
+    parameter Integer byteSize(min=5, max=8) = 8 "Number of data bits transmitted per (serial data format) byte (8 is most common)"
+      annotation (Dialog(group="Outgoing data"));
 
     Interfaces.PackageIn pkgIn annotation (
         Placement(transformation(
@@ -287,7 +288,7 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
           rotation=270,
           origin={-108,0})));
   protected
-    SerialPort sPort = SerialPort(Serial_Port, 0, parity, receiver, baud); // Creating port object from device
+    SerialPort sPort = SerialPort(Serial_Port, 0, parity, receiver, baud, byteSize); // Creating port object from device
     Integer bufferSize;
     parameter Integer receiver = 0 "Set to be a sender port";
     Real dummy(start=0, fixed=true);

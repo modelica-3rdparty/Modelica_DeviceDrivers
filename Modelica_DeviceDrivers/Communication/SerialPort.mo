@@ -12,8 +12,9 @@ encapsulated function constructor
   input Integer parity = 0 "0 - no parity, 1 - even, 2 - odd";
   input Integer receiver = 1 "0 - sender, 1 - receiver";
   input SerialBaudRate baud;
+  input Integer byteSize = 8 "Number of data bits transmitted per (serial data format) byte (8 is most common)";
   output SerialPort sPort;
-external "C" sPort = MDD_serialPortConstructor(deviceName, bufferSize, parity,receiver,baud)
+external "C" sPort = MDD_serialPortConstructor(deviceName, bufferSize, parity, receiver, baud, byteSize)
 annotation(Include = "#include \"MDDSerialPort.h\"",
            Library = "pthread",
            __iti_dll = "ITI_MDD.dll",
