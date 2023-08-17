@@ -28,12 +28,12 @@ package Utilities "Collection of utility elements used within the library"
             borderPattern=BorderPattern.Raised),
           Text(
             extent={{-88,16},{82,-14}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
             textString="%message"),
           Text(
             extent={{-150,90},{140,50}},
             textString="%name",
-            lineColor={0,0,255})}));
+            textColor={0,0,255})}));
   end TriggeredPrint;
 
   annotation (

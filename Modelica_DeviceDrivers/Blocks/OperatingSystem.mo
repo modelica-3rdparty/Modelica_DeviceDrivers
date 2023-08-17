@@ -43,12 +43,12 @@ package OperatingSystem "Blocks for miscellaneous OS API related facilities, e.g
       final startTime=startTime) if sampled and enable
       annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 
-    Modelica.Blocks.Sources.RealExpression dummyOutputs[4](y={0,0,0,0}) if
-                                                                 not enable
+    Modelica.Blocks.Sources.RealExpression dummyOutputs[4](y={0,0,0,0})
+                                                              if not enable
       annotation (Placement(transformation(extent={{-20,70},{0,90}})));
-    Modelica.Blocks.Routing.Multiplex4 mux_continuous if     not sampled and enable
+    Modelica.Blocks.Routing.Multiplex4 mux_continuous     if not sampled and enable
       annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-    Modelica.Blocks.Routing.Multiplex4 mux_sampled if     sampled and enable
+    Modelica.Blocks.Routing.Multiplex4 mux_sampled     if sampled and enable
       annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
     Modelica.Blocks.Routing.DeMultiplex4 demux
       annotation (Placement(transformation(extent={{20,-10},{40,10}})));
@@ -95,10 +95,7 @@ package OperatingSystem "Blocks for miscellaneous OS API related facilities, e.g
             lineColor={175,175,175}), Text(
             visible=not enable,
             extent={{-100,-112},{100,-136}},
-            lineColor={135,135,135},
-            pattern=LinePattern.Dash,
-            fillColor={255,255,255},
-            fillPattern=FillPattern.Solid,
+            textColor={135,135,135},
             textString="Deactivated"),
           Bitmap(extent={{-60,-60},{60,60}}, fileName="modelica://Modelica_DeviceDrivers/Resources/Images/Icons/clock.png"),
           Text(extent={{-150,142},{150,102}}, textString="%name"),
@@ -150,7 +147,7 @@ package OperatingSystem "Blocks for miscellaneous OS API related facilities, e.g
 <p>Typically, this block will be used together with the <a href=\"modelica://Modelica_DeviceDrivers.Blocks.OperatingSystem.RealtimeSynchronize\">RealtimeSynchronize</a> block for improving the real-time performance.</p>
 </html>"), Icon(graphics={
           Text(extent={{-100,20},{100,-20}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
             textString="%priority"),
           Text(extent={{-150,142},{150,102}}, textString="%name")}));
   end ProcessPriority;
@@ -192,17 +189,15 @@ package OperatingSystem "Blocks for miscellaneous OS API related facilities, e.g
             pattern=LinePattern.Dash),
           Text(
             extent={{-100,62},{-72,46}},
-            lineColor={135,135,135},
-            pattern=LinePattern.Dash,
+            textColor={135,135,135},
             textString="max"),
           Text(
             extent={{-100,-44},{-72,-60}},
-            lineColor={135,135,135},
-            pattern=LinePattern.Dash,
+            textColor={135,135,135},
             textString="min"),
           Text(
             extent={{-100,140},{100,100}},
-            lineColor={0,0,255},
+            textColor={0,0,255},
             textString="%name")}),
       Documentation(info="<html>
 <p>Uses the <code>rand()</code>function from the C standard library for creating pseudo-random numbers. The computers real-time clock is used to obtain seed values for the sequence of pseudo-random numbers.</p>
@@ -363,7 +358,7 @@ package OperatingSystem "Blocks for miscellaneous OS API related facilities, e.g
       annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
               Text(
               extent={{-86,32},{88,-30}},
-              lineColor={28,108,200},
+              textColor={28,108,200},
               textString="Continuous")}),                            Diagram(
             coordinateSystem(preserveAspectRatio=false)));
     end RealtimeSynchronize_Continuous;
@@ -386,7 +381,7 @@ package OperatingSystem "Blocks for miscellaneous OS API related facilities, e.g
       annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
               Text(
               extent={{-88,28},{92,-30}},
-              lineColor={28,108,200},
+              textColor={28,108,200},
               textString="Sampled")}),                               Diagram(
             coordinateSystem(preserveAspectRatio=false)));
     end RealtimeSynchronize_Sampled;

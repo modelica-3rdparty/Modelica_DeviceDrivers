@@ -505,7 +505,7 @@ The <code>uDPSend</code> block sends to the local port 10002. The <code>uDPRecei
 </html>"),
       Diagram(graphics={Text(
             extent={{-98,-74},{-18,-80}},
-            lineColor={28,108,200},
+            textColor={28,108,200},
             textString="Ensure that send is called before receive is called")}));
   end TestSerialPackager_UDPWithoutReceiveThread;
 
@@ -1103,7 +1103,7 @@ Basic example of using a keyboard as input device.
               -100},{100,100}}),
                         graphics={Text(
             extent={{-108,106},{108,76}},
-            lineColor={0,0,255},
+            textColor={0,0,255},
             textString="Example for USB-DUX D
 Assuming input channels are electrical connected to corresponding output channels we should read what we wrote")}),
         experiment(StopTime=5.0),

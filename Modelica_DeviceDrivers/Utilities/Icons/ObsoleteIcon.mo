@@ -5,6 +5,6 @@ partial model ObsoleteIcon
             -100},{100,100}}), graphics={Rectangle(extent={{-100,100},{100,-100}},
             lineColor={255,0,0}), Text(
           extent={{-100,-92},{100,-130}},
-          lineColor={255,0,0},
+          textColor={255,0,0},
           textString="obsolete")}));
 end ObsoleteIcon;

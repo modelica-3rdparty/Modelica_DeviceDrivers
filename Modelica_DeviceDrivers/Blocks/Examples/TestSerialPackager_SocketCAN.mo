@@ -75,7 +75,7 @@ annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                     graphics={Text(
           extent={{-94,92},{96,64}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="Please see documentation for system requirements
 for using the Linux Socket CAN bus interface!")}),
                                experiment(StopTime=1.0), Documentation(info="<html>

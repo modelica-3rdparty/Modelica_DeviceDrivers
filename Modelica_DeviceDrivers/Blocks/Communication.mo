@@ -1376,12 +1376,12 @@ See <a href=\"modelica://Modelica_DeviceDrivers.Blocks.Examples.TestSerialPackag
     Icon(graphics={
           Text(
             extent={{-100,-72},{100,-96}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
             textString="maxClients: %maxClients"),
           Text(extent={{-150,142},{150,102}}, textString="%name"),
           Text(
             extent={{-100,96},{100,72}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
             textString="port: %port")}),
       Documentation(info="<html>
 <p>
@@ -1459,7 +1459,7 @@ TCP/IP server configuration block. This block is supposed to be used as an inner
               textString="%name"),
           Text(
             extent={{-100,100},{100,40}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
             textString="%clientIndex")}),
                                      Documentation(info="<html>
 <p>Supports receiving of TCP/IP packets stemming from a client that connected to our server.</p>
@@ -1540,7 +1540,7 @@ TCP/IP server configuration block. This block is supposed to be used as an inner
               textString="%name"),
           Text(
             extent={{-100,100},{100,40}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
             textString="%clientIndex")}),
                                      Documentation(info="<html>
 <p>Supports sending of TCP/IP packets to a client that connected to our server.</p>

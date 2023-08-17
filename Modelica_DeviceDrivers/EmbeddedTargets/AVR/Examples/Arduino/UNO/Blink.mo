@@ -19,7 +19,7 @@ equation
 </html>"),
     Diagram(graphics={        Text(
           extent={{-94,-68},{96,-96}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString=
               "Please see the AVR package documentation before testing the example!")}));
 end Blink;

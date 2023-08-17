@@ -26,7 +26,7 @@ block Microcontroller "Use as an inner block, defining the characteristics of th
   annotation(missingInnerMessage = "Missing inner block for STM32F4 microcontroller (this cannot have default values since the microcontrollers are all different).",
              defaultComponentName="mcu",
              defaultComponentPrefixes="inner",
-             Icon(graphics={  Text(origin={0,0},    lineColor={255,255,255},     extent={{
+             Icon(graphics={  Text(origin={0,0},    textColor={255,255,255},     extent={{
               -66,-66},{66,66}},                                                                                                                                    fontName=
               "Arial",                                                                                                                                                                  textStyle=
               {TextStyle.Bold},
@@ -34,7 +34,7 @@ block Microcontroller "Use as an inner block, defining the characteristics of th
 %platform"),
         Bitmap(extent={{-128,-112},{128,112}}, fileName=
               "modelica://Modelica_DeviceDrivers/Resources/Images/Icons/microcontroller_scheme.png"),
-                              Text(lineColor={0,0,0},           extent={{-86,
+                              Text(textColor={0,0,0},           extent={{-86,
               -88},{86,74}},                                                                                                    fontName=
               "Arial",                                                                                                                              textStyle=
               {TextStyle.Bold},

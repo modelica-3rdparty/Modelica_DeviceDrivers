@@ -56,7 +56,7 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
             -100},{100,100}}), graphics={Text(
           extent={{-82,84},{82,68}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString=
               "Please have look at the documentation to this model before executing.")}),
                                           experiment(StopTime=5.0),

@@ -71,7 +71,7 @@ algorithm
                                                                                   Text(extent={{
               -150,-110},{150,-150}},
           textString="%desiredFrequency Hz",
-          lineColor={0,0,0}),                                                     Text(extent={{
+          textColor={0,0,0}),                                                     Text(extent={{
               -152,144},{148,104}},
             textString="%name")},                                                                                                            coordinateSystem(initialScale = 0.1)));
 end SynchronizeRealtime;

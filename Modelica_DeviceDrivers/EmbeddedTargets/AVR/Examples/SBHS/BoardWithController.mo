@@ -18,7 +18,7 @@ equation
   annotation(experiment(Interval=0.008), Diagram(graphics={
                               Text(
           extent={{-94,-74},{96,-102}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString=
               "Please see the AVR package documentation before testing the example!")}));
 end BoardWithController;

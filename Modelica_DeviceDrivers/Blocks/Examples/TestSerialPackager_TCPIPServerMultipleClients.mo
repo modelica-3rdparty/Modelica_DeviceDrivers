@@ -93,13 +93,13 @@ connect(addInteger[1:2].pkgOut[1], tCPIPSend[1:2].pkgIn)
     Diagram(graphics={
         Text(
           extent={{-100,-70},{98,-90}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="Example uses array components.
 Notice that it was necessary to modify the Modelica code that resulted from graphical editing, by textually adapting statements, namely:
 AddInteger addInteger[2](each n=3, each nu=1)
 connect(addInteger[1:2].pkgOut[1], tCPIPSend[1:2].pkgIn)"),
         Text(
           extent={{-80,100},{80,80}},
-          lineColor={238,46,47},
+          textColor={238,46,47},
           textString="Needs connecting clients to give meaningful results")}));
 end TestSerialPackager_TCPIPServerMultipleClients;

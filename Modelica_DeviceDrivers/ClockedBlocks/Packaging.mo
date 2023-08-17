@@ -255,7 +255,7 @@ package Packaging
       annotation (Icon(graphics={
             Text(
               extent={{-118,40},{-38,-40}},
-              lineColor={255,0,255},
+              textColor={255,0,255},
               textString="B"),
             Polygon(
               points={{6,0},{-14,20},{-14,10},{-44,10},{-44,-10},{-14,-10},{-14,
@@ -293,7 +293,7 @@ package Packaging
               textString="%n * int32"),
             Text(
               extent={{-120,40},{-40,-40}},
-              lineColor={255,127,0},
+              textColor={255,127,0},
               textString="I"),
             Polygon(
               points={{6,0},{-14,20},{-14,10},{-44,10},{-44,-10},{-14,-10},{-14,
@@ -328,9 +328,7 @@ package Packaging
               textString="%n * double"),
             Text(
               extent={{-112,40},{-32,-40}},
-              lineColor={0,0,255},
-              fillPattern=FillPattern.Solid,
-              fillColor={0,0,255},
+              textColor={0,0,255},
               textString="R"),
             Polygon(
               points={{8,0},{-12,20},{-12,10},{-42,10},{-42,-10},{-12,-10},{-12,
@@ -366,9 +364,7 @@ package Packaging
               textString="%n * float"),
             Text(
               extent={{-112,40},{-32,-40}},
-              lineColor={0,0,255},
-              fillPattern=FillPattern.Solid,
-              fillColor={0,0,255},
+              textColor={0,0,255},
               textString="R"),
             Bitmap(extent={{-42,-22},{18,22}}, fileName=
                   "modelica://Modelica_DeviceDrivers/Resources/Images/Icons/Real2FloatArrow.png")}));
@@ -396,7 +392,7 @@ package Packaging
       annotation (Icon(graphics={
             Text(
               extent={{-112,40},{-32,-40}},
-              lineColor={255,127,0},
+              textColor={255,127,0},
               textString="S"),
             Polygon(
               points={{14,0},{-6,20},{-6,10},{-36,10},{-36,-10},{-6,-10},{-6,-20},
@@ -406,7 +402,7 @@ package Packaging
               fillPattern=FillPattern.Solid),
             Text(
               extent={{-100,-40},{100,-80}},
-              lineColor={255,127,0},
+              textColor={255,127,0},
               textString="%data")}));
     end AddString;
 
@@ -443,7 +439,7 @@ package Packaging
       annotation (Icon(graphics={
             Text(
               extent={{30,40},{110,-40}},
-              lineColor={255,0,255},
+              textColor={255,0,255},
               textString="B"),
             Polygon(
               points={{44,0},{24,20},{24,10},{-6,10},{-6,-10},{24,-10},{24,-20},{
@@ -484,7 +480,7 @@ package Packaging
       annotation (Icon(graphics={
             Text(
               extent={{40,40},{120,-40}},
-              lineColor={255,127,0},
+              textColor={255,127,0},
               textString="I"),
             Polygon(
               points={{44,0},{24,20},{24,10},{-6,10},{-6,-10},{24,-10},{24,-20},{
@@ -525,9 +521,7 @@ package Packaging
       annotation (Icon(graphics={
             Text(
               extent={{30,40},{110,-40}},
-              lineColor={0,0,255},
-              fillPattern=FillPattern.Solid,
-              fillColor={0,0,255},
+              textColor={0,0,255},
               textString="R"),
             Polygon(
               points={{44,0},{24,20},{24,10},{-6,10},{-6,-10},{24,-10},{24,-20},{
@@ -569,9 +563,7 @@ package Packaging
       annotation (Icon(graphics={
             Text(
               extent={{30,40},{110,-40}},
-              lineColor={0,0,255},
-              fillPattern=FillPattern.Solid,
-              fillColor={0,0,255},
+              textColor={0,0,255},
               textString="R"),
             Text(
               extent={{-100,-50},{100,-90}},
@@ -604,7 +596,7 @@ package Packaging
       annotation (Icon(graphics={
             Text(
               extent={{38,40},{118,-40}},
-              lineColor={255,127,0},
+              textColor={255,127,0},
               textString="S"),
             Polygon(
               points={{42,0},{22,20},{22,10},{-8,10},{-8,-10},{22,-10},{22,-20},{
@@ -642,12 +634,10 @@ package Packaging
         Icon(graphics={
             Text(
               extent={{-120,40},{-40,-40}},
-              lineColor={255,127,0},
+              textColor={255,127,0},
               textString="I"),
             Text(
               extent={{-100,-50},{100,-90}},
-              fillColor={0,0,127},
-              fillPattern=FillPattern.Solid,
               textString="%bitOffset + %width bits"),
             Bitmap(extent={{-56,-20},{8,19}}, fileName=
                   "Modelica://Modelica_DeviceDrivers/Resources/Images/Icons/Int2BitArrow.png")}),
@@ -687,12 +677,10 @@ package Packaging
                   "Modelica://Modelica_DeviceDrivers/Resources/Images/Icons/Bit2IntArrow.png"),
             Text(
               extent={{-100,-50},{100,-90}},
-              fillColor={0,0,127},
-              fillPattern=FillPattern.Solid,
               textString="%bitOffset + %width bits"),
             Text(
               extent={{40,40},{120,-40}},
-              lineColor={255,127,0},
+              textColor={255,127,0},
               textString="I")}),
         Documentation(info="<html>
 <p>Currently, the unpack block only supports Intel-Endianness (<b>little-endian!</b>).</p>
@@ -731,7 +719,6 @@ package Packaging
               fillColor={255,255,255}),
             Text(
               extent={{-100,-40},{100,-80}},
-              fillPattern=FillPattern.Solid,
               textString="Reset")}));
     end ResetPointer;
 

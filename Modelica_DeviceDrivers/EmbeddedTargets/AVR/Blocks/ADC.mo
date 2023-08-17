@@ -32,5 +32,5 @@ annotation(defaultComponentName="adc",
 
 <p>The AVR ADC (analog-to-digital converter) takes as parameters a selection of which voltage reference input to use (<em>voltageReferenceSelect</em>), what voltage this reference voltage has (<em>voltageReference</em>), the <em>analogPort</em> (which analog input to convert to a digital value) and which prescaler to use (<em>prescaler</em>, might be automatically chosen if the used AVR platform had known constants for this). The output is continuously read (at each time step), producing a voltage between 0 and 
 <em>voltageReference</em>.</p>
-</html>"), Icon(graphics = {Text(extent = {{-95, -95}, {95, 95}}, textString = "ADC %analogPort\n0..%voltageReference [V]", fontName = "Arial")}));
+</html>"), Icon(graphics={  Text(extent = {{-95, -95}, {95, 95}}, textString = "ADC %analogPort\n0..%voltageReference [V]", fontName = "Arial")}));
 end ADC;

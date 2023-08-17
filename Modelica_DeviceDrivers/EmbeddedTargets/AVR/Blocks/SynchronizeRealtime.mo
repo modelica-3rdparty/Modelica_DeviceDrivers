@@ -39,5 +39,5 @@ algorithm
   if not initial() then
     Functions.RealTimeSynchronization.wait(sync);
   end if;
-annotation(Icon(graphics = {Text(extent = {{-100, -100}, {100, 100}}, textString = "Real-time:\n%desiredFrequency Hz", fontName = "Arial")}, coordinateSystem(initialScale = 0.1)));
+annotation(Icon(graphics={  Text(extent = {{-100, -100}, {100, 100}}, textString = "Real-time:\n%desiredFrequency Hz", fontName = "Arial")}, coordinateSystem(initialScale = 0.1)));
 end SynchronizeRealtime;
