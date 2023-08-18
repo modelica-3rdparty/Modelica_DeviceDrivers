@@ -137,9 +137,7 @@ package InputDevices "Blocks for input devices, such as keyboard, gamecontroller
             fillPattern=FillPattern.Solid),
           Text(
             extent={{100,-12},{164,-38}},
-            lineColor={95,95,95},
-            fillColor={95,95,95},
-            fillPattern=FillPattern.Solid,
+            textColor={95,95,95},
             textString="keyState"),
           Polygon(
             points={{-80,80},{80,80},{60,78},{-60,78},{-80,80}},
@@ -149,10 +147,7 @@ package InputDevices "Blocks for input devices, such as keyboard, gamecontroller
             fillPattern=FillPattern.Solid),
           Text(
             extent={{-100,20},{100,-20}},
-            lineColor={0,0,255},
-            pattern=LinePattern.None,
-            fillColor={236,236,236},
-            fillPattern=FillPattern.Solid,
+            textColor={0,0,255},
             textString="%keyCode")}),
       preferredView="info",
       Documentation(info="<html> This block reads data from the keyboard. The monitored key is selected via the parameter <b>keyCode</b>.
@@ -367,15 +362,11 @@ package InputDevices "Blocks for input devices, such as keyboard, gamecontroller
           Line(points={{0,60},{100,60}}, color={255,0,255}),
           Text(
             extent={{100,-72},{164,-98}},
-            lineColor={95,95,95},
-            fillColor={95,95,95},
-            fillPattern=FillPattern.Solid,
+            textColor={95,95,95},
             textString="space"),
           Text(
             extent={{100,-12},{164,-38}},
-            lineColor={95,95,95},
-            fillColor={95,95,95},
-            fillPattern=FillPattern.Solid,
+            textColor={95,95,95},
             textString="return")}),
               preferredView="info",Documentation(info="<html> This block reads data from the keyboard. The arrow keys, space and return are monitored.
                                        Note, that keystrokes will not be captured and the focused window will process them.

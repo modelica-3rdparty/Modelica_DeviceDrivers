@@ -148,17 +148,15 @@ package OperatingSystem
             pattern=LinePattern.Dash),
           Text(
             extent={{-100,62},{-72,46}},
-            lineColor={135,135,135},
-            pattern=LinePattern.Dash,
+            textColor={135,135,135},
             textString="max"),
           Text(
             extent={{-100,-44},{-72,-60}},
-            lineColor={135,135,135},
-            pattern=LinePattern.Dash,
+            textColor={135,135,135},
             textString="min"),
           Text(
             extent={{-100,140},{100,100}},
-            lineColor={0,0,255},
+            textColor={0,0,255},
             textString="%name")}),
       Documentation(info="<html>
 <p>Uses the <code>rand()</code>function from the C standard library for creating pseudo-random numbers. The computers real-time clock is used to obtain seed values for the sequence of pseudo-random numbers.</p>

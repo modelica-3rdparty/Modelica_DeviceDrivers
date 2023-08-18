@@ -5,8 +5,6 @@ partial block BusIcon "Icon for a communication bus"
             -100},{100,100}}), graphics={
         Text(
           extent={{-150,102},{150,142}},
-          fillColor={85,85,255},
-          fillPattern=FillPattern.Solid,
           textString="%name"),
         Line(
           points={{-92,0},{92,0}},

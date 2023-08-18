@@ -22,7 +22,7 @@ block StringExpression "Set output to a (time varying) String expression"
         Text(
           extent={{-150,90},{140,50}},
           textString="%name",
-          lineColor={0,0,255})}),
+          textColor={0,0,255})}),
     Documentation(info="<html>
 <p>
 The (time varying) String output of this block can be defined in its

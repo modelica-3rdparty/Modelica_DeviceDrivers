@@ -86,6 +86,6 @@ a client is provided as C code test program
     Diagram(graphics={
         Text(
           extent={{-68,102},{66,84}},
-          lineColor={238,46,47},
+          textColor={238,46,47},
           textString="Needs a connecting client to give meaningful results")}));
 end TestSerialPackager_TCPIPServer;

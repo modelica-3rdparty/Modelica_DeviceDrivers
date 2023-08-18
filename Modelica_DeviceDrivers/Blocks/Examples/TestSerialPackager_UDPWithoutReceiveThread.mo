@@ -85,6 +85,6 @@ The <code>uDPSend</code> block sends to the local port 10002. The <code>uDPRecei
       StartTime=0),
     Diagram(graphics={Text(
           extent={{2,70},{82,64}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="Ensure that send is called before receive is called")}));
 end TestSerialPackager_UDPWithoutReceiveThread;

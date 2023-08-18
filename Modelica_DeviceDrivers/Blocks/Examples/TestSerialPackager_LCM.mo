@@ -91,7 +91,7 @@ sudo route add -net 224.0.0.0 netmask 240.0.0.0 dev lo
       StartTime=0),
     Diagram(graphics={        Text(
           extent={{-94,88},{96,60}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="Please have a look at the documentation
 before trying this example.")}));
 end TestSerialPackager_LCM;

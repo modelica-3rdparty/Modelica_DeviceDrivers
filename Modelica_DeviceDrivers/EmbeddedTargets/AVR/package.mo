@@ -71,5 +71,5 @@ make
 make flash
 </pre>
 </html>"),
-Icon(graphics={  Text(origin = {32, -3}, lineColor = {255, 255, 255}, extent = {{-44, 19}, {-20, -13}}, textString = "AVR", fontSize = 70, fontName = "Arial", textStyle = {TextStyle.Bold})}, coordinateSystem(initialScale = 0.1)));
+Icon(graphics={  Text(origin = {32, -3}, textColor = {255, 255, 255}, extent = {{-44, 19}, {-20, -13}}, textString = "AVR", fontSize = 70, fontName = "Arial", textStyle = {TextStyle.Bold})}, coordinateSystem(initialScale = 0.1)));
 end AVR;

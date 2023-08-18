@@ -32,5 +32,5 @@ equation
   for i in 1:size(timerNumbers,1) loop
     AVR.Functions.PWM.set(pwm[i], u[i]);
    end for;
-  annotation(defaultComponentName = "pwm", Icon(graphics = {Text(extent = {{-95, -95}, {95, 95}}, textString = "PWM %timer\n%timerNumbers", fontName = "Arial")}));
+  annotation(defaultComponentName = "pwm", Icon(graphics={  Text(extent = {{-95, -95}, {95, 95}}, textString = "PWM %timer\n%timerNumbers", fontName = "Arial")}));
 end PWM;
