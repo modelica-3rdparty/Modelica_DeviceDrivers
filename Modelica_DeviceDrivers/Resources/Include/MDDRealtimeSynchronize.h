@@ -505,10 +505,15 @@ DllExport void MDD_RTSyncSynchronize(void * rtSyncObj, double simTime, double sc
 
 #elif defined(__linux__)
 
-/* Make CLOCK_MONOTONIC available if compiled with flag -std=c89 
+/* Make CLOCK_MONOTONIC available if compiled with flag -std=c89, e.g., g++ -x c -std=c89 -m64 -fPIC -c MDDRealtimeSynchronize.h
  * https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues/383
+ * hack(bernhard-thiele): After some experiments with gcc and clang and different flags (e.g., -std=gnu99 or without specifying -std),
+ *                        below seems to work robustly for a range of flags. (Probably can be improved, just don't know how...)
  */
+#if !defined(linux) && !defined(unix) && !defined(_POSIX_C_SOURCE)
 #define _POSIX_C_SOURCE 199309L
+#endif
+
 
 #include <time.h>
 #include <sched.h>
