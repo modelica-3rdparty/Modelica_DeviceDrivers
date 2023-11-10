@@ -505,6 +505,11 @@ DllExport void MDD_RTSyncSynchronize(void * rtSyncObj, double simTime, double sc
 
 #elif defined(__linux__)
 
+/* Make CLOCK_MONOTONIC available if compiled with flag -std=c89 
+ * https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues/383
+ */
+#define _POSIX_C_SOURCE 199309L
+
 #include <time.h>
 #include <sched.h>
 #include <math.h>
@@ -798,12 +803,12 @@ DllExport double MDD_sampledRealtimeSynchronize(void* rtSyncObj, double simTime,
         /* get value the current time of the real-time clock (should be equal to t_abs if everything is OK) */
         clock_gettime(CLOCK_MONOTONIC, &rtSync->t_clockRealtime);
         rtSync->lastSimTime = simTime;
-        rtSync->lastSyncTime = syncTime; // TODO: Implement
+        rtSync->lastSyncTime = syncTime; /* TODO: Implement */
 
 
         /* wall clock time since start */
         struct timespec t_elapsed;
-        // FIXME: Introduce a tmp (pseudo code struct timespec t_tmp = rtSync->t_start) for doing the carry?;
+        /* FIXME: Introduce a tmp (pseudo code struct timespec t_tmp = rtSync->t_start) for doing the carry?; */
         ret = timespec_subtract(&t_elapsed, &(rtSync->t_clockRealtime), &(rtSync->t_start));
         if (ret == 1) {
             ModelicaError("MDDRealtimeSynchronize.h: timespec_subtract returned negative number\n");
