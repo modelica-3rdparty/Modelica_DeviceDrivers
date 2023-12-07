@@ -43,7 +43,7 @@
 #  define DllExport __declspec( dllexport )
 # else
 #  define DllImport
-#  define DllExport
+#  define DllExport static
 # endif /* _MSC_VER */
 #else
 # define DllImport

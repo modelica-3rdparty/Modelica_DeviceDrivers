@@ -533,12 +533,12 @@ typedef struct {
     int prio; /* dummy */
 } ProcPrio;
 
-void* MDD_ProcessPriorityConstructor(void) {
+DllExport void* MDD_ProcessPriorityConstructor(void) {
     ProcPrio* prio = (ProcPrio*) malloc(sizeof(ProcPrio));
     return (void*) prio;
 }
 
-void MDD_ProcessPriorityDestructor(void* prioObj) {
+DllExport void MDD_ProcessPriorityDestructor(void* prioObj) {
     ProcPrio* prio = (ProcPrio*) prioObj;
     if (prio) {
         free(prio);
@@ -552,7 +552,7 @@ void MDD_ProcessPriorityDestructor(void* prioObj) {
  * @param[in] Process priority external object (dummy)
  * @param[in] priority range: (-2: idle, -1: below normal, 0: normal, 1: high, 2: realtime)
  */
-void MDD_setPriority(void* dummyPrioObj, int priority) {
+DllExport void MDD_setPriority(void* dummyPrioObj, int priority) {
     int ret;
     struct sched_param param;
     errno = 0; /* zero out errno since -1 may be a valid return value for nice(..) and not necessarily indicate error */
@@ -641,7 +641,7 @@ typedef struct {
  *
  * @return RTSync object
  */
-void* MDD_realtimeSynchronizeConstructor() {
+DllExport void* MDD_realtimeSynchronizeConstructor() {
     RTSync* rtSync = (RTSync*) malloc(sizeof(RTSync));
     if (rtSync) {
         int ret = clock_gettime(CLOCK_MONOTONIC, &rtSync->t_start);
@@ -657,7 +657,7 @@ void* MDD_realtimeSynchronizeConstructor() {
     return (void*) rtSync;
 }
 
-void MDD_realtimeSynchronizeDestructor(void* rtSyncObj) {
+DllExport void MDD_realtimeSynchronizeDestructor(void* rtSyncObj) {
     RTSync* rtSync = (RTSync*) rtSyncObj;
     if (rtSync) {
         free(rtSync);
@@ -673,7 +673,7 @@ void MDD_realtimeSynchronizeDestructor(void* rtSyncObj) {
  * @param[out] availableTime time that is left before realtime deadline is reached BUG Windows-Linux implementation differ!
  * @return (s) Time between invocation of this function, i.e. "computing time" in seconds
  */
-double MDD_realtimeSynchronize(void* rtSyncObj, double simTime, int enableScaling, double scaling, double * availableTime) {
+DllExport double MDD_realtimeSynchronize(void* rtSyncObj, double simTime, int enableScaling, double scaling, double * availableTime) {
     double deltaTime = 0.;
     RTSync* rtSync = (RTSync*) rtSyncObj;
     if (rtSync && availableTime) {
@@ -729,7 +729,7 @@ double MDD_realtimeSynchronize(void* rtSyncObj, double simTime, int enableScalin
 * @param[in,out] y subtrahend. Might be modified for performing a carry (however, mathematical sum "y->tv_sec*NSEC_PER_SEC + y->tf_sec" is invariant)
 * @return 1 if the difference is negative, otherwise 0.
 */
-int timespec_subtract (struct timespec *result, struct timespec *x, struct timespec *y)
+DllExport int timespec_subtract (struct timespec *result, struct timespec *x, struct timespec *y)
 {
   /* Perform the carry for the later subtraction by updating y. */
   if (x->tv_nsec < y->tv_nsec) {
