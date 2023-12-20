@@ -17,7 +17,6 @@
 #if !defined(ITI_COMP_SIM)
 
 #include "ModelicaUtilities.h"
-#include "../src/include/CompatibilityDefs.h"
 
 #if defined(_MSC_VER) || defined(__CYGWIN__) || defined(__MINGW32__)
 
@@ -27,6 +26,7 @@
 #include <windows.h>
 #include <mmsystem.h>
 #include <stdlib.h>
+#include "../src/include/CompatibilityDefs.h"
 
 #pragma comment( lib, "Winmm.lib" )
 
@@ -144,7 +144,7 @@ typedef struct {
     char deviceName[80];
 } MDDJoystick;
 
-DllExport void* MDD_joystickConstructor(int iJSID) {
+static void* MDD_joystickConstructor(int iJSID) {
     MDDJoystick* js = (MDDJoystick*) calloc(sizeof(MDDJoystick), 1);
     if (js) {
         js->fd = open("/dev/input/js0", O_RDONLY);
@@ -173,7 +173,7 @@ DllExport void* MDD_joystickConstructor(int iJSID) {
     return (void*) js;
 }
 
-DllExport void MDD_joystickDestructor(void* jsObj) {
+static void MDD_joystickDestructor(void* jsObj) {
     MDDJoystick* js = (MDDJoystick*) jsObj;
     if (js) {
         free(js->axis);
@@ -182,7 +182,7 @@ DllExport void MDD_joystickDestructor(void* jsObj) {
     }
 }
 
-DllExport void MDD_joystickGetData(void* jsObj, double * pdAxes, int * piButtons, int * piPOV) {
+static void MDD_joystickGetData(void* jsObj, double * pdAxes, int * piButtons, int * piPOV) {
     int i;
     MDDJoystick* js = (MDDJoystick*) jsObj;
     if (js) {

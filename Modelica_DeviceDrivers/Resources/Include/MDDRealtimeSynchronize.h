@@ -533,12 +533,12 @@ typedef struct {
     int prio; /* dummy */
 } ProcPrio;
 
-DllExport void* MDD_ProcessPriorityConstructor(void) {
+static void* MDD_ProcessPriorityConstructor(void) {
     ProcPrio* prio = (ProcPrio*) malloc(sizeof(ProcPrio));
     return (void*) prio;
 }
 
-DllExport void MDD_ProcessPriorityDestructor(void* prioObj) {
+static void MDD_ProcessPriorityDestructor(void* prioObj) {
     ProcPrio* prio = (ProcPrio*) prioObj;
     if (prio) {
         free(prio);
@@ -552,7 +552,7 @@ DllExport void MDD_ProcessPriorityDestructor(void* prioObj) {
  * @param[in] Process priority external object (dummy)
  * @param[in] priority range: (-2: idle, -1: below normal, 0: normal, 1: high, 2: realtime)
  */
-DllExport void MDD_setPriority(void* dummyPrioObj, int priority) {
+static void MDD_setPriority(void* dummyPrioObj, int priority) {
     int ret;
     struct sched_param param;
     errno = 0; /* zero out errno since -1 may be a valid return value for nice(..) and not necessarily indicate error */
@@ -641,7 +641,7 @@ typedef struct {
  *
  * @return RTSync object
  */
-DllExport void* MDD_realtimeSynchronizeConstructor() {
+static void* MDD_realtimeSynchronizeConstructor() {
     RTSync* rtSync = (RTSync*) malloc(sizeof(RTSync));
     if (rtSync) {
         int ret = clock_gettime(CLOCK_MONOTONIC, &rtSync->t_start);
@@ -657,7 +657,7 @@ DllExport void* MDD_realtimeSynchronizeConstructor() {
     return (void*) rtSync;
 }
 
-DllExport void MDD_realtimeSynchronizeDestructor(void* rtSyncObj) {
+static void MDD_realtimeSynchronizeDestructor(void* rtSyncObj) {
     RTSync* rtSync = (RTSync*) rtSyncObj;
     if (rtSync) {
         free(rtSync);
@@ -673,7 +673,7 @@ DllExport void MDD_realtimeSynchronizeDestructor(void* rtSyncObj) {
  * @param[out] availableTime time that is left before realtime deadline is reached BUG Windows-Linux implementation differ!
  * @return (s) Time between invocation of this function, i.e. "computing time" in seconds
  */
-DllExport double MDD_realtimeSynchronize(void* rtSyncObj, double simTime, int enableScaling, double scaling, double * availableTime) {
+static double MDD_realtimeSynchronize(void* rtSyncObj, double simTime, int enableScaling, double scaling, double * availableTime) {
     double deltaTime = 0.;
     RTSync* rtSync = (RTSync*) rtSyncObj;
     if (rtSync && availableTime) {
@@ -729,7 +729,7 @@ DllExport double MDD_realtimeSynchronize(void* rtSyncObj, double simTime, int en
 * @param[in,out] y subtrahend. Might be modified for performing a carry (however, mathematical sum "y->tv_sec*NSEC_PER_SEC + y->tf_sec" is invariant)
 * @return 1 if the difference is negative, otherwise 0.
 */
-DllExport int timespec_subtract (struct timespec *result, struct timespec *x, struct timespec *y)
+static int timespec_subtract (struct timespec *result, struct timespec *x, struct timespec *y)
 {
   /* Perform the carry for the later subtraction by updating y. */
   if (x->tv_nsec < y->tv_nsec) {
@@ -753,7 +753,7 @@ DllExport int timespec_subtract (struct timespec *result, struct timespec *x, st
 }
 
 /** DELETE as soon as MDD_RTSyncSynchronize has been successfully tested ! * FIXME 2019-05-23: Needs careful review and revision, since coded quickly without much thought. */
-DllExport double MDD_sampledRealtimeSynchronize(void* rtSyncObj, double simTime, double lastSimTime, double scaling, double * wallClockTime, double * remainingTime) {
+static double MDD_sampledRealtimeSynchronize(void* rtSyncObj, double simTime, double lastSimTime, double scaling, double * wallClockTime, double * remainingTime) {
     double calculationTime = 0, samplingPeriod = 0, timeLeft = 0;
 
     double deltaTime = 0;
@@ -824,7 +824,7 @@ DllExport double MDD_sampledRealtimeSynchronize(void* rtSyncObj, double simTime,
     return deltaTime;
 }
 
-DllExport double MDD_getTimeMS(double dummy) {
+static double MDD_getTimeMS(double dummy) {
     struct timespec ts;
     int ret = clock_gettime(CLOCK_MONOTONIC, &ts);
     if (ret) {
@@ -854,7 +854,7 @@ typedef struct {
 * @param[in] shouldCatchupTime (boolean flag) if catchupTime != 0 then try to catch up delays from missed dead-lines by progressing faster than real-time, otherwise do not.
 * @return MDD_RTSync object
 */
-DllExport void* MDD_RTSyncConstructor(double startSimTime, int shouldCatchupTime) {
+static void* MDD_RTSyncConstructor(double startSimTime, int shouldCatchupTime) {
     int ret;
     MDD_RTSync* rtSync = (MDD_RTSync*)malloc(sizeof(MDD_RTSync));
     if (rtSync) {
@@ -874,7 +874,7 @@ DllExport void* MDD_RTSyncConstructor(double startSimTime, int shouldCatchupTime
 }
 
 /** MDD_RTSync destructor. */
-DllExport void MDD_RTSyncDestructor(void* rtSyncObj) {
+static void MDD_RTSyncDestructor(void* rtSyncObj) {
     MDD_RTSync* rtSync = (MDD_RTSync*)rtSyncObj;
     if (rtSync) {
         free(rtSync);
@@ -892,7 +892,7 @@ DllExport void MDD_RTSyncDestructor(void* rtSyncObj) {
 * @param[out] computingTime (s) wall clock time between invocations of this function, i.e. "computing time" in seconds
 * @param[out] lastSimTime (s) simulation time at the previous invocation of this function, the simulation start time at the first function invocation
 */
-DllExport void MDD_RTSyncSynchronize(void * rtSyncObj, double simTime, double scaling, double * wallClockTime, double * remainingTime, double * computingTime, double * lastSimTime) {
+static void MDD_RTSyncSynchronize(void * rtSyncObj, double simTime, double scaling, double * wallClockTime, double * remainingTime, double * computingTime, double * lastSimTime) {
     MDD_RTSync* rtSync = (MDD_RTSync*)rtSyncObj;
     struct timespec t_now;
     struct timespec t_elapsed;
