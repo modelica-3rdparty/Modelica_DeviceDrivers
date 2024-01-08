@@ -469,6 +469,7 @@ DllExport void MDD_SerialPackagerAddString(void* p_package, const char* u, int b
 DllExport const char* MDD_SerialPackagerGetString(void* p_package, int bufferSize) {
     SerialPackager* pkg = (SerialPackager*) p_package;
     unsigned char* pNull;
+    char* y;
     if (pkg->bitOffset != 0) {
         MDD_SerialPackagerAlignToByteBoundary(pkg);
     }
@@ -479,24 +480,19 @@ DllExport const char* MDD_SerialPackagerGetString(void* p_package, int bufferSiz
 
     pNull = (unsigned char*)memchr(pkg->data + pkg->pos, '\0', (size_t)bufferSize);
     if (pNull == NULL) {
-        char* y = ModelicaAllocateString(bufferSize);
-        if (y) {
-            memcpy(y, pkg->data + pkg->pos, (size_t)bufferSize);
-            y[bufferSize] = '\0'; /* ensure null terminated data */
-        }
+        y = ModelicaAllocateString(bufferSize);
+        memcpy(y, pkg->data + pkg->pos, (size_t)bufferSize);
+        y[bufferSize] = '\0'; /* ensure null terminated data */
         pkg->pos += bufferSize;
         ModelicaFormatWarning("MDDSerialPackager.h: MDD_SerialPackagerGetString warning. No terminating '\\0' found in "
                               "buffer of bufferSize: %d\n", bufferSize);
     }
     else {
-        char* y = ModelicaAllocateString(pNull - pkg->data - pkg->pos);
-        if (y) {
-            memcpy(y, pkg->data + pkg->pos, pNull - pkg->data - pkg->pos + 1); /* +1 for the trailing '\0' */
-        }
+        y = ModelicaAllocateString(pNull - pkg->data - pkg->pos);
+        memcpy(y, pkg->data + pkg->pos, pNull - pkg->data - pkg->pos + 1); /* +1 for the trailing '\0' */
         pkg->pos += bufferSize;
-        return (const char*) y;
     }
-    return "";
+    return (const char*) y;
 }
 
 /** Unpack integer value from package relative to current BYTE position (using Intel endianness).
