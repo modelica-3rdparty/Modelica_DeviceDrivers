@@ -144,7 +144,7 @@ typedef struct {
     char deviceName[80];
 } MDDJoystick;
 
-void* MDD_joystickConstructor(int iJSID) {
+static void* MDD_joystickConstructor(int iJSID) {
     MDDJoystick* js = (MDDJoystick*) calloc(sizeof(MDDJoystick), 1);
     if (js) {
         js->fd = open("/dev/input/js0", O_RDONLY);
@@ -173,7 +173,7 @@ void* MDD_joystickConstructor(int iJSID) {
     return (void*) js;
 }
 
-void MDD_joystickDestructor(void* jsObj) {
+static void MDD_joystickDestructor(void* jsObj) {
     MDDJoystick* js = (MDDJoystick*) jsObj;
     if (js) {
         free(js->axis);
@@ -182,7 +182,7 @@ void MDD_joystickDestructor(void* jsObj) {
     }
 }
 
-void MDD_joystickGetData(void* jsObj, double * pdAxes, int * piButtons, int * piPOV) {
+static void MDD_joystickGetData(void* jsObj, double * pdAxes, int * piButtons, int * piPOV) {
     int i;
     MDDJoystick* js = (MDDJoystick*) jsObj;
     if (js) {
