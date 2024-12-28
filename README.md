@@ -19,7 +19,7 @@ Main features:
   * Support for a universal packaging concept to pack Modelica variables in a graphical and convenient way into a bit vector and transport such a bit vector via UDP, TCP/IP, LCM, MQTT, serial I/O or shared memory (CAN support is prototypical available).
   * Support of the Linux control and measurement device interface for digital and analog I/O (Comedi interface).
 
-All device drivers are made available via external Modelica functions. Furthermore, high level interfaces on these functions are provided via Modelica blocks. The first interface uses Modelica 3.2 functionality only (when-clauses and sample-operator).
+All device drivers are made available via external Modelica functions. Furthermore, high level interfaces on these functions are provided via Modelica blocks. The first interface uses Modelica 3.5 functionality only (when-clauses and sample-operator).
 The second interface uses the synchronous language elements introduced in Modelica 3.3 and is based on clocks.
 
 ![BlockOverview](screenshot.png)
