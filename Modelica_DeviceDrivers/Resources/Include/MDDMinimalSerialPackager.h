@@ -38,7 +38,7 @@ void MSP_destroyPackager(int p_MSP_PackagerData) {
     free(MSP_PackagerData);
 
 }
-void MSP_addReal(int p_MSP_PackagerData, double * u, int n) {
+void MSP_addReal(int p_MSP_PackagerData, const double * u, int n) {
     struct MSP_PackagerData * MSP_PackagerData =
         (struct MSP_PackagerData *) p_MSP_PackagerData;
     int typeSize = sizeof(double);
@@ -54,7 +54,7 @@ void MSP_addReal(int p_MSP_PackagerData, double * u, int n) {
 
 }
 
-void MSP_addInteger(int p_MSP_PackagerData, int * u, int n) {
+void MSP_addInteger(int p_MSP_PackagerData, const int * u, int n) {
     struct MSP_PackagerData * MSP_PackagerData =
         (struct MSP_PackagerData *) p_MSP_PackagerData;
     int typeSize = sizeof(int);
@@ -70,7 +70,7 @@ void MSP_addInteger(int p_MSP_PackagerData, int * u, int n) {
 
 }
 
-void MSP_addString(int p_MSP_PackagerData, char * u) {
+void MSP_addString(int p_MSP_PackagerData, const char * u) {
     struct MSP_PackagerData * MSP_PackagerData =
         (struct MSP_PackagerData *) p_MSP_PackagerData;
     int typeSize = sizeof(char);

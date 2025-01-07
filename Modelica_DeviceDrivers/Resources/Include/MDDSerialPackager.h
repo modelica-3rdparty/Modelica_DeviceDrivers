@@ -240,7 +240,7 @@ DllExport void MDD_SerialPackagerAlignToByteBoundary(SerialPackager* p_package) 
  * @param[in] n number of values in u
  * @param[in] endian byte order
  */
-DllExport void MDD_SerialPackagerAddInteger(void* p_package, int * u, size_t n, int endian) {
+DllExport void MDD_SerialPackagerAddInteger(void* p_package, const int * u, size_t n, int endian) {
     SerialPackager* pkg = (SerialPackager*) p_package;
     if (pkg->bitOffset != 0) {
         MDD_SerialPackagerAlignToByteBoundary(pkg);
@@ -304,7 +304,7 @@ DllExport void MDD_SerialPackagerGetInteger(void* p_package, int * y, int n, int
  * @param[in] n number of values in u
  * @param[in] endian byte order
  */
-DllExport void MDD_SerialPackagerAddDouble(void* p_package, double * u, size_t n, int endian) {
+DllExport void MDD_SerialPackagerAddDouble(void* p_package, const double * u, size_t n, int endian) {
     SerialPackager* pkg = (SerialPackager*) p_package;
     if (pkg->bitOffset != 0) {
         MDD_SerialPackagerAlignToByteBoundary(pkg);
@@ -366,7 +366,7 @@ DllExport void MDD_SerialPackagerGetDouble(void* p_package, double * y, int n, i
  * @param[in] n number of values in u
  * @param[in] endian byte order
  */
-DllExport void MDD_SerialPackagerAddDoubleAsFloat(void* p_package, double * u, size_t n, int endian) {
+DllExport void MDD_SerialPackagerAddDoubleAsFloat(void* p_package, const double * u, size_t n, int endian) {
     SerialPackager* pkg = (SerialPackager*) p_package;
     if (pkg->bitOffset != 0) {
         MDD_SerialPackagerAlignToByteBoundary(pkg);
