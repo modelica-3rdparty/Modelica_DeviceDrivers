@@ -16,6 +16,7 @@ TestInputJoystick
 TestInputKeyboard
 TestInputKeyboardKey
 TestHardwareIOComedi
+TestHardwareIIO
 TestSerialPackager_TCPIP
 TestSerialPackager_LCM
 TestSerialPackager_MQTT
