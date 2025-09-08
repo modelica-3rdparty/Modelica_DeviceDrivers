@@ -128,23 +128,25 @@ package HardwareIO
       Integer rawData "Raw value written to DAC channel";
       Integer cUnit;
       Boolean initialized(start=false, fixed=true) "Initialization flag";
+    /* Resorting to "algorithm" instead of "equation" for modeling the initialization dependencies.
+Note: Using "equation" would be more consistent to other blocks, but might require a more comprehensive code rewrite */
     algorithm
-      /* FIXME: Workaround using "algorithm" instead of if expression within "when Clock() then..".
-     Reason: Non-scalarizable equations in if expression not supported in
-     equation section by the Modelica tool used by the author.
-     Problem: Not granted that initialization is executed before first "when Clock()" */
-      if (not initialized) then
-        (min, max, cUnit) :=Modelica_DeviceDrivers.HardwareIO.Comedi_.get_range(
-          comedi, subDevice, channel, range);
-        converterUnit := if cUnit == 0 then Types.ConverterUnit.UNIT_volt elseif cUnit == 1 then Types.ConverterUnit.UNIT_mA else Types.ConverterUnit.UNIT_none; // convert magic int to readable Modelica enumeration value
-        maxData :=Modelica_DeviceDrivers.HardwareIO.Comedi_.get_maxdata(
-          comedi, subDevice, channel);
-        initialized :=true;
-      end if;
-    equation
       when Clock() then
-        rawData = Modelica_DeviceDrivers.HardwareIO.Comedi_.from_phys(
-          u, min, max, cUnit, maxData);
+        if (not previous(initialized)) then
+          (min, max, cUnit) := Modelica_DeviceDrivers.HardwareIO.Comedi_.get_range(
+            comedi, subDevice, channel, range);
+          converterUnit := if cUnit == 0 then Types.ConverterUnit.UNIT_volt elseif cUnit == 1 then Types.ConverterUnit.UNIT_mA else Types.ConverterUnit.UNIT_none; // convert magic int to readable Modelica enumeration value
+          maxData :=Modelica_DeviceDrivers.HardwareIO.Comedi_.get_maxdata(
+            comedi, subDevice, channel);
+          initialized := true;
+        end if;
+
+        rawData := Modelica_DeviceDrivers.HardwareIO.Comedi_.from_phys(
+          u,
+          min,
+          max,
+          cUnit,
+          maxData);
         Modelica_DeviceDrivers.HardwareIO.Comedi_.data_write(
           comedi, subDevice, channel, range, if aref == Types.Aref.AREF_GROUND then 0 elseif aref == Types.Aref.AREF_COMMON then 1 elseif aref == Types.Aref.AREF_DIFF then 2 else 3, rawData);
       end when;
@@ -190,25 +192,32 @@ package HardwareIO
       Integer rawData "Raw value read from ADC channel";
       Integer cUnit;
       Boolean initialized(start=false, fixed=true) "Initialization flag";
+    /* Resorting to "algorithm" instead of "equation" for modeling the initialization dependencies.
+Note: Using "equation" would be more consistent to other blocks, but might require a more comprehensive code rewrite */
     algorithm
-      /* FIXME: Workaround using "algorithm" instead of if expression within "when Clock() then..".
-     Reason: Non-scalarizable equations in if expression not supported in
-     equation section by the Modelica tool used by the author.
-     Problem: Not granted that initialization is executed before first "when Clock()" */
-      if (not initialized) then
-        (min, max, cUnit) :=Modelica_DeviceDrivers.HardwareIO.Comedi_.get_range(
-          comedi, subDevice, channel, range);
-        converterUnit := if cUnit == 0 then Types.ConverterUnit.UNIT_volt elseif cUnit == 1 then Types.ConverterUnit.UNIT_mA else Types.ConverterUnit.UNIT_none; // convert magic int to readable Modelica enumeration value
-        maxData :=Modelica_DeviceDrivers.HardwareIO.Comedi_.get_maxdata(
-          comedi, subDevice, channel);
-        initialized :=true;
-      end if;
-    equation
       when Clock() then
-        rawData =  Modelica_DeviceDrivers.HardwareIO.Comedi_.data_read(
-          comedi, subDevice, channel, range, if aref == Types.Aref.AREF_GROUND then 0 elseif aref == Types.Aref.AREF_COMMON then 1 elseif aref == Types.Aref.AREF_DIFF then 2 else 3);
-         y =  Modelica_DeviceDrivers.HardwareIO.Comedi_.to_phys(
-           rawData, min, max, cUnit, maxData);
+        if (not previous(initialized)) then
+          (min, max, cUnit) := Modelica_DeviceDrivers.HardwareIO.Comedi_.get_range(
+            comedi, subDevice, channel, range);
+          converterUnit := if cUnit == 0 then Types.ConverterUnit.UNIT_volt elseif cUnit == 1 then Types.ConverterUnit.UNIT_mA else Types.ConverterUnit.UNIT_none; // convert magic int to readable Modelica enumeration value
+          maxData := Modelica_DeviceDrivers.HardwareIO.Comedi_.get_maxdata(
+            comedi, subDevice, channel);
+          initialized :=true;
+        end if;
+
+        rawData := Modelica_DeviceDrivers.HardwareIO.Comedi_.data_read(
+          comedi,
+          subDevice,
+          channel,
+          range,
+          if aref == Types.Aref.AREF_GROUND then 0 elseif aref == Types.Aref.AREF_COMMON
+             then 1 elseif aref == Types.Aref.AREF_DIFF then 2 else 3);
+        y := Modelica_DeviceDrivers.HardwareIO.Comedi_.to_phys(
+          rawData,
+          min,
+          max,
+          cUnit,
+          maxData);
       end when;
       annotation (defaultComponentName="dataRead",
               preferredView="info",
