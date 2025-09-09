@@ -121,32 +121,41 @@ package HardwareIO
       parameter Integer range=0 "Range";
       parameter Types.Aref aref=Types.Aref.AREF_GROUND "(ground) Reference to use";
     protected
-      Real min "Minimal physical value of channel";
-      Real max "Maximal physical value of channel";
-      Types.ConverterUnit converterUnit "Physical unit type (volts or milliamps)";
-      Integer maxData "Maximal Integer raw value of DAC channel";
-      Integer rawData "Raw value written to DAC channel";
-      Integer cUnit;
+      Real min(start=0) "Minimal physical value of channel";
+      Real max(start=0) "Maximal physical value of channel";
+      Types.ConverterUnit converterUnit(start=Types.ConverterUnit.UNIT_volt) "Physical unit type (volts or milliamps)";
+      Integer maxData(start=0) "Maximal Integer raw value of DAC channel";
+      Integer rawData(start=0) "Raw value written to DAC channel";
+      Integer cUnit(start=0);
       Boolean initialized(start=false, fixed=true) "Initialization flag";
     algorithm
 
-      if (not previous(initialized)) then
-        (min, max, cUnit) := Modelica_DeviceDrivers.HardwareIO.Comedi_.get_range(
-          comedi, subDevice, channel, range);
-        converterUnit := if cUnit == 0 then Types.ConverterUnit.UNIT_volt elseif cUnit == 1 then Types.ConverterUnit.UNIT_mA else Types.ConverterUnit.UNIT_none; // convert magic int to readable Modelica enumeration value
-        maxData :=Modelica_DeviceDrivers.HardwareIO.Comedi_.get_maxdata(
-          comedi, subDevice, channel);
-        initialized := true;
-      end if;
+      when Clock() then
+        if (not previous(initialized)) then
+          (min, max, cUnit) := Modelica_DeviceDrivers.HardwareIO.Comedi_.get_range(
+            comedi, subDevice, channel, range);
+          converterUnit := if cUnit == 0 then Types.ConverterUnit.UNIT_volt elseif cUnit == 1 then Types.ConverterUnit.UNIT_mA else Types.ConverterUnit.UNIT_none; // convert magic int to readable Modelica enumeration value
+          maxData :=Modelica_DeviceDrivers.HardwareIO.Comedi_.get_maxdata(
+            comedi, subDevice, channel);
+          initialized := true;
+        else
+          initialized   := previous(initialized);
+          min           := previous(min);
+          max           := previous(max);
+          cUnit         := previous(cUnit);
+          converterUnit := previous(converterUnit);
+          maxData       := previous(maxData);
+        end if;
 
-      rawData := Modelica_DeviceDrivers.HardwareIO.Comedi_.from_phys(
-        u,
-        min,
-        max,
-        cUnit,
-        maxData);
-      Modelica_DeviceDrivers.HardwareIO.Comedi_.data_write(
-        comedi, subDevice, channel, range, if aref == Types.Aref.AREF_GROUND then 0 elseif aref == Types.Aref.AREF_COMMON then 1 elseif aref == Types.Aref.AREF_DIFF then 2 else 3, rawData);
+        rawData := Modelica_DeviceDrivers.HardwareIO.Comedi_.from_phys(
+          u,
+          min,
+          max,
+          cUnit,
+          maxData);
+        Modelica_DeviceDrivers.HardwareIO.Comedi_.data_write(
+          comedi, subDevice, channel, range, if aref == Types.Aref.AREF_GROUND then 0 elseif aref == Types.Aref.AREF_COMMON then 1 elseif aref == Types.Aref.AREF_DIFF then 2 else 3, rawData);
+      end when;
 
       annotation (defaultComponentName="dataWrite",
               preferredView="info",
@@ -182,37 +191,46 @@ package HardwareIO
       Modelica.Blocks.Interfaces.RealOutput    y
         annotation (Placement(transformation(extent={{100,-10},{120,10}})));
     protected
-      Real min "Minimal physical value of channel";
-      Real max "Maximal physical value of channel";
-      Types.ConverterUnit converterUnit "Physical unit type (volts or milliamps)";
-      Integer maxData "Maximal Integer raw value of DAC channel";
-      Integer rawData "Raw value read from ADC channel";
-      Integer cUnit;
+      Real min(start=0) "Minimal physical value of channel";
+      Real max(start=0) "Maximal physical value of channel";
+      Types.ConverterUnit converterUnit(start=Types.ConverterUnit.UNIT_volt) "Physical unit type (volts or milliamps)";
+      Integer maxData(start=0) "Maximal Integer raw value of ADC channel";
+      Integer rawData(start=0) "Raw value read from ADC channel";
+      Integer cUnit(start=0);
       Boolean initialized(start=false, fixed=true) "Initialization flag";
     algorithm
 
-      if (not previous(initialized)) then
-        (min, max, cUnit) := Modelica_DeviceDrivers.HardwareIO.Comedi_.get_range(
-          comedi, subDevice, channel, range);
-        converterUnit := if cUnit == 0 then Types.ConverterUnit.UNIT_volt elseif cUnit == 1 then Types.ConverterUnit.UNIT_mA else Types.ConverterUnit.UNIT_none; // convert magic int to readable Modelica enumeration value
-        maxData := Modelica_DeviceDrivers.HardwareIO.Comedi_.get_maxdata(
-          comedi, subDevice, channel);
-        initialized :=true;
-      end if;
+      when Clock() then
+        if (not previous(initialized)) then
+          (min, max, cUnit) := Modelica_DeviceDrivers.HardwareIO.Comedi_.get_range(
+            comedi, subDevice, channel, range);
+          converterUnit := if cUnit == 0 then Types.ConverterUnit.UNIT_volt elseif cUnit == 1 then Types.ConverterUnit.UNIT_mA else Types.ConverterUnit.UNIT_none; // convert magic int to readable Modelica enumeration value
+          maxData := Modelica_DeviceDrivers.HardwareIO.Comedi_.get_maxdata(
+            comedi, subDevice, channel);
+          initialized := true;
+        else
+          min           := previous(min);
+          max           := previous(max);
+          cUnit         := previous(cUnit);
+          converterUnit := previous(converterUnit);
+          maxData       := previous(maxData);
+          initialized   := previous(initialized);
+        end if;
 
-      rawData := Modelica_DeviceDrivers.HardwareIO.Comedi_.data_read(
-        comedi,
-        subDevice,
-        channel,
-        range,
-        if aref == Types.Aref.AREF_GROUND then 0 elseif aref == Types.Aref.AREF_COMMON
-           then 1 elseif aref == Types.Aref.AREF_DIFF then 2 else 3);
-      y := Modelica_DeviceDrivers.HardwareIO.Comedi_.to_phys(
-        rawData,
-        min,
-        max,
-        cUnit,
-        maxData);
+        rawData := Modelica_DeviceDrivers.HardwareIO.Comedi_.data_read(
+          comedi,
+          subDevice,
+          channel,
+          range,
+          if aref == Types.Aref.AREF_GROUND then 0 elseif aref == Types.Aref.AREF_COMMON
+             then 1 elseif aref == Types.Aref.AREF_DIFF then 2 else 3);
+        y := Modelica_DeviceDrivers.HardwareIO.Comedi_.to_phys(
+          rawData,
+          min,
+          max,
+          cUnit,
+          maxData);
+      end when;
 
       annotation (defaultComponentName="dataRead",
               preferredView="info",
