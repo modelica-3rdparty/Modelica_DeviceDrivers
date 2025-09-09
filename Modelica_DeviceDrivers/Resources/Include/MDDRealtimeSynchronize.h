@@ -523,6 +523,7 @@ DllExport void MDD_RTSyncSynchronize(void * rtSyncObj, double simTime, double sc
 #include <errno.h>
 #include <string.h>
 #include <sys/mman.h>
+#include <sys/resource.h>
 #include "../src/include/CompatibilityDefs.h"
 #define MY_RT_PRIORITY (49) /**< we use 49 since PRREMPT_RT use 50
                                  as the priority of kernel tasklets
@@ -530,16 +531,56 @@ DllExport void MDD_RTSyncSynchronize(void * rtSyncObj, double simTime, double sc
 #define NSEC_PER_SEC    (1000000000) /* The number of nsecs per sec. */
 
 typedef struct {
-    int prio; /* dummy */
+    int originalPriority;           /* Store original nice value */
+    int isSet;                      /* Flag to track if priority was actually changed */
+    int useRealtime;                /* Flag to track if realtime scheduling was used */
+    struct sched_param originalSchedParam;  /* Store original scheduling parameters for realtime */
+    int originalSchedPolicy;        /* Store original scheduling policy */
 } ProcPrio;
 
 static void* MDD_ProcessPriorityConstructor(void) {
     ProcPrio* prio = (ProcPrio*) malloc(sizeof(ProcPrio));
+    if (prio) {
+        errno = 0;
+        prio->originalPriority = getpriority(PRIO_PROCESS, 0);
+        if (prio->originalPriority == -1 && errno != 0) {
+            ModelicaError("MDDRealtimeSynchronize.h: getpriority failed in constructor\n");
+        }
+
+        /* Get original scheduling parameters for realtime restoration */
+        prio->originalSchedPolicy = sched_getscheduler(0);
+        if (sched_getparam(0, &prio->originalSchedParam) != 0) {
+            ModelicaError("MDDRealtimeSynchronize.h: sched_getparam failed in constructor\n");
+        }
+
+        prio->isSet = 0;           /* Priority not set yet */
+        prio->useRealtime = 0;     /* Not using realtime */
+
+        ModelicaFormatMessage("ProcessPriority constructor: Original nice value: %d\n", prio->originalPriority);
+    }
     return (void*) prio;
 }
 
 static void MDD_ProcessPriorityDestructor(void* prioObj) {
     ProcPrio* prio = (ProcPrio*) prioObj;
+    if (prio && prio->isSet) {
+        ModelicaFormatMessage("ProcessPriority destructor: Restoring original priority settings\n");
+
+        if (prio->useRealtime) {
+            /* Restore original scheduling policy and parameters */
+            if (sched_setscheduler(0, prio->originalSchedPolicy, &prio->originalSchedParam) != 0) {
+                ModelicaFormatMessage("Warning: Failed to restore original scheduling policy\n");
+            }
+            munlockall();
+        } else {
+            /* Restore original nice value directly */
+            if (setpriority(PRIO_PROCESS, 0, prio->originalPriority) != 0) {
+                ModelicaFormatMessage("Warning: Failed to restore original nice value\n");
+            } else {
+                ModelicaFormatMessage("ProcessPriority restored to original nice value: %d\n", prio->originalPriority);
+            }
+        }
+    }
     if (prio) {
         free(prio);
     }
@@ -552,80 +593,88 @@ static void MDD_ProcessPriorityDestructor(void* prioObj) {
  * @param[in] Process priority external object (dummy)
  * @param[in] priority range: (-2: idle, -1: below normal, 0: normal, 1: high, 2: realtime)
  */
-static void MDD_setPriority(void* dummyPrioObj, int priority) {
-    int ret;
+static void MDD_setPriority(void* prioObj, int priority) {
+    ProcPrio* prio = (ProcPrio*) prioObj;
+    if (!prio) {
+        ModelicaError("MDDRealtimeSynchronize.h: Invalid priority object\n");
+        return;
+    }
+
     struct sched_param param;
-    errno = 0; /* zero out errno since -1 may be a valid return value for nice(..) and not necessarily indicate error */
 
     ModelicaFormatMessage("Trying to set ProcessPriority: %d.\n", priority);
 
+    /* Reset to original state first if priority was previously set */
+    if (prio->isSet) {
+        if (prio->useRealtime) {
+            sched_setscheduler(0, prio->originalSchedPolicy, &prio->originalSchedParam);
+            munlockall();
+            prio->useRealtime = 0;
+        } else {
+            setpriority(PRIO_PROCESS, 0, prio->originalPriority);
+        }
+    }
+
+    prio->isSet = 1;
+
     switch(priority) {
-        case -2:
-            ret = nice(20);
-            if (ret == -1 && errno != 0) {
-                ModelicaError("MDDRealtimeSynchronize.h: nice(20) failed\n");
-            }
-            else {
-                ModelicaFormatMessage("ProcessPriority set to %d=nice(20) \"idle\".\n", ret);
+        case -2: /* idle */
+            if (setpriority(PRIO_PROCESS, 0, 19) != 0) {
+                ModelicaError("MDDRealtimeSynchronize.h: Setting idle priority failed\n");
+            } else {
+                ModelicaFormatMessage("ProcessPriority set to nice=19 \"idle\".\n");
             }
             break;
 
-        case -1:
-            ret = nice(10);
-            if (ret == -1 && errno != 0) {
-                ModelicaError("MDDRealtimeSynchronize.h: nice(10) failed\n");
-            }
-            else {
-                ModelicaFormatMessage("ProcessPriority set to %d=nice(10) \"below normal\".\n", ret);
+        case -1: /* below normal */
+            if (setpriority(PRIO_PROCESS, 0, 10) != 0) {
+                ModelicaError("MDDRealtimeSynchronize.h: Setting below normal priority failed\n");
+            } else {
+                ModelicaFormatMessage("ProcessPriority set to nice=10 \"below normal\".\n");
             }
             break;
 
-        case 0:
-            ret = nice(0);
-            if (ret == -1 && errno != 0) {
-                ModelicaError("MDDRealtimeSynchronize.h: nice(0) failed\n");
-            }
-            else {
-                ModelicaFormatMessage("ProcessPriority set to %d=nice(0) \"normal\".\n", ret);
+        case 0: /* normal */
+            if (setpriority(PRIO_PROCESS, 0, 0) != 0) {
+                ModelicaError("MDDRealtimeSynchronize.h: Setting normal priority failed\n");
+            } else {
+                ModelicaFormatMessage("ProcessPriority set to nice=0 \"normal\".\n");
             }
             break;
 
-        case 1:
+        case 1: /* high */
             ModelicaFormatMessage("ProcessPriority \"high\" needs generally *root* privileges! Trying..\n");
-            ret = nice(-20);
-            if (ret == -1 && errno != 0) {
-                ModelicaError("MDDRealtimeSynchronize.h: nice(-20) failed\n");
-            }
-            else {
-                ModelicaFormatMessage("ProcessPriority set to %d=nice(-20) \"high\".\n", ret);
+            if (setpriority(PRIO_PROCESS, 0, -10) != 0) {
+                ModelicaError("MDDRealtimeSynchronize.h: Setting high priority failed\n");
+            } else {
+                ModelicaFormatMessage("ProcessPriority set to nice=-10 \"high\".\n");
             }
             break;
 
-        case 2:
+        case 2: /* realtime */
             ModelicaFormatMessage("ProcessPriority \"Realtime\" needs generally *root* privileges "
-                 "and a real-time kernel (PRREMPT_RT) for hard realtime! Trying..\n");
+                 "and a real-time kernel (PREEMPT_RT) for hard realtime! Trying..\n");
 
-            /* Lock entire address space into physical memory */
             if(mlockall(MCL_CURRENT | MCL_FUTURE) == -1) {
                 ModelicaError("MDDRealtimeSynchronize.h: mlockall failed\n");
             }
 
-            /* Declare ourself as a real time task */
             param.sched_priority = MY_RT_PRIORITY;
             if(sched_setscheduler(0, SCHED_FIFO, &param) == -1) {
                 ModelicaError("MDDRealtimeSynchronize.h: sched_setscheduler failed\n");
-            }
-            else {
+            } else {
                 ModelicaFormatMessage("ProcessPriority set to \"Realtime\"!\n");
+                prio->useRealtime = 1;
             }
             break;
 
         default:
             ModelicaFormatMessage("Using default process priority\n");
+            prio->isSet = 0;  /* Mark as not set for invalid priorities */
             break;
     }
-
 }
+
 
 /** @DEPRECATED Real-time synchronization object */
 typedef struct {
