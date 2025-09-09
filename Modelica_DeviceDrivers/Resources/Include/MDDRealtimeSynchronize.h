@@ -548,11 +548,14 @@ static void* MDD_ProcessPriorityConstructor(void) {
         }
 
         /* Get original scheduling parameters for realtime restoration */
+        errno = 0;
         prio->originalSchedPolicy = sched_getscheduler(0);
+        if (prio->originalSchedPolicy == -1) {
+            ModelicaError("MDDRealtimeSynchronize.h: sched_getscheduler failed in constructor\n");
+        }
         if (sched_getparam(0, &prio->originalSchedParam) != 0) {
             ModelicaError("MDDRealtimeSynchronize.h: sched_getparam failed in constructor\n");
         }
-
         prio->isSet = 0;           /* Priority not set yet */
         prio->useRealtime = 0;     /* Not using realtime */
 
