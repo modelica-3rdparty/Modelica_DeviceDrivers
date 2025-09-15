@@ -1,7 +1,32 @@
-﻿within Modelica_DeviceDrivers;
+within Modelica_DeviceDrivers;
 package UsersGuide "User's Guide"
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
+    class Version_2_2_0 "Version 2.2.0 (September 15, 2025)"
+    extends Modelica.Icons.ReleaseNotes;
+
+      annotation (Documentation(info="<html>
+<p>Updated package compatibility to Modelica 4.1.0.</p>
+<p>Enhancements:</p>
+<ul>
+<li>Compile <code>libMDDSpaceMouse.a</code> with <code>-fPIC</code> (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues/388\">#388</a>).</li>
+<li>Serial port: change number of data bits (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues/368\">#368</a>).</li>
+<li>Add byte size parameter for number of data bits of serial port communication (<a href=\"https://https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/pull/378\">#378</a>).</li>
+<li>Accept non null terminated string on unpacking (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/pull/382\">#382</a>).</li>
+<li>Always ensure null terminated string buffer and raise warning otherwise (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/pull/377\">#382</a>).</li>
+<li>Declare array inputs of external C functions const (introduced in Modelica 3.5) (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/pull/389\">#389</a>).</li>
+<li>Update SimulationX specific binaries (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/pull/399\">#399</a>).</li>
+</ul>
+<p>Bug fixes:</p>
+<ul>
+<li>Fixed process priority not reset (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues/44\">#44</a>).</li>
+<li>Fix linker errors due to multiply defined symbols (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/pull/385\">#385</a>).</li>
+<li>Fix CLOCK_MONOTONIC not available in -std=c89 (<a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/issues/383\">#383</a>).</li>
+</ul>
+<p>Other (minor) fixes and improvements  (full changelog: <a href=\"https://github.com/modelica-3rdparty/Modelica_DeviceDrivers/compare/v2.1.1...v2.2.0\">v2.1.1...v2.2.0</a>).</p>
+</html>"));
+    end Version_2_2_0;
+
     class Version_2_1_0 "Version 2.1.0 (August 10, 2022)"
     extends Modelica.Icons.ReleaseNotes;
 
