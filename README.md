@@ -51,19 +51,19 @@ If you tested the library successfully with another Modelica tool, please contac
 Bug fix releases may not have release notes, so please use the download link from above to get the latest release including bug fixes.
 
 * [Version v2.2.0 (2025-09-15)](../../releases/tag/v2.2.0)
-* Updated package compatibility to Modelica 4.1.0.
-* Enhancements:
-  * Compile libMDDSpaceMouse.a with -fPIC (#388)
-  * Serial port: change number of data bits (#368)
-  * Add byte size parameter for number of data bits of serial port communication (#378)
-  * Accept non null terminated string on unpacking (#382)
-  * Always ensure null terminated string buffer and raise warning otherwise (#377)
-  * Declare array inputs of external C functions const (introduced in Modelica 3.5) (#389)
-  *  Update SimulationX specific binaries (#399)
-* Bug fixes:
-  * Fixed process priority not reset (#44)
-  * Fix linker errors due to multiply defined symbols (#385)
-  * Fix CLOCK_MONOTONIC not available in -std=c89 (#383)
+  * Updated package compatibility to Modelica 4.1.0.
+  * Enhancements:
+    * Compile libMDDSpaceMouse.a with -fPIC (#388)
+    * Serial port: change number of data bits (#368)
+    * Add byte size parameter for number of data bits of serial port communication (#378)
+    * Accept non null terminated string on unpacking (#382)
+    * Always ensure null terminated string buffer and raise warning otherwise (#377)
+    * Declare array inputs of external C functions const (introduced in Modelica 3.5) (#389)
+    *  Update SimulationX specific binaries (#399)
+  * Bug fixes:
+    * Fixed process priority not reset (#44)
+    * Fix linker errors due to multiply defined symbols (#385)
+    * Fix CLOCK_MONOTONIC not available in -std=c89 (#383)
 * [Version v2.1.0 (2022-08-10)](../../releases/tag/v2.1.0)
   * Enhancements:
     * Added parameter `useRecvThread` also for _clocked_ `UDPReceive` variant (#342).
