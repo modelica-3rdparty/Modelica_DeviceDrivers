@@ -127,27 +127,56 @@ package HardwareIO
       Integer maxData(start=0) "Maximal Integer raw value of DAC channel";
       Integer rawData(start=0) "Raw value written to DAC channel";
       Integer cUnit(start=0);
-      Boolean initialized(start=false, fixed=true) "Initialization flag";
-    algorithm
+      Boolean initialized(start=false) "Initialization flag";
 
-      when Clock() then
-        if (not previous(initialized)) then
-          (min, max, cUnit) := Modelica_DeviceDrivers.HardwareIO.Comedi_.get_range(
-            comedi, subDevice, channel, range);
-          converterUnit := if cUnit == 0 then Types.ConverterUnit.UNIT_volt elseif cUnit == 1 then Types.ConverterUnit.UNIT_mA else Types.ConverterUnit.UNIT_none; // convert magic int to readable Modelica enumeration value
-          maxData :=Modelica_DeviceDrivers.HardwareIO.Comedi_.get_maxdata(
-            comedi, subDevice, channel);
-          initialized := true;
-        else
-          initialized   := previous(initialized);
-          min           := previous(min);
-          max           := previous(max);
-          cUnit         := previous(cUnit);
-          converterUnit := previous(converterUnit);
-          maxData       := previous(maxData);
+      function initializeChannelParameters "Workaround: Extract initialization logic in state-less function to help some compilers by simplifing data-flow equations"
+        input Comedi comedi "Device handle";
+        input Integer subDevice "Subdevice number";
+        input Integer channel "Channel number";
+        input Integer range "Range specification";
+        input Boolean initialized;
+        input Real min_previous;
+        input Real max_previous;
+        input Integer unit_previous;
+        input Integer maxData_previous;
+        output Real min "(Physical) min value";
+        output Real max "(Physical) max value";
+        output Integer unit "physical unit type (for endpoints). UNIT_volt=0 for volts, UNIT_mA=1 for milliamps, or UNIT_none=2 for unitless";
+        output Integer maxData "Maximum raw value of ADC or DAC";
+      algorithm
+        min := min_previous;
+        max := max_previous;
+        unit := unit_previous;
+        maxData := maxData_previous;
+        if not initialized then
+          (min, max, unit) := Modelica_DeviceDrivers.HardwareIO.Comedi_.get_range(
+              comedi,
+              subDevice,
+              channel,
+            range);
+          maxData := Modelica_DeviceDrivers.HardwareIO.Comedi_.get_maxdata(comedi, subDevice, channel);
         end if;
+      end initializeChannelParameters;
+    equation
+      when Clock() then
 
-        rawData := Modelica_DeviceDrivers.HardwareIO.Comedi_.from_phys(
+        // Initialization: use helper function to avoid complex multi-variable if-expressions in equation section
+        (min, max, cUnit, maxData) =  initializeChannelParameters(
+          comedi,
+          subDevice,
+          channel,
+          range,
+          previous(initialized),
+          previous(min),
+          previous(max),
+          previous(cUnit),
+          previous(maxData));
+        initialized = if not previous(initialized) then true else previous(initialized);
+
+        // convert magic int to readable Modelica enumeration value
+        converterUnit =  if cUnit == 0 then Types.ConverterUnit.UNIT_volt elseif cUnit == 1 then Types.ConverterUnit.UNIT_mA else Types.ConverterUnit.UNIT_none;
+
+        rawData =  Modelica_DeviceDrivers.HardwareIO.Comedi_.from_phys(
           u,
           min,
           max,
@@ -197,34 +226,64 @@ package HardwareIO
       Integer maxData(start=0) "Maximal Integer raw value of ADC channel";
       Integer rawData(start=0) "Raw value read from ADC channel";
       Integer cUnit(start=0);
-      Boolean initialized(start=false, fixed=true) "Initialization flag";
-    algorithm
+      Boolean initialized(start=false) "Initialization flag";
+
+      function initializeChannelParameters "Workaround: Extract initialization logic in state-less function to help some compilers by simplifing data-flow equations"
+        input Comedi comedi "Device handle";
+        input Integer subDevice "Subdevice number";
+        input Integer channel "Channel number";
+        input Integer range "Range specification";
+        input Boolean initialized;
+        input Real min_previous;
+        input Real max_previous;
+        input Integer unit_previous;
+        input Integer maxData_previous;
+        output Real min "(Physical) min value";
+        output Real max "(Physical) max value";
+        output Integer unit "physical unit type (for endpoints). UNIT_volt=0 for volts, UNIT_mA=1 for milliamps, or UNIT_none=2 for unitless";
+        output Integer maxData "Maximum raw value of ADC or DAC";
+      algorithm
+        min := min_previous;
+        max := max_previous;
+        unit := unit_previous;
+        maxData := maxData_previous;
+        if not initialized then
+          (min, max, unit) :=Modelica_DeviceDrivers.HardwareIO.Comedi_.get_range(
+              comedi,
+              subDevice,
+              channel,
+            range);
+          maxData := Modelica_DeviceDrivers.HardwareIO.Comedi_.get_maxdata(comedi, subDevice, channel);
+        end if;
+      end initializeChannelParameters;
+    equation
 
       when Clock() then
-        if (not previous(initialized)) then
-          (min, max, cUnit) := Modelica_DeviceDrivers.HardwareIO.Comedi_.get_range(
-            comedi, subDevice, channel, range);
-          converterUnit := if cUnit == 0 then Types.ConverterUnit.UNIT_volt elseif cUnit == 1 then Types.ConverterUnit.UNIT_mA else Types.ConverterUnit.UNIT_none; // convert magic int to readable Modelica enumeration value
-          maxData := Modelica_DeviceDrivers.HardwareIO.Comedi_.get_maxdata(
-            comedi, subDevice, channel);
-          initialized := true;
-        else
-          min           := previous(min);
-          max           := previous(max);
-          cUnit         := previous(cUnit);
-          converterUnit := previous(converterUnit);
-          maxData       := previous(maxData);
-          initialized   := previous(initialized);
-        end if;
 
-        rawData := Modelica_DeviceDrivers.HardwareIO.Comedi_.data_read(
+        // Initialization: use helper function to avoid complex multi-variable if-expressions in equation section
+        (min, max, cUnit, maxData) =  initializeChannelParameters(
+          comedi,
+          subDevice,
+          channel,
+          range,
+          previous(initialized),
+          previous(min),
+          previous(max),
+          previous(cUnit),
+          previous(maxData));
+        initialized =  if not previous(initialized) then true else previous(initialized);
+
+        // convert magic int to readable Modelica enumeration value
+        converterUnit =  if cUnit == 0 then Types.ConverterUnit.UNIT_volt elseif cUnit == 1 then Types.ConverterUnit.UNIT_mA else Types.ConverterUnit.UNIT_none;
+
+        rawData =  Modelica_DeviceDrivers.HardwareIO.Comedi_.data_read(
           comedi,
           subDevice,
           channel,
           range,
           if aref == Types.Aref.AREF_GROUND then 0 elseif aref == Types.Aref.AREF_COMMON
              then 1 elseif aref == Types.Aref.AREF_DIFF then 2 else 3);
-        y := Modelica_DeviceDrivers.HardwareIO.Comedi_.to_phys(
+        y =  Modelica_DeviceDrivers.HardwareIO.Comedi_.to_phys(
           rawData,
           min,
           max,
