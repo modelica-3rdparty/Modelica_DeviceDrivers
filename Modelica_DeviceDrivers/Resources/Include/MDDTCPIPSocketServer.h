@@ -117,7 +117,7 @@ DWORD WINAPI MDD_TCPIPServer_acceptingThread(void * p_tcpip) {
  * @param useNonblockingMode If useNonblockingMode != 0, configure socket for non-blocking mode, otherwise blocking is enabled
  */
 DllExport void * MDD_TCPIPServer_Constructor(int serverport, int maxClients, int useNonblockingMode) {
-    MDDTCPIPServer* tcpip = (MDDTCPIPServer*) malloc(sizeof(MDDTCPIPServer));
+    MDDTCPIPServer* tcpip = (MDDTCPIPServer*) calloc(1, sizeof(MDDTCPIPServer));
     WSADATA wsaData;
     int iResult;
     int i;
@@ -538,10 +538,41 @@ struct MDDTCPIPServer_s {
   int runAcceptingThread;
   pthread_t hThread;
   pthread_mutex_t tcpipLock;
+  int failed; /**< The accepting thread stopped on the error below; both under tcpipLock */
+  char error[256];
 };
 
 DllExport void MDD_TCPIPServer_Destructor(void * p_tcpip);
 
+/* ModelicaError and ModelicaFormatError must not return to their caller, and
+ * how a tool arranges that is up to the tool -- none of it need work from a
+ * thread the library started itself. Record the message here and stop;
+ * MDD_TCPIPServer_Check raises it from a function the simulation called. */
+static void MDD_TCPIPServer_Fail(MDDTCPIPServer* tcpip, const char* format, ...) {
+    va_list args;
+    pthread_mutex_lock(&(tcpip->tcpipLock));
+    va_start(args, format);
+    vsnprintf(tcpip->error, sizeof(tcpip->error), format, args);
+    va_end(args);
+    tcpip->failed = 1;
+    pthread_mutex_unlock(&(tcpip->tcpipLock));
+    tcpip->runAcceptingThread = 0;
+}
+
+static void MDD_TCPIPServer_Check(MDDTCPIPServer* tcpip) {
+    char message[sizeof(tcpip->error)];
+    int failed;
+    pthread_mutex_lock(&(tcpip->tcpipLock));
+    failed = tcpip->failed;
+    if (failed) {
+        memcpy(message, tcpip->error, sizeof(message));
+    }
+    pthread_mutex_unlock(&(tcpip->tcpipLock));
+    /* Not while holding the lock: the call does not come back. */
+    if (failed) {
+        ModelicaFormatError("%s", message);
+    }
+}
 
 void * MDD_TCPIPServer_acceptingThread(void * p_tcpip) {
     MDDTCPIPServer* tcpip = (MDDTCPIPServer*)p_tcpip;
@@ -598,8 +629,8 @@ void * MDD_TCPIPServer_acceptingThread(void * p_tcpip) {
                             }
                             else {
                                 free(clientSockets);
-                                ModelicaFormatError("MDDTCPIPSocketServer.h:%d: Error: accept() failed (%s) (client index %d)!\n", __LINE__, strerror(errno), i + 1);
-                                pthread_exit(NULL); /* Unreachable code if ModelicaFormatError() works properly */
+                                MDD_TCPIPServer_Fail(tcpip, "MDDTCPIPSocketServer.h:%d: Error: accept() failed (%s) (client index %d)!\n", __LINE__, strerror(errno), i + 1);
+                                return NULL;
                             }
                         }
                         pthread_mutex_lock(&(tcpip->tcpipLock));
@@ -629,8 +660,8 @@ void * MDD_TCPIPServer_acceptingThread(void * p_tcpip) {
                     }
                     else if (sock_poll.revents & POLLERR) {
                         free(clientSockets);
-                        ModelicaFormatError("MDDTCPIPSocketServer.h:%d: Error: poll() event POLLERR!\n", __LINE__);
-                        pthread_exit(NULL); /* Unreachable code if ModelicaFormatError() works properly */
+                        MDD_TCPIPServer_Fail(tcpip, "MDDTCPIPSocketServer.h:%d: Error: poll() event POLLERR!\n", __LINE__);
+                        return NULL;
                     }
                     else {
                         ModelicaFormatMessage("MDDTCPIPSocketServer.h:%d: Unrecognized poll() event (value=%#x). Ignore and continue polling.\n", __LINE__, sock_poll.revents);
@@ -640,8 +671,8 @@ void * MDD_TCPIPServer_acceptingThread(void * p_tcpip) {
                     break;
                 default:
                     free(clientSockets);
-                    ModelicaFormatError("MDDTCPIPSocketServer.h:%d: Uups. poll() returned (impossible?!) value %d.\n",  __LINE__, ready);
-                    pthread_exit(NULL); /* Unreachable code if ModelicaFormatError() works properly */
+                    MDD_TCPIPServer_Fail(tcpip, "MDDTCPIPSocketServer.h:%d: Uups. poll() returned (impossible?!) value %d.\n",  __LINE__, ready);
+                    return NULL;
             }
         }
     }
@@ -656,7 +687,7 @@ void * MDD_TCPIPServer_acceptingThread(void * p_tcpip) {
  * @param useNonblockingMode If useNonblockingMode != 0, configure socket for non-blocking mode, otherwise blocking is enabled
  */
 DllExport void * MDD_TCPIPServer_Constructor(int serverport, int maxClients, int useNonblockingMode) {
-    MDDTCPIPServer* tcpip = (MDDTCPIPServer*) malloc(sizeof(MDDTCPIPServer));
+    MDDTCPIPServer* tcpip = (MDDTCPIPServer*) calloc(1, sizeof(MDDTCPIPServer));
     struct addrinfo *result = NULL, *rp = NULL;
     struct addrinfo hints;
     char serverport_str[10];
@@ -821,6 +852,7 @@ DllExport void MDD_TCPIPServer_Destructor(void * p_tcpip) {
 DllExport void MDD_TCPIPServer_AcceptedClients(void * p_tcpip, int* acceptedClients, size_t dim) {
     MDDTCPIPServer* tcpip = (MDDTCPIPServer*)p_tcpip;
     int i = 0;
+    MDD_TCPIPServer_Check(tcpip);
 
     if (dim != tcpip->maxClients) {
         ModelicaFormatError("MDDTCPIPSocketServer.h:%d: Size of acceptedClients != %d\n", __LINE__, tcpip->maxClients);
@@ -838,6 +870,7 @@ DllExport int MDD_TCPIPServer_HasAcceptedClient(void * p_tcpip, int clientIndex)
     MDDTCPIPServer* tcpip = (MDDTCPIPServer*)p_tcpip;
     int clientIndexC = clientIndex - 1;
     int ret = 0;
+    MDD_TCPIPServer_Check(tcpip);
     pthread_mutex_lock(&(tcpip->tcpipLock));
     ret = (tcpip->clientSockets[clientIndexC] != -1) ? 1 : 0;
     pthread_mutex_unlock(&(tcpip->tcpipLock));
@@ -861,6 +894,7 @@ DllExport const char* MDD_TCPIPServer_Read(void * p_tcpip, int clientIndex, int 
     int rc = 0;
     char* stringbuf = NULL;
     char* pb = NULL;
+    MDD_TCPIPServer_Check(tcpip);
 
     if (tcpip->recvbufs[clientIndexC] == NULL) {
         tcpip->recvbufslen[clientIndexC] = recvbuflen;
@@ -945,6 +979,7 @@ DllExport void MDD_TCPIPServer_ReadP(void * p_tcpip, void* p_package, int client
     int clientSocket = tcpip->clientSockets[clientIndexC];
     int rc = 0;
     char* pb = NULL;
+    MDD_TCPIPServer_Check(tcpip);
     if (tcpip->recvbufs[clientIndexC] == NULL) {
         tcpip->recvbufslen[clientIndexC] = recvbuflen;
         tcpip->recvbufs[clientIndexC] = (char*)calloc(recvbuflen, sizeof(char));

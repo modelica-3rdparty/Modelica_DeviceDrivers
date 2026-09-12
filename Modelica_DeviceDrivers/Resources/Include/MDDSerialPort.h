@@ -343,6 +343,8 @@ DllExport int MDD_serialPortGetReceivedBytes(void * p_serial) {
 #elif defined(__linux__)
 
 #include <stdlib.h>
+#include <stdarg.h>
+#include <stdio.h>
 #include <string.h> /* memset(..) */
 #include <errno.h>
 
@@ -367,10 +369,43 @@ typedef struct {
     ssize_t nReceivedBytes; /**< Number of received bytes (only kept for backwards compatiblity) */
     int runReceive; /**< Run receiving thread as long as runReceive != 0 */
     pthread_t thread;
-    pthread_mutex_t messageMutex; /**< Exclusive access to msgLastComplete and nReceivedBytes */
+    int threadCreated; /**< pthread_create succeeded, so the thread must be joined */
+    pthread_mutex_t messageMutex; /**< Exclusive access to msgLastComplete, nReceivedBytes and the two below */
+    int failed; /**< The receiving thread stopped on the error below */
+    char error[256];
 } MDDSerialPort;
 
 void* MDD_serialPortReceivingThread(void * p_serial);
+
+/* ModelicaError and ModelicaFormatError must not return to their caller, and
+ * how a tool arranges that is up to the tool -- none of it need work from a
+ * thread the library started itself. Record the message here and stop;
+ * MDD_serialPortCheck raises it from a function the simulation called. */
+static void MDD_serialPortFail(MDDSerialPort* serial, const char* format, ...) {
+    va_list args;
+    pthread_mutex_lock(&(serial->messageMutex));
+    va_start(args, format);
+    vsnprintf(serial->error, sizeof(serial->error), format, args);
+    va_end(args);
+    serial->failed = 1;
+    pthread_mutex_unlock(&(serial->messageMutex));
+    serial->runReceive = 0;
+}
+
+static void MDD_serialPortCheck(MDDSerialPort* serial) {
+    char message[sizeof(serial->error)];
+    int failed;
+    pthread_mutex_lock(&(serial->messageMutex));
+    failed = serial->failed;
+    if (failed) {
+        memcpy(message, serial->error, sizeof(message));
+    }
+    pthread_mutex_unlock(&(serial->messageMutex));
+    /* Not while holding the lock: the call does not come back. */
+    if (failed) {
+        ModelicaFormatError("%s", message);
+    }
+}
 
 /** @deprecated Returns the number of bytes received during the last read.
  *
@@ -381,6 +416,7 @@ void* MDD_serialPortReceivingThread(void * p_serial);
 int MDD_serialPortGetReceivedBytes(void * p_serial) {
     MDDSerialPort * serial = (MDDSerialPort *) p_serial;
     int nReceivedByte;
+    MDD_serialPortCheck(serial);
     pthread_mutex_lock(&(serial->messageMutex));
     nReceivedByte = (int) serial->nReceivedBytes;
     pthread_mutex_unlock(&(serial->messageMutex));
@@ -505,7 +541,7 @@ static void MDD_serialPortSetInterfaceAttributes (int fd, int speed, int parity,
  */
 void * MDD_serialPortConstructor(const char * deviceName, int bufferSize, int parity, int receiver, int baud, int byteSize) {
     /* Allocation of data structure memory */
-    MDDSerialPort* serial = (MDDSerialPort*) malloc(sizeof(MDDSerialPort));
+    MDDSerialPort* serial = (MDDSerialPort*) calloc(1, sizeof(MDDSerialPort));
     int ret;
     speed_t speed;
     serial->messageLength = bufferSize;
@@ -570,6 +606,9 @@ void * MDD_serialPortConstructor(const char * deviceName, int bufferSize, int pa
         if (ret) {
             ModelicaFormatError("MDDSerialPort.h: pthread_create(..) failed\n");
         }
+        else {
+            serial->threadCreated = 1;
+        }
     }
 
     return (void *) serial;
@@ -596,8 +635,8 @@ void* MDD_serialPortReceivingThread(void * p_serial) {
 
         switch (ret) {
             case -1:
-                ModelicaFormatError("MDDSerialPort.h: poll(..) failed (%s) \n",
-                                    strerror(errno));
+                MDD_serialPortFail(serial, "MDDSerialPort.h: poll(..) failed (%s) \n",
+                                   strerror(errno));
                 break;
             case 0: /* no new data available. Just check if serial->runReceive still true and go on */
                 break;
@@ -619,7 +658,8 @@ void* MDD_serialPortReceivingThread(void * p_serial) {
                             serial->messageLength - messageByteCounter /* max bytes to receive */
                             );
                     if (bytesRead < 0) {
-                        ModelicaFormatError("MDDSerialPort.h: read(..) failed (%s)\n", strerror(errno));
+                        MDD_serialPortFail(serial, "MDDSerialPort.h: read(..) failed (%s)\n", strerror(errno));
+                        break;
                     }
                     messageByteCounter += bytesRead;
 
@@ -635,7 +675,7 @@ void* MDD_serialPortReceivingThread(void * p_serial) {
                 }
                 break;
             default:
-                ModelicaFormatError("MDDSerialPort.h: Poll returned %d. That should not happen.\n", ret);
+                MDD_serialPortFail(serial, "MDDSerialPort.h: Poll returned %d. That should not happen.\n", ret);
         }
     }
     return NULL;
@@ -650,6 +690,7 @@ const char * MDD_serialPortRead(void * p_serial) {
 
     MDDSerialPort * serial = (MDDSerialPort *) p_serial;
     char* spBuf;
+    MDD_serialPortCheck(serial);
 
     /* Lock access to serial->msgLastComplete */
     pthread_mutex_lock(&(serial->messageMutex));
@@ -675,6 +716,7 @@ const char * MDD_serialPortRead(void * p_serial) {
 void MDD_serialPortReadP(void * p_serial, void* p_package) {
     MDDSerialPort * serial = (MDDSerialPort *) p_serial;
     int rc;
+    MDD_serialPortCheck(serial);
 
     /* Lock access to serial->msgLastComplete */
     pthread_mutex_lock(&(serial->messageMutex));
@@ -722,10 +764,13 @@ void MDD_serialPortDestructor(void * p_serial) {
     void * pRet;
 
     /* stop receiving thread if any */
-    if (serial->runReceive) {
+    /* Not conditional on runReceive: a thread that stopped on an error of its own
+       has already cleared it, and still has to be joined before the mutex and the
+       object go away. */
+    if (serial->threadCreated) {
         serial->runReceive = 0;
         pthread_join(serial->thread, &pRet);
-        pthread_detach(serial->thread);
+        serial->threadCreated = 0;
     }
 
     if (pthread_mutex_destroy(&(serial->messageMutex)) != 0) {

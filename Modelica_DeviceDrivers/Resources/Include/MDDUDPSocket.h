@@ -323,6 +323,8 @@ DllExport int MDD_udpGetReceivedBytes(void * p_udp) {
 #elif defined(__linux__) || defined(__CYGWIN__)
 
 #include <stdlib.h>
+#include <stdarg.h>
+#include <stdio.h>
 #include <string.h> /* memset(..) */
 #include <errno.h>
 #include <unistd.h> /* close */
@@ -349,8 +351,41 @@ struct MDDUDPSocket_s {
     int useReceiveThread; /**< true, create dedicated receive thread and do not block main thread for incoming data (latest available data is used) */
     int runReceive; /**< Run receiving thread as long as runReceive != 0  */
     pthread_t thread;
-    pthread_mutex_t messageMutex; /**< Exclusive access to message buffer */
+    int threadCreated; /**< pthread_create succeeded, so the thread must be joined */
+    pthread_mutex_t messageMutex; /**< Exclusive access to message buffer, and to the two below */
+    int failed; /**< The receiving thread stopped on the error below */
+    char error[256];
 };
+
+/* ModelicaError and ModelicaFormatError must not return to their caller, and
+ * how a tool arranges that is up to the tool -- none of it need work from a
+ * thread the library started itself. Record the message here and stop;
+ * MDD_udpCheck raises it from a function the simulation called. */
+static void MDD_udpFail(MDDUDPSocket* udp, const char* format, ...) {
+    va_list args;
+    pthread_mutex_lock(&(udp->messageMutex));
+    va_start(args, format);
+    vsnprintf(udp->error, sizeof(udp->error), format, args);
+    va_end(args);
+    udp->failed = 1;
+    pthread_mutex_unlock(&(udp->messageMutex));
+    udp->runReceive = 0;
+}
+
+static void MDD_udpCheck(MDDUDPSocket* udp) {
+    char message[sizeof(udp->error)];
+    int failed;
+    pthread_mutex_lock(&(udp->messageMutex));
+    failed = udp->failed;
+    if (failed) {
+        memcpy(message, udp->error, sizeof(message));
+    }
+    pthread_mutex_unlock(&(udp->messageMutex));
+    /* Not while holding the lock: the call does not come back. */
+    if (failed) {
+        ModelicaFormatError("%s", message);
+    }
+}
 
 /** Dedicated thread for receiving UDP messages.
  *
@@ -373,8 +408,8 @@ void* MDD_udpReceivingThread(void * p_udp) {
 
         switch (ret) {
             case -1:
-                ModelicaFormatError("MDDUDPSocket.h: poll(..) failed (%s) \n",
-                                    strerror(errno));
+                MDD_udpFail(udp, "MDDUDPSocket.h: poll(..) failed (%s) \n",
+                            strerror(errno));
                 break;
             case 0: /* no new data available. Just check if udp->runReceive still true and go on */
                 break;
@@ -397,8 +432,8 @@ void* MDD_udpReceivingThread(void * p_udp) {
                                 );
                     if (udp->nReceivedBytes < 0) {
                         pthread_mutex_unlock(&(udp->messageMutex));
-                        ModelicaFormatError("MDDUDPSocket.h: recvfrom(..) failed (%s)\n",
-                                            strerror(errno));
+                        MDD_udpFail(udp, "MDDUDPSocket.h: recvfrom(..) failed (%s)\n",
+                                    strerror(errno));
                     }
                     else {
                         pthread_mutex_unlock(&(udp->messageMutex));
@@ -406,7 +441,7 @@ void* MDD_udpReceivingThread(void * p_udp) {
                 }
                 break;
             default:
-                ModelicaFormatError("MDDUDPSocket.h: Poll returned %d. That should not happen.\n", ret);
+                MDD_udpFail(udp, "MDDUDPSocket.h: Poll returned %d. That should not happen.\n", ret);
         }
     }
     return NULL;
@@ -445,6 +480,7 @@ int MDD_udpBlockingReceive(void * p_udp) {
 const char * MDD_udpRead(void * p_udp) {
     MDDUDPSocket * udp = (MDDUDPSocket *) p_udp;
     char* udpBuf;
+    MDD_udpCheck(udp);
 
     if(!udp->useReceiveThread) {
 		 MDD_udpBlockingReceive(p_udp);
@@ -476,6 +512,7 @@ const char * MDD_udpRead(void * p_udp) {
 void MDD_udpReadP2(void * p_udp, void* p_package, int* nReceivedBytes, int* nRecvbufOverwrites) {
     MDDUDPSocket * udp = (MDDUDPSocket *) p_udp;
     int rc;
+    MDD_udpCheck(udp);
 
     if(!udp->useReceiveThread) {
 		 MDD_udpBlockingReceive(p_udp);
@@ -706,6 +743,7 @@ void MDD_udpSendP(void * p_udp, const char * ipAddress, int port,
 int MDD_udpGetReceivedBytes(void * p_udp) {
     MDDUDPSocket * udp = (MDDUDPSocket *) p_udp;
     int nReceivedBytes;
+    MDD_udpCheck(udp);
     pthread_mutex_lock(&(udp->messageMutex));
     nReceivedBytes = udp->nReceivedBytes;
     pthread_mutex_unlock(&(udp->messageMutex));
@@ -722,7 +760,7 @@ int MDD_udpGetReceivedBytes(void * p_udp) {
  * @param useReceiveThread true, dedicated receiving thread writes package into shared buffer
  */
 void * MDD_udpConstructor(int port, int bufferSize, int useReceiveThread) {
-    MDDUDPSocket* udp = (MDDUDPSocket*) malloc(sizeof(MDDUDPSocket));
+    MDDUDPSocket* udp = (MDDUDPSocket*) calloc(1, sizeof(MDDUDPSocket));
     int ret;
 
     udp->messageLength = bufferSize;
@@ -777,6 +815,9 @@ void * MDD_udpConstructor(int port, int bufferSize, int useReceiveThread) {
             if (ret) {
                 ModelicaFormatError("MDDUDPSocket: pthread_create(..) failed\n");
             }
+            else {
+                udp->threadCreated = 1;
+            }
         }
     }
 
@@ -789,12 +830,14 @@ void * MDD_udpConstructor(int port, int bufferSize, int useReceiveThread) {
 void MDD_udpDestructor(void * p_udp) {
     MDDUDPSocket * udp = (MDDUDPSocket *) p_udp;
 
-    /* stop receiving thread if any */
-    if (udp->runReceive) {
+    /* stop receiving thread if any. Not conditional on runReceive: a thread that
+       stopped on an error of its own has already cleared it, and still has to be
+       joined before the mutex and the object go away. */
+    if (udp->threadCreated) {
         void * pRet;
         udp->runReceive = 0;
         pthread_join(udp->thread, &pRet);
-        pthread_detach(udp->thread);
+        udp->threadCreated = 0;
     }
 
     if (pthread_mutex_destroy(&(udp->messageMutex)) != 0) {
