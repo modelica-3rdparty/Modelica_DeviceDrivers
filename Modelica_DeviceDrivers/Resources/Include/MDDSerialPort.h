@@ -725,7 +725,6 @@ void MDD_serialPortDestructor(void * p_serial) {
     if (serial->runReceive) {
         serial->runReceive = 0;
         pthread_join(serial->thread, &pRet);
-        pthread_detach(serial->thread);
     }
 
     if (pthread_mutex_destroy(&(serial->messageMutex)) != 0) {
