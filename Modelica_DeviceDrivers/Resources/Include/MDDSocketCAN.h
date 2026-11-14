@@ -168,7 +168,6 @@ void MDD_socketCANDestructor(void* p_mDDSocketCAN) {
     if (mDDSocketCAN->runReceive) {
         mDDSocketCAN->runReceive = 0;
         pthread_join(mDDSocketCAN->thread, &pRet);
-        pthread_detach(mDDSocketCAN->thread);
     }
 
     if (pthread_mutex_destroy(&(mDDSocketCAN->mapMutex)) != 0) {

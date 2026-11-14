@@ -794,7 +794,6 @@ void MDD_udpDestructor(void * p_udp) {
         void * pRet;
         udp->runReceive = 0;
         pthread_join(udp->thread, &pRet);
-        pthread_detach(udp->thread);
     }
 
     if (pthread_mutex_destroy(&(udp->messageMutex)) != 0) {
